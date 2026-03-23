@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赌神系统 · 第一章 · 菜鸟赌神的第一夜</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.title-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(0,255,255,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(255,0,128,0.06) 0%, transparent 50%);
+  animation: neonPulse 4s ease-in-out infinite alternate;
+}
+@keyframes neonPulse { from{opacity:.6} to{opacity:1} }
+.title-main {
+  font-size: 3rem; font-weight: 900;
+  background: linear-gradient(135deg, #ffd700, #ff6b35, #ffd700);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: .2em; z-index: 1;
+  animation: titleGlow 2s ease-in-out infinite alternate;
+}
+@keyframes titleGlow { from{filter:brightness(1)} to{filter:brightness(1.3)} }
+.title-sub { font-size:1.2rem; color:#0cc; margin-top:1rem; letter-spacing:.3em; z-index:1; opacity:0; animation:fadeUp 1s ease .5s forwards; }
+.title-ch { font-size:.85rem; color:rgba(255,255,255,.4); margin-top:2rem; z-index:1; opacity:0; animation:fadeUp 1s ease 1s forwards; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.scroll-hint { position:absolute; bottom:2rem; color:rgba(255,255,255,.3); font-size:.8rem; animation:bounce 2s ease-in-out infinite; z-index:1; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+.panel { width:100%; max-width:500px; margin:0 auto; opacity:0; transform:translateY(30px); transition:opacity .6s ease,transform .6s ease; }
+.panel.visible { opacity:1; transform:translateY(0); }
+.panel-img-wrap { width:100%; position:relative; overflow:hidden; border-radius:4px; box-shadow:0 4px 30px rgba(0,0,0,.8); }
+.panel-img-wrap img { width:100%; height:auto; display:block; }
+.panel-tag { position:absolute; top:8px; left:8px; background:rgba(0,0,0,.7); color:#0cc; font-size:.6rem; padding:2px 8px; border-radius:3px; border:1px solid rgba(0,204,204,.3); backdrop-filter:blur(4px); z-index:2; }
+.panel-text { padding:1.2rem 1rem; font-size:1.15rem; line-height:1.9; }
+.scene-desc { color:rgba(255,255,255,.5); font-size:.8rem; margin-bottom:.5rem; font-style:italic; }
+.dialogue { color:#f0f0f0; margin:.4rem 0; padding-left:.5rem; border-left:3px solid #ffd700; }
+.dialogue .speaker { color:#ffd700; font-weight:700; font-size:.9rem; }
+.dialogue.sys .speaker { text-shadow:0 0 8px rgba(255,215,0,.5); }
+.narration { color:rgba(200,200,220,.85); font-size:1rem; padding:.3rem 0; }
+.sys-panel { background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,107,53,.1)); border:1px solid rgba(255,215,0,.3); border-radius:8px; padding:.8rem; margin:.6rem 0; font-size:.95rem; color:#ffd700; }
+.sys-panel .sys-t { font-weight:700; text-align:center; margin-bottom:.4rem; font-size:1rem; }
+.thought { color:rgba(150,200,255,.8); font-style:italic; padding-left:.5rem; border-left:3px solid rgba(150,200,255,.4); margin:.3rem 0; }
+.sfx { text-align:center; color:#ff4444; font-size:1.3rem; font-weight:900; margin:.5rem 0; text-shadow:0 0 10px rgba(255,68,68,.5); }
+
+.act-div { text-align:center; padding:2rem 1rem; margin:1rem auto; max-width:500px; }
+.act-div .at { font-size:1.4rem; font-weight:700; color:#0cc; text-shadow:0 0 20px rgba(0,204,204,.4); letter-spacing:.2em; }
+.act-div .al { width:60px; height:2px; background:linear-gradient(90deg,transparent,#0cc,transparent); margin:.8rem auto; }
+
+.end-screen { text-align:center; padding:4rem 1rem; background:linear-gradient(180deg,#0a0a0f,#1a0a2e,#0a0a0f); }
+.end-screen .nc { font-size:1.2rem; color:#ffd700; margin-top:1rem; animation:titleGlow 2s ease-in-out infinite alternate; }
+.end-screen .et { color:rgba(255,255,255,.4); font-size:.85rem; margin-top:2rem; }
+</style>
+</head>
+<body>
+
+<div class="title-screen">
+  <div class="title-main">赌 神 系 统</div>
+  <div class="title-sub">第一章 · 菜鸟赌神的第一夜</div>
+  <div class="title-ch">原创IP · 赌术 × 系统文 × 逆袭</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<div class="act-div"><div class="at">第一幕 · 绝 境</div><div class="al"></div></div>
+
+<div class="panel" data-p="1">
+<div class="panel-img-wrap"><div class="panel-tag">会计事务所 · 夜 ｜ 全景俯拍</div><img src="images/panel-01.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">深夜十一点，城南最破的写字楼里，只剩三楼的灯还亮着。</div>
+<div class="narration">周小鱼盯着电脑屏幕上的工资条——三个月了，全是零。</div>
+<div class="thought">（三个月……信用卡还有十二万……）</div>
+</div></div>
+
+<div class="panel" data-p="2">
+<div class="panel-img-wrap"><div class="panel-tag">办公楼门口 · 夜 ｜ 低角度仰拍</div><img src="images/panel-02.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="sfx">砰——！</div>
+<div class="narration">他去找老板讨薪。结果两个保安把他像扔垃圾一样扔出了大门。</div>
+<div class="dialogue"><span class="speaker">保安：</span>"小子，老板说了，公司没钱。再来就报警。"</div>
+<div class="narration">眼镜飞了出去。工资条散了一地。</div>
+</div></div>
+
+<div class="panel" data-p="3">
+<div class="panel-img-wrap"><div class="panel-tag">路边 · 雨夜 ｜ 中近景情绪</div><img src="images/panel-03.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">雨开始下了。周小鱼坐在马路牙子上，浑身湿透。</div>
+<div class="narration">手机震了一下。女朋友的消息。</div>
+<div class="thought">（"我们分手吧。你连自己都养不活。"）</div>
+<div class="narration">他盯着屏幕，雨水顺着脸往下流，分不清是雨还是别的。</div>
+</div></div>
+
+<div class="panel" data-p="4">
+<div class="panel-img-wrap"><div class="panel-tag">路边 · 雨夜 ｜ 极端特写 · 眼部</div><img src="images/panel-04.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">手机屏幕突然一闪——</div>
+<div class="narration">一道金色的光，从屏幕里透了出来，映在他的镜片上。</div>
+<div class="sys-panel"><div class="sys-t">【赌神系统已激活】</div>宿主：周小鱼<br>等级：菜鸟（0/100）<br>技能：无<br>运气值：50/100</div>
+</div></div>
+
+<div class="panel" data-p="5">
+<div class="panel-img-wrap"><div class="panel-tag">暗巷 · 雨夜 ｜ 低角度 · 魔幻登场</div><img src="images/panel-05.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">一颗金色的骰子，凭空出现在他面前。</div>
+<div class="narration">它在半空中缓缓旋转，散发着温暖的金光，照亮了整条暗巷。</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"哟，就你？"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"系统随机分配宿主，我还以为至少是个帅哥呢。结果分到一个……嗯……别具特色的。"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"你、你是什么东西？！"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"东西？我是你的系统AI助手。叫我'老千'。以后你的命，握在我手里。"</div>
+</div></div>
+
+<div class="panel" data-p="6">
+<div class="panel-img-wrap"><div class="panel-tag">暗巷 · 夜 ｜ 中景 · 角色互动</div><img src="images/panel-06.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="dialogue sys"><span class="speaker">老千：</span>"说真的，你现在的处境……怎么说呢？"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"就是如果人生是一把牌，你手里拿的全是三。"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"……你能不能不要一直嘲讽我？"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"不嘲讽你我存在的意义是什么？好了，教你第一个技能——"</div>
+<div class="sys-panel"><div class="sys-t">【技能解锁：微表情读取 Lv1】</div>效果：可读取目标面部微表情，判断其情绪状态和自信程度<br>冷却：30秒<br>限制：仅对3米内目标有效</div>
+</div></div>
+
+<div class="panel" data-p="7">
+<div class="panel-img-wrap"><div class="panel-tag">系统界面 ｜ 分屏构图 · 现实×虚拟</div><img src="images/panel-07.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="dialogue sys"><span class="speaker">老千：</span>"现在，发布你的第一个任务。"</div>
+<div class="sys-panel"><div class="sys-t">【新手任务】</div>目标：前往任意棋牌室，赢得500元<br>时限：今晚24:00前<br>奖励：菜鸟→新手 + 手速Lv1<br>失败惩罚：运气值-30（连续倒霉一周）</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"赌、赌钱？！我不会啊！"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"你是数学系毕业的吧？概率论学过吧？"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"学、学过……"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"那不就得了。别废话，走。时间不等人，你的运气值也不等人。"</div>
+</div></div>
+
+<div class="act-div"><div class="at">第二幕 · 入 局</div><div class="al"></div></div>
+
+<div class="panel" data-p="8">
+<div class="panel-img-wrap"><div class="panel-tag">老街巷子 · 深夜 ｜ 远景 · 环境</div><img src="images/panel-08.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">城南老街。凌晨一点。</div>
+<div class="narration">巷子深处，一扇门缝里透出昏黄的光。门上没招牌，只有一个褪色的"棋"字。</div>
+<div class="narration">烟雾从门缝里飘出来，混着茶叶和老烟丝的味道。</div>
+</div></div>
+
+<div class="panel" data-p="9">
+<div class="panel-img-wrap"><div class="panel-tag">棋牌室门口 ｜ 过肩镜头</div><img src="images/panel-09.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">周小鱼站在门口，手心全是汗。</div>
+<div class="thought">（里面全是老油条……我一个从没赌过的人进去，不是送钱吗……）</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"你在门口站了三分钟了。再不进去，人家以为你是来查水表的。"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"我在做心理建设！"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"你的心理建设比你的存款还薄。进去。"</div>
+</div></div>
+
+<div class="panel" data-p="10">
+<div class="panel-img-wrap"><div class="panel-tag">棋牌室内部 ｜ 全景 · 烟雾氛围</div><img src="images/panel-10.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">推门进去。</div>
+<div class="narration">烟雾缭绕的房间里，五六个大爷坐在老式方桌旁，打着扑克牌。桌上散着花生壳和茶渍。</div>
+<div class="narration">所有人同时抬头看了他一眼。</div>
+<div class="dialogue"><span class="speaker">花衬衫大爷：</span>"哟，来了个小年轻。"</div>
+<div class="dialogue"><span class="speaker">背心大爷：</span>"小伙子，玩两把？最低五十一把。"</div>
+</div></div>
+
+<div class="panel" data-p="11">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 手部特写</div><img src="images/panel-11.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">周小鱼坐下来。手在发抖。</div>
+<div class="narration">他拿起牌的时候，牌差点掉桌上。</div>
+<div class="dialogue"><span class="speaker">花衬衫大爷：</span>"小伙子你别抖了，我还以为地震了。"</div>
+<div class="narration">桌上笑成一片。</div>
+<div class="dialogue sys"><span class="speaker">老千（悄声）：</span>"你手抖成这样，对面以为你帕金森呢。稳住。用微表情读取。"</div>
+</div></div>
+
+<div class="panel" data-p="12">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 面部特写 · 技能激活</div><img src="images/panel-12.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">周小鱼深吸一口气，启动了技能。</div>
+<div class="narration">世界安静了一瞬。金色的扫描线从他的镜片上划过——</div>
+<div class="narration">对面花衬衫大爷的表情被放大了：左嘴角微抬0.3度，拇指无意识摩擦牌背——</div>
+<div class="sys-panel"><div class="sys-t">【微表情读取】</div>目标：花衬衫大爷<br>情绪：紧张（伪装自信）<br>判断：手牌不佳，在虚张声势</div>
+<div class="thought">（他……在吹牛？他的牌不好？！）</div>
+</div></div>
+
+<div class="panel" data-p="13">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌对面 ｜ 人物特写 · 反派登场</div><img src="images/panel-13.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">但旁边那个安静的老头，引起了他的注意。</div>
+<div class="narration">瘦削的脸，左脸颊一道旧伤疤。打牌的动作行云流水，像是做了一辈子。</div>
+<div class="sys-panel"><div class="sys-t">【微表情读取】</div>目标：伤疤老头<br>情绪：平静（无波动）<br>⚠️ 无法读取——目标情绪控制力超出当前技能等级</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"嘶……这老头不简单。小心。"</div>
+</div></div>
+
+<div class="panel" data-p="14">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 俯拍全景 · 牌局进行</div><img src="images/panel-14.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">前三把，周小鱼靠着微表情读取，赢了两把，输了一把。净赚一百五。</div>
+<div class="dialogue"><span class="speaker">背心大爷：</span>"这小伙子有点东西啊，新手运气好。"</div>
+<div class="narration">但伤疤老头始终没怎么下注。他只是在看。在观察。</div>
+</div></div>
+
+<div class="act-div"><div class="at">第三幕 · 对 决</div><div class="al"></div></div>
+
+<div class="panel" data-p="15">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 手部特写 · 推注</div><img src="images/panel-15.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">第四把。伤疤老头终于出手了。</div>
+<div class="narration">他不紧不慢地推了一叠筹码到桌中央。</div>
+<div class="dialogue"><span class="speaker">伤疤老头：</span>"小伙子，跟不跟？"</div>
+<div class="narration">语气平淡得像在问"今天吃什么"。</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"他在试你。你之前赢的那几把，他全看在眼里了。"</div>
+</div></div>
+
+<div class="panel" data-p="16">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 极端特写 · 镜片反光</div><img src="images/panel-16.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">周小鱼的汗从额头滑到鼻梁，顺着眼镜框往下滴。</div>
+<div class="sys-panel"><div class="sys-t">【微表情读取 · 失败】</div>目标情绪控制力超出Lv1上限<br>建议：依赖其他判断方式</div>
+<div class="thought">（读不了……这老头到底什么来头？）</div>
+</div></div>
+
+<div class="panel" data-p="17">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 中景 · 对手视角</div><img src="images/panel-17.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">周小鱼跟了注。接下来两轮加注，他咬牙跟到底。赢回来的一百五全压了进去，还搭了自己口袋里仅剩的现金。</div>
+<div class="narration">其他大爷早就弃牌看戏了。</div>
+<div class="dialogue"><span class="speaker">花衬衫大爷（小声）：</span>"这小子疯了吧？跟老赵拼？"</div>
+<div class="dialogue"><span class="speaker">背心大爷（小声）：</span>"老赵以前在澳门做荷官的，你不知道？"</div>
+</div></div>
+
+<div class="panel" data-p="18">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 特写 · 反派得意</div><img src="images/panel-18.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">摊牌。伤疤老头——赵叔，翻开牌：同花顺。</div>
+<div class="narration">他嘴角露出一丝笑，不是嘲讽，是一种专业的满足感。</div>
+<div class="dialogue"><span class="speaker">赵叔：</span>"小伙子，你的读牌能力不错。但你忘了一件事。"</div>
+<div class="dialogue"><span class="speaker">赵叔：</span>"真正的老手，不是靠读别人的表情赢的。是靠让别人读到他想让你读到的表情。"</div>
+</div></div>
+
+<div class="panel" data-p="19">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 荷兰角 · 震惊反应</div><img src="images/panel-19.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="sfx">轰——</div>
+<div class="narration">周小鱼脑子嗡了一下。他不是读不到赵叔的表情——赵叔是故意让他读到假的信号！</div>
+<div class="narration">他全部的钱，都输光了。</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"……我刚才说小心了吧？你不听。"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"你说个'小心'有什么用！你倒是告诉我怎么办啊！"</div>
+<div class="sys-panel"><div class="sys-t">【警告】</div>任务进度：0/500元<br>剩余时间：2小时17分<br>当前资金：0元<br>运气值：48/100（持续下降中）</div>
+</div></div>
+
+<div class="panel" data-p="20">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 极端特写 · 觉醒时刻</div><img src="images/panel-20.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">但就在绝望的那一刻——周小鱼脑子里突然闪过一串数字。</div>
+<div class="narration">不是系统给的。是他自己的。</div>
+<div class="narration">概率论。排列组合。贝叶斯推理。四年数学系不是白读的。</div>
+<div class="narration">赵叔最后三把的出牌序列……加注节奏……弃牌选择……</div>
+<div class="thought">（等等……如果他刚才是故意放出假信号，那他真正的习惯模式应该是——）</div>
+<div class="sys-panel"><div class="sys-t">【隐藏技能触发：数学直觉】</div>基于宿主原有数学天赋自动觉醒<br>效果：高速概率计算 + 模式识别<br>⚠️ 消耗大量精力，仅可维持10分钟</div>
+</div></div>
+
+<div class="panel" data-p="21">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 动态中景 · 逆转行动</div><img src="images/panel-21.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="dialogue"><span class="speaker">周小鱼：</span>"赵叔，再来一把。"</div>
+<div class="dialogue"><span class="speaker">赵叔：</span>"你没钱了，拿什么跟？"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"这块表。我爸留给我的。值八百。"</div>
+<div class="narration">他摘下手腕上一块老旧的机械表，放在桌上。手不抖了。</div>
+<div class="narration">赵叔看了他一眼，眼里多了一分兴趣。</div>
+<div class="dialogue"><span class="speaker">赵叔：</span>"行。最后一把。"</div>
+</div></div>
+
+<div class="panel" data-p="22">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 全景 · 高潮爆发</div><img src="images/panel-22.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">最后一把，打了整整二十分钟。</div>
+<div class="narration">周小鱼不再依赖微表情读取。他用纯数学——记住每一张出过的牌，计算剩余牌堆的概率分布，推算赵叔手里可能的组合。</div>
+<div class="narration">然后，在赵叔第三次加注的时候——</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"你在诈我。你手里最多一对十。"</div>
+<div class="sfx">啪！</div>
+<div class="narration">全场安静。赵叔的笑容僵住了。</div>
+<div class="narration">他慢慢翻开牌——一对十。</div>
+</div></div>
+
+<div class="panel" data-p="23">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 特写 · 胜利表情</div><img src="images/panel-23.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">周小鱼翻开自己的牌——三条。赢了。</div>
+<div class="narration">他自己都不敢相信。嘴角开始不受控制地往上翘，眼眶有点酸。</div>
+<div class="dialogue"><span class="speaker">花衬衫大爷：</span>"卧槽！这小子真赢了老赵？！"</div>
+<div class="dialogue"><span class="speaker">背心大爷：</span>"我打了三十年牌没见人算牌算得这么准的！"</div>
+</div></div>
+
+<div class="panel" data-p="24">
+<div class="panel-img-wrap"><div class="panel-tag">牌桌 ｜ 中景 · 收获时刻</div><img src="images/panel-24.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">周小鱼手忙脚乱地把筹码和现金往口袋里塞。数了三遍——六百二十块。</div>
+<div class="dialogue"><span class="speaker">赵叔：</span>"小伙子。"</div>
+<div class="narration">周小鱼抬头，有点紧张。</div>
+<div class="dialogue"><span class="speaker">赵叔：</span>"你不是靠运气赢的。你有本事。但你的路子太嫩了。"</div>
+<div class="dialogue"><span class="speaker">赵叔：</span>"如果我不是退休了，今天不会让你赢。记住这句话。"</div>
+</div></div>
+
+<div class="act-div"><div class="at">第四幕 · 升 级</div><div class="al"></div></div>
+
+<div class="panel" data-p="25">
+<div class="panel-img-wrap"><div class="panel-tag">棋牌室 ｜ 逆光中景 · 起身离开</div><img src="images/panel-25.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">周小鱼站起来，朝大爷们点点头。</div>
+<div class="narration">身后的霓虹灯光透过窗户打在他背上，把他的影子拉得很长。</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"行啊小子。没丢我的人。"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"你什么忙都没帮，有脸说这话？"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"精神支持不算帮忙？我在旁边给你加油来着。"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"你全程都在嘲讽我。"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"那是激将法！效果不错吧？"</div>
+</div></div>
+
+<div class="panel" data-p="26">
+<div class="panel-img-wrap"><div class="panel-tag">老街 · 凌晨 ｜ 远景 · 氛围</div><img src="images/panel-26.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">凌晨三点的老街。雨停了。</div>
+<div class="narration">地面的积水倒映着两侧的霓虹招牌——红的、蓝的、绿的，像一条流淌的彩色河。</div>
+<div class="narration">周小鱼走在其中，金色的小骰子飘在他肩头，一闪一闪。</div>
+<div class="narration">这是二十五年来，他第一次觉得夜晚不那么难熬。</div>
+</div></div>
+
+<div class="panel" data-p="27">
+<div class="panel-img-wrap"><div class="panel-tag">街头 ｜ 特写 · 手中的钱</div><img src="images/panel-27.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">他掏出皱巴巴的钞票，在霓虹灯下展开。六百二十块。</div>
+<div class="narration">对于欠了十二万的人来说，这点钱连利息都不够。</div>
+<div class="narration">但此刻，它比任何东西都重。因为这是他自己赢来的。</div>
+</div></div>
+
+<div class="panel" data-p="28">
+<div class="panel-img-wrap"><div class="panel-tag">街头 ｜ 全身 · 升级特效</div><img src="images/panel-28.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="sfx">叮——！</div>
+<div class="sys-panel"><div class="sys-t">【升级完成】</div>菜鸟 → 新手<br>解锁技能：手速 Lv1<br>获得赌技点：+50<br>运气值恢复至：60/100<br><br>新手寄语：恭喜你迈出第一步。但这只是开始。真正的赌局，不在棋牌室里。</div>
+<div class="narration">金色的光芒从脚下升起，螺旋上升，包裹住他整个人。只有一瞬，但他感觉自己的反应速度快了一截。</div>
+</div></div>
+
+<div class="panel" data-p="29">
+<div class="panel-img-wrap"><div class="panel-tag">街头 ｜ 特写 · 老千认可</div><img src="images/panel-29.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="dialogue sys"><span class="speaker">老千：</span>"说正经的。"</div>
+<div class="narration">金色骰子飘到周小鱼面前，破天荒没有嘲讽的表情。</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"你刚才最后那一手，不是我教你的，也不是系统给你的。是你自己的本事。"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"我见过很多宿主，大部分只会依赖系统。你是第一个靠自己翻盘的。"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"……那你之前为什么一直损我？"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"因为你值得损。不值得损的人我懒得开口。"</div>
+</div></div>
+
+<div class="panel" data-p="30">
+<div class="panel-img-wrap"><div class="panel-tag">空旷街道 ｜ 远景 · 车灯逼近</div><img src="images/panel-30.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">前方的路空荡荡的，路灯一盏接一盏延伸到远处。</div>
+<div class="narration">突然，两束刺眼的车灯从远处射来，越来越近。</div>
+<div class="narration">一辆黑色的商务轿车，缓缓停在了周小鱼身边。</div>
+</div></div>
+
+<div class="panel" data-p="31">
+<div class="panel-img-wrap"><div class="panel-tag">街道 ｜ 低角度 · 黑车逼近</div><img src="images/panel-31.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">车身锃亮，倒映着整条街的霓虹灯。</div>
+<div class="narration">周小鱼的影子被车灯拉得老长。</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"别动。这车不简单。"</div>
+<div class="thought">（这个时间……这种车……停在我旁边……）</div>
+</div></div>
+
+<div class="panel" data-p="32">
+<div class="panel-img-wrap"><div class="panel-tag">车窗 ｜ 特写 · 神秘女人</div><img src="images/panel-32.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">后排车窗缓缓降下。</div>
+<div class="narration">一个女人的侧脸在车内的暗光中若隐若现——</div>
+<div class="narration">设计师款墨镜，红唇，利落的马尾。</div>
+<div class="dialogue"><span class="speaker">神秘女人：</span>"周小鱼？"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"你……认识我？"</div>
+<div class="dialogue"><span class="speaker">神秘女人：</span>"有人想请你打一场牌。一场真正的牌。"</div>
+</div></div>
+
+<div class="panel" data-p="33">
+<div class="panel-img-wrap"><div class="panel-tag">车内→车外 ｜ 过肩 · 权力对比</div><img src="images/panel-33.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">从车内看出去，周小鱼站在湿漉漉的街上，穿着皱巴巴的廉价西装，圆框眼镜歪歪的。</div>
+<div class="narration">和这辆车代表的世界格格不入。</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"我……为什么找我？"</div>
+<div class="dialogue"><span class="speaker">神秘女人：</span>"因为你刚才在棋牌室里做的事，已经有人在看了。"</div>
+<div class="narration">她递出一张黑色的名片。上面只有一行烫金小字和一个地址。</div>
+<div class="dialogue"><span class="speaker">神秘女人：</span>"三天后，这个地址，晚上九点。来不来，你自己决定。"</div>
+</div></div>
+
+<div class="panel" data-p="34">
+<div class="panel-img-wrap"><div class="panel-tag">街头 ｜ 特写 · 决意表情</div><img src="images/panel-34.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">车窗升起。黑色轿车无声地驶入夜色。</div>
+<div class="narration">周小鱼握着那张名片，在霓虹灯下翻来覆去地看。</div>
+<div class="sys-panel"><div class="sys-t">【主线任务解锁】</div>地下赌王争霸赛 · 预选赛<br>地点：？？？<br>时间：三天后<br>⚠️ 此任务一旦接受，不可中途退出<br>奖励：？？？<br>危险等级：★★★★☆</div>
+<div class="narration">他的表情不再是刚才那个被保安扔出大门的实习生。</div>
+<div class="narration">眼神里有了一点什么——也许是野心，也许是不甘，也许只是穷怕了。</div>
+</div></div>
+
+<div class="panel" data-p="35">
+<div class="panel-img-wrap"><div class="panel-tag">霓虹长街 ｜ 远景全景 · 章末定格</div><img src="images/panel-35.jpg" loading="lazy"></div>
+<div class="panel-text">
+<div class="narration">凌晨的城市，万家灯火都灭了。只剩霓虹在亮。</div>
+<div class="narration">周小鱼站在路中央，金色的骰子飘在他肩头。</div>
+<div class="narration">一个欠了十二万的穷光蛋，揣着六百二十块，站在一个全新世界的入口。</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"怎么？还在犹豫？"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"谁犹豫了。"</div>
+<div class="narration">他把名片塞进胸口口袋，转身朝出租屋走去。</div>
+<div class="narration">步子不快，但很稳。</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"对了，你那个灰——不对，你的西装也该洗了。赌王争霸赛不收流浪汉。"</div>
+<div class="dialogue"><span class="speaker">周小鱼：</span>"闭嘴。"</div>
+<div class="dialogue sys"><span class="speaker">老千：</span>"嘿，你现在敢叫我闭嘴了。有进步。"</div>
+</div></div>
+
+<!-- 结尾屏 -->
+<div class="end-screen">
+  <div class="nc">第一章 · 完</div>
+  <div style="color:#0cc;margin-top:1.5rem;font-size:1rem;">下一章预告</div>
+  <div style="color:rgba(255,255,255,.6);margin-top:.5rem;font-size:.95rem;max-width:400px;margin-left:auto;margin-right:auto;">
+    三天后，地下赌场。<br>
+    周小鱼将面对真正的对手——不是棋牌室里的退休大爷，而是有系统加持的职业赌徒。<br>
+    他的数学直觉能撑多久？"老千"又在隐瞒什么？<br>
+    <br>
+    <strong style="color:#ffd700;">《赌神系统》第二章 · 地下赌王争霸赛</strong>
+  </div>
+  <div class="et" style="margin-top:2rem;">—— 赌神系统 · 原创IP ——<br>向死而生 · Trinity v3</div>
+</div>
+
+<script>
+// 滚动渐入动画
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(p => obs.observe(p));
+</script>
+</body>
+</html>
