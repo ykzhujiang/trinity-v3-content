@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爸爸的计算器历史</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;color:#fff;font-family:-apple-system,'SF Mono','PingFang SC',monospace;max-width:480px;margin:0 auto;min-height:100vh;padding:0 0 40px;}
+.calc-header{background:#1c1c1e;padding:16px 20px;text-align:center;border-bottom:0.5px solid #333;position:sticky;top:0;z-index:10;}
+.calc-header h1{font-size:17px;font-weight:500;color:#fff;}
+.calc-header .sub{font-size:12px;color:#666;margin-top:4px;}
+.history{padding:20px;}
+.year-block{margin-bottom:32px;}
+.year-label{font-size:13px;color:#666;margin-bottom:12px;padding-bottom:6px;border-bottom:0.5px solid #222;}
+.calc-entry{background:#1c1c1e;border-radius:12px;padding:14px 16px;margin-bottom:8px;}
+.calc-expression{font-size:20px;color:#fff;font-weight:300;letter-spacing:1px;font-variant-numeric:tabular-nums;}
+.calc-result{font-size:28px;color:#FF9F0A;font-weight:400;text-align:right;margin-top:4px;font-variant-numeric:tabular-nums;}
+.calc-note{font-size:12px;color:#555;margin-top:6px;font-style:italic;font-family:'PingFang SC',sans-serif;}
+.calc-note.emotional{color:#888;}
+.calc-deleted{opacity:0.4;text-decoration:line-through;position:relative;}
+.calc-deleted::after{content:'已删除';position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:10px;color:#FF453A;text-decoration:none;}
+.highlight-entry{border:1px solid #FF9F0A;background:#1a1800;}
+.red-entry{border:1px solid #FF453A;background:#1a0800;}
+.green-entry{border:1px solid #30D158;background:#001a08;}
+.gap{text-align:center;color:#333;font-size:24px;margin:16px 0;letter-spacing:8px;}
+.ending-section{background:#111;border-radius:16px;padding:24px 20px;margin:30px 16px;text-align:center;}
+.ending-section .clear{color:#FF453A;font-size:14px;margin-bottom:16px;font-family:'PingFang SC',sans-serif;}
+.ending-section .who{color:#666;font-size:13px;line-height:1.8;font-family:'PingFang SC',sans-serif;}
+.ending-section .final{color:#999;font-size:15px;margin-top:20px;line-height:2;font-family:'PingFang SC',sans-serif;}
+</style>
+</head>
+<body>
+
+<div class="calc-header">
+<h1>🔢 计算器</h1>
+<div class="sub">历史记录 · 2010—2023</div>
+</div>
+
+<div class="history">
+
+<div class="year-block">
+<div class="year-label">2010</div>
+<div class="calc-entry">
+<div class="calc-expression">35 × 12 =</div>
+<div class="calc-result">420</div>
+<div class="calc-note">每月伙食费 × 一年</div>
+</div>
+<div class="calc-entry">
+<div class="calc-expression">240 + 180 + 85 =</div>
+<div class="calc-result">505</div>
+<div class="calc-note">水电煤</div>
+</div>
+</div>
+
+<div class="year-block">
+<div class="year-label">2013</div>
+<div class="calc-entry">
+<div class="calc-expression">8,600 ÷ 2 =</div>
+<div class="calc-result">4,300</div>
+<div class="calc-note emotional">学费——能不能分两次交？</div>
+</div>
+<div class="calc-entry">
+<div class="calc-expression">4,300 + 420 + 505 + 1,200 =</div>
+<div class="calc-result">6,425</div>
+<div class="calc-note">一个月至少要这么多</div>
+</div>
+<div class="calc-entry highlight-entry">
+<div class="calc-expression">6,800 − 6,425 =</div>
+<div class="calc-result">375</div>
+<div class="calc-note emotional">工资减去必须花的。剩的是全部。</div>
+</div>
+</div>
+
+<div class="year-block">
+<div class="year-label">2016</div>
+<div class="calc-entry">
+<div class="calc-expression">580 × 3 =</div>
+<div class="calc-result">1,740</div>
+<div class="calc-note">高中补课费，三科</div>
+</div>
+<div class="calc-entry red-entry">
+<div class="calc-expression">375 − 1,740 =</div>
+<div class="calc-result" style="color:#FF453A;">?</div>
+<div class="calc-note emotional">他没按等号。</div>
+</div>
+</div>
+
+<div class="year-block">
+<div class="year-label">2018</div>
+<div class="calc-entry">
+<div class="calc-expression">23,000 × 4 =</div>
+<div class="calc-result">92,000</div>
+<div class="calc-note">大学四年学费</div>
+</div>
+<div class="calc-entry">
+<div class="calc-expression">92,000 + 48,000 =</div>
+<div class="calc-result">140,000</div>
+<div class="calc-note">加上生活费</div>
+</div>
+<div class="calc-entry red-entry">
+<div class="calc-expression">140,000 − 61,000 =</div>
+<div class="calc-result" style="color:#FF453A;">79,000</div>
+<div class="calc-note emotional">存款不够。差这么多。</div>
+</div>
+<div class="calc-entry highlight-entry">
+<div class="calc-expression">4,500 × 18 =</div>
+<div class="calc-result">81,000 ✓</div>
+<div class="calc-note emotional">如果再干一份工，十八个月刚好够。</div>
+</div>
+</div>
+
+<div class="year-block">
+<div class="year-label">2019</div>
+<div class="calc-entry calc-deleted">
+<div class="calc-expression">120 + 85 + 65 =</div>
+<div class="calc-result" style="color:#666;">270</div>
+<div class="calc-note">挂号费 + 检查 + 药。他自己的。第一次出现。</div>
+</div>
+</div>
+
+<div class="year-block">
+<div class="year-label">2021</div>
+<div class="calc-entry red-entry">
+<div class="calc-expression">3,200 × 6 =</div>
+<div class="calc-result" style="color:#FF453A;">19,200</div>
+<div class="calc-note">化疗。六个周期。</div>
+</div>
+<div class="calc-entry red-entry">
+<div class="calc-expression">85,000 ÷ 14 =</div>
+<div class="calc-result" style="color:#FF453A;">6,071.4</div>
+<div class="calc-note emotional">存款 ÷ 剩余月份。<br>他在算自己还能撑多久，不拖累家里。</div>
+</div>
+</div>
+
+<div class="gap">· · ·</div>
+
+<div class="year-block">
+<div class="year-label">2023 — 最后一条记录</div>
+<div class="calc-entry green-entry">
+<div class="calc-expression" style="color:#30D158;">🔴 礼金 × 2 = ?</div>
+<div class="calc-note emotional" style="color:#999;">他把数字改了三次：</div>
+</div>
+<div class="calc-entry" style="opacity:0.5;">
+<div class="calc-expression">1,000 × 2 =</div>
+<div class="calc-result" style="color:#555;">2,000</div>
+</div>
+<div class="calc-entry" style="opacity:0.7;">
+<div class="calc-expression">1,500 × 2 =</div>
+<div class="calc-result" style="color:#888;">3,000</div>
+</div>
+<div class="calc-entry green-entry">
+<div class="calc-expression">2,000 × 2 =</div>
+<div class="calc-result" style="color:#30D158;">4,000 ✓</div>
+<div class="calc-note emotional">儿子结婚。他选了最大的那个数。</div>
+</div>
+</div>
+
+</div>
+
+<div class="ending-section">
+<div class="clear">📱 计算器已清除所有历史记录</div>
+<div class="who">
+清除人：儿子<br>
+时间：2024年春节<br>
+原因：帮爸爸清理手机内存
+</div>
+<div class="final">
+他看到了那些数字。<br>
+一条一条看完。<br>
+没有截图，没有发朋友圈。<br><br>
+他只是关上手机，<br>
+去厨房给爸爸热了碗汤。
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>✈️ 创业者的飞行日记</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#f0f4f8; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:#1a1a1a; font-size:20px; line-height:1.7; }
+
+.app-header {
+  background:linear-gradient(135deg,#1e3a5f 0%,#0d1b2a 100%);
+  padding:20px; color:#fff; text-align:center;
+}
+.app-logo { font-size:26px; font-weight:bold; }
+.app-sub { font-size:15px; color:#88a8cc; margin-top:4px; }
+.year-badge {
+  display:inline-block; background:rgba(255,255,255,0.15);
+  padding:4px 16px; border-radius:12px;
+  font-size:14px; margin-top:10px; color:#ccd;
+}
+
+/* 航班卡片 */
+.flights { padding:16px; }
+
+.flight-card {
+  background:#fff; border-radius:16px;
+  margin-bottom:16px; overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  opacity:0; transform:translateX(-20px);
+  animation: slideIn 0.5s ease forwards;
+}
+.flight-card:nth-child(1) { animation-delay:0.2s; }
+.flight-card:nth-child(2) { animation-delay:0.5s; }
+.flight-card:nth-child(3) { animation-delay:0.8s; }
+.flight-card:nth-child(4) { animation-delay:1.1s; }
+.flight-card:nth-child(5) { animation-delay:1.4s; }
+
+@keyframes slideIn {
+  to { opacity:1; transform:translateX(0); }
+}
+
+.flight-header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 16px; border-bottom:1px dashed #e0e0e0;
+}
+.flight-no { font-weight:bold; font-size:16px; color:#1e3a5f; }
+.flight-date { font-size:14px; color:#888; }
+.flight-class {
+  font-size:13px; padding:3px 10px; border-radius:8px;
+  font-weight:600;
+}
+.class-economy { background:#e3f2fd; color:#1565c0; }
+.class-business { background:#fff3e0; color:#e65100; }
+.class-upgraded { background:#e8f5e9; color:#2e7d32; }
+
+.flight-route {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px;
+}
+.city { text-align:center; flex:1; }
+.city-code { font-size:28px; font-weight:bold; color:#1e3a5f; }
+.city-name { font-size:14px; color:#888; }
+.city-time { font-size:13px; color:#aaa; margin-top:2px; }
+.route-line {
+  flex:1; text-align:center; position:relative;
+  color:#ccc; font-size:24px;
+}
+.route-line::before {
+  content:''; position:absolute; top:50%; left:10%; right:10%;
+  height:1px; background:#ddd; transform:translateY(-50%);
+}
+.route-line .plane { position:relative; z-index:1; background:#f0f4f8; padding:0 8px; }
+
+.flight-img {
+  width:100%; height:180px; object-fit:cover;
+}
+
+.flight-mood {
+  padding:16px; background:#f8f9fa;
+  border-top:1px solid #f0f0f0;
+}
+.mood-label { font-size:14px; color:#888; margin-bottom:6px; }
+.mood-text { font-size:18px; line-height:1.6; }
+.mood-text .num { color:#1e3a5f; font-weight:bold; font-size:22px; }
+
+/* 年度报告 */
+.annual-report {
+  background:linear-gradient(135deg,#1e3a5f,#0d1b2a);
+  color:#fff; margin:16px; border-radius:16px;
+  padding:24px; text-align:center;
+}
+.report-title { font-size:24px; font-weight:bold; margin-bottom:20px; color:#ffd700; }
+.report-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  margin-bottom:20px;
+}
+.report-item { text-align:center; }
+.report-num { font-size:32px; font-weight:bold; color:#ffd700; }
+.report-label { font-size:13px; color:#88a8cc; }
+.report-quote {
+  font-size:20px; font-style:italic; color:#88ccff;
+  padding-top:16px; border-top:1px solid rgba(255,255,255,0.1);
+  line-height:1.5;
+}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="app-logo">✈️ 航旅纵横</div>
+  <div class="app-sub">创业者的飞行日记</div>
+  <div class="year-badge">📅 2025.03 — 2026.03 · 创业第一年</div>
+</div>
+
+<div class="flights">
+
+<!-- 航班1 -->
+<div class="flight-card">
+  <div class="flight-header">
+    <span class="flight-no">🛫 CA1301</span>
+    <span class="flight-date">2025年3月8日</span>
+    <span class="flight-class class-economy">经济舱 · 最后一排</span>
+  </div>
+  <div class="flight-route">
+    <div class="city">
+      <div class="city-code">深圳</div>
+      <div class="city-name">宝安T3</div>
+      <div class="city-time">07:15 起飞</div>
+    </div>
+    <div class="route-line"><span class="plane">✈️</span></div>
+    <div class="city">
+      <div class="city-code">北京</div>
+      <div class="city-name">大兴T1</div>
+      <div class="city-time">10:30 降落</div>
+    </div>
+  </div>
+  <img src="img/flight1-economy.jpg" alt="经济舱" class="flight-img">
+  <div class="flight-mood">
+    <div class="mood-label">✏️ 飞行手记</div>
+    <div class="mood-text">
+      辞职第<span class="num">3</span>天。揣着<span class="num">47万</span>赔偿金去见投资人。经济舱最后一排靠厕所，全程闻味儿。但心里在想：如果这个项目成了，下次坐商务舱。<br><br>
+      机票：<span class="num">¥680</span>（提前2周买的特价）
+    </div>
+  </div>
+</div>
+
+<!-- 航班2 -->
+<div class="flight-card">
+  <div class="flight-header">
+    <span class="flight-no">🛫 MU5178</span>
+    <span class="flight-date">2025年3月9日</span>
+    <span class="flight-class class-economy">经济舱 · 红眼航班</span>
+  </div>
+  <div class="flight-route">
+    <div class="city">
+      <div class="city-code">北京</div>
+      <div class="city-name">大兴T1</div>
+      <div class="city-time">23:50 起飞</div>
+    </div>
+    <div class="route-line"><span class="plane">✈️</span></div>
+    <div class="city">
+      <div class="city-code">上海</div>
+      <div class="city-name">虹桥T2</div>
+      <div class="city-time">02:10 降落</div>
+    </div>
+  </div>
+  <img src="img/flight2-redeye.jpg" alt="红眼航班" class="flight-img">
+  <div class="flight-mood">
+    <div class="mood-label">✏️ 飞行手记</div>
+    <div class="mood-text">
+      被北京的投资人拒了。原话："方向有意思，但你没有数据。"凌晨的红眼航班，全机只有<span class="num">23</span>个人。我在座位上写了<span class="num">3000</span>字复盘。<br><br>
+      旁边大哥问我做什么，我说AI创业。他说他也是，做了<span class="num">2</span>年，建议我"别急"。<br><br>
+      机票：<span class="num">¥420</span>（红眼特价，省钱要紧）
+    </div>
+  </div>
+</div>
+
+<!-- 航班3 -->
+<div class="flight-card">
+  <div class="flight-header">
+    <span class="flight-no">🛫 CZ3502</span>
+    <span class="flight-date">2025年8月15日</span>
+    <span class="flight-class class-upgraded">升舱！商务舱 🎉</span>
+  </div>
+  <div class="flight-route">
+    <div class="city">
+      <div class="city-code">上海</div>
+      <div class="city-name">浦东T1</div>
+      <div class="city-time">14:00 起飞</div>
+    </div>
+    <div class="route-line"><span class="plane">✈️</span></div>
+    <div class="city">
+      <div class="city-code">深圳</div>
+      <div class="city-name">宝安T3</div>
+      <div class="city-time">16:30 降落</div>
+    </div>
+  </div>
+  <img src="img/flight3-business.jpg" alt="商务舱" class="flight-img">
+  <div class="flight-mood">
+    <div class="mood-label">✏️ 飞行手记</div>
+    <div class="mood-text">
+      签了！！！种子轮<span class="num">300万</span>！投资人请我升舱庆祝。人生第一次坐商务舱，椅子能放平，还有拖鞋。<br><br>
+      给老婆发微信："今晚去吃好的。"她回了<span class="num">8</span>个感叹号和<span class="num">3</span>个哭脸emoji。<br><br>
+      机票：<span class="num">¥0</span>（投资人买单，这就是A轮的快乐）
+    </div>
+  </div>
+</div>
+
+<!-- 航班4 -->
+<div class="flight-card">
+  <div class="flight-header">
+    <span class="flight-no">🛫 CA985</span>
+    <span class="flight-date">2025年11月20日</span>
+    <span class="flight-class class-business">商务舱 · 公司买单</span>
+  </div>
+  <div class="flight-route">
+    <div class="city">
+      <div class="city-code">深圳</div>
+      <div class="city-name">宝安T3</div>
+      <div class="city-time">01:30 起飞</div>
+    </div>
+    <div class="route-line"><span class="plane">✈️</span></div>
+    <div class="city">
+      <div class="city-code">旧金山</div>
+      <div class="city-name">SFO T-I</div>
+      <div class="city-time">当地21:45</div>
+    </div>
+  </div>
+  <img src="img/flight4-sf.jpg" alt="飞往旧金山" class="flight-img">
+  <div class="flight-mood">
+    <div class="mood-label">✏️ 飞行手记</div>
+    <div class="mood-text">
+      去硅谷参加AI展会。<span class="num">12</span>小时的航程，我改了<span class="num">47</span>版PPT。落地时旧金山在下雨，像极了深圳。<br><br>
+      展会上<span class="num">200</span>多家AI公司，我的展位在角落。但<span class="num">3</span>天里来了<span class="num">156</span>个人聊，其中<span class="num">23</span>个留了联系方式。<br><br>
+      机票：<span class="num">¥18,600</span>（商务舱，公司报销。终于不用自己掏了）
+    </div>
+  </div>
+</div>
+
+<!-- 航班5 -->
+<div class="flight-card">
+  <div class="flight-header">
+    <span class="flight-no">🛫 CA986</span>
+    <span class="flight-date">2026年3月1日</span>
+    <span class="flight-class class-business">商务舱 · 金卡会员 ⭐</span>
+  </div>
+  <div class="flight-route">
+    <div class="city">
+      <div class="city-code">旧金山</div>
+      <div class="city-name">SFO T-I</div>
+      <div class="city-time">11:30 起飞</div>
+    </div>
+    <div class="route-line"><span class="plane">✈️</span></div>
+    <div class="city">
+      <div class="city-code">深圳</div>
+      <div class="city-name">宝安T3</div>
+      <div class="city-time">+1天 17:00</div>
+    </div>
+  </div>
+  <img src="img/flight5-home.jpg" alt="带着客户回家" class="flight-img">
+  <div class="flight-mood">
+    <div class="mood-label">✏️ 飞行手记</div>
+    <div class="mood-text">
+      第二次去硅谷，这次带回了<span class="num">3</span>个签约大客户，合同总额<span class="num">¥120万</span>。里程攒够了，升了金卡。<br><br>
+      飞机上给团队发了条消息："兄弟们，等我回去请你们吃顿好的。"<br><br>
+      <span class="num">10</span>个人秒回了<span class="num">10</span>个"好耶"。<br><br>
+      机票：<span class="num">¥16,800</span>（但里程抵了<span class="num">¥5,000</span>。创业一年，终于学会了省钱）
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- 年度飞行报告 -->
+<div class="annual-report">
+  <div class="report-title">📊 2025-2026 年度飞行报告</div>
+  <div class="report-grid">
+    <div class="report-item"><div class="report-num">63,521</div><div class="report-label">总飞行公里</div></div>
+    <div class="report-item"><div class="report-num">14</div><div class="report-label">航班次数</div></div>
+    <div class="report-item"><div class="report-num">8</div><div class="report-label">到达城市</div></div>
+    <div class="report-item"><div class="report-num">87</div><div class="report-label">空中小时</div></div>
+  </div>
+  <div class="report-quote">
+    "总里程 63,521 公里。<br>
+    比任何一年都远，<br>
+    也比任何一年都值。"
+  </div>
+</div>
+
+<div style="height:40px;"></div>
+
+</body>
+</html>

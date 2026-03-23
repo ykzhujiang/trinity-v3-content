@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXP-117 — 屏幕使用时间</title>
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+  .period-label { font-size:15px; font-weight:600; margin:4px 0 2px; }
+  .period-sub { font-size:12px; color:#8e8e93; margin-bottom:10px; }
+  .bar-fill.wechat { background: #07c160; }
+  .bar-fill.camera { background: #ff9f0a; }
+  .bar-fill.delivery { background: #ff453a; }
+  .bar-fill.album { background: #5856d6; }
+  .bar-fill.video { background: #0a84ff; }
+  .bar-fill.news { background: #8e8e93; }
+  .total-row { text-align:center; font-size:32px; font-weight:700; font-variant-numeric:tabular-nums; margin:8px 0 4px; }
+  .total-label { text-align:center; font-size:12px; color:#8e8e93; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="status-bar">
+  <span class="time">7:30</span>
+  <span class="icons">📶 📡 🔋</span>
+</div>
+
+<div class="card fade-in">
+  <div class="card-header">
+    <div class="icon" style="background:#5856d6;">⏱️</div>
+    <div>
+      <div class="label">屏幕使用时间</div>
+      <div class="title">每周报告</div>
+    </div>
+  </div>
+</div>
+
+<!-- 恋爱期 -->
+<div class="card fade-in">
+  <div class="period-label">2021年秋天 · 刚在一起</div>
+  <div class="period-sub">日均使用 6小时12分钟</div>
+  <div class="total-row">6:12</div>
+  <div class="total-label">日均屏幕时间</div>
+  <div class="bar-chart">
+    <div class="bar-row"><span class="bar-label">微信</span><div class="bar-track"><div class="bar-fill wechat" style="width:75%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">3h47m</span></div>
+    <div class="bar-row"><span class="bar-label">相机</span><div class="bar-track"><div class="bar-fill camera" style="width:22%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">1h05m</span></div>
+    <div class="bar-row"><span class="bar-label">外卖</span><div class="bar-track"><div class="bar-fill delivery" style="width:3%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">8m</span></div>
+    <div class="bar-row"><span class="bar-label">短视频</span><div class="bar-track"><div class="bar-fill video" style="width:12%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">38m</span></div>
+  </div>
+</div>
+
+<p class="coda" style="border:none; margin-top:4px; padding-top:0; font-size:13px; color:#8e8e93;">
+  微信每天将近四个小时。聊天框永远在最上面，发完消息两秒就开始等回复。相机一个小时——她的睡颜、她吃东西的样子、路边的花。外卖八分钟，因为都是一起做饭。
+</p>
+
+<!-- 婚后3年 -->
+<div class="card fade-in">
+  <div class="period-label">2024年 · 婚后第三年</div>
+  <div class="period-sub">日均使用 5小时31分钟</div>
+  <div class="total-row">5:31</div>
+  <div class="total-label">日均屏幕时间</div>
+  <div class="bar-chart">
+    <div class="bar-row"><span class="bar-label">微信</span><div class="bar-track"><div class="bar-fill wechat" style="width:30%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">1h22m</span></div>
+    <div class="bar-row"><span class="bar-label">相机</span><div class="bar-track"><div class="bar-fill camera" style="width:6%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">12m</span></div>
+    <div class="bar-row"><span class="bar-label">外卖</span><div class="bar-track"><div class="bar-fill delivery" style="width:18%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">47m</span></div>
+    <div class="bar-row"><span class="bar-label">短视频</span><div class="bar-track"><div class="bar-fill video" style="width:42%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">2h03m</span></div>
+    <div class="bar-row"><span class="bar-label">新闻</span><div class="bar-track"><div class="bar-fill news" style="width:14%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">34m</span></div>
+  </div>
+</div>
+
+<p class="coda" style="border:none; margin-top:4px; padding-top:0; font-size:13px; color:#8e8e93;">
+  微信从四个小时掉到一个半小时。不是不联系了——住在一起有什么好发消息的。相机12分钟，拍的大多是菜谱截图。外卖47分钟，因为不想讨论今晚谁做饭。短视频涨到两个小时，各刷各的，偶尔递过手机说"你看这个"。
+</p>
+
+<!-- 婚后7年 -->
+<div class="card fade-in">
+  <div class="period-label">2028年 · 婚后第七年</div>
+  <div class="period-sub">日均使用 7小时08分钟</div>
+  <div class="total-row">7:08</div>
+  <div class="total-label">日均屏幕时间</div>
+  <div class="bar-chart">
+    <div class="bar-row"><span class="bar-label">微信</span><div class="bar-track"><div class="bar-fill wechat" style="width:10%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">45m</span></div>
+    <div class="bar-row"><span class="bar-label">相机</span><div class="bar-track"><div class="bar-fill camera" style="width:2%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">3m</span></div>
+    <div class="bar-row"><span class="bar-label">外卖</span><div class="bar-track"><div class="bar-fill delivery" style="width:28%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">1h52m</span></div>
+    <div class="bar-row"><span class="bar-label">短视频</span><div class="bar-track"><div class="bar-fill video" style="width:55%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">3h17m</span></div>
+    <div class="bar-row"><span class="bar-label">共享相册</span><div class="bar-track"><div class="bar-fill album" style="width:12%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">41m</span></div>
+    <div class="bar-row"><span class="bar-label">新闻</span><div class="bar-track"><div class="bar-fill news" style="width:6%;"></div></div><span class="value" style="font-size:12px; width:50px; text-align:right;">18m</span></div>
+  </div>
+</div>
+
+<div class="coda fade-in">
+  微信45分钟。其中40分钟是工作群。<br>
+  相机3分钟。<br>
+  外卖将近两个小时——分开点了，你吃湘菜，她吃轻食，地址一样。<br>
+  短视频三个多小时，坐在同一张沙发上，各看各的，偶尔同时笑出声，但笑的不是同一个视频。<br><br>
+
+  共享相册 41 分钟。<br>
+  那是唯一涨起来的。<br><br>
+  
+  不是拍她。<br>
+  是拍女儿。<br><br>
+  
+  她也在共享相册里加了照片：女儿在沙发上看绘本，手里举着一页说"爸爸你看"。你不在画面里。她拍给你看的。<br><br>
+  
+  <span style="color:#636366; font-size:12px;">你们不再互相拍照了。</span><br>
+  <span style="color:#636366; font-size:12px;">但你们在用同一个相册记录同一个人。</span><br>
+  <span style="color:#636366; font-size:12px;">也许这就是第七年的样子。</span>
+</div>
+
+</div>
+</body>
+</html>

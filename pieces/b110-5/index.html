@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>深夜代码与妈妈的排骨汤</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#faf8f5; font-family:'PingFang SC',-apple-system,sans-serif; font-size:20px; line-height:2; color:#333; max-width:100vw; overflow-x:hidden; }
+.story-header { background:linear-gradient(180deg,#f5efe6,#faf8f5); padding:40px 20px 24px; text-align:center; }
+.story-header h1 { font-size:26px; font-weight:700; color:#2c1810; line-height:1.4; }
+.story-header .subtitle { font-size:15px; color:#998877; margin-top:8px; }
+.container { max-width:375px; margin:0 auto; padding:0 20px 40px; }
+.scene { margin-bottom:32px; animation:fadeIn 0.8s ease both; }
+.scene:nth-child(1) { animation-delay:0.2s; }
+.scene:nth-child(2) { animation-delay:0.5s; }
+.scene:nth-child(3) { animation-delay:0.8s; }
+.scene:nth-child(4) { animation-delay:1.1s; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.scene img { width:100%; border-radius:12px; margin-bottom:16px; box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+.scene-label { display:inline-block; font-size:12px; color:#c4a882; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; border-bottom:1px solid #e8ddd0; padding-bottom:4px; }
+.scene p { font-size:19px; line-height:2; color:#444; text-indent:2em; }
+.scene .dialogue { background:#f5efe6; border-radius:12px; padding:14px 18px; margin:12px 0; font-size:18px; color:#6b5344; font-style:italic; text-indent:0; }
+.scene .dialogue::before { content:'🎙️ '; }
+.divider { text-align:center; margin:28px 0; color:#d4c4b0; font-size:14px; letter-spacing:6px; }
+.ending { text-align:center; padding:24px 16px; background:linear-gradient(180deg,#faf8f5,#f5efe6); border-radius:16px; margin-top:20px; }
+.ending .big { font-size:22px; font-weight:600; color:#2c1810; line-height:1.6; }
+.ending .note { font-size:15px; color:#998877; margin-top:12px; }
+.footer { text-align:center; padding:24px; color:#ccc; font-size:13px; }
+</style>
+</head>
+<body>
+
+<div class="story-header">
+  <h1>深夜代码与妈妈的排骨汤</h1>
+  <div class="subtitle">一个程序员的深夜故事</div>
+</div>
+
+<div class="container">
+
+<div class="scene">
+  <span class="scene-label">第一幕 · 凌晨两点</span>
+  <img src="coding-night.jpg" alt="深夜编程" loading="lazy">
+  <p>陈默已经连续写了十四个小时的代码。</p>
+  <p>桌上堆着三个空的红牛罐子、两盒吃了一半的外卖、一条已经凉透的毛巾。屏幕上的光标一闪一闪，像是在替他的眼睛眨眼。</p>
+  <p>这是他创业的第237天。产品后天要上线，但核心功能还有一个怎么都过不了的bug。投资人说了："再延期一次，钱就不打了。"</p>
+  <p>手机震了一下。他瞟了一眼——妈妈发来的微信："儿子睡了吗？"</p>
+  <p>他打了两个字"快了"，又删掉，打了"嗯"，发出去。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<div class="scene">
+  <span class="scene-label">第二幕 · 凌晨三点半</span>
+  <img src="soup-delivery.jpg" alt="排骨汤" loading="lazy">
+  <p>门铃响了。</p>
+  <p>他以为是外卖送错了，打开门——一个保温桶。旁边贴着一张纸条，是妈妈的字迹：</p>
+  <p style="text-indent:0;text-align:center;font-size:22px;color:#8b6914;font-weight:600;margin:16px 0;">"排骨汤。趁热喝。别太累了。"</p>
+  <p>纸条下面还有一行小字："隔壁李叔叔正好开车来北京送货，我让他顺路带过来的。汤是昨天晚上炖的，放了你小时候最爱吃的玉米。"</p>
+  <p>他打开保温桶。排骨汤还是热的，玉米切成小段，汤面上浮着细碎的葱花。和二十年前放学回家闻到的，一模一样的味道。</p>
+  <p>这一刻，连续十四小时盯屏幕都没湿的眼睛，突然就模糊了。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<div class="scene">
+  <span class="scene-label">第三幕 · 凌晨四点</span>
+  <img src="phone-message.jpg" alt="妈妈的语音" loading="lazy">
+  <p>他端着碗坐回电脑前，一边喝汤一边点开了妈妈的微信。</p>
+  <p>最新一条是一段语音消息，60秒。他犹豫了一下，点开了——</p>
+  <div class="dialogue">
+    "儿子，妈知道你忙，不打扰你。汤让李叔叔带了，不知道到了没有。你爸说你做的那个什么……软件？让你别太累了，身体最重要。我们不懂你做的东西，但你觉得值得做就做。妈永远支持你。就是……别老熬夜，你小时候就不爱睡觉，现在还是这样……"
+  </div>
+  <p>语音消息到这里就没了。他知道妈妈肯定是说着说着觉得自己啰嗦，就停了。</p>
+  <p>他把汤喝完了。碗底还有一小块软烂的排骨。</p>
+  <p>然后他重新看了一遍那个bug。</p>
+  <p>忽然就想通了。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<div class="scene">
+  <span class="scene-label">尾声 · 清晨六点</span>
+  <img src="dawn-window.jpg" alt="窗外黎明" loading="lazy">
+  <p>bug修好了。产品明天可以按时上线。</p>
+  <p>窗外的天已经亮了。北京三月的清晨，天际线被染成淡淡的橙色。楼下有环卫工人在扫地，远处有早起跑步的人。</p>
+  <p>他给妈妈回了一条微信：</p>
+  <p style="text-indent:0;text-align:center;font-size:21px;color:#2563eb;font-weight:600;margin:16px 0;">"妈，汤收到了，特别好喝。我刚把活儿干完，准备睡了。别担心我。😊"</p>
+  <p>三秒后妈妈就回了——凌晨四点发了语音，清晨六点秒回消息。</p>
+  <p>他知道，妈妈根本没睡，一直在等他回复。</p>
+</div>
+
+<div class="ending">
+  <div class="big">写代码改变世界的人很多<br>但能让你在凌晨四点喝到热汤的<br>只有一个人</div>
+  <div class="note">🍲 记得给妈妈打个电话</div>
+</div>
+
+</div>
+
+<div class="footer">— 虚构短故事 · 致所有深夜还在拼的人和等他们回家的妈妈 —</div>
+
+</body>
+</html>

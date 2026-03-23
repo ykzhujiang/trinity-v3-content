@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXP-202 · 听不见的那首歌</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  background: #0d0d0d; 
+  font-family: -apple-system, 'PingFang SC', sans-serif; 
+  color: #ccc; 
+  max-width: 520px; 
+  margin: 0 auto; 
+  padding: 0; 
+  min-height: 100vh;
+}
+
+/* Music player shell */
+.player {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #111;
+  border-bottom: 1px solid #222;
+  padding: 16px 20px;
+}
+.player-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.album-art {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.track-info .title { font-size: 15px; color: #e0e0e0; }
+.track-info .artist { font-size: 12px; color: #666; margin-top: 2px; }
+
+/* Waveform (actually heartbeat) */
+.waveform-container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 1.5px;
+  overflow: hidden;
+}
+.wave-bar {
+  width: 2.5px;
+  background: #4a90d9;
+  border-radius: 2px;
+  min-height: 2px;
+  transition: height 0.1s ease;
+  opacity: 0.7;
+}
+
+/* Progress bar */
+.progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.progress-track {
+  flex: 1;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.progress-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: #4a90d9;
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.3s linear;
+}
+.time { font-size: 10px; color: #555; font-variant-numeric: tabular-nums; min-width: 32px; }
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  margin-top: 12px;
+}
+.ctrl-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.ctrl-btn:hover { color: #ddd; }
+.play-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  color: #111;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+}
+
+/* Lyrics (actually visual descriptions) */
+.lyrics {
+  padding: 24px 20px 120px;
+}
+.lyric-line {
+  font-size: 14px;
+  line-height: 2;
+  color: #444;
+  padding: 12px 0;
+  border-bottom: 1px solid #1a1a1a;
+  transition: color 0.5s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease, color 0.5s ease;
+}
+.lyric-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lyric-line.active {
+  color: #e0e0e0;
+}
+.lyric-line .timestamp {
+  font-size: 10px;
+  color: #333;
+  margin-right: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.lyric-line .note {
+  display: block;
+  font-size: 11px;
+  color: #555;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* Reveal section */
+.reveal {
+  padding: 40px 20px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+.reveal.show { opacity: 1; }
+.reveal p {
+  font-size: 13px;
+  color: #666;
+  line-height: 2.2;
+  margin-bottom: 8px;
+}
+.reveal .key {
+  font-size: 15px;
+  color: #999;
+  margin-top: 24px;
+  line-height: 2;
+}
+.reveal .end {
+  font-size: 11px;
+  color: #444;
+  margin-top: 32px;
+  letter-spacing: 3px;
+}
+
+/* Heartbeat label - appears at end */
+.heartbeat-label {
+  text-align: center;
+  font-size: 10px;
+  color: #333;
+  letter-spacing: 2px;
+  padding: 8px 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.heartbeat-label.show { opacity: 1; color: #d94f4f; }
+</style>
+</head>
+<body>
+
+<div class="player">
+  <div class="player-top">
+    <div class="album-art">🤫</div>
+    <div class="track-info">
+      <div class="title">听不见的那首歌</div>
+      <div class="artist">他的乐队 · 2019年夏天</div>
+    </div>
+  </div>
+  <div class="waveform-container" id="waveform"></div>
+  <div class="heartbeat-label" id="heartbeatLabel">这不是声波 · 这是她的心跳</div>
+  <div class="progress-wrap">
+    <span class="time" id="timeNow">0:00</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="time">4:32</span>
+  </div>
+  <div class="controls">
+    <button class="ctrl-btn">⏮</button>
+    <button class="play-btn" id="playBtn">▶</button>
+    <button class="ctrl-btn">⏭</button>
+  </div>
+</div>
+
+<div class="lyrics" id="lyrics">
+  <div class="lyric-line" data-time="0">
+    <span class="timestamp">0:00</span>灯暗了。
+    <span class="note">舞台灯灭的那种暗。不是看不见，是突然什么都不确定了。</span>
+  </div>
+  <div class="lyric-line" data-time="12">
+    <span class="timestamp">0:12</span>吉他手的手指落在弦上。
+    <span class="note">我看见他的指尖用力，指甲发白。弦在振动。我知道那是声音。</span>
+  </div>
+  <div class="lyric-line" data-time="28">
+    <span class="timestamp">0:28</span>鼓手的右脚踩下去。
+    <span class="note">鼓面上的水珠弹起来，在射灯里变成碎光。每踩一次，光碎一次。我能感觉地板在震。</span>
+  </div>
+  <div class="lyric-line" data-time="45">
+    <span class="timestamp">0:45</span>贝斯手闭着眼。
+    <span class="note">他的头在点。他的手指很长，按在很粗的弦上。弦振幅大到我能看见——像慢动作的心跳。</span>
+  </div>
+  <div class="lyric-line" data-time="62">
+    <span class="timestamp">1:02</span>主唱开口了。
+    <span class="note">他的喉结上下动。嘴张开的形状——我猜是"啊"。他的脸上有一种我很羡慕的表情：被声音淹没的人，不需要别的感官。</span>
+  </div>
+  <div class="lyric-line" data-time="85">
+    <span class="timestamp">1:25</span>身边的人开始跟唱。
+    <span class="note">嘴型像波浪一样传过去。左边的女生仰着头，右边的男生闭着眼。每个人的嘴都在动，像一群鱼。</span>
+  </div>
+  <div class="lyric-line" data-time="108">
+    <span class="timestamp">1:48</span>我男朋友握住我的手。
+    <span class="note">他把我的手放在他的胸口。我感觉到了。不是心跳——是更大的振动。他的整个胸腔在共鸣。原来人的身体也是乐器。</span>
+  </div>
+  <div class="lyric-line" data-time="135">
+    <span class="timestamp">2:15</span>高潮段。所有人举手。
+    <span class="note">怎么知道是高潮？因为吉他手的头发甩起来了，鼓手站了起来，台下的人全部跳。我的脚能感觉到节奏——通过地板传上来。</span>
+  </div>
+  <div class="lyric-line" data-time="158">
+    <span class="timestamp">2:38</span>他转过来对我喊了一句话。
+    <span class="note">太远了。灯太闪。我读不到他的唇。但他笑了，笑得很大声——我知道笑声是什么样子的：眼睛变小，嘴巴变大，肩膀抖。</span>
+  </div>
+  <div class="lyric-line" data-time="182">
+    <span class="timestamp">3:02</span>慢下来。吉他独奏。
+    <span class="note">他的手指在品格上滑动。指尖和弦摩擦的样子，像在抚摸一个人的脸。这一段一定很温柔。我从他的手知道。</span>
+  </div>
+  <div class="lyric-line" data-time="205">
+    <span class="timestamp">3:25</span>主唱蹲下来，对着前排唱。
+    <span class="note">他的嘴在对着一个女生的脸。那个女生在哭。我也想哭。不是因为歌。是因为我不知道她为什么哭。</span>
+  </div>
+  <div class="lyric-line" data-time="228">
+    <span class="timestamp">3:48</span>最后一个音。
+    <span class="note">吉他手的手悬在弦上方。所有人的嘴都停了。持续了很久。三秒？五秒？然后所有的手开始拍。我从振动频率知道：掌声。</span>
+  </div>
+  <div class="lyric-line" data-time="248">
+    <span class="timestamp">4:08</span>灯亮了。
+    <span class="note">我男朋友把手机递给我。屏幕上打着字："好听吗？" 我打回去："我不知道。但是很好看。"</span>
+  </div>
+  <div class="lyric-line" data-time="260" style="border-bottom:none;">
+    <span class="timestamp">4:20</span>他又打了一行字。
+    <span class="note" style="color:#888;">"下次我录下来，你把手放在音箱上听。"</span>
+    <span class="note" style="margin-top:8px; color:#666;">"用皮肤听。"</span>
+  </div>
+</div>
+
+<div class="reveal" id="reveal">
+  <p>她在三岁的时候失去了听力。</p>
+  <p>这是她第一次去livehouse。</p>
+  <p>她说：这首歌四分三十二秒。</p>
+  <p>她全程都知道。</p>
+  <div class="key">
+    因为波形图上跳的，<br>
+    不是声音。<br><br>
+    是她的心跳。<br>
+    从头到尾，72次/分钟。<br>
+    到1:48他握住她的手，<br>
+    变成了89。
+  </div>
+  <div class="end">四分三十二秒</div>
+  <div class="end" style="margin-top:4px;">她听到的和你一样多</div>
+  <div class="end" style="margin-top:4px;">零</div>
+  <div class="end" style="margin-top:16px;">但她看到的比你多得多</div>
+</div>
+
+<script>
+// Generate waveform bars (heartbeat pattern)
+const waveformEl = document.getElementById('waveform');
+const barCount = 120;
+const bars = [];
+for (let i = 0; i < barCount; i++) {
+  const bar = document.createElement('div');
+  bar.className = 'wave-bar';
+  bar.style.height = '2px';
+  waveformEl.appendChild(bar);
+  bars.push(bar);
+}
+
+// Heartbeat waveform animation
+let playing = false;
+let beatRate = 72; // BPM
+let elapsed = 0;
+let animFrame;
+let lastTime = 0;
+
+function heartbeatHeight(phase) {
+  // PQRST waveform approximation
+  const p = phase % 1;
+  if (p < 0.1) return 4 + Math.sin(p * Math.PI / 0.1) * 8;
+  if (p < 0.15) return 4;
+  if (p < 0.2) return 4 + Math.sin((p - 0.15) * Math.PI / 0.05) * 30;
+  if (p < 0.25) return 4 - Math.sin((p - 0.2) * Math.PI / 0.05) * 6;
+  if (p < 0.35) return 4 + Math.sin((p - 0.25) * Math.PI / 0.1) * 12;
+  return 3 + Math.random() * 2;
+}
+
+function animateWaveform(timestamp) {
+  if (!playing) return;
+  if (!lastTime) lastTime = timestamp;
+  const dt = (timestamp - lastTime) / 1000;
+  lastTime = timestamp;
+  elapsed += dt;
+  
+  // Update beat rate based on elapsed time
+  if (elapsed > 108 && elapsed < 158) beatRate = 89; // when he holds her hand
+  else if (elapsed > 135 && elapsed < 182) beatRate = 95; // high point
+  else beatRate = 72;
+  
+  const beatsPerSec = beatRate / 60;
+  
+  bars.forEach((bar, i) => {
+    const phase = (elapsed * beatsPerSec + i * 0.03) ;
+    const h = heartbeatHeight(phase);
+    bar.style.height = Math.max(2, h) + 'px';
+  });
+  
+  // Update progress
+  const progress = Math.min(elapsed / 272, 1);
+  document.getElementById('progressFill').style.width = (progress * 100) + '%';
+  const mins = Math.floor(elapsed / 60);
+  const secs = Math.floor(elapsed % 60);
+  document.getElementById('timeNow').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+  
+  // Activate lyrics
+  const lines = document.querySelectorAll('.lyric-line');
+  lines.forEach(line => {
+    const t = parseInt(line.dataset.time);
+    if (elapsed >= t) {
+      line.classList.add('visible');
+      // Active = current line
+      const next = line.nextElementSibling;
+      const nextT = next ? parseInt(next.dataset.time) : 999;
+      if (elapsed >= t && elapsed < nextT) {
+        line.classList.add('active');
+      } else {
+        line.classList.remove('active');
+      }
+    }
+  });
+  
+  // Show reveal at end
+  if (elapsed >= 265) {
+    document.getElementById('reveal').classList.add('show');
+    document.getElementById('heartbeatLabel').classList.add('show');
+  }
+  
+  if (elapsed < 280) animFrame = requestAnimationFrame(animateWaveform);
+}
+
+document.getElementById('playBtn').addEventListener('click', () => {
+  if (!playing) {
+    playing = true;
+    document.getElementById('playBtn').textContent = '⏸';
+    lastTime = 0;
+    animFrame = requestAnimationFrame(animateWaveform);
+  } else {
+    playing = false;
+    document.getElementById('playBtn').textContent = '▶';
+  }
+});
+
+// Scroll-based reveal as fallback
+const lyricObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !playing) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.lyric-line').forEach(l => lyricObserver.observe(l));
+</script>
+</body>
+</html>

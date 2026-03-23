@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>两个人的购物车</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:#f5f5f5;color:#333;min-height:100vh;display:flex;justify-content:center}
+.container{max-width:460px;width:100%;padding:30px 12px 80px}
+.header{text-align:center;margin-bottom:28px}
+.header h1{font-size:20px;font-weight:700}
+.header .sub{font-size:12px;color:#999;margin-top:4px}
+.tabs{display:flex;margin-bottom:20px;background:#eee;border-radius:10px;padding:3px}
+.tab{flex:1;text-align:center;padding:8px;font-size:13px;border-radius:8px;cursor:pointer;transition:all 0.2s;color:#888}
+.tab.active{background:#fff;color:#333;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.tab.his{border:2px solid transparent}.tab.his.active{border-color:#339af0}
+.tab.hers{border:2px solid transparent}.tab.hers.active{border-color:#e64980}
+.tab.both{border:2px solid transparent}.tab.both.active{border-color:#845ef7}
+.timeline-view{display:none}.timeline-view.active{display:block}
+.year-section{margin-bottom:24px}
+.year-title{font-size:15px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.year-title .dot{width:8px;height:8px;border-radius:50%}
+.item{display:flex;gap:10px;padding:8px 10px;background:#fff;border-radius:10px;margin-bottom:4px;align-items:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+.item-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0}
+.item-info{flex:1}
+.item-name{font-size:13px;font-weight:500}
+.item-detail{font-size:11px;color:#999;margin-top:2px}
+.item-tag{font-size:10px;padding:2px 6px;border-radius:4px;display:inline-block;margin-top:3px}
+.tag-his{background:#e7f5ff;color:#339af0}
+.tag-hers{background:#fff0f6;color:#e64980}
+.tag-both{background:#f3f0ff;color:#845ef7}
+.tag-gone{background:#f1f3f5;color:#adb5bd;text-decoration:line-through}
+.note{margin:4px 0 10px;padding:6px 10px;font-size:12px;color:#888;line-height:1.6;background:#fafafa;border-radius:8px;border-left:3px solid #ddd}
+.note.bittersweet{border-color:#e64980}
+.note.warm{border-color:#fcc419}
+.note.converge{border-color:#845ef7}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px}
+.split-card{padding:8px;background:#fff;border-radius:8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+.split-card .emoji{font-size:24px}
+.split-card .label{font-size:11px;color:#999;margin-top:2px}
+.split-card .val{font-size:13px;font-weight:600;margin-top:1px}
+.ending{text-align:center;margin-top:36px;padding:20px 16px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.ending .emoji{font-size:36px}
+.ending .quote{font-size:14px;color:#666;margin-top:12px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>🛒 两个人的购物车</h1>
+<div class="sub">2016—2024 · 淘宝购物车对照记</div>
+</div>
+
+<div class="tabs">
+<div class="tab his active" onclick="switchView('his')">🧔 他的</div>
+<div class="tab hers" onclick="switchView('hers')">👩 她的</div>
+<div class="tab both" onclick="switchView('both')">👫 对照</div>
+</div>
+
+<!-- 他的购物车 -->
+<div class="timeline-view active" id="view-his">
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#ff6b6b"></div> 2016 · 恋爱第一年</div>
+<div class="item"><div class="item-icon">🎮</div><div class="item-info"><div class="item-name">PS4 Pro</div><div class="item-detail">¥2,999 · 双11 抢到了</div><div class="item-tag tag-his">已购买</div></div></div>
+<div class="item"><div class="item-icon">👔</div><div class="item-info"><div class="item-name">情侣卫衣 · 黑色 XL</div><div class="item-detail">¥168 · 和她一起选的</div><div class="item-tag tag-both">同款</div></div></div>
+<div class="item"><div class="item-icon">💍</div><div class="item-info"><div class="item-name">施华洛世奇项链</div><div class="item-detail">¥899 · 收藏了3个月才买</div><div class="item-tag tag-his">圣诞礼物</div></div></div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#fcc419"></div> 2018 · 结婚那年</div>
+<div class="item"><div class="item-icon">🏠</div><div class="item-info"><div class="item-name">宜家 KALLAX 书架</div><div class="item-detail">¥599 · 新家第一件家具</div></div></div>
+<div class="item"><div class="item-icon">🎮</div><div class="item-info"><div class="item-name">Switch + 双人手柄</div><div class="item-detail">¥2,350 · "我们可以一起玩"</div></div></div>
+<div class="item"><div class="item-icon">🔪</div><div class="item-info"><div class="item-name">双立人刀具套装</div><div class="item-detail">¥1,280 · 说要学做饭</div></div></div>
+<div class="note warm">那年的购物车里，"我们"出现了很多次。选东西的标准是"两个人都能用"。</div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#51cf66"></div> 2020 · 当爸爸了</div>
+<div class="item"><div class="item-icon">👶</div><div class="item-info"><div class="item-name">婴儿推车 · 高景观</div><div class="item-detail">¥1,899 · 比较了 27 款</div></div></div>
+<div class="item"><div class="item-icon">📷</div><div class="item-info"><div class="item-name">索尼 A7M3</div><div class="item-detail">¥12,999 · "要给孩子拍照"</div></div></div>
+<div class="item"><div class="item-icon">🎮</div><div class="item-info"><div class="item-name">PS5</div><div class="item-detail">¥3,899 · <span style="color:#aaa">收藏 → 移除 → 收藏 → 移除</span></div><div class="item-tag tag-gone">最终未购买</div></div></div>
+<div class="note">PS5 在购物车里进进出出了4次。最后一次移除是在看到纸尿裤价格之后。</div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#339af0"></div> 2022 · 第六年</div>
+<div class="item"><div class="item-icon">🏃</div><div class="item-info"><div class="item-name">跑步机 · 折叠款</div><div class="item-detail">¥2,499 · 体检完买的</div></div></div>
+<div class="item"><div class="item-icon">🫖</div><div class="item-info"><div class="item-name">紫砂壶 + 普洱茶</div><div class="item-detail">¥368 · 什么时候开始喝茶了？</div></div></div>
+<div class="item"><div class="item-icon">💊</div><div class="item-info"><div class="item-name">护肝片 + 维生素B</div><div class="item-detail">¥189 · 月度回购</div></div></div>
+<div class="note">从游戏机到跑步机，从可乐到普洱。购物车是一个人的体检报告。</div>
+</div>
+
+</div>
+
+<!-- 她的购物车 -->
+<div class="timeline-view" id="view-hers">
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#ff6b6b"></div> 2016 · 恋爱第一年</div>
+<div class="item"><div class="item-icon">👗</div><div class="item-info"><div class="item-name">碎花连衣裙 × 3</div><div class="item-detail">¥128-268 · 他说好看</div></div></div>
+<div class="item"><div class="item-icon">👔</div><div class="item-info"><div class="item-name">情侣卫衣 · 黑色 S</div><div class="item-detail">¥168 · 同款</div><div class="item-tag tag-both">同款</div></div></div>
+<div class="item"><div class="item-icon">📸</div><div class="item-info"><div class="item-name">拍立得 mini 11</div><div class="item-detail">¥599 · 拍了很多两个人的照片</div></div></div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#fcc419"></div> 2018 · 结婚那年</div>
+<div class="item"><div class="item-icon">🏠</div><div class="item-info"><div class="item-name">香薰蜡烛 + 干花</div><div class="item-detail">¥89 · 新家要有味道</div></div></div>
+<div class="item"><div class="item-icon">📚</div><div class="item-info"><div class="item-name">《两个人的晚餐》食谱</div><div class="item-detail">¥42 · 做了第一道菜是西红柿炒蛋</div></div></div>
+<div class="item"><div class="item-icon">🧳</div><div class="item-info"><div class="item-name">行李箱 · 28寸 × 2</div><div class="item-detail">¥459 · 蜜月用</div></div></div>
+<div class="note warm">那年她的购物车和他的高度重叠。两个人的算法推荐页开始长得一样。</div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#51cf66"></div> 2020 · 当妈妈了</div>
+<div class="item"><div class="item-icon">👶</div><div class="item-info"><div class="item-name">哺乳内衣 + 防溢乳垫</div><div class="item-detail">¥68-128 · 月度复购</div></div></div>
+<div class="item"><div class="item-icon">📖</div><div class="item-info"><div class="item-name">《美国儿科学会育儿百科》</div><div class="item-detail">¥69 · 翻了不下20遍</div></div></div>
+<div class="item"><div class="item-icon">👗</div><div class="item-info"><div class="item-name">连衣裙</div><div class="item-detail"><span style="color:#aaa">收藏 → 从未购买</span></div><div class="item-tag tag-gone">0 单</div></div></div>
+<div class="note bittersweet">2020年全年，她没有给自己买过一件衣服。购物车里全是孩子的东西和家里的消耗品。</div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#339af0"></div> 2022 · 第六年</div>
+<div class="item"><div class="item-icon">✈️</div><div class="item-info"><div class="item-name">"一个人的旅行" 攻略收藏 × 7</div><div class="item-detail">大理 / 厦门 / 清迈 / 济州岛...</div><div class="item-tag tag-hers">仅收藏</div></div></div>
+<div class="item"><div class="item-icon">📷</div><div class="item-info"><div class="item-name">拍立得相纸</div><div class="item-detail">停止购买。上一次购买是2019年。</div></div></div>
+<div class="item"><div class="item-icon">📚</div><div class="item-info"><div class="item-name">《82年生的金智英》</div><div class="item-detail">¥32</div></div></div>
+<div class="note bittersweet">七篇"一个人的旅行"攻略，全部只收藏没下单。购物车里的愿望清单，有时候不是为了买，是为了想。</div>
+</div>
+
+</div>
+
+<!-- 对照视图 -->
+<div class="timeline-view" id="view-both">
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#ff6b6b"></div> 2016 · 两个购物车重叠度：78%</div>
+<div class="split">
+<div class="split-card"><div class="emoji">🎮</div><div class="val">PS4</div><div class="label">他的快乐</div></div>
+<div class="split-card"><div class="emoji">📸</div><div class="val">拍立得</div><div class="label">她的快乐</div></div>
+</div>
+<div class="split">
+<div class="split-card" style="grid-column:1/3;background:#f3f0ff"><div class="emoji">👔👔</div><div class="val">情侣卫衣</div><div class="label">共同的东西比不同的多</div></div>
+</div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#51cf66"></div> 2020 · 两个购物车重叠度：91%</div>
+<div class="split">
+<div class="split-card"><div class="emoji">👶</div><div class="val">婴儿推车</div><div class="label">他搜的</div></div>
+<div class="split-card"><div class="emoji">👶</div><div class="val">哺乳用品</div><div class="label">她搜的</div></div>
+</div>
+<div class="note">重叠度最高的一年。但重叠的不是两个人的兴趣，是一个孩子的需求。</div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#339af0"></div> 2022 · 两个购物车重叠度：23%</div>
+<div class="split">
+<div class="split-card"><div class="emoji">🫖</div><div class="val">紫砂壶</div><div class="label">他的中年</div></div>
+<div class="split-card"><div class="emoji">✈️</div><div class="val">旅行攻略</div><div class="label">她的远方</div></div>
+</div>
+<div class="note bittersweet">两个购物车开始各说各话。算法推荐页不再重叠。同一个屋檐下，两个淘宝首页。</div>
+</div>
+
+<div class="year-section">
+<div class="year-title"><div class="dot" style="background:#845ef7"></div> 2024 · 两个购物车重叠度：?</div>
+<div class="split">
+<div class="split-card"><div class="emoji">🏡</div><div class="val">养老社区<br><span style="font-size:11px;color:#999">海南 · 两居室</span></div><div class="label">他收藏的</div></div>
+<div class="split-card"><div class="emoji">🏡</div><div class="val">养老社区<br><span style="font-size:11px;color:#999">海南 · 两居室</span></div><div class="label">她收藏的</div></div>
+</div>
+<div class="note converge">同一个小区。同一个户型。收藏时间相差3天。<br>谁也没告诉谁。</div>
+</div>
+
+</div>
+
+<div class="ending">
+<div class="emoji">🛒🛒</div>
+<div class="quote">
+两个购物车。<br>
+从完全重叠，到各走各路，<br>
+到在终点悄悄重新交汇。<br><br>
+<span style="font-size:12px;color:#bbb">爱情最诚实的模样，<br>不在朋友圈，在购物车。<br>因为没人会在购物车里表演。</span>
+</div>
+</div>
+
+</div>
+
+<script>
+function switchView(v){
+  document.querySelectorAll('.timeline-view').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelector('.tab.'+v).classList.add('active');
+}
+</script>
+</body>
+</html>

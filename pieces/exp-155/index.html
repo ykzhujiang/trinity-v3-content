@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>同事群聊考古学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:#0a0a0a;color:#e5e5e5;min-height:100vh;display:flex;justify-content:center}
+.container{max-width:440px;width:100%;padding:30px 16px 80px}
+.header{text-align:center;margin-bottom:32px}
+.header h1{font-size:11px;color:#666;letter-spacing:3px;font-weight:400;text-transform:uppercase}
+.header .subtitle{font-size:20px;margin-top:8px;font-weight:600;color:#fff}
+.header .meta{font-size:12px;color:#555;margin-top:6px}
+.era{margin-bottom:32px}
+.era-label{font-size:10px;color:#ff9500;letter-spacing:2px;margin-bottom:12px;padding:4px 8px;background:#1a1500;border-radius:4px;display:inline-block}
+.msg{display:flex;gap:10px;margin-bottom:6px;align-items:flex-start}
+.msg.right{flex-direction:row-reverse}
+.avatar{width:32px;height:32px;border-radius:6px;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bubble{max-width:72%;padding:8px 12px;border-radius:12px;font-size:14px;line-height:1.5;position:relative}
+.msg:not(.right) .bubble{background:#1c1c1e;border-top-left-radius:4px}
+.msg.right .bubble{background:#1a5c2e;border-top-right-radius:4px}
+.name{font-size:10px;color:#666;margin-bottom:2px}
+.annotation{margin:8px 0 14px 42px;padding:8px 12px;background:#111;border-left:2px solid #ff9500;border-radius:0 6px 6px 0;font-size:12px;color:#999;line-height:1.6}
+.annotation em{color:#ff9500;font-style:normal}
+.time-sep{text-align:center;font-size:11px;color:#444;margin:20px 0;letter-spacing:1px}
+.voice-msg{display:flex;align-items:center;gap:6px;padding:8px 14px;background:#1c1c1e;border-radius:12px;font-size:12px;color:#888;cursor:pointer;max-width:200px}
+.voice-bars{display:flex;gap:2px;align-items:center}
+.voice-bars span{display:block;width:3px;background:#666;border-radius:1px}
+.red-packet{background:#c4402e;color:#fff;padding:10px 14px;border-radius:12px;font-size:13px;max-width:180px;cursor:pointer}
+.red-packet .rp-title{font-size:14px;margin-bottom:4px}
+.red-packet .rp-line{border-top:1px solid rgba(255,255,255,0.2);padding-top:6px;font-size:10px;color:rgba(255,255,255,0.7)}
+.system-msg{text-align:center;font-size:11px;color:#444;margin:12px 0;padding:4px 10px;background:#111;border-radius:10px;display:inline-block;margin-left:50%;transform:translateX(-50%)}
+.recall{text-align:center;font-size:11px;color:#555;margin:8px 0}
+.divider{height:1px;background:#1a1a1a;margin:28px 0}
+.ending{text-align:center;margin-top:40px;padding:20px;background:#111;border-radius:12px}
+.ending .stat{font-size:11px;color:#555;margin-bottom:4px}
+.ending .quote{font-size:15px;color:#ccc;margin-top:12px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>数字人类学田野报告 #07</h1>
+<div class="subtitle">同事群聊考古学</div>
+<div class="meta">群名：「市场部精英💪」→「市场部」→「前市场部老人」<br>成员：37人（活跃：4人） · 建群：2019年3月</div>
+</div>
+
+<!-- 地层一 -->
+<div class="era">
+<div class="era-label">🏛 地层一 · 蜜月期（2019.03—2019.06）</div>
+
+<div class="time-sep">——— 2019年3月15日 ———</div>
+<div class="system-msg">张总 邀请了 37 人加入群聊</div>
+
+<div class="msg"><div class="avatar" style="background:#2563eb">张</div><div><div class="name">张总</div><div class="bubble">大家好！这是咱们市场部的大家庭🎉以后有什么事直接群里说！</div></div></div>
+
+<div class="msg"><div class="avatar" style="background:#7c3aed">李</div><div><div class="name">李姐</div><div class="bubble">好的张总！💪💪💪</div></div></div>
+
+<div class="msg"><div class="avatar" style="background:#059669">王</div><div><div class="name">小王</div><div class="bubble">好的张总！💪💪💪</div></div></div>
+
+<div class="msg"><div class="avatar" style="background:#d97706">刘</div><div><div class="name">刘哥</div><div class="bubble">好的张总！💪💪💪</div></div></div>
+
+<div class="annotation"><em>【田野笔记】</em> "好的张总" + 完全相同的emoji，在群聊人类学中称为 <em>"回声效应"</em>——当权力结构建立时，成员通过复制第一个响应者来表示忠诚。注意：回复速度与职级严格负相关。</div>
+
+<div class="msg"><div class="avatar" style="background:#2563eb">张</div><div><div class="name">张总</div><div class="bubble"><div class="voice-msg"><div class="voice-bars"><span style="height:6px"></span><span style="height:12px"></span><span style="height:8px"></span><span style="height:16px"></span><span style="height:10px"></span><span style="height:14px"></span><span style="height:6px"></span></div>0:47</div></div></div></div>
+
+<div class="annotation"><em>【田野笔记】</em> 47秒语音。在部落文化中，<em>只有首领使用语音消息</em>——因为语音意味着「你的时间不如我的时间重要」。群成员必须在安静环境中找到耳机、听完、猜测核心意思。这是一种 <em>权力仪式</em>。</div>
+
+</div>
+
+<!-- 地层二 -->
+<div class="divider"></div>
+<div class="era">
+<div class="era-label">📊 地层二 · "收到"级联时代（2019.07—2020.03）</div>
+
+<div class="time-sep">——— 2019年8月2日 周五 18:47 ———</div>
+
+<div class="msg"><div class="avatar" style="background:#2563eb">张</div><div><div class="name">张总</div><div class="bubble">周末把Q3方案发我</div></div></div>
+
+<div class="msg"><div class="avatar" style="background:#7c3aed">李</div><div><div class="name">李姐</div><div class="bubble">收到</div></div></div>
+<div class="msg"><div class="avatar" style="background:#059669">王</div><div><div class="name">小王</div><div class="bubble">收到</div></div></div>
+<div class="msg"><div class="avatar" style="background:#d97706">刘</div><div><div class="name">刘哥</div><div class="bubble">收到</div></div></div>
+<div class="msg"><div class="avatar" style="background:#dc2626">赵</div><div><div class="name">赵实习</div><div class="bubble">收到！</div></div></div>
+
+<div class="annotation"><em>【田野笔记】</em> 注意赵实习的感叹号。在"收到"级联生态中，<em>标点符号是严格的等级标记</em>：<br>「收到」= 正式/安全<br>「收到！」= 新人/过度热情<br>「收到👌」= 试图表现随意<br>「好的。」= <em>被动攻击</em><br>句号是办公室群聊中最具杀伤力的武器。</div>
+
+<div class="time-sep">——— 2019年11月14日 23:11 ———</div>
+
+<div class="msg"><div class="avatar" style="background:#2563eb">张</div><div><div class="name">张总</div><div class="bubble"><div class="voice-msg"><div class="voice-bars"><span style="height:8px"></span><span style="height:14px"></span><span style="height:18px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:6px"></span></div>1:23</div></div></div></div>
+
+<div class="annotation"><em>【田野笔记】</em> 深夜11点，1分23秒语音。没人回复。人类学家将这种现象称为 <em>"集体装死"</em>——一种高度协调的群体自我保护行为。37人同时看到、同时选择沉默。这需要的默契程度，堪比鸟群变向。</div>
+
+</div>
+
+<!-- 地层三 -->
+<div class="divider"></div>
+<div class="era">
+<div class="era-label">🔗 地层三 · 拼多多砍一刀时代（2020.04—2020.12）</div>
+
+<div class="time-sep">——— 2020年6月 ———</div>
+
+<div class="msg"><div class="avatar" style="background:#dc2626">赵</div><div><div class="name">赵哥（已转正）</div><div class="bubble">兄弟姐妹们帮我砍一刀🙏就差0.01%了！！<br><span style="color:#ff4d4f;font-size:12px">🔗 点击帮忙砍一刀，你也可以领现金...</span></div></div></div>
+
+<div class="msg"><div class="avatar" style="background:#059669">王</div><div><div class="name">小王</div><div class="bubble">砍了</div></div></div>
+
+<div class="msg"><div class="avatar" style="background:#d97706">刘</div><div><div class="name">刘哥</div><div class="bubble">我也要砍！帮我也砍一下🙏<br><span style="color:#ff4d4f;font-size:12px">🔗 点击帮忙砍一刀...</span></div></div></div>
+
+<div class="annotation"><em>【田野笔记】</em> "砍一刀"是群聊中唯一打破权力结构的社交行为——<em>首领和实习生在拼多多面前是平等的</em>。张总从未发过砍一刀链接，但曾在凌晨1点默默帮3个人砍了。这条记录埋藏在群聊深处，是整个田野调查中最动人的发现之一。</div>
+
+</div>
+
+<!-- 地层四 -->
+<div class="divider"></div>
+<div class="era">
+<div class="era-label">🏜️ 地层四 · 大灭绝事件（2021—2023）</div>
+
+<div class="time-sep">——— 2021年3月 · 第一次组织架构调整 ———</div>
+<div class="system-msg">李姐 退出了群聊</div>
+<div class="system-msg">陈经理 退出了群聊</div>
+<div class="system-msg">小孙 退出了群聊</div>
+
+<div class="annotation"><em>【田野笔记】</em> 群聊人类学第一定律：<em>离职的人先退群</em>。但有两种退法——"默默退出"意味着体面离开；"退群前发一段长文"意味着仲裁。李姐属于前者。没有人说再见。在群聊中，「退群」本身就是告别。</div>
+
+<div class="time-sep">——— 2022年1月 ———</div>
+
+<div class="recall">—— 张总 撤回了一条消息 ——</div>
+
+<div class="annotation"><em>【田野笔记】</em> 撤回消息是群聊考古中的 <em>"暗物质"</em>——你知道它存在过，但永远无法知道内容。张总在晚上10点撤回了一条消息。7个人看到了通知。没人问是什么。这种默契，比任何团建都更能证明这个群的成熟度。</div>
+
+<div class="time-sep">——— 2022年8月 ———</div>
+<div class="system-msg">群名已更改为「前市场部老人」</div>
+
+<div class="annotation"><em>【田野笔记】</em> 改群名意味着<em>集体身份重新定义</em>。"精英"→ 无后缀 → "老人"。群聊名称的演化史，就是这个团队的心理史。"老人"一词同时包含怀旧与解脱。</div>
+
+</div>
+
+<!-- 地层五 -->
+<div class="divider"></div>
+<div class="era">
+<div class="era-label">🦴 地层五 · 化石层（2023—至今）</div>
+
+<div class="time-sep">——— 2023年 全年消息总数：14条 ———</div>
+
+<div class="msg"><div class="avatar" style="background:#d97706">刘</div><div><div class="name">刘哥</div><div class="bubble">新年快乐大家🧧</div></div></div>
+<div class="msg"><div class="avatar" style="background:#059669">王</div><div><div class="name">小王</div><div class="bubble">新年快乐！</div></div></div>
+
+<div class="time-sep">· · · 沉默 47 天 · · ·</div>
+
+<div class="msg"><div class="avatar" style="background:#dc2626">赵</div><div><div class="name">赵哥</div><div class="bubble">有人知道以前Q3那个方案模板在哪吗</div></div></div>
+
+<div class="time-sep">· · · 无人回复 · · ·</div>
+
+<div class="annotation"><em>【田野笔记】</em> 化石层特征：消息类型缩减至两种——<em>节日祝福</em>和<em>功能性求助</em>。这两种消息的共同特点是不需要情感投入。群聊的最终形态不是死亡，而是 <em>矿化</em>——结构保存完好，但所有有机物已经消失。</div>
+
+<div class="time-sep">——— 2024年2月10日 春节 ———</div>
+
+<div class="msg"><div class="avatar" style="background:#2563eb">张</div><div><div class="name">张总</div><div><div class="red-packet"><div class="rp-title">🧧 恭喜发财</div><div class="rp-line">张总的红包</div></div></div></div></div>
+
+<div style="font-size:11px;color:#666;text-align:center;margin:8px 0">刘哥、小王、赵哥 领取了红包<br><span style="color:#444">34人未领取</span></div>
+
+<div class="annotation"><em>【田野笔记】</em> 37人的群，3人抢红包。红包领取率是群聊活性的终极指标。低于10%意味着<em>大多数成员已经将这个群设为了"消息免打扰"</em>。但张总每年还是会发。人类学家把这种行为称为 <em>"仪式性维持"</em>——不是为了交流，是为了确认「这个群还在」。</div>
+
+</div>
+
+<!-- 结尾 -->
+<div class="ending">
+<div class="stat">群成员 37 人 · 建群 2,019 天</div>
+<div class="stat">消息总数 4,821 条 · 最后活跃 23 天前</div>
+<div class="stat" style="margin-top:12px;color:#666">其中「收到」出现 1,247 次</div>
+<div class="stat">「好的」出现 893 次</div>
+<div class="stat">「👍」出现 412 次</div>
+<div class="stat">撤回消息 67 条</div>
+<div class="quote" style="margin-top:16px">每个人手机里都有一个这样的群。<br>你不会打开它，也不会退出它。<br>它就在那里，像一颗化石，<br>记录着你曾经每天见面的那些人。</div>
+</div>
+
+</div>
+</body>
+</html>

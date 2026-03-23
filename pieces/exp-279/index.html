@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>创业者体检报告·2025年度 | EXP-279</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;background:#f0f2f5;color:#1a1a1a;font-size:20px;line-height:1.7;overflow-x:hidden}
+.container{max-width:420px;margin:0 auto;min-height:100vh;background:#fff}
+
+/* Hospital header */
+.hospital-header{background:#fff;padding:52px 20px 16px;border-bottom:3px solid #1a56db;text-align:center}
+.hospital-header .logo{font-size:36px;margin-bottom:4px}
+.hospital-header h1{font-size:18px;font-weight:700;color:#1a56db;letter-spacing:3px}
+.hospital-header .sub{font-size:13px;color:#999;margin-top:4px}
+
+/* Patient info */
+.patient-info{padding:16px 20px;background:#f8f9ff;border-bottom:1px dashed #d0d7e6;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:14px;color:#555}
+.patient-info .label{color:#999}
+.patient-info .value{font-weight:600;color:#333}
+
+/* Section */
+.section{padding:0 20px;margin-top:20px;opacity:0;transform:translateY(15px)}
+.section.visible{opacity:1;transform:translateY(0);transition:all 0.5s ease}
+.section-title{font-size:16px;font-weight:700;color:#1a56db;padding-bottom:8px;border-bottom:2px solid #e8ecf3;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+
+/* Indicator row */
+.indicator{display:flex;align-items:center;padding:12px 0;border-bottom:1px solid #f0f2f5;gap:10px}
+.indicator:last-child{border-bottom:none}
+.ind-name{flex:1;font-size:16px;color:#333;min-width:0}
+.ind-value{font-size:16px;font-weight:700;min-width:60px;text-align:right}
+.ind-range{font-size:12px;color:#999;min-width:80px;text-align:right}
+.ind-arrow{font-size:14px;font-weight:700;min-width:30px;text-align:center}
+.ind-arrow.up{color:#ef4444}
+.ind-arrow.down{color:#22c55e}
+.ind-arrow.normal{color:#999}
+.ind-value.danger{color:#ef4444}
+.ind-value.warn{color:#f59e0b}
+.ind-value.ok{color:#22c55e}
+.ind-value.critical{color:#ef4444;font-size:18px}
+
+/* Bar chart */
+.bar-chart{margin:12px 0}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.bar-label{font-size:13px;color:#666;width:50px;text-align:right;flex-shrink:0}
+.bar-track{flex:1;background:#f0f2f5;border-radius:4px;height:20px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:4px;transition:width 1.5s ease;width:0}
+.bar-fill.red{background:linear-gradient(90deg,#fca5a5,#ef4444)}
+.bar-fill.yellow{background:linear-gradient(90deg,#fde68a,#f59e0b)}
+.bar-fill.green{background:linear-gradient(90deg,#86efac,#22c55e)}
+.bar-fill.blue{background:linear-gradient(90deg,#93c5fd,#3b82f6)}
+.bar-num{font-size:12px;color:#666;width:40px;flex-shrink:0}
+
+/* Compare box */
+.compare-box{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin:12px 0;padding:12px;background:#f8f9ff;border-radius:10px;text-align:center;font-size:14px}
+.compare-box .year{font-size:12px;color:#999;margin-bottom:4px}
+.compare-box .val{font-size:22px;font-weight:800}
+.compare-box .arrow-mid{display:flex;align-items:center;font-size:20px;color:#999}
+
+/* Doctor note */
+.doctor-note{margin:24px 20px 0;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px;opacity:0;transform:translateY(20px)}
+.doctor-note.visible{opacity:1;transform:translateY(0);transition:all 0.8s ease}
+.doctor-note .title{font-size:15px;font-weight:700;color:#b45309;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.doctor-note .text{font-size:16px;color:#78350f;line-height:1.8}
+.doctor-note .sig{font-size:13px;color:#b45309;margin-top:12px;text-align:right;font-style:italic}
+
+/* Stamp */
+.stamp-area{text-align:center;padding:24px 20px 40px;opacity:0}
+.stamp-area.visible{opacity:1;transition:all 0.6s ease}
+.stamp-circle{display:inline-block;width:80px;height:80px;border:3px solid #ef4444;border-radius:50%;line-height:80px;color:#ef4444;font-size:15px;font-weight:900;transform:rotate(-15deg);letter-spacing:2px}
+.stamp-date{font-size:12px;color:#999;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hospital-header">
+  <div class="logo">🏥</div>
+  <h1>创业者健康管理中心</h1>
+  <div class="sub">年度综合体检报告（2025）</div>
+</div>
+
+<div class="patient-info">
+  <div><span class="label">姓名：</span><span class="value">张潇</span></div>
+  <div><span class="label">创龄：</span><span class="value">3年2个月</span></div>
+  <div><span class="label">公司：</span><span class="value">某AI创业公司</span></div>
+  <div><span class="label">轮次：</span><span class="value">Pre-A</span></div>
+  <div><span class="label">员工数：</span><span class="value">12人</span></div>
+  <div><span class="label">检查日期：</span><span class="value">2025.12.15</span></div>
+</div>
+
+<!-- Section 1: 财务健康 -->
+<div class="section" data-delay="100">
+  <div class="section-title">💰 一、财务健康指标</div>
+  
+  <div class="indicator">
+    <div class="ind-name">现金流指数</div>
+    <div class="ind-value danger">偏低</div>
+    <div class="ind-arrow down">↓↓</div>
+    <div class="ind-range">参考：≥6个月</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">月燃烧率</div>
+    <div class="ind-value warn">38万/月</div>
+    <div class="ind-arrow up">↑</div>
+    <div class="ind-range">建议：≤25万</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">账户余额安全度</div>
+    <div class="ind-value danger">⚠️ 仅够4.2个月</div>
+    <div class="ind-arrow down">↓</div>
+    <div class="ind-range">红线：3个月</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">融资进展</div>
+    <div class="ind-value warn">面谈中</div>
+    <div class="ind-arrow normal">→</div>
+    <div class="ind-range">见了14家VC</div>
+  </div>
+</div>
+
+<!-- Section 2: 心理健康 -->
+<div class="section" data-delay="100">
+  <div class="section-title">🧠 二、心理健康指标</div>
+  
+  <div class="indicator">
+    <div class="ind-name">焦虑浓度</div>
+    <div class="ind-value critical">严重超标 ↑↑↑</div>
+    <div class="ind-arrow up">↑↑↑</div>
+    <div class="ind-range">正常：≤30</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">深夜清醒指数</div>
+    <div class="ind-value danger">87%</div>
+    <div class="ind-arrow up">↑</div>
+    <div class="ind-range">正常：≤15%</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">假装没事能力</div>
+    <div class="ind-value ok">优秀 ✓</div>
+    <div class="ind-arrow normal">→</div>
+    <div class="ind-range">创业者标配</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">发朋友圈频率</div>
+    <div class="ind-value warn">0次/月</div>
+    <div class="ind-arrow down">↓</div>
+    <div class="ind-range">去年：12次/月</div>
+  </div>
+</div>
+
+<!-- Section 3: 团队健康 -->
+<div class="section" data-delay="100">
+  <div class="section-title">👥 三、团队健康指标</div>
+  
+  <div class="indicator">
+    <div class="ind-name">合伙人信任值</div>
+    <div class="ind-value warn">临界</div>
+    <div class="ind-arrow down">↓</div>
+    <div class="ind-range">正常：≥80</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">员工离职预警</div>
+    <div class="ind-value danger">3人（CTO在观望）</div>
+    <div class="ind-arrow up">↑</div>
+    <div class="ind-range">红线：核心岗</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">团队士气</div>
+    <div class="ind-value warn">62/100</div>
+    <div class="ind-arrow down">↓</div>
+    <div class="ind-range">正常：≥75</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">开会有效率</div>
+    <div class="ind-value ok">78%</div>
+    <div class="ind-arrow normal">→</div>
+    <div class="ind-range">高于行业均值</div>
+  </div>
+</div>
+
+<!-- Section 4: 业务 -->
+<div class="section" data-delay="100">
+  <div class="section-title">📊 四、业务发展指标</div>
+  
+  <div class="indicator">
+    <div class="ind-name">用户增长</div>
+    <div class="ind-value ok">正常范围 ✓</div>
+    <div class="ind-arrow up">↑</div>
+    <div class="ind-range">MoM +18%</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">产品迭代速度</div>
+    <div class="ind-value ok">2周/版本</div>
+    <div class="ind-arrow normal">→</div>
+    <div class="ind-range">优于同阶段</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">客户续费率</div>
+    <div class="ind-value warn">64%</div>
+    <div class="ind-arrow down">↓</div>
+    <div class="ind-range">目标：≥80%</div>
+  </div>
+  <div class="indicator">
+    <div class="ind-name">竞品焦虑指数</div>
+    <div class="ind-value danger">爆表</div>
+    <div class="ind-arrow up">↑↑</div>
+    <div class="ind-range">本月被对标3次</div>
+  </div>
+</div>
+
+<!-- Historical comparison -->
+<div class="section" data-delay="100">
+  <div class="section-title">📈 五、历年对比</div>
+  
+  <div class="bar-chart">
+    <div style="font-size:14px;color:#666;margin-bottom:8px">焦虑指数趋势</div>
+    <div class="bar-row">
+      <div class="bar-label">2023</div>
+      <div class="bar-track"><div class="bar-fill yellow" data-width="35"></div></div>
+      <div class="bar-num">35</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">2024</div>
+      <div class="bar-track"><div class="bar-fill red" data-width="68"></div></div>
+      <div class="bar-num">68</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">2025</div>
+      <div class="bar-track"><div class="bar-fill red" data-width="91"></div></div>
+      <div class="bar-num">91</div>
+    </div>
+  </div>
+
+  <div class="bar-chart">
+    <div style="font-size:14px;color:#666;margin-bottom:8px">头发密度指数</div>
+    <div class="bar-row">
+      <div class="bar-label">2023</div>
+      <div class="bar-track"><div class="bar-fill green" data-width="82"></div></div>
+      <div class="bar-num">82</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">2024</div>
+      <div class="bar-track"><div class="bar-fill yellow" data-width="55"></div></div>
+      <div class="bar-num">55</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">2025</div>
+      <div class="bar-track"><div class="bar-fill red" data-width="28"></div></div>
+      <div class="bar-num">28</div>
+    </div>
+  </div>
+
+  <div class="compare-box">
+    <div>
+      <div class="year">2023体检</div>
+      <div class="val" style="color:#22c55e">B+</div>
+    </div>
+    <div class="arrow-mid">→</div>
+    <div>
+      <div class="year">2025体检</div>
+      <div class="val" style="color:#ef4444">C-</div>
+    </div>
+  </div>
+</div>
+
+<!-- Doctor note -->
+<div class="doctor-note" data-delay="200">
+  <div class="title">👨‍⚕️ 主检医师综合建议</div>
+  <div class="text">
+    1. 建议减少融资路演频率，适当增加产品迭代。反复见VC不如反复见用户。<br><br>
+    2. 焦虑浓度严重超标，建议每周至少断网半天。您的"假装没事能力"虽然优秀，但不建议作为长期策略。<br><br>
+    3. 合伙人信任值处于临界，建议安排一次不聊工作的饭局。<br><br>
+    4. 头发密度指数持续下降，但目前尚不影响融资（投资人主要看数据）。<br><br>
+    5. 用户增长是少数正常指标，说明方向没错，请务必活到拐点。<br><br>
+    <strong>复查时间：下一次发工资前。</strong>
+  </div>
+  <div class="sig">—— 创业者健康管理中心 · 第三门诊</div>
+</div>
+
+<div class="stamp-area" data-delay="400">
+  <div class="stamp-circle">需复查</div>
+  <div class="stamp-date">报告日期：2025.12.15 · 报告编号：CE-2025-0893</div>
+</div>
+
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const delay = parseInt(entry.target.dataset.delay || 0);
+      setTimeout(() => entry.target.classList.add('visible'), delay);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.section, .doctor-note, .stamp-area').forEach(el => observer.observe(el));
+
+// Bar fills
+const bObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.bar-fill').forEach((bar, i) => {
+        setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 300 + i * 200);
+      });
+      bObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.bar-chart').forEach(el => bObserver.observe(el));
+</script>
+</body>
+</html>

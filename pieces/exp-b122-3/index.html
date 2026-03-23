@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>哆啦A梦 × AI创业日常</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #f0f0f0;
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  min-height: 100vh;
+  padding: 0 0 60px 0;
+}
+.header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  animation: fadeInDown 0.8s ease;
+}
+.header h1 {
+  font-size: 28px;
+  background: linear-gradient(90deg, #00d2ff, #3a7bd5, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.header .subtitle {
+  font-size: 15px;
+  color: #8892b0;
+}
+.panel-section {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.panel-block {
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: panelIn 0.6s ease forwards;
+}
+.panel-block:nth-child(1) { animation-delay: 0.2s; }
+.panel-block:nth-child(2) { animation-delay: 0.4s; }
+.panel-block:nth-child(3) { animation-delay: 0.6s; }
+.panel-block:nth-child(4) { animation-delay: 0.8s; }
+.panel-num {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+.panel-img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  margin-bottom: 16px;
+  display: block;
+}
+.panel-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #ccd6f6;
+}
+.dialog {
+  background: rgba(255,255,255,0.08);
+  border-left: 3px solid #667eea;
+  border-radius: 0 12px 12px 0;
+  padding: 12px 16px;
+  margin: 10px 0;
+  font-size: 18px;
+}
+.dialog .speaker {
+  color: #64ffda;
+  font-weight: bold;
+  font-size: 16px;
+}
+.narration {
+  font-size: 18px;
+  color: #a8b2d1;
+  margin: 8px 0;
+}
+.punchline {
+  background: linear-gradient(135deg, rgba(100,255,218,0.1), rgba(102,126,234,0.1));
+  border: 1px solid rgba(100,255,218,0.3);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 12px;
+  font-size: 18px;
+  color: #64ffda;
+  text-align: center;
+}
+.ending {
+  text-align: center;
+  padding: 30px 20px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 1.2s forwards;
+}
+.ending .moral {
+  font-size: 20px;
+  color: #ccd6f6;
+  max-width: 360px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.ending .emoji-big {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+@keyframes fadeInDown {
+  from { opacity:0; transform:translateY(-20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes panelIn {
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🤖 哆啦A梦 × AI创业日常</h1>
+  <div class="subtitle">当22世纪的道具遇上硅谷——大雄の创业奇遇记</div>
+</div>
+
+<div class="panel-section">
+
+  <!-- Panel 1 -->
+  <div class="panel-block">
+    <span class="panel-num">1</span>
+    <div class="panel-title">🚪 任意门の硅谷面试</div>
+    <img class="panel-img" src="img/panel1.jpg" alt="大雄用任意门去硅谷面试">
+    <div class="dialog">
+      <div class="speaker">大雄：</div>
+      哆啦A梦！我要去硅谷融资！用任意门！
+    </div>
+    <div class="dialog">
+      <div class="speaker">哆啦A梦：</div>
+      你连PPT都不会做，去融什么资啊……
+    </div>
+    <p class="narration">大雄穿着借来的西装，一头扎进了红杉资本的会议室。投资人看着从衣柜里钻出来的日本小学生，集体沉默了三秒。</p>
+  </div>
+
+  <!-- Panel 2 -->
+  <div class="panel-block">
+    <span class="panel-num">2</span>
+    <div class="panel-title">🍞 记忆面包の融资BP</div>
+    <img class="panel-img" src="img/panel2.jpg" alt="大雄狂吃记忆面包背BP">
+    <div class="dialog">
+      <div class="speaker">大雄：</div>
+      快！把整份商业计划书印到面包上！我全吃下去！
+    </div>
+    <p class="narration">大雄疯狂往嘴里塞面包，一边吃一边背"GMV""DAU""北极星指标"……结果吃太多跑去上厕所，出来全忘了。</p>
+    <div class="dialog">
+      <div class="speaker">哆啦A梦：</div>
+      我说过了，上完厕所就会忘！这个bug从22世纪到现在都没修！
+    </div>
+  </div>
+
+  <!-- Panel 3 -->
+  <div class="panel-block">
+    <span class="panel-num">3</span>
+    <div class="panel-title">🔦 缩小灯の降本增效</div>
+    <img class="panel-img" src="img/panel3.jpg" alt="大雄用缩小灯缩小服务器">
+    <div class="dialog">
+      <div class="speaker">大雄：</div>
+      哆啦A梦！服务器费用太贵了！用缩小灯把服务器缩小，机房租金就省了！
+    </div>
+    <p class="narration">一照！巨大的服务器机柜变成了巴掌大小，放在桌上嗡嗡响。大雄得意洋洋地跟投资人说："我们的成本只有竞品的1%！"</p>
+    <div class="dialog">
+      <div class="speaker">胖虎（CTO）：</div>
+      散热呢？这东西烫得能煎鸡蛋了！
+    </div>
+  </div>
+
+  <!-- Panel 4 -->
+  <div class="panel-block">
+    <span class="panel-num">4</span>
+    <div class="panel-title">🎉 最终：真诚才是必杀技</div>
+    <img class="panel-img" src="img/panel4.jpg" alt="大雄和哆啦A梦庆祝">
+    <div class="dialog">
+      <div class="speaker">投资人：</div>
+      道具全失灵了……但你们为什么还在坚持？
+    </div>
+    <div class="dialog">
+      <div class="speaker">大雄：</div>
+      因为……因为我是真的想做出让大家开心的产品啊！虽然我什么都不会……
+    </div>
+    <p class="narration">投资人沉默了一会儿，突然笑了。静香、胖虎、小夫从门外探进头来，每个人都举着自己做的功能demo。</p>
+    <div class="punchline">
+      🌟 真正的道具，不在四次元口袋里——是身边愿意跟你一起"创业"的朋友。<br>
+      <span style="font-size:14px;color:#8892b0;">（投资人最后真的投了——因为"团队氛围太好了，这种化学反应比任何道具都值钱"）</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="ending">
+  <div class="emoji-big">🚀</div>
+  <div class="moral">
+    哆啦A梦说：<br>
+    "大雄，22世纪最厉害的道具<br>其实是——<strong style="color:#64ffda;">不放弃的心</strong>。"
+  </div>
+</div>
+
+</body>
+</html>

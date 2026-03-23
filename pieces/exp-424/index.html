@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>旷野创业冒险 · 塞尔达</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Hiragino Sans GB",sans-serif;background:#1a2332;color:#e0ddd4;font-size:18px;line-height:2;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.app{max-width:420px;margin:0 auto;min-height:100vh}
+.hero{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;bottom:0;left:0;right:0;padding:24px 20px;background:linear-gradient(transparent,rgba(26,35,50,.95))}
+.hero-title{font-size:24px;font-weight:900;color:#b8e6d0;text-shadow:2px 2px 8px rgba(0,0,0,.5);line-height:1.4}
+.hero-sub{font-size:14px;color:#8ab4a0;margin-top:4px}
+.shrine{padding:0 20px;margin:32px 0;opacity:0;transform:translateY(25px);transition:all .7s ease}
+.shrine.visible{opacity:1;transform:translateY(0)}
+.shrine-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.shrine-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 15px rgba(100,200,150,.3)}
+.shrine-name{font-size:14px;color:#6bbd99;font-weight:700;letter-spacing:1px}
+.shrine-title{font-size:13px;color:#8ab4a0}
+.shrine-img{width:100%;border-radius:12px;margin:16px 0;box-shadow:0 4px 20px rgba(0,0,0,.3);opacity:0;transition:opacity .8s ease}
+.shrine-img.visible{opacity:1}
+.shrine-text{font-size:17px;line-height:2.2;color:#c8d4c0}
+.shrine-text b{color:#b8e6d0}
+.shrine-text .quote{display:block;margin:16px 0;padding:12px 16px;background:rgba(100,200,150,.08);border-left:3px solid #6bbd99;border-radius:0 8px 8px 0;color:#a0d4b8;font-size:16px}
+.divider{text-align:center;margin:32px 0;color:#3d5a50;font-size:14px;letter-spacing:12px}
+.summit{text-align:center;padding:40px 20px 80px;opacity:0;transform:scale(.95);transition:all .8s ease}
+.summit.visible{opacity:1;transform:scale(1)}
+.summit .msg{font-size:22px;color:#b8e6d0;font-weight:900;line-height:1.6;text-shadow:1px 1px 4px rgba(0,0,0,.3)}
+.summit .sub{font-size:15px;color:#6bbd99;margin-top:12px}
+.summit .small{font-size:13px;color:#5a8a70;margin-top:8px}
+.footer{text-align:center;font-size:12px;color:#2a3d35;padding:16px}
+.stamp{display:inline-block;background:rgba(100,200,150,.1);border:1px solid rgba(100,200,150,.3);border-radius:8px;padding:4px 12px;font-size:13px;color:#6bbd99;margin:4px 0}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- Hero -->
+<div class="hero">
+<img src="zelda1.jpg" alt="旷野">
+<div class="hero-overlay">
+<div class="hero-title">旷野创业冒险</div>
+<div class="hero-sub">「每座神庙都有自己的谜题」</div>
+</div>
+</div>
+
+<!-- 神庙1：注册公司 -->
+<div class="shrine" id="s1">
+<div class="shrine-header">
+<div class="shrine-icon" style="background:rgba(100,200,150,.15)">🏛️</div>
+<div><div class="shrine-name">始まりの神庙</div><div class="shrine-title">第一座 · 注册公司</div></div>
+</div>
+<div class="shrine-text">
+你站在工商局门口，手里攥着一叠材料。<br><br>
+排了三个小时的队，被退回来两次——第一次名字重复了，第二次经营范围写错了格式。<br><br>
+终于拿到营业执照的那一刻，你拍了张照发了朋友圈。<br>
+点赞的有23个人。其中8个是亲戚，问你「公司招人吗」。<br><br>
+<span class="quote">你在神庙入口的石碑上刻下第一行字：<br><b>「公司注册资金10万——其中9万是借的。」</b></span>
+<span class="stamp">✦ 神庙完成 · 获得道具「营业执照」</span>
+</div>
+</div>
+
+<div class="divider">· · · · ·</div>
+
+<!-- 神庙2：找合伙人 -->
+<div class="shrine" id="s2">
+<div class="shrine-header">
+<div class="shrine-icon" style="background:rgba(66,165,245,.15)">⚔️</div>
+<div><div class="shrine-name">同伴の神庙</div><div class="shrine-title">第二座 · 找合伙人</div></div>
+</div>
+<img src="zelda2.jpg" alt="篝火" class="shrine-img">
+<div class="shrine-text">
+你一个人写了三个月的代码。<br><br>
+白天跑客户，晚上写代码，凌晨改bug。吃饭靠外卖，睡觉靠沙发。<br>
+直到某天你在技术论坛发了个帖子，标题是「有人想一起做个改变小工厂的AI吗」。<br><br>
+8个人回复。7个人聊了之后说「等你融到钱再说」。<br><br>
+第8个人叫赵磊。他说：<b>「我不等。我明天就能来。工资你看着给。」</b><br><br>
+后来你才知道，他当时手里有两个大厂的offer，总包120万。<br>
+他选了你的沙发和泡面。<br>
+<span class="quote">赵磊后来说起这件事，总是轻描淡写：<br><b>「因为那些大厂的活儿，别人也能干。但你这个事儿——你不干就没人干了。」</b></span>
+<span class="stamp">✦ 神庙完成 · 获得同伴「赵磊」</span>
+</div>
+</div>
+
+<div class="divider">· · · · ·</div>
+
+<!-- 神庙3：第一个客户 -->
+<div class="shrine" id="s3">
+<div class="shrine-header">
+<div class="shrine-icon" style="background:rgba(255,183,77,.15)">💎</div>
+<div><div class="shrine-name">信任の神庙</div><div class="shrine-title">第三座 · 第一个客户</div></div>
+</div>
+<img src="zelda3.jpg" alt="谜题" class="shrine-img">
+<div class="shrine-text">
+第一个客户是一个做五金配件的小厂老板，姓周。<br><br>
+你跟他聊了四个小时。他问了你17个问题，你有5个答不上来。<br>
+他说：「你这东西，我看不太懂。」<br>
+你说：「周总，我免费给你用三个月。不好用您骂我就行。」<br><br>
+三个月后他打电话来：<br>
+<b>「小伙子，你这东西帮我一个月省了2万3。你报个价吧。」</b><br><br>
+你在电话里报了一个很低的价格。<br>
+他说：「太低了，对得起你自己吗？」<br>
+<span class="quote"><b>这是创业以来，第一次有人嫌你报价太低。</b></span>
+<span class="stamp">✦ 神庙完成 · 获得宝物「第一份合同」</span>
+</div>
+</div>
+
+<div class="divider">· · · · ·</div>
+
+<!-- 神庙4：险些倒闭 -->
+<div class="shrine" id="s4">
+<div class="shrine-header">
+<div class="shrine-icon" style="background:rgba(239,83,80,.15)">🌧️</div>
+<div><div class="shrine-name">試練の神庙</div><div class="shrine-title">第四座 · 险些倒闭</div></div>
+</div>
+<img src="zelda4.jpg" alt="风暴" class="shrine-img">
+<div class="shrine-text">
+第11个月的时候，账上只剩4万7。<br><br>
+够发一个月工资。发完就没了。<br>
+你在凌晨两点算了一遍账——<b>如果下个月没有新客户签约，公司就关门。</b><br><br>
+赵磊看到你在发呆，走过来说：「我这个月工资不要了。」<br>
+你说：「你疯了。」<br>
+他说：「你先把服务器续上。工资的事以后再说。」<br><br>
+后来你才知道——<br>那个月，他偷偷把信用卡额度套出来了。<br>
+<span class="quote"><b>有些人把钱借给你是因为相信你会还。<br>有些人把钱给你是因为相信你在做对的事。</b></span>
+<span class="stamp">✦ 神庙完成 · 获得「坚持の勋章」</span>
+</div>
+</div>
+
+<div class="divider">· · · · ·</div>
+
+<!-- 神庙5：产品上线 -->
+<div class="shrine" id="s5">
+<div class="shrine-header">
+<div class="shrine-icon" style="background:rgba(255,215,0,.15)">🌅</div>
+<div><div class="shrine-name">黎明の神庙</div><div class="shrine-title">第五座 · 产品上线</div></div>
+</div>
+<img src="zelda5.jpg" alt="日出" class="shrine-img">
+<div class="shrine-text">
+第14个月。新版本终于上线了。<br><br>
+上线那天你没有发朋友圈。<br>
+你做了一件事——给周总打了个电话：「周总，新版本上线了，我帮您升级。」<br>
+周总说：「好。对了，我给你介绍了三个朋友，他们也想用。」<br><br>
+你挂了电话，看了一眼后台——<br>
+用户数：<b>1000</b>。<br><br>
+你没有庆祝。你给赵磊转了上个月的工资，附言：<b>「连本带利。」</b><br>
+赵磊回：<b>「利息呢？」</b><br>
+你回：<b>「利息是——下一座神庙，我们一起去。」</b>
+<span class="stamp">✦ 所有神庙完成 · 解锁「旷野的勇者」</span>
+</div>
+</div>
+
+<!-- Summit -->
+<div class="summit" id="summit">
+<div class="msg">站在旷野最高的山顶，<br>你看见了日出。<br><br>不是因为你跑得快，<br>是因为你一直在走。</div>
+<div class="sub">—— 旷野创业冒险 · 完 ——</div>
+<div class="small">「每座神庙都有自己的谜题，但只有走进去的人才能解开。」</div>
+</div>
+
+<div class="footer">塞尔达画风创业冒险 · EXP-424</div>
+</div>
+
+<script>
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.12});
+document.querySelectorAll('.shrine,.shrine-img,.summit').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

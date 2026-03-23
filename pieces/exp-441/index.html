@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>哆啦A梦·时光电视看自己</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'PingFang SC', -apple-system, sans-serif;
+  background: #fffef5;
+  color: #333;
+  font-size: 18px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.comic-container {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.title-card {
+  text-align: center;
+  padding: 32px 16px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 50%, #38f9d7 100%);
+  border-radius: 20px;
+  margin-bottom: 24px;
+  color: white;
+}
+.title-card h1 {
+  font-size: 24px;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+.title-card .sub {
+  font-size: 15px;
+  opacity: 0.9;
+  margin-top: 6px;
+}
+
+.panel {
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: panelIn 0.6s ease forwards;
+}
+.panel:nth-child(2) { animation-delay: 0.1s; }
+.panel:nth-child(3) { animation-delay: 0.2s; }
+.panel:nth-child(4) { animation-delay: 0.3s; }
+.panel:nth-child(5) { animation-delay: 0.4s; }
+.panel:nth-child(6) { animation-delay: 0.5s; }
+.panel:nth-child(7) { animation-delay: 0.6s; }
+.panel:nth-child(8) { animation-delay: 0.7s; }
+
+@keyframes panelIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel-img {
+  width: 100%;
+  border-radius: 16px;
+  border: 3px solid #4facfe;
+  box-shadow: 0 4px 16px rgba(79,172,254,0.2);
+  display: block;
+}
+
+.panel-text {
+  background: white;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-top: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: relative;
+  font-size: 17px;
+  line-height: 1.7;
+}
+.panel-text::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 30px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: -2px -2px 4px rgba(0,0,0,0.03);
+}
+
+.panel-number {
+  display: inline-block;
+  background: #4facfe;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 28px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.finale-panel .panel-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  padding: 20px;
+}
+.finale-panel .panel-text::before {
+  background: #667eea;
+}
+.finale-note {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 8px;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+<div class="comic-container">
+
+<div class="title-card">
+  <h1>🔮 时光电视看自己</h1>
+  <div class="sub">哆啦A梦 · 六格漫画</div>
+</div>
+
+<!-- 第一格 -->
+<div class="panel">
+  <img class="panel-img" src="img/panel1-timtv.jpg" alt="第一格">
+  <div class="panel-text">
+    <span class="panel-number">1</span>
+    大雄放学回家，又考了零分。他趴在桌上嘟囔："我以后会不会一辈子都这样啊……"
+    <br>哆啦A梦从口袋里掏出一台小电视："要不要看看10年后的你？"
+  </div>
+</div>
+
+<!-- 第二格 -->
+<div class="panel">
+  <img class="panel-img" src="img/panel2-future.jpg" alt="第二格">
+  <div class="panel-text">
+    <span class="panel-number">2</span>
+    屏幕亮起来。10年后的大雄——在一间明亮的教室里，正在教一群小朋友画画。
+    <br>他画得不算好，但小朋友们围在旁边，笑得很开心。
+  </div>
+</div>
+
+<!-- 第三格 -->
+<div class="panel">
+  <img class="panel-img" src="img/panel3-happy.jpg" alt="第三格">
+  <div class="panel-text">
+    <span class="panel-number">3</span>
+    大雄看呆了："我以后……是老师？"
+    <br>"不是什么名校老师啦，"哆啦A梦说，"就是社区的儿童画画班。"
+    <br>屏幕里的大雄蹲下来，帮一个小女孩修改画。那个表情，大雄从没在镜子里见过——是真的很满足。
+  </div>
+</div>
+
+<!-- 第四格 -->
+<div class="panel">
+  <img class="panel-img" src="img/panel4-talk.jpg" alt="第四格">
+  <div class="panel-text">
+    <span class="panel-number">4</span>
+    大雄小声说："可是……我不是什么大人物啊。"
+    <br>哆啦A梦关掉时光电视，笑了笑："大人物？你见过哪个大人物笑成那个样子？"
+    <br>大雄想了想，好像确实没有。
+  </div>
+</div>
+
+<!-- 第五格 -->
+<div class="panel">
+  <img class="panel-img" src="img/panel5-secret.jpg" alt="第五格">
+  <div class="panel-text">
+    <span class="panel-number">5</span>
+    夜里，大雄睡着了。
+    <br>哆啦A梦悄悄走到时光电视前面，回头看了一眼大雄——确认他真的睡熟了。
+    <br>然后切到了另一个频道。
+    <br>屏幕上，另一个10年后的大雄，在深夜的办公室里加班。眼睛下面有黑眼圈，桌上堆满了文件。
+  </div>
+</div>
+
+<!-- 第六格 -->
+<div class="panel finale-panel">
+  <img class="panel-img" src="img/panel6-finale.jpg" alt="第六格">
+  <div class="panel-text">
+    哆啦A梦轻轻关掉了那个频道。
+    <br>背对着大雄，月光从窗户照进来。
+    <br>他的表情，是温柔的微笑。
+    <div class="finale-note">—— 有些未来，知道一个就够了。</div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

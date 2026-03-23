@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>外卖订单里的创业周记</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; color:#333; }
+.app { max-width:420px; margin:0 auto; background:#fff; min-height:100vh; }
+
+.header { background:linear-gradient(135deg,#FFD000,#FF8C00); padding:20px 16px 16px; color:#fff; }
+.header-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.header h1 { font-size:20px; font-weight:700; }
+.header-sub { font-size:14px; opacity:0.9; }
+.vip-badge { background:rgba(255,255,255,0.25); padding:4px 10px; border-radius:12px; font-size:12px; }
+
+.tab-bar { display:flex; background:#fff; border-bottom:1px solid #eee; padding:0 16px; }
+.tab { flex:1; text-align:center; padding:12px 0; font-size:14px; color:#999; position:relative; }
+.tab.active { color:#FF6B00; font-weight:600; }
+.tab.active::after { content:''; position:absolute; bottom:0; left:30%; width:40%; height:3px; background:#FF6B00; border-radius:2px; }
+
+.order-list { padding:12px 16px; }
+.order-card { background:#fff; border-radius:12px; padding:16px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,0.06); border:1px solid #f0f0f0; animation:slideIn 0.5s ease both; }
+.order-card:nth-child(1) { animation-delay:0.1s; }
+.order-card:nth-child(2) { animation-delay:0.3s; }
+.order-card:nth-child(3) { animation-delay:0.5s; }
+.order-card:nth-child(4) { animation-delay:0.7s; }
+.order-card:nth-child(5) { animation-delay:0.9s; }
+@keyframes slideIn { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
+
+.order-day { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.day-tag { background:#FFF3E0; color:#E65100; padding:4px 12px; border-radius:16px; font-size:13px; font-weight:600; }
+.order-status { font-size:12px; color:#4CAF50; }
+
+.order-shop { font-size:17px; font-weight:600; margin-bottom:4px; }
+.order-items { font-size:15px; color:#666; margin-bottom:8px; line-height:1.6; }
+.order-price { font-size:14px; color:#FF6B00; font-weight:600; margin-bottom:10px; }
+
+.order-img { width:100%; border-radius:8px; margin-bottom:10px; }
+
+.order-note { background:#FFF8E1; border-left:3px solid #FFB300; padding:10px 12px; border-radius:0 8px 8px 0; margin-bottom:10px; }
+.order-note-label { font-size:12px; color:#F57F17; font-weight:600; margin-bottom:4px; }
+.order-note-text { font-size:16px; color:#555; line-height:1.6; font-style:italic; }
+
+.rider-review { background:#F3E5F5; border-radius:8px; padding:10px 12px; }
+.rider-label { font-size:12px; color:#7B1FA2; font-weight:600; margin-bottom:4px; }
+.rider-text { font-size:15px; color:#555; line-height:1.5; }
+
+.ending { text-align:center; padding:40px 16px 60px; background:linear-gradient(to bottom,#fff,#FFF3E0); }
+.ending-emoji { font-size:48px; margin-bottom:12px; }
+.ending-title { font-size:22px; font-weight:700; color:#E65100; margin-bottom:8px; }
+.ending-text { font-size:17px; color:#888; line-height:1.8; }
+
+.people-tag { display:inline-flex; align-items:center; gap:4px; background:#E3F2FD; padding:2px 8px; border-radius:10px; font-size:12px; color:#1565C0; margin-right:4px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="header">
+  <div class="header-top">
+    <h1>🍜 美团外卖</h1>
+    <div class="vip-badge">创业者VIP</div>
+  </div>
+  <div class="header-sub">一周订单 · 一段创业故事</div>
+</div>
+
+<div class="tab-bar">
+  <div class="tab active">全部订单</div>
+  <div class="tab">待评价</div>
+  <div class="tab">退款</div>
+</div>
+
+<div class="order-list">
+
+<!-- 周一 -->
+<div class="order-card">
+  <div class="order-day">
+    <div class="day-tag">📅 周一</div>
+    <div class="order-status">已完成</div>
+  </div>
+  <div class="order-shop">🥗 轻食沙拉工坊</div>
+  <div class="order-items">凯撒沙拉 × 1 · 美式冰咖 × 1</div>
+  <div class="order-price">¥32.00 <span style="font-size:12px;color:#999">（1人份）</span></div>
+  <img class="order-img" src="img/monday-salad.jpg" alt="独自吃沙拉">
+  <div class="order-note">
+    <div class="order-note-label">📝 备注栏·内心独白</div>
+    <div class="order-note-text">产品刚上线，下载量：3。其中2个是我自己的手机，1个是我妈……加油吧，得先养活自己再说。</div>
+  </div>
+  <div class="rider-review">
+    <div class="rider-label">🛵 配送员·人生感悟</div>
+    <div class="rider-text">送到时客户在加班，桌上只有一台电脑和一盒沙拉。有些人的周一，是一个人的战场。</div>
+  </div>
+</div>
+
+<!-- 周二 -->
+<div class="order-card">
+  <div class="order-day">
+    <div class="day-tag">📅 周二</div>
+    <div class="order-status">已完成</div>
+  </div>
+  <div class="order-shop">🍜 兰州拉面·加班套餐</div>
+  <div class="order-items">牛肉拉面 × 2 · 凉菜 × 1 · 可乐 × 2</div>
+  <div class="order-price">¥58.00 <span style="font-size:12px;color:#999">（2人份）</span></div>
+  <img class="order-img" src="img/tuesday-noodle.jpg" alt="两人加班吃面">
+  <div class="order-note">
+    <div class="order-note-label">📝 备注栏·内心独白</div>
+    <div class="order-note-text">合伙人老张终于来了！两个人一起改bug到凌晨，面都坨了才想起来吃。不过有人一起熬夜，泡面都是香的。</div>
+  </div>
+  <div class="rider-review">
+    <div class="rider-label">🛵 配送员·人生感悟</div>
+    <div class="rider-text">23:47送达，两个人看到面时的笑容，比我见过的任何五星好评都真实。</div>
+  </div>
+</div>
+
+<!-- 周三 -->
+<div class="order-card">
+  <div class="order-day">
+    <div class="day-tag">📅 周三</div>
+    <div class="order-status">已完成</div>
+  </div>
+  <div class="order-shop">🍱 家常便当·团队套餐</div>
+  <div class="order-items">红烧肉饭 × 1 · 番茄鸡蛋 × 1 · 宫保鸡丁 × 1 · 米饭 × 3</div>
+  <div class="order-price">¥87.00 <span style="font-size:12px;color:#999">（3人份）</span></div>
+  <img class="order-img" src="img/wednesday-bento.jpg" alt="三人讨论方案">
+  <div class="order-note">
+    <div class="order-note-label">📝 备注栏·内心独白</div>
+    <div class="order-note-text">设计师小李也加入了！三个人边吃边画产品原型图，白板都不够用了。好消息：下载量到50了，其中至少40个不是亲戚 😂</div>
+  </div>
+  <div class="rider-review">
+    <div class="rider-label">🛵 配送员·人生感悟</div>
+    <div class="rider-text">三个人的办公室比上次来热闹多了，白板上的图看不懂，但他们的眼神里有光。</div>
+  </div>
+</div>
+
+<!-- 周四 -->
+<div class="order-card">
+  <div class="order-day">
+    <div class="day-tag">📅 周四</div>
+    <div class="order-status">已完成</div>
+  </div>
+  <div class="order-shop">☕ 瑞幸·续命套餐</div>
+  <div class="order-items">生椰拿铁 × 5 · 瑞纳冰 × 2</div>
+  <div class="order-price">¥112.00 <span style="font-size:12px;color:#999">（5人份！）</span></div>
+  <img class="order-img" src="img/thursday-coffee.jpg" alt="收到好消息">
+  <div class="order-note">
+    <div class="order-note-label">📝 备注栏·内心独白</div>
+    <div class="order-note-text">！！！投资人回邮件了！说对我们的方向很感兴趣，约周五面谈！赶紧给全队买咖啡庆祝！虽然还没成，但感觉像过年！</div>
+  </div>
+  <div class="rider-review">
+    <div class="rider-label">🛵 配送员·人生感悟</div>
+    <div class="rider-text">5杯咖啡，送到时整个办公室在欢呼。有些订单，送的不是饮料，是希望。</div>
+  </div>
+</div>
+
+<!-- 周五 -->
+<div class="order-card">
+  <div class="order-day">
+    <div class="day-tag">📅 周五 🎉</div>
+    <div class="order-status" style="color:#FF6B00;">庆功宴！</div>
+  </div>
+  <div class="order-shop">🍖 老李烧烤·庆功套餐</div>
+  <div class="order-items">烤羊肉串 × 30 · 烤鸡翅 × 10 · 毛豆 × 3份 · 啤酒 × 10</div>
+  <div class="order-price">¥486.00 <span style="font-size:12px;color:#999">（10人份！）</span></div>
+  <img class="order-img" src="img/friday-bbq.jpg" alt="庆功烧烤">
+  <div class="order-note">
+    <div class="order-note-label">📝 备注栏·内心独白</div>
+    <div class="order-note-text">融！资！成！功！了！🎊🎊🎊<br>从周一一个人的沙拉，到周五十个人的烧烤。一周时间，但感觉过了一辈子。<br><br>投资人说：<b>"我投的不是你的商业计划，是你团队的这股劲儿。"</b></div>
+  </div>
+  <div class="rider-review">
+    <div class="rider-label">🛵 配送员·人生感悟</div>
+    <div class="rider-text">周一1人份沙拉32块，周五10人份烧烤486块。这不是订单金额在涨，是梦想在长大。<br><br>跑单三年，第一次觉得：外卖订单里，藏着别人的人生。</div>
+  </div>
+</div>
+
+</div>
+
+<div class="ending">
+  <div class="ending-emoji">🔥</div>
+  <div class="ending-title">从32元到486元</div>
+  <div class="ending-text">不是消费在升级<br>是一个团队在成长<br><br>每一份外卖<br>都是某个深夜的坚持<br>和某个清晨的希望</div>
+</div>
+
+</div>
+</body>
+</html>

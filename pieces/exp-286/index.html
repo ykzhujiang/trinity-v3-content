@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>创业者的银行流水 | 从天使轮到第一笔收入</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f8fafc;color:#1e293b;font-family:'PingFang SC','Hiragino Sans GB','SF Mono','Menlo',sans-serif;font-size:20px;line-height:1.8;overflow-x:hidden}
+.container{max-width:420px;margin:0 auto;min-height:100vh}
+
+.bank-header{background:linear-gradient(135deg,#dc2626,#b91c1c);padding:24px 20px;text-align:center}
+.bank-logo{font-size:28px;font-weight:900;color:#fff;letter-spacing:2px}
+.bank-sub{font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px}
+.account-bar{background:#991b1b;margin-top:16px;padding:12px 16px;border-radius:12px;text-align:left}
+.account-label{font-size:12px;color:rgba(255,255,255,0.6)}
+.account-name{font-size:16px;color:#fff;font-weight:700}
+.account-num{font-size:13px;color:rgba(255,255,255,0.5);font-family:'SF Mono','Menlo',monospace}
+
+.balance-section{background:#fff;padding:20px;border-bottom:1px solid #e2e8f0}
+.balance-label{font-size:13px;color:#94a3b8}
+.balance-amount{font-size:32px;font-weight:900;color:#1e293b;font-family:'SF Mono','Menlo',monospace;margin-top:4px}
+.balance-amount.danger{color:#dc2626}
+.balance-amount.hope{color:#16a34a}
+
+.timeline-label{padding:16px 20px 8px;font-size:13px;color:#64748b;letter-spacing:2px;background:#f1f5f9}
+
+.tx{background:#fff;padding:16px 20px;border-bottom:1px solid #f1f5f9;opacity:0;transform:translateX(-20px);transition:all 0.5s}
+.tx.show{opacity:1;transform:translateX(0)}
+.tx-top{display:flex;justify-content:space-between;align-items:flex-start}
+.tx-memo{font-size:17px;font-weight:700;color:#1e293b;line-height:1.4;flex:1}
+.tx-amount{font-size:18px;font-weight:900;font-family:'SF Mono','Menlo',monospace;flex-shrink:0;margin-left:12px}
+.tx-amount.income{color:#16a34a}
+.tx-amount.expense{color:#dc2626}
+.tx-date{font-size:12px;color:#94a3b8;margin-top:4px}
+.tx-remark{font-size:14px;color:#64748b;margin-top:6px;padding:8px 12px;background:#f8fafc;border-radius:8px;border-left:3px solid #e2e8f0;line-height:1.5}
+.tx-remark.emotional{border-left-color:#f59e0b;background:#fffbeb}
+.tx-remark.dark{border-left-color:#dc2626;background:#fef2f2}
+.tx-remark.hope{border-left-color:#16a34a;background:#f0fdf4}
+
+.chapter{padding:20px;text-align:center;background:linear-gradient(135deg,#f1f5f9,#e2e8f0);opacity:0;transition:all 0.6s}
+.chapter.show{opacity:1}
+.chapter-title{font-size:20px;font-weight:900;color:#334155}
+.chapter-sub{font-size:14px;color:#64748b;margin-top:4px}
+
+.ending{background:linear-gradient(135deg,#1e293b,#0f172a);padding:32px 20px;text-align:center}
+.ending-text{font-size:22px;font-weight:900;color:#fbbf24;line-height:1.8}
+.ending-sub{font-size:15px;color:#94a3b8;margin-top:12px;line-height:1.6}
+
+.coda{text-align:center;padding:24px 20px;font-size:14px;color:#94a3b8;background:#f8fafc}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="bank-header">
+    <div class="bank-logo">🏦 创业银行</div>
+    <div class="bank-sub">个人账户交易明细</div>
+    <div class="account-bar">
+      <div class="account-label">账户名</div>
+      <div class="account-name">张明远（创始人/CEO/扫地僧）</div>
+      <div class="account-num">6228 **** **** 3721</div>
+    </div>
+  </div>
+
+  <div class="balance-section">
+    <div class="balance-label">当前余额（人民币）</div>
+    <div class="balance-amount hope" id="balance">¥ 12,847.33</div>
+  </div>
+
+  <!-- Chapter 1: 融资到账 -->
+  <div class="chapter" data-delay="0">
+    <div class="chapter-title">📅 2023年3月 · 天使轮</div>
+    <div class="chapter-sub">一切美好故事的开始</div>
+  </div>
+
+  <div class="tx" data-delay="100">
+    <div class="tx-top">
+      <div class="tx-memo">天使轮投资款</div>
+      <div class="tx-amount income">+3,000,000.00</div>
+    </div>
+    <div class="tx-date">2023-03-15 10:23:41</div>
+    <div class="tx-remark emotional">备注：看到这个数字的时候手在抖。截图发了三遍朋友圈又删了。</div>
+  </div>
+
+  <div class="tx" data-delay="200">
+    <div class="tx-top">
+      <div class="tx-memo">团队庆功宴 · 海底捞</div>
+      <div class="tx-amount expense">-2,847.00</div>
+    </div>
+    <div class="tx-date">2023-03-15 20:41:12</div>
+    <div class="tx-remark">备注：6个人喝了8瓶啤酒。CTO说"这是我们最后一次这么奢侈"。他说对了。</div>
+  </div>
+
+  <div class="tx" data-delay="300">
+    <div class="tx-top">
+      <div class="tx-memo">办公室租金（首月）</div>
+      <div class="tx-amount expense">-15,000.00</div>
+    </div>
+    <div class="tx-date">2023-03-20 09:00:00</div>
+    <div class="tx-remark">备注：60平的共享空间。觉得以后一定会搬到大office。</div>
+  </div>
+
+  <!-- Chapter 2: 烧钱 -->
+  <div class="chapter" data-delay="0">
+    <div class="chapter-title">📅 2023年8月 · 产品上线</div>
+    <div class="chapter-sub">用户来了，钱也走了</div>
+  </div>
+
+  <div class="tx" data-delay="100">
+    <div class="tx-top">
+      <div class="tx-memo">服务器扩容（阿里云）</div>
+      <div class="tx-amount expense">-42,000.00</div>
+    </div>
+    <div class="tx-date">2023-08-03 03:17:22</div>
+    <div class="tx-remark dark">备注：凌晨3点服务器崩了。边扩容边哭。用户涌入是好事对吧？对吧？</div>
+  </div>
+
+  <div class="tx" data-delay="200">
+    <div class="tx-top">
+      <div class="tx-memo">8月工资 × 6人</div>
+      <div class="tx-amount expense">-168,000.00</div>
+    </div>
+    <div class="tx-date">2023-08-05 12:00:00</div>
+    <div class="tx-remark">备注：每月最焦虑的一天。5号不是发薪日，是审判日。</div>
+  </div>
+
+  <!-- Chapter 3: 至暗 -->
+  <div class="chapter" data-delay="0">
+    <div class="chapter-title">📅 2024年1月 · 至暗时刻</div>
+    <div class="chapter-sub">账上还够撑1.5个月</div>
+  </div>
+
+  <div class="tx" data-delay="100">
+    <div class="tx-top">
+      <div class="tx-memo">退还办公室押金 ← 搬家</div>
+      <div class="tx-amount income">+10,000.00</div>
+    </div>
+    <div class="tx-date">2024-01-10 16:30:00</div>
+    <div class="tx-remark dark">备注：从60平搬到客厅。和CTO说"我们是在致敬车库创业"。他没笑。</div>
+  </div>
+
+  <div class="tx" data-delay="200">
+    <div class="tx-top">
+      <div class="tx-memo">1月工资 × 3人</div>
+      <div class="tx-amount expense">-54,000.00</div>
+    </div>
+    <div class="tx-date">2024-01-05 12:00:00</div>
+    <div class="tx-remark dark">备注：6个人走了3个。留下的3个说"工资可以晚发"。没敢真的晚发。</div>
+  </div>
+
+  <div class="tx" data-delay="300">
+    <div class="tx-top">
+      <div class="tx-memo">个人信用贷款</div>
+      <div class="tx-amount income">+200,000.00</div>
+    </div>
+    <div class="tx-date">2024-01-20 14:22:33</div>
+    <div class="tx-remark dark">备注：用房子抵押的。老婆不知道。🙂</div>
+  </div>
+
+  <!-- Chapter 4: 转机 -->
+  <div class="chapter" data-delay="0">
+    <div class="chapter-title">📅 2024年6月 · 活下来了</div>
+    <div class="chapter-sub">不是逆袭，是没死</div>
+  </div>
+
+  <div class="tx" data-delay="100">
+    <div class="tx-top">
+      <div class="tx-memo">最后一个月房租</div>
+      <div class="tx-amount expense">-8,500.00</div>
+    </div>
+    <div class="tx-date">2024-05-01 09:00:00</div>
+    <div class="tx-remark dark">备注：如果这个月没收入，就回去上班。</div>
+  </div>
+
+  <div class="tx" data-delay="300">
+    <div class="tx-top">
+      <div class="tx-memo">XX科技 · 合作款（首笔！！！）</div>
+      <div class="tx-amount income">+85,000.00</div>
+    </div>
+    <div class="tx-date">2024-05-18 11:47:02</div>
+    <div class="tx-remark hope">备注：第一个客户！！！！！收到的时候在地铁上，差点哭出来。截了17张图。</div>
+  </div>
+
+  <div class="tx" data-delay="400">
+    <div class="tx-top">
+      <div class="tx-memo">团队加餐 · 沙县小吃</div>
+      <div class="tx-amount expense">-87.00</div>
+    </div>
+    <div class="tx-date">2024-05-18 19:22:00</div>
+    <div class="tx-remark hope">备注：CTO说"上次庆功海底捞，这次沙县"。三个人笑了很久。蒸饺真好吃。</div>
+  </div>
+
+  <!-- Chapter 5: 现在 -->
+  <div class="chapter" data-delay="0">
+    <div class="chapter-title">📅 2025年3月 · 现在</div>
+    <div class="chapter-sub">还在路上</div>
+  </div>
+
+  <div class="tx" data-delay="100">
+    <div class="tx-top">
+      <div class="tx-memo">3月工资 × 8人</div>
+      <div class="tx-amount expense">-224,000.00</div>
+    </div>
+    <div class="tx-date">2025-03-05 12:00:00</div>
+    <div class="tx-remark">备注：从6人到3人再到8人。5号还是审判日，但不抖了。</div>
+  </div>
+
+  <div class="tx" data-delay="200">
+    <div class="tx-top">
+      <div class="tx-memo">还信用贷款（第12期/24期）</div>
+      <div class="tx-amount expense">-12,333.00</div>
+    </div>
+    <div class="tx-date">2025-03-20 00:00:01</div>
+    <div class="tx-remark">备注：老婆知道了。她说"早就猜到了"。然后给我转了5万。</div>
+  </div>
+
+  <div class="tx" data-delay="400">
+    <div class="tx-top">
+      <div class="tx-memo">给妈妈转账</div>
+      <div class="tx-amount expense">-5,000.00</div>
+    </div>
+    <div class="tx-date">2025-03-20 08:30:00</div>
+    <div class="tx-remark hope">备注：创业两年第一次给家里打钱。没敢说多少，怕她问"你是不是过得不好"。</div>
+  </div>
+
+  <!-- Ending -->
+  <div class="ending">
+    <div class="ending-text">从 +3,000,000<br>到差点归零<br>到 ¥12,847.33<br><br>不多，但每一分<br>都是自己挣的</div>
+    <div class="ending-sub">创业者的银行流水<br>不是财报，是日记</div>
+  </div>
+
+  <div class="coda">纯属虚构 · 如有雷同 · 说明你也在路上 🚀</div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const d = parseInt(e.target.dataset.delay || '0');
+      setTimeout(() => e.target.classList.add('show'), d);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.tx, .chapter, .decode').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

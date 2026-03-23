@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>跨城搬家时被扔掉的东西清单 — EXP-174</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #f8f6f1;
+    color: #333;
+    line-height: 1.85;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  .header {
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .header h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .header .meta {
+    font-size: 0.82rem;
+    color: #999;
+    line-height: 1.7;
+  }
+
+  .summary-strip {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.78rem;
+    text-align: center;
+  }
+
+  .summary-strip .kept {
+    flex: 34;
+    background: #d5dce8;
+    color: #5a6a80;
+    padding: 10px 4px;
+  }
+
+  .summary-strip .tossed {
+    flex: 51;
+    background: #e8d5d5;
+    color: #805a5a;
+    padding: 10px 4px;
+  }
+
+  .summary-strip .rescued {
+    flex: 15;
+    background: #dce8d5;
+    color: #5a7050;
+    padding: 10px 4px;
+  }
+
+  .category-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 2px;
+    margin: 32px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px dotted #ddd;
+  }
+
+  .item {
+    background: #fff;
+    border: 1px solid #e8e4dc;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .item.tossed {
+    border-left: 4px solid #c4a0a0;
+  }
+
+  .item.kept {
+    border-left: 4px solid #7389ab;
+  }
+
+  .item.rescued {
+    border-left: 4px solid #8ab573;
+  }
+
+  .item-name {
+    font-weight: 500;
+    font-size: 0.96rem;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .item-name .status {
+    font-size: 0.7rem;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-weight: 400;
+  }
+
+  .status-tossed { background: #f5e8e8; color: #a07070; }
+  .status-kept { background: #e8ecf5; color: #6070a0; }
+  .status-rescued { background: #e8f5e8; color: #508050; }
+
+  .item-story {
+    font-size: 0.88rem;
+    color: #666;
+    font-weight: 300;
+    margin-bottom: 6px;
+  }
+
+  .item-reason {
+    font-size: 0.82rem;
+    color: #aaa;
+    font-style: italic;
+  }
+
+  .strikethrough {
+    text-decoration: line-through;
+    color: #bbb;
+  }
+
+  .annotation {
+    font-size: 0.82rem;
+    color: #c4a35a;
+    margin-top: 4px;
+  }
+
+  .stats-box {
+    background: #fff;
+    border: 1px solid #e0dcd4;
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 32px 0;
+  }
+
+  .stats-box h3 {
+    font-size: 0.76rem;
+    letter-spacing: 2px;
+    color: #999;
+    margin-bottom: 12px;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px dotted #eee;
+    font-size: 0.85rem;
+  }
+
+  .stats-label { color: #888; }
+  .stats-value { color: #555; font-weight: 500; }
+
+  .ending {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+
+  .ending p {
+    font-size: 0.92rem;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+
+  .ending .final-item {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    color: #5a5040;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>跨城搬家时被扔掉的东西清单</h1>
+  <div class="meta">
+    路线：上海 → 成都<br>
+    搬家原因：换工作（但朋友圈写的是"想换个活法"）<br>
+    在上海时间：4年7个月<br>
+    行李限额：搬家公司报价按体积算，超过2立方米加钱
+  </div>
+</div>
+
+<div class="summary-strip">
+  <div class="kept">带走 34%</div>
+  <div class="tossed">扔掉 51%</div>
+  <div class="rescued">从垃圾袋捞回 15%</div>
+</div>
+
+<div class="category-label">以为会用的</div>
+
+<div class="item tossed">
+  <div class="item-name">健身卡（剩余 14 个月）<span class="status status-tossed">扔</span></div>
+  <div class="item-story">入职第二个月办的，想着"要在上海保持好身材"。去过11次。第12次是去前台问能不能转让。不能。</div>
+  <div class="item-reason">扔掉理由：已过期。准确地说，是在我停止去的那天就过期了。</div>
+</div>
+
+<div class="item tossed">
+  <div class="item-name">《经济学原理》曼昆 + 两本村上春树<span class="status status-tossed">扔</span></div>
+  <div class="item-story">曼昆是搬来上海时觉得"应该读"的书。村上是觉得"在上海应该读村上"的书。书签都还在第一章。四年零七个月，它们跟着我搬了三次家，从浦东到徐汇到闵行，每次搬到新地方都摆在书架最显眼的位置。</div>
+  <div class="item-reason">扔掉理由：在上海装了四年读书人。够了。</div>
+</div>
+
+<div class="item tossed">
+  <div class="item-name">烤箱（使用次数：3）<span class="status status-tossed">扔</span></div>
+  <div class="item-story">第一次烤了蛋挞，发了朋友圈。第二次烤了红薯，没发。第三次用来加热外卖炸鸡。之后它成了放零食的柜子。</div>
+  <div class="item-reason">扔掉理由：在上海的厨房做饭是一种行为艺术。观众只有自己，而且观众也不感兴趣。</div>
+</div>
+
+<div class="category-label">舍不得但必须扔的</div>
+
+<div class="item tossed">
+  <div class="item-name">宜家 KALLAX 书架<span class="status status-tossed">扔</span></div>
+  <div class="item-story">所有在上海的独居年轻人都有一个 KALLAX。它是出租屋里唯一属于自己的大家具。搬来时花了一下午自己装的，少了一颗螺丝，用胶带粘的，但它撑住了。上面有水杯留下的圆形印记、猫的抓痕（猫是室友的，室友搬走了，猫也走了）、还有一个角被磕掉了漆。</div>
+  <div class="item-reason">扔掉理由：跨城运费比买新的贵。这是所有宜家家具的宿命——它们的价值无法超越它们所在的城市。</div>
+</div>
+
+<div class="item tossed">
+  <div class="item-name">前任送的马克杯<span class="status status-tossed">扔</span></div>
+  <div class="item-story">杯子上印着一张合照，已经被洗碗机洗模糊了。分手后用了一年半，不是因为念旧，是因为大小刚好、质量还行。后来有天被同事看到，问"这是谁"。换了个新杯子。旧的放在柜子最里面。</div>
+  <div class="item-reason">扔掉理由：带到新城市会很奇怪。不带，其实也不会想起来。中间态最折磨人。</div>
+</div>
+
+<div class="item tossed">
+  <div class="item-name">工位上拿回来的一盆绿萝（已枯）<span class="status status-tossed">扔</span></div>
+  <div class="item-story">离职那天从工位搬回来的。同事说"你把它养活了三年"，其实行政浇的水比我多。搬回家后没了空调和固定光照，两周就枯了。</div>
+  <div class="item-reason">扔掉理由：它活在那个工位上。不在那个环境里，它就只是一盆土。——人也是。</div>
+</div>
+
+<div class="category-label">最后一刻从垃圾袋里捞回来的</div>
+
+<div class="item rescued">
+  <div class="item-name">一件发黄的校园乐队T恤（XL码，现在穿不下）<span class="status status-rescued">捞回</span></div>
+  <div class="item-story">已经扔进黑色垃圾袋了。扎口的时候突然想起来这件衣服。翻出来看了一眼——背面还有当年乐队名字的印花，脱落了大半。搬来上海时带着它是为了"有天瘦下来还能穿"。四年半过去，它越来越不可能穿上了。</div>
+  <div class="annotation">捞回理由：如果扔了它，就真的没有东西能证明我二十二岁时弹过贝斯了。</div>
+</div>
+
+<div class="item rescued">
+  <div class="item-name">冰箱上的外卖磁铁（7个）<span class="status status-rescued">捞回</span></div>
+  <div class="item-story">各种开业时送的磁铁——烧烤店、川菜馆、便利店。大部分店已经关了。磁铁上的二维码扫出来是404。</div>
+  <div class="annotation">捞回理由：不知道。可能因为它们是冰箱上唯一有颜色的东西。空冰箱没有磁铁会看起来像没有人住。</div>
+</div>
+
+<div class="item rescued">
+  <div class="item-name">一个用了四年的鼠标垫<span class="status status-rescued">捞回</span></div>
+  <div class="item-story">右手腕压出了一块永久性的变色痕迹。边缘起毛了，有咖啡渍洗不掉。它是来上海第一天在公司楼下买的，19.9块。</div>
+  <div class="annotation">捞回理由：新鼠标垫要磨合。我没有精力再磨合任何东西了。</div>
+</div>
+
+<div class="stats-box">
+  <h3>搬家数据</h3>
+  <div class="stats-row"><span class="stats-label">整理用时</span><span class="stats-value">11小时（预计4小时）</span></div>
+  <div class="stats-row"><span class="stats-label">扔东西犹豫时间（累计）</span><span class="stats-value">约3小时</span></div>
+  <div class="stats-row"><span class="stats-label">黑色垃圾袋用量</span><span class="stats-value">7个</span></div>
+  <div class="stats-row"><span class="stats-label">最后带走的箱子</span><span class="stats-value">3个纸箱 + 1个行李箱</span></div>
+  <div class="stats-row"><span class="stats-label">四年七个月的物品总量</span><span class="stats-value">约 4.2 立方米</span></div>
+  <div class="stats-row"><span class="stats-label">带走的体积</span><span class="stats-value">约 1.4 立方米</span></div>
+  <div class="stats-row"><span class="stats-label">一个人在上海生活的体积</span><span class="stats-value">2.8 立方米的垃圾 + 1.4 立方米的行李</span></div>
+</div>
+
+<div class="ending">
+  <p>搬家公司来收箱子那天，我在空房间里站了一会儿。墙上有几个钉子孔——挂过照片，后来取下来没补。地板上有家具压出来的印痕——深的是书架（四年），浅的是床头柜（一年半，搬过一次位置）。</p>
+  <p>房东来验房，看了一圈说"还行，押金退你"。她没注意到那些印痕。也可能注意到了，觉得不重要。</p>
+  <p>最后检查了一遍所有的抽屉和柜子。全空了。</p>
+  <p>除了鞋柜最下面一层，有一双人字拖。</p>
+  <div class="final-item">
+    它不在搬走的清单上。也不在扔掉的清单上。<br>
+    它是来上海那天穿的。一直放在鞋柜最下面，被其他鞋挡着，四年都没穿过也没扔过。<br>
+    拿起来看了看。39码。<br><br>
+    我现在穿41。
+  </div>
+</div>
+
+</body>
+</html>

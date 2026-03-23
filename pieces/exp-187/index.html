@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>相亲对象的微信名备注变更史</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans SC',sans-serif; background:#0a0a0f; color:#ddd; min-height:100vh; }
+  .container { max-width:420px; margin:0 auto; padding:20px 16px; }
+  
+  .header { text-align:center; padding:40px 0 20px; }
+  .header h1 { font-size:18px; font-weight:500; color:#fff; }
+  .header .sub { font-size:12px; color:#666; margin-top:8px; }
+  
+  .contact-card {
+    display:flex; align-items:center; gap:14px;
+    background:#141420; border-radius:16px; padding:16px;
+    margin:20px 0; border:1px solid #1e1e30;
+  }
+  .avatar {
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(135deg, #5e72e4, #825ee4);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; color:#fff; flex-shrink:0;
+  }
+  .contact-info .name { font-size:16px; color:#fff; font-weight:500; }
+  .contact-info .detail { font-size:11px; color:#555; margin-top:2px; }
+  #currentName { transition: all 0.3s; }
+
+  .rename-log { margin:24px 0; }
+  
+  .rename-entry {
+    position:relative;
+    padding:16px;
+    padding-left:44px;
+    background:#111118;
+    border-radius:12px;
+    margin-bottom:10px;
+    cursor:pointer;
+    border:1px solid #1a1a28;
+    transition:all 0.3s;
+  }
+  .rename-entry:hover { border-color:#2a2a3a; }
+  .rename-entry .num {
+    position:absolute; left:14px; top:16px;
+    width:22px; height:22px; border-radius:50%;
+    background:#1a1a2e; color:#5e72e4;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:700;
+  }
+  .rename-entry .re-name {
+    font-size:15px; color:#fff; font-weight:500;
+    font-family: -apple-system, sans-serif;
+  }
+  .rename-entry .re-date {
+    font-size:11px; color:#555; margin-top:4px;
+  }
+  .rename-entry .re-story {
+    max-height:0; overflow:hidden;
+    transition:max-height 0.5s ease;
+    font-size:13px; line-height:1.9; color:#999;
+    margin-top:0;
+  }
+  .rename-entry.open .re-story {
+    max-height:200px;
+    margin-top:12px;
+  }
+  .rename-entry .re-arrow {
+    position:absolute; right:14px; top:16px;
+    font-size:12px; color:#333;
+    transition:transform 0.3s;
+  }
+  .rename-entry.open .re-arrow { transform:rotate(90deg); }
+
+  .branch-section {
+    margin-top:30px;
+    text-align:center;
+    display:none;
+  }
+  .branch-section.visible { display:block; }
+  .branch-prompt {
+    font-size:14px; color:#888; margin-bottom:16px;
+  }
+  .branch-btns { display:flex; gap:12px; justify-content:center; }
+  .branch-btn {
+    padding:12px 24px;
+    border-radius:12px;
+    border:1px solid #333;
+    background:#141420;
+    color:#ccc;
+    font-size:14px;
+    cursor:pointer;
+    transition:all 0.3s;
+    flex:1;
+    max-width:160px;
+  }
+  .branch-btn:hover { border-color:#5e72e4; color:#fff; }
+  .branch-btn.selected { border-color:#5e72e4; background:#1a1a30; color:#5e72e4; }
+
+  .ending {
+    margin-top:20px;
+    padding:24px 20px;
+    border-radius:16px;
+    opacity:0;
+    transform:translateY(20px);
+    transition:all 0.8s;
+    display:none;
+  }
+  .ending.visible { opacity:1; transform:translateY(0); display:block; }
+  
+  .ending-a {
+    background:linear-gradient(135deg,#1a1418,#201418);
+    border:1px solid #3a1a1a;
+  }
+  .ending-a .end-name { font-size:24px; color:#e44d72; font-weight:700; text-align:center; margin-bottom:12px; }
+  .ending-a .end-body { font-size:13px; line-height:2; color:#c09090; }
+  
+  .ending-b {
+    background:linear-gradient(135deg,#141a18,#142018);
+    border:1px solid #1a3a2a;
+  }
+  .ending-b .end-name { font-size:24px; color:#4ecdc4; font-weight:700; text-align:center; margin-bottom:12px; }
+  .ending-b .end-body { font-size:13px; line-height:2; color:#90c0b0; }
+  
+  .ending .end-coda {
+    margin-top:16px; font-size:12px; color:#555; text-align:center; font-style:italic;
+  }
+
+  .footer { text-align:center; font-size:11px; color:#333; margin:40px 0 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📇 微信通讯录 · 备注变更记录</h1>
+    <div class="sub">共 12 次修改 · 跨度 2 年 4 个月</div>
+  </div>
+
+  <div class="contact-card">
+    <div class="avatar">周</div>
+    <div class="contact-info">
+      <div class="name" id="currentName">相亲3号 周六咖啡</div>
+      <div class="detail">当前备注 · 悬停姓名查看完整记录</div>
+    </div>
+  </div>
+
+  <div class="rename-log">
+    <div class="rename-entry" onclick="toggleEntry(this, '相亲3号 周六咖啡')">
+      <div class="num">1</div>
+      <div class="re-name">相亲3号 周六咖啡</div>
+      <div class="re-date">2023-09-15 · 添加好友</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">妈妈发来的微信："这个小伙子在银行上班，周六下午有空，你们约个咖啡。"你存号码的时候甚至没问姓什么。"3号"是因为前两个分别是"相亲1号 火锅"和"相亲2号 已婚渣男"。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '周…好像姓周')">
+      <div class="num">2</div>
+      <div class="re-name">周…好像姓周</div>
+      <div class="re-date">2023-09-16 · 咖啡后第二天</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">咖啡喝了一个半小时。他迟到了8分钟，道歉了3次。聊了电影，聊了猫，没聊工作。回家后你翻聊天记录确认他姓周。备注里的省略号是一种犹豫——还不确定要不要记住这个人。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '周颖')">
+      <div class="num">3</div>
+      <div class="re-name">周颖</div>
+      <div class="re-date">2023-10-08 · 第四次见面后</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">他带你去吃了一家巷子里的面馆，是他小时候常去的那种。你第一次觉得可以叫他的全名了。"周颖"两个字打出来的时候，你删掉了"好像"。从可能是错的，变成了确定的。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '颖')">
+      <div class="num">4</div>
+      <div class="re-name">颖</div>
+      <div class="re-date">2023-11-22 · 确认关系当晚</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">他在天桥上说"那我们在一起吧"的时候你觉得台词太烂了，但心跳是真的。回家后把备注从两个字改成一个字。亲密度和字数成反比——越亲近，越不需要完整称呼。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '不许再买包的那个人')">
+      <div class="num">5</div>
+      <div class="re-name">不许再买包的那个人</div>
+      <div class="re-date">2024-02-14 · 情人节吵架</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">他送了你一个实用主义的空气炸锅。你问他"你觉得我是什么人"。他说"你上个月买了三个包"。你改了备注，带着一种只有亲近的人才有资格制造的那种愤怒。第二天他买了花，你没改回来，因为觉得这个备注很好笑。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '老公👨‍👩‍👦')">
+      <div class="num">6</div>
+      <div class="re-name">老公👨‍👩‍👦</div>
+      <div class="re-date">2024-05-20 · 领证当天</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">在民政局门口改的。你们约好了同时改备注，他把你改成了"太太大人"，你俩都觉得很土，然后笑了半个小时。emoji是他加的——他抢过你的手机加了家庭的那个，虽然还没有小孩。"先占个位"，他说。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '周颖')">
+      <div class="num">7</div>
+      <div class="re-name">周颖</div>
+      <div class="re-date">2024-08-03 · 第一次冷战</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">为了他妈妈的事。具体什么事你已经记不清了，但你记得改备注时的手指是抖的。从"老公"退回到全名，像把一个人重新推远到社交距离。两个字的距离感，刚好是婚姻和陌生人之间的距离。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '颖❤️')">
+      <div class="num">8</div>
+      <div class="re-name">颖❤️</div>
+      <div class="re-date">2024-08-07 · 和好</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">他做了一桌菜等你回家，有一道是你妈妈教他的。你没有马上改备注——先吃了饭，洗了碗，看了半集综艺。然后去卫生间的时候顺手改了。多了个❤️，是上次没有的。伤疤上的新皮肤总是比原来的更敏感一点。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '那个人')">
+      <div class="num">9</div>
+      <div class="re-name">那个人</div>
+      <div class="re-date">2024-11-15 · 深夜</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">你们有一个月没怎么说话了。不是冷战，是更可怕的东西——没什么好说的。他加班到11点，你加班到10点，回家后一个看手机一个打游戏。你改备注的时候他就坐在旁边。他没注意到。"那个人"三个字是一种试探：如果他发现了，说明他还在看你的手机屏幕。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '…')">
+      <div class="num">10</div>
+      <div class="re-name">…</div>
+      <div class="re-date">2025-01-20 · 过年前</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">三个点。你不知道该叫他什么了。"老公"叫不出口，"周颖"太正式，"颖"太亲密，"那个人"太绝望。三个点是你能找到的最诚实的备注。<br><br>你妈打电话问过年回谁家，你说"还没定"。她说"你们还好吧"。你说"挺好的"。三个点变成了三个字。</div>
+    </div>
+
+    <div class="rename-entry" onclick="toggleEntry(this, '?')">
+      <div class="num">11</div>
+      <div class="re-name" style="font-size:20px;">?</div>
+      <div class="re-date">2025-02-08 · 年初十 · 深夜独自散步后</div>
+      <div class="re-arrow">›</div>
+      <div class="re-story">过年在他家。公公婆婆对你很好。他帮你夹菜。你们在外人面前像一对正常的夫妻。回到卧室后各自躺在床的两边，中间隔着30厘米和整个太平洋。<br><br>
+      你出去散了一小时的步。回来的时候把备注改成了一个问号。<br><br>
+      这是你第一次不知道接下来会发生什么。前面的每一次修改，你都隐隐知道方向。这一次，真的不知道。</div>
+    </div>
+  </div>
+
+  <!-- Branching point -->
+  <div class="branch-section" id="branchSection">
+    <div class="branch-prompt">第 12 次修改 · 2025-03-14<br><span style="font-size:12px; color:#555;">故事在这里分岔了。你想看哪一个？</span></div>
+    <div class="branch-btns">
+      <div class="branch-btn" onclick="showEnding('a')">🅰️ 一个字的结局</div>
+      <div class="branch-btn" onclick="showEnding('b')">🅱️ 另一个字的结局</div>
+    </div>
+  </div>
+
+  <div class="ending ending-a" id="endingA">
+    <div class="end-name">周颖-律师费AA</div>
+    <div class="end-body">
+      2025-03-14。你们约在第一次见面的那家咖啡厅签了协议。他又迟到了，这次是6分钟，没有道歉。<br><br>
+      你把备注改成了全名加备忘。像在处理一份工作文件。<br><br>
+      走出咖啡厅的时候你发现，你第一次来这里时点的是拿铁，今天点的也是拿铁。2年前的你在犹豫要不要记住他姓什么。2年后的你在学习如何忘记。<br><br>
+      <span style="color:#e44d72;">最后你把他移到了通讯录最底部。没有删除。不是舍不得，是怕有一天忘了这个教训。<br><br>备注最终停在了：<br></span>
+    </div>
+    <div style="text-align:center; font-size:28px; color:#e44d72; margin:16px 0; font-weight:700;">周颖</div>
+    <div class="end-coda">从全名开始，到全名结束。<br>中间所有的缩写、昵称、emoji和省略号，<br>都是你以为会一直走下去的证据。</div>
+  </div>
+
+  <div class="ending ending-b" id="endingB">
+    <div class="end-name">家</div>
+    <div class="end-body">
+      2025-03-14。你们在阳台上聊了一个通宵。他哭了，你也哭了。他说"我不想变成室友"。你说"我也不想"。<br><br>
+      你们没有解决任何问题。但你们第一次承认了问题的存在。这是两年来你们做过的最勇敢的事。<br><br>
+      第二天早上你起来做了早餐——不是因为原谅了，是因为如果不迈出这一步，问号会变成句号。<br><br>
+      <span style="color:#4ecdc4;">你把备注改成了一个字。不是他的名，不是称呼，不是角色。<br><br></span>
+    </div>
+    <div style="text-align:center; font-size:28px; color:#4ecdc4; margin:16px 0; font-weight:700;">家</div>
+    <div class="end-coda">一个字。<br>不是因为亲密度够高才能缩短到一个字。<br>是因为经历过问号之后还愿意留下的人，<br>值得一个最简单的名字。</div>
+  </div>
+
+  <div class="footer">TRINITY V3 · EXP-187 · 相亲对象的微信名备注变更史</div>
+</div>
+
+<script>
+let openCount = 0;
+function toggleEntry(el, name) {
+  const wasOpen = el.classList.contains('open');
+  // close all
+  document.querySelectorAll('.rename-entry').forEach(e => e.classList.remove('open'));
+  if (!wasOpen) {
+    el.classList.add('open');
+    document.getElementById('currentName').textContent = name;
+    openCount++;
+  }
+  // show branch after entry 11 is opened
+  if (openCount >= 5) {
+    document.getElementById('branchSection').classList.add('visible');
+  }
+}
+
+function showEnding(path) {
+  document.querySelectorAll('.branch-btn').forEach(b => b.classList.remove('selected'));
+  event.target.classList.add('selected');
+  document.getElementById('endingA').classList.remove('visible');
+  document.getElementById('endingB').classList.remove('visible');
+  setTimeout(() => {
+    document.getElementById(path === 'a' ? 'endingA' : 'endingB').classList.add('visible');
+  }, 300);
+}
+</script>
+</body>
+</html>

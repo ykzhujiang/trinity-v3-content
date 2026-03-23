@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一颗心脏的24小时心率图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+body {
+  background: #0a0a0f;
+  color: #e8e0d4;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+.intro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  animation: fadeIn 2s ease;
+}
+.intro h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: #c94040;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px rgba(201,64,64,0.3);
+}
+.intro .subtitle {
+  font-size: 1.1rem;
+  color: #887;
+  margin-bottom: 2rem;
+}
+.heartbeat-line {
+  width: 80%;
+  max-width: 600px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #c94040, transparent);
+  margin: 1rem auto;
+  animation: pulse-line 1.5s ease-in-out infinite;
+}
+@keyframes pulse-line {
+  0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.chart-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.chart-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  color: #776;
+}
+.bpm-counter {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  color: #c94040;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 100;
+  text-shadow: 0 0 20px rgba(201,64,64,0.4);
+}
+.bpm-counter.visible { opacity: 1; }
+.bpm-counter .unit { font-size: 0.8rem; color: #887; }
+
+svg.ecg {
+  width: 100%;
+  height: 120px;
+  margin-bottom: 1rem;
+}
+.ecg-path {
+  fill: none;
+  stroke: #c94040;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px rgba(201,64,64,0.4));
+}
+.ecg-bg { fill: none; stroke: #222; stroke-width: 1; }
+
+.timeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  justify-content: center;
+  margin: 2rem 0;
+}
+.hour-node {
+  width: calc(100% / 8);
+  min-width: 100px;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #1a1a22;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.hour-node::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--glow) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.hour-node:hover::before { opacity: 1; }
+.hour-node:hover { border-color: #c94040; transform: scale(1.05); z-index: 2; }
+.hour-node.expanded { background: #151520; }
+.hour-time {
+  font-size: 0.85rem;
+  color: #665;
+  margin-bottom: 0.3rem;
+  font-variant-numeric: tabular-nums;
+}
+.hour-bpm {
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: color 0.3s;
+}
+.hour-label {
+  font-size: 0.75rem;
+  color: #554;
+  margin-top: 0.3rem;
+}
+
+/* BPM color coding */
+.bpm-rest { color: #4a7; --glow: rgba(68,170,119,0.08); }
+.bpm-low { color: #6a9; --glow: rgba(102,170,153,0.08); }
+.bpm-normal { color: #ca8; --glow: rgba(204,170,136,0.08); }
+.bpm-elevated { color: #c84; --glow: rgba(204,136,68,0.08); }
+.bpm-high { color: #c64; --glow: rgba(204,100,68,0.1); }
+.bpm-stress { color: #c44; --glow: rgba(204,68,68,0.12); }
+.bpm-peak { color: #e33; --glow: rgba(230,50,50,0.15); }
+
+.story-panel {
+  display: none;
+  padding: 1.5rem;
+  margin: 0 auto;
+  max-width: 800px;
+  animation: slideDown 0.5s ease;
+  border-left: 3px solid #c94040;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, rgba(201,64,64,0.05), transparent);
+}
+.story-panel.active { display: block; }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.story-panel .bpm-reading {
+  font-size: 2.2rem;
+  color: #c94040;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.story-panel .physio {
+  font-size: 0.85rem;
+  color: #665;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+.story-panel .narrative {
+  font-size: 1.1rem;
+  line-height: 2;
+  color: #d4ccc0;
+}
+
+.coda {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  opacity: 0;
+  transition: opacity 1s;
+}
+.coda.visible { opacity: 1; }
+.coda .total {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: #c94040;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+.coda .line {
+  font-size: 1.2rem;
+  color: #998;
+  max-width: 600px;
+  line-height: 2.2;
+}
+.coda .line em {
+  color: #c94040;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.progress-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: #c94040;
+  transition: width 0.3s;
+  z-index: 100;
+}
+
+/* Heartbeat animation on node hover */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+  60% { transform: scale(1); }
+}
+.hour-node:hover .hour-bpm { animation: heartbeat 0.8s ease; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hour-node { width: calc(100% / 4); min-width: 80px; }
+  body { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bpm-counter" id="bpmCounter"><span id="bpmVal">72</span> <span class="unit">BPM</span></div>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="intro">
+  <div class="heartbeat-line"></div>
+  <h1>一颗心脏的24小时心率图</h1>
+  <p class="subtitle">他的心脏在这一天跳了 103,680 次。<br>他不记得其中任何一次。</p>
+  <div class="heartbeat-line"></div>
+  <p style="color:#554; font-size:0.85rem; margin-top:2rem;">↓ 点击任意时刻，展开那一刻的故事</p>
+</div>
+
+<div class="chart-container">
+  <div class="chart-header">2026年3月17日 · 周二 · 北京 · 多云转晴 · 最高气温14°C</div>
+  
+  <svg class="ecg" id="ecgChart" viewBox="0 0 1000 120" preserveAspectRatio="none"></svg>
+
+  <div class="timeline" id="timeline"></div>
+</div>
+
+<div id="storyArea"></div>
+
+<div class="coda" id="coda">
+  <div class="total" id="codaTotal"></div>
+  <div class="line" id="codaText"></div>
+</div>
+
+<script>
+const DATA = [
+  { hour: '00:00', bpm: 58, cat: 'rest', label: '浅睡', physio: '副交感神经主导，心率降至日间基线的75%', story: '他翻了个身。梦里在开一个永远开不完的会，每个人都在说话，但他听不清任何一句。心脏不知道这是梦，忠实地放慢了节奏。' },
+  { hour: '01:00', bpm: 52, cat: 'rest', label: '深睡', physio: '进入N3期深度睡眠，心率触及24小时最低点', story: '全天最安静的心跳。大脑在清洗白天产生的β-淀粉样蛋白。他不知道，这是他离死亡的模拟最近的时刻——意识完全熄灭，只有心脏还在值班。' },
+  { hour: '02:00', bpm: 54, cat: 'rest', label: '深睡', physio: 'HRV最高，心脏节律变异性达到日间2倍', story: '凌晨两点的心跳最"自由"。没有闹钟、没有消息、没有deadline。心脏按自己喜欢的节奏跳。这是他全天唯一一次做自己。' },
+  { hour: '03:00', bpm: 55, cat: 'rest', label: 'REM', physio: '快速眼动期，心率轻微波动，与梦境内容相关', story: '他梦见了高中的操场。跑道是红色的，天空很蓝，他跑得很快。心率从55升到了61——梦里的奔跑，心脏当了真。' },
+  { hour: '04:00', bpm: 56, cat: 'rest', label: '浅睡', physio: '皮质醇开始缓慢上升，为醒来做准备', story: '身体已经开始为闹钟倒计时了。他还以为自己在睡，其实肾上腺已经开始加班。甚至在梦里，他的身体都在担心迟到。' },
+  { hour: '05:00', bpm: 60, cat: 'low', label: '浅睡', physio: '褪黑素浓度下降，核心体温开始回升', story: '窗帘缝里漏进一线灰光。他没有意识到，但瞳孔透过眼皮感知到了光线变化，向松果体报告：天快亮了。心脏收到了备忘录。' },
+  { hour: '06:15', bpm: 88, cat: 'elevated', label: '闹钟', physio: '交感神经骤然激活，肾上腺素释放，心率在30秒内上升40%', story: '闹钟。心率从58跳到88，只用了三声铃响。这和遇到老虎时的生理反应完全相同。他的身体无法区分iPhone闹铃和生存威胁。每天早上，他都从一次小型心脏事件中醒来。' },
+  { hour: '07:00', bpm: 78, cat: 'normal', label: '通勤', physio: '站立+行走，心率稳定在基础代谢上方20%', story: '地铁入口。他走得很快，不是因为赶时间，是因为后面有人走得更快。地铁里每个人都在赶路，虽然没有人迟到。心率78，通勤标配——不高不低，刚好够焦虑。' },
+  { hour: '07:30', bpm: 95, cat: 'high', label: '挤地铁', physio: '人群拥挤触发轻度应激反应，呼吸变浅，心率上升', story: '车厢塞满了人。有人的背包顶着他的胃，有人的头发蹭着他的下巴。他的身体分泌肾上腺素的量，和被困在电梯里差不多。95次/分钟——他用来对抗的不是危险，是别人的体温。' },
+  { hour: '08:30', bpm: 82, cat: 'normal', label: '到公司', physio: '步行+电梯+工位落座，心率在82-85区间', story: '工位。电脑开机需要47秒。他盯着屏幕上的loading圈看，心率82。Loading圈消失，微信弹出18条未读。心率没变——他已经习惯了。' },
+  { hour: '09:00', bpm: 76, cat: 'normal', label: '晨会', physio: '坐姿状态，心率回落。轻度社交紧张维持在中等水平', story: '九点晨会。他不需要发言，只需要坐着听。心率76——开会的心率和睡觉差不了太多。有人在汇报昨天的数据，他想着中午吃什么。' },
+  { hour: '10:00', bpm: 72, cat: 'normal', label: '工作', physio: '稳态工作，心率趋于日间基线72 BPM', story: '写PPT。第三页，第四页，第五页。心率72，教科书般的静息心率。医生会说这是健康的标志。但他知道，这不是平静，是麻木。72次/分钟是他对这份工作的精确态度。' },
+  { hour: '11:00', bpm: 74, cat: 'normal', label: '工作', physio: '血糖开始下降，轻微饥饿信号。心率微升', story: '邮件通知。标题："关于Q2目标调整的讨论"。他看了一眼，没有点开。心率只动了2下——从72到74——这是他对全部office politics的全部生理反应。' },
+  { hour: '12:00', bpm: 68, cat: 'low', label: '午饭', physio: '进食后副交感神经增强，血流转向消化系统', story: '食堂。点了宫保鸡丁，和每个周二一样。他发现自己已经连续吃了三个月的周二宫保鸡丁。心率68，比工作时还低——吃饭是他最接近放松的时刻，虽然他只花了11分钟。' },
+  { hour: '13:00', bpm: 62, cat: 'low', label: '午休', physio: '餐后困倦，心率降低。体温微降0.3°C', story: '趴在桌上午睡。头枕在手臂上，听见自己的心跳。砰、砰、砰。这可能是他全天唯一一次注意到自己有心脏。' },
+  { hour: '14:00', bpm: 108, cat: 'peak', label: '被@了', physio: '急性应激反应：心率在15秒内从62跃升至108。相当于短跑起步', story: '老板在群里@了他。"这个数据有问题，谁负责的？"心率从午睡的62直接跳到108。他的心脏在15秒内完成了一次模拟冲刺。手指在键盘上打字的时候在抖——不是因为打字，是因为肾上腺素还没代谢完。' },
+  { hour: '14:30', bpm: 92, cat: 'high', label: '善后', physio: '应激激素半衰期约20-30分钟。心率缓慢回落', story: '问题解决了。不是他的锅。但心率用了30分钟才从108降到92。肾上腺素的半衰期是20分钟，但被@的阴影半衰期更长。他反复检查了三遍群消息，确认没有新的@。' },
+  { hour: '15:00', bpm: 78, cat: 'normal', label: '会议', physio: '心率回归基线。下午皮质醇水平开始下降', story: '又一个会。这次他需要发言。发言前心率85，发言时78——比发言前还低。他发现自己已经学会了一种技能：在不在意的事情上表现得很在意，心率甚至不会波动。' },
+  { hour: '16:00', bpm: 74, cat: 'normal', label: '工作', physio: '下午低谷期，心率平稳但主观精力下降', story: '窗外的光线变成了金色。他看了三秒钟。心率74。他不知道，这三秒是他全天看窗外最久的一次。也是心率最稳的三秒。' },
+  { hour: '17:30', bpm: 70, cat: 'normal', label: '下班', physio: '心理预期放松，心率下降到日间低点', story: '电脑关机。心率从74降到70。4次/分钟——这是"工作"和"非工作"之间的生理差距。只有4次。他以为下班会感觉自由，但身体说：差别只有4次心跳。' },
+  { hour: '18:00', bpm: 76, cat: 'normal', label: '通勤', physio: '步行+地铁。返程心率低于早高峰同场景约20%', story: '回家的地铁。一样挤，但心率只有76——比早上低了19。同样的车厢、同样的拥挤，但心脏知道方向不同。回家的方向，心跳更轻。' },
+  { hour: '19:00', bpm: 82, cat: 'normal', label: '跑步', physio: '低强度有氧，心率维持在最大心率的55-65%区间', story: '小区里跑了3公里。心率82——全天最"值得"的82次。他主动选择让心脏加速。不是被闹钟吵的，不是被老板@的，不是被人群挤的。这3公里的心跳，是全天唯一一份他自己下单的肾上腺素。' },
+  { hour: '20:00', bpm: 68, cat: 'low', label: '晚饭/洗澡', physio: '副交感恢复主导，身体进入夜间模式', story: '洗完澡，头发还没干。点开外卖app，划了5分钟，关掉，煮了碗面。心率68。他想：一天结束了吗？看了眼手机，21条未读消息，没有一条想回。' },
+  { hour: '21:00', bpm: 66, cat: 'low', label: '刷手机', physio: '蓝光抑制褪黑素分泌，但心率持续下降', story: '刷短视频。每15秒一次多巴胺脉冲，但心率不动。66次/分钟，稳如老狗。他的心脏已经对多巴胺免疫了。或者说，15秒的快乐不值得心脏认真对待。' },
+  { hour: '22:00', bpm: 64, cat: 'low', label: '准备睡', physio: '核心体温下降，心率降至日间基线以下', story: '关灯。黑暗中看了一会儿天花板。想到明天还有那个会。心率64——连焦虑都懒得焦虑了。身体已经知道：明天和今天一样。心脏提前适应了。' },
+  { hour: '23:00', bpm: 60, cat: 'low', label: '入睡', physio: '入睡过渡期，心率以每10分钟约2BPM的速度下降', story: '入睡前的最后一个念头：他想不起来今天发生了什么值得记住的事。心率60。和昨天的23:00一样。和前天的23:00一样。心脏的诚实是残忍的：你的每一天，在生理上几乎没有区别。' },
+];
+
+const timeline = document.getElementById('timeline');
+const storyArea = document.getElementById('storyArea');
+const bpmCounter = document.getElementById('bpmCounter');
+const bpmVal = document.getElementById('bpmVal');
+let exploredCount = 0;
+const explored = new Set();
+
+// Build ECG-style curve
+const ecgSvg = document.getElementById('ecgChart');
+const points = DATA.map((d, i) => {
+  const x = (i / (DATA.length - 1)) * 1000;
+  const y = 120 - ((d.bpm - 45) / 75) * 100;
+  return `${x},${y}`;
+});
+ecgSvg.innerHTML = `
+  <line class="ecg-bg" x1="0" y1="60" x2="1000" y2="60"/>
+  <polyline class="ecg-path" points="${points.join(' ')}"/>
+  ${DATA.map((d, i) => {
+    const x = (i / (DATA.length - 1)) * 1000;
+    const y = 120 - ((d.bpm - 45) / 75) * 100;
+    return `<circle cx="${x}" cy="${y}" r="4" fill="#c94040" opacity="0.6" class="ecg-dot" data-idx="${i}"/>`;
+  }).join('')}
+`;
+
+// Build timeline grid
+DATA.forEach((d, i) => {
+  const node = document.createElement('div');
+  node.className = `hour-node bpm-${d.cat}`;
+  node.innerHTML = `
+    <span class="hour-time">${d.hour}</span>
+    <span class="hour-bpm bpm-${d.cat}">${d.bpm}</span>
+    <span class="hour-label">${d.label}</span>
+  `;
+  node.addEventListener('click', () => toggleStory(i));
+  timeline.appendChild(node);
+});
+
+function toggleStory(idx) {
+  const d = DATA[idx];
+  if (!explored.has(idx)) {
+    explored.add(idx);
+    exploredCount++;
+    updateProgress();
+  }
+  
+  // Update BPM counter
+  bpmCounter.classList.add('visible');
+  bpmVal.textContent = d.bpm;
+  
+  // Highlight node
+  document.querySelectorAll('.hour-node').forEach(n => n.classList.remove('expanded'));
+  timeline.children[idx].classList.add('expanded');
+  
+  // Show story
+  const existing = document.querySelector('.story-panel.active');
+  if (existing) existing.classList.remove('active');
+  
+  let panel = document.getElementById(`story-${idx}`);
+  if (!panel) {
+    panel = document.createElement('div');
+    panel.id = `story-${idx}`;
+    panel.className = 'story-panel';
+    panel.innerHTML = `
+      <div class="bpm-reading">${d.bpm} BPM · ${d.hour}</div>
+      <div class="physio">${d.physio}</div>
+      <div class="narrative">${d.story}</div>
+    `;
+    storyArea.appendChild(panel);
+  }
+  
+  setTimeout(() => {
+    panel.classList.add('active');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 50);
+  
+  // Check coda
+  if (exploredCount >= 20) showCoda();
+}
+
+function updateProgress() {
+  const pct = (exploredCount / DATA.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+function showCoda() {
+  const coda = document.getElementById('coda');
+  const total = document.getElementById('codaTotal');
+  const text = document.getElementById('codaText');
+  
+  total.textContent = '103,680';
+  text.innerHTML = `他的心脏在这一天跳了 <em>103,680</em> 次。<br><br>其中 <em>103,003</em> 次是自主神经的例行公事。<br>闹钟吓的、老板@的、地铁挤的、deadline逼的。<br><br>只有跑步的那 <em>677</em> 次，是他自己要求的。<br><br>他为自己的心脏下过的唯一一次订单，<br>是晚上7点的3公里。<br><br><span style="color:#554; font-size:0.9rem;">你今天有没有让心脏为你自己跳过一次？</span>`;
+  
+  setTimeout(() => {
+    coda.classList.add('visible');
+    coda.scrollIntoView({ behavior: 'smooth' });
+  }, 500);
+}
+
+// ECG dot click
+document.querySelectorAll('.ecg-dot').forEach(dot => {
+  dot.style.cursor = 'pointer';
+  dot.addEventListener('click', () => toggleStory(parseInt(dot.dataset.idx)));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>雷军的一天 · 朋友圈时间线</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#f0f0f0; font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif; font-size:20px; line-height:1.8; color:#333; max-width:100vw; overflow-x:hidden; }
+.header { background:#ededed; padding:20px 16px 12px; border-bottom:1px solid #ddd; position:sticky; top:0; z-index:10; }
+.header h1 { font-size:20px; font-weight:600; text-align:center; }
+.timeline { max-width:375px; margin:0 auto; padding:12px; }
+.moment { background:#fff; border-radius:8px; margin-bottom:16px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); animation: fadeUp 0.6s ease both; }
+.moment:nth-child(1) { animation-delay: 0.1s; }
+.moment:nth-child(2) { animation-delay: 0.3s; }
+.moment:nth-child(3) { animation-delay: 0.5s; }
+.moment:nth-child(4) { animation-delay: 0.7s; }
+.moment:nth-child(5) { animation-delay: 0.9s; }
+.moment:nth-child(6) { animation-delay: 1.1s; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+.avatar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.avatar { width:44px; height:44px; border-radius:6px; background:#4a90d9; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:bold; font-size:18px; flex-shrink:0; }
+.avatar.lj { background:#2563eb; }
+.avatar.lwb { background:#e67e22; }
+.avatar.cc { background:#27ae60; }
+.avatar.zyj { background:#8b5cf6; }
+.avatar.ycx { background:#ef4444; }
+.nickname { font-weight:600; font-size:17px; }
+.time-tag { font-size:13px; color:#999; margin-left:auto; }
+.moment-text { font-size:19px; line-height:1.8; margin-bottom:12px; }
+.moment-img { width:100%; border-radius:8px; margin-bottom:10px; }
+.moment-img img { width:100%; border-radius:8px; display:block; }
+.likes-bar { font-size:14px; color:#576b95; padding:8px 0; border-bottom:1px solid #f0f0f0; }
+.likes-bar::before { content:'❤️ '; }
+.comment { display:flex; gap:8px; padding:8px 0; border-bottom:1px solid #f5f5f5; font-size:16px; }
+.comment:last-child { border-bottom:none; }
+.comment-name { color:#576b95; font-weight:600; white-space:nowrap; }
+.comment-text { color:#333; }
+.location { font-size:13px; color:#999; margin-top:4px; }
+.footer-bar { text-align:center; padding:20px; color:#999; font-size:14px; }
+</style>
+</head>
+<body>
+<div class="header"><h1>📱 朋友圈 · 3月19日</h1></div>
+<div class="timeline">
+
+<!-- 07:30 -->
+<div class="moment">
+  <div class="avatar-row">
+    <div class="avatar lj">雷</div>
+    <div><div class="nickname">雷军</div><div class="location">📍 北京·小米科技园</div></div>
+    <span class="time-tag">07:30</span>
+  </div>
+  <div class="moment-text">天还没全亮就到工厂了。新一代SU7第一批展车已经整装待发，每台都亲自看了一遍。今晚发布会，所有人准备好了吗？💪</div>
+  <div class="moment-img"><img src="leijun-office.jpg" alt="雷军在工厂" loading="lazy"></div>
+  <div class="likes-bar">卢伟冰、常程、王翔 等42人觉得很赞</div>
+  <div class="comment"><span class="comment-name">卢伟冰：</span><span class="comment-text">军哥早！展车全部到位，销售团队已经打了鸡血了😤</span></div>
+  <div class="comment"><span class="comment-name">常程：</span><span class="comment-text">产品经理团队凌晨四点最后一轮走查完毕✅</span></div>
+</div>
+
+<!-- 12:15 -->
+<div class="moment">
+  <div class="avatar-row">
+    <div class="avatar lj">雷</div>
+    <div><div class="nickname">雷军</div><div class="location">📍 北京·亦庄</div></div>
+    <span class="time-tag">12:15</span>
+  </div>
+  <div class="moment-text">最后一次彩排。新一代SU7,21.99万起。说实话，比上一代涨了一点价，但产品力提升了不止一个档次。动力、底盘、续航全面升级。我相信大家看到真车会理解的。</div>
+  <div class="moment-img"><img src="leijun-su7.jpg" alt="SU7展车" loading="lazy"></div>
+  <div class="likes-bar">张一鸣、王兴、黄峥 等89人觉得很赞</div>
+  <div class="comment"><span class="comment-name">王兴：</span><span class="comment-text">这车确实帅，我去试驾了，提速猛得离谱</span></div>
+  <div class="comment"><span class="comment-name">余承东：</span><span class="comment-text">21.99万？涨价了还好意思说性价比？[偷笑]</span></div>
+  <div class="comment"><span class="comment-name">雷军 回复 余承东：</span><span class="comment-text">老余，你来看看真车再说😏</span></div>
+</div>
+
+<!-- 15:00 -->
+<div class="moment">
+  <div class="avatar-row">
+    <div class="avatar lj">雷</div>
+    <div><div class="nickname">雷军</div><div class="location">📍 北京</div></div>
+    <span class="time-tag">15:00</span>
+  </div>
+  <div class="moment-text">下午独自在办公室坐了会儿。想起2021年3月30日官宣造车那天，全世界都在质疑：一个做手机的为什么要造车？<br><br>1000多个日夜，100多亿投入，无数次推倒重来。今晚，交答卷。</div>
+  <div class="moment-img"><img src="leijun-night.jpg" alt="雷军独处" loading="lazy"></div>
+  <div class="likes-bar">舒淇、苏炳添、林斌 等156人觉得很赞</div>
+  <div class="comment"><span class="comment-name">林斌：</span><span class="comment-text">军哥，一路走来不容易。今晚我们都在🙏</span></div>
+  <div class="comment"><span class="comment-name">张一鸣：</span><span class="comment-text">👍</span></div>
+</div>
+
+<!-- 21:00 -->
+<div class="moment">
+  <div class="avatar-row">
+    <div class="avatar lj">雷</div>
+    <div><div class="nickname">雷军</div><div class="location">📍 北京·小米春季新品发布会</div></div>
+    <span class="time-tag">21:00</span>
+  </div>
+  <div class="moment-text">发布会结束！新一代SU7正式发布，21.99万起！<br><br>舒淇和苏炳添来到了现场助阵，全场掌声雷动。当我说出"3天内未锁单可退"的时候，现场沸腾了。<br><br>做正确的事，然后等待时间的回报。🚗</div>
+  <div class="moment-img"><img src="leijun-team.jpg" alt="发布会现场" loading="lazy"></div>
+  <div class="likes-bar">余承东、马化腾、丁磊 等2847人觉得很赞</div>
+  <div class="comment"><span class="comment-name">余承东：</span><span class="comment-text">好吧我承认，这车确实可以。但我们下个月也有大招[奸笑]</span></div>
+  <div class="comment"><span class="comment-name">卢伟冰：</span><span class="comment-text">21:30开始下定，服务器别崩啊😱</span></div>
+  <div class="comment"><span class="comment-name">雷军 回复 卢伟冰：</span><span class="comment-text">提前两个月扩了3倍服务器容量，放心🫡</span></div>
+  <div class="comment"><span class="comment-name">常程：</span><span class="comment-text">产销平衡！这次我们不让大家等太久</span></div>
+</div>
+
+<!-- 23:59 -->
+<div class="moment">
+  <div class="avatar-row">
+    <div class="avatar lj">雷</div>
+    <div><div class="nickname">雷军</div><div class="location">📍 北京</div></div>
+    <span class="time-tag">23:59</span>
+  </div>
+  <div class="moment-text">刚看了下后台数据。<br><br>开放下定2.5小时，大定突破50000台。<br><br>谢谢所有相信小米的人。晚安，明天继续。🌙</div>
+  <div class="likes-bar">雷军妈妈、林斌、洪锋 等3621人觉得很赞</div>
+  <div class="comment"><span class="comment-name">雷军妈妈：</span><span class="comment-text">儿子辛苦了，早点休息💗</span></div>
+  <div class="comment"><span class="comment-name">雷军 回复 雷军妈妈：</span><span class="comment-text">妈，我马上睡😊</span></div>
+  <div class="comment"><span class="comment-name">余承东：</span><span class="comment-text">…行吧，恭喜[拥抱]</span></div>
+</div>
+
+</div>
+
+<div class="footer-bar">— 以上为虚构创作，致敬雷军和小米团队 —</div>
+
+</body>
+</html>

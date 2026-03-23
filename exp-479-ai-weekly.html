@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🤖 AI周报漫画 — 本周三大热闻</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #0a0a1a;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+.header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  background: linear-gradient(135deg, #1a0533 0%, #0d1b2a 50%, #1a0533 100%);
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(100,50,255,0.08) 0%, transparent 60%);
+  animation: pulse 4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
+.header h1 {
+  font-size: 28px;
+  background: linear-gradient(90deg, #ff6ec7, #7c5cff, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 1;
+}
+.header .subtitle {
+  font-size: 15px;
+  color: #8888aa;
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+.badge {
+  display: inline-block;
+  background: rgba(255,110,199,0.15);
+  color: #ff6ec7;
+  border: 1px solid rgba(255,110,199,0.3);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+/* News section */
+.news-section {
+  padding: 20px 16px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.news-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.section-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #7c5cff, transparent);
+  margin: 10px 0 20px;
+  border-radius: 2px;
+}
+.news-number {
+  font-size: 13px;
+  color: #7c5cff;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+/* Host character */
+.host-block {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+.host-img {
+  width: 100px;
+  min-width: 100px;
+  border-radius: 16px;
+  border: 2px solid rgba(124,92,255,0.4);
+  box-shadow: 0 0 20px rgba(124,92,255,0.2);
+}
+.host-speech {
+  background: rgba(124,92,255,0.1);
+  border: 1px solid rgba(124,92,255,0.25);
+  border-radius: 16px;
+  padding: 14px;
+  font-size: 16px;
+  line-height: 1.7;
+  position: relative;
+  flex: 1;
+}
+.host-speech::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 18px;
+  border: 8px solid transparent;
+  border-right-color: rgba(124,92,255,0.25);
+}
+.host-name {
+  font-size: 13px;
+  color: #ff6ec7;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+/* News card */
+.news-card {
+  background: linear-gradient(135deg, rgba(20,20,40,0.95), rgba(30,15,50,0.95));
+  border: 1px solid rgba(124,92,255,0.2);
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.news-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at top right, rgba(124,92,255,0.15), transparent 70%);
+}
+.card-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.tag-red { background: rgba(255,70,70,0.2); color: #ff6666; border: 1px solid rgba(255,70,70,0.3); }
+.tag-blue { background: rgba(70,130,255,0.2); color: #6699ff; border: 1px solid rgba(70,130,255,0.3); }
+.tag-green { background: rgba(70,220,150,0.2); color: #55ddaa; border: 1px solid rgba(70,220,150,0.3); }
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+.card-summary {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #bbbbcc;
+  margin-bottom: 14px;
+}
+.card-stat {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.stat-item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-align: center;
+  flex: 1;
+  min-width: 90px;
+}
+.stat-num {
+  font-size: 22px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #ff6ec7, #7c5cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat-label {
+  font-size: 11px;
+  color: #8888aa;
+  margin-top: 4px;
+}
+
+/* Source badge */
+.source-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: #8888aa;
+  margin-top: 10px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 30px 20px 50px;
+  color: #555;
+  font-size: 13px;
+}
+.footer .tag {
+  display: inline-block;
+  background: rgba(124,92,255,0.1);
+  border: 1px solid rgba(124,92,255,0.2);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  color: #7c5cff;
+  margin: 2px;
+}
+
+/* Cyberpunk style tweaks for section 1 */
+.s1 .host-speech { border-color: rgba(0,212,255,0.3); background: rgba(0,212,255,0.08); }
+.s1 .host-speech::before { border-right-color: rgba(0,212,255,0.3); }
+.s1 .host-img { border-color: rgba(0,212,255,0.4); box-shadow: 0 0 20px rgba(0,212,255,0.2); }
+
+/* Pixel style tweaks for section 2 */
+.s2 .host-speech { border-color: rgba(80,200,120,0.3); background: rgba(80,200,120,0.08); }
+.s2 .host-speech::before { border-right-color: rgba(80,200,120,0.3); }
+.s2 .host-img { border-color: rgba(80,200,120,0.4); box-shadow: 0 0 20px rgba(80,200,120,0.2); border-radius: 4px; }
+
+/* Ink style tweaks for section 3 */
+.s3 .host-speech { border-color: rgba(200,180,140,0.3); background: rgba(200,180,140,0.08); }
+.s3 .host-speech::before { border-right-color: rgba(200,180,140,0.3); }
+.s3 .host-img { border-color: rgba(200,180,140,0.4); box-shadow: 0 0 20px rgba(200,180,140,0.15); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🤖 AI周报漫画</h1>
+  <div class="subtitle">2026年3月第3周 · 三位主播带你速览本周热闻</div>
+  <div class="badge">📡 基于真实新闻</div>
+</div>
+
+<!-- NEWS 1: Meta裁员 -->
+<div class="news-section s1">
+  <div class="section-divider"></div>
+  <div class="news-number">📡 热闻 01</div>
+  <div class="host-block">
+    <img class="host-img" src="exp-479-ai-weekly/host1-cyberpunk.jpg" alt="赛博朋克主播" loading="lazy">
+    <div class="host-speech">
+      <div class="host-name">🌃 赛博小夜 · 赛博朋克主播</div>
+      各位赛博市民晚上好！本周最炸裂的新闻——扎克伯格要裁掉<b>两万人</b>！<br><br>
+      原因？Meta的AI项目"牛油果"（Avocado）延期了，烧钱烧到扎克伯格头顶冒烟💸 所以老扎一拍桌子：不是GPU的，都给我走人！<br><br>
+      讲真，这波操作简直是"用裁员来给AI充电"……打工人瑟瑟发抖😱
+    </div>
+  </div>
+  <div class="news-card">
+    <span class="card-tag tag-red">🔥 重磅裁员</span>
+    <div class="card-title">Meta计划史上最大裁员：1.5万人将失业</div>
+    <div class="card-summary">
+      路透社3月14日独家报道：Meta计划裁减约20%员工（约15000人），为其AI基础设施投入腾出资金。此次裁员由两大因素驱动——AI项目"Avocado"延期导致成本飙升，以及公司押注AI工具将使更少的人完成更多工作。
+    </div>
+    <div class="card-stat">
+      <div class="stat-item">
+        <div class="stat-num">20%</div>
+        <div class="stat-label">裁员比例</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1.5万</div>
+        <div class="stat-label">受影响员工</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2026</div>
+        <div class="stat-label">全年执行</div>
+      </div>
+    </div>
+    <div class="source-badge">📰 来源：路透社 / 雅虎财经 · 2026.03.14</div>
+  </div>
+</div>
+
+<!-- NEWS 2: 五角大楼封杀Anthropic -->
+<div class="news-section s2">
+  <div class="section-divider"></div>
+  <div class="news-number">📡 热闻 02</div>
+  <div class="host-block">
+    <img class="host-img" src="exp-479-ai-weekly/host2-pixel.jpg" alt="像素机器人主播" loading="lazy">
+    <div class="host-speech">
+      <div class="host-name">🎮 方块播报员 · 像素风主播</div>
+      哔——滴滴！方块播报员上线！🤖<br><br>
+      这条新闻堪称"科技版宫斗剧"——美国五角大楼要把Anthropic（就是做Claude那家）踢出军方供应链！<br><br>
+      起因是Anthropic说："我们的AI不能用来搞大规模监控和自主杀人武器。"五角大楼回："你一个做软件的，凭什么管我怎么用？"<br><br>
+      谈崩了，直接拉黑名单🚫 现在Anthropic在打官司，一堆AI科学家声援……这剧情我MC里都编不出来！
+    </div>
+  </div>
+  <div class="news-card">
+    <span class="card-tag tag-blue">⚔️ 科技vs军方</span>
+    <div class="card-title">五角大楼封杀Anthropic：AI伦理之争白热化</div>
+    <div class="card-summary">
+      美国国防部长Hegseth于3月3日将Anthropic列为"供应链风险"，禁止军方及承包商使用其Claude AI，给予6个月过渡期。导火索是Anthropic拒绝让其AI用于大规模监控和自主武器。谷歌DeepMind首席科学家Jeff Dean等AI界大佬纷纷声援Anthropic，称此举"法律站不住脚"。
+    </div>
+    <div class="card-stat">
+      <div class="stat-item">
+        <div class="stat-num">6个月</div>
+        <div class="stat-label">过渡期限</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">拉黑</div>
+        <div class="stat-label">供应链封杀</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">诉讼中</div>
+        <div class="stat-label">当前状态</div>
+      </div>
+    </div>
+    <div class="source-badge">📰 来源：路透社 / 纽约时报 / 连线杂志 · 2026.03.17-19</div>
+  </div>
+</div>
+
+<!-- NEWS 3: AI救狗 -->
+<div class="news-section s3">
+  <div class="section-divider"></div>
+  <div class="news-number">📡 热闻 03</div>
+  <div class="host-block">
+    <img class="host-img" src="exp-479-ai-weekly/host3-ink.jpg" alt="水墨风主播" loading="lazy">
+    <div class="host-speech">
+      <div class="host-name">🏔️ 墨仙先生 · 水墨风主播</div>
+      各位看官，老夫今日要讲一个暖心故事——<br><br>
+      澳洲有位科技人，他家爱犬Rosie得了癌症，医生说没救了😢 这哥们不信邪，用ChatGPT查资料，找到了一条路：做定制mRNA癌症疫苗！<br><br>
+      他找到新南威尔士大学的科学家合作，给Rosie注射了专属疫苗。结果——肿瘤缩小了！Rosie又能追兔子了！🐕✨<br><br>
+      这才叫"仁者爱犬，智者用AI"啊～
+    </div>
+  </div>
+  <div class="news-card">
+    <span class="card-tag tag-green">💚 暖心科技</span>
+    <div class="card-title">主人用ChatGPT设计癌症疫苗，救回了爱犬一命</div>
+    <div class="card-summary">
+      澳洲科技企业家Conyngham的爱犬Rosie确诊癌症后，他用ChatGPT分析病情并找到免疫疗法方向。AI建议他联系新南威尔士大学基因组学中心，最终与科学家合作开发了专属mRNA癌症疫苗。Rosie从2025年12月开始接受注射，大部分肿瘤已缩小，重新恢复了活力。
+    </div>
+    <div class="card-stat">
+      <div class="stat-item">
+        <div class="stat-num">mRNA</div>
+        <div class="stat-label">定制疫苗</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">缩小</div>
+        <div class="stat-label">肿瘤变化</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">🐕</div>
+        <div class="stat-label">又能追兔子了</div>
+      </div>
+    </div>
+    <div class="source-badge">📰 来源：财富杂志 / 人物杂志 · 2026.03.15</div>
+  </div>
+</div>
+
+<div class="footer">
+  <p style="margin-bottom:10px">以上新闻均基于真实报道，经三位AI主播演绎播报 📡</p>
+  <div>
+    <span class="tag">#AI周报</span>
+    <span class="tag">#Meta裁员</span>
+    <span class="tag">#Anthropic封杀</span>
+    <span class="tag">#AI救狗</span>
+    <span class="tag">#2026年3月</span>
+  </div>
+</div>
+
+<script>
+// Scroll-triggered entrance animations
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.news-section').forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

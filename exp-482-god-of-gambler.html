@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赌神之路 — 陈默的逆袭</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8e0d0;
+    font-family: 'Noto Serif SC', serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(ellipse at center, #1a1205 0%, #0a0a0a 70%);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '♠ ♥ ♦ ♣';
+    position: absolute;
+    font-size: 120px;
+    opacity: 0.04;
+    letter-spacing: 40px;
+    animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(3deg); }
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a3 40%, #d4af37 60%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    margin-bottom: 16px;
+    animation: fadeInDown 1s ease;
+  }
+  .hero .subtitle {
+    font-size: 20px;
+    color: #8a7a5a;
+    letter-spacing: 8px;
+    animation: fadeInUp 1s ease 0.3s both;
+  }
+  .hero .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    font-size: 14px;
+    color: #5a5040;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(8px); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Panels container */
+  .story {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 20px 12px 60px;
+  }
+
+  /* Individual panel */
+  .panel {
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: panelIn 0.6s ease forwards;
+    position: relative;
+  }
+  @keyframes panelIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .panel img {
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  }
+  .panel .caption {
+    font-size: 18px;
+    line-height: 1.8;
+    padding: 14px 8px 18px;
+    color: #d4c8a8;
+    text-align: justify;
+    border-bottom: 1px solid rgba(212,175,55,0.15);
+  }
+
+  /* Act dividers */
+  .act-divider {
+    text-align: center;
+    padding: 40px 0 30px;
+    position: relative;
+  }
+  .act-divider span {
+    font-size: 16px;
+    color: #d4af37;
+    letter-spacing: 6px;
+    font-weight: 700;
+    position: relative;
+    padding: 0 20px;
+  }
+  .act-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  }
+
+  /* Ending */
+  .ending {
+    text-align: center;
+    padding: 60px 20px;
+    background: radial-gradient(ellipse at center, #1a1205 0%, #0a0a0a 70%);
+  }
+  .ending h2 {
+    font-size: 28px;
+    color: #d4af37;
+    margin-bottom: 12px;
+  }
+  .ending p {
+    font-size: 16px;
+    color: #8a7a5a;
+    line-height: 1.8;
+  }
+
+  /* Scroll-triggered animation */
+  .panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>赌 神 之 路</h1>
+  <div class="subtitle">陈默的逆袭</div>
+  <div class="scroll-hint">▼ 向下滑动开始阅读 ▼</div>
+</div>
+
+<div class="story">
+  <div class="act-divider"><span>第一章 · 绝境</span></div>
+  
+    <div class="panel" style="animation-delay: 0.00s">
+      <img src="images/exp482-p01.jpg" loading="eager" alt="panel 1" />
+      <p class="caption">夜雨如注，霓虹灯在积水中碎成无数光斑。二十三岁的陈默走在这条通往地下赌场的巷子里，口袋里只剩最后三百块钱。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.05s">
+      <img src="images/exp482-p02.jpg" loading="eager" alt="panel 2" />
+      <p class="caption">三年前，父亲因为赌债被逼跳楼。陈默发誓这辈子不碰赌桌。但命运偏偏把他逼到了这里——母亲的手术费还差五十万。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.10s">
+      <img src="images/exp482-p03.jpg" loading="eager" alt="panel 3" />
+      <p class="caption">「金沙阁」——这座城市最大的地下赌场。传说在这里，一夜之间可以从乞丐变成百万富翁，也可以从富翁变成尸体。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.15s">
+      <img src="images/exp482-p04.jpg" loading="lazy" alt="panel 4" />
+      <p class="caption">「就你？也配上桌？」赌场打手一把将陈默推倒在地。周围的赌客发出嗤笑声，没人把这个穷小子放在眼里。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.20s">
+      <img src="images/exp482-p05.jpg" loading="lazy" alt="panel 5" />
+      <p class="caption">陈默的手指触到一张散落的扑克牌——黑桃A。他忽然想起了一个人。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.25s">
+      <img src="images/exp482-p06.jpg" loading="lazy" alt="panel 6" />
+      <p class="caption">赵老爷子，父亲生前的挚友。据说年轻时是澳门赌王手下第一高手，金盆洗手三十年。陈默找到他时，老人只说了一句话——</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.30s">
+      <img src="images/exp482-p07.jpg" loading="lazy" alt="panel 7" />
+      <p class="caption">「赌术的最高境界，不是千术，不是记牌。是读心。」</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.35s">
+      <img src="images/exp482-p08.jpg" loading="lazy" alt="panel 8" />
+      <p class="caption">三个月。陈默每天练牌十六个小时。洗牌、切牌、发牌——他的手指比钢琴家还灵活。但赵老爷子说，手上功夫只占三成。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.40s">
+      <img src="images/exp482-p09.jpg" loading="lazy" alt="panel 9" />
+      <p class="caption">剩下七成，是眼睛。赵老爷子教他观察对手的每一个微表情——眨眼的频率、嘴角的弧度、指尖的颤抖。所有人在牌桌上都在说谎，而身体永远不会。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.45s">
+      <img src="images/exp482-p10.jpg" loading="lazy" alt="panel 10" />
+      <p class="caption">三个月后，陈默换上了唯一一套西装，重新踏进「金沙阁」。这一次，他的眼神不同了。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.50s">
+      <img src="images/exp482-p11.jpg" loading="lazy" alt="panel 11" />
+      <p class="caption">第一场，五人德州扑克。桌上筹码五万。对陈默来说，这是救命钱。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.55s">
+      <img src="images/exp482-p12.jpg" loading="lazy" alt="panel 12" />
+      <p class="caption">对面的胖子举牌加注时嘴角上扬，看似胸有成竹。但陈默注意到他右手食指在桌沿轻轻敲了三下——心虚的信号。陈默跟注。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.60s">
+      <img src="images/exp482-p13.jpg" loading="lazy" alt="panel 13" />
+      <p class="caption">翻牌。胖子的三条对上陈默的同花顺。全桌哗然。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.65s">
+      <img src="images/exp482-p14.jpg" loading="lazy" alt="panel 14" />
+      <p class="caption">第一晚，陈默赢了十二万。不是靠运气，不是靠千术。是靠赵老爷子教他的——读心术。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.70s">
+      <img src="images/exp482-p15.jpg" loading="lazy" alt="panel 15" />
+      <p class="caption">回到出租屋，陈默数着钞票。这些钱够母亲先做一次化疗。但他知道，这才刚刚开始。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.75s">
+      <img src="images/exp482-p16.jpg" loading="lazy" alt="panel 16" />
+      <p class="caption">「金沙阁」的真正老板——刘坤，正在监控室盯着屏幕上的陈默。「这小子……有点意思。」</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.80s">
+      <img src="images/exp482-p17.jpg" loading="lazy" alt="panel 17" />
+      <p class="caption">第七天，刘坤亲自邀请陈默到VIP厅。「听说你连赢七场？来跟我玩一把怎么样？」</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.85s">
+      <img src="images/exp482-p18.jpg" loading="lazy" alt="panel 18" />
+      <p class="caption">刘坤号称「读心王」——他也是靠观察微表情起家的。这一局，是读心术对读心术。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.90s">
+      <img src="images/exp482-p19.jpg" loading="lazy" alt="panel 19" />
+      <p class="caption">连续五手牌，两人互有胜负。刘坤脸上始终挂着笑，但陈默发现——他的笑太完美了。完美到不真实。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.95s">
+      <img src="images/exp482-p20.jpg" loading="lazy" alt="panel 20" />
+      <p class="caption">第六手，陈默故意输了一把。他注意到刘坤在加注前，左手微微向桌下移了一寸。暗号？还是……作弊器？</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.00s">
+      <img src="images/exp482-p21.jpg" loading="lazy" alt="panel 21" />
+      <p class="caption">「这牌我不打了。」陈默突然起身。全场震惊。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.05s">
+      <img src="images/exp482-p22.jpg" loading="lazy" alt="panel 22" />
+      <p class="caption">「你桌子底下藏了换牌器。」陈默平静地说。刘坤的笑容第一次僵住了。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.10s">
+      <img src="images/exp482-p23.jpg" loading="lazy" alt="panel 23" />
+      <p class="caption">「你知道揭穿我的代价吗？」刘坤冷笑。六个打手已经围了上来。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.15s">
+      <img src="images/exp482-p24.jpg" loading="lazy" alt="panel 24" />
+      <p class="caption">就在这时，VIP厅的门被推开了。所有人——包括刘坤——都脸色大变。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.20s">
+      <img src="images/exp482-p25.jpg" loading="lazy" alt="panel 25" />
+      <p class="caption">赵老爷子。三十年没踏进赌场的传奇赌神。他站在门口，只说了四个字——</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.25s">
+      <img src="images/exp482-p26.jpg" loading="lazy" alt="panel 26" />
+      <p class="caption">「这局，我来。」赵老爷子在陈默身边坐下。对面的刘坤额头沁出了汗珠。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.30s">
+      <img src="images/exp482-p27.jpg" loading="lazy" alt="panel 27" />
+      <p class="caption">赵老爷子发牌的速度，快到肉眼几乎看不见。这就是三十年前让整个澳门赌场闻风丧胆的「鬼手」。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.35s">
+      <img src="images/exp482-p28.jpg" loading="lazy" alt="panel 28" />
+      <p class="caption">皇家同花顺。赵老爷子用一手牌，就让刘坤输掉了所有筹码。但赵老爷子没要钱。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.40s">
+      <img src="images/exp482-p29.jpg" loading="lazy" alt="panel 29" />
+      <p class="caption">「从今天起，金沙阁的赌桌必须干净。否则……」赵老爷子将一张黑桃A弹到刘坤面前。「下次来的就不只是我了。」</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.45s">
+      <img src="images/exp482-p30.jpg" loading="lazy" alt="panel 30" />
+      <p class="caption">刘坤第一次在人前低下了头。地下赌场的规矩，从这一刻开始改写。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.50s">
+      <img src="images/exp482-p31.jpg" loading="lazy" alt="panel 31" />
+      <p class="caption">接下来的两个月，陈默以「金沙阁」为起点，横扫了全市七家地下赌场。他的名字开始在赌圈流传——</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.55s">
+      <img src="images/exp482-p32.jpg" loading="lazy" alt="panel 32" />
+      <p class="caption">「黑桃A」——因为他总是在最关键的时刻，亮出那张让所有人绝望的底牌。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.60s">
+      <img src="images/exp482-p33.jpg" loading="lazy" alt="panel 33" />
+      <p class="caption">母亲的手术终于凑齐了钱。看着母亲推进手术室的那一刻，陈默红了眼眶。这一切，值了。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.65s">
+      <img src="images/exp482-p34.jpg" loading="lazy" alt="panel 34" />
+      <p class="caption">手术成功后的第三天，陈默收到了一封请帖——全国地下扑克锦标赛。奖金：一千万。但这不是钱的问题。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.70s">
+      <img src="images/exp482-p35.jpg" loading="lazy" alt="panel 35" />
+      <p class="caption">这场比赛汇聚了全国最顶尖的赌术高手。赢了，陈默就是新一代赌神。输了……</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.75s">
+      <img src="images/exp482-p36.jpg" loading="lazy" alt="panel 36" />
+      <p class="caption">四强赛。陈默的对手：「千面狐」秦婉——伪装术大师；「铁壁」马龙——从不露出任何微表情的机器人；「鬼算」周一舟——概率计算天才；以及一个意想不到的人——</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.80s">
+      <img src="images/exp482-p37.jpg" loading="lazy" alt="panel 37" />
+      <p class="caption">陈默的亲弟弟——陈寂。三年前父亲去世后失踪，没想到他也走上了赌桌这条路。而且，手段比陈默更狠。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.85s">
+      <img src="images/exp482-p38.jpg" loading="lazy" alt="panel 38" />
+      <p class="caption">半决赛，陈默用读心术淘汰了「千面狐」和「鬼算」。但「铁壁」马龙让他第一次感到无力——这个人真的没有任何微表情。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.90s">
+      <img src="images/exp482-p39.jpg" loading="lazy" alt="panel 39" />
+      <p class="caption">赵老爷子说过：最可怕的对手，不是会骗人的，而是连自己都骗的。马龙已经把所有情感都杀死了。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 1.95s">
+      <img src="images/exp482-p40.jpg" loading="lazy" alt="panel 40" />
+      <p class="caption">但陈默想起师父另一句话：「没有表情本身，就是最大的表情。」他开始观察马龙唯一控制不了的东西——呼吸。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 2.00s">
+      <img src="images/exp482-p41.jpg" loading="lazy" alt="panel 41" />
+      <p class="caption">加注时呼吸加深零点五秒。弃牌前会有一个几乎察觉不到的叹息。陈默找到了破绽。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 2.05s">
+      <img src="images/exp482-p42.jpg" loading="lazy" alt="panel 42" />
+      <p class="caption">决胜局。陈默全押。马龙跟注。翻牌的瞬间，铁壁马龙的眼角，第一次抽搐了一下。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 2.10s">
+      <img src="images/exp482-p43.jpg" loading="lazy" alt="panel 43" />
+      <p class="caption">决赛。陈默对陈寂。兄弟相残。「哥，你太天真了。」陈寂冷笑。「这个世界上，善良的人活不长。」</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 2.15s">
+      <img src="images/exp482-p44.jpg" loading="lazy" alt="panel 44" />
+      <p class="caption">最后一手。陈寂用尽所有千术，但陈默已经看穿了一切。不是靠技术——而是因为他太了解自己的弟弟了。陈寂从小害怕时，左眼会不自觉地眨两下。</p>
+    </div>
+
+    <div class="panel" style="animation-delay: 2.20s">
+      <img src="images/exp482-p45.jpg" loading="lazy" alt="panel 45" />
+      <p class="caption">陈默，新一代赌神。一千万奖金到手。但他做的第一件事，是把弟弟从赌桌上拉了回来。「爸不会想看到我们这样。」</p>
+    </div>
+
+</div>
+
+<div class="ending">
+  <h2>♠ 全文完 ♠</h2>
+  <p>赌术的最高境界，不是赢钱。<br>是赢回失去的人。</p>
+</div>
+
+<script>
+// Intersection Observer for scroll animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    }
+  });
+}, { threshold: 0.1 });
+
+// Reset panels for scroll animation (override CSS animation)
+document.querySelectorAll('.panel').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.animation = 'none';
+  observer.observe(el);
+});
+
+// Add act dividers dynamically
+const panels = document.querySelectorAll('.panel');
+const acts = [
+  { after: 8, text: '第二章 · 初试锋芒' },
+  { after: 16, text: '第三章 · 暗流涌动' },
+  { after: 24, text: '第四章 · 赌神归来' },
+  { after: 30, text: '第五章 · 横扫赌坛' },
+  { after: 35, text: '第六章 · 终极对决' },
+];
+acts.reverse().forEach(act => {
+  if (panels[act.after]) {
+    const div = document.createElement('div');
+    div.className = 'act-divider';
+    div.innerHTML = `<span>${act.text}</span>`;
+    panels[act.after].parentNode.insertBefore(div, panels[act.after].nextSibling);
+  }
+});
+</script>
+
+</body>
+</html>

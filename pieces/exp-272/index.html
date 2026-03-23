@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>十年快递·父与子 | EXP-272</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;background:#f8f9fa;color:#1a1a1a;font-size:18px;line-height:1.7;overflow-x:hidden}
+.container{max-width:420px;margin:0 auto;padding:0 0 60px}
+
+.app-bar{background:#fff;padding:50px 16px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:10}
+.app-bar .back{font-size:22px;color:#333}
+.app-bar h1{font-size:17px;font-weight:600}
+.app-bar .logo{margin-left:auto;font-size:13px;color:#999}
+
+.summary-card{margin:16px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.summary-card .route{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.city{font-size:20px;font-weight:700}
+.arrow{color:#ccc;font-size:16px}
+.summary-card .stat{display:flex;justify-content:space-around;padding-top:12px;border-top:1px solid #f0f0f0}
+.stat-item{text-align:center}
+.stat-item .num{font-size:24px;font-weight:800;color:#ff6f00}
+.stat-item .label{font-size:12px;color:#999}
+
+/* Timeline */
+.timeline{padding:0 16px 0 32px;margin-top:20px;position:relative}
+.timeline::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:#e0e0e0}
+
+.parcel{position:relative;padding:0 0 32px 32px;opacity:0;transform:translateY(20px);transition:all 0.6s ease}
+.parcel.visible{opacity:1;transform:translateY(0)}
+.parcel .dot{position:absolute;left:-16px;top:4px;width:12px;height:12px;border-radius:50%;background:#ff6f00;border:3px solid #fff;box-shadow:0 0 0 2px #ff6f00;z-index:1}
+.parcel.last .dot{background:#999;box-shadow:0 0 0 2px #999}
+.parcel.final .dot{background:#c62828;box-shadow:0 0 0 2px #c62828;width:14px;height:14px;left:-17px}
+
+.parcel-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,0.05)}
+.parcel-year{font-size:13px;color:#999;margin-bottom:6px;font-weight:600}
+.parcel-status{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.parcel-status .icon{font-size:20px}
+.parcel-status .text{font-size:15px;color:#333}
+.parcel-note{background:#fff8e1;border-left:3px solid #ff6f00;padding:10px 14px;border-radius:0 8px 8px 0;margin-top:10px}
+.parcel-note .note-label{font-size:12px;color:#ff8f00;font-weight:700;margin-bottom:2px}
+.parcel-note .note-text{font-size:17px;color:#5d4037;line-height:1.6}
+.parcel-content{font-size:14px;color:#888;margin-top:6px}
+
+.parcel.final .parcel-card{border:2px solid #ffcdd2}
+.parcel.final .parcel-note{background:#fce4ec;border-left-color:#c62828}
+.parcel.final .parcel-note .note-label{color:#c62828}
+.parcel.final .parcel-note .note-text{color:#b71c1c}
+
+/* Empty note */
+.empty-note{background:#f5f5f5;border-left:3px solid #ccc;padding:10px 14px;border-radius:0 8px 8px 0;margin-top:10px}
+.empty-note .note-label{font-size:12px;color:#999;font-weight:700;margin-bottom:2px}
+.empty-note .note-text{font-size:17px;color:#999;font-style:italic}
+
+/* Final card */
+.ending{margin:20px 16px;background:#fff;border-radius:16px;padding:28px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.08);opacity:0;transform:translateY(20px);transition:all 0.8s ease}
+.ending.visible{opacity:1;transform:translateY(0)}
+.ending .big{font-size:36px;margin-bottom:16px}
+.ending .text{font-size:17px;color:#555;line-height:1.8}
+.ending .highlight{color:#c62828;font-weight:700}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="app-bar">
+    <span class="back">‹</span>
+    <h1>物流详情</h1>
+    <span class="logo">📦 顺丰速运</span>
+  </div>
+
+  <div class="summary-card">
+    <div class="route">
+      <span class="city">湖南邵阳</span>
+      <span class="arrow">→</span>
+      <span class="city">北京海淀</span>
+    </div>
+    <div class="stat">
+      <div class="stat-item"><div class="num">47</div><div class="label">十年总包裹</div></div>
+      <div class="stat-item"><div class="num">1,826</div><div class="label">公里/单程</div></div>
+      <div class="stat-item"><div class="num">10</div><div class="label">年</div></div>
+    </div>
+  </div>
+
+  <div class="timeline">
+
+    <div class="parcel" data-delay="0">
+      <div class="dot"></div>
+      <div class="parcel-card">
+        <div class="parcel-year">2015年9月 · 第1个包裹</div>
+        <div class="parcel-status"><span class="icon">✅</span><span class="text">已签收 — 北京海淀五道口</span></div>
+        <div class="parcel-content">腊肉×2、辣椒酱×3、棉被×1</div>
+        <div class="parcel-note">
+          <div class="note-label">📝 寄件备注</div>
+          <div class="note-text">小心轻放，里面是吃的</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parcel" data-delay="200">
+      <div class="dot"></div>
+      <div class="parcel-card">
+        <div class="parcel-year">2016年12月 · 第6个包裹</div>
+        <div class="parcel-status"><span class="icon">✅</span><span class="text">已签收 — 北京朝阳望京</span></div>
+        <div class="parcel-content">腊肉×3、妈妈做的剁椒×2、围巾×1</div>
+        <div class="parcel-note">
+          <div class="note-label">📝 寄件备注</div>
+          <div class="note-text">里面有你妈做的剁椒鱼头料，冰箱放着能吃半年。围巾是你妈织的，说北京冷。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parcel" data-delay="400">
+      <div class="dot"></div>
+      <div class="parcel-card">
+        <div class="parcel-year">2018年10月 · 第15个包裹</div>
+        <div class="parcel-status"><span class="icon">✅</span><span class="text">已签收 — 北京朝阳大望路</span></div>
+        <div class="parcel-content">腊肉×2、血粑鸭×1、干笋×2</div>
+        <div class="parcel-note">
+          <div class="note-label">📝 寄件备注</div>
+          <div class="note-text">你妈走了以后我试着做的腊肉，不知道味道对不对。放了她当年的方子，我照着来的。别嫌难吃。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parcel" data-delay="600">
+      <div class="dot"></div>
+      <div class="parcel-card">
+        <div class="parcel-year">2020年1月 · 第23个包裹</div>
+        <div class="parcel-status"><span class="icon">✅</span><span class="text">已签收 — 北京海淀西二旗</span></div>
+        <div class="parcel-content">腊肉×3、辣椒酱×5、手写信×1</div>
+        <div class="parcel-note">
+          <div class="note-label">📝 寄件备注</div>
+          <div class="note-text">听说那边疫情，你别出门。腊肉多放了些，省得你出去买菜。辣椒酱是隔壁王叔帮忙做的，他说你小时候最爱吃。信你看看就行，别回了，打字我眼睛疼。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parcel" data-delay="800">
+      <div class="dot"></div>
+      <div class="parcel-card">
+        <div class="parcel-year">2022年6月 · 第35个包裹</div>
+        <div class="parcel-status"><span class="icon">✅</span><span class="text">已签收 — 北京海淀中关村</span></div>
+        <div class="parcel-content">腊肉×1（小份）、药材×2</div>
+        <div class="parcel-note">
+          <div class="note-label">📝 寄件备注</div>
+          <div class="note-text">今年腊肉做少了，手没劲了。药材你泡水喝，996别把身体搞坏了。你比腊肉重要。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parcel" data-delay="1000">
+      <div class="dot"></div>
+      <div class="parcel-card">
+        <div class="parcel-year">2024年3月 · 第44个包裹</div>
+        <div class="parcel-status"><span class="icon">✅</span><span class="text">已签收 — 北京海淀中关村</span></div>
+        <div class="parcel-content">腊肉×1、老照片×1包</div>
+        <div class="parcel-note">
+          <div class="note-label">📝 寄件备注</div>
+          <div class="note-text">翻出一些老照片，有你妈抱你那张。腊肉可能是最后一年做了，腰不行了。你要是想吃，过年回来，我教你。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parcel final" data-delay="1200">
+      <div class="dot"></div>
+      <div class="parcel-card">
+        <div class="parcel-year">2025年9月 · 第47个包裹</div>
+        <div class="parcel-status"><span class="icon">📦</span><span class="text">已签收 — 北京海淀中关村</span></div>
+        <div class="parcel-content">旧棉袄×1、收音机×1、存折×1</div>
+        <div class="empty-note">
+          <div class="note-label">📝 寄件备注</div>
+          <div class="note-text">（无）</div>
+        </div>
+        <div style="margin-top:12px;font-size:14px;color:#c62828;background:#fce4ec;padding:10px 14px;border-radius:8px">
+          寄件人：林远<br>
+          备注栏空白。<br>
+          这是姐姐寄的。父亲走后，她整理了他的东西。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ending">
+    <div class="big">📦</div>
+    <div class="text">
+      47个包裹，10年<br>
+      备注从<span class="highlight">"小心轻放"</span>写到<span class="highlight">"你比腊肉重要"</span><br>
+      最后一个包裹，备注栏空了<br><br>
+      <span style="font-size:15px;color:#999">不是他不想写了<br>是他写不了了</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.parcel, .ending').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

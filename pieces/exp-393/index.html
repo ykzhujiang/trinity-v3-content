@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>像素世界生存指南 · MC风格互动选择</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Courier New',-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;background:#2d1b00;color:#fff;font-size:20px;line-height:1.8;image-rendering:pixelated}
+.mc-header{background:linear-gradient(180deg,#4a9e4a,#2d6b2d);padding:20px 16px;text-align:center;border-bottom:4px solid #1a4a1a}
+.mc-header h1{font-size:24px;font-weight:800;color:#fff;text-shadow:2px 2px 0 #000}
+.mc-header .sub{font-size:14px;color:#a5d6a7;margin-top:4px}
+.scene{padding:16px;display:none}
+.scene.active{display:block;animation:mcFade .4s ease}
+@keyframes mcFade{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.scene-img{width:100%;border-radius:4px;border:3px solid #555;margin-bottom:16px}
+.scene-text{font-size:19px;line-height:1.7;color:#ddd;background:#1a1a1a;border:2px solid #444;border-radius:4px;padding:16px;margin-bottom:16px;position:relative}
+.scene-text::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border:2px solid #666;border-radius:6px;pointer-events:none}
+.narrator{color:#ffeb3b;font-weight:700;display:block;margin-bottom:8px;font-size:16px}
+.choices{display:flex;flex-direction:column;gap:10px;padding:0 4px}
+.choice-btn{display:block;width:100%;padding:16px 20px;font-size:18px;font-weight:700;font-family:inherit;border:3px solid #555;border-radius:4px;cursor:pointer;text-align:left;transition:all .15s;position:relative;overflow:hidden}
+.choice-btn:active{transform:scale(.97)}
+.choice-a{background:#4caf50;color:#fff;border-color:#2e7d32}
+.choice-a:hover{background:#66bb6a}
+.choice-b{background:#2196f3;color:#fff;border-color:#1565c0}
+.choice-b:hover{background:#42a5f5}
+.choice-c{background:#ff9800;color:#fff;border-color:#e65100}
+.choice-c:hover{background:#ffa726}
+.result{display:none;padding:16px}
+.result.show{display:block;animation:mcFade .4s ease}
+.result-box{background:#1a1a1a;border:3px solid #ffd54f;border-radius:4px;padding:20px;margin-bottom:16px}
+.result-title{font-size:22px;font-weight:800;color:#ffd54f;text-align:center;margin-bottom:12px;text-shadow:1px 1px 0 #000}
+.result-text{font-size:18px;color:#ddd;line-height:1.7}
+.achievement{background:linear-gradient(135deg,#1a1a2e,#16213e);border:2px solid #ffd54f;border-radius:8px;padding:16px;text-align:center;margin:16px 0}
+.achievement .icon{font-size:40px;display:block;margin-bottom:8px}
+.achievement .title{color:#ffd54f;font-size:18px;font-weight:700}
+.achievement .desc{color:#aaa;font-size:14px;margin-top:4px}
+.restart-btn{display:block;width:100%;padding:14px;background:#9c27b0;color:#fff;border:3px solid #6a1b9a;border-radius:4px;font-size:18px;font-weight:700;font-family:inherit;cursor:pointer;text-align:center;margin-top:16px}
+.hp-bar{display:flex;align-items:center;padding:12px 16px;background:#111;border-bottom:2px solid #333}
+.hp-label{font-size:14px;color:#aaa;margin-right:8px}
+.hp-fill-bg{flex:1;height:14px;background:#333;border-radius:2px;overflow:hidden;border:1px solid #555}
+.hp-fill{height:100%;background:#4caf50;transition:width .5s}
+.xp-fill{height:100%;background:#2196f3;transition:width .5s}
+.stats{display:flex;gap:16px;padding:8px 16px;background:#111}
+.stat{font-size:13px;color:#aaa}
+.stat span{color:#fff;font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="mc-header">
+<h1>⛏️ 像素世界生存指南</h1>
+<div class="sub">做出你的选择，每条路都通向不同的精彩</div>
+</div>
+
+<div class="hp-bar">
+<span class="hp-label">❤️ 生命</span>
+<div class="hp-fill-bg"><div class="hp-fill" id="hp" style="width:100%"></div></div>
+<span class="hp-label" style="margin-left:12px">⭐ 经验</span>
+<div class="hp-fill-bg"><div class="xp-fill" id="xp" style="width:10%"></div></div>
+</div>
+<div class="stats">
+<div class="stat">🏠 家：<span id="house">无</span></div>
+<div class="stat">💎 钻石：<span id="diamond">0</span></div>
+<div class="stat">🍖 食物：<span id="food">3</span></div>
+</div>
+
+<!-- 场景1：出生点 -->
+<div class="scene active" id="s1">
+<img src="mc1.jpg" alt="三条路的交叉口" class="scene-img">
+<div class="scene-text">
+<span class="narrator">【系统提示】</span>
+你睁开眼睛，发现自己站在一片像素世界的十字路口。前方有三条路：左边通向一座烟囱冒烟的小村庄，中间是一座云雾缭绕的高山，右边是一个入口闪着矿石光芒的洞穴。你的背包里只有3块面包和一把木镐。
+<br><br>
+冒险开始了——你选哪条路？
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="go('village')">🏘️ 去村庄 — "有人的地方有饭吃"</button>
+<button class="choice-btn choice-b" onclick="go('mountain')">🏔️ 爬高山 — "站得高看得远"</button>
+<button class="choice-btn choice-c" onclick="go('cave')">⛏️ 进洞穴 — "富贵险中求"</button>
+</div>
+</div>
+
+<!-- 场景2a：村庄 -->
+<div class="scene" id="village">
+<div class="scene-text">
+<span class="narrator">【村庄路线】</span>
+你走进村庄，发现这里的村民都是方块人，但非常热情！村长方块大爷拉着你的手说："年轻人，我们村缺一个铁匠，你愿意留下吗？包吃包住，还有五险一金——虽然我们这里五险就是五面墙，一金就是一块金矿石。"
+<br><br>
+你正犹豫的时候，一只苦力怕从村口溜了进来……💥
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="go('village2a')">🛡️ 挺身而出保护村庄！</button>
+<button class="choice-btn choice-b" onclick="go('village2b')">🏃 拉着村长跑！生命第一！</button>
+</div>
+</div>
+
+<div class="scene" id="village2a">
+<img src="mc2.jpg" alt="对峙苦力怕" class="scene-img">
+<div class="scene-text">
+<span class="narrator">【英雄时刻】</span>
+你举起木镐冲向苦力怕！就在它膨胀发光的一瞬间——你灵机一动，把背包里的面包塞进了它嘴里。苦力怕愣住了…然后它开始咀嚼…然后它露出了满足的表情。
+<br><br>
+原来苦力怕不是来搞破坏的，它只是饿了！从此你成了村庄的英雄，村民们给你建了一座大房子，苦力怕成了你的宠物，负责每天叫你起床（嘶嘶声比任何闹钟都好使）。
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="showResult('r-village-hero')">🎉 查看结局</button>
+</div>
+</div>
+
+<div class="scene" id="village2b">
+<div class="scene-text">
+<span class="narrator">【战略撤退】</span>
+你拉着村长跑出了爆炸范围！💥 虽然村口的围墙被炸了一个洞，但所有人都安全。村长感动地说："年轻人，你的判断力比村里的铁傀儡还靠谱！"
+<br><br>
+你帮村民们重建了围墙，还设计了一个"苦力怕预警系统"——用红石电路做的。村民们推选你当了新村长！
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="showResult('r-village-leader')">🎉 查看结局</button>
+</div>
+</div>
+
+<!-- 场景2b：高山 -->
+<div class="scene" id="mountain">
+<div class="scene-text">
+<span class="narrator">【高山路线】</span>
+你开始爬山。爬到半山腰的时候，一只羊驼挡住了去路。它吐了你一脸口水，然后甩了甩毛，一副"这山是我开的"的表情。你注意到它脖子上挂着一个小箱子，里面似乎有东西在发光……
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="go('mountain2a')">🤝 给它面包换箱子</button>
+<button class="choice-btn choice-b" onclick="go('mountain2b')">🧗 绕过它继续爬</button>
+</div>
+</div>
+
+<div class="scene" id="mountain2a">
+<div class="scene-text">
+<span class="narrator">【以物易物】</span>
+你掏出一块面包。羊驼闻了闻，眼睛亮了！它把面包叼走，箱子掉了下来。打开一看——是一张"远古地图"，标注着山顶有一个"许愿台"！
+<br><br>
+你带着地图登上山顶。许愿台在夕阳下金光闪闪。你闭上眼许了一个愿望："我要找到最适合我的道路。"台子闪了一下光——你看到了山下的全景：村庄、矿洞、森林、海洋……整个世界都在你面前展开。
+<br><br>
+你突然明白了：登高不是为了看风景，是为了看清自己想去哪里。
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="showResult('r-mountain-wish')">🎉 查看结局</button>
+</div>
+</div>
+
+<div class="scene" id="mountain2b">
+<div class="scene-text">
+<span class="narrator">【勇者登顶】</span>
+你绕过羊驼继续爬。山越来越陡，风越来越大。就在你快要放弃的时候——山顶出现了！上面有一个末影箱，里面是一套完整的钻石装备和一本附魔书。
+<br><br>
+你穿上钻石甲，站在山顶，整个像素世界尽收眼底。那只羊驼不知何时跟了上来，默默站在你身边，好像在说："不错嘛，小子。"从此你和羊驼成了搭档，一起探索这个世界。
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="showResult('r-mountain-peak')">🎉 查看结局</button>
+</div>
+</div>
+
+<!-- 场景2c：洞穴 -->
+<div class="scene" id="cave">
+<div class="scene-text">
+<span class="narrator">【洞穴路线】</span>
+你走进洞穴，矿石的光芒照亮了四周。越走越深，你发现了一条岔路：左边传来叮叮当当的声音，像是有人在挖矿；右边传来奇怪的音乐声，像是……有人在开派对？🎵
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="go('cave2a')">⛏️ 去听挖矿声 — 有矿工就有矿！</button>
+<button class="choice-btn choice-b" onclick="go('cave2b')">🎵 去听音乐 — 这也太奇怪了吧？</button>
+</div>
+</div>
+
+<div class="scene" id="cave2a">
+<div class="scene-text">
+<span class="narrator">【矿工之路】</span>
+你找到了一位老矿工，他正在用钻石镐开采绿宝石。老矿工看了你一眼说："木镐？年轻人，用木镐挖矿就像用筷子喝汤——理论上可以但没必要。"
+<br><br>
+他教你升级装备的方法，从木→石→铁→钻石，一步步提升。三天后你拥有了自己的第一把铁镐，一周后换成了钻石镐。老矿工拍了拍你的肩："记住，最值钱的不是钻石，是你学会挖钻石的本事。"
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="showResult('r-cave-miner')">🎉 查看结局</button>
+</div>
+</div>
+
+<div class="scene" id="cave2b">
+<div class="scene-text">
+<span class="narrator">【地下派对】</span>
+你走向音乐声……发现了一群僵尸在开派对！😱 但别慌——它们穿着DJ打碟服装，手里拿着荧光棒，而且完全不攻击人。
+<br><br>
+原来这是一群"和平主义僵尸"，它们厌倦了追着玩家跑，决定转行做DJ。领头的僵尸递给你一杯"岩浆鸡尾酒"（其实是橙汁），说："人生不止有追杀和被杀，还有音乐和快乐！"
+<br><br>
+你在僵尸派对上跳了一晚上舞，第二天带着它们一起出了洞穴，开了像素世界第一家"地下音乐厅"。生意火爆，因为节目单上写着："全世界唯一由僵尸DJ驻场的音乐厅"。
+</div>
+<div class="choices">
+<button class="choice-btn choice-a" onclick="showResult('r-cave-party')">🎉 查看结局</button>
+</div>
+</div>
+
+<!-- 结局们 -->
+<div class="result" id="r-village-hero">
+<img src="mc3.jpg" alt="山顶英雄" class="result-box" style="width:100%;padding:0;border:none">
+<div class="result-box">
+<div class="result-title">🏆 结局：村庄英雄</div>
+<div class="result-text">你用一块面包化解了一场危机，成为了村庄的守护者。苦力怕"嘶嘶"每天准时叫你起床，村民们过着安居乐业的生活。<br><br>有时候，勇气不是冲上去打架，而是在危险面前想出不一样的解法。🍞💚</div>
+</div>
+<div class="achievement"><span class="icon">🍞</span><span class="title">成就解锁：面包外交官</span><span class="desc">用食物化解了一场爆炸危机</span></div>
+<button class="restart-btn" onclick="restart()">🔄 重新开始，试试其他路线！</button>
+</div>
+
+<div class="result" id="r-village-leader">
+<div class="result-box">
+<div class="result-title">🏆 结局：科技村长</div>
+<div class="result-text">你成为了村庄的新村长，用红石科技带领村民走向了现代化。苦力怕预警系统成了你的代表作，还被隔壁村庄高价购买了技术授权。<br><br>保护别人的最好方式，不是每次都冲在前面，而是建立一套让大家都安全的系统。🏘️⚡</div>
+</div>
+<div class="achievement"><span class="icon">🔧</span><span class="title">成就解锁：红石工程师</span><span class="desc">用科技守护了整个村庄</span></div>
+<button class="restart-btn" onclick="restart()">🔄 重新开始，试试其他路线！</button>
+</div>
+
+<div class="result" id="r-mountain-wish">
+<img src="mc3.jpg" alt="山顶日落" class="result-box" style="width:100%;padding:0;border:none">
+<div class="result-box">
+<div class="result-title">🏆 结局：全局视野</div>
+<div class="result-text">你登上山顶，用一块面包换来了一张地图，用一个愿望换来了全局视野。你看到了整个世界的样子，也看清了自己想走的路。<br><br>有时候不急着走，先爬高看看全景，反而能找到最适合自己的方向。🗺️✨</div>
+</div>
+<div class="achievement"><span class="icon">🗺️</span><span class="title">成就解锁：战略家</span><span class="desc">在行动之前先看清全局</span></div>
+<button class="restart-btn" onclick="restart()">🔄 重新开始，试试其他路线！</button>
+</div>
+
+<div class="result" id="r-mountain-peak">
+<div class="result-box">
+<div class="result-title">🏆 结局：钻石勇者</div>
+<div class="result-text">你靠自己的毅力登上了山顶，获得了钻石装备，还收获了一个最忠诚的伙伴——那只傲娇的羊驼。你们一起环游像素世界，成了传说中的"钻石骑士和羊驼"。<br><br>最好的伙伴往往出现在你最不放弃的时候。💎🦙</div>
+</div>
+<div class="achievement"><span class="icon">💎</span><span class="title">成就解锁：永不放弃</span><span class="desc">坚持到顶，获得最好的装备</span></div>
+<button class="restart-btn" onclick="restart()">🔄 重新开始，试试其他路线！</button>
+</div>
+
+<div class="result" id="r-cave-miner">
+<div class="result-box">
+<div class="result-title">🏆 结局：钻石矿工</div>
+<div class="result-text">你从木镐开始，一步步升级到钻石镐，最终成为了像素世界最富有的矿工。老矿工的话你一直记着：最值钱的不是钻石，是你挖钻石的本事。<br><br>成长没有捷径，但每一步提升都是你的。⛏️💎</div>
+</div>
+<div class="achievement"><span class="icon">⛏️</span><span class="title">成就解锁：大师矿工</span><span class="desc">从木镐到钻石镐的完整升级之路</span></div>
+<button class="restart-btn" onclick="restart()">🔄 重新开始，试试其他路线！</button>
+</div>
+
+<div class="result" id="r-cave-party">
+<div class="result-box">
+<div class="result-title">🏆 结局：地下音乐厅老板</div>
+<div class="result-text">你开了像素世界第一家"僵尸DJ音乐厅"，每晚座无虚席。僵尸们终于实现了音乐梦想，你也找到了一条谁都想不到的成功之路。<br><br>最好的机会藏在最奇怪的地方。敢去看看，才能发现不一样的世界。🎵🧟</div>
+</div>
+<div class="achievement"><span class="icon">🎵</span><span class="title">成就解锁：跨界企业家</span><span class="desc">开创了僵尸DJ的新赛道</span></div>
+<button class="restart-btn" onclick="restart()">🔄 重新开始，试试其他路线！</button>
+</div>
+
+<script>
+var stats={hp:100,xp:10,diamond:0,food:3,house:'无'};
+function go(id){
+document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+// Update stats based on choice
+if(id==='village'){stats.food--;stats.xp+=10}
+if(id==='mountain'){stats.hp-=10;stats.xp+=15}
+if(id==='cave'){stats.xp+=10}
+if(id.includes('2a')||id.includes('2b')){stats.xp+=20}
+updateStats();
+}
+function showResult(id){
+document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('.result').forEach(r=>r.classList.remove('show'));
+var r=document.getElementById(id);r.classList.add('show');
+stats.xp=100;stats.diamond+=5;
+if(id.includes('village'))stats.house='村庄小屋';
+if(id.includes('mountain'))stats.house='山顶营地';
+if(id.includes('cave'))stats.house='地下基地';
+updateStats();
+window.scrollTo({top:0,behavior:'smooth'});
+}
+function updateStats(){
+document.getElementById('hp').style.width=stats.hp+'%';
+document.getElementById('xp').style.width=stats.xp+'%';
+document.getElementById('diamond').textContent=stats.diamond;
+document.getElementById('food').textContent=stats.food;
+document.getElementById('house').textContent=stats.house;
+}
+function restart(){
+stats={hp:100,xp:10,diamond:0,food:3,house:'无'};updateStats();
+document.querySelectorAll('.result').forEach(r=>r.classList.remove('show'));
+document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+document.getElementById('s1').classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

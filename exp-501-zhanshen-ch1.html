@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>战神归来 · 第一章「退伍兵王」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:'PingFang SC','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0a 0%,#1a2332 50%,#0a0a0a 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 80%,rgba(200,80,50,0.15),transparent 60%)}
+.cover h1{font-size:2.4em;font-weight:900;letter-spacing:0.15em;color:#d4a853;text-shadow:0 0 30px rgba(212,168,83,0.4);animation:fadeIn 2s}
+.cover h2{font-size:1.3em;color:#8899aa;margin-top:12px;letter-spacing:0.3em;animation:fadeIn 2.5s}
+.cover .ch{font-size:1em;color:#cc6633;margin-top:24px;letter-spacing:0.2em;animation:fadeIn 3s}
+.scroll-hint{position:absolute;bottom:30px;color:#556;font-size:0.85em;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.panel{max-width:500px;margin:0 auto;padding:0 12px;opacity:0;transform:translateY(30px);transition:opacity 0.6s,transform 0.6s}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-img{width:100%;border-radius:6px;display:block;margin:0 auto;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.panel-meta{margin:12px 0 4px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:0.7em;padding:3px 8px;border-radius:3px;font-weight:600}
+.tag-scene{background:#1a2a3a;color:#5599cc}
+.tag-shot{background:#2a1a2a;color:#cc5599}
+.tag-transition{background:#1a2a1a;color:#55cc77}
+.panel-text{font-size:1.1em;line-height:1.8;padding:8px 0 40px;color:#ccc}
+.panel-text .dialog{color:#e8c44a;font-weight:600}
+.panel-text .narration{color:#88aacc;font-style:italic}
+.panel-text .inner{color:#aa88cc;font-style:italic}
+.panel-text .sfx{color:#cc6644;font-weight:700;font-size:0.9em}
+
+.chapter-end{text-align:center;padding:60px 20px 100px;max-width:500px;margin:0 auto}
+.chapter-end h3{color:#d4a853;font-size:1.4em;margin-bottom:16px}
+.chapter-end p{color:#778;font-size:0.95em;line-height:1.8}
+.divider{text-align:center;padding:20px 0;color:#333;font-size:1.5em;letter-spacing:1em}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>战 神 归 来</h1>
+  <h2>原创军事都市热血</h2>
+  <div class="ch">第一章 · 退伍兵王</div>
+  <div class="scroll-hint">▼ 向下滑动开始</div>
+</div>
+
+<!-- Panel 1 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-01.jpg" loading="lazy" alt="火车窗外">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：绿皮火车车厢</span>
+    <span class="tag tag-shot">远景/窗外</span>
+  </div>
+  <div class="panel-text">
+    <span class="narration">退役令下达的第七天，秦风终于坐上了回乡的火车。</span><br>
+    窗外是他阔别八年的家乡风景——成片的稻田、低矮的房屋、蜿蜒的小河。一切都没变，又好像什么都变了。
+  </div>
+</div>
+
+<!-- Panel 2 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-02.jpg" loading="lazy" alt="帮老大爷提行李">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：火车车厢内</span>
+    <span class="tag tag-shot">中景</span>
+  </div>
+  <div class="panel-text">
+    过道里，一个老大爷正费力地把蛇皮袋往行李架上塞。秦风起身，单手就把几十斤重的袋子稳稳托了上去。<br>
+    <span class="dialog">老大爷："小伙子，当过兵吧？这力气，一看就练过。"</span><br>
+    秦风淡淡一笑，没说话。有些东西，刻进骨头里了。
+  </div>
+</div>
+
+<!-- Panel 3 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-03.jpg" loading="lazy" alt="手部特写">
+  <div class="panel-meta">
+    <span class="tag tag-shot">特写</span>
+  </div>
+  <div class="panel-text">
+    <span class="narration">那双手说明了一切——老茧层叠，指关节上有细小的疤痕，每一道都是实战留下的勋章。</span><br>
+    他抓起军绿色的行李袋，准备下车。
+  </div>
+</div>
+
+<!-- Panel 4 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-04.jpg" loading="lazy" alt="走在旧街道">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：城西老街</span>
+    <span class="tag tag-shot">远景</span>
+    <span class="tag tag-transition">切：火车→街道</span>
+  </div>
+  <div class="panel-text">
+    城西老街。秦风记忆中热闹的街道，如今萧条了一半。好几家店铺门板紧闭，墙上喷着大红的<strong>"拆"</strong>字。<br>
+    <span class="inner">（秦风内心：八年没回来……变成这样了？）</span>
+  </div>
+</div>
+
+<!-- Panel 5 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-05.jpg" loading="lazy" alt="被砸的房子">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：秦家老宅</span>
+    <span class="tag tag-shot">中景</span>
+  </div>
+  <div class="panel-text">
+    秦家老宅。半面墙被砸塌了，砖头碎了一地。门框上贴着的春联还在，只剩半边——<br>
+    <span class="narration">"家和万事兴"，"家"字还在，"兴"字已经碎了。</span>
+  </div>
+</div>
+
+<!-- Panel 6 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-06.jpg" loading="lazy" alt="愤怒的眼神">
+  <div class="panel-meta">
+    <span class="tag tag-shot">特写/面部</span>
+  </div>
+  <div class="panel-text">
+    <span class="sfx">——咯嚓。</span><br>
+    秦风的拳头攥紧了。下巴上的疤痕微微跳动。<br>
+    <span class="inner">（这双眼睛，在战场上看过生死，此刻燃起的不是恐惧，而是寒意。）</span>
+  </div>
+</div>
+
+<!-- Panel 7 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-07.jpg" loading="lazy" alt="父亲在工厂">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：秦国强的小工厂/办公室</span>
+    <span class="tag tag-shot">中景</span>
+    <span class="tag tag-transition">切：老宅→工厂</span>
+  </div>
+  <div class="panel-text">
+    父亲秦国强没住在家里——他住在自己的小工厂。六十岁的老工程师，头发白了一半，眼镜腿用胶带缠着，但腰板依然挺得笔直。<br>
+    <span class="dialog">秦国强："我这辈子就这一个厂子，谁来了我也不签字。"</span>
+  </div>
+</div>
+
+<!-- Panel 8 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-08.jpg" loading="lazy" alt="父子对话">
+  <div class="panel-meta">
+    <span class="tag tag-shot">双人近景</span>
+  </div>
+  <div class="panel-text">
+    <span class="dialog">秦风："爸，墙是谁砸的？"</span><br>
+    <span class="dialog">秦国强："鼎盛集团的人。要拆整条街建商业广场。街坊们一个个都签了，就剩我了。"</span><br>
+    <span class="dialog">秦风："报警了吗？"</span><br>
+    <span class="dialog">秦国强（冷笑）："报了。警察来了，看了看，说'协调协调'，然后就没然后了。"</span>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 9 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-09.jpg" loading="lazy" alt="鼎盛集团大楼">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：城市CBD / 鼎盛集团总部</span>
+    <span class="tag tag-shot">远景/建立</span>
+    <span class="tag tag-transition">切：工厂→城市</span>
+  </div>
+  <div class="panel-text">
+    <span class="narration">鼎盛集团。这座城市最大的地产商，据说背景深不可测。</span><br>
+    玻璃幕墙的大楼在夕阳下闪着冷光，像一把插在老城区心脏上的刀。
+  </div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-10.jpg" loading="lazy" alt="走入大厅">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：鼎盛集团大堂</span>
+    <span class="tag tag-shot">中景/背影</span>
+  </div>
+  <div class="panel-text">
+    秦风第二天直接去了鼎盛集团。穿着那件洗得发白的旧军用夹克，推门走进大理石铺地的豪华大堂。<br>
+    <span class="narration">保安打量着他，像在看一只误入宫殿的野猫。</span>
+  </div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-11.jpg" loading="lazy" alt="扫视建筑">
+  <div class="panel-meta">
+    <span class="tag tag-shot">特写/眼部</span>
+  </div>
+  <div class="panel-text">
+    <span class="narration">三秒。</span><br>
+    秦风的眼睛已经完成了对整栋楼的初步侦察——三个出口，两部电梯，监控盲区在东北角走廊。<br>
+    <span class="inner">（职业病。在任何空间里，他第一件事永远是找退路。）</span>
+  </div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-12.jpg" loading="lazy" alt="前台拦截">
+  <div class="panel-meta">
+    <span class="tag tag-shot">中景</span>
+  </div>
+  <div class="panel-text">
+    <span class="dialog">前台小姐："先生，请问您有预约吗？没有预约不能上楼。"</span><br>
+    <span class="dialog">秦风："我找你们负责城西拆迁项目的人。"</span><br>
+    <span class="dialog">前台小姐："请先预约——"</span><br>
+    秦风点了点头，转身就走。但他走的不是正门。
+  </div>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-13.jpg" loading="lazy" alt="后门潜入">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：大楼后勤通道</span>
+    <span class="tag tag-shot">低角度中景</span>
+  </div>
+  <div class="panel-text">
+    <span class="narration">后勤通道。管道密布，灯光昏暗。</span><br>
+    秦风的脚步几乎没有发出声音——这是渗透作战训练留下的肌肉记忆。在这种环境里，他比任何人都自在。<br>
+    <span class="inner">（可惜，还没见到正主，电话就来了——）</span>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 14 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-14.jpg" loading="lazy" alt="打手来了">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：工厂大门</span>
+    <span class="tag tag-shot">全景</span>
+    <span class="tag tag-transition">切：大楼→工厂</span>
+  </div>
+  <div class="panel-text">
+    秦风赶回工厂的时候，已经晚了一步。<br>
+    三辆黑色SUV堵在工厂门口。十几个人下了车，为首的——光头，粗金链子，花臂纹身，嘴里叼着牙签。<br>
+    <span class="narration">人称"金链子哥"。鼎盛集团的外包打手头目。</span>
+  </div>
+</div>
+
+<!-- Panel 15 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-15.jpg" loading="lazy" alt="金链子哥特写">
+  <div class="panel-meta">
+    <span class="tag tag-shot">低角度特写</span>
+  </div>
+  <div class="panel-text">
+    <span class="dialog">金链子哥："老秦啊，最后一次机会。签不签？"</span><br>
+    <span class="dialog">秦国强（从工厂里喊）："滚！"</span><br>
+    <span class="dialog">金链子哥（笑）："有脾气。来，给老爷子上上课——"</span>
+  </div>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-16.jpg" loading="lazy" alt="一人挡门">
+  <div class="panel-meta">
+    <span class="tag tag-shot">全景/对峙</span>
+  </div>
+  <div class="panel-text">
+    <span class="sfx">——踏。</span><br>
+    秦风站在工厂门口。一个人。面对十二个。<br>
+    <span class="dialog">秦风："谁动我爸，我打断他的腿。"</span><br>
+    <span class="narration">声音不大，但每个字都像钉子一样钉进空气里。</span>
+  </div>
+</div>
+
+<!-- Panel 17 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-17.jpg" loading="lazy" alt="格斗制服">
+  <div class="panel-meta">
+    <span class="tag tag-shot">动态特写</span>
+  </div>
+  <div class="panel-text">
+    <span class="sfx">砰——啪——咔嚓。</span><br>
+    第一个冲上来的，被秦风一个擒拿摔在地上。手臂反关节锁死，干净利落，标准的特种兵近身格斗。<br>
+    <span class="dialog">秦风（低声）："下一个。"</span>
+  </div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-18.jpg" loading="lazy" alt="混混倒地">
+  <div class="panel-meta">
+    <span class="tag tag-shot">俯拍全景</span>
+  </div>
+  <div class="panel-text">
+    四十五秒。<br>
+    十二个人，全部倒地。有的捂着胳膊，有的抱着膝盖，有的直接晕了过去。<br>
+    秦风站在中间，夹克上连个褶皱都没多。表情——<br>
+    <span class="narration">就像刚做完一组俯卧撑那么平静。</span><br>
+    <span class="dialog">金链子哥（瘫在地上）："你……你他妈是谁……"</span><br>
+    <span class="dialog">秦风："秦风。秦国强的儿子。记住了。"</span>
+  </div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 19 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-19.jpg" loading="lazy" alt="破面包车">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：工厂门外街道</span>
+    <span class="tag tag-shot">中景</span>
+  </div>
+  <div class="panel-text">
+    <span class="sfx">——滋溜——</span><br>
+    一辆破得不能再破的白色面包车歪歪扭扭地刹停在工厂门口，车里传出震天响的DJ舞曲。<br>
+    <span class="inner">（秦风：……来了。）</span>
+  </div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-20.jpg" loading="lazy" alt="刘大嘴出场">
+  <div class="panel-meta">
+    <span class="tag tag-shot">双人近景</span>
+  </div>
+  <div class="panel-text">
+    <span class="dialog">刘大嘴（嘴里叼着鸡腿，从车窗探出头）："哟，老秦！听说你退役了？我一接到消息立马——嚼嚼——赶过来了！"</span><br>
+    <span class="dialog">秦风："你开了六百公里就为了送一只鸡腿？"</span><br>
+    <span class="dialog">刘大嘴："不是，我带了一整只鸡。鸡腿是路上先犒劳自己的。"</span><br>
+    <span class="narration">刘大嘴，外号"情报处长"。秦风的老战友。话痨、八卦、贪吃，但关键时刻……偶尔靠谱。</span>
+  </div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-21.jpg" loading="lazy" alt="夜探仓库">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：鼎盛集团郊区仓库</span>
+    <span class="tag tag-shot">夜景剪影</span>
+    <span class="tag tag-transition">切：夜间行动</span>
+  </div>
+  <div class="panel-text">
+    <span class="narration">当晚。秦风决定主动出击。</span><br>
+    光靠打架解决不了问题。鼎盛集团背后一定有更深的东西。刘大嘴通过"老战友网络"打听到：鼎盛在郊区有个仓库，进出频繁但不对外。<br>
+    翻墙，对秦风来说比走楼梯还简单。
+  </div>
+</div>
+
+<!-- Panel 22 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-22.jpg" loading="lazy" alt="发现账本">
+  <div class="panel-meta">
+    <span class="tag tag-shot">特写/手电光</span>
+  </div>
+  <div class="panel-text">
+    手电光扫过一排铁柜。打开——<br>
+    两套账本。一套是正常的工程款，另一套……<br>
+    <span class="inner">（秦风内心：资金流向对不上。大量现金进出，走的是空壳公司。这不是普通的拆迁，是洗钱。）</span><br>
+    他快速用手机拍下关键页面。
+  </div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-23.jpg" loading="lazy" alt="刘大嘴紧张吃汉堡">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：仓库外停车场/面包车内</span>
+    <span class="tag tag-shot">中景/车内</span>
+  </div>
+  <div class="panel-text">
+    <span class="narration">与此同时，负责放风的刘大嘴——</span><br>
+    <span class="dialog">刘大嘴（嘴里塞满汉堡，满头大汗）："老秦你快点啊……我已经吃了三个汉堡了……再紧张下去我得去买第四个……"</span><br>
+    <span class="dialog">刘大嘴（对讲机）："报告！目标区域东侧有车灯！不对，是路灯。虚惊一场。我再吃一口。"</span>
+  </div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-24.jpg" loading="lazy" alt="屋顶眺望">
+  <div class="panel-meta">
+    <span class="tag tag-scene">场景：工厂天台</span>
+    <span class="tag tag-shot">背影中景</span>
+  </div>
+  <div class="panel-text">
+    行动结束。回到工厂天台。<br>
+    夜风吹动秦风的旧军用夹克。城市的灯火在脚下铺开，鼎盛集团的大楼在远处亮着冷白色的光。<br>
+    <span class="dialog">秦风（轻声）："这场仗……比战场上的复杂多了。"</span>
+  </div>
+</div>
+
+<!-- Panel 25 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-25.jpg" loading="lazy" alt="寄信">
+  <div class="panel-meta">
+    <span class="tag tag-shot">特写/手部</span>
+  </div>
+  <div class="panel-text">
+    第二天一早。秦风把整理好的证据复印件装进牛皮纸信封，投进了街角的邮筒。<br>
+    <span class="inner">（寄往省纪委。打蛇打七寸，这是战术基本功。）</span><br>
+    <span class="dialog">刘大嘴（从面包车里探头）："那你的意思是……要打持久战？"</span><br>
+    <span class="dialog">秦风："嗯。"</span><br>
+    <span class="dialog">刘大嘴："行吧。那我先去批发点泡面，顺便再买两箱鸡腿。"</span>
+  </div>
+</div>
+
+<div class="chapter-end">
+  <h3>— 第一章 · 完 —</h3>
+  <p style="color:#d4a853;font-size:1.1em;margin-bottom:12px">「有些人退役了，但战斗从未停止。」</p>
+  <p>鼎盛集团的幕后黑手是谁？<br>秦风的证据能否撼动这棵大树？<br>金链子哥会不会带人报复？<br>刘大嘴的泡面够不够吃？</p>
+  <p style="margin-top:20px;color:#556">▶ 第二章「暗流涌动」· 敬请期待</p>
+</div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>

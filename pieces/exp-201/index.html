@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXP-201 · 一条街的气味地图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  background: #f5f0e8; 
+  font-family: -apple-system, 'PingFang SC', serif; 
+  color: #3a3028; 
+  max-width: 520px; 
+  margin: 0 auto; 
+  padding: 32px 16px 80px;
+  overflow-x: hidden;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.header h1 { font-size: 20px; font-weight: 400; letter-spacing: 4px; color: #5a4a38; }
+.header .sub { font-size: 12px; color: #998a74; margin-top: 8px; }
+.header .note { font-size: 11px; color: #b8a890; margin-top: 16px; font-style: italic; }
+
+/* The street map - vertical scroll */
+.street {
+  position: relative;
+  width: 100%;
+  min-height: 1600px;
+  background: 
+    linear-gradient(to bottom, #e8dfd0, #f0e8d8, #e8dfd0);
+}
+
+/* Road center line */
+.road {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  transform: translateX(-50%);
+  background: #d4c8b0;
+  border-left: 2px dashed #c4b89a;
+  border-right: 2px dashed #c4b89a;
+}
+
+/* Smell nodes */
+.smell-node {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+}
+.smell-node:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.smell-node.active {
+  transform: scale(1.2);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.2);
+}
+
+/* Label */
+.node-label {
+  position: absolute;
+  font-size: 11px;
+  color: #8a7a64;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+/* Memory panel */
+.memory-panel {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #faf6ef;
+  border-top: 2px solid #d4c8b0;
+  padding: 24px 20px 36px;
+  z-index: 10;
+  max-height: 60vh;
+  overflow-y: auto;
+  box-shadow: 0 -8px 40px rgba(90,74,56,0.15);
+  animation: slideUp 0.4s ease;
+}
+.memory-panel.show { display: block; }
+
+.memory-panel .smell-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #5a4a38;
+}
+.memory-panel .smell-desc {
+  font-size: 12px;
+  color: #998a74;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.memory-panel .memory-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #4a3a28;
+}
+.memory-panel .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #b8a890;
+  border: none;
+  background: none;
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: drift 3s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  30% { opacity: 0.5; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.5); }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Visit counter */
+.counter {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  font-size: 11px;
+  color: #b8a890;
+  z-index: 5;
+}
+
+/* Demolished overlay (appears after visiting all) */
+.demolished {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(245,240,232,0.95);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 40px;
+}
+.demolished.show { display: flex; }
+.demolished p { 
+  font-size: 14px; 
+  line-height: 2.2; 
+  color: #5a4a38;
+  max-width: 360px;
+}
+.demolished .fade { opacity: 0; animation: slowFade 2s ease forwards; }
+.demolished .fade:nth-child(2) { animation-delay: 2s; }
+.demolished .fade:nth-child(3) { animation-delay: 4s; }
+.demolished .fade:nth-child(4) { animation-delay: 6.5s; }
+
+@keyframes slowFade { to { opacity: 1; } }
+
+.instruction {
+  text-align: center;
+  font-size: 11px;
+  color: #b8a890;
+  margin-bottom: 24px;
+  letter-spacing: 2px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>一条街的气味地图</h1>
+  <div class="sub">光明路 · 1994–2016</div>
+  <div class="note">这条街已经不在了。这张地图是从气味里画出来的。</div>
+</div>
+<div class="instruction">👆 点击地图上的气味 · 打开一段记忆</div>
+
+<div class="counter" id="counter">已探索：0 / 8</div>
+
+<div class="street" id="street">
+  <div class="road"></div>
+  
+  <!-- Smell nodes positioned along the street -->
+  <div class="smell-node" data-id="0" style="left:15%; top:60px; background:rgba(210,180,140,0.3);">🥖</div>
+  <div class="node-label" style="left:10%; top:130px;">老张烧饼铺</div>
+  
+  <div class="smell-node" data-id="1" style="right:15%; top:220px; background:rgba(180,200,160,0.3);">🌿</div>
+  <div class="node-label" style="right:10%; top:290px;">中药房</div>
+  
+  <div class="smell-node" data-id="2" style="left:12%; top:400px; background:rgba(60,60,60,0.15);">🔧</div>
+  <div class="node-label" style="left:8%; top:470px;">老王修车铺</div>
+  
+  <div class="smell-node" data-id="3" style="right:12%; top:560px; background:rgba(255,200,150,0.3);">🍊</div>
+  <div class="node-label" style="right:8%; top:630px;">水果摊（刘阿姨）</div>
+  
+  <div class="smell-node" data-id="4" style="left:18%; top:740px; background:rgba(200,180,220,0.3);">🧼</div>
+  <div class="node-label" style="left:13%; top:810px;">公共澡堂</div>
+  
+  <div class="smell-node" data-id="5" style="right:18%; top:920px; background:rgba(240,210,170,0.3);">📚</div>
+  <div class="node-label" style="right:13%; top:990px;">新华书店</div>
+  
+  <div class="smell-node" data-id="6" style="left:14%; top:1100px; background:rgba(100,80,60,0.2);">☕</div>
+  <div class="node-label" style="left:9%; top:1170px;">棋牌室</div>
+  
+  <div class="smell-node" data-id="7" style="right:14%; top:1300px; background:rgba(150,200,150,0.3);">🌸</div>
+  <div class="node-label" style="right:9%; top:1370px;">街尾的槐树</div>
+</div>
+
+<div class="memory-panel" id="memoryPanel">
+  <button class="close-btn" id="closeBtn">✕</button>
+  <div class="smell-title" id="smellTitle"></div>
+  <div class="smell-desc" id="smellDesc"></div>
+  <div class="memory-text" id="memoryText"></div>
+</div>
+
+<div class="demolished" id="demolished">
+  <p class="fade">2016年3月，光明路开始拆迁。</p>
+  <p class="fade">推土机把所有的气味都推平了。</p>
+  <p class="fade">但是你刚才闻到的每一种，<br>我到今天，一闻到就会站住。</p>
+  <p class="fade" style="margin-top:24px; font-size:12px; color:#998a74;">站在一条已经不存在的街上，<br>闻一种已经不存在的味道。</p>
+</div>
+
+<script>
+const memories = [
+  {
+    title: "老张烧饼铺",
+    desc: "面粉 + 芝麻 + 碳火 · 早上5:40",
+    text: "每天上学路过，老张已经在炉子边了。烧饼的香味能飘出三十米。我妈给我一块钱，我买一个芝麻的，边走边吃，纸袋油印着"光明路老张"。\n\n老张的手指永远是烫的。有一年冬天下大雪，整条街只有他的铺子亮着灯。他说：「下雪天更要烤饼。人冷的时候，鼻子比眼睛先找到家。」\n\n他2014年走了。心梗。铺子关了之后，我有两个月早上出门会下意识地闻。什么也闻不到。"
+  },
+  {
+    title: "中药房",
+    desc: "当归 + 黄芪 + 木抽屉 · 任何时候",
+    text: "推开门，那个味道就把你整个包住。苦、涩、甘、木，很多层，每一层都是旧的。\n\n药柜有两百多个抽屉。我小时候以为那是一面墙的秘密。每个抽屉上写着毛笔字，拉开就是另一种气味。\n\n奶奶每个月来抓药。药房的王叔叔会多给一颗糖。那颗糖放在称药的铜秤旁边，玻璃罐子里，也沾了中药味。\n\n后来我才知道，奶奶抓的药是治她自己的。她从来没说过。"
+  },
+  {
+    title: "老王修车铺",
+    desc: "机油 + 橡胶 + 铁锈 · 下午",
+    text: "老王永远在修车。地上一滩黑色的油，空气里挂着橡胶和铁锈的味道。他的收音机永远开着，放评书。\n\n我的第一辆自行车就是在他那里买的。二手的，他花了一个下午帮我调。不要钱。他说：「小孩的第一辆车，不收钱。」\n\n我问为什么。他说：「我儿子走的时候，最想要一辆自行车。」\n\n他没解释"走"是什么意思。我长大以后才知道。后来每次闻到机油味，我都会想到一辆没人骑过的自行车。"
+  },
+  {
+    title: "水果摊（刘阿姨）",
+    desc: "橘子皮 + 烂苹果 + 纸箱 · 傍晚最浓",
+    text: "刘阿姨的水果永远堆得像小山。橘子是冬天的味道，西瓜是夏天的。她用一种奇怪的方式闻水果：拿起来，放在耳朵旁边，像在听它说话。\n\n她说：「好水果是有声音的。你听——」她把一个橘子放到我耳边。我什么都没听到。\n\n但是我闻到了。橘子皮那种刺鼻的清香，冲到鼻子最深处，然后变成一种甜。\n\n刘阿姨去年联系过我妈。说她在另一个城市看孙子，什么都好，就是买不到「对味」的橘子。"
+  },
+  {
+    title: "公共澡堂",
+    desc: "肥皂 + 蒸汽 + 暖气 · 周末",
+    text: "整条街最暖的地方。冬天从外面推门进去，眼镜立刻全白——蒸汽包裹你。空气里是肥皂和热水混合的味道，说不上好闻，但让人放松。\n\n我爸每周六带我去。他搓背的时候会哼歌，只有在澡堂里才哼。别的地方他很安静，一句话能不说就不说的那种人。\n\n但是在热水和蒸汽里，他会哼。一首我到现在也不知道名字的歌。\n\n澡堂2010年就关了。我有时候在浴室里把热水开到最大，等蒸汽充满整个空间，闭上眼睛。\n\n什么也没听到。"
+  },
+  {
+    title: "新华书店",
+    desc: "新纸 + 油墨 + 灰尘 · 安静的气味",
+    text: "推门的一瞬间，世界安静了。不是声音上的安静——是气味上的。外面是煎饼、汽车尾气、各种复杂的活人气味。书店里只有一种味道：纸。\n\n新书的纸味和旧书的不同。新的锐利，旧的温和。柜台后面的阿姨永远在打瞌睡，她身上有一种和旧书一样的气息。\n\n我在这里第一次读到「普鲁斯特时刻」——一种味道触发一整段记忆。\n\n十二岁的我觉得这是胡说。三十二岁的我站在一家书店门口，闻到了油墨味。\n\n然后就回到了光明路。"
+  },
+  {
+    title: "棋牌室",
+    desc: "茶叶 + 烟 + 花生壳 · 下午到深夜",
+    text: "我妈不让我进去。她说那是「老头子混日子的地方」。\n\n但是路过门口，那股味道挡不住——浓茶、劣质烟、花生壳，还有一种说不清的老旧木头味。所有的声音混在烟雾里：麻将、收音机、争吵、大笑。\n\n我爷爷在里面。他每天下午三点到，晚上九点走。准时得像上班。\n\n他去世那天，我路过棋牌室，里面照常热闹。他的位子上坐了别人。那个人抽的烟跟我爷爷不一样。我闻出来了。\n\n一模一样的地方，不一样的烟味。整条街都在，但他不在了。"
+  },
+  {
+    title: "街尾的槐树",
+    desc: "槐花 + 泥土 + 五月的风 · 每年就几天",
+    text: "一年只香那么十几天。五月，槐花开了。\n\n那是一种甜到发腻的香，从街尾一直飘到街头。刘阿姨说槐花能吃，拿回去做饼。老张说他小时候就是闻着这棵树的花香长大的。\n\n这棵树比整条街都老。谁也不知道它什么时候种的。\n\n拆迁通知贴出来那天，我专门去看了那棵树。三月份，还没开花。树干上用红漆画了一个圆圈加一个叉。\n\n那是要砍的意思。\n\n我站在树下闻了很久。三月的槐树没什么味道。但泥土是湿的，有一股我熟悉的东西。\n\n不是花香。是「这里」的味道。\n\n这种味道没有任何语言能描述，但你一闻到就知道——\n\n你到家了。"
+  }
+];
+
+let visited = new Set();
+const nodes = document.querySelectorAll('.smell-node');
+const panel = document.getElementById('memoryPanel');
+const counter = document.getElementById('counter');
+const demolished = document.getElementById('demolished');
+
+nodes.forEach(node => {
+  // Add floating particles
+  for (let i = 0; i < 4; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left: ${20+Math.random()*24}px; top: ${20+Math.random()*24}px;
+      background: ${node.style.background.replace('0.3','0.6').replace('0.15','0.4').replace('0.2','0.5')};
+      --dx: ${(Math.random()-0.5)*40}px; --dy: ${-20-Math.random()*30}px;
+      animation-delay: ${Math.random()*3}s;
+    `;
+    node.appendChild(p);
+  }
+  
+  node.addEventListener('click', () => {
+    const id = parseInt(node.dataset.id);
+    visited.add(id);
+    counter.textContent = `已探索：${visited.size} / 8`;
+    
+    nodes.forEach(n => n.classList.remove('active'));
+    node.classList.add('active');
+    
+    const m = memories[id];
+    document.getElementById('smellTitle').textContent = m.title;
+    document.getElementById('smellDesc').textContent = m.desc;
+    document.getElementById('memoryText').innerHTML = m.text.replace(/\n\n/g, '<br><br>');
+    panel.classList.add('show');
+    
+    // Check if all visited
+    if (visited.size === 8) {
+      setTimeout(() => {
+        panel.classList.remove('show');
+        demolished.classList.add('show');
+      }, 3000);
+    }
+  });
+});
+
+document.getElementById('closeBtn').addEventListener('click', () => {
+  panel.classList.remove('show');
+  nodes.forEach(n => n.classList.remove('active'));
+});
+</script>
+</body>
+</html>

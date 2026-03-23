@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>食神系统 · 第二章 包子风云</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d0;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+/* Header */
+.header {
+  position: relative;
+  text-align: center;
+  padding: 60px 20px 40px;
+  background: linear-gradient(180deg, #1a0800 0%, #0a0a0a 100%);
+}
+.header h1 {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  margin-bottom: 8px;
+}
+.header .subtitle {
+  font-size: 18px;
+  color: #e8a020;
+  font-weight: 600;
+}
+.header .chapter-info {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #888;
+  letter-spacing: 2px;
+}
+
+/* Panel container */
+.panels {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 0 60px;
+}
+
+/* Each storyboard panel */
+.panel {
+  margin-bottom: 2px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Panel image */
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+
+/* Storyboard info block (V4 format: text OUTSIDE image) */
+.panel-info {
+  padding: 16px 20px;
+  background: linear-gradient(180deg, rgba(20,15,10,0.95) 0%, rgba(10,10,10,0.98) 100%);
+  border-left: 3px solid #ffd700;
+}
+
+/* Shot metadata */
+.shot-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.shot-meta span {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+.tag-scene {
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+}
+.tag-shot {
+  background: rgba(100, 200, 255, 0.15);
+  color: #64c8ff;
+}
+.tag-transition {
+  background: rgba(200, 100, 255, 0.15);
+  color: #c864ff;
+}
+
+/* Dialogue */
+.dialogue {
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+  color: #f0e8d8;
+}
+.dialogue .speaker {
+  color: #ffd700;
+  font-weight: 700;
+  margin-right: 4px;
+}
+.dialogue .aside {
+  color: #a0a0a0;
+  font-style: italic;
+  font-size: 15px;
+}
+
+/* Scene description */
+.scene-desc {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.6;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+/* Chapter divider */
+.act-divider {
+  text-align: center;
+  padding: 30px 20px;
+  color: #ffd700;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a0800 100%);
+}
+.footer .next-chapter {
+  font-size: 20px;
+  color: #ffd700;
+  font-weight: 700;
+}
+.footer .teaser {
+  font-size: 15px;
+  color: #a08040;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.footer .credits {
+  margin-top: 30px;
+  font-size: 12px;
+  color: #555;
+}
+
+/* Fullscreen panels - key moments */
+.panel.fullscreen img {
+  min-height: 70vh;
+  object-fit: cover;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔥 食神系统</h1>
+  <div class="subtitle">第二章 · 包子风云</div>
+  <div class="chapter-info">V4 分镜剧本 ─ 28 格 ─ 预计阅读 8 分钟</div>
+</div>
+
+<div class="panels">
+
+<!-- ACT 1: 集结 -->
+<div class="act-divider">─── 第一幕 · 风云际会 ───</div>
+
+<!-- Panel 1 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-01.jpg" loading="lazy" alt="美食街全景">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 城西美食街</span>
+      <span class="tag-shot">🎬 远景·俯拍</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（画外音）城西美食街，一年一度的"包子王"挑战赛——各路民间高手齐聚，奖金一百万，外加黄金摊位一个。</span>
+    </div>
+    <div class="scene-desc">蒸汽弥漫的美食街全景，红色横幅高悬，人潮涌动。</div>
+  </div>
+</div>
+
+<!-- Panel 2 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-02.jpg" loading="lazy" alt="方大厨看公告">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 公告栏前</span>
+      <span class="tag-shot">🎬 中景</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">方大厨：</span>"包子王大赛……一百万奖金！"
+    </div>
+    <div class="scene-desc">方大厨仰头看公告，眼中燃起斗志。猪八碗趴在肩上，一脸不屑。</div>
+  </div>
+</div>
+
+<!-- Panel 3 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-03.jpg" loading="lazy" alt="猪八碗嘚瑟">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 特写</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">猪八碗：</span>"包子？这也能比赛？那我当评委好了——本猪的舌头可是鉴定过一千三百种食材的。"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 4 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-04.jpg" loading="lazy" alt="拍回背包">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 中景·动态</span>
+      <span class="tag-transition">⚡ 切</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（啪——！方大厨一巴掌把猪八碗拍回背包。）</span><br>
+      <span class="speaker">猪八碗：</span>"暴力！这是家暴！我要投诉食神系统客服！"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 5 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-05.jpg" loading="lazy" alt="遇见周巧巧">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 报名处</span>
+      <span class="tag-shot">🎬 中景·对峙构图</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（报名时，一股凛冽的气场从身后袭来——）</span><br>
+      <span class="speaker">工作人员：</span>"下一位……周巧巧，面点世家第五代传人。"
+    </div>
+    <div class="scene-desc">方大厨转头，撞上一道冷若冰霜的目光。</div>
+  </div>
+</div>
+
+<!-- Panel 6 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-06.jpg" loading="lazy" alt="周巧巧特写">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 特写·仰拍</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">周巧巧：</span>"……又一个来凑数的。"
+    </div>
+    <div class="scene-desc">周巧巧侧脸特写，旗袍围裙，长发挽髻，眼神里带着五代传承的骄傲。</div>
+  </div>
+</div>
+
+<!-- Panel 7 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-07.jpg" loading="lazy" alt="系统任务弹出">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 主观镜头</span>
+      <span class="tag-transition">💫 叠化</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（叮——！食神系统弹出隐藏任务。）</span><br>
+      <span class="speaker">系统：</span>"隐藏任务解锁：在包子王大赛中获得冠军。奖励：S级食谱「龙吟灌汤包」。失败惩罚：味觉封印七天。"<br>
+      <span class="speaker">方大厨：</span>"七天没味觉？？那我活着还有什么意义！"
+    </div>
+  </div>
+</div>
+
+<!-- ACT 2: 预赛·半决赛 -->
+<div class="act-divider">─── 第二幕 · 包子论道 ───</div>
+
+<!-- Panel 8 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-08.jpg" loading="lazy" alt="预赛现场">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 比赛大厅</span>
+      <span class="tag-shot">🎬 大远景·鸟瞰</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（画外音）预赛，三十二进八。每位选手限时一小时，做出自己的招牌包子。</span>
+    </div>
+    <div class="scene-desc">比赛大厅全景，三十二个灶台整齐排列，选手各就各位，蒸汽如战场硝烟。</div>
+  </div>
+</div>
+
+<!-- Panel 9 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-09.jpg" loading="lazy" alt="听面术">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 中景</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">方大厨：</span>（闭眼，耳朵贴在面团上）"嗯……发酵到87%了……再等三分钟。"<br>
+      <span class="speaker">旁边选手A：</span>"这人……在给面团做按摩？"<br>
+      <span class="speaker">旁边选手B：</span>"不是，我觉得他在听胎心。"
+    </div>
+    <div class="scene-desc">方大厨用食神系统解锁的「听面术」——通过声波感知面团发酵状态。周围人看他像看精神病。</div>
+  </div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-10.jpg" loading="lazy" alt="猪八碗偷吃">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 中景·喜剧</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">参赛选手：</span>"我的包子呢？！谁偷吃了我三笼参赛包子？！"<br>
+      <span class="speaker">猪八碗：</span>（嘴里塞满，含糊不清）"窝……窝这是帮你侦察敌情……"<br>
+      <span class="speaker">方大厨：</span>（冷汗）"对不起对不起，这猪是我的，我赔……"<br>
+      <span class="speaker">裁判：</span>"再出现一次，取消资格！"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-11.jpg" loading="lazy" alt="铁拳张">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 半决赛</span>
+      <span class="tag-shot">🎬 仰拍·压迫感</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（半决赛。对手——"铁拳张"，退役军人，一双铁拳把面团揉成了军用口粮的硬度。）</span><br>
+      <span class="speaker">铁拳张：</span>"包子！就是要硬！能当砖头砸人的包子才是好包子！"<br>
+      <span class="speaker">猪八碗：</span>（小声）"这不是包子，这是凶器。"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-12.jpg" loading="lazy" alt="柔面36式">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 中景·慢动作</span>
+      <span class="tag-transition">🌊 渐变</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（方大厨运起「柔面三十六式」——太极手法揉面，以柔克刚。面团在他手中如丝绸般流转，光影流动。）</span><br>
+      <span class="speaker">解说员：</span>"这……这是什么手法？面团在他手里像活了一样！"
+    </div>
+    <div class="scene-desc">太极揉面，光影流转，面团如丝绸。与铁拳张的蛮力形成鲜明对比。</div>
+  </div>
+</div>
+
+<!-- ACT 3: 决赛 -->
+<div class="act-divider">─── 第三幕 · 凤凰涅槃 ───</div>
+
+<!-- Panel 13 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-13.jpg" loading="lazy" alt="决赛对决">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 决赛舞台</span>
+      <span class="tag-shot">🎬 中景·对称构图</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（决赛——方大厨 对 周巧巧。全场屏息。）</span><br>
+      <span class="speaker">主持人：</span>"决赛开始！限时两小时，做出你们此生最好的包子！"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-14.jpg" loading="lazy" alt="凤凰包">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 特写·仰拍</span>
+      <span class="tag-transition">✨ 闪白</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（周巧巧掀开蒸笼的瞬间——蒸汽凝聚成一只展翅的金色凤凰，照亮整个会场！）</span><br>
+      <span class="speaker">评委甲：</span>"天……天哪！蒸汽成凤？！这是什么神技？！"<br>
+      <span class="speaker">评委乙：</span>"周家五代绝技……'凤凰包'！"
+    </div>
+    <div class="scene-desc">全章最震撼画面。金色蒸汽凤凰展翅，全场金光笼罩。</div>
+  </div>
+</div>
+
+<!-- Panel 15 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-15.jpg" loading="lazy" alt="全场震惊">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 快速剪辑·多角度反应</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">观众席：</span>"太美了！""这还是包子吗？这是艺术品！""我宣布周巧巧已经赢了！"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-16.jpg" loading="lazy" alt="方大厨焦虑">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 特写·暗调</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">方大厨：</span>（内心）"凤凰包……这已经超越了技术，是一种境界。我……怎么赢？"<br>
+      <span class="speaker">猪八碗：</span>（小声，也慌了）"老……老大，要不咱认输吧？味觉封印七天就七天，大不了我替你吃饭……"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 17 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-17.jpg" loading="lazy" alt="系统提示">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 主观镜头</span>
+      <span class="tag-transition">💫 叠化</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（叮——食神系统突然弹出提示。）</span><br>
+      <span class="speaker">系统：</span>"检测到特殊食材共鸣条件——猪八碗的眼泪可以激活食材的隐藏味道。触发条件：真情实感。"<br>
+      <span class="speaker">方大厨：</span>"猪八碗的……眼泪？"
+    </div>
+  </div>
+</div>
+
+<!-- ACT 4: 逆转·真情 -->
+<div class="act-divider">─── 第四幕 · 真情灌汤 ───</div>
+
+<!-- Panel 18 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-18.jpg" loading="lazy" alt="真情告白">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 中近景·柔光</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">方大厨：</span>（蹲下，双手捧起猪八碗，认真地看着它）"猪八碗……从我失业那天起，只有你陪在我身边。你偷吃我的食材、嘲笑我的厨艺、在我睡觉时偷我被子……但你从来没有离开过。"<br>
+      <span class="speaker">方大厨：</span>"你是我最好的搭档。"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-19.jpg" loading="lazy" alt="猪八碗落泪">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 大特写</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">猪八碗：</span>（嘴硬）"谁……谁是你搭档了！我只是……只是觉得你做的饭还凑合……呜呜呜……"<br>
+      <span class="aside">（金色的泪珠从猪八碗眼中滑落。）</span>
+    </div>
+  </div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-20.jpg" loading="lazy" alt="泪水入面">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 微距特写·慢动作</span>
+      <span class="tag-transition">✨ 闪光</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（一滴金色泪珠落入面团——刹那间，面团绽放出温暖的金色光芒，如同被注入了灵魂。）</span><br>
+      <span class="speaker">系统：</span>"食材共鸣·激活！隐藏味道：真情之味。"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-21.jpg" loading="lazy" alt="制作真情灌汤包">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 中景·黄金色调</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（方大厨运指如风，金光面团在手中翻飞。每一次折叠，都封入了一份真挚的情感。）</span><br>
+      <span class="speaker">方大厨：</span>（心中）"技术可以练，但真情……是练不出来的。"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 22 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-22.jpg" loading="lazy" alt="评委品尝">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 特写</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（评委咬开「真情灌汤包」的瞬间——）</span><br>
+      <span class="speaker">评委长：</span>"这……这个味道……"（眼眶泛红）"我想起了小时候，奶奶做的包子……"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-23.jpg" loading="lazy" alt="集体落泪">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 全景</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（评委席上，所有人都流下了眼泪——不是悲伤，是味觉唤醒了每个人心底最温暖的记忆。）</span><br>
+      <span class="speaker">评委乙：</span>（擦泪）"我想起了我妈妈……"<br>
+      <span class="speaker">评委丙：</span>"这不是包子，这是……思念的味道。"
+    </div>
+  </div>
+</div>
+
+<!-- ACT 5: 荣耀 -->
+<div class="act-divider">─── 第五幕 · 双冠封神 ───</div>
+
+<!-- Panel 24 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-24.jpg" loading="lazy" alt="双冠军">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 颁奖台</span>
+      <span class="tag-shot">🎬 仰拍·英雄构图</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">评委长：</span>"经过激烈讨论，评委会一致决定——本届包子王，双冠军！"<br>
+      <span class="speaker">评委长：</span>"周巧巧的'凤凰包'代表了技艺的巅峰，方大厨的'真情灌汤包'代表了真情的极致。两种境界，各有千秋！"
+    </div>
+    <div class="scene-desc">方大厨和周巧巧并肩站上领奖台，金色纸屑纷飞。猪八碗头戴小皇冠，得意洋洋。</div>
+  </div>
+</div>
+
+<!-- Panel 25 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-25.jpg" loading="lazy" alt="周巧巧微笑">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 特写·柔光</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">周巧巧：</span>（第一次露出真诚的微笑）"你的包子……比我预想的有趣。"<br>
+      <span class="speaker">周巧巧：</span>（转身，恢复冷酷）"下次，我不会并列。"<br>
+      <span class="speaker">方大厨：</span>（傻笑）"好……好的。"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 26 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-26.jpg" loading="lazy" alt="猪八碗吃光">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-shot">🎬 全景·喜剧</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">方大厨：</span>"等等……剩下的展示包子呢？"<br>
+      <span class="speaker">猪八碗：</span>（坐在空蒸笼山上，肚子滚圆）"嗝——都在本猪的肚子里得到了妥善保管。"<br>
+      <span class="speaker">方大厨：</span>"你——！！"<br>
+      <span class="speaker">猪八碗：</span>"放心，真情灌汤包的味道我替全国人民品鉴过了，确实不错，打八十分。"<br>
+      <span class="speaker">方大厨：</span>"你刚才不是哭着说感动吗？！才八十分？！"
+    </div>
+  </div>
+</div>
+
+<!-- Panel 27 -->
+<div class="panel fullscreen">
+  <img src="exp-500-shishen-ch2/images/panel-27.jpg" loading="lazy" alt="夕阳归途">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 美食街·黄昏</span>
+      <span class="tag-shot">🎬 远景·背影</span>
+      <span class="tag-transition">🌅 渐暗</span>
+    </div>
+    <div class="dialogue">
+      <span class="aside">（夕阳下的美食街，方大厨背着睡着的猪八碗，缓步走远。）</span><br>
+      <span class="speaker">方大厨：</span>（轻声）"食神系统……接下来的路，会更难吧。"<br>
+      <span class="speaker">系统：</span>"主线任务更新中……请期待。"
+    </div>
+    <div class="scene-desc">温暖的日落余晖，远处小贩们挥手告别。一段冒险的终点，也是新旅程的起点。</div>
+  </div>
+</div>
+
+<!-- Panel 28 -->
+<div class="panel">
+  <img src="exp-500-shishen-ch2/images/panel-28.jpg" loading="lazy" alt="悬念">
+  <div class="panel-info">
+    <div class="shot-meta">
+      <span class="tag-scene">📍 未知高级餐厅·夜</span>
+      <span class="tag-shot">🎬 远景·剪影</span>
+      <span class="tag-transition">🔚 黑屏</span>
+    </div>
+    <div class="dialogue">
+      <span class="speaker">神秘人：</span>"这个方大厨……有点意思。安排一下，'美食之巅'的邀请函……给他发一份。"<br>
+      <span class="speaker">助手：</span>"可是先生，美食之巅是S级赛事，他一个民间厨师——"<br>
+      <span class="speaker">神秘人：</span>"能让所有评委同时落泪的人，不是普通厨师。"
+    </div>
+    <div class="scene-desc">城市天际线前的暗色剪影，一个神秘人物正在观看比赛回放。更大的舞台，已在酝酿。</div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <div class="next-chapter">── 第三章 · 美食之巅 ──</div>
+  <div class="teaser">当江湖遇上庙堂，当民间手艺遇上顶级食材……<br>方大厨和猪八碗的下一场冒险，即将开启。</div>
+  <div class="credits">食神系统 · V4分镜剧本 · CYCLE-operator-272</div>
+</div>
+
+<script>
+// Intersection Observer for scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+
+</body>
+</html>

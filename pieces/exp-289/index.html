@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>你的外卖消费人格画像 | 2025年度报告</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f172a;color:#e2e8f0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:20px;line-height:1.8;overflow-x:hidden}
+.container{max-width:420px;margin:0 auto;min-height:100vh}
+
+.app-header{background:linear-gradient(135deg,#f59e0b,#d97706);padding:24px 20px;text-align:center}
+.app-logo{font-size:32px}
+.app-name{font-size:22px;font-weight:900;color:#fff;margin-top:4px}
+.app-sub{font-size:14px;color:rgba(255,255,255,0.8)}
+.user-bar{background:rgba(0,0,0,0.15);margin-top:16px;padding:12px 16px;border-radius:12px;display:flex;align-items:center;gap:12px}
+.user-avatar{width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:24px}
+.user-info{text-align:left}
+.user-name{font-size:16px;font-weight:700;color:#fff}
+.user-level{font-size:12px;color:rgba(255,255,255,0.7)}
+
+.section{padding:16px;opacity:0;transform:translateY(20px);transition:all 0.6s}
+.section.show{opacity:1;transform:translateY(0)}
+.section-title{font-size:14px;color:#64748b;letter-spacing:3px;margin-bottom:12px;text-align:center}
+
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.stat-card{background:#1e293b;border-radius:16px;padding:16px;text-align:center;border:1px solid #334155}
+.stat-num{font-size:28px;font-weight:900;font-family:'SF Mono','Menlo',monospace}
+.stat-num.orange{color:#f59e0b}
+.stat-num.blue{color:#3b82f6}
+.stat-num.red{color:#ef4444}
+.stat-num.green{color:#22c55e}
+.stat-label{font-size:13px;color:#94a3b8;margin-top:4px}
+.stat-detail{font-size:12px;color:#64748b;margin-top:2px}
+
+.persona-card{background:linear-gradient(135deg,#1e293b,#334155);border-radius:20px;margin:12px 0;padding:24px;text-align:center;border:2px solid #f59e0b;box-shadow:0 0 30px rgba(245,158,11,0.15)}
+.persona-emoji{font-size:64px;margin-bottom:8px}
+.persona-title{font-size:24px;font-weight:900;color:#fbbf24}
+.persona-desc{font-size:16px;color:#94a3b8;margin-top:8px;line-height:1.6}
+
+.trait-card{background:#1e293b;border-radius:16px;margin:12px 0;padding:16px;border-left:4px solid #f59e0b}
+.trait-title{font-size:16px;font-weight:700;color:#fbbf24;margin-bottom:8px}
+.trait-bar{display:flex;align-items:center;gap:8px;margin:8px 0}
+.trait-label{font-size:14px;color:#94a3b8;width:80px;flex-shrink:0}
+.trait-track{flex:1;height:12px;background:#0f172a;border-radius:6px;overflow:hidden}
+.trait-fill{height:100%;border-radius:6px;transition:width 1.2s ease}
+.trait-val{font-size:13px;color:#e2e8f0;width:36px;text-align:right;font-weight:700}
+
+.insight-card{background:#1e293b;border-radius:16px;margin:12px 0;overflow:hidden}
+.insight-header{padding:12px 16px;display:flex;align-items:center;gap:8px}
+.insight-icon{font-size:24px}
+.insight-title{font-size:16px;font-weight:700;color:#f1f5f9}
+.insight-body{padding:0 16px 16px;font-size:16px;color:#94a3b8;line-height:1.7}
+.insight-highlight{color:#fbbf24;font-weight:700}
+
+.timeline{padding:0 16px}
+.timeline-item{display:flex;gap:12px;margin:12px 0;align-items:flex-start}
+.timeline-time{font-size:14px;color:#64748b;width:55px;flex-shrink:0;font-family:'SF Mono',monospace;text-align:right}
+.timeline-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.timeline-dot.morning{background:#3b82f6}
+.timeline-dot.noon{background:#f59e0b}
+.timeline-dot.night{background:#8b5cf6}
+.timeline-dot.late{background:#ef4444}
+.timeline-text{font-size:15px;color:#e2e8f0;line-height:1.5}
+.timeline-sub{font-size:13px;color:#64748b}
+
+.verdict{margin:20px 16px;padding:24px;background:linear-gradient(135deg,#78350f,#92400e);border-radius:20px;text-align:center}
+.verdict-text{font-size:22px;font-weight:900;color:#fbbf24;line-height:1.6}
+.verdict-sub{font-size:15px;color:#fde68a;margin-top:8px;opacity:0.8}
+
+.footer{text-align:center;padding:20px;font-size:12px;color:#475569}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="app-header">
+    <div class="app-logo">🛵</div>
+    <div class="app-name">你的2025外卖人格画像</div>
+    <div class="app-sub">基于过去365天外卖数据生成</div>
+    <div class="user-bar">
+      <div class="user-avatar">🧑‍💻</div>
+      <div class="user-info">
+        <div class="user-name">创业者小张</div>
+        <div class="user-level">铂金会员 · 骑手们的衣食父母</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-delay="0">
+    <div class="section-title">— — — 年 度 数 据 — — —</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num orange">847</div><div class="stat-label">年度总单数</div><div class="stat-detail">日均 2.3 单</div></div>
+      <div class="stat-card"><div class="stat-num blue">¥31,204</div><div class="stat-label">年度总消费</div><div class="stat-detail">比你的社保还多</div></div>
+      <div class="stat-card"><div class="stat-num red">23:47</div><div class="stat-label">最晚下单</div><div class="stat-detail">你管这叫"加班餐"</div></div>
+      <div class="stat-card"><div class="stat-num green">连续38天</div><div class="stat-label">同一家店</div><div class="stat-detail">黄焖鸡米饭·中关村店</div></div>
+    </div>
+  </div>
+
+  <div class="section" data-delay="200">
+    <div class="section-title">— — — 你 的 人 格 — — —</div>
+    <div class="persona-card">
+      <div class="persona-emoji">🦉</div>
+      <div class="persona-title">深夜deadline战士</div>
+      <div class="persona-desc">67%的订单在晚8点后下单<br>你的外卖是续命药，不是食物</div>
+    </div>
+  </div>
+
+  <div class="section" data-delay="400">
+    <div class="section-title">— — — 人 格 雷 达 图 — — —</div>
+    <div class="trait-card">
+      <div class="trait-title">🎯 五维人格分析</div>
+      <div class="trait-bar"><span class="trait-label">选择困难</span><div class="trait-track"><div class="trait-fill" style="width:0%;background:#ef4444" data-pct="15"></div></div><span class="trait-val">15%</span></div>
+      <div class="trait-bar"><span class="trait-label">忠诚度</span><div class="trait-track"><div class="trait-fill" style="width:0%;background:#22c55e" data-pct="92"></div></div><span class="trait-val">92%</span></div>
+      <div class="trait-bar"><span class="trait-label">价格敏感</span><div class="trait-track"><div class="trait-fill" style="width:0%;background:#f59e0b" data-pct="78"></div></div><span class="trait-val">78%</span></div>
+      <div class="trait-bar"><span class="trait-label">深夜指数</span><div class="trait-track"><div class="trait-fill" style="width:0%;background:#8b5cf6" data-pct="89"></div></div><span class="trait-val">89%</span></div>
+      <div class="trait-bar"><span class="trait-label">养生意识</span><div class="trait-track"><div class="trait-fill" style="width:0%;background:#3b82f6" data-pct="8"></div></div><span class="trait-val">8%</span></div>
+    </div>
+  </div>
+
+  <div class="section" data-delay="200">
+    <div class="section-title">— — — 深 度 洞 察 — — —</div>
+
+    <div class="insight-card">
+      <div class="insight-header"><span class="insight-icon">🔁</span><span class="insight-title">忠诚度MAX</span></div>
+      <div class="insight-body">你连续 <span class="insight-highlight">38天</span> 点同一家黄焖鸡。老板已经给你设了专属备注：<span class="insight-highlight">"那个不要香菜多加辣的程序员"</span>。第39天你没点，老板发消息问你是不是出差了。</div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-header"><span class="insight-icon">🌙</span><span class="insight-title">深夜觅食王</span></div>
+      <div class="insight-body">你的 <span class="insight-highlight">67%</span> 订单在晚8点后。其中 <span class="insight-highlight">23%</span> 在凌晨12点后。骑手已经认识你家的门禁密码了。有一次骑手备注写着"老哥注意身体"。</div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-header"><span class="insight-icon">💸</span><span class="insight-title">省钱焦虑症</span></div>
+      <div class="insight-body">你平均花 <span class="insight-highlight">11分钟</span> 比较3家店的满减优惠，为了省 <span class="insight-highlight">¥2.5</span>。但你上周给服务器续费的时候，多花了¥800眼都没眨。</div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-header"><span class="insight-icon">📊</span><span class="insight-title">情绪外卖指数</span></div>
+      <div class="insight-body">数据显示：你在 <span class="insight-highlight">融资被拒的当天</span> 必点炸鸡（概率97%）。压力越大，奶茶越甜——你的糖分摄入量和焦虑指数呈 <span class="insight-highlight">完美正相关</span>。</div>
+    </div>
+  </div>
+
+  <div class="section" data-delay="200">
+    <div class="section-title">— — — 典 型 一 天 — — —</div>
+    <div class="timeline">
+      <div class="timeline-item"><span class="timeline-time">10:30</span><div class="timeline-dot morning"></div><div><div class="timeline-text">☕ 美式咖啡 × 2</div><div class="timeline-sub">"早餐"——虽然已经上午十点半了</div></div></div>
+      <div class="timeline-item"><span class="timeline-time">13:15</span><div class="timeline-dot noon"></div><div><div class="timeline-text">🍚 黄焖鸡米饭（不要香菜加辣）</div><div class="timeline-sub">第274次下单。打字都不用打了，历史订单直接再来一单</div></div></div>
+      <div class="timeline-item"><span class="timeline-time">19:40</span><div class="timeline-dot night"></div><div><div class="timeline-text">🍜 螺蛳粉 + 卤蛋 × 2</div><div class="timeline-sub">备注：多加辣多加醋。和投资人谈崩了的标志性订单</div></div></div>
+      <div class="timeline-item"><span class="timeline-time">23:47</span><div class="timeline-dot late"></div><div><div class="timeline-text">🍗 炸鸡全家桶 + 大杯奶茶</div><div class="timeline-sub">今日第3单。骑手备注"老哥还没睡啊"。你回复"在改bug"</div></div></div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-text">你不是在点外卖<br>你是在给一个<br>不会做饭的创业梦<br>续费 💛</div>
+    <div class="verdict-sub">2025，你已喂饱自己847次。辛苦了。</div>
+  </div>
+
+  <div class="footer">纯属虚构 · 你的真实外卖数据可能更离谱</div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const d = parseInt(e.target.dataset.delay || '0');
+      setTimeout(() => {
+        e.target.classList.add('show');
+        e.target.querySelectorAll('.trait-fill').forEach(bar => {
+          setTimeout(() => { bar.style.width = bar.dataset.pct + '%'; }, 400);
+        });
+      }, d);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

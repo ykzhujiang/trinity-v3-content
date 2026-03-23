@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一个房间的声音光谱</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#08080e;color:#ddd6cc;font-family:'Noto Serif SC',serif;font-size:20px;line-height:1.9;overflow-x:hidden}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes waveform{0%{transform:scaleY(0.3)}50%{transform:scaleY(1)}100%{transform:scaleY(0.3)}}
+
+.intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;animation:fadeIn 2s}
+.intro h1{font-size:clamp(1.8rem,5vw,2.8rem);color:#7799bb;margin-bottom:1rem;text-shadow:0 0 40px rgba(119,153,187,0.3)}
+.intro .sub{color:#776;font-size:1.1rem}
+
+.room-wrap{max-width:850px;margin:0 auto;padding:2rem 1rem}
+.room-header{text-align:center;color:#665;font-size:0.9rem;margin-bottom:2rem}
+
+/* Spectrum visualization */
+.spectrum{display:flex;align-items:flex-end;justify-content:center;gap:2px;height:80px;margin:0 auto 2rem;max-width:800px}
+.spec-bar{width:100%;background:#7799bb;border-radius:2px 2px 0 0;transition:height 0.5s,background 0.5s;min-height:3px;opacity:0.6}
+.spec-bar.active{opacity:1;background:#99bbdd}
+
+/* Timeline grid */
+.timeline{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:4px;margin:0 auto}
+.slot{
+  padding:1rem;cursor:pointer;border:1px solid #151520;border-radius:4px;
+  transition:all 0.4s;text-align:center;position:relative;
+}
+.slot:hover{border-color:#7799bb;transform:scale(1.03)}
+.slot.active{border-color:#7799bb;background:rgba(119,153,187,0.06)}
+.slot.listened{border-color:#445566}
+.slot-time{font-size:0.8rem;color:#554;display:block}
+.slot-db{font-size:1.4rem;font-weight:700;color:#7799bb;display:block;margin:0.3rem 0}
+.slot-label{font-size:0.75rem;color:#665;display:block}
+.slot-speaker{width:20px;height:20px;margin:0.3rem auto 0;opacity:0;transition:opacity 0.3s}
+.slot.listened .slot-speaker{opacity:0.5}
+
+/* Audio wave animation */
+.wave-bars{display:flex;gap:2px;justify-content:center;height:20px;align-items:flex-end;margin-top:0.3rem}
+.wave-bar{width:3px;background:#7799bb;border-radius:1px;animation:waveform 0.6s ease-in-out infinite;animation-play-state:paused}
+.playing .wave-bar{animation-play-state:running}
+.wave-bar:nth-child(1){height:8px;animation-delay:0s}
+.wave-bar:nth-child(2){height:14px;animation-delay:0.1s}
+.wave-bar:nth-child(3){height:10px;animation-delay:0.2s}
+.wave-bar:nth-child(4){height:16px;animation-delay:0.15s}
+.wave-bar:nth-child(5){height:6px;animation-delay:0.25s}
+
+.story{
+  display:none;max-width:750px;margin:1rem auto;padding:1.5rem 2rem;
+  border-left:3px solid #7799bb;
+  background:linear-gradient(90deg,rgba(119,153,187,0.04),transparent);
+  animation:slideIn 0.5s;
+}
+.story.active{display:block}
+.story .s-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+.story .s-time{font-size:0.85rem;color:#665}
+.story .s-db{font-size:2rem;font-weight:700;color:#7799bb}
+.story .s-freq{font-size:0.85rem;color:#665;font-style:italic;margin-bottom:0.8rem}
+.story .s-text{font-size:1.05rem;line-height:2;color:#ccc4b8}
+.story .s-listen{
+  display:inline-flex;align-items:center;gap:0.5rem;margin-top:1rem;padding:0.5rem 1.2rem;
+  border:1px solid #7799bb;border-radius:20px;font-size:0.9rem;color:#7799bb;
+  cursor:pointer;transition:all 0.3s;background:transparent;
+}
+.story .s-listen:hover{background:#7799bb;color:#08080e}
+
+.coda{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem;opacity:0;transition:opacity 1.5s}
+.coda.visible{opacity:1}
+.coda .big{font-size:clamp(1.6rem,4vw,2.5rem);color:#7799bb;font-weight:700;margin-bottom:1.5rem}
+.coda .line{font-size:1.15rem;color:#887;max-width:600px;line-height:2.2}
+.coda em{color:#7799bb;font-style:normal;font-weight:700}
+
+.progress-bar{position:fixed;bottom:0;left:0;height:3px;background:#7799bb;transition:width 0.3s;z-index:100}
+@media(max-width:600px){body{font-size:18px}.timeline{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="prog"></div>
+
+<div class="intro">
+  <h1>一个房间的声音光谱</h1>
+  <p class="sub">他的出租屋，60平米，<br>24小时没有一秒钟是真正安静的。</p>
+  <p style="color:#554;font-size:0.85rem;margin-top:2rem">🔊 建议佩戴耳机 · 点击时段收听声音</p>
+</div>
+
+<div class="room-wrap">
+  <div class="room-header">2026年3月17日 · 北京朝阳区某小区 · 12楼 · 60㎡ · 一居室</div>
+  
+  <div class="spectrum" id="spectrum"></div>
+  <div class="timeline" id="timeline"></div>
+</div>
+
+<div id="storyArea"></div>
+
+<div class="coda" id="coda">
+  <div class="big" id="codaBig"></div>
+  <div class="line" id="codaLine"></div>
+</div>
+
+<script>
+// Web Audio API for synthesized ambient sounds
+const AudioCtx=window.AudioContext||window.webkitAudioContext;
+let audioCtx=null;
+let currentSource=null;
+
+function initAudio(){if(!audioCtx)audioCtx=new AudioCtx()}
+
+function playNoise(type,duration,freq,vol){
+  initAudio();
+  stopAudio();
+  
+  if(type==='white-noise'||type==='pink-noise'){
+    // Generate noise buffer
+    const len=audioCtx.sampleRate*duration;
+    const buf=audioCtx.createBuffer(1,len,audioCtx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<len;i++){
+      let v=Math.random()*2-1;
+      if(type==='pink-noise')v*=0.5;// crude approximation
+      data[i]=v*vol;
+    }
+    const src=audioCtx.createBufferSource();
+    src.buffer=buf;
+    const gain=audioCtx.createGain();
+    gain.gain.value=vol;
+    const filt=audioCtx.createBiquadFilter();
+    filt.type='lowpass';
+    filt.frequency.value=freq||800;
+    src.connect(filt).connect(gain).connect(audioCtx.destination);
+    src.start();
+    src.stop(audioCtx.currentTime+duration);
+    currentSource={stop:()=>{try{src.stop()}catch(e){}}};
+  }else if(type==='tone'){
+    const osc=audioCtx.createOscillator();
+    osc.type='sine';
+    osc.frequency.value=freq||220;
+    const gain=audioCtx.createGain();
+    gain.gain.value=vol||0.05;
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+duration);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime+duration);
+    currentSource={stop:()=>{try{osc.stop()}catch(e){}}};
+  }else if(type==='heartbeat'){
+    // Two low tones for lub-dub
+    const play=()=>{
+      const o1=audioCtx.createOscillator();o1.type='sine';o1.frequency.value=60;
+      const g1=audioCtx.createGain();g1.gain.value=0.15;
+      g1.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.15);
+      o1.connect(g1).connect(audioCtx.destination);o1.start();o1.stop(audioCtx.currentTime+0.15);
+      setTimeout(()=>{
+        const o2=audioCtx.createOscillator();o2.type='sine';o2.frequency.value=50;
+        const g2=audioCtx.createGain();g2.gain.value=0.1;
+        g2.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.1);
+        o2.connect(g2).connect(audioCtx.destination);o2.start();o2.stop(audioCtx.currentTime+0.1);
+      },200);
+    };
+    play();
+    const iv=setInterval(play,900);
+    setTimeout(()=>clearInterval(iv),duration*1000);
+    currentSource={stop:()=>clearInterval(iv)};
+  }else if(type==='clicks'){
+    let count=0;
+    const iv=setInterval(()=>{
+      const o=audioCtx.createOscillator();o.type='square';o.frequency.value=800+Math.random()*400;
+      const g=audioCtx.createGain();g.gain.value=0.03;
+      g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.05);
+      o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.05);
+      if(++count>20)clearInterval(iv);
+    },150);
+    currentSource={stop:()=>clearInterval(iv)};
+  }else if(type==='drip'){
+    let count=0;
+    const iv=setInterval(()=>{
+      const o=audioCtx.createOscillator();o.type='sine';
+      o.frequency.value=600+Math.random()*800;
+      const g=audioCtx.createGain();g.gain.value=0.08;
+      g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.3);
+      o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.3);
+      if(++count>8)clearInterval(iv);
+    },800+Math.random()*600);
+    currentSource={stop:()=>clearInterval(iv)};
+  }
+}
+
+function stopAudio(){if(currentSource){currentSource.stop();currentSource=null}}
+
+const S=[
+{time:'00:00',db:31,label:'冰箱压缩机',freq:'120Hz低频嗡鸣',
+audio:{type:'tone',freq:120,dur:4,vol:0.04},
+text:'凌晨零点。他以为房间是安静的。但分贝计显示31dB。冰箱压缩机每45分钟启动一次，发出120Hz的低频嗡鸣。他从来没注意过这个声音——不是因为它不存在，是因为大脑把它归类为"可忽略"。但他的身体听到了。长期暴露在低频噪声中会增加心血管风险。冰箱在慢慢地、安静地伤害他。'},
+{time:'01:30',db:28,label:'全天最安静',freq:'环境底噪 + 呼吸声',
+audio:{type:'pink-noise',freq:200,dur:4,vol:0.01},
+text:'他睡着了。呼吸声12次/分钟。加上窗外渗入的城市底噪——汽车引擎的远场低频、空调外机群的合唱——共28dB。这是他全天最安静的时刻。但28dB不是0dB。0dB在地球上不存在。最安静的消音室是-20dB。人在那种环境下会听到自己的血液流动，然后发疯。28dB刚刚好——安静到可以入睡，吵到不会发疯。'},
+{time:'03:00',db:43,label:'楼上冲马桶',freq:'200-2000Hz宽频水流',
+audio:{type:'pink-noise',freq:2000,dur:3,vol:0.03},
+text:'凌晨三点。楼上有人冲了马桶。43dB，持续8秒。水流穿过管道的声音从天花板传下来。他翻了个身但没醒。他的大脑在睡眠中依然在监听环境——任何超过50dB的突发声音都会触发觉醒反应。43dB刚好在阈值以下。楼上的邻居永远不知道，他们凌晨的每一次冲水都在考验他的睡眠深度。'},
+{time:'05:30',db:38,label:'第一只鸟',freq:'2000-4000Hz啭鸣',
+audio:{type:'tone',freq:2800,dur:3,vol:0.03},
+text:'第一只鸟叫了。38dB。在北京12楼能听到鸟叫是一件奢侈的事。这只鸟可能在对面小区的树上。它的啭鸣频率在2000-4000Hz——恰好是人耳最敏感的范围。所以即使只有38dB，他的大脑也注意到了。他在梦里听到了鸟叫。但醒来后不会记得。'},
+{time:'06:45',db:72,label:'闹钟',freq:'1000Hz方波 × 每秒4次',
+audio:{type:'tone',freq:1000,dur:2,vol:0.06},
+text:'闹钟。72dB——从28dB到72dB，增幅等于在你面前开一台吸尘器。他的心率在3秒内从56跳到88。耳蜗里的毛细胞瞬间弯折。肾上腺素释放。瞳孔扩张。这72dB的声音和远古人类听到的狮吼触发的是同一套生存反应。每天早上，他都用一次模拟的生存危机叫醒自己。'},
+{time:'07:10',db:65,label:'淋浴',freq:'500-8000Hz白噪声',
+audio:{type:'white-noise',freq:8000,dur:3,vol:0.03},
+text:'淋浴。65dB的白噪声。这是他全天最放松的声音之一——白噪声覆盖了所有频段，大脑不需要解析任何信息，可以短暂休息。很多人在淋浴时产生好的想法，不是因为水有魔力，是因为白噪声让大脑进入了默认模式网络（DMN）。他在淋浴时想到：今天要穿那件蓝色衬衫。这不是灵感，但至少是一个自主的决定。'},
+{time:'08:00',db:35,label:'出门后空房',freq:'冰箱 + 窗缝风',
+audio:{type:'tone',freq:120,dur:4,vol:0.03},
+text:'他出门了。房间空了。但分贝计还在工作。35dB。冰箱还在嗡。窗缝有风渗入——300Hz左右的呜呜声。阳台的晾衣架因为风在轻微摇晃，金属杆和金属钩碰撞，每隔几秒发出一声"叮"。他不在，但房间在自己演奏。空房间不是安静的，是孤独的。'},
+{time:'12:00',db:33,label:'正午空房',freq:'太阳能热水器膨胀声',
+audio:{type:'clicks',freq:800,dur:3,vol:0.03},
+text:'正午。太阳晒到了外墙。热水器的金属管道在膨胀，发出细微的"咔哒"声——33dB，每隔20-30秒一次。这是温度在说话。他的房间是有体温的。白天晒太阳的时候，管道在伸展；夜里降温的时候，管道在收缩。房间在呼吸，他不知道。'},
+{time:'15:00',db:45,label:'隔壁装修',freq:'冲击钻 800-3000Hz',
+audio:{type:'white-noise',freq:3000,dur:3,vol:0.05},
+text:'隔壁开始装修了。冲击钻穿过墙壁传来——声音被固体介质传导后频率降低了，但仍然有45dB。这是他买降噪耳机的原因。他不在家，但如果在家，这个声音会把他的注意力切碎。装修声是现代城市的一种慢性噪声酷刑：不致死，但磨人。'},
+{time:'18:30',db:52,label:'做饭',freq:'油烟机+炒菜声',
+audio:{type:'white-noise',freq:5000,dur:3,vol:0.04},
+text:'他回家做了饭。油烟机开到最大档——50dB的持续低频。锅里的油在响——油温180°C时，水分汽化的爆裂声峰值可达68dB。他在自己的厨房里制造了一场小型声学风暴。番茄炒蛋的声音是52dB。一个人做饭的声音，听起来就像一个人在努力活着。'},
+{time:'21:00',db:42,label:'刷手机',freq:'短视频混合音',
+audio:{type:'tone',freq:440,dur:3,vol:0.04},
+text:'他躺在沙发上刷短视频。手机外放42dB。每15秒换一个声音环境——笑声、音乐、旁白、广告。他的听觉皮层在进行高强度的声音切换。大脑处理每次声音切换都需要200毫秒的适应期。一小时的短视频 = 240次声音切换 = 48秒的纯适应时间。他以为自己在放松，但耳朵在加班。'},
+{time:'23:00',db:34,label:'准备睡觉',freq:'牙刷电机 + 水流',
+audio:{type:'tone',freq:260,dur:3,vol:0.03},
+text:'电动牙刷。260Hz的振动频率。34dB。他刷了2分钟（按照牙医的要求）。然后关灯。房间回到了冰箱的120Hz独奏。他侧耳听了一会儿。什么都没有。但其实什么都有——冰箱、窗缝、楼上的脚步、远处的汽车。他选择相信这是安静。'},
+{time:'23:30',db:43,label:'凌晨空房',freq:'全频段叠加',
+audio:{type:'heartbeat',dur:5,vol:0.15},
+text:'他闭上了眼。但分贝计还在工作。43dB。比他入睡前感知到的要高。因为他的大脑已经开始屏蔽信息了——褪黑素上升，听觉阈值升高，主观上觉得更安静了。客观上，房间和一小时前一样吵。唯一新增的声音，是他自己的心跳。他听不到它。但它在那里。每分钟58次。这是房间里最重要的声音，也是他唯一不会注意到的声音。'}
+];
+
+// Build spectrum
+const spec=document.getElementById('spectrum');
+S.forEach((s,i)=>{
+  const bar=document.createElement('div');
+  bar.className='spec-bar';
+  bar.style.height=(s.db/80*100)+'%';
+  spec.appendChild(bar);
+});
+
+// Build timeline
+const tl=document.getElementById('timeline');
+S.forEach((s,i)=>{
+  const sl=document.createElement('div');
+  sl.className='slot';
+  sl.innerHTML=`<span class="slot-time">${s.time}</span><span class="slot-db">${s.db}<span style="font-size:0.7rem;color:#665">dB</span></span><span class="slot-label">${s.label}</span><div class="wave-bars"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>`;
+  sl.onclick=()=>toggle(i);
+  tl.appendChild(sl);
+});
+
+const sa=document.getElementById('storyArea');
+let explored=new Set();
+let playingSlot=-1;
+
+function toggle(i){
+  const s=S[i];
+  explored.add(i);
+  
+  document.querySelectorAll('.slot').forEach(e=>{e.classList.remove('active');e.classList.remove('playing')});
+  tl.children[i].classList.add('active');
+  tl.children[i].classList.add('listened');
+  
+  // Update spectrum highlight
+  spec.querySelectorAll('.spec-bar').forEach((b,j)=>b.classList.toggle('active',j===i));
+  
+  let p=document.getElementById('sp-'+i);
+  if(!p){
+    p=document.createElement('div');
+    p.id='sp-'+i;
+    p.className='story';
+    p.innerHTML=`<div class="s-head"><span class="s-time">${s.time} · ${s.label}</span><span class="s-db">${s.db} dB</span></div><div class="s-freq">${s.freq}</div><div class="s-text">${s.text}</div><button class="s-listen" data-idx="${i}">🔊 播放声音 (${s.audio.dur}秒)</button>`;
+    sa.appendChild(p);
+    p.querySelector('.s-listen').onclick=(e)=>{
+      e.stopPropagation();
+      const a=s.audio;
+      playNoise(a.type,a.dur,a.freq,a.vol);
+      tl.children[i].classList.add('playing');
+      setTimeout(()=>tl.children[i].classList.remove('playing'),a.dur*1000);
+    };
+  }
+  document.querySelectorAll('.story').forEach(e=>e.classList.remove('active'));
+  setTimeout(()=>{p.classList.add('active');p.scrollIntoView({behavior:'smooth',block:'center'})},50);
+  document.getElementById('prog').style.width=(explored.size/S.length*100)+'%';
+  if(explored.size>=10)showCoda();
+}
+
+function showCoda(){
+  const c=document.getElementById('coda');
+  document.getElementById('codaBig').textContent='43 分贝';
+  document.getElementById('codaLine').innerHTML=`这是凌晨三点，他"安静"的房间的音量。<br><br>冰箱的嗡鸣 <em>31dB</em><br>窗缝的风声 <em>35dB</em><br>楼上的冲水 <em>43dB</em><br>管道的膨胀 <em>33dB</em><br>闹钟的尖叫 <em>72dB</em><br><br>他说"我的房间很安静"。<br>分贝计说"你的房间从来没有低于28dB"。<br><br>0分贝是什么？<br>0分贝在地球上不存在。<br>最安静的消音室是 <em>-20dB</em>。<br>人在那里会听到自己的血液流动。<br>然后发疯。<br><br><em>你听到的安静，其实有43分贝。</em><br><em>而你听不到的心跳，是房间里最重要的声音。</em>`;
+  setTimeout(()=>{c.classList.add('visible');c.scrollIntoView({behavior:'smooth'})},500);
+}
+</script>
+</body>
+</html>

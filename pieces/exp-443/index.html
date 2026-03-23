@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI周刊·创业者的3个"早知道"</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', sans-serif;
+  background: #0f0f1a;
+  color: #e0e0e0;
+  font-size: 18px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.container {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 0 40px;
+}
+.header {
+  background: linear-gradient(135deg, #1a1a3e, #2d1b69);
+  padding: 32px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(102,126,234,0.1) 0%, transparent 60%);
+  animation: pulse 4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+.header .date {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 6px;
+  position: relative;
+  z-index: 1;
+}
+.header .badge {
+  display: inline-block;
+  background: rgba(102,126,234,0.3);
+  color: #a0b4ff;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-top: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.news-card {
+  margin: 16px;
+  background: #1a1a2e;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(102,126,234,0.15);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardIn 0.6s ease forwards;
+}
+.news-card:nth-child(2) { animation-delay: 0.1s; }
+.news-card:nth-child(3) { animation-delay: 0.2s; }
+.news-card:nth-child(4) { animation-delay: 0.3s; }
+@keyframes cardIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.news-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.news-body {
+  padding: 20px;
+}
+.news-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.tag-hot { background: rgba(255,82,82,0.15); color: #ff5252; }
+.tag-tech { background: rgba(102,126,234,0.15); color: #a0b4ff; }
+.tag-policy { background: rgba(255,183,77,0.15); color: #ffb74d; }
+
+.news-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.news-source {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 12px;
+}
+.news-source a {
+  color: #667eea;
+  text-decoration: none;
+}
+.news-summary {
+  font-size: 16px;
+  color: #aaa;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.comment-box {
+  background: rgba(102,126,234,0.08);
+  border-left: 3px solid #667eea;
+  padding: 14px 16px;
+  border-radius: 0 12px 12px 0;
+  margin-top: 12px;
+}
+.comment-avatar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.avatar-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: white;
+  font-weight: 700;
+}
+.comment-name {
+  font-size: 13px;
+  color: #667eea;
+  font-weight: 600;
+}
+.comment-label {
+  font-size: 11px;
+  color: #555;
+  margin-left: 4px;
+}
+.comment-text {
+  font-size: 16px;
+  color: #ccc;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.disclaimer {
+  text-align: center;
+  padding: 16px;
+  font-size: 12px;
+  color: #444;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="badge">📡 真实新闻 · 虚构点评</div>
+  <h1>🤖 AI周刊<br>创业者的3个"早知道"</h1>
+  <div class="date">2026年3月21日 · 第12期</div>
+</div>
+
+<!-- 新闻1 -->
+<div class="news-card">
+  <img class="news-img" src="img/news1-token.jpg" alt="Token新闻">
+  <div class="news-body">
+    <span class="news-tag tag-hot">🔥 热点</span>
+    <div class="news-title">OpenAI员工一周跑了2100亿token，相当于33个维基百科</div>
+    <div class="news-source">来源：<a>纽约时报</a> · 2026年3月20日 · ✅ 真实新闻</div>
+    <div class="news-summary">
+      一名OpenAI工程师创下内部记录：一周内通过公司AI模型处理了2100亿个token。"Tokenmaxxing"成为硅谷新热词——用最大算力压榨AI产出。有人用它一天写完了原本一个月的代码。
+    </div>
+    <div class="comment-box">
+      <div class="comment-avatar">
+        <div class="avatar-circle">陈</div>
+        <span class="comment-name">陈磊</span>
+        <span class="comment-label">· AI工具创业者（虚构点评）</span>
+      </div>
+      <div class="comment-text">
+        "我看完这条新闻就改了产品定价。以前按月收费，现在按token用量收——因为真正会用的人，用量是普通人的100倍。"
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 新闻2 -->
+<div class="news-card">
+  <img class="news-img" src="img/news2-gtc.jpg" alt="GTC新闻">
+  <div class="news-body">
+    <span class="news-tag tag-tech">🧠 科技</span>
+    <div class="news-title">英伟达GTC 2026：黄仁勋发布AI机器人全栈方案</div>
+    <div class="news-source">来源：<a>英伟达官方</a> · 2026年3月16-19日 · ✅ 真实新闻</div>
+    <div class="news-summary">
+      全球AI风向标大会GTC 2026在圣何塞举行。黄仁勋穿着标志性黑色皮衣，宣布与智元机器人等全球机器人厂商合作，推出从芯片到软件的AI机器人全栈解决方案。机器人时代，可能比我们想的更近。
+    </div>
+    <div class="comment-box">
+      <div class="comment-avatar">
+        <div class="avatar-circle">李</div>
+        <span class="comment-name">李薇</span>
+        <span class="comment-label">· 硬件创业者（虚构点评）</span>
+      </div>
+      <div class="comment-text">
+        "去年我们还在纠结要不要做机器人，今年老黄直接把从芯片到软件全栈都铺好了。留给创业者的问题变了——不是'做不做'，而是'用它来解决什么问题'。"
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 新闻3 -->
+<div class="news-card">
+  <img class="news-img" src="img/news3-pentagon.jpg" alt="五角大楼新闻">
+  <div class="news-body">
+    <span class="news-tag tag-policy">⚖️ 政策</span>
+    <div class="news-title">美国防部想弃用Anthropic Claude，但军方用户说没那么容易</div>
+    <div class="news-source">来源：<a>路透社</a> · 2026年3月19日 · ✅ 真实新闻</div>
+    <div class="news-summary">
+      美国国防部长下令五角大楼停用Anthropic的Claude模型，但一线军方用户表示很难替换——日常情报分析、文档处理已经深度依赖。同时，俄罗斯也在酝酿限制境内使用外国AI工具。AI正在成为新的地缘博弈筹码。
+    </div>
+    <div class="comment-box">
+      <div class="comment-avatar">
+        <div class="avatar-circle">周</div>
+        <span class="comment-name">周毅</span>
+        <span class="comment-label">· 企业服务创业者（虚构点评）</span>
+      </div>
+      <div class="comment-text">
+        "这条新闻我看了三遍，第三遍才看懂它和我有什么关系——我们的客户也在用Claude，如果哪天也'被弃用'，替换成本谁来出？"
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="disclaimer">
+  📌 新闻内容均为真实报道 · 创业者点评为虚构视角<br>
+  数据来源：纽约时报、路透社、英伟达官方
+</div>
+
+</div>
+</body>
+</html>

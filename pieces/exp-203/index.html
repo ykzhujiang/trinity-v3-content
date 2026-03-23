@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXP-203 · 触感年表：一双手的一生</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  background: #1a1916; 
+  font-family: -apple-system, 'PingFang SC', serif; 
+  color: #c8c0b0; 
+  max-width: 520px; 
+  margin: 0 auto; 
+  padding: 32px 16px 80px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.header h1 { font-size: 20px; font-weight: 300; letter-spacing: 6px; color: #a09880; }
+.header .sub { font-size: 12px; color: #706850; margin-top: 8px; }
+.header .inst { font-size: 11px; color: #504830; margin-top: 16px; letter-spacing: 1px; }
+
+/* SVG hand container */
+.hand-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto 40px;
+}
+
+.hand-svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Touch zones - overlaid on the hand */
+.touch-zone {
+  position: absolute;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.touch-zone:hover {
+  box-shadow: 0 0 20px rgba(200,180,140,0.3);
+}
+.touch-zone.visited {
+  background: rgba(200,180,140,0.15) !important;
+}
+.touch-zone .zone-label {
+  position: absolute;
+  font-size: 9px;
+  color: #706850;
+  white-space: nowrap;
+  pointer-events: none;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.touch-zone .age {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 11px;
+  color: #908870;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Memory panel */
+.memory {
+  display: none;
+  margin-top: 20px;
+  padding: 28px 24px;
+  background: #221f1a;
+  border-left: 3px solid #504830;
+  border-radius: 0 8px 8px 0;
+  animation: fadeSlide 0.5s ease;
+}
+.memory.show { display: block; }
+.memory .mem-age {
+  font-size: 12px;
+  color: #706850;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.memory .mem-title {
+  font-size: 17px;
+  color: #c8b890;
+  margin-bottom: 4px;
+}
+.memory .mem-texture {
+  font-size: 11px;
+  color: #807060;
+  font-style: italic;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+.memory .mem-text {
+  font-size: 14px;
+  line-height: 2;
+  color: #a09880;
+}
+
+/* Texture background per memory */
+.tex-soft { background: #221f1a url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23302a20' opacity='0.3'/%3E%3C/svg%3E"); }
+.tex-rough { background: #221f1a url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='0' x2='20' y2='20' stroke='%23302a20' stroke-width='0.5' opacity='0.4'/%3E%3C/svg%3E"); }
+.tex-smooth { background: linear-gradient(135deg, #221f1a, #252018); }
+.tex-cold { background: #1a1d22; border-left-color: #3a4a5a; }
+.tex-warm { background: #241e18; border-left-color: #6a4a30; }
+
+/* Progress: visited count */
+.progress {
+  text-align: center;
+  font-size: 11px;
+  color: #504830;
+  margin-bottom: 20px;
+}
+
+/* Final text (after all visited) */
+.finale {
+  display: none;
+  text-align: center;
+  padding: 48px 20px;
+  margin-top: 40px;
+  border-top: 1px solid #302a20;
+}
+.finale.show { display: block; }
+.finale p {
+  font-size: 13px;
+  color: #706850;
+  line-height: 2.4;
+  opacity: 0;
+  animation: slowIn 1.5s ease forwards;
+}
+.finale p:nth-child(2) { animation-delay: 2s; }
+.finale p:nth-child(3) { animation-delay: 4s; }
+.finale p:nth-child(4) { animation-delay: 6s; }
+
+@keyframes fadeSlide { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slowIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>一双手的一生</h1>
+  <div class="sub">触感年表 · 0岁—78岁</div>
+  <div class="inst">👆 点击手的不同部位 · 每个位置是一段触感记忆</div>
+</div>
+
+<div class="progress" id="progress">已触摸：0 / 7</div>
+
+<div class="hand-wrap">
+  <!-- SVG hand silhouette -->
+  <svg class="hand-svg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Palm -->
+    <path d="M100,380 Q60,340 55,280 Q50,240 65,200 L75,170 Q80,155 90,150 L95,130 Q100,115 110,112 L115,95 Q118,80 128,75 L132,55 Q136,35 148,30 L150,25 Q155,15 165,18 L168,30 Q172,45 170,65 L168,85 Q185,40 192,25 Q198,12 210,15 L213,20 Q218,28 215,45 L205,85 Q215,55 222,40 Q228,28 238,32 L240,38 Q244,48 238,68 L225,110 Q235,85 242,72 Q248,62 256,68 L258,74 Q260,85 252,108 L235,155 Q232,165 230,180 Q228,200 230,220 Q235,260 225,300 Q215,350 195,380 Z" fill="#2a2520" stroke="#3a3228" stroke-width="1"/>
+    <!-- Subtle lines on palm -->
+    <path d="M95,230 Q140,215 190,230" fill="none" stroke="#3a3228" stroke-width="0.8"/>
+    <path d="M90,270 Q140,255 200,268" fill="none" stroke="#3a3228" stroke-width="0.8"/>
+    <path d="M130,180 Q135,250 130,320" fill="none" stroke="#3a3228" stroke-width="0.5"/>
+  </svg>
+  
+  <!-- Touch zones positioned over the hand -->
+  <!-- Thumb tip: 0岁 -->
+  <div class="touch-zone" data-id="0" style="left:14%; top:33%; width:44px; height:44px; background:rgba(200,180,140,0.05);">
+    <span class="age">0</span>
+    <span class="zone-label">拇指</span>
+  </div>
+  
+  <!-- Index fingertip: 5岁 -->
+  <div class="touch-zone" data-id="1" style="left:28%; top:5%; width:38px; height:38px; background:rgba(200,180,140,0.05);">
+    <span class="age">5</span>
+    <span class="zone-label">食指</span>
+  </div>
+  
+  <!-- Middle fingertip: 16岁 -->
+  <div class="touch-zone" data-id="2" style="left:42%; top:1%; width:38px; height:38px; background:rgba(200,180,140,0.05);">
+    <span class="age">16</span>
+    <span class="zone-label">中指</span>
+  </div>
+  
+  <!-- Ring finger: 28岁 -->
+  <div class="touch-zone" data-id="3" style="left:58%; top:5%; width:38px; height:38px; background:rgba(200,180,140,0.05);">
+    <span class="age">28</span>
+    <span class="zone-label">无名指</span>
+  </div>
+  
+  <!-- Palm center: 40岁 -->
+  <div class="touch-zone" data-id="4" style="left:32%; top:52%; width:52px; height:52px; background:rgba(200,180,140,0.05);">
+    <span class="age">40</span>
+    <span class="zone-label">掌心</span>
+  </div>
+  
+  <!-- Pinky: 55岁 -->
+  <div class="touch-zone" data-id="5" style="left:72%; top:12%; width:36px; height:36px; background:rgba(200,180,140,0.05);">
+    <span class="age">55</span>
+    <span class="zone-label">小指</span>
+  </div>
+  
+  <!-- Wrist: 78岁 -->
+  <div class="touch-zone" data-id="6" style="left:30%; top:85%; width:56px; height:36px; border-radius:20px; background:rgba(200,180,140,0.05);">
+    <span class="age">78</span>
+    <span class="zone-label">手腕</span>
+  </div>
+</div>
+
+<div class="memory" id="memoryPanel"></div>
+
+<div class="finale" id="finale">
+  <p>一双手，七十八年。</p>
+  <p>摸过的东西，大部分已经不在了。<br>那些东西的温度，全部还在手心里。</p>
+  <p style="font-size:12px; color:#504830; margin-top:24px;">你低头看看自己的手。<br>它现在记着什么？</p>
+  <p style="font-size:11px; color:#403828; margin-top:16px; letter-spacing:3px;">手的一生<br>就是一部触觉的回忆录</p>
+</div>
+
+<script>
+const memories = [
+  {
+    age: "0岁", title: "抓住妈妈的手指", texture: "触感：柔软 · 温热 · 能包住整个拳头",
+    cls: "tex-warm",
+    text: "出生第三天，我的手第一次抓住了一个东西。\n\n护士说新生儿都有抓握反射。手指碰到什么就会握住，不用教。但我妈不管什么反射不反射，她说：「你攥得可紧了，不肯松手。」\n\n我当然不记得那个触感。但我知道——我的手学会的第一件事，不是抓，是握住。\n\n后来很多年，我害怕的时候还是会去握她的手。35岁出差，飞机颠簸，我下意识攥了一下自己的右手。空的。"
+  },
+  {
+    age: "5岁", title: "第一次摸到雪", texture: "触感：冰 · 粉状 · 越攥越少",
+    cls: "tex-cold",
+    text: "幼儿园门口。雪很厚，我蹲下去用食指戳。\n\n冰的。但不是冰块那种硬冰，是一种能穿透的冰。手指插进去，雪在指缝间化。指尖变红，然后变白，然后疼。\n\n我捧了一把想带回家给妈妈看。走到家门口——手里只剩一点水。\n\n那是我第一次知道：有些东西，你越想抓紧，它消失得越快。\n\n五岁就知道的道理，四十年都没学会。"
+  },
+  {
+    age: "16岁", title: "打过一次人", texture: "触感：硬 · 震 · 疼了三天",
+    cls: "tex-rough",
+    text: "中指的关节。打在那个人的颧骨上。\n\n很硬。比我想象的硬。电影里打人看起来很流畅，实际上骨头撞骨头是一种让你整个手臂都发麻的感觉。\n\n他说了什么来着？说我妈——算了，不重要了。重要的是那一拳之后三天，我的手都在疼。写字疼，吃饭疼，睡觉翻身碰到也疼。\n\n我爸知道以后没骂我。他握了一下我的手，看了看肿起来的关节，说：「以后别打了。不是因为打人不对——是因为你的手不是用来打人的。」\n\n他没说手是用来做什么的。我想了很多年。"
+  },
+  {
+    age: "28岁", title: "戒指的痕迹", texture: "触感：金属 · 紧 · 7年后变成皮肤的一部分",
+    cls: "tex-smooth",
+    text: "无名指。戒指套上去那天，凉的。金属的凉。\n\n第一个月总想去转它。开会转，坐地铁转，焦虑的时候转。它是一个圆，永远转不到头。\n\n第三年，不转了。它变成手指的一部分。像长在那里的。洗碗的时候会碰到盘子，「叮」一声。那个声音是婚姻的声音——不大不小，一直在。\n\n第七年摘下来，留下一道白色的痕。比旁边的皮肤浅两度。戒指不在了，形状还在。\n\n35岁离婚那天我才发现：印痕要再过两年才完全消失。身体比心记得更久。"
+  },
+  {
+    age: "40岁", title: "揉面", texture: "触感：湿 · 弹 · 活的",
+    cls: "tex-warm",
+    text: "掌心。面团。\n\n妈妈教我揉面是在她住院之前。「不要用力按，要推。推出去，折回来，再推。」她的手搭在我的手背上，带着我推。\n\n面团是活的。不是比喻——它真的会回弹，会呼吸（发酵的时候），会变温暖。你推它的力气，它记住了，变成筋道。\n\n她说：「面和人一样，你对它好，它回报你。你急，它也急。」\n\n后来她走了。我每年她生日那天都揉一次面。不做饼，不蒸馒头，就揉。揉到面团变得光滑温暖。\n\n掌心的温度传到面里，面的温度传回掌心。\n\n像她还搭着我的手。"
+  },
+  {
+    age: "55岁", title: "孙子的胎毛", texture: "触感：比什么都软 · 像不存在 · 但在",
+    cls: "tex-soft",
+    text: "小指。最没力气的指头，最适合轻的东西。\n\n护士把他递过来的时候，我不敢接。我的手——关节粗了，皮粗了，指甲边上有倒刺——这双手抱一个六斤的新生儿？\n\n但我接了。他的头顶有一层毛。胎毛。用小指碰上去，几乎感觉不到。比猫毛还细。比什么都软。\n\n我想到五十五年前，我的头顶也有这么一层。我妈的手指也碰过。那时候她二十三岁，手指一定比我的好看。\n\n三代人，同一个触感。我的小指上传着一条线，从她到我到他。\n\n这条线比任何绳子都细。但五十五年了，没断过。"
+  },
+  {
+    age: "78岁", title: "再也摸不到她的脸", texture: "触感：——",
+    cls: "tex-cold",
+    text: "手腕以下，什么都感觉不到了。糖尿病神经病变。医生说的。\n\n手还在。手指能动。但是摸杯子不知道烫不烫，拿筷子夹不住菜，握笔写不了字。\n\n孙子把他的脸凑过来：「爷爷你摸摸我。」我伸手。我的手放在他的脸上。他的脸一定很暖，很软，像他出生时候的胎毛一样。\n\n但我摸不到了。\n\n手放在他脸上，像隔着一层什么。什么都传不过来。七十八年攒的触觉记忆，全在手心里，但手心现在是一块木板。\n\n「爷爷你的手好冰。」他说。\n\n对不起。这双手摸过雪，摸过面团，摸过你爸的脸。什么都记得。\n\n就是摸不到你了。"
+  }
+];
+
+let visited = new Set();
+const zones = document.querySelectorAll('.touch-zone');
+const panel = document.getElementById('memoryPanel');
+
+zones.forEach(zone => {
+  zone.addEventListener('click', () => {
+    const id = parseInt(zone.dataset.id);
+    visited.add(id);
+    zone.classList.add('visited');
+    document.getElementById('progress').textContent = `已触摸：${visited.size} / 7`;
+    
+    const m = memories[id];
+    panel.className = `memory show ${m.cls}`;
+    panel.innerHTML = `
+      <div class="mem-age">${m.age}</div>
+      <div class="mem-title">${m.title}</div>
+      <div class="mem-texture">${m.texture}</div>
+      <div class="mem-text">${m.text.replace(/\n\n/g, '<br><br>')}</div>
+    `;
+    
+    // Scroll to panel
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    
+    if (visited.size === 7) {
+      setTimeout(() => {
+        document.getElementById('finale').classList.add('show');
+        document.getElementById('finale').scrollIntoView({ behavior: 'smooth' });
+      }, 4000);
+    }
+  });
+});
+</script>
+</body>
+</html>

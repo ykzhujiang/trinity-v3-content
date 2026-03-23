@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>微博热搜 · AI创业圈大瓜</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB",sans-serif;background:#f5f5f5;color:#333;font-size:20px;line-height:1.8;-webkit-font-smoothing:antialiased}
+.weibo-header{background:linear-gradient(135deg,#ff8200,#ff5722);padding:20px 16px 16px;color:#fff;position:sticky;top:0;z-index:100}
+.weibo-header h1{font-size:22px;font-weight:700}
+.weibo-header .subtitle{font-size:14px;opacity:.8;margin-top:4px}
+.trending-list{padding:12px 16px}
+.trending-item{background:#fff;border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);animation:fadeUp .6s ease both}
+.trending-item:nth-child(1){animation-delay:.1s}
+.trending-item:nth-child(2){animation-delay:.2s}
+.trending-item:nth-child(3){animation-delay:.3s}
+.trending-item:nth-child(4){animation-delay:.4s}
+.trending-item:nth-child(5){animation-delay:.5s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.trending-rank{display:flex;align-items:center;padding:16px;cursor:pointer}
+.rank-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;margin-right:12px}
+.rank-hot{background:#ff3b30;color:#fff}
+.rank-warm{background:#ff9500;color:#fff}
+.rank-normal{background:#e0e0e0;color:#666}
+.rank-title{flex:1;font-size:18px;font-weight:600}
+.rank-tag{font-size:12px;padding:2px 8px;border-radius:10px;margin-left:8px;flex-shrink:0}
+.tag-explode{background:#ff3b30;color:#fff}
+.tag-hot{background:#ff9500;color:#fff}
+.tag-new{background:#007aff;color:#fff}
+.trending-detail{display:none;padding:0 16px 16px}
+.trending-detail.open{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.detail-summary{font-size:18px;color:#555;line-height:1.7;padding:12px;background:#f9f9f9;border-radius:8px;margin-bottom:12px}
+.detail-img{width:100%;border-radius:8px;margin-bottom:12px}
+.comments-section{margin-top:8px}
+.comments-section h3{font-size:16px;color:#999;margin-bottom:8px}
+.comment{padding:12px;border-bottom:1px solid #f0f0f0;animation:fadeIn .4s ease}
+.comment:last-child{border-bottom:none}
+.comment-user{display:flex;align-items:center;margin-bottom:6px}
+.comment-avatar{width:28px;height:28px;border-radius:50%;margin-right:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.comment-name{font-size:14px;font-weight:600;color:#333}
+.comment-badge{font-size:11px;padding:1px 6px;border-radius:8px;margin-left:6px;background:#fff3e0;color:#ff9500}
+.comment-text{font-size:17px;line-height:1.6;color:#444}
+.comment-meta{font-size:13px;color:#999;margin-top:4px}
+.disclaimer{text-align:center;font-size:13px;color:#bbb;padding:20px 16px 40px;line-height:1.5}
+.read-count{font-size:13px;color:#999;margin-top:2px}
+</style>
+</head>
+<body>
+
+<div class="weibo-header">
+<h1>🔥 微博热搜 · AI创业圈</h1>
+<div class="subtitle">⚠️ 以下为虚构娱乐内容，非真实新闻</div>
+</div>
+
+<div class="trending-list">
+
+<!-- 热搜1 -->
+<div class="trending-item">
+<div class="trending-rank" onclick="toggle(this)">
+<div class="rank-num rank-hot">1</div>
+<div class="rank-title">某AI公司3亿融资到账第二天CEO跑路</div>
+<span class="rank-tag tag-explode">爆</span>
+</div>
+<div class="trending-detail">
+<div class="detail-summary">
+据"不可靠消息"，某AI创业公司刚完成3亿元B轮融资，墨迹还没干呢，CEO就带着公章和公司猫"算力"一起消失了。投资人表示："我们做了三个月尽调，唯一没调查的就是他家养了几只猫。"
+</div>
+<img src="weibo1.jpg" alt="混乱的办公室" class="detail-img">
+<div class="detail-summary">
+最新消息：CEO在三亚被找到，正在沙滩上训练"算力"识别贝壳。他表示这是"多模态落地的第一步"。投资人紧急开会研究是否算业务进展。
+</div>
+<div class="comments-section">
+<h3>热门评论</h3>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#e3f2fd">🐱</div><div class="comment-name">程序员小王</div><span class="comment-badge">铁粉</span></div>
+<div class="comment-text">所以那只猫才是真正的CTO？</div>
+<div class="comment-meta">👍 2.3万 · 3小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#fce4ec">💰</div><div class="comment-name">投资圈老李</div><span class="comment-badge">大V</span></div>
+<div class="comment-text">以后尽调必须加一项：创始人有没有养猫，养了几只，猫的护照办了没有</div>
+<div class="comment-meta">👍 1.8万 · 2小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#e8f5e9">🏖️</div><div class="comment-name">AI产品经理</div></div>
+<div class="comment-text">说实话，识别贝壳这个需求确实是刚需，你们去赶海就知道了</div>
+<div class="comment-meta">👍 9800 · 1小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#fff3e0">😂</div><div class="comment-name">创业狗日记</div></div>
+<div class="comment-text">我司CEO看完这条新闻后默默把猫放在了工位上，说"你留下当人质"</div>
+<div class="comment-meta">👍 6700 · 45分钟前</div>
+</div>
+</div>
+<div class="read-count">💬 讨论 8.7万 · 👁️ 阅读 3.2亿</div>
+</div>
+</div>
+
+<!-- 热搜2 -->
+<div class="trending-item">
+<div class="trending-rank" onclick="toggle(this)">
+<div class="rank-num rank-hot">2</div>
+<div class="rank-title">两家AI公司创始人直播吵架被平台封号</div>
+<span class="rank-tag tag-hot">热</span>
+</div>
+<div class="trending-detail">
+<div class="detail-summary">
+"超级智能"CEO张某和"宇宙大脑"CEO李某在直播间因为"谁家模型跑分更高"对骂三小时。最精彩的环节是两人各自掏出笔记本电脑现场跑分，结果张某的电脑死机，李某的电脑弹出杀毒软件广告。
+</div>
+<img src="weibo2.jpg" alt="两位CEO争吵" class="detail-img">
+<div class="detail-summary">
+直播间最高观看人数破500万。有网友录屏发现，两人在骂对方的间隙偷偷查了对方公司的招聘页面。平台以"影响行业形象"为由双双封号7天，两人随后在朋友圈达成和解，互发"兄弟，下次换个平台继续"。
+</div>
+<div class="comments-section">
+<h3>热门评论</h3>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#f3e5f5">🎭</div><div class="comment-name">科技八卦王</div><span class="comment-badge">大V</span></div>
+<div class="comment-text">笑死，骂对方的时候偷偷看招聘页面，这是什么"嘴上骂骂咧咧身体很诚实"</div>
+<div class="comment-meta">👍 3.1万 · 5小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#e0f7fa">💻</div><div class="comment-name">前端切图仔</div></div>
+<div class="comment-text">弹出杀毒软件广告这个细节太真实了，就说你们CEO到底装了多少流氓软件？</div>
+<div class="comment-meta">👍 1.5万 · 3小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#fff8e1">🍿</div><div class="comment-name">吃瓜群众联盟</div></div>
+<div class="comment-text">建议以后每个月搞一次，我负责买瓜子</div>
+<div class="comment-meta">👍 8900 · 2小时前</div>
+</div>
+</div>
+<div class="read-count">💬 讨论 6.2万 · 👁️ 阅读 2.8亿</div>
+</div>
+</div>
+
+<!-- 热搜3 -->
+<div class="trending-item">
+<div class="trending-rank" onclick="toggle(this)">
+<div class="rank-num rank-warm">3</div>
+<div class="rank-title">AI面试官把面试者全部录取被公司开除</div>
+<span class="rank-tag tag-new">新</span>
+</div>
+<div class="trending-detail">
+<div class="detail-summary">
+某科技公司上线AI面试系统第一天，因为提示词写成了"友善对待每一位候选人"，AI直接给所有候选人发了录用通知。包括一位走错房间的外卖小哥和一只从窗户跳进来的猫。HR总监当场表演了一个"人类面试官的最后尊严"。
+</div>
+<img src="weibo3.jpg" alt="投资人跑路的猫" class="detail-img">
+<div class="detail-summary">
+后续：外卖小哥真的入职了，现在是公司配送无人机项目负责人，季度OKR完成率全组第一。那只猫也留下了，担任"首席摸鱼官"，日薪一罐金枪鱼罐头。CEO在全员大会上说："这告诉我们，有时候AI比HR更懂识人。"
+</div>
+<div class="comments-section">
+<h3>热门评论</h3>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#e8eaf6">🎯</div><div class="comment-name">HR圈内人</div><span class="comment-badge">行业大V</span></div>
+<div class="comment-text">等等，外卖小哥OKR全组第一这个信息量有点大…是不是说明我们以前的面试标准有问题？</div>
+<div class="comment-meta">👍 2.7万 · 4小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#fbe9e7">🐈</div><div class="comment-name">猫奴程序员</div></div>
+<div class="comment-text">首席摸鱼官日薪一罐金枪鱼…说实话比我时薪高</div>
+<div class="comment-meta">👍 1.9万 · 3小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#e0f2f1">🤖</div><div class="comment-name">AI工程师本人</div></div>
+<div class="comment-text">提示词的力量，一个"友善"毁掉了整个招聘部门</div>
+<div class="comment-meta">👍 1.2万 · 2小时前</div>
+</div>
+</div>
+<div class="read-count">💬 讨论 5.4万 · 👁️ 阅读 2.1亿</div>
+</div>
+</div>
+
+<!-- 热搜4 -->
+<div class="trending-item">
+<div class="trending-rank" onclick="toggle(this)">
+<div class="rank-num rank-warm">4</div>
+<div class="rank-title">程序员用AI写情书被女友用AI识别出来</div>
+<span class="rank-tag tag-hot">热</span>
+</div>
+<div class="trending-detail">
+<div class="detail-summary">
+一位程序员精心用AI写了一封情书发给女朋友，结果女朋友是某AI公司的产品经理，一眼看出来了。更惨的是女友直接把情书丢进自家产品的检测接口，返回结果："AI生成概率99.7%，情感真实度0.3%"。
+</div>
+<div class="detail-summary">
+程序员紧急手写了一封道歉信，但因为写字太丑被女友吐槽"你确定这不是GAN生成的草书？"最终两人达成协议：以后约会可以用AI订餐厅，但情话必须人工原创，且每句话后面要附上心率数据证明是真情实感。
+</div>
+<div class="comments-section">
+<h3>热门评论</h3>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#fce4ec">💕</div><div class="comment-name">恋爱脑产品经理</div></div>
+<div class="comment-text">所以以后表白要附带心率数据？"我喜欢你（心率142，真实度98%）"</div>
+<div class="comment-meta">👍 4.2万 · 6小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#e3f2fd">⌨️</div><div class="comment-name">35岁程序员</div></div>
+<div class="comment-text">真实度0.3%也太惨了，这0.3%可能还是标点符号贡献的</div>
+<div class="comment-meta">👍 2.8万 · 4小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#f1f8e9">😆</div><div class="comment-name">单身狗协会</div></div>
+<div class="comment-text">有女朋友可以吵架，这个bug我很想拥有</div>
+<div class="comment-meta">👍 1.6万 · 2小时前</div>
+</div>
+</div>
+<div class="read-count">💬 讨论 4.8万 · 👁️ 阅读 1.9亿</div>
+</div>
+</div>
+
+<!-- 热搜5 -->
+<div class="trending-item">
+<div class="trending-rank" onclick="toggle(this)">
+<div class="rank-num rank-normal">5</div>
+<div class="rank-title">AI生成的商业计划书获投资人满分但创始人不认识自己公司</div>
+<span class="rank-tag tag-new">新</span>
+</div>
+<div class="trending-detail">
+<div class="detail-summary">
+一位创业者用AI生成了商业计划书去路演，投资人给了满分评价。问题是BP里写的技术路线创始人自己完全看不懂。路演Q&A环节，当投资人问"你们的多模态对齐策略具体是怎么做的"，创始人沉默了15秒后说："这个问题非常好，我让我们的CTO来回答。"然后掏出手机打开了AI对话框。
+</div>
+<div class="detail-summary">
+结局很暖：投资人笑了说"没关系，我们投的那些声称自己懂技术的创始人，有一半也是这么干的"。最终这家公司拿到了融资，创始人把AI正式任命为"联合创始人"，工商注册时填的名字叫"赛博诸葛亮"。
+</div>
+<div class="comments-section">
+<h3>热门评论</h3>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#efebe9">🎪</div><div class="comment-name">创投圈纪实</div><span class="comment-badge">金V</span></div>
+<div class="comment-text">"有一半也是这么干的"这句话信息量太大了哈哈哈</div>
+<div class="comment-meta">👍 3.5万 · 7小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#e8eaf6">📋</div><div class="comment-name">被裁的产品经理</div></div>
+<div class="comment-text">赛博诸葛亮这个名字比我的花名还好听</div>
+<div class="comment-meta">👍 2.1万 · 5小时前</div>
+</div>
+<div class="comment">
+<div class="comment-user"><div class="comment-avatar" style="background:#e0f7fa">💡</div><div class="comment-name">天使投资人</div></div>
+<div class="comment-text">说实话，至少人家诚实。我见过更离谱的，BP是抄别人的，连公司名都没改完</div>
+<div class="comment-meta">👍 1.3万 · 3小时前</div>
+</div>
+</div>
+<div class="read-count">💬 讨论 3.9万 · 👁️ 阅读 1.5亿</div>
+</div>
+</div>
+
+</div>
+
+<div class="disclaimer">
+⚠️ 以上内容纯属虚构，如有雷同纯属巧合<br>
+仅供娱乐，请勿当真 😄
+</div>
+
+<script>
+function toggle(el){
+var d=el.nextElementSibling;
+if(d.classList.contains('open')){d.classList.remove('open');d.style.display='none'}
+else{d.classList.add('open');d.style.display='block'}
+}
+</script>
+</body>
+</html>

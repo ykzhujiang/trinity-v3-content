@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一封没发出的辞职信</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f5f0e8;font-family:'PingFang SC',-apple-system,serif;max-width:480px;margin:0 auto;min-height:100vh;}
+.paper-bg{background:
+  linear-gradient(180deg,#f5f0e8 0%,#ede8dc 100%);
+  padding:20px 16px;}
+.title-area{text-align:center;padding:30px 20px 20px;border-bottom:1px solid #d4cbb8;}
+.title-area h1{font-size:18px;font-weight:400;color:#4a4035;letter-spacing:2px;}
+.title-area .sub{font-size:12px;color:#999;margin-top:8px;font-style:italic;}
+/* Timeline */
+.timeline{position:relative;padding:30px 0 10px 36px;margin:0 16px;}
+.timeline::before{content:'';position:absolute;left:14px;top:30px;bottom:10px;width:2px;background:linear-gradient(180deg,#d4cbb8 0%,#bfaa88 100%);}
+.tl-node{position:relative;margin-bottom:36px;}
+.tl-dot{position:absolute;left:-26px;top:4px;width:10px;height:10px;border-radius:50%;background:#bfaa88;border:2px solid #f5f0e8;}
+.tl-dot.active{background:#c0392b;box-shadow:0 0 0 3px rgba(192,57,43,0.2);}
+.tl-dot.final{background:#27ae60;box-shadow:0 0 0 3px rgba(39,174,96,0.2);}
+.tl-year{font-size:12px;color:#999;margin-bottom:6px;font-variant-numeric:tabular-nums;}
+.tl-title{font-size:15px;color:#4a4035;font-weight:500;margin-bottom:8px;}
+/* Letter card */
+.letter{background:#fffdf7;border:1px solid #e8e0d0;border-radius:4px;padding:16px;margin-top:8px;position:relative;box-shadow:2px 2px 8px rgba(0,0,0,0.04);}
+.letter.handwriting{font-family:'Kaiti SC','STKaiti',serif;font-size:15px;line-height:2;color:#333;}
+.letter .deleted{text-decoration:line-through;color:#c0392b;opacity:0.6;}
+.letter .margin-note{position:absolute;right:-4px;top:4px;font-size:10px;color:#c0392b;transform:rotate(2deg);background:#fffdf7;padding:2px 4px;border:1px solid #e8d0d0;border-radius:2px;}
+.coffee-stain{position:absolute;width:80px;height:70px;border-radius:50%;background:radial-gradient(ellipse,rgba(139,90,43,0.08) 30%,rgba(139,90,43,0.03) 60%,transparent 70%);pointer-events:none;}
+.stain1{bottom:10%;right:5%;transform:rotate(15deg);}
+.stain2{top:40%;left:2%;width:50px;height:45px;}
+/* Context card */
+.context{background:#f0ede5;border-radius:6px;padding:12px;margin-top:8px;font-size:12px;color:#888;line-height:1.6;}
+.context .stat{color:#4a4035;font-weight:500;}
+/* Ending */
+.ending{padding:30px 20px;text-align:center;margin-top:20px;border-top:1px solid #d4cbb8;}
+.ending .big{font-size:15px;color:#4a4035;line-height:2;font-family:'Kaiti SC','STKaiti',serif;}
+.ending .small{font-size:12px;color:#999;margin-top:16px;line-height:1.8;}
+/* Emotion bar */
+.emotion-bar{display:flex;margin:20px 16px;height:6px;border-radius:3px;overflow:hidden;}
+.ebar-fear{background:#e74c3c;flex:3;}
+.ebar-doubt{background:#f39c12;flex:2;}
+.ebar-hope{background:#2ecc71;flex:1;}
+.ebar-calm{background:#3498db;flex:2;}
+.ebar-resolve{background:#27ae60;flex:2;}
+.emotion-legend{display:flex;justify-content:center;gap:12px;font-size:10px;color:#999;margin:0 16px 20px;flex-wrap:wrap;}
+.emotion-legend span::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:3px;vertical-align:middle;}
+.el-fear::before{background:#e74c3c;}
+.el-doubt::before{background:#f39c12;}
+.el-hope::before{background:#2ecc71;}
+.el-calm::before{background:#3498db;}
+.el-resolve::before{background:#27ae60;}
+</style>
+</head>
+<body>
+
+<div class="paper-bg">
+
+<div class="title-area">
+<h1>一封没发出的辞职信</h1>
+<div class="sub">5个版本 · 2019—2024 · 同一个人</div>
+</div>
+
+<div class="emotion-bar">
+<div class="ebar-fear"></div><div class="ebar-doubt"></div><div class="ebar-hope"></div><div class="ebar-calm"></div><div class="ebar-resolve"></div>
+</div>
+<div class="emotion-legend">
+<span class="el-fear">恐惧</span>
+<span class="el-doubt">犹豫</span>
+<span class="el-hope">冲动</span>
+<span class="el-calm">麻木</span>
+<span class="el-resolve">释然</span>
+</div>
+
+<div class="timeline">
+
+<!-- Version 1: 2019 -->
+<div class="tl-node">
+<div class="tl-dot active"></div>
+<div class="tl-year">2019年 · 入职第2年</div>
+<div class="tl-title">第一版：愤怒版</div>
+<div class="letter handwriting" style="position:relative;">
+<span class="deleted">张总，我受够了。加班到凌晨没有任何意义，这个项目从一开始就是错的。</span>
+<br>
+<span class="deleted">我不想再浪费我的二十多岁。</span>
+<div class="margin-note">太冲动了 删掉</div>
+</div>
+<div class="context">写于凌晨3:17。第二天早上看了一眼，删了。<br>当月房贷：<span class="stat">¥6,800</span>。卡里：<span class="stat">¥12,400</span>。</div>
+</div>
+
+<!-- Version 2: 2020 -->
+<div class="tl-node">
+<div class="tl-dot"></div>
+<div class="tl-year">2020年 · 疫情期间</div>
+<div class="tl-title">第二版：体面版</div>
+<div class="letter handwriting">
+尊敬的领导：<br>
+<span class="deleted">因个人职业发展规划，经过慎重考虑，</span>我决定<span class="deleted">辞去目前的职务</span>……
+<br><br>
+（写到这里就写不下去了）
+</div>
+<div class="context">疫情第3个月。朋友圈里有人被裁了。<br>存款：<span class="stat">¥45,000</span>。"再攒攒吧。"</div>
+</div>
+
+<!-- Version 3: 2021 -->
+<div class="tl-node">
+<div class="tl-dot"></div>
+<div class="tl-year">2021年 · 升职后第3天</div>
+<div class="tl-title">第三版：刚升职就想跑版</div>
+<div class="letter handwriting" style="position:relative;">
+我想做点自己的事。<br>
+这个想法已经两年了。<br>
+再不走，我怕自己再也不想走了。
+<div class="coffee-stain stain1"></div>
+</div>
+<div class="context">升职加薪30%。所有人都说"恭喜"。<br>他打开备忘录，又写了一遍辞职信。<br>这一版没有删除线。但也没有发出去。<br>新增负担：<span class="stat">团队8个人</span>。走了他们怎么办？</div>
+</div>
+
+<!-- Version 4: 2023 -->
+<div class="tl-node">
+<div class="tl-dot"></div>
+<div class="tl-year">2023年 · 入职第6年</div>
+<div class="tl-title">第四版：麻木版</div>
+<div class="letter handwriting" style="position:relative;">
+算了。<br>
+不写了。<br>
+哪里都一样。
+<div class="coffee-stain stain2"></div>
+</div>
+<div class="context">第6年。已经不加班了——不是公司变好了，是他不在乎了。<br>存款：<span class="stat">¥310,000</span>。够辞职了。但已经不想辞了。<br>这是最短的一版。也是最可怕的一版。</div>
+</div>
+
+<!-- Version 5: 2024 — the one he sent -->
+<div class="tl-node">
+<div class="tl-dot final"></div>
+<div class="tl-year">2024年 · 入职第7年</div>
+<div class="tl-title">第五版：真正发出去的那封</div>
+<div class="letter handwriting">
+张总好，<br>
+因个人原因，我决定离职。<br>
+感谢这些年的栽培。<br>
+<br>
+祝好。
+</div>
+<div class="context">
+4行。31个字。<br>
+没有愤怒，没有理想，没有纠结。<br>
+之前所有版本里删掉的"勇气"，最后变成了平静。<br>
+<span class="stat">触发事件</span>：女儿出生第3天，他在产房走廊写的。<br>
+用了30秒。之前犹豫了5年。
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="ending">
+<div class="big">
+他花了五年删删改改。<br>
+最后发出去的那封，<br>
+一个字都没改过。
+</div>
+<div class="small">
+有些决定不是想清楚了才做的。<br>
+是活到那一刻，自然就做了。<br><br>
+——那封信还存在他的备忘录里。五个版本都在。<br>
+他偶尔翻出来看看，不是怀念，是确认：<br>
+「对了。就应该是那个时候。」
+</div>
+</div>
+
+</body>
+</html>

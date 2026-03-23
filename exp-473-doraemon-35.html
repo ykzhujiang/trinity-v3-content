@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>哆啦A梦 × 程序员35岁危机</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: linear-gradient(180deg, #e8f4fd 0%, #fef6e4 100%);
+  font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  color: #2d3436;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+.header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  animation: fadeDown 0.8s ease;
+}
+.header h1 {
+  font-size: 26px;
+  color: #0984e3;
+  text-shadow: 2px 2px 0px rgba(9,132,227,0.15);
+  margin-bottom: 8px;
+}
+.header .subtitle {
+  font-size: 16px;
+  color: #636e72;
+}
+.panel-container {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.panel {
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUp 0.6s ease forwards;
+}
+.panel:nth-child(1) { animation-delay: 0.2s; }
+.panel:nth-child(2) { animation-delay: 0.4s; }
+.panel:nth-child(3) { animation-delay: 0.6s; }
+.panel:nth-child(4) { animation-delay: 0.8s; }
+.panel:nth-child(5) { animation-delay: 1.0s; }
+.panel:nth-child(6) { animation-delay: 1.2s; }
+
+.panel-num {
+  display: inline-block;
+  background: #0984e3;
+  color: #fff;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(9,132,227,0.3);
+}
+.panel img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  display: block;
+  margin-bottom: 14px;
+}
+.panel .text {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-size: 18px;
+  line-height: 1.7;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  position: relative;
+}
+.panel .text::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 24px;
+  width: 16px; height: 16px;
+  background: #fff;
+  transform: rotate(45deg);
+  box-shadow: -2px -2px 4px rgba(0,0,0,0.03);
+}
+.panel .text .speaker {
+  font-weight: bold;
+  color: #0984e3;
+  margin-right: 4px;
+}
+.panel .text .aside {
+  color: #b2bec3;
+  font-size: 14px;
+  margin-top: 6px;
+  font-style: italic;
+}
+.panel .text .punchline {
+  color: #d63031;
+  font-weight: bold;
+}
+
+.ending {
+  text-align: center;
+  padding: 30px 20px;
+  opacity: 0;
+  animation: fadeDown 0.8s ease 1.6s forwards;
+}
+.ending .tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #0984e3, #6c5ce7);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.ending .moral {
+  margin-top: 14px;
+  font-size: 16px;
+  color: #636e72;
+  line-height: 1.6;
+}
+
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Scroll-triggered animation using IntersectionObserver */
+.panel.visible {
+  animation: slideUp 0.5s ease forwards !important;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🤖 程序员35岁危机自救指南</h1>
+  <div class="subtitle">哆啦A梦 × 打工人联名篇</div>
+</div>
+
+<div class="panel-container">
+
+  <!-- Panel 1 -->
+  <div class="panel">
+    <span class="panel-num">1</span>
+    <img src="images/exp473-panel1.jpg" alt="大雄被裁员">
+    <div class="text">
+      <span class="speaker">HR姐姐：</span>"小野同学，公司业务调整，你的岗位……被优化了。"<br>
+      <span class="speaker">大雄：</span>"……我桌上的外卖还没吃完呢。"
+      <div class="aside">（桌上堆着三天的外卖盒，能量饮料罐子排成一排，像是在给青春送行）</div>
+    </div>
+  </div>
+
+  <!-- Panel 2 -->
+  <div class="panel">
+    <span class="panel-num">2</span>
+    <img src="images/exp473-panel2.jpg" alt="哆啦A梦掏出道具">
+    <div class="text">
+      <span class="speaker">哆啦A梦：</span>"别慌！我这有个好东西——<strong>✨技能拷贝机✨</strong>！"<br>
+      <span class="speaker">大雄：</span>"真的假的？能拷什么？"<br>
+      <span class="speaker">哆啦A梦：</span>"任何人的任何技能！CEO的演讲、产品经理的PPT、销售的嘴炮……统统可以！"
+      <div class="aside">（从四次元口袋掏出一个赛博朋克风头盔，彩虹灯闪个不停）</div>
+    </div>
+  </div>
+
+  <!-- Panel 3 -->
+  <div class="panel">
+    <span class="panel-num">3</span>
+    <img src="images/exp473-panel3.jpg" alt="大雄复制技能">
+    <div class="text">
+      <span class="speaker">大雄：</span>"来！全都要！"<br><br>
+      🎤 CEO的演讲术 → <strong>已拷贝 ✅</strong><br>
+      📊 产品经理的PPT神功 → <strong>已拷贝 ✅</strong><br>
+      📣 销售的嘴炮绝技 → <strong>已拷贝 ✅</strong>
+      <div class="aside">（大雄戴上头盔，浑身散发出彩虹光芒，感觉自己无所不能）</div>
+    </div>
+  </div>
+
+  <!-- Panel 4 -->
+  <div class="panel">
+    <span class="panel-num">4</span>
+    <img src="images/exp473-panel4.jpg" alt="面试震惊">
+    <div class="text">
+      <span class="speaker">面试官A：</span>"你……你一个人能干三个人的活？？"<br>
+      <span class="speaker">面试官B：</span>"他刚才那段产品路演，我当了十年PM都说不出来……"<br>
+      <span class="speaker">大雄（自信挥手）：</span>"小场面。"
+      <div class="aside">（三个面试官下巴快掉地上了，简历已经被揉成了团——因为太激动了）</div>
+    </div>
+  </div>
+
+  <!-- Panel 5 -->
+  <div class="panel">
+    <span class="panel-num">5</span>
+    <img src="images/exp473-panel5.jpg" alt="大雄当CTO">
+    <div class="text">
+      <span class="speaker">大雄：</span>"我！大雄！正式成为CTO！"<br><br>
+      <em>然后他看到了走进门的新CEO——</em><br><br>
+      <span class="punchline">等等……这不是当初裁我的那个HR吗？？？</span>
+      <div class="aside">（大雄的笑容逐渐凝固.jpg）</div>
+    </div>
+  </div>
+
+  <!-- Panel 6 -->
+  <div class="panel">
+    <span class="panel-num">6</span>
+    <img src="images/exp473-panel6.jpg" alt="大雄和哆啦A梦面面相觑">
+    <div class="text">
+      <span class="speaker">大雄：</span>"所以我的新老板……还是那个裁我的人？？？"<br>
+      <span class="speaker">哆啦A梦（擦汗）：</span>"呃……这个道具没有复制<span class="punchline">情商</span>的功能……"<br><br>
+      <strong>大雄 & 哆啦A梦：👁️👄👁️</strong>
+      <div class="aside">（有些技能，是四次元口袋也装不下的）</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ending">
+  <div class="tag">✨ 哆啦A梦 × 打工人 ✨</div>
+  <div class="moral">技能可以拷贝，情商只能修炼。<br>35岁不是终点，是新副本的开始 🎮</div>
+</div>
+
+<script>
+// Scroll-triggered animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.panel').forEach(panel => {
+  observer.observe(panel);
+});
+</script>
+
+</body>
+</html>

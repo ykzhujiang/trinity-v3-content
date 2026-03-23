@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赌神风云 · 第一章 · 暗夜崛起</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0d5c0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.manga-container{max-width:420px;margin:0 auto;padding:0}
+
+/* Title */
+.title-screen{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0a 0%,#1a0a0a 50%,#0a0a0a 100%);position:relative;overflow:hidden}
+.title-screen::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 40%,rgba(180,30,30,0.15) 0%,transparent 70%)}
+.title-main{font-size:48px;font-weight:900;color:#c9a84c;text-shadow:0 0 30px rgba(201,168,76,0.5),0 0 60px rgba(201,168,76,0.2);letter-spacing:12px;margin-bottom:12px;animation:titleGlow 3s ease-in-out infinite}
+.title-sub{font-size:18px;color:#8a7a5a;letter-spacing:6px}
+.title-chapter{font-size:14px;color:#5a4a3a;margin-top:20px;letter-spacing:4px}
+.scroll-hint{position:absolute;bottom:30px;font-size:12px;color:#5a4a3a;animation:bounce 2s ease-in-out infinite}
+@keyframes titleGlow{0%,100%{text-shadow:0 0 30px rgba(201,168,76,0.5)}50%{text-shadow:0 0 50px rgba(201,168,76,0.8),0 0 80px rgba(201,168,76,0.3)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Panel styles */
+.panel{position:relative;width:100%;overflow:hidden}
+.panel img{width:100%;display:block;object-fit:cover}
+.panel-full img{min-height:50vh}
+
+/* Grid layouts for variety */
+.grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.grid-2col img{width:100%;height:auto;aspect-ratio:1/1.2;object-fit:cover}
+
+.grid-big-small{display:grid;grid-template-columns:2fr 1fr;gap:2px}
+.grid-big-small .big{grid-row:span 2}
+.grid-big-small .big img{height:100%;aspect-ratio:auto;object-fit:cover}
+.grid-big-small .small img{aspect-ratio:1/1;object-fit:cover;width:100%}
+
+.grid-small-big{display:grid;grid-template-columns:1fr 2fr;gap:2px}
+.grid-small-big .big{grid-row:span 2}
+.grid-small-big .big img{height:100%;aspect-ratio:auto;object-fit:cover}
+.grid-small-big .small img{aspect-ratio:1/1;object-fit:cover;width:100%}
+
+.grid-3strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}
+.grid-3strip img{width:100%;aspect-ratio:1/1.5;object-fit:cover}
+
+/* Diagonal split */
+.diagonal-panel{position:relative;width:100%;height:280px;overflow:hidden}
+.diagonal-panel img{position:absolute;width:60%;height:100%;object-fit:cover}
+.diagonal-panel .diag-left{left:0;clip-path:polygon(0 0,100% 0,70% 100%,0 100%)}
+.diagonal-panel .diag-right{right:0;clip-path:polygon(30% 0,100% 0,100% 100%,0 100%)}
+
+/* Speech bubbles & overlays */
+.bubble{position:absolute;background:rgba(255,255,255,0.95);color:#1a1a1a;border-radius:16px;padding:8px 14px;font-size:14px;font-weight:600;line-height:1.4;max-width:60%;z-index:10}
+.bubble::after{content:'';position:absolute;width:0;height:0}
+.bubble-bl::after{bottom:-8px;left:20px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid rgba(255,255,255,0.95)}
+.bubble-br::after{bottom:-8px;right:20px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid rgba(255,255,255,0.95)}
+.bubble-tl::after{top:-8px;left:20px;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid rgba(255,255,255,0.95)}
+
+.thought{position:absolute;background:rgba(0,0,0,0.8);color:#c9a84c;border:1px solid #c9a84c;border-radius:12px;padding:8px 14px;font-size:13px;font-style:italic;line-height:1.4;max-width:55%;z-index:10}
+
+.narration{width:100%;background:rgba(0,0,0,0.9);color:#c9a84c;padding:14px 20px;font-size:15px;line-height:1.6;border-left:3px solid #c9a84c;text-align:left}
+
+.sfx{position:absolute;font-size:28px;font-weight:900;color:#ff3333;text-shadow:0 0 10px rgba(255,0,0,0.5);z-index:10;transform:rotate(-10deg)}
+
+/* Chapter dividers */
+.act-divider{padding:30px 20px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#1a0a0a,#0a0a0a)}
+.act-divider .act-num{font-size:12px;color:#5a4a3a;letter-spacing:8px;text-transform:uppercase}
+.act-divider .act-title{font-size:24px;color:#c9a84c;font-weight:700;margin-top:8px;letter-spacing:4px}
+.act-divider .act-line{width:60px;height:1px;background:#c9a84c;margin:12px auto 0}
+
+/* Wide panel for climax */
+.wide-panel{position:relative;width:100%;overflow:hidden}
+.wide-panel img{width:100%;display:block}
+
+/* Fade in animation */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* Ending */
+.ending{padding:40px 20px;text-align:center;background:linear-gradient(180deg,#0a0a0a 0%,#0a0f0a 50%,#0a0a0a 100%)}
+.ending .end-text{font-size:14px;color:#5a6a4a;letter-spacing:4px}
+.ending .end-next{font-size:16px;color:#c9a84c;margin-top:16px;letter-spacing:2px}
+</style>
+</head>
+<body>
+
+<!-- TITLE SCREEN -->
+<div class="title-screen">
+  <div class="title-main">赌神风云</div>
+  <div class="title-sub">第一章 · 暗夜崛起</div>
+  <div class="title-chapter">改编自经典赌神传奇</div>
+  <div class="scroll-hint">↓ 向下滑动开始 ↓</div>
+</div>
+
+<!-- ACT 1: 落魄开局 -->
+<div class="act-divider fade-in">
+  <div class="act-num">第一幕</div>
+  <div class="act-title">落魄入局</div>
+  <div class="act-line"></div>
+</div>
+
+<div class="narration fade-in">香港。旺角。午夜。<br>霓虹灯照不进的暗巷深处，藏着一个不存在于地图上的世界。</div>
+
+<div class="panel panel-full fade-in" style="position:relative">
+  <img src="exp-495-images/panel-01.jpg" loading="lazy" alt="">
+  <div class="thought" style="bottom:15%;right:8%">这里……就是「无间阁」</div>
+</div>
+
+<div class="panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-02.jpg" loading="lazy" alt="">
+  <div class="narration" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.9) 30%)">叶辰。24岁。一无所有。<br>除了一双能看穿一切的眼睛。</div>
+</div>
+
+<div class="grid-2col fade-in">
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-03.jpg" loading="lazy" alt="">
+  </div>
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-04.jpg" loading="lazy" alt="">
+    <div class="bubble bubble-bl" style="top:10%;left:5%">哟，小子，这里最低筹码一万，你确定？</div>
+  </div>
+</div>
+
+<div class="narration fade-in">赌桌上的人笑他穷酸。但叶辰知道——在这个世界，筹码不代表实力，牌技才是。</div>
+
+<div class="diagonal-panel fade-in">
+  <img class="diag-left" src="exp-495-images/panel-05.jpg" loading="lazy" alt="">
+  <img class="diag-right" src="exp-495-images/panel-06.jpg" loading="lazy" alt="">
+  <div class="sfx" style="top:40%;left:40%">翻！</div>
+</div>
+
+<div class="narration fade-in">三局。全胜。<br>从一万赢到三十万。赌桌上鸦雀无声。</div>
+
+<div class="grid-2col fade-in">
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-07.jpg" loading="lazy" alt="">
+    <div class="thought" style="bottom:8%;left:5%;background:rgba(0,0,0,0.85)">有意思……这小子是谁？</div>
+  </div>
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-08.jpg" loading="lazy" alt="">
+    <div class="bubble bubble-bl" style="bottom:15%;left:5%">龙爷，那小子三局全清了外场……</div>
+  </div>
+</div>
+
+<div class="narration fade-in">VIP包厢里，「无间阁」的主人——龙爷，第一次把目光投向了大厅。<br>他已经十年没有亲自下场了。</div>
+
+<!-- ACT 2: 初露锋芒 -->
+<div class="act-divider fade-in">
+  <div class="act-num">第二幕</div>
+  <div class="act-title">龙穴对决</div>
+  <div class="act-line"></div>
+</div>
+
+<div class="panel panel-full fade-in" style="position:relative">
+  <img src="exp-495-images/panel-09.jpg" loading="lazy" alt="">
+  <div class="narration" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.95) 40%)">两个保镖架着叶辰走向走廊深处。<br>不是请求，是命令。</div>
+</div>
+
+<div class="panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-10.jpg" loading="lazy" alt="">
+  <div class="thought" style="top:8%;right:5%">所以这就是龙穴……<br>赌桌上的王座</div>
+</div>
+
+<div class="wide-panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-11.jpg" loading="lazy" alt="">
+  <div class="bubble bubble-bl" style="top:10%;left:5%;max-width:45%">年轻人，听说你很会赢钱？</div>
+  <div class="bubble bubble-br" style="bottom:10%;right:5%;max-width:45%">只是运气好。龙爷想验证一下？</div>
+</div>
+
+<div class="narration fade-in">空气凝固。<br>龙爷笑了。这种不怕死的年轻人，他已经很久没遇到了。</div>
+
+<div class="grid-big-small fade-in">
+  <div class="big panel" style="position:relative">
+    <img src="exp-495-images/panel-12.jpg" loading="lazy" alt="">
+    <div class="sfx" style="top:20%;left:10%">唰唰唰！</div>
+  </div>
+  <div class="small panel"><img src="exp-495-images/panel-13.jpg" loading="lazy" alt=""></div>
+  <div class="small panel"><img src="exp-495-images/panel-14.jpg" loading="lazy" alt=""></div>
+</div>
+
+<div class="narration fade-in">龙爷的洗牌速度快到肉眼无法捕捉。<br>但叶辰不需要看牌——他在算。<br>每一张牌的位置、概率、对手的微表情……全在脑中飞速运转。</div>
+
+<div class="panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-15.jpg" loading="lazy" alt="">
+  <div class="bubble bubble-bl" style="bottom:20%;left:5%;background:rgba(201,168,76,0.95);color:#1a1a1a;font-size:18px">全压。</div>
+  <div class="sfx" style="top:30%;right:10%;color:#c9a84c">哗啦——！</div>
+</div>
+
+<div class="wide-panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-16.jpg" loading="lazy" alt="">
+  <div class="sfx" style="top:20%;left:50%;transform:translate(-50%,-50%) rotate(-5deg);font-size:36px;color:#c9a84c">皇家同花顺！</div>
+</div>
+
+<div class="narration fade-in">筹码山崩塌。龙爷的拳头砸在桌上。<br>这是他十年来第一次输。<br>而叶辰——面无表情地收起了筹码。</div>
+
+<!-- ACT 3: 暗流涌动 -->
+<div class="act-divider fade-in">
+  <div class="act-num">第三幕</div>
+  <div class="act-title">暗流涌动</div>
+  <div class="act-line"></div>
+</div>
+
+<div class="panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-17.jpg" loading="lazy" alt="">
+  <div class="thought" style="bottom:15%;right:8%">一百万。够了。<br>够还清父亲的债了。</div>
+</div>
+
+<div class="grid-2col fade-in">
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-18.jpg" loading="lazy" alt="">
+    <div class="sfx" style="top:30%;right:10%;font-size:22px">砰！</div>
+    <div class="bubble bubble-bl" style="bottom:10%;left:5%;background:rgba(180,30,30,0.9);color:white">给我查！他是谁！谁派来的！</div>
+  </div>
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-19.jpg" loading="lazy" alt="">
+  </div>
+</div>
+
+<div class="narration fade-in">叶辰回到那间逼仄的出租屋。墙上，是唯一一张全家福。<br>父亲曾是牌桌上的传奇。直到被龙爷设局，输掉了一切。</div>
+
+<div class="panel panel-full fade-in" style="position:relative">
+  <img src="exp-495-images/panel-20.jpg" loading="lazy" alt="">
+  <div class="bubble bubble-bl" style="bottom:20%;left:8%">辰儿，记住——<br>牌局的胜负，不在牌面，<br>在人心。</div>
+  <div class="narration" style="position:absolute;top:0;left:0;right:0;background:linear-gradient(rgba(0,0,0,0.8) 60%,transparent);border-left:none;text-align:center;color:#c9a84c;font-style:italic">十五年前</div>
+</div>
+
+<div class="narration fade-in">父亲教他的不只是牌技。<br>是读人心的能力。是在绝境中保持冷静的意志。<br>是为了守护所爱之人，哪怕赌上一切。</div>
+
+<div class="grid-3strip fade-in">
+  <div class="panel"><img src="exp-495-images/panel-21.jpg" loading="lazy" alt=""></div>
+  <div class="panel"><img src="exp-495-images/panel-22.jpg" loading="lazy" alt=""></div>
+  <div class="panel"><img src="exp-495-images/panel-23.jpg" loading="lazy" alt=""></div>
+</div>
+
+<div class="narration fade-in">龙爷不会善罢甘休。三个杀手堵在暗巷。<br>刀光一闪——</div>
+
+<div class="panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-23.jpg" loading="lazy" alt="">
+  <div class="bubble bubble-bl" style="top:15%;left:5%;background:rgba(180,30,30,0.9);color:white">龙爷说了，赢的钱留下。人，也留下。</div>
+  <div class="thought" style="bottom:15%;right:5%">杀不死我的，只会让我更强。</div>
+</div>
+
+<div class="panel panel-full fade-in" style="position:relative">
+  <img src="exp-495-images/panel-24.jpg" loading="lazy" alt="">
+  <div class="narration" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.95) 30%);border-left:none;text-align:center;font-size:18px">伤痕累累，但没有跪下。<br>叶辰做了一个决定——<br><span style="color:#c9a84c;font-weight:700">不只是赢钱。要让龙爷彻底倒台。</span></div>
+</div>
+
+<!-- ACT 4: 终极对决 -->
+<div class="act-divider fade-in">
+  <div class="act-num">第四幕</div>
+  <div class="act-title">终极对决</div>
+  <div class="act-line"></div>
+</div>
+
+<div class="narration fade-in">三天后。「天王赌神大赛」。<br>全港最顶级的赌局。四位高手。一张桌子。赌的不只是筹码——是命运。</div>
+
+<div class="panel panel-full fade-in">
+  <img src="exp-495-images/panel-25.jpg" loading="lazy" alt="">
+</div>
+
+<div class="wide-panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-26.jpg" loading="lazy" alt="">
+  <div class="narration" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.95) 30%);border-left:none;text-align:center">
+    四位参赛者：<br>
+    <span style="color:#c9a84c">叶辰</span> · 暗夜新星 &nbsp;|&nbsp;
+    <span style="color:#aaa">龙爷</span> · 赌坛霸主<br>
+    <span style="color:#e04040">红衣女</span> · 千面狐 &nbsp;|&nbsp;
+    <span style="color:#88aaff">白须翁</span> · 牌仙
+  </div>
+</div>
+
+<div class="grid-2col fade-in">
+  <div class="panel"><img src="exp-495-images/panel-27.jpg" loading="lazy" alt=""></div>
+  <div class="panel"><img src="exp-495-images/panel-28.jpg" loading="lazy" alt=""></div>
+</div>
+
+<div class="narration fade-in">四双眼睛。四种杀意。<br>发牌的声音，像是命运落下的判决。</div>
+
+<div class="grid-small-big fade-in">
+  <div class="small panel" style="position:relative">
+    <img src="exp-495-images/panel-29.jpg" loading="lazy" alt="">
+    <div class="thought" style="bottom:5%;left:5%;font-size:11px">烂牌。<br>但这正是我要的。</div>
+  </div>
+  <div class="small panel"><img src="exp-495-images/panel-30.jpg" loading="lazy" alt=""></div>
+  <div class="big panel" style="position:relative">
+    <img src="exp-495-images/panel-31.jpg" loading="lazy" alt="">
+  </div>
+</div>
+
+<div class="narration fade-in">叶辰连续弃牌七轮。所有人都以为他怂了。<br>但他在算——不是算牌。是算人。<br>龙爷兴奋时会摸金戒指。千面狐紧张时左眼会微微眯缩。<br>每一个微表情，都是叶辰的武器。</div>
+
+<div class="panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-32.jpg" loading="lazy" alt="">
+</div>
+
+<div class="narration fade-in" style="background:rgba(201,168,76,0.1);border-left-color:#c9a84c;font-size:17px;text-align:center;font-weight:600">
+  第十轮。叶辰睁开了眼。<br>
+  他已经看穿了所有人的底牌。
+</div>
+
+<div class="panel panel-full fade-in" style="position:relative">
+  <img src="exp-495-images/panel-33.jpg" loading="lazy" alt="">
+  <div class="thought" style="top:10%;left:8%;font-size:16px;border-color:#c9a84c;background:rgba(0,0,0,0.9)">龙爷，你的金戒指<br>出卖了你十次。</div>
+</div>
+
+<div class="diagonal-panel fade-in" style="height:300px">
+  <img class="diag-left" src="exp-495-images/panel-34.jpg" loading="lazy" alt="">
+  <img class="diag-right" src="exp-495-images/panel-35.jpg" loading="lazy" alt="">
+  <div class="sfx" style="top:50%;left:50%;transform:translate(-50%,-50%);font-size:40px;color:#c9a84c">完美！</div>
+</div>
+
+<div class="wide-panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-36.jpg" loading="lazy" alt="">
+  <div class="sfx" style="top:10%;left:50%;transform:translateX(-50%);font-size:32px">全场沸腾——！</div>
+</div>
+
+<div class="narration fade-in" style="font-size:17px;text-align:center;border-left:none">
+  龙爷颤抖着站起来。<br>
+  十年不败的神话——<br>
+  <span style="font-size:22px;color:#c9a84c;font-weight:900">今夜，终结。</span>
+</div>
+
+<!-- ACT 5: 胜者为王 -->
+<div class="act-divider fade-in">
+  <div class="act-num">第五幕</div>
+  <div class="act-title">破晓</div>
+  <div class="act-line"></div>
+</div>
+
+<div class="grid-2col fade-in">
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-37.jpg" loading="lazy" alt="">
+  </div>
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-38.jpg" loading="lazy" alt="">
+  </div>
+</div>
+
+<div class="narration fade-in">裁判宣布叶辰获胜的同时，警方破门而入。<br>龙爷的地下赌场、洗钱网络、暴力讨债——所有罪行一夜曝光。<br>叶辰早在入局前，就把证据交给了警方。</div>
+
+<div class="panel fade-in" style="position:relative">
+  <img src="exp-495-images/panel-39.jpg" loading="lazy" alt="">
+  <div class="bubble bubble-bl" style="bottom:15%;left:5%;background:rgba(0,0,0,0.85);color:#e04040;border:1px solid #e04040">龙爷……游戏结束了。</div>
+</div>
+
+<div class="panel panel-full fade-in" style="position:relative">
+  <img src="exp-495-images/panel-40.jpg" loading="lazy" alt="">
+  <div class="narration" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.95) 40%);border-left:none;text-align:center;font-size:17px">
+    走出赌场的那一刻，<br>天亮了。<br>
+    <span style="color:#c9a84c">真正的天亮了。</span>
+  </div>
+</div>
+
+<div class="grid-2col fade-in">
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-41.jpg" loading="lazy" alt="">
+  </div>
+  <div class="panel" style="position:relative">
+    <img src="exp-495-images/panel-42.jpg" loading="lazy" alt="">
+  </div>
+</div>
+
+<div class="narration fade-in" style="border-left:none;text-align:center;font-style:italic">
+  爸，我做到了。<br>你的冤屈，今天还清了。<br>你教我的一切……我都记得。
+</div>
+
+<div class="grid-2col fade-in">
+  <div class="panel"><img src="exp-495-images/panel-43.jpg" loading="lazy" alt=""></div>
+  <div class="panel"><img src="exp-495-images/panel-44.jpg" loading="lazy" alt=""></div>
+</div>
+
+<div class="narration fade-in">叶辰用奖金开了一间牌技学院。<br>不教赌博。教的是——<br>在逆境中保持冷静的智慧，和永不服输的勇气。</div>
+
+<div class="panel panel-full fade-in" style="position:relative">
+  <img src="exp-495-images/panel-45.jpg" loading="lazy" alt="">
+  <div class="narration" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.95) 30%);border-left:none;text-align:center;font-size:18px;color:#c9a84c">
+    从黑暗中来，向光明而去。<br>
+    <span style="font-size:14px;color:#8a7a5a">这不是关于赌博的故事。<br>这是关于一个年轻人如何在绝境中找回自己的故事。</span>
+  </div>
+</div>
+
+<!-- ENDING -->
+<div class="ending">
+  <div class="end-text">— 第一章 · 完 —</div>
+  <div class="end-next">第二章 · 千面狐的秘密 · 即将揭晓</div>
+  <div style="margin-top:30px;font-size:11px;color:#3a3a3a">赌神风云 | 改编自经典赌神传奇 | v3漫画</div>
+</div>
+
+<script>
+// Intersection Observer for fade-in
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

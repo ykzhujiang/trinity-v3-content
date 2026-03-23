@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>38岁文科生，用AI写了11万行代码</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #0a0a0f;
+  color: #e8e8e8;
+  line-height: 1.9;
+  font-size: 20px;
+  overflow-x: hidden;
+}
+.hero {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+}
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px 20px;
+  background: linear-gradient(transparent, rgba(10,10,15,0.95));
+}
+.hero-overlay h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+  margin-bottom: 8px;
+}
+.hero-overlay .subtitle {
+  font-size: 16px;
+  color: #a0a0b0;
+}
+.tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+}
+.section {
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.section img {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.section p {
+  margin-bottom: 16px;
+  color: #d0d0d8;
+}
+.highlight {
+  color: #a78bfa;
+  font-weight: 600;
+}
+.quote-block {
+  border-left: 4px solid #6366f1;
+  padding: 16px 20px;
+  margin: 20px 0;
+  background: rgba(99, 102, 241, 0.08);
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+  color: #c4b5fd;
+}
+.stat-card {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1));
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 16px;
+  padding: 24px 12px;
+  margin: 24px 0;
+  text-align: center;
+}
+.stat-card .stat-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: #a78bfa;
+  display: block;
+}
+.stat-card .stat-label {
+  font-size: 14px;
+  color: #8888a0;
+  margin-top: 4px;
+}
+.chapter-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #c4b5fd;
+  margin-bottom: 16px;
+  padding-left: 16px;
+  border-left: 4px solid #6366f1;
+}
+.source-tag {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  color: #666;
+  font-size: 14px;
+  border-top: 1px solid #222;
+}
+.source-tag a { color: #6366f1; text-decoration: none; }
+
+@keyframes pulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
+.dot-divider {
+  text-align: center;
+  margin: 30px 0;
+  color: #6366f1;
+  font-size: 24px;
+  animation: pulse 2s infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img src="b126/img1.jpg" alt="王博源在书房" loading="eager">
+  <div class="hero-overlay">
+    <span class="tag">🔥 真实故事</span>
+    <h1>38岁文科生，用AI写了11万行代码</h1>
+    <div class="subtitle">一个不会编程的前记者，如何在10天内做出一款APP</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="stat-card">
+      <div><span class="stat-num">38</span><span class="stat-label">岁 · 文科生</span></div>
+      <div><span class="stat-num">0</span><span class="stat-label">编程基础</span></div>
+      <div><span class="stat-num">10</span><span class="stat-label">天做出APP</span></div>
+      <div><span class="stat-num">11万</span><span class="stat-label">行代码</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="chapter-title">一、等了二十年的机会</h2>
+    <p>王博源今年38岁，英文专业毕业，做了十几年科技记者。和文字打了半辈子交道的他，十几岁就开始拆电脑，心里一直藏着一个念头：<span class="highlight">有一天，能不能不用学编程语言，直接把脑子里的东西"做"出来？</span></p>
+    <p>他等了二十年。</p>
+    <p>直到AI编程工具横空出世。</p>
+  </div>
+
+  <div class="section">
+    <img src="b126/img2.jpg" alt="发现AI编程" loading="lazy">
+    <h2 class="chapter-title">二、杜比发烧友的执念</h2>
+    <p>王博源是个狂热的杜比全景声音乐爱好者。当Apple Music推出杜比全景声功能时，128个声道的震撼让他发现——听了无数遍的林肯公园《混合理论》，<span class="highlight">竟然还有那么多从没听到过的新细节。</span></p>
+    <p>但问题来了：Apple Music没法批量查哪些歌有杜比版本。</p>
+    <p>于是这个文科生干了件"笨功夫"——他用Notion手动录入了<span class="highlight">7333首</span>杜比全景声华语曲目，做成了一个网页数据库。在发烧友圈子里，他慢慢有了名气。</p>
+    <p>但网页越来越卡，没法搜索。他问码农朋友：能不能做成APP？朋友好心劝他："最好想明白再做。"</p>
+  </div>
+
+  <div class="dot-divider">· · ·</div>
+
+  <div class="section">
+    <img src="b126/img3.jpg" alt="深夜编程" loading="lazy">
+    <h2 class="chapter-title">三、AI说：可以！</h2>
+    <p>朋友劝他三思，但AI的回答不一样——</p>
+    <div class="quote-block">"这个东西可以实现！"</div>
+    <p>AI一步一步教他：先注册服务器，再部署环境，然后下载AI编程工具。王博源就这样闯进了一个全新的世界。</p>
+    <p>开局意外顺利。AI大包大揽，给了个"完整"的代码框架。但跑起来才发现，<span class="highlight">不是出错，就是不符合想象。</span></p>
+    <p>最崩溃的时刻是：一个bug怎么都修不好。他反复跟AI聊，AI每次都说"改好了"，但问题依然存在。</p>
+    <div class="quote-block">"非常崩溃。我不断问它，它不断告诉我改好了，但问题还在。"</div>
+  </div>
+
+  <div class="section">
+    <img src="b126/img4.jpg" alt="APP成功运行" loading="lazy">
+    <h2 class="chapter-title">四、心流时刻</h2>
+    <p>但当他连续"命中"的时候——用自然语言说需求，AI改代码，一运行，成了！那种感觉让他着迷：</p>
+    <div class="quote-block">"进入一种心流模式，非常爽！有一种错觉，好像自己拥有了超能力。"</div>
+    <p>就这样编程了<span class="highlight">10天</span>，"全景新声"小程序上线了。功能虽然简单——主要是数据检索和展示——但体验流畅，交互完整。</p>
+    <p>一个至今仍看不懂代码的中年文科生，<span class="highlight">靠自己一个人，10天做出了一个APP。</span></p>
+  </div>
+
+  <div class="dot-divider">· · ·</div>
+
+  <div class="section">
+    <img src="b126/img5.jpg" alt="用户好评" loading="lazy">
+    <h2 class="chapter-title">五、"匠人作品，太难得了"</h2>
+    <p>半年下来，小程序在圈子里口碑越来越好。有唱片厂牌用截图给投资人看，有混音师拿数据页面去提交月报。</p>
+    <p>最让他感动的，是有人在小红书群里说：</p>
+    <div class="quote-block">"匠人作品，太难得了。对杜比真的是如数家珍。"</div>
+    <p>朋友夸他："你有程序员思维了。"</p>
+    <p>他笑着感慨：<span class="highlight">"我所有的朋友，包括我自己，都很惊讶。"</span></p>
+  </div>
+
+  <div class="section">
+    <img src="b126/img6.jpg" alt="跨年夜上线" loading="lazy">
+    <h2 class="chapter-title">六、跨年夜的礼物</h2>
+    <p>2025年的最后一天，窗外烟花绽放。王博源在电脑前按下了最后一个确认键——</p>
+    <p><span class="highlight">"全景新声"iOS APP在TestFlight正式上线。</span></p>
+    <p>这不再是简单的小程序了。这个版本有完整的音乐收听功能，有更精美的界面，有用户行为逻辑的闭环。这是一个真正的产品。</p>
+    <p>依旧是他一个人，跟AI"聊"出来的。</p>
+    <p>半年多来，他投注了极大热情：游戏几乎不玩了，每天刷自己的APP用来debug，日均使用时长超过8小时。</p>
+  </div>
+
+  <div class="section">
+    <img src="b126/img7.jpg" alt="新的开始" loading="lazy">
+    <h2 class="chapter-title">七、不是竞争，是创造</h2>
+    <p>回顾这段旅程，王博源说了一句很朴素的话：</p>
+    <div class="quote-block">"我不是要跟别人竞争，我只是想做一个自己满意的APP。"</div>
+    <p>这种亲手创造的成就感，和做记者时完全不同。<span class="highlight">是一种层次更复杂的交互——你和AI合作，把脑子里的东西一点一点变成现实。</span></p>
+    <p>有人说AI会替代人类。但王博源的故事告诉我们另一个可能：</p>
+    <p><span class="highlight">AI不是来替代你的，而是来帮你实现那些你以为自己做不到的事情。</span></p>
+    <p>关键只有一个——<span class="highlight">你得先动手。</span></p>
+  </div>
+
+  <div class="source-tag">
+    📖 基于真实事件改编 · 素材来源：<a href="https://36kr.com/p/3670525719716482" target="_blank">36氪采访报道</a><br>
+    主人公：王博源 · 38岁前科技记者 · AI编程创业者
+  </div>
+
+</div>
+
+<script>
+// Scroll animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

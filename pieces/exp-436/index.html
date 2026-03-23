@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🎮 创业者成就系统</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0a1a; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:#e0e0e0; font-size:20px; line-height:1.7; min-height:100vh; }
+
+.system-header {
+  background:linear-gradient(180deg,#1a1a3e 0%,#0a0a1a 100%);
+  padding:24px 20px 16px; text-align:center;
+  border-bottom:2px solid #ffd700;
+}
+.system-title {
+  font-size:26px; font-weight:bold; color:#ffd700;
+  text-shadow:0 0 20px rgba(255,215,0,0.5);
+  letter-spacing:2px;
+}
+.system-subtitle { color:#8888aa; font-size:15px; margin-top:6px; }
+.player-info {
+  display:flex; justify-content:center; gap:20px; margin-top:14px;
+  font-size:14px; color:#aaa;
+}
+.player-info span { background:#1a1a3e; padding:4px 12px; border-radius:12px; border:1px solid #333; }
+
+.achievement-list { padding:16px; }
+
+.achievement-card {
+  background:linear-gradient(135deg,#1a1a3e 0%,#12122a 100%);
+  border:1px solid #2a2a4a; border-radius:16px;
+  margin-bottom:16px; overflow:hidden;
+  opacity:0; transform:scale(0.95);
+  animation: achieveIn 0.5s ease forwards;
+}
+.achievement-card:nth-child(1) { animation-delay:0.2s; }
+.achievement-card:nth-child(2) { animation-delay:0.5s; }
+.achievement-card:nth-child(3) { animation-delay:0.8s; }
+.achievement-card:nth-child(4) { animation-delay:1.1s; }
+.achievement-card:nth-child(5) { animation-delay:1.4s; }
+.achievement-card:nth-child(6) { animation-delay:1.7s; }
+.achievement-card:nth-child(7) { animation-delay:2.0s; }
+
+@keyframes achieveIn {
+  to { opacity:1; transform:scale(1); }
+}
+
+.achievement-card.legendary { border-color:#ffd700; box-shadow:0 0 20px rgba(255,215,0,0.2); }
+.achievement-card.epic { border-color:#a855f7; box-shadow:0 0 15px rgba(168,85,247,0.2); }
+.achievement-card.rare { border-color:#3b82f6; box-shadow:0 0 10px rgba(59,130,246,0.15); }
+.achievement-card.common { border-color:#444; }
+
+.card-img {
+  width:100%; height:200px; object-fit:cover;
+}
+
+.card-body { padding:16px; }
+
+.card-top {
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;
+}
+.medal { font-size:32px; }
+.rarity {
+  font-size:13px; padding:3px 10px; border-radius:10px;
+  font-weight:600;
+}
+.rarity.legendary { background:#ffd700; color:#000; }
+.rarity.epic { background:#a855f7; color:#fff; }
+.rarity.rare { background:#3b82f6; color:#fff; }
+.rarity.common { background:#666; color:#fff; }
+
+.card-title {
+  font-size:22px; font-weight:bold; margin-bottom:6px;
+}
+.card-title.legendary { color:#ffd700; }
+.card-title.epic { color:#a855f7; }
+.card-title.rare { color:#3b82f6; }
+
+.card-desc { color:#aaa; font-size:17px; margin-bottom:12px; }
+
+.card-meta {
+  display:flex; justify-content:space-between; font-size:14px; color:#666;
+}
+.level-badge {
+  background:#222; padding:2px 10px; border-radius:8px;
+  font-weight:600; color:#ffd700;
+}
+
+/* 进度条 */
+.progress-wrap {
+  margin-top:12px; background:#1a1a2e; border-radius:8px; height:24px;
+  overflow:hidden; position:relative;
+}
+.progress-bar {
+  height:100%; border-radius:8px;
+  background:linear-gradient(90deg,#ffd700,#ff8c00);
+  transition:width 2s ease;
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer {
+  0%,100% { opacity:1; }
+  50% { opacity:0.8; }
+}
+.progress-text {
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:bold; color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* 底部统计 */
+.stats-footer {
+  background:#12122a; padding:20px; margin:16px; border-radius:16px;
+  border:1px solid #2a2a4a; text-align:center;
+}
+.stats-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;
+}
+.stat-item { text-align:center; }
+.stat-num { font-size:28px; font-weight:bold; color:#ffd700; }
+.stat-label { font-size:13px; color:#666; }
+.stats-quote {
+  font-size:18px; color:#ffd700; font-style:italic;
+  padding-top:12px; border-top:1px solid #2a2a4a;
+}
+</style>
+</head>
+<body>
+
+<div class="system-header">
+  <div class="system-title">🎮 创业者成就系统</div>
+  <div class="system-subtitle">STARTUP ACHIEVEMENT SYSTEM</div>
+  <div class="player-info">
+    <span>🎮 等级 Lv.38</span>
+    <span>⏱ 游玩 365 天</span>
+    <span>🏆 7/7 已解锁</span>
+  </div>
+</div>
+
+<div class="achievement-list">
+
+<!-- 成就1 -->
+<div class="achievement-card common">
+  <img src="img/achievement-first-code.jpg" alt="第一行代码" class="card-img">
+  <div class="card-body">
+    <div class="card-top">
+      <span class="medal">🥉</span>
+      <span class="rarity common">普通 · 72.3%玩家已解锁</span>
+    </div>
+    <div class="card-title">第一行代码</div>
+    <div class="card-desc">在深夜的出租屋里，写下了创业项目的第一行代码。窗外是凌晨3点的城市，屏幕上是充满希望的"Hello World"。</div>
+    <div class="card-meta">
+      <span class="level-badge">Lv.1</span>
+      <span>2025年3月15日 · 03:27</span>
+    </div>
+  </div>
+</div>
+
+<!-- 成就2 -->
+<div class="achievement-card common">
+  <img src="img/achievement-first-user.jpg" alt="第一个付费用户" class="card-img">
+  <div class="card-body">
+    <div class="card-top">
+      <span class="medal">🥉</span>
+      <span class="rarity common">普通 · 31.5%玩家已解锁</span>
+    </div>
+    <div class="card-title">第一个付费用户</div>
+    <div class="card-desc">收到了人生第一笔创业收入：¥9.9。支付宝到账语音响起的那一刻，比年终奖到账还激动。截图发了朋友圈，收到 142 个赞。</div>
+    <div class="card-meta">
+      <span class="level-badge">Lv.5</span>
+      <span>2025年7月2日 · 14:33</span>
+    </div>
+  </div>
+</div>
+
+<!-- 成就3 -->
+<div class="achievement-card rare">
+  <img src="img/achievement-debug.jpg" alt="通宵Debug" class="card-img">
+  <div class="card-body">
+    <div class="card-top">
+      <span class="medal">🥈</span>
+      <span class="rarity rare">稀有 · 18.7%玩家已解锁</span>
+    </div>
+    <div class="card-title rare">通宵Debug生存者</div>
+    <div class="card-desc">连续 36 小时修复生产环境 Bug。中间靠 4 杯咖啡、2 桶泡面续命。修好的那一刻，窗外的太阳正好升起。</div>
+    <div class="card-meta">
+      <span class="level-badge">Lv.12</span>
+      <span>2025年8月19日 · 06:12</span>
+    </div>
+  </div>
+</div>
+
+<!-- 成就4 -->
+<div class="achievement-card rare">
+  <img src="img/achievement-rejected.jpg" alt="被拒绝10次" class="card-img">
+  <div class="card-body">
+    <div class="card-top">
+      <span class="medal">🥈</span>
+      <span class="rarity rare">稀有 · 隐藏成就已解锁 🔓</span>
+    </div>
+    <div class="card-title rare">被投资人拒绝10次</div>
+    <div class="card-desc">第 10 个投资人说"再看看"。你终于学会了把"再看看"翻译成"不投"。但你也学会了：每一次拒绝，都是一次免费的商业咨询。</div>
+    <div class="card-meta">
+      <span class="level-badge">Lv.18</span>
+      <span>2025年10月5日 · 隐藏成就</span>
+    </div>
+  </div>
+</div>
+
+<!-- 成就5 -->
+<div class="achievement-card epic">
+  <img src="img/achievement-salary.jpg" alt="月收入超过工资" class="card-img">
+  <div class="card-body">
+    <div class="card-top">
+      <span class="medal">🥇</span>
+      <span class="rarity epic">史诗 · 8.3%玩家已解锁</span>
+    </div>
+    <div class="card-title epic">月收入超过前公司工资</div>
+    <div class="card-desc">月营收 ¥45,000，终于超过了在大厂的工资。虽然利润只有 ¥12,000——但这 ¥12,000 是你自己赚的。给老婆发了条消息："今晚不吃泡面了。"</div>
+    <div class="card-meta">
+      <span class="level-badge">Lv.30</span>
+      <span>2025年12月18日 · 22:47</span>
+    </div>
+  </div>
+</div>
+
+<!-- 成就6 -->
+<div class="achievement-card epic">
+  <img src="img/achievement-team.jpg" alt="团队扩展" class="card-img">
+  <div class="card-body">
+    <div class="card-top">
+      <span class="medal">🏆</span>
+      <span class="rarity epic">史诗 · 3.2%玩家已解锁</span>
+    </div>
+    <div class="card-title epic">团队从1人到10人</div>
+    <div class="card-desc">从一个人的客厅，到一间 80 平的办公室。每天早上走进去，看到 9 个人因为相信你而来。这种压力，比任何 Bug 都大。但也比任何融资都值钱。</div>
+    <div class="card-meta">
+      <span class="level-badge">Lv.50</span>
+      <span>2026年2月10日 · 团队里程碑</span>
+    </div>
+  </div>
+</div>
+
+<!-- 成就7：终极 -->
+<div class="achievement-card legendary">
+  <img src="img/achievement-impact.jpg" alt="改变用户" class="card-img">
+  <div class="card-body">
+    <div class="card-top">
+      <span class="medal">💎</span>
+      <span class="rarity legendary">传说 · 0.1%玩家进行中</span>
+    </div>
+    <div class="card-title legendary">改变了1000个用户的工作方式</div>
+    <div class="card-desc">当第 893 个用户给你发消息说"你们的产品改变了我的工作方式"时，你才真正理解了"创业"这两个字的重量。</div>
+    <div class="card-meta">
+      <span class="level-badge">终极成就</span>
+      <span>进行中...</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar" style="width:89%"></div>
+      <div class="progress-text">893 / 1,000 — 还差 107 个</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- 底部统计 -->
+<div class="stats-footer">
+  <div class="stats-grid">
+    <div class="stat-item"><div class="stat-num">365</div><div class="stat-label">创业天数</div></div>
+    <div class="stat-item"><div class="stat-num">7/7</div><div class="stat-label">成就解锁</div></div>
+    <div class="stat-item"><div class="stat-num">893</div><div class="stat-label">影响用户</div></div>
+    <div class="stat-item"><div class="stat-num">89%</div><div class="stat-label">终极进度</div></div>
+  </div>
+  <div class="stats-quote">"每一个成就背后，都是一个凌晨没有放弃的夜晚"</div>
+</div>
+
+<div style="height:40px;"></div>
+
+</body>
+</html>

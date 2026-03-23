@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>快递驿站的社会学观察报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f8f5f0; color: #333; font-family: 'PingFang SC', -apple-system, sans-serif; line-height: 1.8; }
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 60px; }
+  
+  .header { text-align: center; padding: 40px 0 28px; border-bottom: 2px solid #e0dbd0; margin-bottom: 28px; }
+  .field-badge { display: inline-block; font-size: 10px; color: #997; letter-spacing: 3px; border: 1px solid #ccc; padding: 3px 12px; border-radius: 20px; margin-bottom: 12px; }
+  h1 { font-size: 24px; font-weight: 600; color: #2a2520; letter-spacing: 1px; }
+  .subtitle { font-size: 13px; color: #998; margin-top: 8px; }
+  .meta { font-size: 11px; color: #bba; margin-top: 12px; }
+  
+  .photo-card { background: #fff; border-radius: 12px; overflow: hidden; margin: 24px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .photo-placeholder { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 64px; position: relative; }
+  .photo-placeholder.warm { background: linear-gradient(135deg, #f5e6d0 0%, #e8d5b8 100%); }
+  .photo-placeholder.cool { background: linear-gradient(135deg, #d0e0f0 0%, #b8cce0 100%); }
+  .photo-placeholder.dim { background: linear-gradient(135deg, #e0ddd5 0%, #ccc8be 100%); }
+  .photo-placeholder.green { background: linear-gradient(135deg, #d5e8d0 0%, #b8d4aa 100%); }
+  .photo-caption { padding: 16px 20px; }
+  .caption-id { font-size: 10px; color: #aa9; font-family: monospace; }
+  .caption-title { font-size: 15px; color: #2a2520; margin: 4px 0; font-weight: 600; }
+  .caption-text { font-size: 13px; color: #665; }
+  
+  .field-note { background: #fff; border-left: 3px solid #d4a853; padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+  .fn-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .fn-id { font-size: 10px; color: #d4a853; font-family: monospace; }
+  .fn-time { font-size: 10px; color: #bba; }
+  .fn-text { font-size: 13px; color: #554; }
+  .fn-text em { font-style: normal; color: #2a2520; font-weight: 500; }
+  
+  .section { margin: 36px 0; }
+  .section-num { font-size: 11px; color: #aa9; letter-spacing: 2px; }
+  .section-title { font-size: 17px; color: #2a2520; margin: 4px 0 16px; font-weight: 600; }
+  
+  .taxonomy { background: #fff; border-radius: 10px; padding: 20px; margin: 16px 0; }
+  .tax-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0ece0; align-items: flex-start; }
+  .tax-row:last-child { border: none; }
+  .tax-icon { font-size: 24px; flex-shrink: 0; width: 36px; text-align: center; }
+  .tax-body { flex: 1; }
+  .tax-type { font-size: 13px; color: #2a2520; font-weight: 500; }
+  .tax-desc { font-size: 12px; color: #887; margin-top: 2px; }
+  
+  .ritual-box { background: #fff8f0; border: 1px solid #e8dcc8; border-radius: 10px; padding: 20px; margin: 20px 0; }
+  .ritual-title { font-size: 12px; color: #a08540; letter-spacing: 2px; margin-bottom: 12px; }
+  .ritual-item { margin-bottom: 14px; }
+  .ritual-who { font-size: 13px; color: #2a2520; font-weight: 500; }
+  .ritual-what { font-size: 12px; color: #776; margin-top: 2px; }
+  
+  .unclaimed { background: #f5f0ea; border-radius: 10px; padding: 20px; margin: 24px 0; }
+  .unclaimed-title { font-size: 13px; color: #887; letter-spacing: 1px; margin-bottom: 16px; text-align: center; }
+  .unclaimed-item { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
+  .unclaimed-pkg { font-size: 13px; color: #554; }
+  .unclaimed-days { font-size: 11px; color: #d4a853; margin-top: 2px; }
+  .unclaimed-story { font-size: 12px; color: #998; margin-top: 4px; font-style: italic; }
+  
+  .stat-strip { display: flex; justify-content: space-around; background: #fff; border-radius: 10px; padding: 16px; margin: 24px 0; text-align: center; }
+  .stat-item { }
+  .stat-num { font-size: 24px; font-weight: 300; color: #a08540; }
+  .stat-label { font-size: 10px; color: #aa9; margin-top: 2px; }
+  
+  .conclusion { text-align: center; padding: 36px 16px; margin-top: 28px; border-top: 2px solid #e0dbd0; }
+  .conclusion p { font-size: 14px; color: #776; line-height: 2.2; }
+  .conclusion .end { color: #2a2520; font-size: 16px; margin-top: 8px; }
+  
+  .colophon { font-size: 10px; color: #ccc; text-align: center; margin-top: 28px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="field-badge">田野笔记 FIELD NOTES</div>
+    <h1>快递驿站的社会学观察报告</h1>
+    <div class="subtitle">— 一个5㎡空间里的人间百态 —</div>
+    <div class="meta">观察地点：杏花里小区菜鸟驿站 · 观察周期：2025.01—2025.03 · 样本量：约4,200次取件</div>
+  </div>
+
+  <!-- Section 1: 包装学 -->
+  <div class="section">
+    <div class="section-num">CHAPTER 01</div>
+    <div class="section-title">📦 包装学 —— 胶带里的性格密码</div>
+    
+    <div class="photo-card">
+      <div class="photo-placeholder warm">📦🔍</div>
+      <div class="photo-caption">
+        <div class="caption-id">FIG.01</div>
+        <div class="caption-title">胶带分类学</div>
+        <div class="caption-text">研究者对驿站347个包裹的封箱方式进行了编目。结论：一个人怎么封箱，就怎么过日子。</div>
+      </div>
+    </div>
+    
+    <div class="taxonomy">
+      <div class="tax-row">
+        <div class="tax-icon">🟡</div>
+        <div class="tax-body">
+          <div class="tax-type">极简型 · 一条横胶带</div>
+          <div class="tax-desc">效率主义者。相信世界是简洁的，东西不会掉出来。通常是程序员。</div>
+        </div>
+      </div>
+      <div class="tax-row">
+        <div class="tax-icon">🔴</div>
+        <div class="tax-body">
+          <div class="tax-type">五花大绑型 · 胶带用量≥包裹体积30%</div>
+          <div class="tax-desc">控制欲强。驿站老板说："这种包裹拆起来需要剪刀、美工刀、和一点耐心。跟他们相处大概也是。"</div>
+        </div>
+      </div>
+      <div class="tax-row">
+        <div class="tax-icon">🟢</div>
+        <div class="tax-body">
+          <div class="tax-type">艺术型 · 自带手绘标签+和纸胶带</div>
+          <div class="tax-desc">全驿站最好看的包裹。打开方式像拆礼物。占比2.3%，但驿站老板能叫出每一个的名字。</div>
+        </div>
+      </div>
+      <div class="tax-row">
+        <div class="tax-icon">⚪</div>
+        <div class="tax-body">
+          <div class="tax-type">焦虑型 · 胶带+气泡膜+报纸+塑料袋四层嵌套</div>
+          <div class="tax-desc">里面通常是一个杯子或者一瓶酱。包裹说："主人很怕东西碎。可能也很怕别的东西碎。"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: 签收仪式 -->
+  <div class="section">
+    <div class="section-num">CHAPTER 02</div>
+    <div class="section-title">✍️ 签收仪式 —— 取件的众生相</div>
+    
+    <div class="ritual-box">
+      <div class="ritual-title">高频取件人画像</div>
+      
+      <div class="ritual-item">
+        <div class="ritual-who">👴👵 老周夫妇 · 每周二、五 · 下午3点</div>
+        <div class="ritual-what">永远一起来。老周负责报取件码，周阿姨负责检查包裹有没有破损。取完件会在门口坐一会儿——"反正也没别的事，就当散步了。" 驿站老板给他们留了两把椅子。</div>
+      </div>
+      
+      <div class="ritual-item">
+        <div class="ritual-who">👨‍💻 3栋的程序员小哥 · 频率不定 · 通常凌晨取</div>
+        <div class="ritual-what">驿站10点关门。他11点来，给老板发微信"又加班了，明天取"。累积最高记录：7个包裹。老板说："有一次他一次拿了7个箱子，像搬家一样。我问他买了什么，他说'记不得了，下单的时候是另一个我'。"</div>
+      </div>
+      
+      <div class="ritual-item">
+        <div class="ritual-who">👩 6栋的妈妈 · 每天 · 11:00±5min</div>
+        <div class="ritual-what">送完孩子上学后来取件。拆包裹的速度是全驿站最快的——"在孩子放学之前，拆包裹是我唯一的娱乐时间。" 她的快递里80%是孩子的东西，20%是自己的。那20%从来不让孩子看到。</div>
+      </div>
+    </div>
+    
+    <div class="field-note">
+      <div class="fn-header"><span class="fn-id">FN-024</span><span class="fn-time">2025-02-14</span></div>
+      <div class="fn-text">情人节观察：今天有11个人取了花。其中<em>8束是自己买给自己的</em>。怎么判断的？——自己买的人拆包装比较快，不拍照，直接拎走。收到别人送的人会站在驿站门口拍三分钟。</div>
+    </div>
+  </div>
+
+  <!-- Section 3: 无人认领区 -->
+  <div class="section">
+    <div class="section-num">CHAPTER 03</div>
+    <div class="section-title">🏚️ 无人认领区 —— 被遗忘的包裹和它们的故事</div>
+    
+    <div class="photo-card">
+      <div class="photo-placeholder dim">📦💤</div>
+      <div class="photo-caption">
+        <div class="caption-id">FIG.04</div>
+        <div class="caption-title">驿站角落的"无人认领区"</div>
+        <div class="caption-text">驿站最里面的货架，灯光最暗。这里放着超过7天无人取件的包裹。老板叫它"失物招领处"——但他知道，大部分不是失物，是<em>失人</em>。</div>
+      </div>
+    </div>
+    
+    <div class="unclaimed">
+      <div class="unclaimed-title">当前无人认领 · 5件</div>
+      
+      <div class="unclaimed-item">
+        <div class="unclaimed-pkg">📦 YT9283746251 · 发件地：老家（湖南常德）</div>
+        <div class="unclaimed-days">已滞留 23天</div>
+        <div class="unclaimed-story">老板打过电话。对方说"我知道，我妈寄的腊肉。但我上个月跟她吵架了。拿了就等于先低头。" ——老板把它从底层挪到了中间，怕压坏。</div>
+      </div>
+      
+      <div class="unclaimed-item">
+        <div class="unclaimed-pkg">📦 SF1029384756 · 发件地：上海</div>
+        <div class="unclaimed-days">已滞留 41天</div>
+        <div class="unclaimed-story">收件人已搬走。寄件人不知道。包裹上写着"生日快乐"。老板说他试过联系寄件人，没打通。"也许他们已经不联系了。这个生日快乐是说给去年的她听的。"</div>
+      </div>
+      
+      <div class="unclaimed-item">
+        <div class="unclaimed-pkg">📦 ZTO6574839201 · 发件地：拼多多</div>
+        <div class="unclaimed-days">已滞留 67天</div>
+        <div class="unclaimed-story">9.9包邮的手机壳。取件码发了三次短信。"有些东西下单时觉得需要，到了就不想要了。9块9不值得出门一趟。" 老板说这类包裹最多，也最安静。</div>
+      </div>
+    </div>
+    
+    <div class="field-note">
+      <div class="fn-header"><span class="fn-id">FN-031</span><span class="fn-time">2025-03-08</span></div>
+      <div class="fn-text">驿站老板的话："我这里什么都有。有人的焦虑、有人的爱、有人的赌气、有人的忘记。最后都变成一个二维码和一个货架编号。<em>但我记得每一个包裹是谁的。</em>"</div>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-item"><div class="stat-num">4,217</div><div class="stat-label">观察期总取件</div></div>
+    <div class="stat-item"><div class="stat-num">47s</div><div class="stat-label">平均取件时长</div></div>
+    <div class="stat-item"><div class="stat-num">23</div><div class="stat-label">滞留包裹</div></div>
+    <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">驿站老板</div></div>
+  </div>
+
+  <div class="conclusion">
+    <p>一个5平米的驿站，每天经手200个包裹。</p>
+    <p>每个包裹都是一个人的某个瞬间——</p>
+    <p>下单时的冲动、等待时的期待、拆开时的落差。</p>
+    <p>还有那些永远不来取的人，和他们说不出口的理由。</p>
+    <p class="end">快递到了。你去不去取？</p>
+  </div>
+  
+  <div class="colophon">杏花里菜鸟驿站田野调查小组 · 所有人物均已脱敏 · 取件码已失效<br>如需转载请联系驿站老板（他很闲的）</div>
+
+</div>
+</body>
+</html>

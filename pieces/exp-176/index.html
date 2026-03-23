@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一份离职信的七次修改</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #fff; color: #333; font-family: -apple-system, 'PingFang SC', sans-serif; line-height: 1.8; }
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 60px; }
+  
+  .header { padding: 40px 0 24px; border-bottom: 1px solid #eee; margin-bottom: 32px; }
+  .file-path { font-size: 11px; color: #999; font-family: 'SF Mono', 'Menlo', monospace; margin-bottom: 8px; }
+  h1 { font-size: 22px; font-weight: 400; color: #1a1a1a; }
+  .file-meta { font-size: 11px; color: #bbb; margin-top: 8px; font-family: monospace; }
+
+  .version { margin-bottom: 28px; border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; }
+  .version-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #fafafa; border-bottom: 1px solid #f0f0f0; }
+  .version-id { font-size: 12px; font-weight: 600; color: #555; font-family: monospace; }
+  .version-time { font-size: 11px; color: #bbb; font-family: monospace; }
+  .version-body { padding: 16px 20px; font-size: 14px; color: #333; }
+  
+  .del { background: #ffeef0; color: #b31d28; text-decoration: line-through; padding: 0 2px; border-radius: 2px; }
+  .add { background: #e6ffec; color: #22863a; padding: 0 2px; border-radius: 2px; }
+  .comment { display: block; margin-top: 12px; padding: 10px 14px; background: #fffbe6; border-left: 3px solid #f5c842; font-size: 12px; color: #8a7630; border-radius: 0 4px 4px 0; }
+  .comment .who { font-weight: 600; }
+  
+  .cursor { display: inline-block; width: 2px; height: 14px; background: #333; animation: blink 1s step-end infinite; vertical-align: text-bottom; margin-left: 1px; }
+  @keyframes blink { 50% { opacity: 0; } }
+  
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0; }
+  .stat { text-align: center; padding: 14px; background: #fafafa; border-radius: 8px; }
+  .stat-num { font-size: 24px; font-weight: 300; color: #c0392b; }
+  .stat-label { font-size: 10px; color: #999; margin-top: 4px; }
+
+  .timeline { position: relative; padding-left: 20px; margin: 24px 0; border-left: 2px solid #eee; }
+  .tl-dot { position: absolute; left: -6px; width: 10px; height: 10px; border-radius: 50%; background: #ddd; }
+  .tl-item { margin-bottom: 16px; position: relative; }
+  .tl-item .tl-dot.active { background: #c0392b; }
+  .tl-time { font-size: 10px; color: #bbb; font-family: monospace; }
+  .tl-text { font-size: 12px; color: #888; }
+
+  .footnote { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; font-size: 11px; color: #ccc; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="file-path">~/Documents/离职信_终版_真的终版_这次真的.docx</div>
+    <h1>一份离职信的七次修改</h1>
+    <div class="file-meta">创建: 2025-11-14 23:47 · 最后修改: 2025-11-19 08:58 · 版本: 7 · 总编辑时长: 4h 23min</div>
+  </div>
+
+  <div class="version">
+    <div class="version-header">
+      <span class="version-id">v1</span>
+      <span class="version-time">11/14 周五 23:47</span>
+    </div>
+    <div class="version-body">
+      王总：<br><br>
+      我受够了。<br><br>
+      这个部门每天都在开没有意义的会，做没有人看的PPT，写没有人读的周报。你上次当着所有人的面说我「缺乏主动性」，但你知道我提的三个方案你连看都没看吗？第一个方案我准备了两周。两周。你花了四十秒说「再想想」。<br><br>
+      我不干了。这不是一时冲动，是攒了两年的话。<br><br>
+      <del>祝公司早日倒闭。</del><br>
+      <del>李明</del><br><br>
+      <span class="comment"><span class="who">编辑记录：</span>最后一句写完后删除。光标在那一行停留了 3 分 12 秒。</span>
+    </div>
+  </div>
+
+  <div class="version">
+    <div class="version-header">
+      <span class="version-id">v2</span>
+      <span class="version-time">11/15 周六 10:22</span>
+    </div>
+    <div class="version-body">
+      王总您好：<br><br>
+      经过<span class="del">一晚上失眠的</span><span class="add">慎重的</span>考虑，我决定<span class="del">离开这个消耗人的地方</span><span class="add">提出离职</span>。<br><br>
+      <span class="del">两年来我学到的最重要的事情是：不要在一个不尊重人的环境里浪费时间。</span><span class="add">两年来我在团队中获得了很多成长。</span><br><br>
+      <span class="del">但说实话，你们的管理方式有严重问题。每周五下午四点开始开周会，一开开到七八点——你们知道大家都有生活吗？</span><br><br>
+      希望公司发展顺利。<br>
+      李明<br><br>
+      <span class="comment"><span class="who">编辑记录：</span>删去 147 字，新增 31 字。删除内容中包含 3 处具体事例。每删一处，打字速度下降约 20%。</span>
+    </div>
+  </div>
+
+  <div class="version">
+    <div class="version-header">
+      <span class="version-id">v3</span>
+      <span class="version-time">11/15 周六 15:08</span>
+    </div>
+    <div class="version-body">
+      尊敬的王总：<br><br>
+      因<span class="add">个人职业发展规划</span>原因，我<span class="del">不想再</span><span class="add">计划</span>离开目前的岗位。<br><br>
+      <span class="del">在这里的两年，说实话有开心也有很不开心的时候。大部分时候是不开心。</span><span class="add">在公司的两年是一段宝贵的经历。</span><br><br>
+      望批准。<br><br>
+      李明<br>
+      2025年11月<br><br>
+      <span class="comment"><span class="who">编辑记录：</span>「宝贵的经历」打了三遍。第一遍打完全选删除。第二遍打到「宝贵」停了 48 秒。第三遍一口气打完没有停顿。</span>
+    </div>
+  </div>
+
+  <div class="version">
+    <div class="version-header">
+      <span class="version-id">v4</span>
+      <span class="version-time">11/16 周日 01:34</span>
+    </div>
+    <div class="version-body">
+      <span class="del" style="background:#fff3e0;color:#e65100;text-decoration:none;">⚠ 检测到异常编辑状态 — 打字速度波动剧烈，多次全选删除后重打</span><br><br>
+      王总，<br><br>
+      我还是想说实话。<br><br>
+      <span class="add" style="background:#fff3e0;">不是「个人发展」。是你们的问题。是每次开会你看手机的样子。是你让实习生重做我的方案然后署他的名。是年终考评你给我打B-然后说「明年加油」。</span><br><br>
+      <span class="add" style="background:#fff3e0;">我对象说我这半年每天回家脸色都不好。她说你不开心就别干了。她说得对。</span><br><br>
+      <span class="del">算了不发了。</span><br><br>
+      <span class="comment"><span class="who">编辑记录：</span>凌晨 1:34 开始编辑。光标位于文档中央闪烁 7 分钟未输入任何字符。然后一次性输入 193 字，中间没有删除操作。文档保存但<em>未关闭</em>。浏览器历史记录显示此时段访问了 3 次招聘网站。</span>
+    </div>
+  </div>
+
+  <div class="version">
+    <div class="version-header">
+      <span class="version-id">v5</span>
+      <span class="version-time">11/16 周日 09:15</span>
+    </div>
+    <div class="version-body">
+      尊敬的王总：<br><br>
+      <span class="del" style="background:#ffeef0;">（v4全部内容被删除）</span><br><br>
+      因个人原因，我正式提出离职申请，希望于12月15日前完成工作交接。<br><br>
+      感谢公司给予的平台和机会。<br><br>
+      此致<br>
+      敬礼<br><br>
+      李明<br>
+      2025年11月16日<br><br>
+      <span class="comment"><span class="who">编辑记录：</span>v4 全文一次性删除。操作耗时 0.3 秒（Ctrl+A → Delete）。新版本用时 4 分钟写完，零犹豫。整个过程没有任何暂停。</span>
+    </div>
+  </div>
+
+  <div class="version">
+    <div class="version-header">
+      <span class="version-id">v6</span>
+      <span class="version-time">11/18 周二 21:40</span>
+    </div>
+    <div class="version-body">
+      尊敬的王总：<br><br>
+      因个人原因，我正式提出离职申请，希望于12月15日前完成工作交接。<br><br>
+      <span class="add">在公司的两年中，我在项目管理和团队协作方面获得了显著提升，尤其感谢您在Q3项目中的指导。</span><br><br>
+      感谢公司给予的平台和机会。<br><br>
+      此致<br>
+      敬礼<br><br>
+      李明<br>
+      2025年11月16日<br><br>
+      <span class="comment"><span class="who">编辑记录：</span>新增"感谢指导"段落。搜索引擎记录：11/18 20:55「离职信 感谢领导 怎么写」· 21:02「离职信 模板 不撕破脸」· 21:15「离职了还能拿年终奖吗」</span>
+    </div>
+  </div>
+
+  <div class="version">
+    <div class="version-header">
+      <span class="version-id">v7 — FINAL</span>
+      <span class="version-time">11/19 周三 08:58</span>
+    </div>
+    <div class="version-body" style="color:#555;">
+      尊敬的王总：<br><br>
+      因个人职业发展原因，我正式提出离职申请，希望于2025年12月15日前完成全部工作交接。<br><br>
+      感谢公司两年来的培养。<br><br>
+      此致<br>
+      敬礼<br><br>
+      李明<br>
+      2025年11月19日<br><br>
+      <span class="comment"><span class="who">编辑记录：</span>删去了v6新增的"感谢指导"。最终版 62 字。发送时间：周一（原文写 11/19，实际周三）—— 他多等了两天。文件属性显示 11/17 周一 08:51 打开过文档，停留 11 分钟，未做任何修改，关闭。</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">847</div>
+      <div class="stat-label">v1 总字数</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">62</div>
+      <div class="stat-label">v7 总字数</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">785</div>
+      <div class="stat-label">被删掉的真话</div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    文件路径 ~/Documents/离职信_终版_真的终版_这次真的.docx<br>
+    最终版发送方式：企业微信 · 11/19 09:01 · 已读回执：09:03<br>
+    王总回复：「好的，找HR对接。」· 09:04
+  </div>
+
+</div>
+</body>
+</html>

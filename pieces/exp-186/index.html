@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一条弹幕的一生</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #0d0d12;
+    color: #ddd;
+    min-height: 100vh;
+  }
+  .container { max-width: 440px; margin: 0 auto; padding: 20px 16px; }
+  
+  .hero {
+    text-align: center;
+    padding: 50px 0 30px;
+  }
+  .danmaku-display {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateX(0); }
+    50% { transform: translateX(-8px); }
+  }
+  .hero-sub {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .timeline {
+    position: relative;
+    margin: 30px 0;
+    padding-left: 30px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #333, #5e72e4, #e44d72, #333);
+  }
+
+  .event {
+    position: relative;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+  .event .dot {
+    position: absolute;
+    left: -24px; top: 14px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #333;
+    border: 2px solid #555;
+    transition: all 0.3s;
+    z-index: 2;
+  }
+  .event.active .dot { background: #5e72e4; border-color: #5e72e4; box-shadow: 0 0 8px #5e72e480; }
+  .event:last-child .dot { background: #e44d72; border-color: #e44d72; }
+
+  .event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: #141420;
+    border-radius: 12px;
+    border: 1px solid #1e1e30;
+    transition: all 0.3s;
+    margin-bottom: 8px;
+  }
+  .event:hover .event-header { border-color: #333; }
+  .event.active .event-header { border-color: #5e72e450; background: #181828; }
+  
+  .event-time {
+    font-size: 11px;
+    color: #666;
+    font-family: monospace;
+  }
+  .event-title {
+    font-size: 14px;
+    color: #bbb;
+  }
+  .event-emoji { font-size: 18px; }
+
+  .event-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s;
+    padding: 0 16px;
+    font-size: 13px;
+    line-height: 1.9;
+    color: #999;
+    background: #111118;
+    border-radius: 0 0 12px 12px;
+    margin-top: -8px;
+    margin-bottom: 8px;
+  }
+  .event.active .event-detail {
+    max-height: 300px;
+    padding: 16px;
+  }
+
+  .scrubber-container {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #0d0d12ee;
+    padding: 12px 0;
+    backdrop-filter: blur(8px);
+  }
+  .scrubber {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: #222;
+    outline: none;
+  }
+  .scrubber::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #5e72e4;
+    cursor: pointer;
+    box-shadow: 0 0 6px #5e72e480;
+  }
+  .scrubber-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #444;
+    margin-top: 6px;
+  }
+  .current-label {
+    text-align: center;
+    font-size: 12px;
+    color: #5e72e4;
+    margin-bottom: 8px;
+    min-height: 18px;
+  }
+
+  .recon {
+    background: linear-gradient(135deg, #1a1420, #201420);
+    border: 1px solid #3a1a2a;
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-top: 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+  }
+  .recon.visible { opacity: 1; transform: translateY(0); }
+  .recon .timestamp { font-size: 11px; color: #666; font-family: monospace; margin-bottom: 12px; }
+  .recon .body { font-size: 14px; line-height: 2; color: #e0a0a0; }
+  .recon .screenshot {
+    margin-top: 16px;
+    background: #0a0a10;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #222;
+  }
+  .recon .screenshot .sc-danmaku {
+    color: #fff;
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+  .recon .screenshot .sc-caption {
+    font-size: 12px;
+    color: #e44d72;
+    border-top: 1px solid #222;
+    padding-top: 8px;
+    margin-top: 8px;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #333;
+    margin: 40px 0 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <div class="danmaku-display">笑死</div>
+    <div class="hero-sub">这两个字活了847天</div>
+  </div>
+
+  <div class="scrubber-container">
+    <div class="current-label" id="currentLabel">拖动时间轴 →</div>
+    <input type="range" class="scrubber" id="scrubber" min="0" max="9" value="0" step="1">
+    <div class="scrubber-labels">
+      <span>打字前</span>
+      <span>被遗忘</span>
+      <span>被发现</span>
+    </div>
+  </div>
+
+  <div class="timeline" id="timeline">
+
+    <div class="event" data-idx="0">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">🌙</span> <span class="event-title">23:47 · 打字之前</span></div>
+        <span class="event-time">Day 0</span>
+      </div>
+      <div class="event-detail">
+        周五晚上。她刚分手第三周。室友都睡了。她裹着被子看一部2019年的番剧，是前任推荐的，她一直没看。耳机线在黑暗里发着微光。她不知道自己为什么在笑，但嘴角确实上扬了0.3秒。<br><br>那是三周以来第一次。
+      </div>
+    </div>
+
+    <div class="event" data-idx="1">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">⌨️</span> <span class="event-title">23:47:12 · 输入</span></div>
+        <span class="event-time">Day 0 +12s</span>
+      </div>
+      <div class="event-detail">
+        拇指移向屏幕右下角。打了"笑死"。没有犹豫。没有删除重打。两个字，0.4秒。<br><br>
+        她的输入法记住了这个操作。在"笑"的联想词里，"死"排在第一位。不是因为她总打这两个字，而是因为过去三周她没打过任何包含"笑"的内容。
+      </div>
+    </div>
+
+    <div class="event" data-idx="2">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">📡</span> <span class="event-title">23:47:13 · 发送</span></div>
+        <span class="event-time">Day 0 +13s</span>
+      </div>
+      <div class="event-detail">
+        弹幕从她的手机出发。经过4个路由节点。被B站服务器接收。存入数据库。分配了一个ID：dm-2847291047。<br><br>
+        从此以后，这两个字就不再属于她了。
+      </div>
+    </div>
+
+    <div class="event" data-idx="3">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">💨</span> <span class="event-title">第12分47秒 · 飘过</span></div>
+        <span class="event-time">Day 0</span>
+      </div>
+      <div class="event-detail">
+        白色，默认字号，默认速度。从右向左，用了4.2秒穿过1920个像素。<br><br>
+        在它的上方是"前方高能"。下方是"awsl"。左边是"哈哈哈哈哈"。<br><br>
+        没有人注意到它。一条普通的弹幕，在367条弹幕中排第184位。它完成了自己的使命：飘过。
+      </div>
+    </div>
+
+    <div class="event" data-idx="4">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">📊</span> <span class="event-title">弹幕分析系统</span></div>
+        <span class="event-time">Day 1</span>
+      </div>
+      <div class="event-detail">
+        B站的算法把它归类为"正面情绪·低信息量"。<br><br>
+        在这一集的弹幕情绪曲线上，它贡献了0.0027%的"快乐指数"。<br><br>
+        算法不知道的是：这0.0027%来自一个人三周以来第一次笑。如果情绪有重量，这两个字比整条曲线都重。
+      </div>
+    </div>
+
+    <div class="event" data-idx="5">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">🕳️</span> <span class="event-title">被淹没</span></div>
+        <span class="event-time">Day 7 – Day 300</span>
+      </div>
+      <div class="event-detail">
+        这一集后来又有4,832条新弹幕。"笑死"沉到了列表的中后段。<br><br>
+        发送者自己也忘了。她后来又看了很多番，发了很多弹幕。有一天她和一个新的人在一起看这部番，两个人都没有开弹幕。<br><br>
+        dm-2847291047静静地待在数据库里。它不知道自己在等什么。
+      </div>
+    </div>
+
+    <div class="event" data-idx="6">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">😮</span> <span class="event-title">被偶遇</span></div>
+        <span class="event-time">Day 612</span>
+      </div>
+      <div class="event-detail">
+        一个大三男生在期末周的凌晨4点打开了同一集。他把弹幕密度调到最低——屏幕上只留了十几条。<br><br>
+        "笑死"刚好是留下的其中一条。<br><br>
+        他盯着这两个字看了两秒。不是因为好笑，是因为在这个凌晨4点，有个人曾经在同一个画面前笑过。这让他觉得自己不是唯一一个在凌晨独自看番的人。
+      </div>
+    </div>
+
+    <div class="event" data-idx="7">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">📸</span> <span class="event-title">被截图</span></div>
+        <span class="event-time">Day 612</span>
+      </div>
+      <div class="event-detail">
+        他截了屏。不是为了"笑死"这两个字——而是为了截下那个画面：深夜，低密度弹幕，几条白色的字飘过动画场景。<br><br>
+        他把截图存进了一个叫"4am"的相册。里面有23张类似的截图，全是深夜独自看东西时的屏幕。他没给任何人看过这个相册。
+      </div>
+    </div>
+
+    <div class="event" data-idx="8">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">🕯️</span> <span class="event-title">被遗忘</span></div>
+        <span class="event-time">Day 613 – Day 845</span>
+      </div>
+      <div class="event-detail">
+        截图躺在相册里。手机换了一次，iCloud备份了这张图。新手机的算法建议他删除"模糊的截图"以释放空间。他点了保留。<br><br>
+        他说不清为什么。
+      </div>
+    </div>
+
+    <div class="event" data-idx="9">
+      <div class="dot"></div>
+      <div class="event-header">
+        <div><span class="event-emoji">🌅</span> <span class="event-title">被发现</span></div>
+        <span class="event-time">Day 847</span>
+      </div>
+      <div class="event-detail" style="color: #e0a0a0;">
+        <em>点击下方查看</em>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Recontextualization -->
+  <div class="recon" id="recon">
+    <div class="timestamp">Day 847 · 02:41 AM</div>
+    <div class="body">
+      他把那张截图发在了一个叫"深夜碎片"的豆瓣小组。标题写的是：<br><br>
+      <em>"凌晨四点看番，弹幕里飘过一条'笑死'，突然觉得没那么孤独了"</em><br><br>
+      帖子获得了7个赞，3条回复，然后沉了。<br><br>
+      但其中一条回复是这样的：
+    </div>
+    <div class="screenshot">
+      <div class="sc-danmaku">笑死</div>
+      <div class="sc-caption">"这条弹幕救了我的命。不是夸张。去年冬天我差点做了很蠢的事，那天晚上随手点开了这个番，看到这条弹幕的时候觉得——至少还有人在笑。至少世界上某个角落有人在23:47打下了'笑死'。那我再等一晚上看看。后来我一直在等。等到了春天。"</div>
+    </div>
+    <div class="body" style="margin-top: 20px; color: #888; font-size: 12px;">
+      发弹幕的人永远不会知道。<br>
+      她已经忘了自己打过这两个字。<br>
+      那只是三周没笑之后的0.3秒。<br><br>
+      但0.3秒够了。
+    </div>
+  </div>
+
+  <div class="footer">TRINITY V3 · EXP-186 · 一条弹幕的一生</div>
+</div>
+
+<script>
+const events = document.querySelectorAll('.event');
+const scrubber = document.getElementById('scrubber');
+const currentLabel = document.getElementById('currentLabel');
+const labels = ['打字前','输入','发送','飘过','被分析','被淹没','被偶遇','被截图','被遗忘','被发现'];
+
+function activateEvent(idx) {
+  events.forEach((e, i) => {
+    e.classList.toggle('active', i === idx);
+  });
+  currentLabel.textContent = labels[idx] || '';
+  if (idx === 9) {
+    setTimeout(() => document.getElementById('recon').classList.add('visible'), 500);
+  }
+}
+
+scrubber.addEventListener('input', (e) => activateEvent(parseInt(e.target.value)));
+
+events.forEach((ev, i) => {
+  ev.addEventListener('click', () => {
+    scrubber.value = i;
+    activateEvent(i);
+  });
+});
+</script>
+</body>
+</html>

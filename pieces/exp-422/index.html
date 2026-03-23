@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>哆啦A梦 · 道具依赖症</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Hiragino Sans GB",sans-serif;background:#87CEEB;background:linear-gradient(180deg,#87CEEB 0%,#e0f0ff 100%);min-height:100vh;font-size:18px;line-height:1.8}
+.container{max-width:420px;margin:0 auto;padding:16px;padding-bottom:60px}
+h1{text-align:center;font-size:22px;color:#1565c0;padding:20px 0 8px;text-shadow:1px 1px 0 rgba(255,255,255,.5)}
+.subtitle{text-align:center;font-size:14px;color:#5d99c6;margin-bottom:20px}
+.panel{background:#fff;border-radius:16px;margin-bottom:24px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);opacity:0;transform:translateY(20px);transition:all .6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-num{background:#1565c0;color:#fff;font-size:13px;font-weight:900;padding:8px 16px;letter-spacing:2px}
+.panel-img{width:100%;display:block}
+.panel-text{padding:16px 20px;font-size:17px;line-height:2;color:#333}
+.panel-text b{color:#1565c0}
+.panel-text .sound{color:#e65100;font-weight:700;font-size:15px}
+.bonus{background:linear-gradient(135deg,#fff9c4,#fff);border:2px solid #ffd700}
+.bonus .panel-num{background:#ff8f00}
+.ending-card{background:#fff;border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08);margin-top:24px;opacity:0;transform:scale(.95);transition:all .7s ease}
+.ending-card.visible{opacity:1;transform:scale(1)}
+.ending-card .msg{font-size:20px;color:#1565c0;font-weight:700;line-height:1.6;margin-bottom:8px}
+.ending-card .sub{font-size:14px;color:#999}
+.footer{text-align:center;font-size:12px;color:#aaa;padding:24px 16px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🤖 哆啦A梦 · 道具依赖症</h1>
+<div class="subtitle">「有些路，必须自己走」</div>
+
+<!-- 第1格 -->
+<div class="panel" id="p1">
+<div class="panel-num">第 1 格 · 天降神器</div>
+<img src="dora1.jpg" alt="哆啦A梦拿出道具" class="panel-img">
+<div class="panel-text">
+哆啦A梦从口袋里掏出一个闪闪发光的键盘：<br>
+<b>「自动编程机！只要说出需求，它就自动写好代码！」</b><br><br>
+大雄眼睛亮了：「这不是传说中的……AI全自动程序员？！」<br><br>
+<span class="sound">「噔噔噔噔——！」✨</span><br>
+大雄把键盘接到电脑上，对着它说：「给我做一个外卖小程序。」<br>
+三秒钟后——代码哗哗地自己跑出来了。<br><br>
+大雄：<b>「我宣布，加班从今天起成为历史！」</b>
+</div>
+</div>
+
+<!-- 第2格 -->
+<div class="panel" id="p2">
+<div class="panel-num">第 2 格 · 集体躺平</div>
+<img src="dora2.jpg" alt="团队躺平" class="panel-img">
+<div class="panel-text">
+三个月后——<br><br>
+大雄的创业团队：5个人，每天的工作变成了<b>「对着自动编程机说需求」</b>。<br><br>
+胖虎躺在椅子上打游戏：「以前一天写800行代码，现在一天说8句话就行了。」<br><br>
+小夫在网购：「我都忘了 for 循环怎么写了。」<br><br>
+静香在看剧：「反正机器会搞定的嘛。」<br><br>
+大雄在午睡。<br>
+哆啦A梦在角落里，默默叹了口气。
+</div>
+</div>
+
+<!-- 第3格 -->
+<div class="panel" id="p3">
+<div class="panel-num">第 3 格 · 灾难降临</div>
+<img src="dora3.jpg" alt="大雄慌了" class="panel-img">
+<div class="panel-text">
+某天凌晨，自动编程机突然冒烟了。<br><br>
+<span class="sound">「滋滋滋——砰！💥」</span><br><br>
+与此同时，最大的客户发来消息：<br>
+<b>「你们的系统崩了！我的店今天接不了单！损失已经3万了！！！」</b><br><br>
+大雄慌了：「胖虎！快修！」<br>
+胖虎：「……我忘了怎么写代码了。」<br>
+小夫：「我也是。」<br>
+静香：「……」<br><br>
+大雄盯着黑屏的电脑，冷汗从额头滑下来。<br>
+<b>五个人，没有一个人能写出一行能跑的代码。</b>
+</div>
+</div>
+
+<!-- 第4格 -->
+<div class="panel" id="p4">
+<div class="panel-num">第 4 格 · 砸掉拐杖</div>
+<img src="dora4.jpg" alt="大雄砸道具" class="panel-img">
+<div class="panel-text">
+沉默了整整十秒。<br><br>
+大雄站起来，走到冒烟的自动编程机前。<br><br>
+然后——<br>
+<b>他拿起锤子，狠狠砸了下去。</b><br><br>
+<span class="sound">「砰！」🔨</span><br><br>
+胖虎：「大雄你疯了？！」<br>
+大雄：「<b>不修了。这东西不砸掉，我们永远学不会自己走路。</b>」<br><br>
+他转过头，看着团队每个人的眼睛：<br>
+「从今天起，每个人重新学写代码。从 Hello World 开始。」<br><br>
+静香小声说：「……会来得及吗？」<br>
+大雄：「<b>来不来得及，走了才知道。</b>」
+</div>
+</div>
+
+<!-- Bonus格 -->
+<div class="panel bonus" id="p5">
+<div class="panel-num">🌟 BONUS · 三个月后</div>
+<img src="dora5.jpg" alt="团队成功" class="panel-img">
+<div class="panel-text">
+三个月后。<br><br>
+办公室里敲键盘的声音此起彼伏。<br>
+胖虎写了人生第一个不用AI辅助的完整功能模块，激动得拍桌子。<br>
+小夫调了三天的bug终于跑通了，对着屏幕比了个耶。<br>
+静香的代码被客户夸「逻辑清晰」，她截图存了下来。<br><br>
+新版本上线那天，大雄在群里发了条消息：<br>
+<b>「这一版，每一行代码都是人写的。」</b><br><br>
+哆啦A梦看着他们，悄悄把自动编程机的碎片收进了口袋。<br>
+然后笑了。
+</div>
+</div>
+
+<div class="ending-card" id="end">
+<div class="msg">「道具能帮你走捷径，<br>但走捷径的人，<br>永远到不了自己的目的地。」</div>
+<div class="sub">—— 哆啦A梦 · 道具依赖症 · 完 ——</div>
+</div>
+
+<div class="footer">四格漫画 + Bonus · 图文混排版</div>
+</div>
+
+<script>
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.15});
+document.querySelectorAll('.panel,.ending-card').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

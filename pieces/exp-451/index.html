@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赘婿逆袭 · 第一章：蛰伏</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0f;
+  color: #e8e0d4;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  overflow-x: hidden;
+}
+
+/* 封面 */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #1a0a00 0%, #0a0a0f 100%);
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 60% 40%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+  animation: coverGlow 8s ease-in-out infinite;
+}
+@keyframes coverGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.cover h1 {
+  font-size: 42px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #d4af37, #f4d03f, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.cover .subtitle {
+  font-size: 20px;
+  color: #8a7a66;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+.cover .chapter {
+  font-size: 16px;
+  color: #5a4a36;
+  letter-spacing: 2px;
+  margin-top: 24px;
+  position: relative;
+  z-index: 1;
+}
+.cover .scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #5a4a36;
+  font-size: 14px;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* 漫画面板 */
+.panel {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel-img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 4px 30px rgba(212, 175, 55, 0.1);
+}
+
+.panel-text {
+  padding: 24px 20px 48px;
+  font-size: 19px;
+  line-height: 1.9;
+  color: #d4c8b0;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.panel-text .highlight {
+  color: #f4d03f;
+  font-weight: 700;
+}
+
+.panel-text .emotion {
+  color: #e74c3c;
+  font-style: italic;
+}
+
+/* 分隔线 */
+.divider {
+  text-align: center;
+  padding: 20px 0;
+  color: #3a2a16;
+  font-size: 24px;
+  letter-spacing: 12px;
+}
+
+/* 章节标题 */
+.scene-title {
+  text-align: center;
+  padding: 40px 20px 20px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #d4af37;
+  letter-spacing: 4px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.scene-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 结尾钩子 */
+.cliffhanger {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #0a0a0f 0%, #1a0a00 100%);
+}
+.cliffhanger h2 {
+  font-size: 28px;
+  color: #d4af37;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+.cliffhanger p {
+  font-size: 18px;
+  color: #8a7a66;
+  line-height: 1.8;
+  max-width: 360px;
+}
+.cliffhanger .next-chapter {
+  margin-top: 40px;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #d4af37, #b8960c);
+  color: #0a0a0f;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 30px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+  50% { box-shadow: 0 0 20px 10px rgba(212, 175, 55, 0.1); }
+}
+</style>
+</head>
+<body>
+
+<!-- 封面 -->
+<div class="cover">
+  <div class="subtitle">故事渲染 · 逆袭爽文</div>
+  <h1>赘婿逆袭</h1>
+  <div class="chapter">第一章 · 蛰伏</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- 第一幕：受辱 -->
+<div class="scene-title">— 壹 · 入赘 —</div>
+
+<div class="panel">
+  <img class="panel-img" src="panel1-humiliation.jpg" alt="入赘受辱">
+</div>
+<div class="panel-text panel">
+  林逸站在陈家大宅门口，两旁站着一排穿金戴银的陈家人。
+  <br><br>
+  大舅子陈浩冷笑着把一杯茶泼在他脚边：<span class="highlight">"一个穷小子，入赘就入赘，别以为自己真是陈家人。"</span>
+  <br><br>
+  丈母娘赵兰在旁边嗑瓜子：<span class="emotion">"就凭他？上辈子烧了高香才能娶我闺女。"</span>
+  <br><br>
+  林逸低着头，一声不吭。<br>
+  但他攥紧的拳头青筋暴起——那是一双<span class="highlight">不属于废物</span>的手。
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第二幕：蛰伏 -->
+<div class="scene-title">— 贰 · 暗夜苦读 —</div>
+
+<div class="panel">
+  <img class="panel-img" src="panel2-secret-study.jpg" alt="暗夜苦读">
+</div>
+<div class="panel-text panel">
+  深夜，陈家柴房。
+  <br><br>
+  别人睡了，林逸的战斗才刚开始。一盏台灯，三本金融教材，七个股票模型。他每天只睡四小时。
+  <br><br>
+  <span class="highlight">三个月后，他在一个匿名账户里赚到了第一个一百万。</span>
+  <br><br>
+  没人知道。在陈家所有人眼中，他还是那个只会倒茶扫地的赘婿。
+  <br><br>
+  <span class="emotion">但林逸知道——蛰伏的猛虎，只是还没选好咬哪块肉。</span>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第三幕：初露锋芒 -->
+<div class="scene-title">— 叁 · 一鸣惊人 —</div>
+
+<div class="panel">
+  <img class="panel-img" src="panel3-boardroom-shock.jpg" alt="董事会震惊">
+</div>
+<div class="panel-text panel">
+  陈家地产公司濒临破产。三千万债务，银行催款，合作方全跑了。
+  <br><br>
+  老丈人陈建国在家族会议上急得直冒汗。所有人都在吵，没人有方案。
+  <br><br>
+  林逸推门而入：<span class="highlight">"我有一个方案，三个月翻盘。"</span>
+  <br><br>
+  满堂哄笑。大舅子陈浩拍桌子："你一个赘婿懂什么生意？"
+  <br><br>
+  林逸面不改色，打开笔记本电脑，屏幕上是<span class="highlight">一份精密到每个数字都经得起推敲的商业计划书</span>。
+  <br><br>
+  笑声逐渐消失了。
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第四幕：背叛 -->
+<div class="scene-title">— 肆 · 暗箭 —</div>
+
+<div class="panel">
+  <img class="panel-img" src="panel4-betrayal.jpg" alt="遭遇背叛">
+</div>
+<div class="panel-text panel">
+  方案执行到第二个月，眼看就要成功——
+  <br><br>
+  大舅子陈浩把核心数据卖给了竞争对手，换了一笔私人好处费。<span class="emotion">自家人捅的刀子，最疼。</span>
+  <br><br>
+  合作方临时撕毁合同。银行提前追债。三千万的窟窿，一夜之间变成了五千万。
+  <br><br>
+  大雨中，林逸站在公司楼下，合同碎片散落一地。
+  <br><br>
+  妻子陈婉发来消息：<span class="highlight">"家里人说要跟你断关系。你还有什么办法吗？"</span>
+  <br><br>
+  林逸擦了把脸上的雨水，嘴角竟然微微上扬——
+  <br><br>
+  <span class="highlight">"有。而且是他们最怕的那种。"</span>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第五幕：绝地反击 -->
+<div class="scene-title">— 伍 · 午夜棋局 —</div>
+
+<div class="panel">
+  <img class="panel-img" src="panel5-comeback.jpg" alt="午夜反击">
+</div>
+<div class="panel-text panel">
+  凌晨两点，城市万家灯火。
+  <br><br>
+  林逸站在天台上，打了三十七个电话。前三十六个被挂断。
+  <br><br>
+  第三十七个，是他在匿名论坛认识的一个神秘投资人——<span class="highlight">江湖人称"鬼手"的资本玩家赵远航。</span>
+  <br><br>
+  "五千万的坑？"赵远航笑了，"有意思。我给你一个亿。但我有个条件——"
+  <br><br>
+  <span class="emotion">"三个月内，我要看到十倍回报。做不到，你这辈子给我打工。"</span>
+  <br><br>
+  林逸一秒没犹豫：<span class="highlight">"成交。"</span>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第六幕：博弈 -->
+<div class="scene-title">— 陆 · 商场如战场 —</div>
+
+<div class="panel">
+  <img class="panel-img" src="panel6-negotiation.jpg" alt="谈判博弈">
+</div>
+<div class="panel-text panel">
+  有了资金，林逸的反击精准而残酷。
+  <br><br>
+  他没有去救陈家地产。<span class="highlight">他另起炉灶，用赵远航的一个亿，直接收购了竞争对手的两家子公司。</span>
+  <br><br>
+  谈判桌上，对方五个律师团团围住他，试图在合同条款上做文章。
+  <br><br>
+  林逸微微一笑，推过去一份文件：<span class="emotion">"这是你们公司去年偷税漏税的证据。签，还是不签？"</span>
+  <br><br>
+  全场寂静。
+  <br><br>
+  <span class="highlight">十分钟后，收购完成。</span>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第七幕：封王 -->
+<div class="scene-title">— 柒 · 王者归来 —</div>
+
+<div class="panel">
+  <img class="panel-img" src="panel7-triumph.jpg" alt="登顶封王">
+</div>
+<div class="panel-text panel">
+  三个月后。新公司上市发布会。
+  <br><br>
+  台下坐着银行的人、投资圈的大佬、全城的商界精英。
+  <br><br>
+  <span class="highlight">也坐着陈家所有人。</span>
+  <br><br>
+  大舅子陈浩脸色铁青——他卖掉的那些数据，被林逸反手用来布局，赚了十二倍。
+  <br><br>
+  丈母娘赵兰的嘴张着，忘了嗑瓜子。
+  <br><br>
+  林逸站在聚光灯下，西装笔挺，台下掌声雷动。
+  <br><br>
+  他朝人群中的妻子陈婉点了点头。<span class="emotion">她眼眶红了。</span>
+  <br><br>
+  <span class="highlight">从赘婿到身价十亿，他只用了不到一年。</span>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- 第八幕：回望 -->
+<div class="scene-title">— 捌 · 蛰伏者的黄昏 —</div>
+
+<div class="panel">
+  <img class="panel-img" src="panel8-reflection.jpg" alt="黄昏回望">
+</div>
+<div class="panel-text panel">
+  庆功宴散了。
+  <br><br>
+  林逸一个人回到陈家大宅门口，坐在那个他曾经被泼茶的台阶上。
+  <br><br>
+  夕阳把整条街镀成了金色。
+  <br><br>
+  他从口袋里掏出一张照片——<span class="emotion">是母亲临终前的笑容。</span>
+  <br><br>
+  "妈，你儿子没给你丢人。"
+  <br><br>
+  <span class="highlight">风吹过来，像一双温柔的手，轻轻摸了摸他的头发。</span>
+  <br><br>
+  林逸仰头看天，笑了。
+</div>
+
+<!-- 钩子结尾 -->
+<div class="cliffhanger">
+  <h2>第一章 · 完</h2>
+  <p>
+    陈浩不会就此罢手。赵远航的"条件"远不止十倍回报那么简单。而林逸母亲去世的真相，才刚刚浮出水面……
+  </p>
+  <p style="margin-top: 20px; color: #5a4a36; font-size: 14px;">
+    — 未完待续 —
+  </p>
+  <button class="next-chapter" onclick="alert('第二章正在赶来的路上……')">催更第二章 →</button>
+</div>
+
+<script>
+// 滚动渐入动画
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.panel, .scene-title').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

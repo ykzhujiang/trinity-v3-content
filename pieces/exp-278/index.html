@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>收藏夹考古·一个PM的五年 | EXP-278</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;background:#292a2d;color:#e8eaed;font-size:20px;line-height:1.7;overflow-x:hidden}
+.container{max-width:420px;margin:0 auto;min-height:100vh}
+
+/* Chrome-style top bar */
+.chrome-bar{background:#35363a;padding:52px 16px 12px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px}
+.chrome-bar .dots{display:flex;gap:6px}
+.chrome-bar .dot{width:12px;height:12px;border-radius:50%}
+.chrome-bar .dot.r{background:#ff5f57}
+.chrome-bar .dot.y{background:#febc2e}
+.chrome-bar .dot.g{background:#28c840}
+.chrome-bar .url-bar{flex:1;background:#202124;border-radius:20px;padding:6px 14px;font-size:13px;color:#9aa0a6;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+/* Bookmark manager header */
+.bm-header{background:#202124;padding:20px;border-bottom:1px solid #3c4043}
+.bm-header h1{font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px}
+.bm-header .sub{font-size:13px;color:#9aa0a6;margin-top:4px}
+
+/* Folder */
+.folder{margin:0 16px;border-bottom:1px solid #3c4043;opacity:0;transform:translateY(10px)}
+.folder.visible{opacity:1;transform:translateY(0);transition:all 0.5s ease}
+.folder-header{padding:16px 0 8px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.folder-icon{font-size:22px}
+.folder-name{font-size:17px;font-weight:600;color:#8ab4f8}
+.folder-date{font-size:12px;color:#9aa0a6;margin-left:auto}
+.folder-meta{font-size:12px;color:#6b6e73;padding:0 0 4px 30px}
+
+/* Bookmark item */
+.bm-item{padding:10px 0 10px 30px;display:flex;align-items:flex-start;gap:10px;opacity:0;transform:translateX(-10px)}
+.bm-item.visible{opacity:1;transform:translateX(0);transition:all 0.4s ease}
+.bm-icon{width:16px;height:16px;border-radius:2px;flex-shrink:0;margin-top:4px;background:#35363a;display:flex;align-items:center;justify-content:center;font-size:10px}
+.bm-title{font-size:16px;color:#e8eaed;line-height:1.5;flex:1}
+.bm-title a{color:#8ab4f8;text-decoration:none}
+.bm-title .dead{color:#ea4335;font-size:12px;margin-left:6px;font-weight:500}
+.bm-url{font-size:12px;color:#6b6e73;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px}
+
+/* Year divider */
+.year-div{padding:24px 16px 8px;display:flex;align-items:center;gap:12px;opacity:0}
+.year-div.visible{opacity:1;transition:all 0.6s ease}
+.year-div .line{flex:1;height:1px;background:#3c4043}
+.year-div .yr{font-size:14px;color:#9aa0a6;font-weight:700;letter-spacing:3px}
+
+/* Coda */
+.coda{margin:28px 16px 40px;background:#35363a;border-radius:12px;padding:20px;text-align:center;opacity:0;transform:translateY(20px)}
+.coda.visible{opacity:1;transform:translateY(0);transition:all 0.8s ease}
+.coda .emoji{font-size:40px;margin-bottom:8px}
+.coda .text{font-size:15px;color:#9aa0a6;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="chrome-bar">
+  <div class="dots"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
+  <div class="url-bar">chrome://bookmarks</div>
+</div>
+
+<div class="bm-header">
+  <h1>⭐ 书签管理器</h1>
+  <div class="sub">王磊的Chrome · 共127个书签 · 5个文件夹</div>
+</div>
+
+<!-- 2020: 面试准备 -->
+<div class="year-div" data-delay="0"><div class="line"></div><div class="yr">2020</div><div class="line"></div></div>
+
+<div class="folder" data-delay="100">
+  <div class="folder-header">
+    <div class="folder-icon">📁</div>
+    <div class="folder-name">面试准备</div>
+    <div class="folder-date">2020.03</div>
+  </div>
+  <div class="folder-meta">12个书签</div>
+
+  <div class="bm-item" data-delay="150">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">如何在面试中假装自己有3年经验.pdf</div>
+      <div class="bm-url">zhihu.com/question/283...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="200">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">产品经理面试100问（背就完事了）</div>
+      <div class="bm-url">woshipm.com/zhichang/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="250">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">字节跳动产品面经·2020春招 <span class="dead">已失效</span></div>
+      <div class="bm-url">nowcoder.com/discuss/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="300">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">面试穿什么不会显得太刻意</div>
+      <div class="bm-url">xiaohongshu.com/explore/...</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2021: 产品方法论 -->
+<div class="year-div" data-delay="0"><div class="line"></div><div class="yr">2021</div><div class="line"></div></div>
+
+<div class="folder" data-delay="100">
+  <div class="folder-header">
+    <div class="folder-icon">📁</div>
+    <div class="folder-name">产品方法论</div>
+    <div class="folder-date">2021.06</div>
+  </div>
+  <div class="folder-meta">23个书签</div>
+
+  <div class="bm-item" data-delay="150">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">俞军产品方法论（全书精华笔记）</div>
+      <div class="bm-url">notion.so/yu-jun/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="200">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">需求分析模板.xlsx — 我自己做的比leader的好用</div>
+      <div class="bm-url">docs.google.com/spreadsheets/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="250">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">怎么跟开发吵架不伤感情 <span class="dead">已失效</span></div>
+      <div class="bm-url">zhihu.com/answer/189...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="300">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">B端产品避坑指南（血泪总结）</div>
+      <div class="bm-url">36kr.com/p/...</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2022: 创业想法 -->
+<div class="year-div" data-delay="0"><div class="line"></div><div class="yr">2022</div><div class="line"></div></div>
+
+<div class="folder" data-delay="100">
+  <div class="folder-header">
+    <div class="folder-icon">📁</div>
+    <div class="folder-name">💡 创业想法（别让老板看到）</div>
+    <div class="folder-date">2022.09</div>
+  </div>
+  <div class="folder-meta">18个书签</div>
+
+  <div class="bm-item" data-delay="150">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">如何从0到1做一个SaaS产品</div>
+      <div class="bm-url">woshipm.com/chuangye/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="200">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">天使轮BP模板 — YC版本中文翻译</div>
+      <div class="bm-url">notion.so/bp-template/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="250">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">辞职前要存多少钱才够活6个月</div>
+      <div class="bm-url">zhihu.com/question/401...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="300">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">合伙人股权分配：那些血的教训</div>
+      <div class="bm-url">36kr.com/p/...</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2023: 融资模板 → 裁员 -->
+<div class="year-div" data-delay="0"><div class="line"></div><div class="yr">2023</div><div class="line"></div></div>
+
+<div class="folder" data-delay="100">
+  <div class="folder-header">
+    <div class="folder-icon">📁</div>
+    <div class="folder-name">融资材料</div>
+    <div class="folder-date">2023.02</div>
+  </div>
+  <div class="folder-meta">31个书签 · 最后更新 2023.04</div>
+
+  <div class="bm-item" data-delay="150">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">投资人说"再看看"到底是什么意思</div>
+      <div class="bm-url">zhihu.com/answer/302...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="200">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">现金流撑不过3个月怎么办.pdf <span class="dead">已失效</span></div>
+      <div class="bm-url">docs.google.com/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="250">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">裁员赔偿金计算器（2023最新）</div>
+      <div class="bm-url">tool.lu/layoff-calc/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="300">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">创业失败后如何写简历不尴尬</div>
+      <div class="bm-url">zhihu.com/question/518...</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2024: 副业 + 新开始 -->
+<div class="year-div" data-delay="0"><div class="line"></div><div class="yr">2024</div><div class="line"></div></div>
+
+<div class="folder" data-delay="100">
+  <div class="folder-header">
+    <div class="folder-icon">📁</div>
+    <div class="folder-name">副业 / 新机会</div>
+    <div class="folder-date">2024.01</div>
+  </div>
+  <div class="folder-meta">43个书签 · 还在增加中</div>
+
+  <div class="bm-item" data-delay="150">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">独立开发者周刊 #137 — 一个人月入3万</div>
+      <div class="bm-url">github.com/ljinkai/weekly/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="200">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">AI时代产品经理的核心竞争力是什么</div>
+      <div class="bm-url">mp.weixin.qq.com/s/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="250">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">远程工作机会汇总（持续更新）</div>
+      <div class="bm-url">eleduck.com/...</div>
+    </div>
+  </div>
+  <div class="bm-item" data-delay="300">
+    <div class="bm-icon">📄</div>
+    <div>
+      <div class="bm-title">新公司注册流程全攻略 — 第二次了这次不会再犯错</div>
+      <div class="bm-url">zhihu.com/answer/612...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Coda -->
+<div class="coda" data-delay="300">
+  <div class="emoji">🔖</div>
+  <div class="text">
+    127个书签。<br>
+    43个已失效。<br>
+    每一个都以为会有用。<br><br>
+    最有用的那个，不在浏览器里。
+  </div>
+</div>
+
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const delay = parseInt(entry.target.dataset.delay || 0);
+      setTimeout(() => entry.target.classList.add('visible'), delay);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.folder, .bm-item, .year-div, .coda').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

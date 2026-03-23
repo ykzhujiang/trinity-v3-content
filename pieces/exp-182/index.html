@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手机相册「最近删除」里的30天</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; color: #e0e0e0; font-family: -apple-system, 'PingFang SC', sans-serif; min-height: 100vh; }
+  .container { max-width: 480px; margin: 0 auto; padding: 20px 16px 60px; }
+  .header { text-align: center; padding: 30px 0 20px; }
+  .header h1 { font-size: 16px; color: #e44; font-weight: 500; }
+  .header .sub { font-size: 12px; color: #666; margin-top: 6px; }
+  .hint { font-size: 10px; color: #444; text-align: center; margin-bottom: 24px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; margin-bottom: 30px; }
+  .photo { aspect-ratio: 1; background: #111; border-radius: 4px; position: relative; overflow: hidden; cursor: pointer; transition: all 0.3s; }
+  .photo:hover { transform: scale(1.02); }
+  .photo .icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+  .photo .countdown { position: absolute; bottom: 4px; right: 6px; font-size: 9px; color: #e44; font-family: 'Courier New', monospace; font-variant-numeric: tabular-nums; }
+  .photo .countdown.urgent { color: #ff2222; animation: blink 1s infinite; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .photo .type-badge { position: absolute; top: 4px; left: 6px; font-size: 8px; color: #555; letter-spacing: 1px; text-transform: uppercase; }
+  .photo .date { position: absolute; top: 4px; right: 6px; font-size: 8px; color: #444; }
+  .photo-detail { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; padding: 40px 20px; overflow-y: auto; }
+  .photo-detail.show { display: flex; flex-direction: column; align-items: center; justify-content: center; animation: fadeIn 0.3s; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .detail-icon { font-size: 64px; margin-bottom: 20px; }
+  .detail-countdown { font-size: 24px; color: #e44; font-family: 'Courier New', monospace; margin-bottom: 16px; }
+  .detail-reason { max-width: 320px; text-align: center; font-size: 14px; line-height: 2; color: #888; }
+  .detail-reason em { color: #aaa; font-style: normal; }
+  .detail-close { margin-top: 30px; font-size: 12px; color: #444; cursor: pointer; }
+  .section-label { font-size: 11px; color: #444; letter-spacing: 2px; margin: 24px 0 12px 4px; }
+  .restored { border: 1px solid #2ecc71 !important; }
+  .restored .countdown { color: #2ecc71 !important; animation: none !important; }
+  .stat-bar { margin: 30px 0; padding: 16px; background: #0a0a0a; border-radius: 8px; border: 1px solid #1a1a1a; }
+  .stat-bar h3 { font-size: 11px; color: #555; margin-bottom: 12px; letter-spacing: 1px; }
+  .stat-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+  .stat-row .v { color: #e44; }
+  .final { text-align: center; margin-top: 40px; font-size: 11px; color: #333; line-height: 2; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>最近删除</h1>
+    <div class="sub">这些照片将在倒计时结束后永久删除</div>
+  </div>
+  <p class="hint">[ 点击照片查看删除原因 ]</p>
+
+  <!-- Phase 1: 好笑 -->
+  <div class="section-label">—— 无所谓的 ——</div>
+  <div class="grid">
+    <div class="photo" onclick="showDetail(this)" data-icon="🤳" data-days="26" data-reason="双下巴自拍。连拍37张，这是第36张。<br><br>第37张也在这个文件夹里。<br>第1张也在。<br><em>——其实37张都在。她留了第18张。</em>">
+      <div class="icon">🤳</div><div class="type-badge">自拍</div><div class="countdown">26天</div>
+    </div>
+    <div class="photo" onclick="showDetail(this)" data-icon="🍔" data-days="24" data-reason="一份看起来很难吃的沙拉。<br><br>发朋友圈配文"今天开始健康饮食💪"<br>拍完立刻点了汉堡外卖。<br><em>——沙拉没吃。汉堡没拍。</em>">
+      <div class="icon">🥗</div><div class="type-badge">食物</div><div class="countdown">24天</div>
+    </div>
+    <div class="photo" onclick="showDetail(this)" data-icon="📄" data-days="22" data-reason="超市小票。<br>酱油×1、卫生纸×2、薯片×3。<br><br>拍照是为了记账。<br>后来没记。<br><em>——薯片那行被手指挡住了。她知道自己在挡什么。</em>">
+      <div class="icon">🧾</div><div class="type-badge">小票</div><div class="countdown">22天</div>
+    </div>
+    <div class="photo" onclick="showDetail(this)" data-icon="🐱" data-days="20" data-reason="猫屁股。<br><br>想拍猫脸。猫转过去了。<br>连拍5张全是屁股。<br><em>——其实挺好看的。但发不了朋友圈。</em>">
+      <div class="icon">🐱</div><div class="type-badge">宠物</div><div class="countdown">20天</div>
+    </div>
+    <div class="photo" onclick="showDetail(this)" data-icon="📸" data-days="18" data-reason="手指挡住镜头的风景照。<br><br>泸沽湖。同事们都在拍。她举起手机的时候<br>有人喊了她的名字。<br><em>——喊她名字的人不在这个相册里。<br>在另一个文件夹。也删了。</em>">
+      <div class="icon">🏔️</div><div class="type-badge">风景</div><div class="countdown">18天</div>
+    </div>
+    <div class="photo" onclick="showDetail(this)" data-icon="😴" data-days="15" data-reason="对方在你不知情时拍的睡觉照。<br><br>嘴微张。头发乱。看起来很丑。<br>他拍的。他觉得好看。<br><em>——他发过来的时候她骂了他。<br>存了三个月才删。<br>现在还剩15天反悔。</em>">
+      <div class="icon">😴</div><div class="type-badge">偷拍</div><div class="countdown">15天</div>
+    </div>
+  </div>
+
+  <!-- Phase 2: 转折 -->
+  <div class="section-label">—— 犹豫过的 ——</div>
+  <div class="grid">
+    <div class="photo" style="background:#110d0d" onclick="showDetail(this)" data-icon="👫" data-days="8" data-reason="两个人的合照。在宜家。<br><br>背景是样板间的假厨房。<br>她在笑。他在看她。<br><em>——删除前犹豫了四天。<br>第一天点了删除。<br>第二天从最近删除恢复。<br>第三天又删了。<br>现在是第四天。</em>">
+      <div class="icon">👫</div><div class="type-badge">合照</div><div class="countdown">8天</div><div class="date">9.12</div>
+    </div>
+    <div class="photo" style="background:#110d0d" onclick="showDetail(this)" data-icon="🎂" data-days="5" data-reason="一个生日蛋糕。上面写着她的名字。<br><br>蜡烛是27。他买的。<br>那天很开心。<br><em>——今年28岁了。蛋糕没人买了。<br>照片只剩5天。</em>">
+      <div class="icon">🎂</div><div class="type-badge">生日</div><div class="countdown urgent">5天</div><div class="date">6.15</div>
+    </div>
+    <div class="photo" style="background:#110d0d" onclick="showDetail(this)" data-icon="✈️" data-days="3" data-reason="两张机票的照片。目的地：大理。<br><br>去年国庆。座位号连着的。<br>他靠窗。她靠他。<br><em>——这张照片三天后就永远没了。<br>大理还在。座位还在。<br>但坐那两个位置的人，已经散了。</em>">
+      <div class="icon">✈️</div><div class="type-badge">旅行</div><div class="countdown urgent">3天</div><div class="date">10.01</div>
+    </div>
+  </div>
+
+  <div class="stat-bar">
+    <h3>删除行为分析</h3>
+    <div class="stat-row"><span>总删除</span><span class="v">847张</span></div>
+    <div class="stat-row"><span>恢复后再删</span><span class="v">23张</span></div>
+    <div class="stat-row"><span>删除后恢复后再删除后再恢复</span><span class="v">1张</span></div>
+    <div class="stat-row"><span>凌晨删除占比</span><span class="v">67%</span></div>
+  </div>
+
+  <!-- Phase 3: 恢复 -->
+  <div class="section-label">—— 第29天 ——</div>
+  <div class="grid">
+    <div class="photo restored" style="background:#0d110d" onclick="showDetail(this)" data-icon="🐱" data-days="已恢复" data-reason="不是那张猫屁股。<br><br>是另一张。很早的照片。<br>画面里有猫，有他的手。他在逗猫。<br>猫在笑——猫当然不会笑。<br>但当时她觉得猫在笑。<br><br>第29天凌晨3:07恢复。<br>距离永久删除还剩23小时。<br><br><em>——她恢复的不是照片。<br>是那个觉得猫会笑的自己。</em>">
+      <div class="icon">🐱✋</div><div class="type-badge" style="color:#2ecc71">已恢复</div><div class="countdown" style="color:#2ecc71!important">✓</div>
+    </div>
+  </div>
+
+  <div class="final">
+    剩余846张<br>
+    将在各自的倒计时里<br>
+    安静地变成不存在
+  </div>
+</div>
+
+<!-- Detail overlay -->
+<div class="photo-detail" id="detailOverlay" onclick="hideDetail()">
+  <div class="detail-icon" id="detailIcon"></div>
+  <div class="detail-countdown" id="detailCountdown"></div>
+  <div class="detail-reason" id="detailReason"></div>
+  <div class="detail-close">点击任意处关闭</div>
+</div>
+
+<script>
+function showDetail(el) {
+  const o = document.getElementById('detailOverlay');
+  document.getElementById('detailIcon').textContent = el.dataset.icon;
+  document.getElementById('detailCountdown').textContent = el.dataset.days;
+  document.getElementById('detailReason').innerHTML = el.dataset.reason;
+  o.classList.add('show');
+}
+function hideDetail() {
+  document.getElementById('detailOverlay').classList.remove('show');
+}
+// Animate countdowns
+setInterval(() => {
+  document.querySelectorAll('.countdown').forEach(c => {
+    if (c.textContent.match(/\d+天/)) {
+      // Visual tick effect
+      c.style.opacity = '0.5';
+      setTimeout(() => c.style.opacity = '1', 200);
+    }
+  });
+}, 5000);
+</script>
+</body>
+</html>

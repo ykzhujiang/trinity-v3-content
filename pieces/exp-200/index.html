@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXP-200 · 一个色盲的婚礼</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  background: #1a1a1a; 
+  font-family: -apple-system, 'PingFang SC', 'Noto Serif SC', serif; 
+  color: #ccc; 
+  max-width: 520px; 
+  margin: 0 auto; 
+  padding: 32px 20px 80px;
+  line-height: 1.9;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+}
+.header h1 { font-size: 22px; font-weight: 300; letter-spacing: 6px; color: #999; }
+.header .sub { font-size: 12px; color: #555; margin-top: 8px; letter-spacing: 2px; }
+
+.scene {
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  position: relative;
+}
+.scene.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scene p {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.color-word {
+  filter: grayscale(100%);
+  transition: filter 1.2s ease, text-shadow 0.8s ease;
+  cursor: default;
+}
+.color-word.revealed {
+  filter: grayscale(0%);
+}
+
+/* Color-specific styles */
+.c-white { color: #f5f5f5; }
+.c-white.revealed { text-shadow: 0 0 12px rgba(255,255,255,0.3); }
+
+.c-pink { color: #e8a0b4; }
+.c-pink.revealed { text-shadow: 0 0 15px rgba(232,160,180,0.4); }
+
+.c-gold { color: #d4a853; }
+.c-gold.revealed { text-shadow: 0 0 15px rgba(212,168,83,0.4); }
+
+.c-green { color: #7bb369; }
+.c-green.revealed { text-shadow: 0 0 12px rgba(123,179,105,0.3); }
+
+.c-blue { color: #6ba3d6; }
+.c-blue.revealed { text-shadow: 0 0 12px rgba(107,163,214,0.3); }
+
+.c-red { color: #d94f4f; }
+.c-red.revealed { text-shadow: 0 0 18px rgba(217,79,79,0.5); }
+
+.c-orange { color: #e0965c; }
+.c-orange.revealed { text-shadow: 0 0 12px rgba(224,150,92,0.3); }
+
+.c-purple { color: #a67bbd; }
+.c-purple.revealed { text-shadow: 0 0 12px rgba(166,123,189,0.3); }
+
+/* Visual decoration: color bloom */
+.bloom-container {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+.bloom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #333;
+  transition: height 1.5s ease, background 1.5s ease;
+}
+.bloom-bar.active {
+  height: 60px;
+}
+
+.divider {
+  text-align: center;
+  color: #333;
+  margin: 48px 0;
+  font-size: 12px;
+  letter-spacing: 8px;
+}
+
+/* Color progress bar */
+.color-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #666, #e8a0b4, #d4a853, #7bb369, #6ba3d6, #a67bbd, #e0965c);
+  transition: width 0.5s ease;
+  z-index: 100;
+  filter: grayscale(100%);
+}
+.color-bar.chromatic {
+  filter: grayscale(0%);
+  transition: width 0.5s ease, filter 2s ease;
+}
+
+/* Final reveal */
+.final {
+  margin-top: 60px;
+  padding: 32px 0;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+.final p {
+  font-size: 14px;
+  color: #666;
+  line-height: 2.2;
+}
+.final .last-line {
+  margin-top: 24px;
+  font-size: 16px;
+  color: #999;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+.final .last-line.show { opacity: 1; }
+
+/* Instruction */
+.instruction {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #444;
+  letter-spacing: 2px;
+  transition: opacity 0.5s ease;
+}
+
+/* Grayscale overlay for images */
+.scene-img {
+  width: 100%;
+  border-radius: 4px;
+  margin: 16px 0;
+  filter: grayscale(100%);
+  transition: filter 1.5s ease;
+  opacity: 0.7;
+}
+.scene-img.colored { filter: grayscale(0%); opacity: 1; }
+
+@keyframes fadeIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div class="color-bar" id="colorBar"></div>
+
+<div class="header">
+  <h1>一个色盲的婚礼</h1>
+  <div class="sub">他看不见颜色，但记住了每一种</div>
+</div>
+
+<!-- Scene 1: Getting ready - WHITE -->
+<div class="scene" data-color="white" data-progress="8">
+  <p>婚礼那天早上，我对着镜子打领带。</p>
+  <p>伴郎说：「你今天帅得发光。」</p>
+  <p>我对着镜子笑了笑。镜子里的我穿着一件<span class="color-word c-white" data-color="white">白衬衫</span>。</p>
+  <p>其实我不知道它是不是白的。对我来说，它是一种很亮的灰。</p>
+  <p>我从小就生活在一个灰色的世界。红绿色盲。医学名词，听起来不严重。大部分时候确实不严重。</p>
+  <p>除了今天。</p>
+  <div class="bloom-container"><div class="bloom-bar" style="background: linear-gradient(to top, #1a1a1a, #f5f5f5);"></div></div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Scene 2: Seeing her - PINK -->
+<div class="scene" data-color="pink" data-progress="22">
+  <p>婚礼策划师提前一个月问我：「新娘要什么颜色的花？」</p>
+  <p>我说：「她喜欢的颜色。」</p>
+  <p>策划师看了我一眼，大概想说什么，忍住了。</p>
+  <p>后来她告诉我选了<span class="color-word c-pink" data-color="pink">粉色</span>的芍药。「这是你老婆最喜欢的花，」她说，「<span class="color-word c-pink" data-color="pink">粉色</span>的。」</p>
+  <p>粉色。我在脑海里搜索这个词。色谱上的位置我知道——红和白之间。但那个词在我眼里，只是另一种灰，偏亮，带一点奇怪的暖。</p>
+  <p>我点头说好看。</p>
+  <div class="bloom-container"><div class="bloom-bar" style="background: linear-gradient(to top, #1a1a1a, #e8a0b4);"></div></div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Scene 3: The ceremony - GOLD -->
+<div class="scene" data-color="gold" data-progress="36">
+  <p>仪式开始。司仪说了很多话，我一句没记住。</p>
+  <p>我只记得阳光从教堂窗户照进来，落在她的头纱上，<span class="color-word c-gold" data-color="gold">金色</span>的光。</p>
+  <p>至少我被告知那是<span class="color-word c-gold" data-color="gold">金色</span>。</p>
+  <p>对我来说那是一种——怎么说呢——一种温度。不是颜色，是温度。那片光落在她脸上，我感觉整个教堂变暖了三度。</p>
+  <p>她走过来的时候，所有人都站起来。她在笑。她总是在笑。</p>
+  <p>我想，就算全世界的颜色我都看不见，看见她笑就够了。</p>
+  <div class="bloom-container"><div class="bloom-bar" style="background: linear-gradient(to top, #1a1a1a, #d4a853);"></div></div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Scene 4: The vows - GREEN -->
+<div class="scene" data-color="green" data-progress="50">
+  <p>交换誓词。她先说。</p>
+  <p>她说：「我会做你的眼睛，告诉你世界的颜色。」</p>
+  <p>全场都笑了。她也笑了。我没笑。</p>
+  <p>我说：「我记得你第一次给我描述<span class="color-word c-green" data-color="green">绿色</span>。你说<span class="color-word c-green" data-color="green">绿色</span>是'下完雨之后空气的味道'。」</p>
+  <p>「从那天起，每次下雨，我就知道我看见了<span class="color-word c-green" data-color="green">绿色</span>。」</p>
+  <p>她的眼睛红了。这个红我看不出来。但我认识她脸上的那个表情——嘴角往下，眼睛更亮。那是她快哭了。</p>
+  <div class="bloom-container"><div class="bloom-bar" style="background: linear-gradient(to top, #1a1a1a, #7bb369);"></div></div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Scene 5: Banquet - BLUE & ORANGE -->
+<div class="scene" data-color="blue" data-progress="64">
+  <p>宴会。朋友们祝酒。</p>
+  <p>大学室友端着酒站起来说：「你们不知道，这个男人大学四年穿的袜子——」</p>
+  <p>「都是颜色配错的。」全场笑。</p>
+  <p>他不知道的是，我其实有一套系统。周一到周五，每双袜子放在不同的格子里。只有周末打乱。</p>
+  <p>她帮我重新标记过那些袜子。用缝线。左脚一条线是<span class="color-word c-blue" data-color="blue">蓝色</span>，两条线是黑色，三条线是<span class="color-word c-orange" data-color="orange">棕色</span>。</p>
+  <p>没人知道这件事。这种事不会写在婚礼致辞里。</p>
+  <p>但这是我最早确认「我要娶她」的瞬间。</p>
+  <div class="bloom-container"><div class="bloom-bar" style="background: linear-gradient(to top, #1a1a1a, #6ba3d6);"></div></div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Scene 6: The cake - PURPLE -->
+<div class="scene" data-color="purple" data-progress="78">
+  <p>切蛋糕。蛋糕上有花。</p>
+  <p>她凑过来小声说：「你猜蛋糕上的花是什么颜色？」</p>
+  <p>我说：「<span class="color-word c-pink" data-color="pink">粉色</span>？你最喜欢的。」</p>
+  <p>她摇头：「<span class="color-word c-purple" data-color="purple">紫色</span>的。薰衣草。」</p>
+  <p>「你跟我说过，<span class="color-word c-purple" data-color="purple">紫色</span>是你唯一能感觉到'不一样'的颜色。它在你眼里不是灰，是一种——你形容的——'安静的振动'。」</p>
+  <p>我愣了。我三年前说过一次。她记住了，然后悄悄用了三年。</p>
+  <div class="bloom-container"><div class="bloom-bar" style="background: linear-gradient(to top, #1a1a1a, #a67bbd);"></div></div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Scene 7: The envelope - RED (the twist) -->
+<div class="scene" data-color="red" data-progress="92">
+  <p>散场。妈妈拉住我，塞了一个信封。</p>
+  <p>「结婚快乐，」她说，「<span class="color-word c-red" data-color="red">红包</span>，给你们。」</p>
+  <p>我低头看手里的信封。和其他所有信封一样的颜色。</p>
+  <p>伴郎走过来说：「你妈这个<span class="color-word c-red" data-color="red">红包</span>好大。」</p>
+  <p>我笑了笑，把信封装进口袋。</p>
+</div>
+
+<div class="final" id="finalSection">
+  <p>那天晚上，她帮我整理份子钱。</p>
+  <p>她说：「你妈的那个信封——」</p>
+  <p>「不是红色的。」</p>
+  <p>「是<span class="color-word c-white" data-color="white">白色</span>的。里面写着：'儿子，爸走了三年了。今天他也在。'」</p>
+  <p style="margin-top:20px; font-size:13px; color:#555;">我终于知道，有些颜色不需要看见。</p>
+  <p style="font-size:12px; color:#444; margin-top:12px;">有些颜色，是用来记住的。</p>
+  
+  <div class="last-line" id="lastLine">
+    <p style="margin-top:40px; font-size:11px; color:#555; letter-spacing:4px;">整场婚礼的照片里</p>
+    <p style="font-size:11px; color:#555; letter-spacing:4px;">我妈穿的衣服是什么颜色</p>
+    <p style="font-size:11px; color:#555; letter-spacing:4px; margin-top:8px;">我永远看不出来</p>
+    <p style="font-size:11px; color: #d94f4f; filter: grayscale(100%); letter-spacing:4px; margin-top:8px;">但她说，是红的</p>
+  </div>
+</div>
+
+<div class="instruction" id="instruction">↓ 向下滚动 · 颜色会慢慢来 ↓</div>
+
+<script>
+const scenes = document.querySelectorAll('.scene');
+const colorBar = document.getElementById('colorBar');
+const instruction = document.getElementById('instruction');
+const lastLine = document.getElementById('lastLine');
+let colorsRevealed = 0;
+let totalColors = 0;
+
+// Count all color words
+document.querySelectorAll('.color-word').forEach(() => totalColors++);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const scene = entry.target;
+      scene.classList.add('visible');
+      
+      // Reveal colors in this scene with delay
+      const colorWords = scene.querySelectorAll('.color-word');
+      colorWords.forEach((word, i) => {
+        setTimeout(() => {
+          word.classList.add('revealed');
+          colorsRevealed++;
+          updateColorBar();
+        }, 800 + i * 400);
+      });
+      
+      // Activate bloom bar
+      const bloom = scene.querySelector('.bloom-bar');
+      if (bloom) {
+        setTimeout(() => bloom.classList.add('active'), 1200);
+      }
+      
+      // Update progress
+      const progress = scene.dataset.progress;
+      if (progress) {
+        colorBar.style.width = progress + '%';
+      }
+      
+      // Hide instruction after first scene
+      if (colorsRevealed > 0) {
+        instruction.style.opacity = '0';
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+scenes.forEach(scene => observer.observe(scene));
+
+// Final section observer
+const finalObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      colorBar.style.width = '100%';
+      colorBar.classList.add('chromatic');
+      
+      // Reveal final color words
+      entry.target.querySelectorAll('.color-word').forEach((word, i) => {
+        setTimeout(() => word.classList.add('revealed'), 500 + i * 600);
+      });
+      
+      // Show last line
+      setTimeout(() => lastLine.classList.add('show'), 2500);
+    }
+  });
+}, { threshold: 0.3 });
+
+finalObserver.observe(document.getElementById('finalSection'));
+
+function updateColorBar() {
+  // Color bar becomes less grayscale as more colors revealed
+  const ratio = colorsRevealed / totalColors;
+  if (ratio > 0.5) {
+    colorBar.classList.add('chromatic');
+  }
+}
+</script>
+</body>
+</html>

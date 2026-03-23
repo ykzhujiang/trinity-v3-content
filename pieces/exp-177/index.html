@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一个小区业主群的表情包使用频率分析</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f8f9fa; color: #333; font-family: -apple-system, 'PingFang SC', sans-serif; line-height: 1.8; }
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 60px; }
+  
+  .header { text-align: center; padding: 40px 0 28px; border-bottom: 2px solid #e0e0e0; margin-bottom: 28px; }
+  .lab { font-size: 10px; letter-spacing: 5px; color: #999; }
+  h1 { font-size: 22px; font-weight: 400; margin: 12px 0 8px; color: #1a1a1a; }
+  .subtitle { font-size: 13px; color: #888; }
+  .meta { font-size: 11px; color: #aaa; margin-top: 12px; }
+
+  .chart-section { margin: 28px 0; }
+  .chart-label { font-size: 12px; color: #666; letter-spacing: 2px; margin-bottom: 12px; font-weight: 500; }
+
+  .bar-chart { background: #fff; border-radius: 8px; padding: 20px; border: 1px solid #eee; }
+  .bar-row { display: flex; align-items: center; margin-bottom: 10px; }
+  .bar-emoji { width: 36px; font-size: 20px; text-align: center; flex-shrink: 0; }
+  .bar-name { width: 70px; font-size: 11px; color: #888; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 22px; background: #f5f5f5; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; }
+  .bar-val { font-size: 10px; color: #fff; white-space: nowrap; }
+  .bar-count { width: 45px; text-align: right; font-size: 10px; color: #bbb; padding-left: 6px; flex-shrink: 0; }
+
+  .timeline-card { background: #fff; border: 1px solid #eee; border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+  .tc-header { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f5f5f5; }
+  .tc-phase { font-size: 13px; font-weight: 500; color: #1a1a1a; }
+  .tc-date { font-size: 10px; color: #bbb; font-family: monospace; }
+  .tc-body { padding: 14px 16px; }
+  .tc-emoji-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .tc-emoji-tag { display: inline-flex; align-items: center; gap: 4px; background: #f8f8f8; padding: 3px 10px; border-radius: 12px; font-size: 12px; }
+  .tc-emoji-tag .count { color: #999; font-size: 10px; }
+  .tc-note { font-size: 12px; color: #888; line-height: 1.7; }
+  .tc-note em { font-style: normal; color: #e67e22; font-weight: 500; }
+  .tc-note .researcher { display: block; margin-top: 8px; font-size: 11px; color: #aaa; padding-left: 12px; border-left: 2px solid #f0f0f0; }
+
+  .phase-bar { height: 8px; display: flex; border-radius: 4px; overflow: hidden; margin: 20px 0 8px; }
+  .phase-bar span { transition: width 0.3s; }
+  .pb-labels { display: flex; font-size: 9px; color: #bbb; margin-bottom: 24px; }
+  .pb-labels span { flex: 1; text-align: center; }
+
+  .anomaly { background: #fffbe6; border: 1px solid #f5e6a3; border-radius: 8px; padding: 14px 16px; margin: 20px 0; }
+  .anomaly-title { font-size: 11px; color: #d4a017; letter-spacing: 2px; margin-bottom: 6px; }
+  .anomaly p { font-size: 12px; color: #8a7630; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 24px 0; }
+  .sg-card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 14px; text-align: center; }
+  .sg-num { font-size: 26px; font-weight: 300; color: #e67e22; }
+  .sg-label { font-size: 10px; color: #999; margin-top: 2px; }
+
+  .footnote { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 11px; color: #ccc; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="lab">社交语言学工作坊 · 微信人类学系列</div>
+    <h1>一个小区业主群的表情包使用频率分析</h1>
+    <div class="subtitle">— 翠湖花园一期业主群（287人）· 2023.09 — 2025.08 —</div>
+    <div class="meta">数据来源：群主王建国授权的聊天记录导出 · 表情包总计 14,382 次<br>研究者：本人（304室，2023年9月入住，停车位纠纷当事人之一）</div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="sg-card">
+      <div class="sg-num">14,382</div>
+      <div class="sg-label">表情包总量</div>
+    </div>
+    <div class="sg-card">
+      <div class="sg-num">287→43</div>
+      <div class="sg-label">活跃人数变化</div>
+    </div>
+    <div class="sg-card">
+      <div class="sg-num">6</div>
+      <div class="sg-label">社区生命周期阶段</div>
+    </div>
+    <div class="sg-card">
+      <div class="sg-num">1</div>
+      <div class="sg-label">最终幸存表情</div>
+    </div>
+  </div>
+
+  <div class="phase-bar">
+    <span style="flex:2;background:#4CAF50;"></span>
+    <span style="flex:2;background:#8BC34A;"></span>
+    <span style="flex:3;background:#FF9800;"></span>
+    <span style="flex:4;background:#f44336;"></span>
+    <span style="flex:8;background:#9E9E9E;"></span>
+    <span style="flex:1;background:#4CAF50;"></span>
+  </div>
+  <div class="pb-labels">
+    <span>蜜月</span><span>磨合</span><span>投诉</span><span>分裂</span><span>沉默</span><span>？</span>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-label">阶段一：蜜月期</div>
+    <div class="timeline-card">
+      <div class="tc-header">
+        <span class="tc-phase">🎉 新家好开心</span>
+        <span class="tc-date">2023.09 — 2023.10</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-emoji-row">
+          <span class="tc-emoji-tag">🎉 <span class="count">×847</span></span>
+          <span class="tc-emoji-tag">❤️ <span class="count">×632</span></span>
+          <span class="tc-emoji-tag">😍 <span class="count">×498</span></span>
+          <span class="tc-emoji-tag">🏠 <span class="count">×371</span></span>
+          <span class="tc-emoji-tag">☀️ <span class="count">×203</span></span>
+        </div>
+        <div class="tc-note">
+          日均消息 342 条。表情色调以<em>暖色系</em>为主。群里每天有人晒装修进度、小区花园照片、夕阳。302室的张姐发了 47 张客厅照，每张角度不同。
+          <span class="researcher">研究者注：我当时也发了。阳台看出去确实好看。现在那个角度被对面加装的空调外机挡住了。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-label">阶段二：磨合期</div>
+    <div class="timeline-card">
+      <div class="tc-header">
+        <span class="tc-phase">😅 小问题嘛</span>
+        <span class="tc-date">2023.11 — 2023.12</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-emoji-row">
+          <span class="tc-emoji-tag">😅 <span class="count">×567</span></span>
+          <span class="tc-emoji-tag">🙏 <span class="count">×445</span></span>
+          <span class="tc-emoji-tag">💧 <span class="count">×312</span></span>
+          <span class="tc-emoji-tag">📞 <span class="count">×208</span></span>
+        </div>
+        <div class="tc-note">
+          第一次漏水事件。7楼漏到6楼。😅的使用量激增300%。此时的😅还是真的「哈哈没事」，不是后来的「哈哈我要杀人」。🙏多用于「求物业电话」「求通下水道师傅」。
+          <span class="researcher">研究者注：这个阶段大家还互相帮忙。1楼的李叔免费帮三家人通了马桶。后来他成了停车位纠纷中最激烈的反对派。人是会变的。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-label">阶段三：投诉期</div>
+    <div class="timeline-card">
+      <div class="tc-header">
+        <span class="tc-phase">😡 物业出来挨打</span>
+        <span class="tc-date">2024.01 — 2024.03</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-emoji-row">
+          <span class="tc-emoji-tag">😡 <span class="count">×1,204</span></span>
+          <span class="tc-emoji-tag">💢 <span class="count">×876</span></span>
+          <span class="tc-emoji-tag">📢 <span class="count">×654</span></span>
+          <span class="tc-emoji-tag">👎 <span class="count">×432</span></span>
+          <span class="tc-emoji-tag">🤡 <span class="count">×201</span></span>
+        </div>
+        <div class="tc-note">
+          物业费涨价 + 电梯频繁故障。😡单月使用1,204次创群历史记录。🤡<em>首次出现</em>——专门指代物业张经理。表情包从通用表情转向<em>定制化攻击</em>：有人做了张经理的表情包，一周内被使用 87 次。
+          <span class="researcher">研究者注：我承认那个表情包挺好笑的。但我没转发。我写了一篇措辞严谨的投诉信发到群里。没有人用表情包回复我——这比被骂更难受。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-label">阶段四：分裂期</div>
+    <div class="timeline-card">
+      <div class="tc-header">
+        <span class="tc-phase">🔪 停车位战争</span>
+        <span class="tc-date">2024.04 — 2024.07</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-emoji-row">
+          <span class="tc-emoji-tag">🔪 <span class="count">×89</span></span>
+          <span class="tc-emoji-tag">🤮 <span class="count">×156</span></span>
+          <span class="tc-emoji-tag">🖕 <span class="count">×67</span></span>
+          <span class="tc-emoji-tag">📎 <span class="count">×342</span></span>
+          <span class="tc-emoji-tag">🤐 <span class="count">×278</span></span>
+        </div>
+        <div class="tc-note">
+          停车位分配方案引发派系对立。群内出现两个阵营：「先到先得派」vs「按面积分配派」。📎的激增是因为双方开始在群里甩<em>物权法截图、购房合同、小区规划图</em>。对骂从表情包升级到了法律条文。🤐的上升代表中间派的集体退出——他们不说话了，但也不退群。
+          <span class="researcher">研究者注：我是「按面积分配派」。我承认这影响了本研究的客观性。但数据不会说谎——「先到先得派」的🤮使用频率是我方的 3.2 倍，这说明他们<em>更不讲道理</em>。（编者注：这就是为什么这篇论文无法通过同行评审。）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="anomaly">
+    <div class="anomaly-title">⚠ 数据异常</div>
+    <p>2024年5月17日，群消息量突然归零。持续 72 小时。原因：群主王建国在停车位会议上被两方同时指责后，<em>关闭了群聊功能</em>。三天后恢复。恢复后第一条消息是物业张经理发的：「电梯已修好。」无人回复。无人使用表情包。</p>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-label">阶段五：沉默期</div>
+    <div class="timeline-card">
+      <div class="tc-header">
+        <span class="tc-phase">🦗 ……</span>
+        <span class="tc-date">2024.08 — 2025.07</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-emoji-row">
+          <span class="tc-emoji-tag">👍 <span class="count">×156</span></span>
+          <span class="tc-emoji-tag">🤐 <span class="count">×4</span></span>
+        </div>
+        <div class="tc-note">
+          日均消息降至 3.2 条。大部分是物业通知和群主转发的社区公告。唯一活跃的表情是<em>👍</em>——但此时的👍已失去任何情感含义，它只是「我看到了」的最低成本回应。<br><br>
+          11个月。287人的群，活跃人数降至 43 人。其中 38 人只在"收到请回复"时出现。真正在说话的只有5个人：群主、物业张经理、两个退休阿姨、一个卖保险的。
+          <span class="researcher">研究者注：我也沉默了。不是因为释然，是因为大家都搬到了各自的小群。我所在的「3栋业主维权群」有 31 人。那个群里的表情包使用量是大群的 8 倍。仇恨不会消失，它只是搬家了。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-label">阶段六：？</div>
+    <div class="timeline-card">
+      <div class="tc-header">
+        <span class="tc-phase">🌟 一条消息</span>
+        <span class="tc-date">2025.08.22</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-emoji-row">
+          <span class="tc-emoji-tag">🎉 <span class="count">×84</span></span>
+          <span class="tc-emoji-tag">👏 <span class="count">×67</span></span>
+          <span class="tc-emoji-tag">❤️ <span class="count">×45</span></span>
+          <span class="tc-emoji-tag">🎓 <span class="count">×23</span></span>
+        </div>
+        <div class="tc-note">
+          沉默 11 个月后，602室赵叔发了一条消息：「我家小赵今年考上清华了！感谢邻居们两年来的照顾！」<br><br>
+          24小时内消息量 217 条。是过去三个月总和的 4 倍。🎉重新出现——和蜜月期用的是<em>同一个表情</em>，但发送者只重叠了 12%。88% 是新面孔，或者说，沉默了很久的旧面孔。
+          <span class="researcher">研究者注：李叔——那个停车位纠纷中最激烈的人——回复了一个❤️。我看到后愣了很久。然后我也发了一个。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bar-chart" style="margin-top:24px;">
+    <div class="chart-label" style="margin-bottom:12px;">两年表情使用量 TOP 5</div>
+    <div class="bar-row">
+      <span class="bar-emoji">😡</span>
+      <span class="bar-name">愤怒</span>
+      <div class="bar-track"><div class="bar-fill" style="width:85%;background:linear-gradient(90deg,#f44336,#e91e63);"><span class="bar-val">2,847</span></div></div>
+      <span class="bar-count">19.8%</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-emoji">🎉</span>
+      <span class="bar-name">庆祝</span>
+      <div class="bar-track"><div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#4CAF50,#8BC34A);"><span class="bar-val">1,974</span></div></div>
+      <span class="bar-count">13.7%</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-emoji">😅</span>
+      <span class="bar-name">尴尬</span>
+      <div class="bar-track"><div class="bar-fill" style="width:48%;background:linear-gradient(90deg,#FF9800,#FFC107);"><span class="bar-val">1,523</span></div></div>
+      <span class="bar-count">10.6%</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-emoji">👍</span>
+      <span class="bar-name">已读</span>
+      <div class="bar-track"><div class="bar-fill" style="width:42%;background:linear-gradient(90deg,#9E9E9E,#BDBDBD);"><span class="bar-val">1,334</span></div></div>
+      <span class="bar-count">9.3%</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-emoji">💢</span>
+      <span class="bar-name">暴怒</span>
+      <div class="bar-track"><div class="bar-fill" style="width:38%;background:linear-gradient(90deg,#d32f2f,#b71c1c);"><span class="bar-val">1,198</span></div></div>
+      <span class="bar-count">8.3%</span>
+    </div>
+  </div>
+
+  <div class="footnote">
+    数据经群主王建国授权使用 · 所有人名为化名（除物业张经理外——他说「随便写」）<br>
+    最后一条表情包：👍 · 发送者：物业张经理 · 回复对象：无
+  </div>
+
+</div>
+</body>
+</html>

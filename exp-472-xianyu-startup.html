@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>一个创业者的闲鱼记录</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  max-width: 375px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+/* 顶部导航栏 */
+.nav-bar {
+  background: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-bar .title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 用户卡片 */
+.user-card {
+  background: #fff;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.user-card .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff9a56, #ff6b35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.user-card .info { flex: 1; }
+.user-card .name { font-size: 16px; font-weight: 600; }
+.user-card .meta { font-size: 12px; color: #999; margin-top: 2px; }
+.user-card .credit {
+  background: #fff3e0;
+  color: #ff9800;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+/* 时间轴 */
+.timeline-label {
+  padding: 12px 16px 6px;
+  font-size: 13px;
+  color: #999;
+  font-weight: 500;
+}
+
+/* 商品卡片 */
+.item-card {
+  background: #fff;
+  margin: 0 0 8px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.item-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.item-card .item-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+.item-card .item-body { padding: 12px 16px; }
+.item-card .item-title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.item-card .item-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.item-card .price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.item-card .price {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ff4444;
+}
+.item-card .price::before { content: "¥"; font-size: 14px; }
+.item-card .original-price {
+  font-size: 13px;
+  color: #bbb;
+  text-decoration: line-through;
+}
+.item-card .original-price::before { content: "原价¥"; }
+.item-card .tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.item-card .tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: #f5f5f5;
+  color: #888;
+}
+.item-card .tag.sold {
+  background: #fff0f0;
+  color: #ff4444;
+}
+.item-card .status-badge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.item-card .status-badge.sold-out {
+  background: #f0f0f0;
+  color: #999;
+}
+
+/* 评价区 */
+.review-section {
+  border-top: 1px solid #f0f0f0;
+  padding: 12px 16px;
+}
+.review-section .review-title {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 8px;
+}
+.review {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.review:last-child { margin-bottom: 0; }
+.review .r-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #fff;
+}
+.review .r-content { flex: 1; }
+.review .r-name {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 2px;
+}
+.review .r-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+.review .r-role {
+  font-size: 11px;
+  color: #ff9800;
+  background: #fff8e1;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: 4px;
+}
+.review .r-reply {
+  background: #f8f8f8;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 底部结语 */
+.ending {
+  text-align: center;
+  padding: 40px 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+.ending.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ending .ending-text {
+  font-size: 15px;
+  color: #999;
+  line-height: 1.8;
+}
+.ending .ending-highlight {
+  font-size: 18px;
+  color: #ff6b35;
+  font-weight: 600;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+/* 购买卡片（最后一张特殊） */
+.item-card.buy-card .item-body {
+  border-left: 4px solid #ff6b35;
+  margin-left: 12px;
+  padding-left: 12px;
+}
+.buy-badge {
+  display: inline-block;
+  background: #ff6b35;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* 情绪指示器 */
+.mood-indicator {
+  text-align: center;
+  padding: 8px;
+  font-size: 24px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.mood-indicator.visible { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- 顶部 -->
+<div class="nav-bar">
+  <div class="title">已卖出的宝贝</div>
+</div>
+
+<!-- 用户卡片 -->
+<div class="user-card">
+  <div class="avatar">陈</div>
+  <div class="info">
+    <div class="name">创业路上的老陈</div>
+    <div class="meta">杭州 · 芝麻信用极好 · 在闲鱼卖了36件</div>
+  </div>
+  <div class="credit">🌟 信用极好</div>
+</div>
+
+<!-- 时间线：2023年3月 -->
+<div class="timeline-label">📅 2023年3月 · 至暗时刻</div>
+<div class="mood-indicator">😔</div>
+
+<div class="item-card">
+  <img class="item-image" src="images/exp-472/01-macbook.jpg" alt="MacBook Pro">
+  <div class="item-body">
+    <div class="item-title">MacBook Pro 16寸 M1 Max，创业失败急出</div>
+    <div class="item-desc">用了一年半，跟着我写了20万行代码，见证了公司从0到1再到0。九成新，电池循环87次。充电器都在。现在用不上了。</div>
+    <div class="price-row">
+      <span class="price">8500</span>
+      <span class="original-price">19999</span>
+    </div>
+    <div class="tags">
+      <span class="tag sold">已卖出</span>
+      <span class="tag">9成新</span>
+      <span class="tag">急出</span>
+    </div>
+  </div>
+  <div class="review-section">
+    <div class="review-title">交易评价</div>
+    <div class="review">
+      <div class="r-avatar" style="background:#4fc3f7">小</div>
+      <div class="r-content">
+        <div class="r-name">小鱼爱数码 <span class="r-role">买家</span></div>
+        <div class="r-text">收到了，成色很好！看得出很爱惜。加油哥，会好起来的💪</div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="r-avatar" style="background:#ff9a56">陈</div>
+      <div class="r-content">
+        <div class="r-name">创业路上的老陈 <span class="r-role">卖家</span></div>
+        <div class="r-text">谢谢兄弟。它跟着我熬过很多个凌晨三点，对它好点。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 时间线：2023年6月 -->
+<div class="timeline-label">📅 2023年6月 · 被迫搬家</div>
+<div class="mood-indicator">😞</div>
+
+<div class="item-card">
+  <img class="item-image" src="images/exp-472/02-chair.jpg" alt="Herman Miller椅子">
+  <div class="item-body">
+    <div class="item-title">Herman Miller Aeron人体工学椅，公司搬家含泪出</div>
+    <div class="item-desc">全功能版，坐了一年半。当初觉得创业再苦也不能亏了腰，现在公司没了，椅子还在。自提，余杭区未来科技城。</div>
+    <div class="price-row">
+      <span class="price">4200</span>
+      <span class="original-price">12800</span>
+    </div>
+    <div class="tags">
+      <span class="tag sold">已卖出</span>
+      <span class="tag">自提</span>
+      <span class="tag">全功能版</span>
+    </div>
+  </div>
+  <div class="review-section">
+    <div class="review-title">交易评价</div>
+    <div class="review">
+      <div class="r-avatar" style="background:#81c784">程</div>
+      <div class="r-content">
+        <div class="r-name">程序员小王 <span class="r-role">买家</span></div>
+        <div class="r-text">椅子很棒，坐上去就不想站起来。老哥下一个公司一定行！</div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="r-avatar" style="background:#ff9a56">陈</div>
+      <div class="r-content">
+        <div class="r-name">创业路上的老陈 <span class="r-role">卖家</span></div>
+        <div class="r-text">哈哈谢谢。不过现在得先找份班上，创业的事以后再说吧。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 时间线：2023年9月 -->
+<div class="timeline-label">📅 2023年9月 · 重新出发</div>
+<div class="mood-indicator">🤔</div>
+
+<div class="item-card">
+  <img class="item-image" src="images/exp-472/03-suit.jpg" alt="西装">
+  <div class="item-body">
+    <div class="item-title">面试西装，穿了一次，现在不需要了</div>
+    <div class="item-desc">去大厂面试买的，量身定制，面完就挂衣柜了。后来没去大厂——自己又折腾了一个项目。创业的人大概穿不惯西装。</div>
+    <div class="price-row">
+      <span class="price">380</span>
+      <span class="original-price">2600</span>
+    </div>
+    <div class="tags">
+      <span class="tag sold">已卖出</span>
+      <span class="tag">穿过一次</span>
+      <span class="tag">量身定制</span>
+    </div>
+  </div>
+  <div class="review-section">
+    <div class="review-title">交易评价</div>
+    <div class="review">
+      <div class="r-avatar" style="background:#ba68c8">面</div>
+      <div class="r-content">
+        <div class="r-name">面试达人2024 <span class="r-role">买家</span></div>
+        <div class="r-text">合身！借老哥的好运，明天面阿里！</div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="r-avatar" style="background:#ff9a56">陈</div>
+      <div class="r-content">
+        <div class="r-name">创业路上的老陈 <span class="r-role">卖家</span></div>
+        <div class="r-text">穿着这套过的所有面试都拿了offer，运气在衣服上。冲！</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 时间线：2025年1月 -->
+<div class="timeline-label">📅 2025年1月 · 一切都值得</div>
+<div class="mood-indicator">😊</div>
+
+<div class="item-card">
+  <img class="item-image" src="images/exp-472/04-camping.jpg" alt="露营装备">
+  <div class="item-body">
+    <div class="item-title">全套露营装备转让，没时间用了</div>
+    <div class="item-desc">帐篷+睡袋+炉头+头灯，去年团建买的，结果公司刚完成A轮，忙到现在一次都没用。都是好东西，打包带走。</div>
+    <div class="price-row">
+      <span class="price">1200</span>
+      <span class="original-price">3800</span>
+    </div>
+    <div class="tags">
+      <span class="tag sold">已卖出</span>
+      <span class="tag">全新未用</span>
+      <span class="tag">打包出</span>
+    </div>
+  </div>
+  <div class="review-section">
+    <div class="review-title">交易评价</div>
+    <div class="review">
+      <div class="r-avatar" style="background:#4db6ac">户</div>
+      <div class="r-content">
+        <div class="r-name">户外爱好者阿杰 <span class="r-role">买家</span></div>
+        <div class="r-text">东西很新！话说融了A轮你还卖闲鱼呢哈哈哈</div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="r-avatar" style="background:#ff9a56">陈</div>
+      <div class="r-content">
+        <div class="r-name">创业路上的老陈 <span class="r-role">卖家</span></div>
+        <div class="r-text">创业的人，什么时候都在省钱😂 而且不用的东西留着也是浪费。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 时间线：2026年3月 — 最后的转折 -->
+<div class="timeline-label">📅 2026年3月 · 新的开始</div>
+<div class="mood-indicator">🎉</div>
+
+<div class="item-card buy-card">
+  <img class="item-image" src="images/exp-472/05-new-macbook.jpg" alt="新MacBook Pro">
+  <div class="item-body">
+    <div class="buy-badge">✨ 已买入</div>
+    <div class="item-title">MacBook Pro 16寸 M4 Max，顶配</div>
+    <div class="item-desc">三年前卖掉的那台M1 Max，是当时最心痛的一次点击"确认发货"。今天买回来一台新的。不是因为有钱了，是因为终于又需要一台能跟我熬夜写代码的战友了。</div>
+    <div class="price-row">
+      <span class="price">27999</span>
+    </div>
+    <div class="tags">
+      <span class="tag" style="background:#fff3e0; color:#ff6b35;">新公司新装备</span>
+      <span class="tag" style="background:#e8f5e9; color:#4caf50;">B轮后第一笔开销</span>
+    </div>
+  </div>
+  <div class="review-section">
+    <div class="review-title">朋友留言</div>
+    <div class="review">
+      <div class="r-avatar" style="background:#4fc3f7">小</div>
+      <div class="r-content">
+        <div class="r-name">小鱼爱数码</div>
+        <div class="r-text">哥！三年前那台M1 Max是我买的！你还记得吗！恭喜啊！🎉</div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="r-avatar" style="background:#ff9a56">陈</div>
+      <div class="r-content">
+        <div class="r-name">创业路上的老陈</div>
+        <div class="r-text">当然记得。你当时那句"加油哥"，我存手机里了，低谷的时候看了不下一百遍。</div>
+        <div class="r-reply">回复 @小鱼爱数码：等我公司上市，请你吃饭。认真的。</div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="r-avatar" style="background:#81c784">程</div>
+      <div class="r-content">
+        <div class="r-name">程序员小王</div>
+        <div class="r-text">我现在还坐着你那把椅子上班呢！那椅子风水好，坐上去第二年我就升了架构师😂</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 结尾 -->
+<div class="ending">
+  <div class="ending-text">
+    闲鱼上的每一件卖出的东西<br>
+    都是一段放下的过去<br>
+    每一件买入的东西<br>
+    都是一个新的开始
+  </div>
+  <div class="ending-highlight">
+    三年，36件宝贝<br>
+    卖掉了一整个失败<br>
+    买回了一整个未来
+  </div>
+</div>
+
+<script>
+// 滚动触发动画
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.item-card, .ending, .mood-indicator').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

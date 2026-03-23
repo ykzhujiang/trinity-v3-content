@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公司厕所隔间里的时间简史 — EXP-173</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Caveat&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #e8e4da;
+    color: #333;
+    line-height: 1.85;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  .header {
+    text-align: center;
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+
+  .header h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .header .sub {
+    font-size: 0.78rem;
+    color: #999;
+    font-weight: 300;
+  }
+
+  .floor-plan {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 32px;
+    border: 1px solid #d4d0c4;
+  }
+
+  .floor-plan svg { max-width: 100%; }
+  .floor-caption {
+    font-size: 0.76rem;
+    color: #999;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 80px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #c4b99a;
+  }
+
+  .time-block {
+    position: relative;
+    margin-bottom: 32px;
+  }
+
+  .time-label {
+    position: absolute;
+    left: -80px;
+    width: 60px;
+    text-align: right;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #8a7d5a;
+    top: 2px;
+  }
+
+  .time-dot {
+    position: absolute;
+    left: -35px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #c4a35a;
+    border: 2px solid #e8e4da;
+  }
+
+  .time-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px 18px;
+    border: 1px solid #d4d0c4;
+  }
+
+  .time-content h3 {
+    font-size: 0.92rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #5a5040;
+  }
+
+  .time-content p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .graffiti {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: #7a7a7a;
+    background: #f5f3ed;
+    padding: 10px 16px;
+    border-radius: 4px;
+    margin: 10px 0;
+    border: 1px dashed #ccc;
+    transform: rotate(-0.5deg);
+  }
+
+  .graffiti .reply {
+    margin-top: 6px;
+    padding-left: 16px;
+    border-left: 2px solid #bbb;
+    font-size: 1rem;
+    color: #999;
+  }
+
+  .usage-chart {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 32px 0;
+    border: 1px solid #d4d0c4;
+  }
+
+  .usage-chart h3 {
+    font-size: 0.78rem;
+    color: #999;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  .usage-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.82rem;
+  }
+
+  .usage-label {
+    width: 60px;
+    color: #777;
+    text-align: right;
+    padding-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .usage-bar {
+    height: 22px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-size: 0.72rem;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .stall-card {
+    background: #faf8f2;
+    border: 1px solid #e0dcd0;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 16px 0;
+  }
+
+  .stall-card .stall-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #5a5040;
+    margin-bottom: 6px;
+  }
+
+  .stall-card .stall-detail {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 300;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #f0ece0;
+    color: #8a7d5a;
+    margin-right: 4px;
+  }
+
+  .deep-moment {
+    background: #f0ece0;
+    border-left: 3px solid #c4a35a;
+    padding: 14px 16px;
+    margin: 20px 0;
+    font-size: 0.9rem;
+    color: #5a5040;
+  }
+
+  .ending {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+  }
+
+  .ending p {
+    font-size: 0.92rem;
+    color: #777;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>公司厕所隔间里的时间简史</h1>
+  <div class="sub">一份未经授权的田野调查 · 某互联网公司 · 18F男卫生间 · 共4个隔间</div>
+</div>
+
+<div class="floor-plan">
+  <svg width="100%" height="120" viewBox="0 0 500 120">
+    <text x="250" y="16" text-anchor="middle" font-size="10" fill="#999" font-family="sans-serif">18F 男卫生间平面示意图</text>
+    <!-- stalls -->
+    <rect x="30" y="30" width="90" height="70" rx="4" fill="#f5f3ed" stroke="#c4b99a"/>
+    <text x="75" y="60" text-anchor="middle" font-size="11" fill="#666" font-family="sans-serif">1号</text>
+    <text x="75" y="78" text-anchor="middle" font-size="9" fill="#aaa" font-family="sans-serif">靠窗·有光</text>
+    
+    <rect x="140" y="30" width="90" height="70" rx="4" fill="#f5f3ed" stroke="#c4b99a"/>
+    <text x="185" y="60" text-anchor="middle" font-size="11" fill="#666" font-family="sans-serif">2号</text>
+    <text x="185" y="78" text-anchor="middle" font-size="9" fill="#aaa" font-family="sans-serif">中间·安全</text>
+    
+    <rect x="250" y="30" width="90" height="70" rx="4" fill="#ece6d6" stroke="#b5a47a"/>
+    <text x="295" y="60" text-anchor="middle" font-size="11" fill="#666" font-family="sans-serif">3号</text>
+    <text x="295" y="78" text-anchor="middle" font-size="9" fill="#b5a47a" font-family="sans-serif">👑人气王</text>
+    
+    <rect x="360" y="30" width="90" height="70" rx="4" fill="#f0e8e8" stroke="#c4a0a0"/>
+    <text x="405" y="60" text-anchor="middle" font-size="11" fill="#999" font-family="sans-serif">4号</text>
+    <text x="405" y="78" text-anchor="middle" font-size="9" fill="#c4a0a0" font-family="sans-serif">⚠️ 禁区</text>
+  </svg>
+  <div class="floor-caption">3号隔间使用率是其他隔间的2.3倍。4号隔间冲水声异常，人称"水帘洞"，非紧急情况无人进入。</div>
+</div>
+
+<div class="timeline">
+
+  <div class="time-block">
+    <div class="time-label">09:15</div>
+    <div class="time-dot"></div>
+    <div class="time-content">
+      <h3>晨间仪式</h3>
+      <p>公司九点上班。九点一刻是第一波高峰——不是因为生理需要，是因为到工位开完电脑后需要一段"过渡时间"。这个时间段的平均停留：4分钟。手机使用率：100%。</p>
+      <p>内容以新闻和群消息为主。没有人在早上九点一刻刷短视频——不是不想，是还没进入那个状态。</p>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-label">10:00</div>
+    <div class="time-dot"></div>
+    <div class="time-content">
+      <h3>第一波摸鱼潮</h3>
+      <p>十点是厕所的黄金时段。开完晨会的人、被需求文档逼疯的人、不想回复"收到"的人，纷纷涌入。</p>
+      <p>这个时间段的停留时间出现了明显的双峰分布：3分钟以内（真的有需要）和8-15分钟（需要的是精神庇护所）。</p>
+      <div class="graffiti">
+        "会议纪要不写会死吗" <br>
+        <div class="reply">— 会。主语是你。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-label">11:40</div>
+    <div class="time-dot"></div>
+    <div class="time-content">
+      <h3>午饭前的空窗期</h3>
+      <p>接近午饭时间，厕所突然安静了。所有人都在忍。不是忍生理需求，是忍到12点——因为11:40上厕所回来还要假装工作20分钟，不如等到午休时间名正言顺地消失。</p>
+      <p>经济学原理：当合法休息的成本为零时，没有人会提前支出非法休息的信誉成本。</p>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-label">14:00</div>
+    <div class="time-dot" style="background: #d94e4e;"></div>
+    <div class="time-content">
+      <h3>午后崩溃时段（峰值）</h3>
+      <p>一天中使用率最高的时段。午饭后的困意+下午排满的会议+午睡无处可睡=厕所隔间成为唯一的私人空间。</p>
+      <p>这个时间段的特征：停留时间最长（均值11分钟），手机使用率反而最低（63%）。很多人进去是为了闭眼。3号隔间靠着暖气管，冬天微微发热——这是它成为人气王的核心原因。</p>
+      <div class="graffiti">
+        "在3号间睡着过的请举手"<br>
+        <div class="reply">正 正 正 丅</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-label">17:25</div>
+    <div class="time-dot"></div>
+    <div class="time-content">
+      <h3>下班前充电</h3>
+      <p>五点半下班的公司，五点二十五是厕所的第二个客流高峰。这不是摸鱼——这是"充电"。在结束一天工作之前，需要五分钟的独处，来完成从"工作中的人"到"下班后的人"的身份切换。</p>
+      <p>这个时段手机屏幕上出现率最高的内容：外卖app、地图导航、和某人的聊天窗口。他们已经在计划下班后的生活了。身体还在18楼，意识已经在地铁上了。</p>
+    </div>
+  </div>
+
+  <div class="time-block">
+    <div class="time-label">19:30</div>
+    <div class="time-dot" style="background: #7389ab;"></div>
+    <div class="time-content">
+      <h3>加班者的避难所</h3>
+      <p>七点半以后进来的人，走路的速度明显更慢。他们不赶时间了——不是因为放松，是因为已经放弃了准时离开这个选项。</p>
+      <p>这个时间段开始出现"打电话的人"。白天没有人在厕所打电话（隔音差+回声大=社死）。但加班时段，厕所变成了唯一能打私人电话的地方。</p>
+      <p>"快了快了，改完这一版就走。"这句话在洗手间墙壁之间回荡，日均出现1.7次。</p>
+    </div>
+  </div>
+</div>
+
+<div class="usage-chart">
+  <h3>隔间使用率 · 按时段</h3>
+  <div class="usage-row"><span class="usage-label">09:00</span><div class="usage-bar" style="width: 80px; background: #c4a35a;">18%</div></div>
+  <div class="usage-row"><span class="usage-label">10:00</span><div class="usage-bar" style="width: 155px; background: #c4a35a;">35%</div></div>
+  <div class="usage-row"><span class="usage-label">11:40</span><div class="usage-bar" style="width: 30px; background: #ddd; color:#999;">5%</div></div>
+  <div class="usage-row"><span class="usage-label">14:00</span><div class="usage-bar" style="width: 220px; background: #d94e4e;">52%</div></div>
+  <div class="usage-row"><span class="usage-label">17:25</span><div class="usage-bar" style="width: 130px; background: #c4a35a;">30%</div></div>
+  <div class="usage-row"><span class="usage-label">19:30</span><div class="usage-bar" style="width: 65px; background: #7389ab;">14%</div></div>
+</div>
+
+<div class="stall-card">
+  <div class="stall-name">关于那个所有人都回避的4号隔间</div>
+  <div class="stall-detail">
+    <p>4号隔间的冲水阀有问题，按下去后会持续出水约8秒，音量约75分贝。在安静的厕所里，这等于向全层广播"有人在4号"。</p>
+    <p>报修过三次。第一次行政说"已登记"。第二次说"已催"。第三次——没有第三次了。</p>
+    <p>于是4号成了一个薛定谔的隔间：门永远关着（坏了锁不上，用胶带粘的），里面可能有人也可能没有。新员工第一次误入4号并触发水帘洞模式，是这个楼层不成文的入职仪式。</p>
+    <span class="tag">报修单 #20241218</span>
+    <span class="tag">状态: 处理中</span>
+    <span class="tag">更新时间: 2024-12-18</span>
+  </div>
+</div>
+
+<div class="deep-moment">
+  有一次加班到很晚，快十一点。去厕所的时候，1号隔间的门缝下面透着手机的光。没有声音。停了几秒，听到里面有人在非常、非常轻地呼气。那种刻意控制的呼吸，吸四秒，停两秒，呼六秒。是网上教的缓解焦虑的方法。<br><br>
+  我洗了很久的手。比需要的时间久。<br>
+  出门的时候把灯调亮了一档——那个隔间的灯开关在外面。<br><br>
+  不知道有没有用。但在一栋加班到深夜的写字楼里，能做的事不多。
+</div>
+
+<div class="ending">
+  <div class="graffiti" style="transform: rotate(-1deg); margin-bottom: 20px;">
+    "18F男厕使用指南：<br>
+    　1号适合思考人生<br>
+    　2号适合临时工<br>
+    　3号适合午睡（自备闹钟）<br>
+    　4号适合测试你和行政的关系<br><br>
+    　更新：3号暖气管已停（4月）。人气王驾崩。<br>
+    　再更新：4号修好了。<br>
+    　再再更新：4号又坏了。"
+  </div>
+  <p>这份指南被人用记号笔写在2号隔间的门背面，目测已经存在至少八个月——最早的字迹已经被消毒水洗淡了。最新的"再再更新"是上周加的，字迹还很新。</p>
+  <p>保洁阿姨每周擦一次。擦不掉。她后来不擦了。</p>
+</div>
+
+</body>
+</html>

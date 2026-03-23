@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI圈本周大事件 | 2026.03.15-21</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, 'PingFang SC', sans-serif; background:#0a0a0f; color:#fff; overflow-x:hidden; }
+.container { max-width:100vw; scroll-snap-type:y mandatory; height:100vh; overflow-y:scroll; }
+.card {
+  min-height:100vh; scroll-snap-align:start; padding:20px;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  position:relative; overflow:hidden;
+}
+.card-bg { position:absolute; inset:0; background-size:cover; background-position:center; filter:brightness(0.3) blur(2px); z-index:0; }
+.card-content { position:relative; z-index:1; text-align:center; max-width:340px; animation: slideUp 0.6s ease-out; }
+@keyframes slideUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+.card-emoji { font-size:48px; margin-bottom:16px; animation: bounce 2s infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.card-title { font-size:24px; font-weight:800; line-height:1.4; margin-bottom:12px; text-shadow:0 2px 8px rgba(0,0,0,0.8); }
+.card-desc { font-size:18px; line-height:1.6; color:#ccc; margin-bottom:16px; text-shadow:0 1px 4px rgba(0,0,0,0.8); }
+.card-data { display:inline-block; padding:8px 20px; border-radius:20px; background:rgba(255,255,255,0.15); backdrop-filter:blur(10px); font-size:16px; font-weight:600; border:1px solid rgba(255,255,255,0.2); }
+.card-tag { margin-top:16px; font-size:28px; }
+.card-img { width:90%; max-width:320px; border-radius:16px; margin-bottom:16px; box-shadow:0 8px 32px rgba(0,0,0,0.5); }
+.card-number { position:absolute; top:20px; right:20px; font-size:14px; color:rgba(255,255,255,0.4); z-index:2; }
+.real-tag { position:absolute; top:20px; left:20px; font-size:12px; padding:4px 10px; border-radius:10px; background:rgba(255,60,60,0.8); z-index:2; font-weight:600; }
+/* Title card */
+.title-card { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+.title-card .card-title { font-size:32px; }
+.title-card .subtitle { font-size:18px; color:#888; margin-top:8px; }
+/* Summary card */
+.summary-card { background: linear-gradient(135deg, #0f3460, #533483, #e94560); }
+.summary-card .card-title { font-size:22px; }
+/* Scroll hint */
+.scroll-hint { position:absolute; bottom:30px; left:50%; transform:translateX(-50%); z-index:2; animation: fadeInOut 2s infinite; font-size:14px; color:rgba(255,255,255,0.5); }
+@keyframes fadeInOut { 0%,100%{opacity:0.3} 50%{opacity:1} }
+.scroll-hint span { display:block; font-size:20px; }
+/* Progress dots */
+.progress { position:fixed; right:10px; top:50%; transform:translateY(-50%); z-index:100; display:flex; flex-direction:column; gap:8px; }
+.dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.3); transition:all 0.3s; }
+.dot.active { background:#e94560; transform:scale(1.5); }
+</style>
+</head>
+<body>
+<div class="progress" id="dots"></div>
+<div class="container" id="container">
+
+<!-- Card 0: Title -->
+<div class="card title-card">
+<div class="card-content">
+  <div class="card-emoji">🤖</div>
+  <div class="card-title">AI圈本周大事件</div>
+  <div class="subtitle">2026.03.15 — 03.21</div>
+  <div style="margin-top:20px;font-size:16px;color:#666;">真实资讯 · 一屏一事件</div>
+</div>
+<div class="scroll-hint"><span>↓</span>上滑查看</div>
+</div>
+
+<!-- Card 1: NVIDIA GTC -->
+<div class="card" style="background:linear-gradient(180deg,#1a1a2e,#0d1117)">
+<div class="real-tag">📰 真实资讯</div>
+<div class="card-number">1/6</div>
+<div class="card-content">
+  <img class="card-img" src="../images/b102/b102-1-nvidia-gtc.jpg" alt="NVIDIA GTC 2026">
+  <div class="card-emoji">🔥</div>
+  <div class="card-title">英伟达GTC 2026开幕</div>
+  <div class="card-desc">黄仁勋发布RTX PRO Blackwell GPU新品，呼吁"别再散布AI恐慌"，强调AI只是软件</div>
+  <div class="card-data">💰 合作伙伴推出新一代AI工作站</div>
+  <div class="card-tag">🔥</div>
+</div>
+</div>
+
+<!-- Card 2: SuperMicro Scandal -->
+<div class="card" style="background:linear-gradient(180deg,#1a0a0a,#0d1117)">
+<div class="real-tag">📰 真实资讯</div>
+<div class="card-number">2/6</div>
+<div class="card-content">
+  <img class="card-img" src="../images/b102/b102-1-supermicro.jpg" alt="超微电脑走私案">
+  <div class="card-emoji">⚡</div>
+  <div class="card-title">超微电脑高管被控走私AI芯片</div>
+  <div class="card-desc">美国检方指控三人协助将价值数十亿美元的英伟达AI芯片服务器非法运往中国</div>
+  <div class="card-data">💸 涉案金额：数十亿美元</div>
+  <div class="card-tag">⚡</div>
+</div>
+</div>
+
+<!-- Card 3: Meta Layoffs & AI Investment -->
+<div class="card" style="background:linear-gradient(180deg,#0a1a2e,#0d1117)">
+<div class="real-tag">📰 真实资讯</div>
+<div class="card-number">3/6</div>
+<div class="card-content">
+  <img class="card-img" src="../images/b102/b102-1-meta-ai.jpg" alt="Meta AI投资">
+  <div class="card-emoji">💡</div>
+  <div class="card-title">Meta拟大裁员，疯狂押注AI</div>
+  <div class="card-desc">AI成本飙升之下，Meta计划再裁员。同时拟6000亿美元建数据中心，20亿收购中国AI创企Manus</div>
+  <div class="card-data">📊 2028年投资：6000亿美元</div>
+  <div class="card-tag">💡</div>
+</div>
+</div>
+
+<!-- Card 4: China AI Assets Boom -->
+<div class="card" style="background:linear-gradient(180deg,#1a0a1a,#0d1117)">
+<div class="real-tag">📰 真实资讯</div>
+<div class="card-number">4/6</div>
+<div class="card-content">
+  <img class="card-img" src="../images/b102/b102-1-china-ai.jpg" alt="中国AI资产">
+  <div class="card-emoji">🚀</div>
+  <div class="card-title">中国AI资产将全面爆发</div>
+  <div class="card-desc">阿里云收入增速达36%，云服务涨价推升利润率。AI智能体人才需求暴涨455%</div>
+  <div class="card-data">📈 阿里云2026财年预计收入1900亿</div>
+  <div class="card-tag">🚀</div>
+</div>
+</div>
+
+<!-- Card 5: AI Model Poisoning -->
+<div class="card" style="background:linear-gradient(180deg,#1a1a0a,#0d1117)">
+<div class="real-tag">📰 真实资讯</div>
+<div class="card-number">5/6</div>
+<div class="card-content">
+  <img class="card-img" src="../images/b102/b102-1-ai-poison.jpg" alt="AI模型投毒">
+  <div class="card-emoji">🤔</div>
+  <div class="card-title">央视315曝光：AI大模型频遭"投毒"</div>
+  <div class="card-desc">服务商批量制造虚假信息"投喂"AI，操控AI推荐结果，虚构产品变成"优品"</div>
+  <div class="card-data">⚠️ GEO滥用成行业灰色地带</div>
+  <div class="card-tag">🤔</div>
+</div>
+</div>
+
+<!-- Card 6: AI Agent Trends 2026 -->
+<div class="card" style="background:linear-gradient(180deg,#0a1a1a,#0d1117)">
+<div class="real-tag">📰 真实资讯</div>
+<div class="card-number">6/6</div>
+<div class="card-content">
+  <img class="card-img" src="../images/b102/b102-1-ai-agents.jpg" alt="AI Agent趋势">
+  <div class="card-emoji">🌟</div>
+  <div class="card-title">2026年AI三大趋势：主权·代理·实体</div>
+  <div class="card-desc">安永预测AI Agent从概念走向落地，各国争夺"主权AI"，制造业迎来"实体AI"浪潮</div>
+  <div class="card-data">🌍 3月24日苏黎世AI大会详解</div>
+  <div class="card-tag">🌟</div>
+</div>
+</div>
+
+<!-- Summary Card -->
+<div class="card summary-card">
+<div class="card-content">
+  <div class="card-emoji">✨</div>
+  <div class="card-title">本周最值得关注</div>
+  <div class="card-desc" style="color:#fff;font-size:20px;line-height:1.8;">
+    AI芯片成地缘博弈焦点<br>
+    巨头们一边裁人一边疯狂砸钱<br>
+    中国AI跑步入场，人才缺口巨大<br>
+    <span style="font-size:24px;margin-top:12px;display:block;">风暴正在酝酿 🌊</span>
+  </div>
+</div>
+</div>
+
+</div>
+
+<script>
+// Progress dots
+const cards = document.querySelectorAll('.card');
+const dotsEl = document.getElementById('dots');
+cards.forEach((_,i) => { const d = document.createElement('div'); d.className='dot'; dotsEl.appendChild(d); });
+const dots = dotsEl.querySelectorAll('.dot');
+const container = document.getElementById('container');
+container.addEventListener('scroll', () => {
+  const idx = Math.round(container.scrollTop / window.innerHeight);
+  dots.forEach((d,i) => d.classList.toggle('active', i===idx));
+});
+dots[0]?.classList.add('active');
+
+// Lazy animation on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.querySelector('.card-content')?.style.setProperty('animation','slideUp 0.6s ease-out'); });
+}, {threshold:0.5});
+cards.forEach(c => observer.observe(c));
+</script>
+</body>
+</html>

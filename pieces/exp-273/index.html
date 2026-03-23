@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI复活好莱坞明星 | EXP-273</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;background:#1a1a2e;color:#e0e0e0;font-size:18px;line-height:1.7;overflow-x:hidden}
+.container{max-width:420px;margin:0 auto;padding:0 0 60px}
+
+.header{padding:50px 20px 16px;text-align:center}
+.badge{display:inline-block;background:#c62828;color:#fff;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:1px}
+.header h1{font-size:22px;font-weight:800;color:#fff;line-height:1.3}
+.header .sub{font-size:14px;color:#999;margin-top:6px}
+
+/* Movie poster style */
+.poster{margin:16px;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#16213e,#0f3460);padding:32px 20px;text-align:center;position:relative}
+.poster .star{font-size:80px;margin-bottom:12px;filter:grayscale(0.3)}
+.poster .movie-title{font-size:20px;font-weight:800;color:#fff;letter-spacing:2px}
+.poster .movie-sub{font-size:14px;color:#90caf9;margin-top:6px}
+.poster .tag{position:absolute;top:16px;right:16px;background:rgba(255,111,0,0.9);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:10px}
+
+/* Chat bubbles — satirical reactions */
+.chat-section{padding:0 16px;margin-top:20px}
+.chat-title{font-size:14px;color:#666;text-align:center;margin-bottom:16px;letter-spacing:2px}
+.bubble-row{display:flex;gap:10px;margin-bottom:14px;opacity:0;transform:translateY(15px);transition:all 0.5s ease}
+.bubble-row.visible{opacity:1;transform:translateY(0)}
+.bubble-row.right{flex-direction:row-reverse}
+.bubble-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.bubble{max-width:280px;padding:12px 16px;border-radius:18px;font-size:16px;line-height:1.5;position:relative}
+.bubble-left{background:rgba(255,255,255,0.08);border-bottom-left-radius:4px}
+.bubble-right{background:rgba(255,111,0,0.15);border-bottom-right-radius:4px;color:#ffcc80}
+.bubble .name{font-size:12px;color:#888;margin-bottom:4px;font-weight:600}
+
+/* Reaction bar */
+.reactions{display:flex;gap:8px;justify-content:center;padding:16px;flex-wrap:wrap}
+.reaction{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 14px;font-size:14px;display:flex;align-items:center;gap:4px;opacity:0;transform:scale(0.8);transition:all 0.4s ease}
+.reaction.visible{opacity:1;transform:scale(1)}
+
+/* Commentary panels */
+.panel-card{margin:12px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:18px;opacity:0;transform:translateY(15px);transition:all 0.5s ease}
+.panel-card.visible{opacity:1;transform:translateY(0)}
+.panel-card .emoji{font-size:32px;margin-bottom:8px}
+.panel-card .title2{font-size:17px;font-weight:700;color:#fff;margin-bottom:6px}
+.panel-card .text2{font-size:15px;color:#999;line-height:1.6}
+.panel-card .punchline{font-size:17px;color:#ff8f00;font-weight:700;margin-top:10px}
+
+/* Vote section */
+.vote{margin:20px 16px;background:rgba(255,255,255,0.04);border-radius:16px;padding:20px;text-align:center}
+.vote .q{font-size:18px;font-weight:700;color:#fff;margin-bottom:16px}
+.vote-options{display:flex;gap:10px;justify-content:center}
+.vote-btn{flex:1;padding:14px;border-radius:12px;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all 0.3s}
+.vote-btn.yes{background:rgba(0,200,83,0.15);color:#69f0ae;border:1px solid rgba(0,200,83,0.3)}
+.vote-btn.no{background:rgba(198,40,40,0.15);color:#ef9a9a;border:1px solid rgba(198,40,40,0.3)}
+.vote-btn:active{transform:scale(0.95)}
+.vote-result{margin-top:14px;font-size:14px;color:#888;display:none}
+
+.footer{text-align:center;padding:20px 16px;font-size:12px;color:#444}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">✅ 真实事件 · 搞笑解读</div>
+    <h1>AI复活了好莱坞明星<br>然后让他拍新电影</h1>
+    <div class="sub">Val Kilmer 的遗产同意用 AI 重建他的形象出演新片<br>📰 Variety · 2026年3月18日</div>
+  </div>
+
+  <div class="poster">
+    <div class="tag">AI 出演</div>
+    <div class="star">🎬</div>
+    <div class="movie-title">AS DEEP AS THE GRAVE</div>
+    <div class="movie-sub">主演：AI版 Val Kilmer<br>（本人已于2025年12月去世）</div>
+  </div>
+
+  <div class="chat-section">
+    <div class="chat-title">—— 网友热评 ——</div>
+
+    <div class="bubble-row">
+      <div class="bubble-avatar" style="background:#c62828">🎭</div>
+      <div class="bubble bubble-left">
+        <div class="name">好莱坞观察员</div>
+        所以现在演员连死了都不能休息了？？
+      </div>
+    </div>
+
+    <div class="bubble-row right">
+      <div class="bubble-avatar" style="background:#ff6f00">😂</div>
+      <div class="bubble bubble-right">
+        <div class="name">段子手老王</div>
+        以后选角要求：已去世优先，省片酬
+      </div>
+    </div>
+
+    <div class="bubble-row">
+      <div class="bubble-avatar" style="background:#1565c0">🤖</div>
+      <div class="bubble bubble-left">
+        <div class="name">AI行业人士</div>
+        导演：我需要一个不会迟到、不会耍大牌、不要片酬的演员<br>制片：那不就是AI吗
+      </div>
+    </div>
+
+    <div class="bubble-row right">
+      <div class="bubble-avatar" style="background:#2e7d32">💀</div>
+      <div class="bubble bubble-right">
+        <div class="name">吃瓜群众</div>
+        Val Kilmer的遗产同意了<br>但有人问过Val Kilmer本人吗？<br>哦等等…
+      </div>
+    </div>
+
+    <div class="bubble-row">
+      <div class="bubble-avatar" style="background:#6a1b9a">📱</div>
+      <div class="bubble bubble-left">
+        <div class="name">创业者小陈</div>
+        我突然觉得我的创业方向找到了：<br>AI演员经纪公司<br>客户：已故明星<br>分成：遗产80% 我20%
+      </div>
+    </div>
+  </div>
+
+  <div class="reactions">
+    <div class="reaction">😂 2.3k</div>
+    <div class="reaction">💀 1.8k</div>
+    <div class="reaction">🤔 956</div>
+    <div class="reaction">😱 743</div>
+    <div class="reaction">🎬 512</div>
+  </div>
+
+  <div class="panel-card">
+    <div class="emoji">🎬</div>
+    <div class="title2">认真说：这事没那么简单</div>
+    <div class="text2">Val Kilmer 生前因喉癌丧失语言能力，2021年纪录片《Val》中就用了AI语音还原他的声音。他的儿子曾公开表示："爸爸一直想继续演戏。"<br><br>这次遗产同意AI出演，可能不是简单的"消费逝者"——而是对一个未完成梦想的延续。</div>
+    <div class="punchline">但问题是：这条线在哪里？</div>
+  </div>
+
+  <div class="panel-card">
+    <div class="emoji">🤖</div>
+    <div class="title2">创业者视角</div>
+    <div class="text2">如果AI可以"复活"演员——<br>那AI可以"复活"任何人的数字形象。<br><br>已故艺术家的新作品？<br>逝者的AI视频留言？<br>你奶奶的AI语音讲故事？</div>
+    <div class="punchline">下一个千亿市场，可能在天堂和人间之间。</div>
+  </div>
+
+  <div class="vote">
+    <div class="q">你支持 AI "复活" 已故明星拍电影吗？</div>
+    <div class="vote-options">
+      <button class="vote-btn yes" onclick="vote('yes')">👍 支持</button>
+      <button class="vote-btn no" onclick="vote('no')">👎 反对</button>
+    </div>
+    <div class="vote-result" id="vr"></div>
+  </div>
+
+  <div class="footer">EXP-273 · ✅ 真实事件 · 搞笑解读 · 来源：Variety 2026-03-18 · Trinity V3</div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.bubble-row, .reaction, .panel-card').forEach(el => observer.observe(el));
+
+function vote(choice) {
+  const vr = document.getElementById('vr');
+  vr.style.display = 'block';
+  if (choice === 'yes') {
+    vr.textContent = '你投了「支持」— 62%的读者也这么选 👍';
+  } else {
+    vr.textContent = '你投了「反对」— 38%的读者和你一样 🤝';
+  }
+  document.querySelectorAll('.vote-btn').forEach(b => b.style.opacity = '0.5');
+}
+</script>
+</body>
+</html>

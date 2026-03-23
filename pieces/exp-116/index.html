@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXP-116 — 查找朋友</title>
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+  .map {
+    background: linear-gradient(135deg, #0a1a0a 0%, #1a2a1a 50%, #0a1a0a 100%);
+    border-radius: 14px;
+    position: relative;
+    height: 280px;
+    margin: 12px 0;
+    overflow: hidden;
+  }
+  .map::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(48,209,88,0.05) 0%, transparent 70%);
+  }
+  .map-dot {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    transition: all 0.5s;
+  }
+  .map-dot.on { background: #30d158; box-shadow: 0 0 12px rgba(48,209,88,0.6); }
+  .map-dot.dim { background: #636366; opacity: 0.4; box-shadow: none; }
+  .map-dot.off { opacity: 0; }
+  .map-dot .name-tag {
+    position: absolute;
+    top: -20px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #aaa;
+    white-space: nowrap;
+  }
+  .city-label {
+    position: absolute;
+    font-size: 9px;
+    color: #3a5a3a;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="status-bar">
+  <span class="time">14:22</span>
+  <span class="icons">📶 📡 🔋</span>
+</div>
+
+<div class="card fade-in">
+  <div class="card-header">
+    <div class="icon" style="background:#30d158;">📍</div>
+    <div>
+      <div class="label">查找</div>
+      <div class="title">朋友</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2018: 大学 — all clustered -->
+<div class="timestamp fade-in">2018年 · 大四</div>
+<div class="map fade-in">
+  <span class="city-label" style="top:40%; left:25%;">武汉</span>
+  <div class="map-dot on" style="top:45%; left:48%;"><span class="name-tag">我</span></div>
+  <div class="map-dot on" style="top:43%; left:51%;"><span class="name-tag">陈昊</span></div>
+  <div class="map-dot on" style="top:48%; left:46%;"><span class="name-tag">小林</span></div>
+  <div class="map-dot on" style="top:44%; left:53%;"><span class="name-tag">王琪</span></div>
+  <div class="map-dot on" style="top:47%; left:50%;"><span class="name-tag">阿杰</span></div>
+</div>
+
+<p class="coda" style="border:none; margin-top:4px; padding-top:0; font-size:13px; color:#8e8e93;">
+  五个绿点挤在一起，最远不超过三公里。那时候觉得这是理所当然的。
+</p>
+
+<!-- 2020: 散开 -->
+<div class="timestamp fade-in">2020年 · 毕业两年</div>
+<div class="map fade-in">
+  <span class="city-label" style="top:30%; left:55%;">北京</span>
+  <span class="city-label" style="top:50%; left:68%;">上海</span>
+  <span class="city-label" style="top:40%; left:25%;">成都</span>
+  <span class="city-label" style="top:60%; left:45%;">深圳</span>
+  <div class="map-dot on" style="top:33%; left:60%;"><span class="name-tag">我</span></div>
+  <div class="map-dot on" style="top:53%; left:73%;"><span class="name-tag">陈昊</span></div>
+  <div class="map-dot on" style="top:43%; left:28%;"><span class="name-tag">小林</span></div>
+  <div class="map-dot on" style="top:38%; left:52%;"><span class="name-tag">王琪</span></div>
+  <div class="map-dot on" style="top:63%; left:50%;"><span class="name-tag">阿杰</span></div>
+</div>
+
+<p class="coda" style="border:none; margin-top:4px; padding-top:0; font-size:13px; color:#8e8e93;">
+  五个点散到五个城市。打开"查找"的时候，要缩小两级才能看全。群里约跨年，发了43条消息，最后没约成。
+</p>
+
+<!-- 2023: 变暗 -->
+<div class="timestamp fade-in">2023年 · 毕业五年</div>
+<div class="map fade-in">
+  <div class="map-dot on" style="top:33%; left:60%;"><span class="name-tag">我</span></div>
+  <div class="map-dot on" style="top:53%; left:73%;"><span class="name-tag">陈昊</span></div>
+  <div class="map-dot dim" style="top:43%; left:28%;"><span class="name-tag">小林</span></div>
+  <div class="map-dot on" style="top:36%; left:57%;"><span class="name-tag">王琪</span></div>
+  <div class="map-dot dim" style="top:63%; left:50%;"><span class="name-tag">阿杰</span></div>
+</div>
+
+<p class="coda" style="border:none; margin-top:4px; padding-top:0; font-size:13px; color:#8e8e93;">
+  小林和阿杰的点变灰了——不是关系断了，是他们关了位置共享。你也不好意思问为什么。<br><br>
+  王琪来了北京。绿点突然离你很近，只有 7.2 公里。你们说了三次"改天聚一下"，没有聚。7.2 公里，比武汉时的 1.3 公里远了不到六倍，却像隔了一整个大学。
+</p>
+
+<!-- 2025: 消失 -->
+<div class="timestamp fade-in">2025年12月</div>
+<div class="map fade-in">
+  <div class="map-dot on" style="top:33%; left:60%;"><span class="name-tag">我</span></div>
+  <div class="map-dot dim" style="top:53%; left:73%;"><span class="name-tag" style="color:#636366;">陈昊</span></div>
+  <div class="map-dot off" style="top:43%; left:28%;"></div>
+  <div class="map-dot dim" style="top:36%; left:57%;"><span class="name-tag" style="color:#636366;">王琪</span></div>
+  <div class="map-dot off" style="top:63%; left:50%;"></div>
+</div>
+
+<p class="coda" style="border:none; margin-top:4px; padding-top:0; font-size:13px; color:#8e8e93;">
+  小林的点消失了。是换了手机没重新登录，还是删了你，你不确定。没有去查。有些事情不问，就还能当做什么都没变。
+</p>
+
+<!-- 2026: Now -->
+<div class="timestamp fade-in">2026年3月 · 现在</div>
+<div class="map fade-in">
+  <div class="map-dot on" style="top:33%; left:60%;"><span class="name-tag">我</span></div>
+  <div class="map-dot on" style="top:35%; left:63%;"><span class="name-tag" style="color:#30d158;">陈昊</span></div>
+</div>
+
+<div class="card fade-in" style="margin-top: 12px;">
+  <div class="data-row">
+    <span class="label">📍 陈昊</span>
+    <span class="value" style="color:var(--green);">2.1 公里外</span>
+  </div>
+  <div class="data-row">
+    <span class="label" style="font-size:12px;">位置更新于 3分钟前</span>
+    <span class="value" style="font-size:12px; color:var(--text-secondary);"></span>
+  </div>
+</div>
+
+<div class="coda fade-in">
+  陈昊上个月调来了北京。<br>
+  绿点离你 2.1 公里。<br><br>
+  你们约了周六吃火锅，他回了"好"，后面跟了一个感叹号。<br><br>
+  "查找"里现在只有两个绿点。<br>
+  可是这两个绿点之间的 2.1 公里，是你这一年里最短的距离。
+</div>
+
+</div>
+</body>
+</html>

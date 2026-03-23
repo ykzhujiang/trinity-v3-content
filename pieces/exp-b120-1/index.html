@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>都市之最强狂兵 · 第一章</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0f;
+  color: #e8e6e3;
+  font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  font-size: 20px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* 阅读器顶栏 */
+.reader-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.reader-bar .book-title {
+  font-size: 14px; color: #888; letter-spacing: 1px;
+}
+.reader-bar .chapter-title {
+  font-size: 15px; color: #ccc; font-weight: 600;
+}
+
+/* 封面区 */
+.cover-section {
+  position: relative;
+  height: 70vh; min-height: 400px;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.cover-section img {
+  position: absolute; top:0; left:0; width:100%; height:100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+}
+.cover-overlay {
+  position: relative; z-index: 2;
+  padding: 30px 24px;
+  background: linear-gradient(transparent, rgba(10,10,15,0.95));
+  width: 100%;
+}
+.cover-overlay .tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: #fff; font-size: 12px; font-weight: 700;
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+.cover-overlay h1 {
+  font-size: 28px; font-weight: 800; color: #fff;
+  margin-bottom: 8px; line-height: 1.3;
+}
+.cover-overlay .meta {
+  font-size: 14px; color: #aaa;
+}
+
+/* 内容区 */
+.content {
+  max-width: 680px; margin: 0 auto;
+  padding: 30px 24px 60px;
+}
+.scene-img {
+  width: 100%; border-radius: 12px;
+  margin: 24px 0 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  animation: fadeInUp 0.6s ease-out;
+}
+.para {
+  margin-bottom: 20px;
+  text-indent: 2em;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+.para:nth-child(1) { animation-delay: 0.1s; }
+.para:nth-child(2) { animation-delay: 0.2s; }
+.para:nth-child(3) { animation-delay: 0.3s; }
+
+.dialogue {
+  background: rgba(255,107,53,0.08);
+  border-left: 3px solid #ff6b35;
+  padding: 14px 18px;
+  margin: 16px 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #f0d9c8;
+}
+.narrator {
+  color: #999; font-size: 16px;
+  text-align: center;
+  margin: 30px 0;
+  letter-spacing: 2px;
+}
+
+/* 章节hook */
+.chapter-hook {
+  margin-top: 50px; padding: 30px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, transparent, rgba(255,107,53,0.06));
+  border-radius: 16px;
+}
+.chapter-hook .hook-text {
+  font-size: 22px; font-weight: 700;
+  color: #ff6b35;
+  margin-bottom: 8px;
+}
+.chapter-hook .hook-sub {
+  font-size: 15px; color: #888;
+}
+
+/* 来源 */
+.source-info {
+  margin-top: 40px; padding: 20px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  font-size: 13px; color: #666;
+  text-align: center;
+  line-height: 1.8;
+}
+
+/* 动效 */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 滚动触发 */
+.reveal { opacity: 1; transform: translateY(0); animation: fadeUp 0.6s ease-out; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="reader-bar">
+  <span class="book-title">都市之最强狂兵</span>
+  <span class="chapter-title">第一章 · 猛虎归来</span>
+</div>
+
+<div class="cover-section">
+  <img src="exp440-1-city-rooftop.jpg" alt="都市夜景">
+  <div class="cover-overlay">
+    <span class="tag">🔥 故事渲染</span>
+    <h1>都市之最强狂兵</h1>
+    <div class="meta">作者：大红大紫 · 改编渲染 · 第一章</div>
+  </div>
+</div>
+
+<div class="content">
+  <p class="narrator">— 第一章 · 猛虎归来 —</p>
+
+  <p class="para reveal">临海市，深夜十一点。</p>
+
+  <p class="para reveal">一辆破旧的绿皮大巴在长途汽车站缓缓停下，车门打开，走下来一个身形挺拔的年轻男人。</p>
+
+  <p class="para reveal">他叫陈六合。穿着一件洗得发白的军绿色T恤，脚上一双磨得不成样子的军靴，手里只提着一个帆布包。整个人看起来落魄得像个刚出狱的。</p>
+
+  <p class="para reveal">但他的眼睛不一样。</p>
+
+  <p class="para reveal">那双眼睛沉着冷静，带着一种经历过极端环境的人才有的锐利。像一头沉睡了很久的猛虎，刚刚睁开眼。</p>
+
+  <img class="scene-img reveal" src="exp440-2-bus-station.jpg" alt="深夜汽车站">
+
+  <p class="para reveal">三年前，陈六合从这座城市消失。没人知道他去了哪里——家里人以为他死了，朋友以为他跑路了，前女友早就跟了别人。</p>
+
+  <p class="para reveal">三年后的今天，他回来了。</p>
+
+  <p class="para reveal">手机响了，一个沙哑的声音传来：</p>
+
+  <div class="dialogue reveal">
+    "六合，你到了？别回你姐那儿，她……最近不太好。我把地址发你，先来找我。"
+  </div>
+
+  <p class="para reveal">打电话的是他战友李峰。三年前帮他瞒住一切的兄弟。</p>
+
+  <p class="para reveal">陈六合没多问，翻出手机看了眼地址——临海市繁华地段的一条老巷子。他抬脚就走，步伐很快，带着军人特有的节奏。</p>
+
+  <img class="scene-img reveal" src="exp440-3-alley-night.jpg" alt="深夜巷子">
+
+  <p class="para reveal">巷子口，三个纹身青年堵住了一个女孩。女孩被逼到墙角，手里紧握着手机，脸色惨白。</p>
+
+  <div class="dialogue reveal">
+    "漂亮妹妹，这么晚出来是想找人陪吧？正好我们三兄弟闲着——"
+  </div>
+
+  <p class="para reveal">领头的光头还没说完，肩膀突然被人从后面拍了一下。</p>
+
+  <p class="para reveal">他一回头，看见一个穿军绿T恤的男人站在背后，面无表情。</p>
+
+  <div class="dialogue reveal">
+    "让开。我赶路。"
+  </div>
+
+  <p class="para reveal">语气平淡，像在说"今天天气不错"。</p>
+
+  <p class="para reveal">光头大怒，抡起拳头就砸过去——</p>
+
+  <p class="para reveal">下一秒，他的手腕被反扣住，整个人像麻袋一样被甩到了旁边的垃圾桶上。哐当一声，巷子里回荡着金属的震动。</p>
+
+  <p class="para reveal">另外两个人愣了半秒，一起扑上来。</p>
+
+  <p class="para reveal">三秒钟后，巷子安静了。</p>
+
+  <p class="para reveal">三个人倒在地上，一个比一个安静。</p>
+
+  <img class="scene-img reveal" src="exp440-4-fight-alley.jpg" alt="巷战">
+
+  <p class="para reveal">陈六合甩了甩手，扭头看向墙角的女孩：</p>
+
+  <div class="dialogue reveal">
+    "没事吧？快回家。以后少走这种小路。"
+  </div>
+
+  <p class="para reveal">女孩哆哆嗦嗦地点头，看着这个陌生男人的背影消失在巷子深处，好半天才回过神来。</p>
+
+  <p class="para reveal">她不知道的是，眼前这个看起来落魄的男人，三年前是一头被国家秘密部门征召的猛虎。执行过的任务等级，高到连他自己的档案都是保密的。</p>
+
+  <p class="para reveal">而他回来的原因只有一个——</p>
+
+  <p class="para reveal">他姐姐陈婉儿，在他离开的三年里，被人欺负到差点走投无路。</p>
+
+  <p class="para reveal">猛虎归来，必有人要付出代价。</p>
+
+  <div class="chapter-hook reveal">
+    <div class="hook-text">— 第一章完 —</div>
+    <div class="hook-sub">想看第二章？陈六合回到姐姐身边，才发现事情比想象中复杂得多……</div>
+  </div>
+
+  <div class="source-info">
+    改编自网络小说《都市之最强狂兵》（作者：大红大紫）第一章<br>
+    原文来源：起点中文网 / 书旗小说<br>
+    本页为"故事渲染"体验版，保留原作精华，简化表达，图文并茂呈现
+  </div>
+</div>
+
+<script>
+// 滚动触发动效
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

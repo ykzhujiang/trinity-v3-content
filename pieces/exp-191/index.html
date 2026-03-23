@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>便利店收银台的72小时</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #1a1a2e; color: #e0e0e0; font-family: -apple-system, 'PingFang SC', sans-serif; min-height: 100vh; }
+.container { max-width: 640px; margin: 0 auto; padding: 20px 16px; }
+.header { text-align: center; padding: 30px 0 16px; }
+.header h1 { font-size: 20px; color: #ffd93d; margin-bottom: 6px; }
+.header .subtitle { font-size: 13px; color: #8b8b8b; }
+.store-front { text-align: center; font-size: 40px; margin: 12px 0 20px; }
+
+.day-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; position: sticky; top: 0; background: #1a1a2e; padding: 10px 0; z-index: 10; }
+.day-tab { padding: 8px 20px; border-radius: 20px; border: 1px solid #333; cursor: pointer; font-size: 13px; transition: all 0.3s; }
+.day-tab.active { background: #ffd93d; color: #1a1a2e; border-color: #ffd93d; font-weight: 600; }
+.day-tab:hover { border-color: #ffd93d; }
+
+.day-panel { display: none; }
+.day-panel.active { display: block; }
+
+.time-slot { margin-bottom: 16px; cursor: pointer; }
+.time-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #16213e; border-radius: 12px; transition: all 0.3s; }
+.time-header:hover { background: #1a2744; }
+.time-header .clock { font-size: 13px; color: #ffd93d; font-family: 'SF Mono', monospace; min-width: 50px; }
+.time-header .customer { font-size: 13px; color: #aaa; flex: 1; }
+.time-header .indicator { color: #ffd93d; font-size: 10px; transition: transform 0.3s; }
+.time-slot.open .indicator { transform: rotate(90deg); }
+
+.receipt { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+.time-slot.open .receipt { max-height: 500px; }
+.receipt-inner { background: #fffef5; color: #333; margin: 8px 16px; padding: 16px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.8; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+.receipt-inner .store-name { text-align: center; font-size: 14px; font-weight: bold; border-bottom: 1px dashed #ccc; padding-bottom: 8px; margin-bottom: 8px; }
+.receipt-inner .item { display: flex; justify-content: space-between; }
+.receipt-inner .divider { border-top: 1px dashed #ccc; margin: 6px 0; }
+.receipt-inner .total { font-weight: bold; display: flex; justify-content: space-between; }
+.receipt-inner .cashier-note { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; color: #888; font-style: italic; text-align: center; font-size: 11px; }
+
+.highlight-slot .time-header { border: 1px solid #ffd93d44; }
+
+.cashier-thought { background: #16213e; border-left: 3px solid #ffd93d44; padding: 8px 12px; margin: 6px 16px; border-radius: 0 8px 8px 0; font-size: 12px; color: #8b8b8b; font-style: italic; max-height: 0; overflow: hidden; transition: max-height 0.4s; }
+.time-slot.open .cashier-thought { max-height: 100px; }
+
+.day-summary { text-align: center; padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #333; margin-top: 20px; }
+
+.final-note { text-align: center; padding: 40px 20px; opacity: 0; transition: opacity 1s; }
+.final-note.visible { opacity: 1; }
+.final-note .text { font-size: 15px; color: #ffd93d; line-height: 1.8; }
+.final-note .sub { font-size: 12px; color: #666; margin-top: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="store-front">🏪</div>
+    <h1>便利店收银台的72小时</h1>
+    <div class="subtitle">一个收银员的视角 · 一个常客的三天</div>
+  </div>
+
+  <div class="day-tabs">
+    <div class="day-tab active" onclick="switchDay(1)">Day 1 · 周三</div>
+    <div class="day-tab" onclick="switchDay(2)">Day 2 · 周四</div>
+    <div class="day-tab" onclick="switchDay(3)">Day 3 · 周五</div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day-panel active" id="day1">
+    <div class="time-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">07:42</span>
+        <span class="customer">常客 · 男 · 黑色冲锋衣</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>美式咖啡（大杯）</span><span>¥12.00</span></div>
+        <div class="item"><span>红牛维生素功能饮料</span><span>¥6.00</span></div>
+        <div class="item"><span>万宝路（硬白）</span><span>¥22.00</span></div>
+        <div class="divider"></div>
+        <div class="total"><span>合计</span><span>¥40.00</span></div>
+        <div class="cashier-note">☕ + 🥫 + 🚬 经典三件套，今天第一个客人</div>
+      </div></div>
+      <div class="cashier-thought">（我）认识他大概三个月了。每天早上这个点来。从来不说话，扫码走人。冲锋衣永远是那件，我怀疑他没别的外套。</div>
+    </div>
+
+    <div class="time-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">12:15</span>
+        <span class="customer">常客 · 午餐</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>关东煮（萝卜+鱼丸）</span><span>¥8.00</span></div>
+        <div class="item"><span>饭团（鸡排味）</span><span>¥6.50</span></div>
+        <div class="item"><span>红牛维生素功能饮料</span><span>¥6.00</span></div>
+        <div class="divider"></div>
+        <div class="total"><span>合计</span><span>¥20.50</span></div>
+      </div></div>
+      <div class="cashier-thought">又是红牛。他今天看起来特别累，眼睛都是红的。关东煮他每次都只拿萝卜和鱼丸——最便宜的两种。</div>
+    </div>
+
+    <div class="time-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">22:38</span>
+        <span class="customer">常客 · 第三次来</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>百威啤酒 500ml × 2</span><span>¥16.00</span></div>
+        <div class="item"><span>良品铺子猪肉脯</span><span>¥15.90</span></div>
+        <div class="divider"></div>
+        <div class="total"><span>合计</span><span>¥31.90</span></div>
+      </div></div>
+      <div class="cashier-thought">他一天来三次。不是因为爱来便利店，是因为没有别的地方可去。两瓶啤酒。一个人喝两瓶啤酒是什么概念？不多不少，刚好喝到可以睡着。</div>
+    </div>
+
+    <div class="day-summary">Day 1 消费：¥92.40 · 来了3次 · 0次主动说话</div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-panel" id="day2">
+    <div class="time-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">07:51</span>
+        <span class="customer">常客 · 比昨天晚了9分钟</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>美式咖啡（大杯）</span><span>¥12.00</span></div>
+        <div class="item"><span>创可贴（10片装）</span><span>¥8.90</span></div>
+        <div class="divider"></div>
+        <div class="total"><span>合计</span><span>¥20.90</span></div>
+      </div></div>
+      <div class="cashier-thought">手上有个口子，不深但在虎口。做饭切的？他会做饭吗？没有红牛了。创可贴他翻了半天才找到，说明平时没受过伤。</div>
+    </div>
+
+    <div class="time-slot highlight-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">13:08</span>
+        <span class="customer">常客 · 买了不一样的东西</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>合味道杯面（海鲜味）</span><span>¥5.50</span></div>
+        <div class="item"><span>RIO鸡尾酒（微醺白桃味）</span><span>¥9.90</span></div>
+        <div class="item"><span>好丽友派 × 1</span><span>¥3.50</span></div>
+        <div class="item"><span>蜡烛（生日款 · 数字）× 1</span><span>¥5.00</span></div>
+        <div class="divider"></div>
+        <div class="total"><span>合计</span><span>¥23.90</span></div>
+        <div class="cashier-note">🎂 ？</div>
+      </div></div>
+      <div class="cashier-thought">他在货架前站了很久。拿起一个6寸蛋糕看了看价格——¥68——放下了。最后买了一个好丽友派和一支蜡烛。我忽然明白了。今天是他生日。一个人，一个好丽友派，一支蜡烛。</div>
+    </div>
+
+    <div class="time-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">23:55</span>
+        <span class="customer">常客 · 没买东西</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>（无消费记录）</span><span></span></div>
+        <div class="cashier-note">他进来转了一圈就走了。但他在冷饮柜前站了大概两分钟。</div>
+      </div></div>
+      <div class="cashier-thought">快到零点了。他来了，没买东西，又走了。便利店的灯是24小时亮的。也许他只是需要一个亮着灯的地方路过一下。</div>
+    </div>
+
+    <div class="day-summary">Day 2 消费：¥44.80 · 来了3次 · 生日 · 0次主动说话</div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-panel" id="day3">
+    <div class="time-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">07:40</span>
+        <span class="customer">常客 · 准时回来了</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>美式咖啡（大杯）× 2</span><span>¥24.00</span></div>
+        <div class="divider"></div>
+        <div class="total"><span>合计</span><span>¥24.00</span></div>
+        <div class="cashier-note">两杯？？</div>
+      </div></div>
+      <div class="cashier-thought">两杯咖啡。他以前从来没买过两杯。门口有个人在等他——也是个男的，像是好久不见的朋友。他接过咖啡的时候笑了。我第一次看见他笑。</div>
+    </div>
+
+    <div class="time-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">12:30</span>
+        <span class="customer">常客 + 朋友</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>便当（咖喱鸡排）× 2</span><span>¥30.00</span></div>
+        <div class="item"><span>可乐 × 2</span><span>¥7.00</span></div>
+        <div class="item"><span>乐事薯片（黄瓜味）</span><span>¥8.50</span></div>
+        <div class="divider"></div>
+        <div class="total"><span>合计</span><span>¥45.50</span></div>
+      </div></div>
+      <div class="cashier-thought">两个人在店门口的台阶上坐着吃便当。他朋友说了句什么，他笑得咖喱差点喷出来。我加热便当的时候多热了10秒，这样会好吃一点。反正也没人知道。</div>
+    </div>
+
+    <div class="time-slot highlight-slot" onclick="toggleSlot(this)">
+      <div class="time-header">
+        <span class="clock">18:22</span>
+        <span class="customer">常客 · 最后一次</span>
+        <span class="indicator">▶</span>
+      </div>
+      <div class="receipt"><div class="receipt-inner">
+        <div class="store-name">全家便利店 #3847</div>
+        <div class="item"><span>百威啤酒 500ml × 2</span><span>¥16.00</span></div>
+        <div class="item"><span>可乐 × 1</span><span>¥3.50</span></div>
+        <div class="divider"></div>
+        <div class="total"><span>合计</span><span>¥19.50</span></div>
+        <div class="cashier-note">收银台下面发现一张手写便签👇</div>
+      </div></div>
+      <div class="cashier-thought">他走了以后，我在收银台的零钱盒下面发现了一张便利贴。不知道是什么时候放的。</div>
+    </div>
+
+    <div class="day-summary">Day 3 消费：¥89.00 · 来了3次 · 第一次有笑容 · 第一次有人陪</div>
+  </div>
+
+  <div class="final-note" id="finalNote">
+    <div class="text">
+      便签上写着：<br><br>
+      <span style="font-family:'Courier New',monospace;background:#fffef5;color:#333;padding:12px 20px;border-radius:4px;display:inline-block;transform:rotate(-1deg);font-size:15px;line-height:1.6;">
+        生日快乐，常客。<br>
+        <span style="font-size:12px;color:#999;">—— 夜班收银员小吴</span>
+      </span>
+    </div>
+    <div class="sub">
+      <br>他不知道这张便签。<br>
+      小吴也不知道他后来看没看到。<br><br>
+      但那个好丽友派上的蜡烛，<br>
+      有人记得。
+    </div>
+  </div>
+</div>
+
+<script>
+function switchDay(n) {
+  document.querySelectorAll('.day-tab').forEach((t,i) => t.classList.toggle('active', i===n-1));
+  document.querySelectorAll('.day-panel').forEach((p,i) => p.classList.toggle('active', i===n-1));
+  if (n === 3) setTimeout(() => document.getElementById('finalNote').classList.add('visible'), 800);
+}
+function toggleSlot(el) { el.classList.toggle('open'); }
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.3 });
+document.querySelectorAll('.final-note').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一个小区电梯的监控截图合集</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #ccc; font-family: 'Courier New', monospace; min-height: 100vh; }
+  .container { max-width: 520px; margin: 0 auto; padding: 20px 12px 60px; }
+  h1 { font-size: 13px; color: #555; text-align: center; margin: 30px 0 4px; letter-spacing: 2px; text-transform: uppercase; }
+  .cam-id { text-align: center; font-size: 11px; color: #333; margin-bottom: 30px; }
+  .click-hint { font-size: 10px; color: #444; text-align: center; margin-bottom: 24px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+  .timeline { position: relative; padding-left: 20px; border-left: 1px solid #1a1a1a; }
+  .season { margin-bottom: 40px; }
+  .season-label { font-size: 11px; color: #333; letter-spacing: 3px; margin-bottom: 16px; }
+  .frame { background: #111; border: 1px solid #1a1a1a; border-radius: 4px; margin-bottom: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.3s; }
+  .frame:hover { border-color: #333; }
+  .frame-img { width: 100%; aspect-ratio: 16/9; background: #0d0d0d; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .frame-img .scene { font-size: 40px; position: absolute; }
+  .frame-img .noise { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px); }
+  .frame-img .scanline { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.05); animation: scan 3s linear infinite; }
+  @keyframes scan { from { top: 0; } to { top: 100%; } }
+  .frame-info { padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
+  .frame-ts { font-size: 11px; color: #444; }
+  .frame-cam { font-size: 10px; color: #333; }
+  .annotation { display: none; padding: 10px 14px; background: #0d0d0d; border-top: 1px solid #1a1a1a; font-size: 12px; color: #666; line-height: 1.8; }
+  .annotation.show { display: block; animation: fadeIn 0.3s; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .annotation em { color: #888; font-style: normal; }
+  .counter { font-size: 11px; color: #333; text-align: center; margin: 20px 0; }
+  .scrubber { width: 100%; margin: 30px 0 10px; -webkit-appearance: none; appearance: none; height: 2px; background: #222; outline: none; border-radius: 1px; }
+  .scrubber::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: #555; border-radius: 50%; cursor: pointer; }
+  .scrubber-labels { display: flex; justify-content: space-between; font-size: 10px; color: #333; margin-bottom: 30px; }
+  .break-frame { background: #0f0f17; border: 1px solid #1a1a2e; border-radius: 4px; margin-bottom: 12px; overflow: hidden; cursor: pointer; }
+  .break-frame:hover { border-color: #2a2a4e; }
+  .final-note { text-align: center; font-size: 11px; color: #222; margin-top: 40px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>电梯监控截图合集</h1>
+  <div class="cam-id">CAM-03 · 梧桐苑2栋1号梯 · 2024.01—2025.01</div>
+  <p class="click-hint">[ 点击截图查看标注 ]</p>
+
+  <input type="range" class="scrubber" min="1" max="12" value="1" id="scrubber">
+  <div class="scrubber-labels"><span>1月</span><span>4月</span><span>7月</span><span>10月</span><span>1月</span></div>
+
+  <div class="timeline">
+    <!-- 春 -->
+    <div class="season">
+      <div class="season-label">—— 春 · SPRING ——</div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0d0d0d 60%,#111)">
+          <span class="scene">🎒👦</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2024-03-04 07:32:18</span><span class="frame-cam">1F→6F</span></div>
+        <div class="annotation"><em>男孩，约7岁。书包比身体宽。每天07:31-07:33出现。</em><br>左手总握着一个东西——放大后是半块饼干。<br>电梯到6楼，他不出去。按了关门键。又按了1楼。<br><em>——他在等住6楼的女同学。已经连续23天。</em></div>
+      </div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0d0d0d 60%,#121210)">
+          <span class="scene">👴📦</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2024-03-18 09:15:44</span><span class="frame-cam">1F→15F</span></div>
+        <div class="annotation"><em>老人，约70岁。快递箱。每周一、三、五上午出现。</em><br>箱子上写着"易碎品"。他抱得非常小心。<br>后来查了快递单：寄往深圳。收件人姓名和他一样——姓王。<br><em>——给在深圳的孙女寄咸鸭蛋。每周三个。风雨无阻。</em></div>
+      </div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0d0d0d 60%,#0d100d)">
+          <span class="scene">👩‍💼👩‍💼</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2024-04-12 08:01:02</span><span class="frame-cam">12F→1F</span></div>
+        <div class="annotation"><em>两个女人。每天同一时间。面对面站立。不说话。</em><br>12楼和11楼住户。都在科技园上班。同一栋楼三年。<br>电梯里永远间隔最大距离。<br><em>——物业记录：她们因为装修噪音投诉过对方4次。</em></div>
+      </div>
+    </div>
+
+    <!-- 夏 -->
+    <div class="season">
+      <div class="season-label">—— 夏 · SUMMER ——</div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0d0d0d 60%,#13100d)">
+          <span class="scene">👨‍👩‍👧🧸</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2024-06-01 10:22:37</span><span class="frame-cam">8F→1F</span></div>
+        <div class="annotation"><em>一家三口。孩子抱着巨大的毛绒熊。六一。</em><br>女人对男人说了什么。男人低头看手机。<br>孩子把熊举到监控镜头前。挡住了整个画面。<br><em>——这是本年度唯一一帧完全被遮挡的画面。</em></div>
+      </div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0d0d0d 60%,#110d0d)">
+          <span class="scene">🐕</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2024-07-23 03:41:55</span><span class="frame-cam">1F→7F</span></div>
+        <div class="annotation"><em>一只金毛。独自一个。凌晨三点四十一分。</em><br>它自己按了7楼的按钮。<br>7楼门打开。它出去了。<br><em>——7楼住户后来报告：狗会自己坐电梯下去散步，再坐回来。持续整个夏天。</em></div>
+      </div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0d0d0d 60%,#0d0d11)">
+          <span class="scene">👨🪴</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2024-08-15 18:30:02</span><span class="frame-cam">1F→16F</span></div>
+        <div class="annotation"><em>中年男人。搬了一盆绿萝。</em><br>他站在电梯里，对着绿萝说话。嘴型辨认：大概是"到家了"。<br>16楼，顶楼，独居。<br><em>——这盆绿萝此后每天都出现在下面两帧中。</em></div>
+      </div>
+    </div>
+
+    <!-- 秋 -->
+    <div class="season">
+      <div class="season-label">—— 秋 · AUTUMN ——</div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0d0d0d 60%,#11100d)">
+          <span class="scene">👩📱😢</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2024-10-08 22:17:43</span><span class="frame-cam">1F→8F</span></div>
+        <div class="annotation"><em>六一那家的女人。独自一人。在哭。</em><br>她按了8楼。门关上后蹲了下来。<br>到8楼没出去。又按了1楼。又按了8楼。<br>坐了四趟。<br><em>——男人和孩子从此没再出现在监控里。</em></div>
+      </div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0d0d0d 60%,#0d0d0d)">
+          <span class="scene">🎒👦👧</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2024-11-05 07:32:01</span><span class="frame-cam">1F→6F→1F</span></div>
+        <div class="annotation"><em>那个男孩。还是07:32。不再独自一人。</em><br>6楼的女孩跟他一起下来了。<br>他手里没有饼干了。<br><em>——她手里有半块饼干。</em></div>
+      </div>
+    </div>
+
+    <!-- 冬 · 异变 -->
+    <div class="season">
+      <div class="season-label">—— 冬 · WINTER ——</div>
+      <div class="break-frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:linear-gradient(180deg,#0a0a12 60%,#0d0d17)">
+          <span class="scene" style="font-size:28px;opacity:0.6;">🕐</span>
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts" style="color:#556;">2024-12-24 23:58:12</span><span class="frame-cam" style="color:#334;">1F→16F</span></div>
+        <div class="annotation" style="background:#0a0a12;border-color:#1a1a2e;"><em>16楼的男人。平安夜。</em><br>他抱着绿萝进来。绿萝比八月大了很多。<br>他按了16楼。站在角落。<br>电梯门关上前两秒，一只手伸进来。<br>是12楼投诉装修噪音的那个女人。<br>她手里提着一个蛋糕。<br>两个人相互看了一眼。都没说话。<br>她按了12楼。他还是16楼。<br><em>——电梯先到了12楼。她出去前，把蛋糕放在了地上。对他说了两个字。嘴型辨认：</em><br><br><em style="color:#aaa;font-size:14px;">"过节好。"</em></div>
+      </div>
+    </div>
+
+    <!-- 尾声 -->
+    <div class="season">
+      <div class="season-label">—— 2025年1月 ——</div>
+      <div class="frame" onclick="toggleAnn(this)">
+        <div class="frame-img" style="background:#0a0a0a;">
+          <div class="noise"></div><div class="scanline"></div>
+        </div>
+        <div class="frame-info"><span class="frame-ts">2025-01-15 00:00:00</span><span class="frame-cam">系统升级中</span></div>
+        <div class="annotation"><em>监控系统更换为AI识别系统。旧硬盘格式化。</em><br><br>以上截图由物业保安老陈在交接前用手机翻拍保存。<br>他说："我值了八年夜班，这些人比电视剧好看。"<br><br><em>——老陈退休后，没人翻拍了。</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter">12帧 / 365天 / 1部电梯 / 许多人</div>
+</div>
+<script>
+function toggleAnn(el) {
+  const ann = el.querySelector('.annotation');
+  if (ann) ann.classList.toggle('show');
+}
+</script>
+</body>
+</html>

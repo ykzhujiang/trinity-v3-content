@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXP-115 — iCloud存储空间</title>
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<div class="container">
+
+<div class="status-bar">
+  <span class="time">23:17</span>
+  <span class="icons">📶 📡 🔋</span>
+</div>
+
+<!-- Notification -->
+<div class="notification fade-in">
+  <div class="app-icon" style="background: linear-gradient(135deg, #007aff, #5856d6);">☁️</div>
+  <div class="content">
+    <div class="app-name">iCloud</div>
+    <div class="notif-title">iCloud 储存空间将满</div>
+    <div class="notif-body">您已使用 199.7 GB（共 200 GB）。部分数据可能无法备份。</div>
+  </div>
+  <div class="notif-time">刚刚</div>
+</div>
+
+<div class="section-label fade-in" style="margin-top:20px;">储存空间</div>
+
+<div class="card fade-in">
+  <div class="storage-bar">
+    <div class="storage-segment" style="width:38%; background:#ff9f0a;"></div>
+    <div class="storage-segment" style="width:27%; background:#5856d6;"></div>
+    <div class="storage-segment" style="width:22%; background:#30d158;"></div>
+    <div class="storage-segment" style="width:12%; background:#ff453a;"></div>
+    <div class="storage-segment" style="width:1%; background:#636366;"></div>
+  </div>
+  <div class="data-row"><span class="label">📷 照片</span><span class="value" style="color:#ff9f0a;">76.2 GB</span></div>
+  <div class="data-row"><span class="label">💬 微信备份</span><span class="value" style="color:#5856d6;">53.8 GB</span></div>
+  <div class="data-row"><span class="label">🎵 语音备忘录</span><span class="value" style="color:#30d158;">44.1 GB</span></div>
+  <div class="data-row"><span class="label">📱 App 数据</span><span class="value" style="color:#ff453a;">23.4 GB</span></div>
+  <div class="data-row"><span class="label">📂 其他</span><span class="value" style="color:#636366;">2.2 GB</span></div>
+</div>
+
+<div class="section-label fade-in">管理储存空间</div>
+
+<!-- 清理App缓存 — the practical/efficient part (realism noise) -->
+<div class="card fade-in">
+  <div class="data-row">
+    <span class="label">🗑️ App 缓存</span>
+    <span class="value" style="color:var(--green);">-8.3 GB ✓ 已清理</span>
+  </div>
+  <div class="data-row">
+    <span class="label">🗑️ 旧系统备份</span>
+    <span class="value" style="color:var(--green);">-4.1 GB ✓ 已清理</span>
+  </div>
+</div>
+
+<p class="coda" style="border:none; margin-top:8px; padding-top:0; font-size:13px; color:#8e8e93;">
+  缓存清起来很痛快。手指一划，进度条就往回退。12.4 GB，干干净净，没有任何犹豫。
+</p>
+
+<!-- 照片 -->
+<div class="timestamp fade-in">照片 · 76.2 GB</div>
+<div class="card fade-in">
+  <div class="data-row">
+    <span class="label">2018年 · 大学</span>
+    <span class="value">3,847 张</span>
+  </div>
+  <div class="data-row">
+    <span class="label">2019年 · 毕业旅行</span>
+    <span class="value">1,206 张</span>
+  </div>
+  <div class="data-row">
+    <span class="label">2020年 · 疫情在家</span>
+    <span class="value">487 张</span>
+  </div>
+  <div class="data-row">
+    <span class="label">2022年 · 和她</span>
+    <span class="value">5,912 张</span>
+  </div>
+  <div class="data-row">
+    <span class="label">2023年 · 也是和她</span>
+    <span class="value">2,104 张</span>
+  </div>
+  <div class="data-row">
+    <span class="label">2024年 · 分手后</span>
+    <span class="value">203 张</span>
+  </div>
+</div>
+
+<p class="coda" style="border:none; margin-top:8px; padding-top:0; font-size:13px; color:#8e8e93;">
+  2022年一年拍了快六千张。火锅、日落、她睡着的侧脸、她笑的时候露出的虎牙。2024年只有203张，大部分是工作截图和外卖订单。<br><br>
+  选了14张删不掉的。其余的，选中，删除。系统问"要从所有设备上移除吗？"——要。
+</p>
+
+<!-- 语音备忘录 -->
+<div class="timestamp fade-in">语音备忘录 · 44.1 GB</div>
+<div class="card fade-in">
+  <div class="data-row">
+    <span class="label">🎙️ 新录音 47</span>
+    <span class="value" style="font-size:12px;">2021-06-13 · 0:38</span>
+  </div>
+  <div class="data-row">
+    <span class="label">🎙️ 妈唱的歌</span>
+    <span class="value" style="font-size:12px;">2019-02-05 · 2:14</span>
+  </div>
+  <div class="data-row">
+    <span class="label">🎙️ 爷爷讲过去的事</span>
+    <span class="value" style="font-size:12px;">2018-10-03 · 47:22</span>
+  </div>
+  <div class="data-row">
+    <span class="label">🎙️ 她说晚安</span>
+    <span class="value" style="font-size:12px;">2022-08-19 · 0:04</span>
+  </div>
+</div>
+
+<p class="coda" style="border:none; margin-top:8px; padding-top:0; font-size:13px; color:#8e8e93;">
+  爷爷那条47分钟的录音，是2018年国庆回家录的。他讲他年轻时候修公路的事情。录的时候觉得太长了，现在觉得太短了。<br><br>
+  "她说晚安"只有4秒。打开听了一下。声音很轻，带一点鼻音，像刚哭过又不想让你知道。<br><br>
+  这两条占了不到50MB。<br>
+  留着吧。50MB换不来任何东西。
+</p>
+
+<!-- 微信备份 -->
+<div class="timestamp fade-in">微信备份 · 53.8 GB</div>
+<div class="card fade-in">
+  <div class="data-row">
+    <span class="label">💬 聊天记录总计</span>
+    <span class="value">127,849 条</span>
+  </div>
+  <div class="data-row">
+    <span class="label">💬 与"她"的聊天</span>
+    <span class="value">41,203 条</span>
+  </div>
+  <div class="data-row">
+    <span class="label">💬 大学群</span>
+    <span class="value">58,412 条</span>
+  </div>
+  <div class="data-row">
+    <span class="label">💬 家人群</span>
+    <span class="value">6,891 条</span>
+  </div>
+</div>
+
+<div class="coda fade-in">
+  41,203条。<br>
+  从"在吗"到"我到楼下了"到"今晚吃什么"到"算了吧"。<br><br>
+  删掉能省 17 GB。<br>
+  手指悬在"删除"上面。<br><br>
+  最后删了大学群。58,412条，省了 21 GB。群里已经三个月没人说话了。<br><br>
+  她的没删。<br>
+  不是舍不得，是还没准备好假装不在乎。<br><br>
+  <span style="color:#636366; font-size:12px;">iCloud 储存空间：143.2 / 200 GB</span><br>
+  <span style="color:#636366; font-size:12px;">已清理 56.5 GB</span><br><br>
+  <span style="color:#636366; font-size:12px;">够了。空间够用了。</span><br>
+  <span style="color:#636366; font-size:12px;">可是清出来的那 56.5 GB，以后拿什么填呢。</span>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>如果城市有朋友圈</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:#ededed;min-height:100vh;display:flex;justify-content:center}
+.container{max-width:440px;width:100%;padding:10px 0 80px;background:#ededed}
+.header{text-align:center;padding:20px 16px 16px;background:#ededed}
+.header h1{font-size:18px;font-weight:600;color:#333}
+.header .sub{font-size:12px;color:#999;margin-top:4px}
+.post{background:#fff;margin-bottom:8px;padding:14px 16px}
+.post-header{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.post-avatar{width:40px;height:40px;border-radius:6px;font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.post-name{font-size:15px;font-weight:600;color:#576b95}
+.post-time{font-size:11px;color:#b2b2b2}
+.post-text{font-size:15px;line-height:1.7;color:#333;margin-bottom:8px;white-space:pre-line}
+.post-img{width:100%;border-radius:6px;margin-bottom:8px;display:block}
+.post-img-grid{display:grid;gap:4px;margin-bottom:8px}
+.post-img-grid.g3{grid-template-columns:1fr 1fr 1fr}
+.post-img-grid.g2{grid-template-columns:1fr 1fr}
+.img-placeholder{background:#f5f5f5;border-radius:4px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:28px}
+.post-link{display:flex;gap:8px;padding:8px;background:#f5f5f5;border-radius:6px;margin-bottom:8px;text-decoration:none;color:#333}
+.post-link .link-icon{width:40px;height:40px;background:#e5e5e5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.post-link .link-text{font-size:13px;color:#666;line-height:1.4}
+.post-actions{display:flex;justify-content:flex-end;gap:16px;margin-top:6px}
+.action-btn{font-size:12px;color:#576b95;cursor:pointer}
+.comments{margin-top:8px;padding:8px 10px;background:#f7f7f7;border-radius:4px;font-size:13px;line-height:1.7;color:#333}
+.comments .c-name{color:#576b95;font-weight:500}
+.like-row{padding:6px 10px;background:#f7f7f7;border-radius:4px 4px 0 0;font-size:12px;color:#576b95;margin-top:8px;margin-bottom:0;display:flex;align-items:center;gap:4px}
+.like-row+.comments{border-radius:0 0 4px 4px;margin-top:0;border-top:1px solid #eee}
+.location-tag{font-size:11px;color:#576b95;margin-bottom:6px}
+.ad{background:#fff;margin-bottom:8px;padding:12px 16px;border-left:3px solid #fcc419}
+.ad-label{font-size:10px;color:#b2b2b2;margin-bottom:4px}
+.ad-text{font-size:13px;color:#666}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>如果城市有朋友圈</h1>
+<div class="sub">— 刷到停不下来的城市八卦 —</div>
+</div>
+
+<!-- 上海 -->
+<div class="post">
+<div class="post-header">
+<div class="post-avatar" style="background:#e7f5ff">🏙️</div>
+<div><div class="post-name">上海</div><div class="post-time">今天 09:23</div></div>
+</div>
+<div class="post-text">今天在精品咖啡馆喝了一杯冷萃，被旁边的人说我"装"。
+
+我只是喜欢咖啡而已😢 为什么北京喝豆汁就是文化，我喝咖啡就是装？</div>
+<div class="post-img-grid g3">
+<div class="img-placeholder">☕</div>
+<div class="img-placeholder">🥐</div>
+<div class="img-placeholder">📰</div>
+</div>
+<div class="location-tag">📍 上海市静安区 · 某不愿透露名字的独立咖啡馆</div>
+<div class="like-row">❤️ 上海人、上海人、上海人、上海人... 等 10,342 人觉得很赞</div>
+<div class="comments">
+<span class="c-name">北京</span>：你确实装。<br>
+<span class="c-name">广州</span>：你们吵架可以小声点吗，我在喝早茶。<br>
+<span class="c-name">成都</span>：哈哈哈哈哈哈哈别吵了来吃火锅🍲<br>
+<span class="c-name">上海</span> 回复 <span class="c-name">北京</span>：你一个喝豆汁的有什么资格说我装？<br>
+<span class="c-name">天津</span>：吃了嘛您嘞？
+</div>
+</div>
+
+<!-- 北京 -->
+<div class="post">
+<div class="post-header">
+<div class="post-avatar" style="background:#fff3e0">🏛️</div>
+<div><div class="post-name">北京</div><div class="post-time">今天 10:15</div></div>
+</div>
+<div class="post-text">转发了一篇文章</div>
+<div class="post-link">
+<div class="link-icon">📄</div>
+<div class="link-text">《为什么四环以外不算北京——一个北京人的自我修养》<br><span style="color:#aaa">阅读量 10w+</span></div>
+</div>
+<div class="like-row">❤️ 朝阳、海淀、西城、东城 觉得很赞</div>
+<div class="comments">
+<span class="c-name">通州</span>：？？？<br>
+<span class="c-name">大兴</span>：我也是北京谢谢。<br>
+<span class="c-name">昌平</span>：那我是哪？<br>
+<span class="c-name">北京</span> 回复 <span class="c-name">昌平</span>：你是北京的朋友。<br>
+<span class="c-name">燕郊</span>：我连朋友都不算吗😭<br>
+<span class="c-name">河北</span>：燕郊是我的！！！
+</div>
+</div>
+
+<!-- 成都 -->
+<div class="post">
+<div class="post-header">
+<div class="post-avatar" style="background:#fff0f0">🐼</div>
+<div><div class="post-name">成都</div><div class="post-time">今天 02:17</div></div>
+</div>
+<div class="post-text">深夜放毒🔥
+还是那句话——没有什么事是一顿火锅解决不了的。
+如果有，那就两顿。</div>
+<div class="post-img-grid g3">
+<div class="img-placeholder">🍲</div>
+<div class="img-placeholder">🌶️</div>
+<div class="img-placeholder">🥩</div>
+</div>
+<div class="location-tag">📍 成都市锦江区 · 通宵火锅店</div>
+<div class="comments">
+<span class="c-name">重庆</span>：你那也叫火锅？<br>
+<span class="c-name">成都</span> 回复 <span class="c-name">重庆</span>：来了来了，又来了。🙄<br>
+<span class="c-name">深圳</span>：你们凌晨2点还在吃？我刚下班...<br>
+<span class="c-name">广州</span>：火锅？不如肠粉。<br>
+<span class="c-name">长沙</span>：不如臭豆腐。<br>
+<span class="c-name">东北</span>：整点烧烤不？
+</div>
+</div>
+
+<!-- 深圳 -->
+<div class="post">
+<div class="post-header">
+<div class="post-avatar" style="background:#e3f2fd">💻</div>
+<div><div class="post-name">深圳</div><div class="post-time">今天 00:47</div></div>
+</div>
+<div class="post-text">加班到12点，明天继续💪
+来深圳第8年了，还是租的房。
+但我年薪百万了哦（税前）（加上公积金）（加上期权）（按4年vest）（按上市价）（如果上市的话）</div>
+<div class="like-row">❤️ 南山、福田、前海 等 8,921 人觉得很赞</div>
+<div class="comments">
+<span class="c-name">广州</span>：你们不累吗？？<br>
+<span class="c-name">深圳</span> 回复 <span class="c-name">广州</span>：累啊。但广州月薪是我一半🤷‍♂️<br>
+<span class="c-name">广州</span> 回复 <span class="c-name">深圳</span>：我房价也是你一半。<br>
+<span class="c-name">深圳</span> 回复 <span class="c-name">广州</span>：......<br>
+<span class="c-name">杭州</span>：我也加班到12点！我们是不是很像🥺<br>
+<span class="c-name">深圳</span> 回复 <span class="c-name">杭州</span>：别蹭。<br>
+<span class="c-name">鹤岗</span>：我全款买了三套房，你们在聊什么？
+</div>
+</div>
+
+<!-- 广告 -->
+<div class="ad">
+<div class="ad-label">广告 · 朋友圈推荐</div>
+<div class="ad-text">🏠 鹤岗市中心精装两居室 · ¥3.8万/套 · 首付0元 · 欢迎深圳朋友</div>
+</div>
+
+<!-- 杭州 -->
+<div class="post">
+<div class="post-header">
+<div class="post-avatar" style="background:#e8f5e9">🌊</div>
+<div><div class="post-name">杭州</div><div class="post-time">今天 08:00</div></div>
+</div>
+<div class="post-text">我宣布：从今天起，杭州是一线城市。
+
+依据：
+1. 有阿里
+2. 有西湖
+3. 房价够了
+4. 我说的</div>
+<div class="comments">
+<span class="c-name">北京</span>：？<br>
+<span class="c-name">上海</span>：？？<br>
+<span class="c-name">广州</span>：？？？<br>
+<span class="c-name">深圳</span>：别闹。<br>
+<span class="c-name">南京</span>：那我呢？<br>
+<span class="c-name">苏州</span>：论GDP我比杭州高...<br>
+<span class="c-name">杭州</span> 回复 <span class="c-name">苏州</span>：你有西湖吗？<br>
+<span class="c-name">苏州</span> 回复 <span class="c-name">杭州</span>：我有园林，比你多。<br>
+<span class="c-name">济南</span>：我有泉。<br>
+<span class="c-name">大家</span>：......
+</div>
+</div>
+
+<!-- 东北 -->
+<div class="post">
+<div class="post-header">
+<div class="post-avatar" style="background:#fce4ec">❄️</div>
+<div><div class="post-name">东北（三省联合账号）</div><div class="post-time">今天 11:30</div></div>
+</div>
+<div class="post-text">问：东北有几个省？
+答：一个。就是东北省。
+
+黑龙江、吉林、辽宁表面上是三个省，实际上：
+- 说话一样
+- 烧烤一样
+- 搓澡一样
+- 被问"你东北哪的"的频率一样
+- 回答"东北的"的概率一样
+
+我们，不分你我。💪</div>
+<div class="like-row">❤️ 哈尔滨、长春、沈阳、大连、铁岭 等 28,441 人觉得很赞</div>
+<div class="comments">
+<span class="c-name">大连</span>：等一下，我口音不一样...<br>
+<span class="c-name">东北</span> 回复 <span class="c-name">大连</span>：闭嘴，你是我们的。<br>
+<span class="c-name">海南</span>：你们冬天来我这的人比本地人都多...<br>
+<span class="c-name">三亚</span>：冬天我是东北第四省。<br>
+<span class="c-name">广东</span>：你们居然三个省共用一个性格...
+</div>
+</div>
+
+<!-- 结尾 -->
+<div class="post" style="text-align:center;color:#999;font-size:13px;padding:30px 16px">
+— 已经是最新动态了 —<br><br>
+<span style="font-size:12px">中国34个省级行政区，每个都在假装过得很好。<br>评论区才是真实的人间。</span>
+</div>
+
+</div>
+</body>
+</html>

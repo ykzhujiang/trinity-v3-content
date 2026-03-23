@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外卖小哥的路线图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;color:#fff;font-family:'PingFang SC',-apple-system,sans-serif;max-width:480px;margin:0 auto;min-height:100vh;}
+.map-header{padding:44px 16px 12px;text-align:center;border-bottom:0.5px solid #1a1a2a;}
+.map-header h1{font-size:18px;font-weight:600;}
+.map-header .sub{font-size:12px;color:#666;margin-top:4px;}
+.map-header .rider{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:13px;color:#999;}
+.map-header .rider .dot{width:8px;height:8px;border-radius:50%;background:#30d158;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.map-container{position:relative;width:100%;aspect-ratio:1;background:#0d1117;overflow:hidden;border-bottom:0.5px solid #1a1a2a;}
+.map-svg{width:100%;height:100%;}
+.route-line{stroke:#ff9500;stroke-width:2;fill:none;stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 3s ease forwards;}
+@keyframes draw{to{stroke-dashoffset:0;}}
+.stop{cursor:pointer;transition:transform 0.2s;}
+.stop:hover{transform:scale(1.3);}
+.stop circle{transition:fill 0.3s;}
+.stop.active circle{fill:#ff9500 !important;}
+.stops-list{padding:16px;}
+.stop-card{background:#1c1c1e;border-radius:12px;padding:14px 16px;margin-bottom:12px;display:none;animation:fadeUp 0.4s ease forwards;border-left:3px solid #ff9500;}
+.stop-card.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.stop-card .addr{font-size:14px;font-weight:600;color:#ff9500;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.stop-card .addr .freq{font-size:11px;color:#666;font-weight:400;}
+.stop-card .story{font-size:13px;color:#999;line-height:1.7;}
+.stop-card .story em{color:#ccc;font-style:normal;}
+.stop-card .time{font-size:11px;color:#444;margin-top:6px;}
+.month-nav{display:flex;overflow-x:auto;gap:8px;padding:12px 16px;border-bottom:0.5px solid #1a1a2a;-webkit-overflow-scrolling:touch;}
+.month-nav::-webkit-scrollbar{display:none;}
+.month-btn{padding:6px 14px;border-radius:16px;font-size:12px;color:#666;background:#1c1c1e;border:none;white-space:nowrap;cursor:pointer;transition:all 0.2s;}
+.month-btn.active{background:#ff9500;color:#fff;}
+.stats-row{display:flex;justify-content:center;gap:20px;padding:16px;background:#1c1c1e;margin:16px;border-radius:12px;}
+.stats-row .stat{text-align:center;}
+.stats-row .stat .n{font-size:20px;font-weight:700;color:#ff9500;}
+.stats-row .stat .l{font-size:11px;color:#666;margin-top:2px;}
+.ending{padding:20px 16px 40px;text-align:center;}
+.ending .text{font-size:14px;color:#999;line-height:2;}
+.ending .big{font-size:16px;color:#ccc;font-weight:600;margin:16px 0;}
+.hint{text-align:center;font-size:12px;color:#444;padding:8px;animation:pulse2 2s infinite;}
+@keyframes pulse2{0%,100%{opacity:0.4;}50%{opacity:1;}}
+</style>
+</head>
+<body>
+
+<div class="map-header">
+<h1>🛵 外卖小哥的路线图</h1>
+<div class="sub">骑手 #20847 · 2023年全年送餐路线</div>
+<div class="rider"><span class="dot"></span>李海平 · 在线 · 已接单 4,217 单</div>
+</div>
+
+<div class="month-nav" id="monthNav">
+<button class="month-btn active" onclick="showMonth('all')">全年</button>
+<button class="month-btn" onclick="showMonth(1)">1月</button>
+<button class="month-btn" onclick="showMonth(3)">3月</button>
+<button class="month-btn" onclick="showMonth(6)">6月</button>
+<button class="month-btn" onclick="showMonth(8)">8月</button>
+<button class="month-btn" onclick="showMonth(10)">10月</button>
+<button class="month-btn" onclick="showMonth(12)">12月</button>
+</div>
+
+<div class="map-container">
+<svg class="map-svg" viewBox="0 0 400 400">
+<!-- Simplified map grid -->
+<defs>
+<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a2a" stroke-width="0.5"/>
+</pattern>
+</defs>
+<rect width="400" height="400" fill="url(#grid)"/>
+
+<!-- Roads -->
+<line x1="0" y1="200" x2="400" y2="200" stroke="#1a2a3a" stroke-width="3"/>
+<line x1="200" y1="0" x2="200" y2="400" stroke="#1a2a3a" stroke-width="3"/>
+<line x1="80" y1="0" x2="80" y2="400" stroke="#151f2a" stroke-width="1.5"/>
+<line x1="320" y1="0" x2="320" y2="400" stroke="#151f2a" stroke-width="1.5"/>
+<line x1="0" y1="120" x2="400" y2="120" stroke="#151f2a" stroke-width="1.5"/>
+<line x1="0" y1="300" x2="400" y2="300" stroke="#151f2a" stroke-width="1.5"/>
+
+<!-- Route line -->
+<path class="route-line" d="M200,380 L200,300 L80,300 L80,200 L200,200 L320,200 L320,120 L200,120 L80,120 L80,60 L200,60"/>
+
+<!-- Stops -->
+<g class="stop" onclick="showStop(0)" data-stop="0"><circle cx="200" cy="380" r="8" fill="#ff3b30"/><text x="200" y="384" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">起</text></g>
+
+<g class="stop" onclick="showStop(1)" data-stop="1"><circle cx="80" cy="300" r="7" fill="#30d158"/><text x="80" y="304" text-anchor="middle" fill="#fff" font-size="7">❶</text></g>
+
+<g class="stop" onclick="showStop(2)" data-stop="2"><circle cx="200" cy="200" r="7" fill="#30d158"/><text x="200" y="204" text-anchor="middle" fill="#fff" font-size="7">❷</text></g>
+
+<g class="stop" onclick="showStop(3)" data-stop="3"><circle cx="320" cy="200" r="7" fill="#ff9500"/><text x="320" y="204" text-anchor="middle" fill="#fff" font-size="7">★</text></g>
+
+<g class="stop" onclick="showStop(4)" data-stop="4"><circle cx="320" cy="120" r="7" fill="#30d158"/><text x="320" y="124" text-anchor="middle" fill="#fff" font-size="7">❹</text></g>
+
+<g class="stop" onclick="showStop(5)" data-stop="5"><circle cx="200" cy="120" r="7" fill="#ff9500"/><text x="200" y="124" text-anchor="middle" fill="#fff" font-size="7">★</text></g>
+
+<g class="stop" onclick="showStop(6)" data-stop="6"><circle cx="80" cy="120" r="7" fill="#30d158"/><text x="80" y="124" text-anchor="middle" fill="#fff" font-size="7">❻</text></g>
+
+<g class="stop" onclick="showStop(7)" data-stop="7"><circle cx="80" cy="60" r="7" fill="#ff9500"/><text x="80" y="64" text-anchor="middle" fill="#fff" font-size="7">★</text></g>
+
+<g class="stop" onclick="showStop(8)" data-stop="8"><circle cx="200" cy="60" r="8" fill="#5856d6"/><text x="200" y="64" text-anchor="middle" fill="#fff" font-size="7">家</text></g>
+
+<!-- Legend -->
+<text x="20" y="390" fill="#444" font-size="9">★ = 老客户（送了50次以上）</text>
+</svg>
+</div>
+
+<div class="hint">👆 点击地图上的圆点，解锁这个地址的故事</div>
+
+<div class="stops-list" id="stopsList">
+
+<div class="stop-card" id="stop-0">
+<div class="addr">📍 骑手站点（西三环）<span class="freq">每日出发点</span></div>
+<div class="story">每天早上10:30打卡。换电池、检查车况、看一眼今天的天气。<em>雨天单多，但路滑。他不喜欢下雨——不是因为自己淋，是因为汤会洒。</em></div>
+</div>
+
+<div class="stop-card" id="stop-1">
+<div class="addr">📍 望京SOHO B座 12楼<span class="freq">送了 203 次</span></div>
+<div class="story">互联网公司，永远在加班。前台小姐姐记住了他的名字，每次说"海平哥又来了"。有一次他送到的时候，整层灯都关了。<em>外卖放在前台，人已经走了。他突然觉得心疼——不知道心疼谁。</em></div>
+<div class="time">最常送达时间：21:15</div>
+</div>
+
+<div class="stop-card" id="stop-2">
+<div class="addr">📍 朝阳医院 住院部<span class="freq">送了 67 次</span></div>
+<div class="story">一开始是个年轻人点的外卖，备注"送到7楼护士站"。后来变成一个中年女人点的，备注"不要辣，煮软一点"。再后来，这个地址再也没出现过。<em>他没有问。有些外卖地址消失的方式，他懂。</em></div>
+<div class="time">地址活跃期：2023.03 — 2023.08</div>
+</div>
+
+<div class="stop-card" id="stop-3">
+<div class="addr">⭐ 学知路 小区3号楼 · 老客户<span class="freq">送了 89 次</span></div>
+<div class="story">独居老太太。每次点一份粥 + 一个咸菜。他第一次送到时，老太太多给了5块钱说"别找了"。他退回去了。后来老太太每次都在阳台等着，看到他就招手。<em>有一次他迟到了8分钟，老太太在楼下站着，不是因为等外卖，是"怕你找不到路"。</em></div>
+<div class="time">平均送达时间：11:45 · 老太太从不点晚餐</div>
+</div>
+
+<div class="stop-card" id="stop-4">
+<div class="addr">📍 某中学北门<span class="freq">送了 31 次</span></div>
+<div class="story">每周五下午4:30，一份奶茶 + 一份炸鸡。收货人"小雨"。有一次备注写着"今天考砸了 多加点糖"。他多放了两包。<em>平台不知道，但他觉得考砸了就该多加糖。</em></div>
+<div class="time">仅周五出现 · 寒暑假消失</div>
+</div>
+
+<div class="stop-card" id="stop-5">
+<div class="addr">⭐ 回龙观 某公寓 · 老客户<span class="freq">送了 112 次</span></div>
+<div class="story">程序员。每天半夜点咖啡。有一次凌晨3点，他送到时对方开门，眼睛是红的。两人对视了一秒，程序员说"谢谢"，他说"早点休息"。<em>后来每次送到，门口都多放了一瓶水——"给你的，路上喝"。贴了张便签条。</em></div>
+<div class="time">最晚送达：03:47</div>
+</div>
+
+<div class="stop-card" id="stop-6">
+<div class="addr">📍 天通苑 · 某小区<span class="freq">送了 18 次</span></div>
+<div class="story">一个小孩开的门。每次都是儿童套餐。地址下面小字写着"爸爸出差了 妈妈加班"。有一次外卖袋子上被小孩画了一个笑脸还回来。<em>他把那个袋子留了一周才扔。</em></div>
+</div>
+
+<div class="stop-card" id="stop-7">
+<div class="addr">⭐ 西二旗 地铁站旁 · 老客户<span class="freq">送了 76 次</span></div>
+<div class="story">一个外卖骑手。对，骑手给骑手点外卖。他太忙了没空吃饭，就点一份最便宜的盖饭，备注"放电动车篮子里就行"。<em>两个在路上跑的人，唯一的交集是一份12块的盖饭。</em></div>
+<div class="time">送达位置永远在变 · 但永远是那个篮子</div>
+</div>
+
+<div class="stop-card" id="stop-8">
+<div class="addr">🏠 大兴 · 出租屋<span class="freq">回家</span></div>
+<div class="story">23:30下线。骑40分钟回家。媳妇已经睡了，饭在锅里热着。他吃完饭看一眼手机：今天跑了47单，168公里。<em>这座城市有2000万人，他今天见了47个。每一个都只见了30秒。</em></div>
+<div class="time">平均到家：00:10</div>
+</div>
+
+</div>
+
+<div class="stats-row">
+<div class="stat"><div class="n">4,217</div><div class="l">年总单量</div></div>
+<div class="stat"><div class="n">61,380</div><div class="l">总公里数</div></div>
+<div class="stat"><div class="n">23</div><div class="l">老客户</div></div>
+<div class="stat"><div class="n">1</div><div class="l">差评</div></div>
+</div>
+
+<div class="ending">
+<div class="text">
+他骑过的61,380公里<br>
+可以绕地球一圈半。<br><br>
+</div>
+<div class="big">
+但他最远只到过通州。
+</div>
+<div class="text">
+4,217个地址，4,217个30秒的相遇。<br>
+他不认识他们中的任何一个。<br>
+但他知道——<br><br>
+望京SOHO 12楼最近没人加班了。<br>
+老太太今天没在阳台等他。<br>
+小雨这周没点奶茶。<br><br>
+<span style="color:#ff9500;">一个人跑过一座城市所有的经纬度，<br>就会在路线里长出感情。</span>
+</div>
+</div>
+
+<script>
+function showStop(i){
+document.querySelectorAll('.stop-card').forEach(c=>c.classList.remove('show'));
+document.querySelectorAll('.stop').forEach(s=>s.classList.remove('active'));
+const card=document.getElementById('stop-'+i);
+if(card){card.classList.add('show');card.scrollIntoView({behavior:'smooth',block:'center'});}
+const stop=document.querySelector('[data-stop="'+i+'"]');
+if(stop)stop.classList.add('active');
+}
+function showMonth(m){
+document.querySelectorAll('.month-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+// Visual only — in a real version this would filter route data
+}
+// Auto-show first stop
+setTimeout(()=>showStop(0),1500);
+</script>
+
+</body>
+</html>

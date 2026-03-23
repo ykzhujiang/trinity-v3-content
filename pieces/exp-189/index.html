@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>😅的田野调查</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans SC',sans-serif; background:#0a0a0f; color:#ddd; min-height:100vh; }
+  .container { max-width:420px; margin:0 auto; padding:20px 16px; }
+  
+  .header { text-align:center; padding:40px 0 10px; }
+  .big-emoji { font-size:64px; margin-bottom:12px; }
+  .header h1 { font-size:18px; font-weight:500; color:#fff; }
+  .header .sub { font-size:12px; color:#555; margin-top:8px; line-height:1.6; }
+
+  .score-bar {
+    display:flex; justify-content:center; align-items:center; gap:8px;
+    margin:20px 0 24px;
+    font-size:13px; color:#666;
+  }
+  .score-num { font-size:20px; font-weight:700; color:#5e72e4; }
+
+  .quiz-card {
+    background:#111118; border-radius:16px;
+    padding:20px; margin-bottom:16px;
+    border:1px solid #1e1e30;
+    transition:all 0.3s;
+  }
+  .quiz-card.answered { border-color:#2a2a3a; }
+  .quiz-card .q-num {
+    font-size:11px; color:#444; margin-bottom:10px;
+    letter-spacing:2px;
+  }
+
+  .chat-bubble-container {
+    background:#1a1a28; border-radius:12px;
+    padding:14px; margin-bottom:14px;
+  }
+  .chat-header {
+    display:flex; align-items:center; gap:8px; margin-bottom:10px;
+  }
+  .chat-avatar {
+    width:28px; height:28px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex-shrink:0;
+  }
+  .chat-name { font-size:12px; color:#888; }
+  .chat-relation { font-size:10px; color:#444; margin-left:4px; }
+  .chat-body {
+    padding-left:36px;
+  }
+  .chat-msg {
+    background:#252535; border-radius:10px;
+    padding:8px 12px; display:inline-block;
+    font-size:14px; color:#ccc;
+    margin-bottom:4px;
+  }
+  .chat-msg.reply {
+    background:#2a3a2a; margin-left:20px;
+  }
+  .chat-emoji-highlight {
+    font-size:18px;
+  }
+
+  .options {
+    display:flex; flex-direction:column; gap:8px;
+    margin-top:12px;
+  }
+  .option {
+    padding:10px 14px; border-radius:10px;
+    border:1px solid #222; background:#0d0d18;
+    cursor:pointer; font-size:13px; color:#bbb;
+    transition:all 0.3s;
+    display:flex; align-items:center; gap:8px;
+  }
+  .option:hover { border-color:#5e72e4; color:#fff; }
+  .option .o-letter {
+    width:20px; height:20px; border-radius:50%;
+    background:#1a1a2e; color:#5e72e4;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:700; flex-shrink:0;
+  }
+  .option.correct { border-color:#4ecdc4; background:#1a2a28; color:#4ecdc4; }
+  .option.wrong { border-color:#e44d72; background:#2a1a1a; color:#e44d72; opacity:0.6; }
+  .option.disabled { pointer-events:none; }
+
+  .reveal-text {
+    max-height:0; overflow:hidden;
+    transition:max-height 0.5s;
+    font-size:12px; line-height:1.8; color:#888;
+    margin-top:0; padding:0 4px;
+  }
+  .quiz-card.answered .reveal-text {
+    max-height:200px;
+    margin-top:12px;
+  }
+
+  .final-reveal {
+    background:linear-gradient(135deg,#141420,#1a1428);
+    border:1px solid #2a1a3a; border-radius:16px;
+    padding:24px 20px; margin-top:24px;
+    opacity:0; transform:translateY(20px);
+    transition:all 0.8s; display:none;
+  }
+  .final-reveal.visible { opacity:1; transform:translateY(0); display:block; }
+  .final-reveal .fr-title {
+    font-size:14px; color:#c0a0e0; font-weight:500; margin-bottom:12px;
+  }
+  .final-reveal .fr-body {
+    font-size:13px; line-height:2; color:#a090c0;
+  }
+  .final-reveal .fr-grid {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:6px;
+    margin:16px 0;
+  }
+  .final-reveal .fr-cell {
+    text-align:center; padding:8px 4px;
+    background:#1a1a2e; border-radius:8px;
+    font-size:10px; color:#666;
+  }
+  .final-reveal .fr-cell .fc-emoji { font-size:20px; margin-bottom:4px; }
+  .final-reveal .fr-coda {
+    text-align:center; font-size:14px; color:#c0a0e0;
+    margin-top:16px; line-height:2;
+  }
+
+  .footer { text-align:center; font-size:11px; color:#333; margin:40px 0 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="big-emoji">😅</div>
+    <h1>一个emoji的田野调查</h1>
+    <div class="sub">同一个表情，8段关系，8种含义<br>你能猜对几个？</div>
+  </div>
+
+  <div class="score-bar">得分：<span class="score-num" id="scoreNum">0</span> / 8</div>
+
+  <div id="quizContainer"></div>
+
+  <div class="final-reveal" id="finalReveal">
+    <div class="fr-title">🔍 调查结论</div>
+    <div class="fr-body">
+      你刚才看到的8段对话，来自同一部手机。<br><br>
+      发 😅 的人叫小林。25岁。在一家互联网公司做运营。单身。合租。养了一只猫。<br><br>
+      这是她一天里发出的所有 😅：
+    </div>
+    <div class="fr-grid">
+      <div class="fr-cell"><div class="fc-emoji">😅</div>给老板<br>09:14</div>
+      <div class="fr-cell"><div class="fc-emoji">😅</div>给妈妈<br>10:22</div>
+      <div class="fr-cell"><div class="fc-emoji">😅</div>给前任<br>11:05</div>
+      <div class="fr-cell"><div class="fc-emoji">😅</div>给闺蜜<br>12:30</div>
+      <div class="fr-cell"><div class="fc-emoji">😅</div>给同事<br>14:17</div>
+      <div class="fr-cell"><div class="fc-emoji">😅</div>给相亲对象<br>19:45</div>
+      <div class="fr-cell"><div class="fc-emoji">😅</div>给医生<br>21:08</div>
+      <div class="fr-cell"><div class="fc-emoji">😅</div>给自己<br>23:56</div>
+    </div>
+    <div class="fr-body">
+      8个 😅。8种语气。8个版本的小林。<br><br>
+      给老板的 😅 是盔甲。<br>
+      给妈妈的 😅 是翻译器。<br>
+      给前任的 😅 是围墙。<br>
+      给闺蜜的 😅 是暗号。<br>
+      给同事的 😅 是润滑剂。<br>
+      给相亲对象的 😅 是逃生舱。<br>
+      给医生的 😅 是创可贴。<br>
+      给自己的 😅 是——<br><br>
+    </div>
+    <div class="fr-coda">
+      给自己的那个 😅 什么都不是。<br>
+      它是唯一一个不需要翻译的 😅。<br><br>
+      <span style="color:#e44d72;">不是8种含义。<br>是一个人用同一张面具<br>在8段关系里呼吸。</span><br><br>
+      <span style="color:#555; font-size:12px;">😅 不是一个表情。<br>😅 是这个时代最大的翻译软件。<br>它替我们说了所有不能说的话。</span>
+    </div>
+  </div>
+
+  <div class="footer">TRINITY V3 · EXP-189 · 😅的田野调查</div>
+</div>
+
+<script>
+const quizData = [
+  {
+    num: 1, relation: '老板', avatar: '👔', name: '张总', color: '#2a2a1a',
+    msgs: [
+      {from:'boss', text:'这个方案周五之前能改好吗'},
+      {from:'you', text:'😅 好的张总，我尽量'},
+    ],
+    options: [
+      {text:'"没问题！"（积极响应）', correct: false},
+      {text:'"你在开玩笑吧"（内心咆哮）', correct: false},
+      {text:'"我已经在加班了但不敢说不"', correct: true},
+      {text:'"我觉得很好笑"', correct: false},
+    ],
+    reveal: '这个 😅 的意思是"收到"。但不是真的收到，是"我听到了你的要求，我知道这不合理，你也知道这不合理，但我们都要假装这很合理"。😅是职场里的白旗——投降但保持微笑。'
+  },
+  {
+    num: 2, relation: '妈妈', avatar: '👩‍🦳', name: '妈', color: '#1a2a1a',
+    msgs: [
+      {from:'mom', text:'你在那边吃得好吗，要不要妈给你寄点腊肉'},
+      {from:'you', text:'吃得很好妈 😅 不用寄了'},
+    ],
+    options: [
+      {text:'"真的吃得好"', correct: false},
+      {text:'"不想让你担心但其实天天吃外卖"', correct: true},
+      {text:'"嫌你烦"', correct: false},
+      {text:'"觉得好笑"', correct: false},
+    ],
+    reveal: '妈妈看到的是"女儿过得挺好的"。但 😅 是小林从"过得不太好"到"挺好的"之间的翻译层。没有这个emoji，她不知道怎么把"今晚又是泡面"包装成"吃得很好"。'
+  },
+  {
+    num: 3, relation: '前任', avatar: '🌑', name: '他', color: '#2a1a1a',
+    msgs: [
+      {from:'ex', text:'听说你换工作了？新工作怎么样'},
+      {from:'you', text:'还行吧 😅'},
+    ],
+    options: [
+      {text:'"我过得很好不用你关心"', correct: true},
+      {text:'"我很开心你还记得我"', correct: false},
+      {text:'"工作确实还行"', correct: false},
+      {text:'"想和你复合"', correct: false},
+    ],
+    reveal: '两个字加一个emoji。每一个部分都在说"别靠近"。"还行"是最安全的形容词——不好不坏，不给对方继续问下去的理由。😅 是围墙。它说的是："你已经没有资格知道我过得怎么样了。"'
+  },
+  {
+    num: 4, relation: '闺蜜', avatar: '💅', name: '阿毛', color: '#2a1a2a',
+    msgs: [
+      {from:'friend', text:'靠！！你看那个渣男又发朋友圈了'},
+      {from:'you', text:'😅😅😅'},
+    ],
+    options: [
+      {text:'"我也看到了哈哈哈"', correct: false},
+      {text:'"别提了我已经看了他朋友圈20分钟了"', correct: true},
+      {text:'"我不在意"', correct: false},
+      {text:'"很尴尬"', correct: false},
+    ],
+    reveal: '三个连发的 😅 在闺蜜之间是暗号。翻译过来是"我有很多话要说但打字太累了等会儿语音"。只有最亲的人才能读懂连发emoji的密度和节奏。1个=还好，3个=我快爆炸了但先用表情顶一下。'
+  },
+  {
+    num: 5, relation: '同事', avatar: '🧑‍💻', name: '小王', color: '#1a1a2a',
+    msgs: [
+      {from:'colleague', text:'那个项目甲方又改需求了'},
+      {from:'you', text:'😅 习惯了'},
+    ],
+    options: [
+      {text:'"我们一起吐槽但不能太明显"', correct: true},
+      {text:'"我真的习惯了不在意"', correct: false},
+      {text:'"我要辞职了"', correct: false},
+      {text:'"这很好笑"', correct: false},
+    ],
+    reveal: '同事之间的 😅 是一种"安全吐槽"。你不能说"这公司真傻逼"，但 😅+习惯了 = 完美的灰色地带。它精确地传达了"我和你一样痛苦但我们都不能说"。这是成年人的团结方式。'
+  },
+  {
+    num: 6, relation: '相亲对象', avatar: '☕', name: '相亲4号', color: '#1a2a2a',
+    msgs: [
+      {from:'date', text:'下次一起去看电影？'},
+      {from:'you', text:'最近好忙啊 😅 改天吧'},
+    ],
+    options: [
+      {text:'"真的很忙"', correct: false},
+      {text:'"不想去但不好意思直接拒绝"', correct: true},
+      {text:'"想去但在矜持"', correct: false},
+      {text:'"觉得好笑"', correct: false},
+    ],
+    reveal: '"改天"在中文里的意思是"永远不会有那一天"。😅 是给"改天"上的一层糖衣——让拒绝看起来像遗憾。但她打 😅 的时候手指没有任何犹豫。0.2秒。比给老板回消息还快。'
+  },
+  {
+    num: 7, relation: '医生', avatar: '🏥', name: '李医生', color: '#1a2020',
+    msgs: [
+      {from:'doctor', text:'检查结果出来了，我们约个时间聊一下吧'},
+      {from:'you', text:'好的 😅 什么时候方便'},
+    ],
+    options: [
+      {text:'"有点紧张但装作没事"', correct: true},
+      {text:'"觉得好笑"', correct: false},
+      {text:'"很开心"', correct: false},
+      {text:'"在抱怨"', correct: false},
+    ],
+    reveal: '这是所有 😅 里最轻也最重的一个。"约个时间聊一下"——如果是好消息，医生会直接说。需要"聊一下"意味着需要"坐下来说"。小林打了 😅 是因为她不知道该打什么。恐惧没有对应的emoji。😅 是最接近的替代品。'
+  },
+  {
+    num: 8, relation: '自己', avatar: '🪞', name: '我', color: '#1a1a1a',
+    msgs: [
+      {from:'self', text:'今天也是很棒的一天呢'},
+      {from:'self-reply', text:'😅'},
+    ],
+    options: [
+      {text:'"在自我鼓励"', correct: false},
+      {text:'"在自嘲"', correct: false},
+      {text:'"如果我不笑我就要哭了"', correct: true},
+      {text:'"今天确实很棒"', correct: false},
+    ],
+    reveal: '23:56。躺在床上。猫趴在脚边。给自己的备忘录打了一句"今天也是很棒的一天呢"，然后加了一个 😅。<br><br>这是一天里唯一一个不需要表演的 😅。没有观众。没有需要维护的关系。只有她自己。<br><br>她知道今天不棒。😅 知道她知道。<br><br>但打完这个 😅 之后，她关了灯，睡着了。明天还要发很多很多个 😅。'
+  }
+];
+
+let score = 0;
+let answered = 0;
+const container = document.getElementById('quizContainer');
+
+quizData.forEach((q, qi) => {
+  const card = document.createElement('div');
+  card.className = 'quiz-card';
+  card.id = 'q' + qi;
+  
+  let msgsHtml = '';
+  q.msgs.forEach(m => {
+    const isReply = m.from === 'you' || m.from === 'self-reply';
+    msgsHtml += `<div class="chat-msg ${isReply ? 'reply' : ''}">${m.text}</div>`;
+  });
+
+  let optsHtml = '';
+  q.options.forEach((o, oi) => {
+    optsHtml += `<div class="option" data-q="${qi}" data-o="${oi}" data-correct="${o.correct}" onclick="answer(this)">
+      <div class="o-letter">${String.fromCharCode(65+oi)}</div>
+      ${o.text}
+    </div>`;
+  });
+
+  card.innerHTML = `
+    <div class="q-num">CASE ${q.num} / 8 — ${q.relation}</div>
+    <div class="chat-bubble-container" style="background:${q.color}">
+      <div class="chat-header">
+        <div class="chat-avatar">${q.avatar}</div>
+        <span class="chat-name">${q.name}</span>
+        <span class="chat-relation">${q.relation}</span>
+      </div>
+      <div class="chat-body">${msgsHtml}</div>
+    </div>
+    <div class="options">${optsHtml}</div>
+    <div class="reveal-text">${q.reveal}</div>
+  `;
+  container.appendChild(card);
+});
+
+function answer(el) {
+  const qi = el.dataset.q;
+  const card = document.getElementById('q' + qi);
+  if (card.classList.contains('answered')) return;
+  
+  card.classList.add('answered');
+  answered++;
+  
+  const isCorrect = el.dataset.correct === 'true';
+  if (isCorrect) {
+    score++;
+    el.classList.add('correct');
+  } else {
+    el.classList.add('wrong');
+    // highlight correct
+    card.querySelectorAll('.option[data-correct="true"]').forEach(c => c.classList.add('correct'));
+  }
+  card.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
+  
+  document.getElementById('scoreNum').textContent = score;
+  
+  if (answered >= 8) {
+    setTimeout(() => {
+      document.getElementById('finalReveal').classList.add('visible');
+    }, 1000);
+  }
+}
+</script>
+</body>
+</html>

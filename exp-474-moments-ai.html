@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>一个AI创业者的三年</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;background:#ededed;color:#111;-webkit-font-smoothing:antialiased}
+.cover{position:relative;height:280px;overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;filter:brightness(.65)}
+.cover .profile-row{position:absolute;bottom:16px;right:16px;display:flex;align-items:center;gap:10px}
+.cover .username{color:#fff;font-size:18px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.avatar{width:56px;height:56px;border-radius:8px;overflow:hidden;flex-shrink:0}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar.sm{width:44px;height:44px;border-radius:6px}
+.timeline{padding:0 0 60px}
+.post{background:#fff;border-bottom:.5px solid #e5e5e5;padding:14px 14px 10px 68px;position:relative;opacity:1;transform:translateY(0);transition:all .45s ease}
+.post.hidden{opacity:0;transform:translateY(16px)}
+.post.show{opacity:1;transform:translateY(0)}
+.post .pa{position:absolute;left:12px;top:14px}
+.post-name{font-size:16px;font-weight:600;color:#576b95;margin-bottom:3px}
+.post-text{font-size:17px;line-height:1.65;margin-bottom:8px}
+.post-img{width:100%;max-width:260px;border-radius:6px;margin-bottom:8px;display:block}
+.post-link{display:flex;align-items:center;background:#f3f3f3;border-radius:4px;padding:8px;margin-bottom:8px;gap:8px}
+.post-link .li{width:40px;height:40px;border-radius:4px;background:#4285f4;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0}
+.post-link .lt{font-size:14px;color:#555;line-height:1.4}
+.post-meta{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.post-time{font-size:13px;color:#999}
+.post-actions{display:flex;gap:16px}
+.post-actions span{font-size:13px;color:#999}
+.likes{padding:6px 10px;background:#f3f3f3;border-radius:3px;margin:6px 0 4px;font-size:14px;color:#576b95}
+.likes::before{content:'❤️ ';font-size:12px}
+.comments{padding:0}
+.comment{padding:4px 10px;background:#f3f3f3;font-size:14px;line-height:1.6}
+.comment:first-child{border-radius:0 0 0 0}
+.comment .cn{color:#576b95;font-weight:500}
+.comment .cr{color:#576b95}
+.year-sep{text-align:center;padding:20px 0 10px;font-size:14px;color:#999;letter-spacing:2px;font-weight:500}
+.ending{text-align:center;padding:40px 20px;color:#999;font-size:14px}
+.ending .big{font-size:20px;color:#333;font-weight:600;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<!-- Cover -->
+<div class="cover">
+  <img src="exp-474-moments-03-launch.jpg" alt="cover">
+  <div class="profile-row">
+    <span class="username">林远舟</span>
+    <div class="avatar"><img src="exp-474-moments-01-chatgpt.jpg" alt="avatar"></div>
+  </div>
+</div>
+
+<div class="timeline">
+
+<!-- 2023 -->
+<div class="year-sep">— 2023 —</div>
+
+<!-- Post 1 -->
+<div class="post">
+  <div class="pa"><div class="avatar sm"><img src="exp-474-moments-01-chatgpt.jpg" alt=""></div></div>
+  <div class="post-name">林远舟</div>
+  <div class="post-text">这东西要改变世界。认真的。</div>
+  <div class="post-link">
+    <div class="li">🤖</div>
+    <div class="lt">【深度】ChatGPT爆火：AI大模型将如何重塑每一个行业？</div>
+  </div>
+  <div class="post-meta"><span class="post-time">2023年3月15日</span><span class="post-actions"><span>💬 5</span></span></div>
+  <div class="likes">老王, 张娜, 陈亮</div>
+  <div class="comments">
+    <div class="comment"><span class="cn">老王：</span>你每次都说改变世界😂</div>
+    <div class="comment"><span class="cn">张娜：</span>确实挺厉害的，我也在玩</div>
+    <div class="comment"><span class="cn">周哥：</span>又蹭热点？</div>
+  </div>
+</div>
+
+<!-- Post 2 -->
+<div class="post">
+  <div class="pa"><div class="avatar sm"><img src="exp-474-moments-01-chatgpt.jpg" alt=""></div></div>
+  <div class="post-name">林远舟</div>
+  <div class="post-text">在字节跳动干了四年。今天，正式提了离职。<br><br>All in AI。不想再等了。<br><br>如果三十岁还不为自己疯狂一次，就再也没机会了。</div>
+  <img class="post-img" src="exp-474-moments-02-quit.jpg" alt="辞职">
+  <div class="post-meta"><span class="post-time">2023年6月20日</span><span class="post-actions"><span>💬 23</span></span></div>
+  <div class="likes">老王, 张娜, 陈亮, 刘畅, 赵雨, 李磊 等18人</div>
+  <div class="comments">
+    <div class="comment"><span class="cn">老王：</span>疯了吧？大厂不香吗？</div>
+    <div class="comment"><span class="cn">妈妈：</span>儿子你想清楚了吗</div>
+    <div class="comment"><span class="cn">张娜：</span>加油！！！看好你！</div>
+    <div class="comment"><span class="cn">刘畅：</span>勇气可嘉，请你吃饭</div>
+    <div class="comment"><span class="cn">周哥：</span>别冲动啊兄弟…</div>
+    <div class="comment"><span class="cn">林远舟</span> 回复 <span class="cr">妈妈</span>：想清楚了，放心😊</div>
+  </div>
+</div>
+
+<!-- Post 3 -->
+<div class="post">
+  <div class="pa"><div class="avatar sm"><img src="exp-474-moments-01-chatgpt.jpg" alt=""></div></div>
+  <div class="post-name">林远舟</div>
+  <div class="post-text">凌晨三点，产品终于跑通了第一个完整的demo。<br><br>六个月。两个人。一间出租屋。<br><br>外卖盒子堆了一地，但这一刻值了。</div>
+  <img class="post-img" src="exp-474-moments-03-launch.jpg" alt="深夜开发">
+  <div class="post-meta"><span class="post-time">2023年12月31日 03:17</span><span class="post-actions"><span>💬 12</span></span></div>
+  <div class="likes">张娜, 刘畅, 赵雨, 技术群好友, 创业圈朋友 等31人</div>
+  <div class="comments">
+    <div class="comment"><span class="cn">刘畅：</span>跨年夜还在加班，真牛🐮</div>
+    <div class="comment"><span class="cn">张娜：</span>新年快乐！产品什么时候让我们试试</div>
+    <div class="comment"><span class="cn">技术合伙人小苏：</span>终于！！！！明天继续💪</div>
+    <div class="comment"><span class="cn">老王：</span>注意身体…</div>
+  </div>
+</div>
+
+<!-- 2024 -->
+<div class="year-sep">— 2024 —</div>
+
+<!-- Post 4 -->
+<div class="post">
+  <div class="pa"><div class="avatar sm"><img src="exp-474-moments-01-chatgpt.jpg" alt=""></div></div>
+  <div class="post-name">林远舟</div>
+  <div class="post-text">低调低调。🤫</div>
+  <div class="post-link">
+    <div class="li">💰</div>
+    <div class="lt">AI创业公司「远舟智能」完成天使轮融资，金额数千万元</div>
+  </div>
+  <div class="post-meta"><span class="post-time">2024年6月8日</span><span class="post-actions"><span>💬 45</span></span></div>
+  <div class="likes">老王, 刘畅, 前字节同事, 投资人老李, VC圈朋友 等89人</div>
+  <div class="comments">
+    <div class="comment"><span class="cn">老王：</span>……我收回之前说的话</div>
+    <div class="comment"><span class="cn">前字节同事：</span>大佬！还招人吗？认真的</div>
+    <div class="comment"><span class="cn">周哥：</span>服了服了🫡</div>
+    <div class="comment"><span class="cn">妈妈：</span>看不懂，但是妈妈为你骄傲❤️</div>
+    <div class="comment"><span class="cn">刘畅：</span>请吃饭的那顿，我觉得是我最英明的投资</div>
+    <div class="comment"><span class="cn">林远舟</span> 回复 <span class="cr">妈妈</span>：❤️</div>
+  </div>
+</div>
+
+<!-- Post 5 -->
+<div class="post">
+  <div class="pa"><div class="avatar sm"><img src="exp-474-moments-01-chatgpt.jpg" alt=""></div></div>
+  <div class="post-name">林远舟</div>
+  <div class="post-text">从2个人到50个人。<br><br>去年跨年只有我和小苏两个人对着屏幕，今年有一整个团队。<br><br>敬每一个选择相信我们的人。🥂</div>
+  <img class="post-img" src="exp-474-moments-05-annual.jpg" alt="年会">
+  <div class="post-meta"><span class="post-time">2024年12月28日</span><span class="post-actions"><span>💬 67</span></span></div>
+  <div class="likes">全体同事, 投资人, 老王, 张娜, 家人 等156人</div>
+  <div class="comments">
+    <div class="comment"><span class="cn">技术合伙人小苏：</span>还记得那间出租屋吗😭今年我们有了自己的办公楼层</div>
+    <div class="comment"><span class="cn">老王：</span>明年年会我能来蹭饭吗</div>
+    <div class="comment"><span class="cn">张娜：</span>看哭了…远舟你真的做到了</div>
+    <div class="comment"><span class="cn">新员工小李：</span>加入远舟智能是我今年最正确的决定！</div>
+  </div>
+</div>
+
+<!-- 2025-2026 -->
+<div class="year-sep">— 2025~2026 —</div>
+
+<!-- Post 6 -->
+<div class="post">
+  <div class="pa"><div class="avatar sm"><img src="exp-474-moments-01-chatgpt.jpg" alt=""></div></div>
+  <div class="post-name">林远舟</div>
+  <img class="post-img" src="exp-474-moments-04-funding.jpg" alt="庆祝">
+  <div class="post-text">DAU破百万。<br><br>没有什么特别想说的。就是谢谢。谢谢每一个用户，每一个同事，每一个曾经帮过我们的人。</div>
+  <div class="post-meta"><span class="post-time">2025年6月15日</span><span class="post-actions"><span>💬 200+</span></span></div>
+  <div class="likes">❤️ 328人</div>
+  <div class="comments">
+    <div class="comment"><span class="cn">投资人老李：</span>投你是我今年的最佳案例</div>
+    <div class="comment"><span class="cn">技术合伙人小苏：</span>从凌晨三点的demo到百万DAU…远哥，我们做到了</div>
+    <div class="comment"><span class="cn">妈妈：</span>妈妈一直相信你❤️</div>
+  </div>
+</div>
+
+<!-- Post 7 — the punchline -->
+<div class="post">
+  <div class="pa"><div class="avatar sm"><img src="exp-474-moments-01-chatgpt.jpg" alt=""></div></div>
+  <div class="post-name">林远舟</div>
+  <div class="post-text">三年了。</div>
+  <img class="post-img" src="exp-474-moments-06-coffee.jpg" alt="咖啡">
+  <div class="post-meta"><span class="post-time">2026年3月15日 15:42</span><span class="post-actions"><span>💬 18</span></span></div>
+  <div class="likes">张娜, 小苏, 刘畅, 老王 等52人</div>
+  <div class="comments">
+    <div class="comment"><span class="cn">张娜：</span>三年前的今天，你转发了那篇ChatGPT的文章</div>
+    <div class="comment"><span class="cn">技术合伙人小苏：</span>三年前你说"这东西要改变世界"，你真的做到了</div>
+    <div class="comment"><span class="cn">刘畅：</span>那顿饭值了👍</div>
+    <div class="comment" style="background:#e8f5e9"><span class="cn">老王：</span>我收回当年说的"疯了吧"。远舟，请问你们还招人吗？认真的。</div>
+    <div class="comment"><span class="cn">林远舟</span> 回复 <span class="cr">老王</span>：随时。</div>
+  </div>
+</div>
+
+</div><!-- end timeline -->
+
+<div class="ending">
+  <div class="big">所有人都觉得你疯了的时候<br>就是你最接近成功的时候</div>
+  <div style="margin-top:12px">— 一个AI创业者的三年朋友圈 —</div>
+</div>
+
+<script>
+// Scroll-triggered fade in
+const posts = document.querySelectorAll('.post');
+posts.forEach(p => p.classList.add('hidden'));
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.remove('hidden'); e.target.classList.add('show'); }});
+}, { threshold: 0.1 });
+posts.forEach(p => observer.observe(p));
+</script>
+</body>
+</html>

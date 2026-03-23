@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>当程序员用红石电路做年终汇报</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB",sans-serif;background:#2d1b4e;color:#e8e0f0;font-size:20px;line-height:1.9;-webkit-font-smoothing:antialiased}
+.header{padding:30px 20px 20px;text-align:center;background:linear-gradient(180deg,#1a0f2e,#2d1b4e)}
+.header h1{font-size:26px;color:#7cfc00;text-shadow:0 0 20px rgba(124,252,0,.4);margin-bottom:8px}
+.header .sub{font-size:15px;color:#9b8ab8;letter-spacing:2px}
+.panel{margin:16px 12px;background:rgba(0,0,0,.3);border:2px solid #3d2a5c;border-radius:12px;overflow:hidden;opacity:0;transform:translateY(40px);transition:all .7s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-header{background:linear-gradient(90deg,#4a2d7a,#2d1b4e);padding:12px 16px;display:flex;align-items:center;gap:10px}
+.panel-num{background:#7cfc00;color:#1a0f2e;font-size:13px;font-weight:900;padding:4px 10px;border-radius:20px}
+.panel-title{font-size:18px;font-weight:700;color:#c8b8e8}
+.panel img{width:100%;display:block}
+.panel-text{padding:16px;font-size:18px;line-height:2;color:#d0c4e8}
+.panel-text .insider{display:inline-block;background:rgba(124,252,0,.15);color:#7cfc00;padding:2px 8px;border-radius:6px;font-weight:700;margin:2px 0}
+.ending-box{margin:20px 12px;text-align:center;background:linear-gradient(135deg,#1a3a1a,#2d1b4e);border:2px solid #7cfc00;border-radius:16px;padding:24px 16px;opacity:0;transform:scale(.9);transition:all .8s ease}
+.ending-box.visible{opacity:1;transform:scale(1)}
+.ending-box .big{font-size:24px;color:#7cfc00;font-weight:900;margin-bottom:8px}
+.ending-box .small{font-size:16px;color:#9b8ab8}
+.footer{text-align:center;font-size:13px;color:#4a3565;padding:30px 16px 50px}
+.pixel-bar{height:4px;background:repeating-linear-gradient(90deg,#7cfc00 0 8px,transparent 8px 12px);margin:0 12px}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>⛏️ 当程序员用红石电路做年终汇报</h1>
+<div class="sub">MC像素风 · 职场生存指南</div>
+</div>
+<div class="pixel-bar"></div>
+
+<!-- 第一格 -->
+<div class="panel" id="p1">
+<div class="panel-header"><span class="panel-num">第1格</span><span class="panel-title">红石电路 = CI/CD</span></div>
+<img src="mc1.jpg" alt="红石电路汇报">
+<div class="panel-text">
+老板：「小张，年终汇报准备好了吗？」<br><br>
+小张打开MC世界，指着一条巨型<span class="insider">红石电路</span>说：「老板你看，这就是我今年搭建的<span class="insider">CI/CD流水线</span>。红石信号从这头传到那头，代码从提交到上线，全自动。」<br><br>
+老板：「……这是游戏吧？」<br>
+小张：「这是<b>可视化架构图</b>。」
+</div>
+</div>
+
+<!-- 第二格 -->
+<div class="panel" id="p2">
+<div class="panel-header"><span class="panel-num">第2格</span><span class="panel-title">苦力怕 = 突发Bug</span></div>
+<img src="mc2.jpg" alt="苦力怕突袭">
+<div class="panel-text">
+小张正讲得起劲，突然——<br><br>
+「嘶嘶嘶嘶……💥」<br><br>
+一只<span class="insider">苦力怕</span>从工位后面冒出来，把半条红石电路炸了。<br><br>
+小张淡定：「大家看到了，这就是<span class="insider">线上突发Bug</span>的真实模拟。但是——」他掏出一把钻石镐，「我的<span class="insider">热修复方案</span>只需要3秒。」
+</div>
+</div>
+
+<!-- 第三格 -->
+<div class="panel" id="p3">
+<div class="panel-header"><span class="panel-num">第3格</span><span class="panel-title">末影人 = 不能直视的老板</span></div>
+<img src="mc3.jpg" alt="末影人老板">
+<div class="panel-text">
+汇报进入Q&A环节。<br><br>
+CTO化身三米高的<span class="insider">末影人</span>，穿着西装站在最后一排。大家都知道规矩：<b>不能直视他的眼睛</b>，否则他会瞬移到你面前质问KPI。<br><br>
+旁边的<span class="insider">村民</span>（产品经理）疯狂点头：「嗯嗯，这个需求我提的，效果很好。」<br><br>
+<span class="insider">铁傀儡</span>（运维同事）默默站在服务器机房门口，一言不发，但所有人都知道——没有他，整个世界早塌了。
+</div>
+</div>
+
+<!-- 第四格 -->
+<div class="panel" id="p4">
+<div class="panel-header"><span class="panel-num">第4格</span><span class="panel-title">活塞推进 = 项目交付</span></div>
+<img src="mc4.jpg" alt="活塞推进">
+<div class="panel-text">
+最终环节，小张展示了年度最大成果：<br><br>
+一排<span class="insider">活塞</span>整齐推出一排钻石块——每个钻石块代表一个成功交付的项目。<br><br>
+「Q1推了3个，Q2推了5个，Q3虽然被苦力怕炸了2个，但Q4用TNT<span class="insider">清理了所有技术债</span>，最终……」<br><br>
+全场村民鼓掌。末影人老板竟然——<b>微微点了点头</b>。
+</div>
+</div>
+
+<!-- 结尾 -->
+<div class="ending-box" id="ending">
+<img src="mc5.jpg" alt="金苹果加薪" style="width:100%;border-radius:12px;margin-bottom:16px">
+<div class="big">🍎 获得金苹果 × 1</div>
+<div class="small">
+末影人老板瞬移到小张面前，递出一个金苹果。<br>
+「年终奖……翻倍。」<br><br>
+小张的工位上弹出成就提示：<br>
+<b style="color:#7cfc00;font-size:20px">🏆「红石大师：用游戏改变了职场」</b><br><br>
+苦力怕在角落默默竖起了大拇指。
+</div>
+</div>
+
+<div class="footer">MC像素漫画 · B111-1 · EXP-415</div>
+
+<script>
+const els=document.querySelectorAll('.panel,.ending-box');
+const ob=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.15});
+els.forEach(e=>ob.observe(e));
+</script>
+</body>
+</html>

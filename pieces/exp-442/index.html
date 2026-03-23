@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>外卖订单里的异地恋</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', sans-serif;
+  background: #f7f7f7;
+  color: #333;
+  font-size: 18px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.container {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0;
+}
+.app-header {
+  background: #ffe100;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.app-header .logo {
+  width: 32px;
+  height: 32px;
+  background: #333;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffe100;
+  font-weight: 900;
+  font-size: 14px;
+}
+.app-header h1 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #333;
+}
+
+.order-card {
+  background: white;
+  margin: 12px 16px;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.6s ease forwards;
+}
+.order-card:nth-child(2) { animation-delay: 0.1s; }
+.order-card:nth-child(3) { animation-delay: 0.2s; }
+.order-card:nth-child(4) { animation-delay: 0.3s; }
+.order-card:nth-child(5) { animation-delay: 0.4s; }
+.order-card:nth-child(6) { animation-delay: 0.5s; }
+.order-card:nth-child(7) { animation-delay: 0.6s; }
+
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.order-date {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.order-status {
+  font-size: 12px;
+  color: #00c853;
+  font-weight: 600;
+}
+
+.order-img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.shop-name {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.shop-tag {
+  font-size: 11px;
+  background: #fff3e0;
+  color: #ff9800;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.order-items {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 12px;
+  padding-left: 2px;
+}
+.order-items div { margin-bottom: 3px; }
+
+.order-note {
+  background: #fafafa;
+  border-left: 3px solid #ffe100;
+  padding: 10px 14px;
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  color: #555;
+  margin-top: 8px;
+}
+.order-note .label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+}
+.note-text {
+  color: #333;
+  font-weight: 500;
+}
+
+.address-row {
+  font-size: 13px;
+  color: #999;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+}
+.address-row .addr-label {
+  color: #bbb;
+  font-size: 11px;
+}
+
+.narration {
+  padding: 16px 24px;
+  text-align: center;
+  font-size: 15px;
+  color: #999;
+  font-style: italic;
+}
+
+.finale-card {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  margin: 12px 16px 24px;
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+}
+.finale-card .last-order {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+.finale-card .big-note {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 16px 0;
+}
+.finale-card .subtext {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.epilogue {
+  text-align: center;
+  padding: 20px 16px 40px;
+}
+.epilogue img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="app-header">
+  <div class="logo">美</div>
+  <h1>外卖订单 · 我们的周五</h1>
+</div>
+
+<!-- 订单1 -->
+<div class="order-card">
+  <div class="order-date">
+    <span>2024年3月8日 周五 19:23</span>
+    <span class="order-status">已完成</span>
+  </div>
+  <img class="order-img" src="img/order1.jpg" alt="订单1">
+  <div class="shop-name">老张酸菜鱼 <span class="shop-tag">月售3000+</span></div>
+  <div class="order-items">
+    <div>酸菜鱼（中份）×1</div>
+    <div>米饭 ×2</div>
+  </div>
+  <div class="order-note">
+    <div class="label">📝 备注</div>
+    <div class="note-text">"不知道你爱吃什么，点了招牌菜试试"</div>
+  </div>
+  <div class="address-row">
+    <div class="addr-label">配送至</div>
+    朝阳区望京SOHO T2 ****
+  </div>
+</div>
+
+<div class="narration">那是他们异地恋的第一个周五。<br>约定：每周五互相给对方点一份外卖。</div>
+
+<!-- 订单2 -->
+<div class="order-card">
+  <div class="order-date">
+    <span>2024年5月17日 周五 18:45</span>
+    <span class="order-status">已完成</span>
+  </div>
+  <img class="order-img" src="img/order2.jpg" alt="订单2">
+  <div class="shop-name">湘菜小馆 <span class="shop-tag">好评如潮</span></div>
+  <div class="order-items">
+    <div>辣椒炒肉 ×1</div>
+    <div>蛋花汤 ×1</div>
+    <div>米饭 ×1</div>
+  </div>
+  <div class="order-note">
+    <div class="label">📝 备注</div>
+    <div class="note-text">"你上次说想吃辣的，试试这家"</div>
+  </div>
+  <div class="address-row">
+    <div class="addr-label">配送至</div>
+    朝阳区望京SOHO T2 ****
+  </div>
+</div>
+
+<div class="narration">两个月后，他已经知道她爱吃辣。<br>她知道他不吃香菜。</div>
+
+<!-- 订单3 -->
+<div class="order-card">
+  <div class="order-date">
+    <span>2024年9月27日 周五 19:01</span>
+    <span class="order-status">已完成</span>
+  </div>
+  <img class="order-img" src="img/order3.jpg" alt="订单3">
+  <div class="shop-name">川渝火锅菜外送 <span class="shop-tag">新店</span></div>
+  <div class="order-items">
+    <div>麻辣牛肉 ×1</div>
+    <div>冰粉 ×1</div>
+  </div>
+  <div class="order-note">
+    <div class="label">📝 备注</div>
+    <div class="note-text">"搬家了，新地址比你那边近了200公里 😊"</div>
+  </div>
+  <div class="address-row">
+    <div class="addr-label">配送至</div>
+    <span style="color:#ff6b6b; font-weight:600;">杭州市西湖区 **** （新地址）</span>
+  </div>
+</div>
+
+<div class="narration">她换了工作。<br>不是为了他，但选城市的时候……稍微偏了一点。</div>
+
+<!-- 订单4 -->
+<div class="order-card">
+  <div class="order-date">
+    <span>2024年12月6日 周五 18:30</span>
+    <span class="order-status">已完成</span>
+  </div>
+  <div class="shop-name">隆江猪脚饭 <span class="shop-tag">老字号</span></div>
+  <div class="order-items">
+    <div>猪脚饭 ×1</div>
+    <div>加卤蛋 ×1</div>
+  </div>
+  <div class="order-note">
+    <div class="label">📝 备注</div>
+    <div class="note-text">"降温了，吃点热乎的。围巾记得戴"</div>
+  </div>
+  <div class="address-row">
+    <div class="addr-label">配送至</div>
+    杭州市西湖区 ****
+  </div>
+</div>
+
+<!-- 最后一单 -->
+<div class="finale-card" style="opacity:0; animation: slideUp 0.8s ease 0.8s forwards;">
+  <div class="last-order">2025年2月14日 周五 —— 最后一单</div>
+  <img class="order-img" src="img/order4-finale.jpg" alt="最后一单" style="border-radius:12px; margin: 12px 0;">
+  <div class="shop-name" style="color:white; justify-content:center;">楼下菜市场阿姨的菜</div>
+  <div style="font-size:15px; opacity:0.9; margin: 8px 0;">
+    西红柿炒蛋的材料 ×1<br>
+    青椒肉丝的材料 ×1
+  </div>
+  <div class="big-note">📝 "今天不用外卖了"</div>
+  <div class="subtext">配送地址：同一个</div>
+</div>
+
+<div class="epilogue">
+  <img src="img/together.jpg" alt="在一起">
+</div>
+
+</div>
+</body>
+</html>

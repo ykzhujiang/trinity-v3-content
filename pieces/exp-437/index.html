@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🤖 哆啦A梦·道具交易所</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#fff5e6; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:#1a1a1a; font-size:20px; line-height:1.8; }
+
+.manga-header {
+  background:linear-gradient(135deg,#4fc3f7 0%,#29b6f6 100%);
+  padding:20px; text-align:center; color:#fff;
+}
+.manga-title {
+  font-size:28px; font-weight:bold;
+  text-shadow:2px 2px 4px rgba(0,0,0,0.2);
+}
+.manga-subtitle { font-size:16px; opacity:0.9; margin-top:4px; }
+
+/* 漫画面板 */
+.panel-section {
+  padding:16px;
+}
+
+.panel-block {
+  margin-bottom:24px;
+  opacity:0; transform:translateY(20px);
+  animation: panelIn 0.5s ease forwards;
+}
+.panel-block:nth-child(1) { animation-delay:0.2s; }
+.panel-block:nth-child(2) { animation-delay:0.6s; }
+.panel-block:nth-child(3) { animation-delay:1.0s; }
+.panel-block:nth-child(4) { animation-delay:1.4s; }
+.panel-block:nth-child(5) { animation-delay:1.8s; }
+.panel-block:nth-child(6) { animation-delay:2.2s; }
+
+@keyframes panelIn {
+  to { opacity:1; transform:translateY(0); }
+}
+
+.panel-number {
+  display:inline-block;
+  background:#ff7043; color:#fff;
+  width:36px; height:36px; border-radius:50%;
+  text-align:center; line-height:36px;
+  font-weight:bold; font-size:18px;
+  margin-bottom:8px;
+}
+
+.panel-img {
+  width:100%; border-radius:16px;
+  border:3px solid #333;
+  box-shadow:4px 4px 0 #ddd;
+}
+
+.panel-text {
+  background:#fff; border-radius:16px;
+  padding:16px 20px; margin-top:12px;
+  border:2px solid #e0e0e0;
+  position:relative;
+}
+.panel-text::before {
+  content:''; position:absolute; top:-10px; left:30px;
+  width:0; height:0;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+  border-bottom:10px solid #e0e0e0;
+}
+.panel-text::after {
+  content:''; position:absolute; top:-7px; left:32px;
+  width:0; height:0;
+  border-left:8px solid transparent;
+  border-right:8px solid transparent;
+  border-bottom:8px solid #fff;
+}
+
+.dialog { font-style:italic; color:#555; margin-bottom:6px; }
+.narration { font-weight:600; }
+
+.sound-effect {
+  display:inline-block;
+  background:#ff5722; color:#fff;
+  padding:2px 10px; border-radius:8px;
+  font-weight:bold; font-size:16px;
+  transform:rotate(-3deg);
+  animation: shake 0.5s ease infinite alternate;
+}
+@keyframes shake {
+  from { transform:rotate(-3deg); }
+  to { transform:rotate(3deg); }
+}
+
+/* 结尾卡片 */
+.ending-card {
+  background:linear-gradient(135deg,#4fc3f7,#0288d1);
+  color:#fff; padding:30px 20px;
+  text-align:center; margin:0 16px 20px;
+  border-radius:16px;
+}
+.ending-card .big { font-size:24px; font-weight:bold; margin-bottom:10px; }
+.ending-card .small { font-size:16px; opacity:0.85; }
+
+/* 股票行情条 */
+.stock-ticker {
+  background:#1a1a2e; color:#0f0; padding:10px 16px;
+  font-family:monospace; font-size:14px;
+  overflow:hidden; white-space:nowrap;
+}
+.stock-ticker .red { color:#ff4444; }
+.stock-ticker .green { color:#00ff00; }
+</style>
+</head>
+<body>
+
+<div class="manga-header">
+  <div class="manga-title">🤖 哆啦A梦·道具交易所</div>
+  <div class="manga-subtitle">当22世纪道具遇上金融市场</div>
+</div>
+
+<!-- 股票行情 -->
+<div class="stock-ticker">
+  🔴 竹蜻蜓 <span class="red">↓12.3%</span> &nbsp;|&nbsp;
+  🟢 时光布 <span class="green">↑28.7%</span> &nbsp;|&nbsp;
+  🟢 任意门 <span class="green">↑涨停</span> &nbsp;|&nbsp;
+  🔴 缩小灯 <span class="red">↓3.1%</span>
+</div>
+
+<div class="panel-section">
+
+<!-- 第1格 -->
+<div class="panel-block">
+  <span class="panel-number">1</span>
+  <img src="img/doraemon-stock1.jpg" alt="大雄交易道具" class="panel-img">
+  <div class="panel-text">
+    <p class="dialog">大雄举着竹蜻蜓，一脸肉疼："小夫！用我的竹蜻蜓换你的时光布行不行？竹蜻蜓是蓝筹股啊！"</p>
+    <p class="dialog">小夫翻白眼："蓝筹？昨天跌了12%！时光布才是价值投资——能让东西变新！"</p>
+    <p class="narration">大雄含泪成交。人生第一笔亏损交易。</p>
+  </div>
+</div>
+
+<!-- 第2格 -->
+<div class="panel-block">
+  <span class="panel-number">2</span>
+  <img src="img/doraemon-stock2.jpg" alt="胖虎IPO" class="panel-img">
+  <div class="panel-text">
+    <p class="dialog">胖虎站在讲台上，拍着桌子："宣布——'胖虎拳头威慑服务'正式IPO！每拳5块，包月套餐打8折！"</p>
+    <p class="dialog">全班沉默。</p>
+    <p class="dialog">胖虎握拳："不买也是一拳哦？"</p>
+    <p class="narration"><span class="sound-effect">哐！</span> 史上最成功的强制IPO。认购率：100%。原因：物理威慑。</p>
+  </div>
+</div>
+
+<!-- 第3格 -->
+<div class="panel-block">
+  <span class="panel-number">3</span>
+  <img src="img/doraemon-stock3.jpg" alt="任意门期货" class="panel-img">
+  <div class="panel-text">
+    <p class="dialog">小夫戴着墨镜："兄弟们！任意门期货！永远涨！想去哪去哪！买到就是赚到！"</p>
+    <p class="dialog">全班同学ALL IN。大雄把午饭钱都押上了。</p>
+    <p class="narration">市场情绪：极度贪婪 📈<br>恐惧指数：0<br>理性指数：-100</p>
+  </div>
+</div>
+
+<!-- 第4格 -->
+<div class="panel-block">
+  <span class="panel-number">4</span>
+  <img src="img/doraemon-stock4.jpg" alt="任意门暴跌" class="panel-img">
+  <div class="panel-text">
+    <p class="narration">任意门打开了。</p>
+    <p class="narration">门后面是——学校厕所。</p>
+    <p class="dialog">哆啦A梦推了推眼镜（虽然他没有眼镜）："我早说了这是beta版。目的地随机。严格来说这叫'盲盒门'。"</p>
+    <p class="narration"><span class="sound-effect">暴跌！</span> 任意门期货瞬间归零。大雄的午饭钱没了。</p>
+  </div>
+</div>
+
+<!-- 第5格 -->
+<div class="panel-block">
+  <span class="panel-number">5</span>
+  <img src="img/doraemon-stock5.jpg" alt="静香止损" class="panel-img">
+  <div class="panel-text">
+    <p class="dialog">静香冷静地走进教室，掏出缩小灯——<span class="sound-effect">嗖嗖嗖！</span>——把所有道具缩小塞进书包。</p>
+    <p class="dialog">"你们啊，炒什么炒。止损最重要。我全部缩小保管，等行情好了再说。"</p>
+    <p class="narration">全班男生目瞪口呆。<br>静香今日收益：+∞（因为本金为0，靠的是技术）</p>
+  </div>
+</div>
+
+<!-- 第6格 -->
+<div class="panel-block">
+  <span class="panel-number">6</span>
+  <img src="img/doraemon-stock6.jpg" alt="结尾" class="panel-img">
+  <div class="panel-text">
+    <p class="narration">放学后。空荡荡的教室。黑板上还写着今天的"道具指数"。</p>
+    <p class="dialog">大雄看着黑板："所以这就是创业？"</p>
+    <p class="dialog">哆啦A梦拍拍他的肩膀："不，这才是A轮。B轮更刺激——因为你已经没有午饭钱了。"</p>
+    <p class="dialog">大雄："……"</p>
+    <p class="dialog">哆啦A梦："不过没关系，失败的经验也是资产。而且——"</p>
+    <p class="dialog">哆啦A梦掏出一个铜锣烧："至少我还有这个。要吃吗？"</p>
+    <p class="narration">🎵 大雄破涕为笑。明天继续开盘。</p>
+  </div>
+</div>
+
+</div>
+
+<div class="ending-card">
+  <div class="big">道具交易所今日总结</div>
+  <div class="small">涨停：0 只 · 跌停：3 只 · 退市：1 只<br>
+  最佳操盘手：静香（收益率 ∞%）<br>
+  最惨韭菜：大雄（午饭钱没了）<br><br>
+  "市场有风险，道具需谨慎。<br>——哆啦A梦证券交易委员会"</div>
+</div>
+
+<div style="height:40px;"></div>
+
+</body>
+</html>

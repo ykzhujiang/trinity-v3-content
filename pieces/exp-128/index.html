@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新手爸爸的搜索记录</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'PingFang SC', sans-serif; background: #000; color: #e5e5e5; min-height: 100vh; display: flex; justify-content: center; }
+.container { max-width: 420px; width: 100%; padding: 40px 20px 60px; }
+h1 { font-size: 13px; color: #555; font-weight: 400; letter-spacing: 2px; margin-bottom: 36px; }
+.month { color: #888; font-size: 12px; margin-top: 28px; margin-bottom: 10px; letter-spacing: 0.5px; }
+.search { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #1c1c1e; border-radius: 10px; margin-bottom: 5px; font-size: 14px; line-height: 1.5; }
+.search .icon { color: #555; font-size: 14px; flex-shrink: 0; }
+.time { font-size: 10px; color: #444; margin-left: auto; flex-shrink: 0; }
+.divider { height: 1px; background: #222; margin: 36px 0; }
+.deleted { margin-top: 36px; padding: 14px 16px; background: #1a1a1a; border-radius: 10px; border-left: 3px solid #ff3b30; }
+.deleted .label { font-size: 11px; color: #666; margin-bottom: 8px; }
+.deleted .item { font-size: 14px; color: #555; text-decoration: line-through; }
+.night { background: #1a1a2a; border: 1px solid #2a2a3a; }
+.night .icon { color: #5e5ce6; }
+.warm { background: #1a2a1a; border: 1px solid #2a3a2a; }
+.ending { margin-top: 36px; padding: 16px; background: #1c1c1e; border-radius: 10px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>浏览器 · 搜索历史 · 已同步</h1>
+
+  <div class="month">2024年9月 · 产前</div>
+  <div class="search"><span class="icon">🔍</span> 待产包清单 最全<span class="time">21:03</span></div>
+  <div class="search"><span class="icon">🔍</span> 产房老公可以陪吗<span class="time">21:17</span></div>
+  <div class="search"><span class="icon">🔍</span> 第一次当爸爸什么感觉<span class="time">23:40</span></div>
+
+  <div class="month">2024年10月 · 第1周</div>
+  <div class="search night"><span class="icon">🌙</span> 新生儿哭不停 正常吗<span class="time">02:14</span></div>
+  <div class="search night"><span class="icon">🌙</span> 婴儿多久喂一次奶<span class="time">03:07</span></div>
+  <div class="search night"><span class="icon">🌙</span> 新生儿黄疸多久退<span class="time">04:22</span></div>
+
+  <div class="month">2024年10月 · 第3周</div>
+  <div class="search night"><span class="icon">🌙</span> 老婆产后一直哭 正常吗<span class="time">01:33</span></div>
+  <div class="search night"><span class="icon">🌙</span> 产后抑郁 老公能做什么<span class="time">01:45</span></div>
+  <div class="search night"><span class="icon">🌙</span> 产后抑郁会持续多久<span class="time">01:58</span></div>
+  <div class="search night"><span class="icon">🌙</span> 怎么不让她发现我也很崩溃<span class="time">02:31</span></div>
+
+  <div class="month">2024年11月</div>
+  <div class="search night"><span class="icon">🌙</span> 男人可以请育儿假吗<span class="time">03:12</span></div>
+  <div class="search night"><span class="icon">🌙</span> 育儿假扣工资吗<span class="time">03:14</span></div>
+  <div class="search"><span class="icon">🔍</span> 月嫂和育儿嫂区别<span class="time">12:05</span></div>
+  <div class="search"><span class="icon">🔍</span> 请月嫂多少钱一个月 北京<span class="time">12:08</span></div>
+
+  <div class="month">2024年12月</div>
+  <div class="search night"><span class="icon">🌙</span> 婴儿突然不吃奶 怎么办<span class="time">04:17</span></div>
+  <div class="search night"><span class="icon">🌙</span> 三个月宝宝发烧38.5 去医院吗<span class="time">04:23</span></div>
+  <div class="search night"><span class="icon">🌙</span> 儿童医院急诊 夜间 排队多久<span class="time">04:30</span></div>
+
+  <div class="divider"></div>
+
+  <div class="deleted">
+    <div class="label">最近删除的搜索（1条）· 2025年1月3日 03:11</div>
+    <div class="item">离婚冷静期多久</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="month">2025年1月 · 继续</div>
+  <div class="search night"><span class="icon">🌙</span> 四个月宝宝会认人了吗<span class="time">02:45</span></div>
+  <div class="search"><span class="icon">🔍</span> 宝宝第一次叫爸爸 一般几个月<span class="time">09:20</span></div>
+  <div class="search"><span class="icon">🔍</span> 附近 亲子游泳馆<span class="time">10:15</span></div>
+
+  <div class="month">2025年6月</div>
+  <div class="search"><span class="icon">🔍</span> 早教有必要上吗<span class="time">20:15</span></div>
+  <div class="search"><span class="icon">🔍</span> 宝宝辅食 8个月 食谱<span class="time">20:30</span></div>
+
+  <div class="month" style="color:#ff9f0a">2025年9月</div>
+  <div class="search warm"><span class="icon">🎂</span> 周岁蛋糕 定制 可以写字<span class="time">14:30</span></div>
+  <div class="search warm"><span class="icon">🎂</span> 周岁宴 家庭 布置<span class="time">14:42</span></div>
+  <div class="search warm"><span class="icon">🎂</span> 抓周要准备什么东西<span class="time">14:55</span></div>
+
+  <div class="ending">
+    <div style="font-size:11px; color:#555; margin-bottom:8px">搜索时间统计</div>
+    <div style="font-size:28px; font-weight:700; color:#5e5ce6;">73%</div>
+    <div style="font-size:12px; color:#666;">的搜索发生在 0:00 — 5:00</div>
+    <div style="font-size:11px; color:#444; margin-top:12px;">那些 她睡了 他没睡 的夜里</div>
+  </div>
+</div>
+</body>
+</html>

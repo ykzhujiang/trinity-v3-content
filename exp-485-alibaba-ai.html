@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>阿里全面押注AI：五年千亿美元军令状</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* 小红书风格头部 */
+.xhs-header {
+  background: linear-gradient(135deg, #ff2442 0%, #ff6b81 100%);
+  padding: 16px 16px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.xhs-header .avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff 0%, #ffe0e5 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.xhs-header .user-info { flex:1; }
+.xhs-header .username { color: #fff; font-size: 15px; font-weight: 600; }
+.xhs-header .user-desc { color: rgba(255,255,255,0.8); font-size: 12px; }
+.xhs-header .follow-btn {
+  background: #fff;
+  color: #ff2442;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* 标签 */
+.tag-bar {
+  background: #fff;
+  padding: 10px 16px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  border-bottom: 1px solid #f0f0f0;
+}
+.tag-bar .tag {
+  background: #fff0f2;
+  color: #ff2442;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 12px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.tag-bar .tag.active {
+  background: #ff2442;
+  color: #fff;
+}
+
+/* 笔记卡片 */
+.note-card {
+  background: #fff;
+  margin: 12px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  animation: fadeInUp 0.6s ease-out both;
+}
+.note-card:nth-child(2) { animation-delay: 0.15s; }
+.note-card:nth-child(3) { animation-delay: 0.3s; }
+.note-card:nth-child(4) { animation-delay: 0.45s; }
+
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(30px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+.note-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 280px;
+}
+
+.note-content {
+  padding: 14px 16px;
+}
+.note-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  color: #222;
+}
+.note-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 12px;
+}
+.note-text .highlight {
+  color: #ff2442;
+  font-weight: 600;
+}
+.note-text .num {
+  color: #ff6b00;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* 数据卡片 */
+.data-card {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  color: #fff;
+}
+.data-card .data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.data-card .data-row:last-child { border-bottom: none; }
+.data-card .data-label { font-size: 13px; color: rgba(255,255,255,0.7); }
+.data-card .data-value { font-size: 20px; font-weight: 700; color: #00d4ff; }
+.data-card .data-value.gold { color: #ffd700; }
+.data-card .data-value.green { color: #00ff88; }
+
+/* 互动栏 */
+.action-bar {
+  display: flex;
+  padding: 10px 16px 14px;
+  gap: 20px;
+  border-top: 1px solid #f5f5f5;
+}
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #999;
+}
+.action-item .count { font-weight: 500; }
+
+/* 评论区 */
+.comments-section {
+  background: #fff;
+  margin: 0 12px 12px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.comments-header {
+  padding: 14px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 1px solid #f5f5f5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.comment {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f8f8f8;
+  animation: fadeInUp 0.5s ease-out both;
+}
+.comment:nth-child(2) { animation-delay: 0.6s; }
+.comment:nth-child(3) { animation-delay: 0.7s; }
+.comment:nth-child(4) { animation-delay: 0.8s; }
+.comment:nth-child(5) { animation-delay: 0.9s; }
+.comment:nth-child(6) { animation-delay: 1.0s; }
+.comment:nth-child(7) { animation-delay: 1.1s; }
+.comment-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.comment-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.comment-name { font-size: 13px; font-weight: 600; color: #333; }
+.comment-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+.badge-founder { background: #fff0e0; color: #ff8c00; }
+.badge-investor { background: #e8f4ff; color: #1890ff; }
+.badge-coder { background: #f0fff0; color: #52c41a; }
+.badge-worker { background: #f5f0ff; color: #722ed1; }
+.badge-student { background: #fff0f5; color: #eb2f96; }
+
+.comment-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+  margin-left: 40px;
+}
+.comment-meta {
+  margin-left: 40px;
+  margin-top: 8px;
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #bbb;
+}
+
+/* 真实新闻标签 */
+.real-news-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e6f7ff;
+  color: #1890ff;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* 来源标注 */
+.source-note {
+  background: #f9f9f9;
+  margin: 0 12px 20px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #999;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<!-- 小红书头部 -->
+<div class="xhs-header">
+  <div class="avatar">📡</div>
+  <div class="user-info">
+    <div class="username">深蓝科技观察</div>
+    <div class="user-desc">科技圈一线吃瓜 · 3小时前</div>
+  </div>
+  <button class="follow-btn">+ 关注</button>
+</div>
+
+<!-- 标签栏 -->
+<div class="tag-bar">
+  <span class="tag active">🔥 热门</span>
+  <span class="tag">#阿里巴巴</span>
+  <span class="tag">#AI大战</span>
+  <span class="tag">#云计算</span>
+  <span class="tag">#千亿美元</span>
+  <span class="tag">#吴泳铭</span>
+</div>
+
+<!-- 笔记1：开场 -->
+<div class="note-card">
+  <img src="images/exp-485/alibaba-hq.jpg" alt="阿里总部" loading="lazy">
+  <div class="note-content">
+    <div class="real-news-badge">📰 基于真实新闻</div>
+    <div class="note-title">炸了！阿里立下千亿美元军令状：五年内AI+云收入要翻7倍 🚀</div>
+    <div class="note-text">
+      3月19日，阿里巴巴发布2026财年三季度财报，CEO吴泳铭放了个大卫星——
+      <br><br>
+      <span class="highlight">未来五年，云和AI商业化年收入要突破<span class="num">1000亿美元</span>！</span>
+      <br><br>
+      什么概念？阿里云目前年收入刚过<span class="num">1000亿人民币</span>，这意味着要从"千亿人民币"跳到"千亿美元"，翻将近<span class="num">7倍</span>。
+    </div>
+    <div class="action-bar">
+      <div class="action-item">❤️ <span class="count">2.4万</span></div>
+      <div class="action-item">⭐ <span class="count">8652</span></div>
+      <div class="action-item">💬 <span class="count">3847</span></div>
+      <div class="action-item">↗️ <span class="count">分享</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 笔记2：核心数据 -->
+<div class="note-card">
+  <img src="images/exp-485/ceo-speech.jpg" alt="CEO演讲" loading="lazy">
+  <div class="note-content">
+    <div class="note-title">三组核心数据，看懂阿里的AI豪赌 📊</div>
+    <div class="data-card">
+      <div class="data-row">
+        <span class="data-label">云收入季度增速</span>
+        <span class="data-value green">+36%</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">AI产品收入连续增长</span>
+        <span class="data-value gold">10个季度三位数</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">平台Token消耗增长</span>
+        <span class="data-value">3个月×6倍</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">千问全端月活</span>
+        <span class="data-value green">突破3亿</span>
+      </div>
+      <div class="data-row">
+        <span class="data-label">AI基建投资计划</span>
+        <span class="data-value gold">3年3800亿</span>
+      </div>
+    </div>
+    <div class="note-text">
+      最猛的数据：百炼平台上Token消耗量<span class="highlight">3个月暴涨6倍</span>。什么意思？就是用阿里AI的企业，短短一个季度就把用量翻了6倍。
+      <br><br>
+      吴泳铭预测，未来商业化模型服务（MaaS）将成为阿里云<span class="highlight">最大的收入来源</span>。
+    </div>
+    <div class="action-bar">
+      <div class="action-item">❤️ <span class="count">1.8万</span></div>
+      <div class="action-item">⭐ <span class="count">6721</span></div>
+      <div class="action-item">💬 <span class="count">2156</span></div>
+      <div class="action-item">↗️ <span class="count">分享</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 笔记3：芯片 -->
+<div class="note-card">
+  <img src="images/exp-485/ai-chip.jpg" alt="AI芯片" loading="lazy">
+  <div class="note-content">
+    <div class="note-title">隐藏大招：自研GPU量产了 🔥</div>
+    <div class="note-text">
+      吴泳铭首次确认：<span class="highlight">平头哥自研GPU已实现规模化量产</span>，不仅支撑阿里内部业务，还通过阿里云向数百家外部企业提供服务。
+      <br><br>
+      翻译一下：当全球都在抢英伟达芯片的时候，阿里自己造出来了。
+      <br><br>
+      "软硬一体"的意思就是——<span class="highlight">大模型是我的，芯片也是我的，云平台还是我的</span>。Token暴涨6倍？我供得上。
+    </div>
+    <div class="action-bar">
+      <div class="action-item">❤️ <span class="count">3.1万</span></div>
+      <div class="action-item">⭐ <span class="count">1.2万</span></div>
+      <div class="action-item">💬 <span class="count">4523</span></div>
+      <div class="action-item">↗️ <span class="count">分享</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 笔记4：Token经济 -->
+<div class="note-card">
+  <img src="images/exp-485/data-center.jpg" alt="数据中心" loading="lazy">
+  <div class="note-content">
+    <div class="note-title">最深层的变化：从卖服务器到卖"数字劳动力" 🤖</div>
+    <div class="note-text">
+      阿里内部已成立由CEO亲自挂帅的<span class="highlight">"阿里Token枢纽"事业群</span>，把通义实验室、百炼平台、千问、悟空等核心AI资产整合到一张"Token大网"里。
+      <br><br>
+      以前云计算赚的是服务器租金差价。现在呢？<span class="highlight">算力和大模型能力统一折算为Token，按Token计价</span>。
+      <br><br>
+      移动互联网时代靠的是人的时间红利。AI时代靠的是<span class="num">无数数字劳动力</span>的Token消耗。谁掌握了Token定价权，谁就是新时代的"水电煤"。
+    </div>
+    <div class="action-bar">
+      <div class="action-item">❤️ <span class="count">2.7万</span></div>
+      <div class="action-item">⭐ <span class="count">9834</span></div>
+      <div class="action-item">💬 <span class="count">3291</span></div>
+      <div class="action-item">↗️ <span class="count">分享</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 评论区 -->
+<div class="comments-section">
+  <div class="comments-header">💬 精选评论 · 3847条</div>
+  
+  <div class="comment">
+    <div class="comment-top">
+      <div class="comment-avatar" style="background:#fff3e0">🧑‍💼</div>
+      <span class="comment-name">连续创业老韭菜</span>
+      <span class="comment-badge badge-founder">创业者</span>
+    </div>
+    <div class="comment-text">说实话，3800亿搞基建这个数字，已经不是创业公司能玩的游戏了。AI的终局就是几个大平台吃肉，我们这些小创业者喝汤。但汤也很香就是了 😂</div>
+    <div class="comment-meta">
+      <span>3小时前</span>
+      <span>❤️ 2341</span>
+      <span>回复 86</span>
+    </div>
+  </div>
+
+  <div class="comment">
+    <div class="comment-top">
+      <div class="comment-avatar" style="background:#e8f5e9">💰</div>
+      <span class="comment-name">一级市场摸鱼人</span>
+      <span class="comment-badge badge-investor">投资人</span>
+    </div>
+    <div class="comment-text">Token消耗3个月×6倍是真猛。我投的几个AI应用创业公司，调用量确实在疯涨，但毛利…算了不说了 🥲 这波最大赢家还是卖水的。</div>
+    <div class="comment-meta">
+      <span>2小时前</span>
+      <span>❤️ 1876</span>
+      <span>回复 52</span>
+    </div>
+  </div>
+
+  <div class="comment">
+    <div class="comment-top">
+      <div class="comment-avatar" style="background:#e3f2fd">👩‍💻</div>
+      <span class="comment-name">杭州996码农</span>
+      <span class="comment-badge badge-coder">程序员</span>
+    </div>
+    <div class="comment-text">在阿里云干了4年，终于感觉自己站对了赛道。以前天天被人问"你们和AWS比怎么样"，现在问的是"你们的Token便宜不"。时代变了啊哈哈</div>
+    <div class="comment-meta">
+      <span>1小时前</span>
+      <span>❤️ 3102</span>
+      <span>回复 127</span>
+    </div>
+  </div>
+
+  <div class="comment">
+    <div class="comment-top">
+      <div class="comment-avatar" style="background:#f3e5f5">🏭</div>
+      <span class="comment-name">制造业数字化转型中</span>
+      <span class="comment-badge badge-worker">企业用户</span>
+    </div>
+    <div class="comment-text">我们工厂上了阿里云的AI质检方案，次品率直接降了60%。但说句公道话，千亿美元…五年能不能做到还得看全球竞争格局。AWS和微软可不是吃素的。</div>
+    <div class="comment-meta">
+      <span>45分钟前</span>
+      <span>❤️ 987</span>
+      <span>回复 34</span>
+    </div>
+  </div>
+
+  <div class="comment">
+    <div class="comment-top">
+      <div class="comment-avatar" style="background:#fce4ec">🎓</div>
+      <span class="comment-name">计算机研二在读</span>
+      <span class="comment-badge badge-student">学生</span>
+    </div>
+    <div class="comment-text">自研GPU量产这个信息量太大了！意思是不再怕英伟达被卡脖子了？导师说得投简历了，这波阿里招AI岗应该很猛 👀</div>
+    <div class="comment-meta">
+      <span>30分钟前</span>
+      <span>❤️ 1543</span>
+      <span>回复 78</span>
+    </div>
+  </div>
+
+  <div class="comment">
+    <div class="comment-top">
+      <div class="comment-avatar" style="background:#e0f7fa">🎯</div>
+      <span class="comment-name">前阿里P8现自由职业</span>
+      <span class="comment-badge badge-founder">创业者</span>
+    </div>
+    <div class="comment-text">吴泳铭上来以后阿里确实变了。以前开会全是GMV、DAU，现在全是Token、推理效率、模型指标。整个公司从电商思维切到技术思维，这个转身比想象中快。千亿美元难吗？难。但方向绝对对了。</div>
+    <div class="comment-meta">
+      <span>15分钟前</span>
+      <span>❤️ 4521</span>
+      <span>回复 203</span>
+    </div>
+  </div>
+</div>
+
+<!-- 来源标注 -->
+<div class="source-note">
+  📰 【真实新闻】基于阿里巴巴2026财年三季度财报及公开报道<br>
+  数据来源：新浪财经、网易新闻、甲子光年<br>
+  评论区内容为模拟创作，不代表真实用户观点
+</div>
+
+</body>
+</html>

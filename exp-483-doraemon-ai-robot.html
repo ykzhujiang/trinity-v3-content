@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>哆啦A梦 × GTC 2026：AI管家翻车记</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: linear-gradient(180deg, #e8f4fd 0%, #fdf6e3 50%, #e8f4fd 100%);
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  color: #333;
+  overflow-x: hidden;
+}
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 16px 12px 40px;
+}
+/* Title */
+.title-box {
+  text-align: center;
+  margin-bottom: 24px;
+  animation: fadeSlideDown 0.8s ease-out;
+}
+.title-box h1 {
+  font-size: 26px;
+  color: #1a73e8;
+  text-shadow: 2px 2px 0 rgba(26,115,232,0.15);
+  line-height: 1.4;
+}
+.title-box .subtitle {
+  font-size: 15px;
+  color: #888;
+  margin-top: 6px;
+}
+.title-box .news-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-top: 8px;
+  animation: pulse 2s infinite;
+}
+/* Panel card */
+.panel-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel-card img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 14px 16px;
+  font-size: 18px;
+  line-height: 1.7;
+  border-left: 4px solid;
+}
+.panel-card:nth-child(1) .panel-text { border-color: #4ecdc4; background: #f0faf9; }
+.panel-card:nth-child(2) .panel-text { border-color: #f7b731; background: #fffcf0; }
+.panel-card:nth-child(3) .panel-text { border-color: #eb3b5a; background: #fef0f3; }
+.panel-card:nth-child(4) .panel-text { border-color: #45aaf2; background: #f0f8ff; }
+
+.panel-num {
+  display: inline-block;
+  width: 28px; height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.panel-card:nth-child(1) .panel-num { background: #4ecdc4; }
+.panel-card:nth-child(2) .panel-num { background: #f7b731; }
+.panel-card:nth-child(3) .panel-num { background: #eb3b5a; }
+.panel-card:nth-child(4) .panel-num { background: #45aaf2; }
+
+.emoji-big { font-size: 24px; }
+
+/* News box */
+.news-box {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.news-box.visible { opacity: 1; transform: translateY(0); }
+.news-box .news-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.news-box a { color: #ffd700; text-decoration: underline; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  color: #aaa;
+  font-size: 13px;
+}
+.footer .doraemon-end {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 8px;
+  animation: bounce 2s infinite;
+}
+
+/* Animations */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="title-box">
+    <h1>🤖 哆啦A梦 × GTC 2026<br>AI管家翻车记</h1>
+    <div class="subtitle">当大雄嫌弃哆啦A梦不够智能……</div>
+    <span class="news-tag">📰 基于真实新闻改编</span>
+  </div>
+
+  <!-- News context -->
+  <div class="news-box">
+    <div class="news-title">📡 真实新闻背景</div>
+    2026年3月，NVIDIA GTC 2026 大会上，黄仁勋发布AI六大趋势，宣布AI机器人即将进入千家万户。AWE 2026 上华为、美的等巨头也纷纷展示AI智慧家庭方案。AI管家，真的要来了？
+  </div>
+
+  <!-- Panel 1 -->
+  <div class="panel-card">
+    <img src="exp-483-panel1.jpg" loading="lazy" alt="第一格">
+    <div class="panel-text">
+      <span class="panel-num">1</span>
+      <span class="emoji-big">📱</span> 大雄刷到新闻，兴奋得跳起来：<br>
+      <b>"GTC 2026！黄仁勋说AI机器人要进每个家庭了！比哆啦A梦还厉害！"</b>
+    </div>
+  </div>
+
+  <!-- Panel 2 -->
+  <div class="panel-card">
+    <img src="exp-483-panel2.jpg" loading="lazy" alt="第二格">
+    <div class="panel-text">
+      <span class="panel-num">2</span>
+      <span class="emoji-big">😤</span> 大雄指着哆啦A梦嚷嚷：<br>
+      <b>"快从口袋里拿出AI管家机器人！比你厉害一百倍！你那些道具老出bug！"</b><br>
+      哆啦A梦气得铜锣烧都掉了：<b>"喂喂喂……"</b>
+    </div>
+  </div>
+
+  <!-- Panel 3 -->
+  <div class="panel-card">
+    <img src="exp-483-panel3.jpg" loading="lazy" alt="第三格">
+    <div class="panel-text">
+      <span class="panel-num">3</span>
+      <span class="emoji-big">😱</span> AI管家上线第一天——<br>
+      <b>"20:00 写作业！21:00 睡觉！零食全部没收！每日运动量不足，再加三圈！"</b><br>
+      大雄崩溃大哭：<b>"救命啊！！这比妈妈还狠！！"</b>
+    </div>
+  </div>
+
+  <!-- Panel 4 -->
+  <div class="panel-card">
+    <img src="exp-483-panel4.jpg" loading="lazy" alt="第四格">
+    <div class="panel-text">
+      <span class="panel-num">4</span>
+      <span class="emoji-big">🥹</span> 大雄抱着哆啦A梦嚎啕大哭：<br>
+      <b>"还是你最好！你从来不逼我写作业！"</b><br>
+      哆啦A梦得意地咬了口铜锣烧：<b>"那当然～科技再发达，也替代不了真正的朋友嘛！"</b> 🍩
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="doraemon-end">🔔</span>
+    哆啦A梦教你做人系列 · EXP-483<br>
+    新闻来源：NVIDIA GTC 2026 / AWE 2026
+  </div>
+</div>
+
+<script>
+// Scroll-triggered fade-in
+const cards = document.querySelectorAll('.panel-card, .news-box');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.15 });
+cards.forEach(c => obs.observe(c));
+</script>
+</body>
+</html>

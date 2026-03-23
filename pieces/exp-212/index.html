@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一双脚的步数地图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0e;color:#ddd6cc;font-family:'Noto Serif SC',serif;font-size:20px;line-height:1.9;overflow-x:hidden}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes walkDot{0%{transform:translateX(0)}100%{transform:translateX(6px)}}
+
+.intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;animation:fadeIn 2s}
+.intro h1{font-size:clamp(1.8rem,5vw,2.8rem);color:#cc9955;margin-bottom:1rem;text-shadow:0 0 40px rgba(204,153,85,0.3)}
+.intro .sub{color:#776;font-size:1.1rem}
+
+.map-wrap{max-width:900px;margin:0 auto;padding:2rem 1rem}
+.map-header{text-align:center;color:#665;font-size:0.9rem;margin-bottom:1.5rem}
+.total-steps{text-align:center;font-size:2.5rem;color:#cc9955;font-weight:700;margin-bottom:0.3rem}
+.total-sub{text-align:center;color:#665;font-size:0.9rem;margin-bottom:2rem}
+
+/* Path segments */
+.path{display:flex;flex-direction:column;gap:2px}
+.segment{
+  display:flex;align-items:stretch;cursor:pointer;
+  border:1px solid #1a1a22;transition:all 0.4s;position:relative;overflow:hidden;
+}
+.segment:hover{border-color:#cc9955;transform:translateX(4px)}
+.segment.active{border-color:#cc9955;background:rgba(204,153,85,0.04)}
+.seg-bar{width:var(--w);min-width:3px;background:var(--c);transition:width 0.6s;flex-shrink:0}
+.seg-info{padding:0.8rem 1.2rem;flex:1;display:flex;justify-content:space-between;align-items:center}
+.seg-place{font-size:1rem;color:#ccc4b8}
+.seg-steps{font-size:0.85rem;color:#887;font-variant-numeric:tabular-nums}
+.seg-time{font-size:0.75rem;color:#554}
+.seg-emoji{font-size:1.4rem;margin-right:0.8rem}
+
+/* Story panel */
+.story{
+  display:none;max-width:800px;margin:0.5rem auto 1.5rem;padding:1.5rem 2rem;
+  border-left:3px solid #cc9955;background:linear-gradient(90deg,rgba(204,153,85,0.04),transparent);
+  animation:slideUp 0.5s;
+}
+.story.active{display:block}
+.story .s-head{font-size:1.3rem;color:#cc9955;font-weight:700;margin-bottom:0.3rem}
+.story .s-steps{font-size:2rem;color:#cc9955;font-weight:700;opacity:0.7}
+.story .s-pct{font-size:0.85rem;color:#665;margin-bottom:0.8rem}
+.story .s-text{font-size:1.05rem;line-height:2;color:#ccc4b8}
+.story .s-physio{font-size:0.85rem;color:#665;font-style:italic;margin-top:0.8rem}
+
+.coda{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem;opacity:0;transition:opacity 1.5s}
+.coda.visible{opacity:1}
+.coda .big{font-size:clamp(1.8rem,5vw,3rem);color:#cc9955;font-weight:700;margin-bottom:1.5rem}
+.coda .line{font-size:1.15rem;color:#887;max-width:600px;line-height:2.2}
+.coda em{color:#cc9955;font-style:normal;font-weight:700}
+
+.progress-bar{position:fixed;bottom:0;left:0;height:3px;background:#cc9955;transition:width 0.3s;z-index:100}
+@media(max-width:600px){body{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="prog"></div>
+
+<div class="intro">
+  <h1>一双脚的步数地图</h1>
+  <p class="sub">8,341步。<br>他以为自己走了很远。<br>其实大部分步数，都不是他自己选择要走的。</p>
+  <p style="color:#554;font-size:0.85rem;margin-top:2rem">↓ 点击每一段路，看那些步数的故事</p>
+</div>
+
+<div class="map-wrap">
+  <div class="map-header">2026年3月17日 · 周二 · 北京 · 晴 · iPhone 健康数据</div>
+  <div class="total-steps">8,341</div>
+  <div class="total-sub">步 · 5.8公里 · 消耗 312大卡 · 爬楼 4层</div>
+
+  <div class="path" id="path"></div>
+</div>
+
+<div id="storyArea"></div>
+
+<div class="coda" id="coda">
+  <div class="big" id="codaBig"></div>
+  <div class="line" id="codaLine"></div>
+</div>
+
+<script>
+const D=[
+{emoji:'🛏️',place:'卧室→卫生间',steps:23,time:'06:45',pct:0.3,color:'#445566',
+text:'23步。这是他每天迈出的第一步，也是全天最诚实的步数——光脚，半睡半醒，不带任何目的。他的脚在黑暗中记得每一块地砖的位置。三年了，从未踩错。',
+physio:'光脚步行23步约15秒。核心体温36.4°C，正从睡眠低点回升。'},
+{emoji:'🚿',place:'卫生间→厨房',steps:31,time:'06:52',pct:0.4,color:'#445566',
+text:'洗完脸走到厨房。冰箱里只有昨天剩的半瓶牛奶和一个苹果。他拿了牛奶。31步，第一个有意识的选择：向左是鞋柜（出门），向右是厨房（还能再赖一会儿）。他选了右。',
+physio:'家庭内部步行，步速约0.6m/s，低于正常步行速度。'},
+{emoji:'👟',place:'家门→电梯',steps:45,time:'07:12',pct:0.5,color:'#556677',
+text:'出门的45步是固定的。数过很多次——从门口到电梯按钮，永远是45步。有时44，有时46，取决于他迈步的大小。但从来没超出过这个范围。三年的租期把这段距离写进了肌肉记忆。',
+physio:'廊道步行，步幅约0.65m。电梯等待时间平均47秒。'},
+{emoji:'🚇',place:'小区→地铁站',steps:487,time:'07:18',pct:5.8,color:'#667788',
+text:'这487步有一个固定的节奏：快-快-慢-快。前200步是赶路，因为怕赶不上7:25那趟。中间100步放慢了，因为看到前面有人走得更快——"反正赶不上那趟了"。最后187步又快了，因为"万一能赶上呢"。他从未赶上过7:25那趟。',
+physio:'步频约120步/分钟，心率78。典型通勤步态。'},
+{emoji:'🚉',place:'地铁站内（换乘）',steps:623,time:'07:35',pct:7.5,color:'#778899',
+text:'换乘。这623步是北京地铁的标准换乘距离。他和500个人一起走，脚步声汇成一条河。没有人说话。623步里没有一步是他自己选的——他只是被人流推着走。地铁换乘是世界上最民主的运动：每个人都走同样的路，用同样的步数，去不同的地方。',
+physio:'拥挤环境步行，步幅压缩至0.5m。体感温度比室外高4°C。'},
+{emoji:'🏢',place:'地铁出口→公司大门',steps:312,time:'07:55',pct:3.7,color:'#778899',
+text:'走出地铁口的那一刻，他的脚步变了——从"赶路"变成了"上班"。他说不清区别在哪里，但步频慢了5%。这312步是他从"一个自由人"变成"一个工号"的过渡区。过完闸机的那一步，他不再是他自己。',
+physio:'步频从120降至114步/分钟。心率稳定在76。'},
+{emoji:'💺',place:'大堂→工位',steps:167,time:'08:02',pct:2.0,color:'#556677',
+text:'电梯到12楼，走廊左转右转。167步。他能闭着眼走完。有一次真的闭了眼试过（在一个没人的周末加班日），走到第160步的时候撞到了饮水机——差了7步。他的身体记忆精度是96%。',
+physio:'室内步行，步幅0.6m。到工位落座后心率降至72。'},
+{emoji:'🚶',place:'工位→会议室→工位（全天）',steps:203,time:'08:30-17:00',pct:2.4,color:'#445566',
+text:'8个半小时，203步。平均每小时24步。其中93步是去会议室（来回3次），56步是去卫生间（来回4次），34步是去饮水机（来回5次），20步是"站起来活动一下"。他的工位和马桶之间的距离是14步。他和马桶的关系比和大多数同事都亲。',
+physio:'久坐8.5小时。WHO建议每小时至少起身1次。他达标了——但每次都不超过2分钟。'},
+{emoji:'☕',place:'工位→茶水间',steps:48,time:'10:15',pct:0.6,color:'#556677',
+text:'去倒了杯咖啡。48步。他在走向茶水间的时候路过了窗户，看了一眼外面。这是他上午唯一一次看到自然光。他没有停下。48步里，只有经过窗户的那3步，他是活着的。',
+physio:'室内步行。经过窗户时瞳孔短暂收缩——自然光照度是办公室的50倍。'},
+{emoji:'🍱',place:'公司→食堂→公司',steps:456,time:'12:05',pct:5.5,color:'#667788',
+text:'午饭。食堂在隔壁楼。456步是全天第二长的一段连续步行。但他走得最快——不是因为饿，是因为午休只有1小时，走路的时间就是吃饭减少的时间。他在用步速换口粮。每快走1分钟，就多3分钟吃饭时间。',
+physio:'快速步行，步频128步/分。心率82。往返耗时11分钟。'},
+{emoji:'🏪',place:'便利店',steps:112,time:'15:22',pct:1.3,color:'#99aa66',
+text:'下午三点半，他离开了工位。不是去开会，不是去卫生间，不是去倒水。他出了公司大门，左转，走了112步，进了便利店。买了一瓶无糖可乐和一包薯片。总共花了8块5。这112步是他全天唯一一次主动选择目的地。没有人让他去，没有日程安排，没有流程要求。他只是想出去走走。',
+physio:'自主步行。步频108步/分——全天最慢。因为不赶时间。心率68——全天清醒时最低。因为不焦虑。'},
+{emoji:'🚇',place:'公司→地铁→小区',steps:1890,time:'17:45',pct:22.7,color:'#778899',
+text:'回家的路和来的路一样长。一样的地铁、一样的换乘、一样的出口。但他的脚步慢了——步频从早上的120降到了109。同样的距离，多花了4分钟。身体知道：不用赶了。这1890步是他全天最大的一笔步数支出，但他什么都没选——路线、站点、换乘通道，全是早上的镜像。',
+physio:'步频109步/分，比早高峰慢9%。心率74。'},
+{emoji:'🏃',place:'小区跑步',steps:2834,time:'19:15',pct:34.0,color:'#77aa77',
+text:'换了跑鞋。绕小区跑了3圈，2834步。他的脚终于做了一件不是为了"到达某个地方"的事——纯粹为了跑而跑。脚掌和地面之间的关系第一次不是"交通工具"，而是"这个感觉不错"。他注意到了路灯把树影投在地上的形状。这是他今天第一次注意到影子。',
+physio:'跑步步频162步/分。心率138。全天唯一一次运动心率区间。VO2 max估算42ml/kg/min。'},
+{emoji:'🏠',place:'楼下→家门',steps:67,time:'20:05',pct:0.8,color:'#556677',
+text:'跑完回家。67步，从小区门口到家门。他走得很慢，在享受跑后的余韵。腿有点酸，但是舒服的酸。风吹着他还没干的汗。这67步是他今天走得最有感觉的一段——不是因为步数，是因为他能感觉到自己的脚。',
+physio:'步行心率逐渐从跑步后的118降至88。乳酸代谢中。'},
+{emoji:'🛋️',place:'家里（晚间）',steps:43,time:'20:15-23:00',pct:0.5,color:'#445566',
+text:'到家后的全部步数。43步。厨房拿水、卫生间、关窗、最后从沙发走到床上。三个小时，43步。他的世界缩小到了一个60平米的格子间。但这43步里没有一步是被逼的。',
+physio:'居家活动。步数趋近于零。身体进入副交感主导的夜间模式。'}
+];
+
+const path=document.getElementById('path');
+const sa=document.getElementById('storyArea');
+const maxSteps=Math.max(...D.map(d=>d.steps));
+let explored=new Set();
+
+D.forEach((d,i)=>{
+  const s=document.createElement('div');
+  s.className='segment';
+  const w=Math.max(3,(d.steps/maxSteps)*200);
+  s.innerHTML=`<div class="seg-bar" style="--w:${w}px;--c:${d.color}"></div><div class="seg-info"><span><span class="seg-emoji">${d.emoji}</span><span class="seg-place">${d.place}</span></span><span><span class="seg-steps">${d.steps.toLocaleString()} 步</span><span class="seg-time" style="margin-left:0.5rem">${d.time}</span></span></div>`;
+  s.onclick=()=>toggle(i);
+  path.appendChild(s);
+});
+
+function toggle(i){
+  const d=D[i];
+  explored.add(i);
+  document.querySelectorAll('.segment').forEach(e=>e.classList.remove('active'));
+  path.children[i].classList.add('active');
+  
+  let p=document.getElementById('sp-'+i);
+  if(!p){
+    p=document.createElement('div');
+    p.id='sp-'+i;
+    p.className='story';
+    p.innerHTML=`<div class="s-head">${d.emoji} ${d.place}</div><div class="s-steps">${d.steps.toLocaleString()} 步</div><div class="s-pct">占全天 ${d.pct}% · ${d.time}</div><div class="s-text">${d.text}</div><div class="s-physio">${d.physio}</div>`;
+    sa.appendChild(p);
+  }
+  document.querySelectorAll('.story').forEach(e=>e.classList.remove('active'));
+  setTimeout(()=>{p.classList.add('active');p.scrollIntoView({behavior:'smooth',block:'center'})},50);
+  document.getElementById('prog').style.width=(explored.size/D.length*100)+'%';
+  if(explored.size>=12)showCoda();
+}
+
+function showCoda(){
+  const c=document.getElementById('coda');
+  document.getElementById('codaBig').textContent='8,341 步';
+  document.getElementById('codaLine').innerHTML=`其中 <em>5,395</em> 步是通勤。<br>地铁、换乘、走廊、电梯口。<br>他的双脚只是一种交通工具。<br><br><em>456</em> 步是午饭——用步速换口粮。<br><em>203</em> 步是全天的办公室——<br>8个半小时，只走了203步。<br><br>只有去便利店的那 <em>112</em> 步，<br>是他自己选择要走的。<br><br>还有跑步的那 <em>2,834</em> 步，<br>是他唯一一次不为了"到达某个地方"而走路。<br><br><span style="color:#554;font-size:0.95rem">8,341步。<br>看起来挺健康。<br>但自由的步数，只有 <em>112</em>。</span>`;
+  setTimeout(()=>{c.classList.add('visible');c.scrollIntoView({behavior:'smooth'})},500);
+}
+</script>
+</body>
+</html>

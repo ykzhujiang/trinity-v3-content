@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赌神重生 · 第一章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0f;
+  color: #e8e0d4;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  overflow-x: hidden;
+}
+.title-screen {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at center, #1a0a0a 0%, #0a0a0f 70%);
+  text-align: center; padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,0,0.03) 2px, rgba(255,0,0,0.03) 4px);
+  pointer-events: none;
+}
+.title-main { font-size: 48px; font-weight: 900; color: #ff2d2d; text-shadow: 0 0 40px rgba(255,45,45,0.6), 0 0 80px rgba(255,45,45,0.3); letter-spacing: 12px; margin-bottom: 16px; animation: glow 3s ease-in-out infinite alternate; }
+@keyframes glow { from { text-shadow: 0 0 40px rgba(255,45,45,0.6); } to { text-shadow: 0 0 60px rgba(255,45,45,0.8), 0 0 120px rgba(255,45,45,0.4); } }
+.title-sub { font-size: 20px; color: #b8a080; letter-spacing: 6px; margin-bottom: 40px; }
+.title-desc { font-size: 16px; color: #887766; max-width: 320px; line-height: 1.8; }
+.scroll-hint { position: absolute; bottom: 30px; color: #554433; font-size: 14px; animation: bounce 2s infinite; }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+.panel-container { max-width: 420px; margin: 0 auto; padding: 0 0 60px; }
+.panel {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  margin-bottom: 4px;
+  position: relative;
+}
+.panel.visible { opacity: 1; transform: translateY(0); }
+.panel img {
+  width: 100%; display: block;
+  border-left: 3px solid #ff2d2d;
+  border-right: 3px solid #ff2d2d;
+}
+.panel-text {
+  background: linear-gradient(135deg, #1a1520 0%, #0f0a14 100%);
+  padding: 16px 20px;
+  font-size: 18px; line-height: 1.7;
+  border-left: 3px solid #ff2d2d;
+  border-right: 3px solid #ff2d2d;
+  position: relative;
+}
+.panel-text::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,45,45,0.4), transparent);
+}
+.speech {
+  background: rgba(255,45,45,0.08);
+  border-left: 3px solid #ff2d2d;
+  padding: 12px 18px; margin: 8px 0;
+  font-size: 19px; font-weight: 600;
+  border-radius: 0 8px 8px 0;
+}
+.narration { color: #998877; font-size: 15px; font-style: italic; }
+.sfx {
+  text-align: center; font-size: 28px; font-weight: 900;
+  color: #ff2d2d; letter-spacing: 4px;
+  padding: 12px; text-shadow: 0 0 20px rgba(255,45,45,0.5);
+}
+.chapter-divider {
+  text-align: center; padding: 30px 20px; color: #554433;
+  border-left: 3px solid #ff2d2d; border-right: 3px solid #ff2d2d;
+  font-size: 14px; letter-spacing: 4px;
+}
+.chapter-divider span { display: block; width: 60px; height: 1px; background: #332222; margin: 10px auto; }
+
+.ending {
+  text-align: center; padding: 60px 20px; max-width: 420px; margin: 0 auto;
+}
+.ending .hook { font-size: 22px; color: #ff2d2d; font-weight: 700; margin-bottom: 20px; }
+.ending .tbc { font-size: 16px; color: #554433; letter-spacing: 6px; }
+.credit { text-align: center; padding: 40px 20px; color: #332222; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="title-screen">
+  <div class="title-main">赌神重生</div>
+  <div class="title-sub">第一章 · 绝处逢生</div>
+  <div class="title-desc">
+    赌神意外重生，附身在一个输光女儿手术费、走投无路的废柴赌徒身上。<br><br>
+    女儿命悬一线，妻子闯入地下赌场。<br><br>
+    这一局，他不能输。
+  </div>
+  <div class="scroll-hint">↓ 向下滑动开始 ↓</div>
+</div>
+
+<div class="panel-container">
+
+  <!-- Panel 1: 绝望 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-01-despair.jpg" alt="绝望的江凡">
+    <div class="panel-text">
+      <div class="narration">城中村，出租屋。</div>
+      <div class="speech">"三十二万……女儿的手术费，我输了个精光。"</div>
+      江凡攥着揉皱的手术通知单，指节发白。桌上的空酒瓶倒了一地，霓虹灯光从窗外透进来，照在他满是血丝的眼睛上。
+    </div>
+  </div>
+
+  <div class="chapter-divider"><span></span>就在此刻，命运齿轮转动<span></span></div>
+
+  <!-- Panel 2: 医院 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-02-hospital.jpg" alt="医院里的女儿">
+    <div class="panel-text">
+      五岁的小棉花躺在病床上，呼吸微弱。监护仪发出规律的滴滴声，像倒计时。
+      <div class="speech">"爸爸……我好想回家……"</div>
+      <div class="narration">妻子任潇潇在走廊里擦干眼泪，做了一个决定。</div>
+    </div>
+  </div>
+
+  <!-- Panel 3: 闯赌场 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-03-casino-entrance.jpg" alt="任潇潇闯入赌场">
+    <div class="panel-text">
+      <div class="speech">"师兄，我要进去。"</div>
+      任潇潇站在地下赌场入口，霓虹灯映在她坚定的脸上。身旁的师兄陈默面色沉重——他知道这个赌场，从来没有人能活着赢钱出去。
+      <div class="narration">但她已经没有别的路了。</div>
+    </div>
+  </div>
+
+  <!-- Panel 4: 赌场内部 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-04-casino-interior.jpg" alt="地下赌场">
+    <div class="panel-text">
+      地下三层，"天罗"赌场。金碧辉煌的表面下暗藏杀机——每张赌桌都装有高科技作弊装置，天花板上的摄像头无死角覆盖。
+      <div class="narration">在这里，庄家永远赢。这不是赌场，是屠宰场。</div>
+    </div>
+  </div>
+
+  <div class="chapter-divider"><span></span>危 机<span></span></div>
+
+  <!-- Panel 5: 妻子陷入困境 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-05-wife-trouble.jpg" alt="任潇潇陷入困境">
+    <div class="panel-text">
+      <div class="sfx">啪！</div>
+      任潇潇第三把又输了。面前的筹码只剩下薄薄一摞，而对面的赌场老板龙爷翘着二郎腿，手里转着一枚金币。
+      <div class="speech">"小姑娘，你带来的那点钱，够我点一根烟的。"</div>
+      <div class="narration">师兄的手已经按在了桌子下面。但赌场四周，十几个保镖虎视眈眈。</div>
+    </div>
+  </div>
+
+  <!-- Panel 6: 英雄登场 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-06-hero-entrance.jpg" alt="江凡登场">
+    <div class="panel-text">
+      <div class="sfx">咚——</div>
+      赌场大门被推开，逆光中走进一个人。
+      <div class="narration">所有人都转过头。</div>
+      他还穿着那件皱巴巴的外套，头发乱糟糟的。但他的眼神，和一小时前判若两人。
+      <div class="speech">"这把，我来。"</div>
+    </div>
+  </div>
+
+  <!-- Panel 7: 嘲笑 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-07-mockery.jpg" alt="众人嘲笑">
+    <div class="panel-text">
+      江凡坐上赌桌。整个赌场爆发出一阵哄笑。
+      <div class="speech">"这不是那个输光老婆本的废物吗？"</div>
+      <div class="speech">"让老婆来替他赌，自己躲在后面，现在又跑来丢人？"</div>
+      龙爷眯起眼睛，笑意不达眼底。
+      <div class="narration">但江凡的嘴角，微微上扬。</div>
+    </div>
+  </div>
+
+  <div class="chapter-divider"><span></span>逆 转<span></span></div>
+
+  <!-- Panel 8: 读牌 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-08-card-reading.jpg" alt="识破机关">
+    <div class="panel-text">
+      江凡的指尖触到牌面的瞬间，一切都变了。
+      <div class="narration">他看到了——牌背上肉眼不可见的激光标记，赌桌下的电磁装置，荷官袖口里藏的换牌机关。</div>
+      <div class="speech">"你们的把戏，在我眼里就像是大字报。"</div>
+      <div class="narration">赌神的记忆、赌神的技术、赌神的直觉——全部苏醒。</div>
+    </div>
+  </div>
+
+  <!-- Panel 9: 对决 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-09-showdown.jpg" alt="最终对决">
+    <div class="panel-text">
+      第七把。江凡连赢六局，筹码像小山一样堆在面前。龙爷的脸已经铁青。
+      <div class="speech">"最后一把，梭哈。你敢不敢？"</div>
+      江凡把全部筹码推了过去，眼睛直视龙爷。
+      <div class="speech">"你输的不是钱。你输的是命。"</div>
+    </div>
+  </div>
+
+  <!-- Panel 10: 胜利 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-10-victory.jpg" alt="江凡胜利">
+    <div class="panel-text">
+      <div class="sfx">全 场 寂 静</div>
+      江凡翻开最后一张牌。同花顺。龙爷手中的杯子碎了一地。保镖们面面相觑，没有人敢上前。
+      <div class="narration">沉默三秒后，赌场爆发出震耳欲聋的欢呼——赌客们从未见过有人在"天罗"赢庄家。</div>
+      <div class="speech">"钱，我带走了。"</div>
+    </div>
+  </div>
+
+  <div class="chapter-divider"><span></span>曙 光<span></span></div>
+
+  <!-- Panel 11: 团圆 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-11-reunion.jpg" alt="一家团圆">
+    <div class="panel-text">
+      手术很成功。晨光照进病房，小棉花睁开了眼睛。
+      <div class="speech">"爸爸！你买了小兔子给我！"</div>
+      任潇潇靠在江凡肩上，泪水止不住地流。江凡握紧妻子的手，声音发哑：
+      <div class="speech">"以后，我再也不赌了。"</div>
+      <div class="narration">至少……不赌自己人的命。</div>
+    </div>
+  </div>
+
+  <!-- Panel 12: 新开始 -->
+  <div class="panel">
+    <img src="images/exp-476/panel-12-new-beginning.jpg" alt="走向未来">
+    <div class="panel-text">
+      一家三口走出医院大门。阳光刺眼得让人流泪。小棉花骑在爸爸肩上，咯咯地笑。
+      <div class="narration">但江凡知道，事情没那么简单。龙爷不会善罢甘休。而他体内的这股力量，来历不明。</div>
+      <div class="speech">"老婆，如果有一天，有人逼我上赌桌……"</div>
+      <div class="speech">"那我陪你。"</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ending">
+  <div class="hook">龙爷的报复即将到来。<br>而江凡发现——他并不是唯一重生的人。</div>
+  <div class="tbc">—— 第一章 · 完 ——</div>
+</div>
+
+<div class="credit">
+  基于热门微剧《赌神重生》改编渲染<br>
+  故事渲染 v2 · 以图为主的漫画叙事
+</div>
+
+<script>
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+panels.forEach(p => observer.observe(p));
+</script>
+</body>
+</html>

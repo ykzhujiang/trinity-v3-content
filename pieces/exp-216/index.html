@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>城市朋友圈年度报告</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #0a0a1a;
+    color: #e8e8e8;
+    font-size: 20px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(ellipse at 50% 50%, #1a1a3e 0%, #0a0a1a 70%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    background: repeating-conic-gradient(from 0deg, transparent 0deg 8deg, rgba(100,100,255,0.03) 8deg 10deg);
+    animation: slowSpin 120s linear infinite;
+  }
+  
+  @keyframes slowSpin { to { transform: rotate(360deg); } }
+  
+  .hero h1 {
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    z-index: 1;
+    animation: fadeUp 1s ease-out;
+  }
+  
+  .hero .subtitle {
+    font-size: 18px;
+    color: #888;
+    margin-top: 12px;
+    z-index: 1;
+    animation: fadeUp 1s ease-out 0.3s both;
+  }
+  
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    z-index: 1;
+    animation: bounce 2s ease-in-out infinite;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+  
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .report-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .city-card {
+    background: #151528;
+    border-radius: 20px;
+    margin: 40px 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid #222244;
+  }
+  
+  .city-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .city-header {
+    padding: 24px 24px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+  }
+  
+  .city-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  
+  .city-name {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  
+  .city-bio {
+    font-size: 14px;
+    color: #888;
+    margin-top: 2px;
+  }
+  
+  .city-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    padding: 16px 24px;
+    border-top: 1px solid #222244;
+    border-bottom: 1px solid #222244;
+  }
+  
+  .stat-num { font-size: 20px; font-weight: 700; }
+  .stat-label { font-size: 12px; color: #666; margin-top: 2px; }
+  
+  .moments-feed {
+    padding: 0 24px 24px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .city-card.expanded .moments-feed {
+    max-height: 800px;
+  }
+  
+  .moment {
+    padding: 16px 0;
+    border-bottom: 1px solid #1a1a33;
+    font-size: 17px;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  
+  .city-card.expanded .moment {
+    animation: slideIn 0.4s ease-out forwards;
+  }
+  
+  .moment:nth-child(1) { animation-delay: 0.1s; }
+  .moment:nth-child(2) { animation-delay: 0.2s; }
+  .moment:nth-child(3) { animation-delay: 0.3s; }
+  .moment:nth-child(4) { animation-delay: 0.4s; }
+  .moment:nth-child(5) { animation-delay: 0.5s; }
+  
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  .moment-time { font-size: 13px; color: #555; margin-bottom: 4px; }
+  .moment-text { line-height: 1.7; }
+  .moment-meta { font-size: 13px; color: #444; margin-top: 6px; }
+  .moment-likes { color: #e74c3c; }
+  
+  .expand-hint {
+    text-align: center;
+    padding: 12px;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .city-card.expanded .expand-hint { display: none; }
+  
+  .summary-section {
+    text-align: center;
+    padding: 80px 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+  
+  .summary-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .summary-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .summary-section p {
+    color: #888;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+  
+  .bar-chart {
+    padding: 24px;
+    margin: 40px 0;
+  }
+  
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    gap: 12px;
+  }
+  
+  .bar-label { width: 60px; text-align: right; font-size: 15px; flex-shrink: 0; }
+  
+  .bar-track {
+    flex: 1;
+    height: 28px;
+    background: #1a1a33;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  
+  .bar-fill {
+    height: 100%;
+    border-radius: 14px;
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    white-space: nowrap;
+  }
+  
+  .bar-chart.visible .bar-fill { width: var(--w); }
+  
+  .footer-note {
+    text-align: center;
+    padding: 60px 20px 80px;
+    font-size: 14px;
+    color: #444;
+    line-height: 2;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>如果城市有朋友圈</h1>
+  <div class="subtitle">2025 年度报告 · 基于 365 天动态分析</div>
+  <div class="scroll-hint">↓ 下滑查看</div>
+</div>
+
+<div class="report-container">
+
+  <!-- 北京 -->
+  <div class="city-card" data-city="beijing">
+    <div class="city-header" onclick="toggleCity(this)">
+      <div class="city-avatar" style="background:linear-gradient(135deg,#c0392b,#e74c3c)">🏛️</div>
+      <div>
+        <div class="city-name">北京</div>
+        <div class="city-bio">首都 · 堵城之王 · 365天如一日</div>
+      </div>
+    </div>
+    <div class="city-stats">
+      <div><div class="stat-num">365</div><div class="stat-label">条动态</div></div>
+      <div><div class="stat-num">1</div><div class="stat-label">种内容</div></div>
+      <div><div class="stat-num">0</div><div class="stat-label">条不同的</div></div>
+    </div>
+    <div class="expand-hint">点击展开朋友圈 →</div>
+    <div class="moments-feed">
+      <div class="moment">
+        <div class="moment-time">1月3日 08:17</div>
+        <div class="moment-text">今天又堵了。</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 2.3万</span> · 天津点赞</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">4月15日 08:22</div>
+        <div class="moment-text">今天又堵了。</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 2.3万</span> · 天津、河北点赞</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">8月8日 08:19</div>
+        <div class="moment-text">今天又堵了。</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 2.4万</span> · 天津："同感"</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">12月31日 08:21</div>
+        <div class="moment-text">今天又堵了。<br><span style="font-size:14px;color:#666">（今年第365条。全年无休。包括春节。）</span></div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 10万+</span> · 全国人民：respect</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 深圳 -->
+  <div class="city-card" data-city="shenzhen">
+    <div class="city-header" onclick="toggleCity(this)">
+      <div class="city-avatar" style="background:linear-gradient(135deg,#2ecc71,#27ae60)">💰</div>
+      <div>
+        <div class="city-name">深圳</div>
+        <div class="city-bio">年薪百万（税前）（期权）（还没vest）</div>
+      </div>
+    </div>
+    <div class="city-stats">
+      <div><div class="stat-num">287</div><div class="stat-label">条动态</div></div>
+      <div><div class="stat-num">52</div><div class="stat-label">次融资</div></div>
+      <div><div class="stat-num">48</div><div class="stat-label">次删除</div></div>
+    </div>
+    <div class="expand-hint">点击展开朋友圈 →</div>
+    <div class="moments-feed">
+      <div class="moment">
+        <div class="moment-time">2月14日 23:48</div>
+        <div class="moment-text">刚拿了个天使轮！改变世界！🚀</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 8,432</span> · 杭州："恭喜！我们也刚..."（此条已删除）</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">5月2日 02:33</div>
+        <div class="moment-text">年薪百万（税前）（加上期权的话）（按四年vest的话）（假设公司还在的话）</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 15,678</span> · 上海："算上房租还剩多少？"</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">9月18日 03:17</div>
+        <div class="moment-text">ALL IN WEB3！未来已来！<br><span style="font-size:14px;color:#666">（三天后此条被删除）</span></div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 3,201</span></div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">12月30日 01:45</div>
+        <div class="moment-text">年终总结：今年融了3轮，亏了2个项目，痘痘长了4颗。<br>明年目标：IPO。<br><span style="font-size:14px;color:#666">（或者活着。先活着。）</span></div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 42,891</span> · 北京："今天又堵了"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 成都 -->
+  <div class="city-card" data-city="chengdu">
+    <div class="city-header" onclick="toggleCity(this)">
+      <div class="city-avatar" style="background:linear-gradient(135deg,#f39c12,#e67e22)">🌶️</div>
+      <div>
+        <div class="city-name">成都</div>
+        <div class="city-bio">美食博主 · 凌晨营业 · 从不加班（因为从不上班）</div>
+      </div>
+    </div>
+    <div class="city-stats">
+      <div><div class="stat-num">412</div><div class="stat-label">条动态</div></div>
+      <div><div class="stat-num">89%</div><div class="stat-label">是吃的</div></div>
+      <div><div class="stat-num">2:00</div><div class="stat-label">平均发布</div></div>
+    </div>
+    <div class="expand-hint">点击展开朋友圈 →</div>
+    <div class="moments-feed">
+      <div class="moment">
+        <div class="moment-time">3月7日 01:47</div>
+        <div class="moment-text">🔥 钵钵鸡 · 冷锅串串 · 兔头 · 冰粉<br>（配图9张，全是食物特写，最后一张是空盘子）</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 67,234</span> · 广州："发错时间了吧？" 成都回复："？"</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">7月22日 02:31</div>
+        <div class="moment-text">夜宵第二场。不是我想吃，是火锅它自己跳上桌的。</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 89,122</span> · 深圳："你们不上班吗" 成都："班是啥子"</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">11月3日 03:15</div>
+        <div class="moment-text">减肥第一天。<br>（下一条，11月3日 03:47）<br>减肥结束。火锅真的好吃。</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 120,000+</span> · 年度最高赞</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 杭州 -->
+  <div class="city-card" data-city="hangzhou">
+    <div class="city-header" onclick="toggleCity(this)">
+      <div class="city-avatar" style="background:linear-gradient(135deg,#9b59b6,#8e44ad)">🛒</div>
+      <div>
+        <div class="city-name">杭州</div>
+        <div class="city-bio">电商之都 · 直播间常驻 · 马老师精神股东</div>
+      </div>
+    </div>
+    <div class="city-stats">
+      <div><div class="stat-num">198</div><div class="stat-label">条动态</div></div>
+      <div><div class="stat-num">34</div><div class="stat-label">条秒删</div></div>
+      <div><div class="stat-num">∞</div><div class="stat-label">次带货</div></div>
+    </div>
+    <div class="expand-hint">点击展开朋友圈 →</div>
+    <div class="moments-feed">
+      <div class="moment">
+        <div class="moment-time">1月10日 09:00</div>
+        <div class="moment-text">马老师说了，未来十年……<br><span style="font-size:14px;color:#666">（此条已删除）</span></div>
+        <div class="moment-meta">· 上海："截图了" 杭州："删了！！！"</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">6月18日 00:00</div>
+        <div class="moment-text">家人们！！！618不买就是亏！！！冲冲冲！！！<br>（自动发送 · 定时功能）</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 45,678</span> · 成都："你这不是朋友圈，是广告位"</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">11月11日 00:01</div>
+        <div class="moment-text">成交额突破……<br><span style="font-size:14px;color:#666">（此条已删除。因为今年不公布GMV了。）</span></div>
+        <div class="moment-meta">· 深圳："哈哈哈哈哈哈"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 上海 -->
+  <div class="city-card" data-city="shanghai">
+    <div class="city-header" onclick="toggleCity(this)">
+      <div class="city-avatar" style="background:linear-gradient(135deg,#3498db,#2980b9)">☕</div>
+      <div>
+        <div class="city-name">上海</div>
+        <div class="city-bio">精致穷 · 咖啡续命 · 早C晚A人均消费第一</div>
+      </div>
+    </div>
+    <div class="city-stats">
+      <div><div class="stat-num">156</div><div class="stat-label">条动态</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">有滤镜</div></div>
+      <div><div class="stat-num">¥68</div><div class="stat-label">均价咖啡</div></div>
+    </div>
+    <div class="expand-hint">点击展开朋友圈 →</div>
+    <div class="moments-feed">
+      <div class="moment">
+        <div class="moment-time">3月21日 14:00</div>
+        <div class="moment-text">周末brunch ☕🥐<br>（配图：一杯拿铁的俯拍。构图完美。拍了47张选的这张。）</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 23,456</span> · 成都："这杯咖啡够我吃三天"</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">8月5日 18:30</div>
+        <div class="moment-text">新开的omakase，人均1200，环境一般。<br><span style="font-size:14px;color:#666">（"环境一般"是上海人说"只值800"的委婉说法）</span></div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 18,901</span> · 广州："1200？！我请全家吃酒席"</div>
+      </div>
+      <div class="moment">
+        <div class="moment-time">12月25日 20:00</div>
+        <div class="moment-text">Merry Christmas 🎄✨<br>（配图：外滩夜景。精修3小时。发完发现北京也发了一模一样的构图。但北京没修图。上海感到被冒犯。）</div>
+        <div class="moment-meta"><span class="moment-likes">❤️ 56,789</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据可视化 -->
+  <div class="bar-chart" id="chartSection">
+    <h2 style="font-size:20px;font-weight:700;margin-bottom:24px;text-align:center;color:#aaa;">年度发朋友圈频率</h2>
+    <div class="bar-row">
+      <div class="bar-label">成都</div>
+      <div class="bar-track"><div class="bar-fill" style="--w:95%;background:linear-gradient(90deg,#f39c12,#e67e22)">412条</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">北京</div>
+      <div class="bar-track"><div class="bar-fill" style="--w:84%;background:linear-gradient(90deg,#c0392b,#e74c3c)">365条</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">深圳</div>
+      <div class="bar-track"><div class="bar-fill" style="--w:66%;background:linear-gradient(90deg,#2ecc71,#27ae60)">287条</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">杭州</div>
+      <div class="bar-track"><div class="bar-fill" style="--w:46%;background:linear-gradient(90deg,#9b59b6,#8e44ad)">198条</div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">上海</div>
+      <div class="bar-track"><div class="bar-fill" style="--w:36%;background:linear-gradient(90deg,#3498db,#2980b9)">156条</div></div>
+    </div>
+  </div>
+
+  <div class="summary-section">
+    <h2>年度最佳评论</h2>
+    <p style="font-size:20px;margin-bottom:8px;">北京："今天又堵了"</p>
+    <p style="font-size:15px;color:#555;">出现在 47 个城市的朋友圈评论区<br>包括它自己的</p>
+  </div>
+
+  <div class="summary-section">
+    <h2>年度之谜</h2>
+    <p>广州全年 0 条朋友圈。<br><span style="color:#666;">但评论了 1,847 次。</span><br><span style="color:#555;">每条都是："来广州请你吃饭"</span></p>
+  </div>
+
+  <div class="footer-note">
+    * 以上数据来源：城市朋友圈大数据中心（虚构）<br>
+    * 如有雷同，说明你的城市就是这样的<br>
+    <br>
+    <span style="font-size:12px;color:#333;">— 城市朋友圈年度报告 · 2025 —</span>
+  </div>
+
+</div>
+
+<script>
+function toggleCity(header) {
+  const card = header.closest('.city-card');
+  card.classList.toggle('expanded');
+}
+
+// Scroll-triggered animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.city-card, .summary-section, .bar-chart').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

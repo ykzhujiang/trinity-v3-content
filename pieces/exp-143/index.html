@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>两个人的城市轨迹</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,'PingFang SC',sans-serif;max-width:520px;margin:0 auto;min-height:100vh;padding:0 0 40px;}
+.map-header{padding:20px;text-align:center;}
+.map-header h1{font-size:18px;font-weight:400;color:#e6edf3;}
+.map-header .sub{font-size:13px;color:#555;margin-top:6px;}
+.legend{display:flex;justify-content:center;gap:24px;margin:10px 0 20px;}
+.legend .dot{display:flex;align-items:center;gap:6px;font-size:13px;color:#888;}
+.legend .blue{width:10px;height:10px;border-radius:50%;background:#58A6FF;}
+.legend .red{width:10px;height:10px;border-radius:50%;background:#F78166;}
+.legend .gold{width:10px;height:10px;border-radius:50%;background:#FFD700;}
+.year-card{margin:0 16px 24px;background:#161b22;border-radius:14px;overflow:hidden;border:1px solid #21262d;}
+.year-label{background:#21262d;padding:10px 16px;font-size:14px;font-weight:600;color:#e6edf3;display:flex;justify-content:space-between;align-items:center;}
+.year-label .tag{font-size:11px;padding:2px 8px;border-radius:10px;color:#fff;}
+.tag-close{background:#238636;}
+.tag-drift{background:#9E6A03;}
+.tag-apart{background:#DA3633;}
+.tag-converge{background:#58A6FF;}
+.tag-new{background:#FFD700;color:#000;}
+.map-visual{padding:20px;position:relative;min-height:120px;}
+.track-line{height:4px;border-radius:2px;margin:6px 0;position:relative;}
+.track-blue{background:linear-gradient(90deg,#58A6FF 0%,#58A6FF 100%);}
+.track-red{background:linear-gradient(90deg,#F78166 0%,#F78166 100%);}
+.overlap{position:relative;height:8px;border-radius:4px;margin:4px 0;overflow:hidden;}
+.overlap .bar-blue{position:absolute;top:0;left:0;height:4px;background:#58A6FF;border-radius:2px;}
+.overlap .bar-red{position:absolute;top:4px;left:0;height:4px;background:#F78166;border-radius:2px;}
+.year-text{padding:0 20px 16px;font-size:14px;line-height:2;color:#8b949e;}
+.year-text strong{color:#c9d1d9;}
+.year-text .metric{color:#58A6FF;font-variant-numeric:tabular-nums;font-size:13px;}
+.year-text .red-metric{color:#F78166;}
+.highlight-card{border-color:#58A6FF !important;}
+.hospital-card{border-color:#FFD700 !important;}
+.ending-card{border-color:#FFD700 !important;background:#1a1500 !important;}
+.ending-text{padding:20px;text-align:center;font-size:15px;line-height:2.2;color:#c9d1d9;}
+.ending-text .gold{color:#FFD700;}
+</style>
+</head>
+<body>
+
+<div class="map-header">
+<h1>🗺️ 两个人的城市轨迹</h1>
+<div class="sub">同一座城市。两个点。七年。</div>
+</div>
+
+<div class="legend">
+<div class="dot"><div class="blue"></div> 他</div>
+<div class="dot"><div class="red"></div> 她</div>
+</div>
+
+<!-- Year 1 -->
+<div class="year-card">
+<div class="year-label">2018 · 第一年 <span class="tag tag-close">重叠</span></div>
+<div class="map-visual">
+<div class="overlap" style="width:95%;"><div class="bar-blue" style="width:95%;"></div><div class="bar-red" style="width:93%;"></div></div>
+<div class="overlap" style="width:90%;"><div class="bar-blue" style="width:92%;"></div><div class="bar-red" style="width:90%;"></div></div>
+</div>
+<div class="year-text">
+两个点几乎重叠。<br>
+早上从同一个位置出发 → 一起坐地铁 → <strong>中午他走到她公司楼下</strong> → 一起吃黄焖鸡 → 晚上同一时间回到那个光点。<br>
+<span class="metric">轨迹重合度：94%</span>
+</div>
+</div>
+
+<!-- Year 2 -->
+<div class="year-card">
+<div class="year-label">2019 · 第二年 <span class="tag tag-drift">微偏</span></div>
+<div class="map-visual">
+<div class="overlap" style="width:85%;"><div class="bar-blue" style="width:90%;"></div><div class="bar-red" style="width:75%;"></div></div>
+<div class="overlap" style="width:80%;"><div class="bar-blue" style="width:88%;"></div><div class="bar-red" style="width:85%;"></div></div>
+</div>
+<div class="year-text">
+中午的交汇消失了。<br>
+他在公司叫外卖，她和同事去了新开的商场。<br>
+<strong>但晚上的光点还是重合的。每天。</strong><br>
+<span class="metric">轨迹重合度：78%</span>
+</div>
+</div>
+
+<!-- Year 3 -->
+<div class="year-card">
+<div class="year-label">2020 · 第三年 <span class="tag tag-drift">绕路</span></div>
+<div class="map-visual">
+<div class="overlap" style="width:70%;"><div class="bar-blue" style="width:100%;"></div><div class="bar-red" style="width:55%;"></div></div>
+</div>
+<div class="year-text">
+下班后，<span class="red-metric">蓝点</span>开始绕路。<br>
+健身房。便利店。车里坐一会儿。<br>
+<strong>红点比蓝点早到家 <span class="red-metric">47分钟</span>。</strong>
+</div>
+</div>
+
+<!-- Year 4 -->
+<div class="year-card">
+<div class="year-label">2021 · 第四年 <span class="tag tag-apart">分离</span></div>
+<div class="map-visual">
+<div style="display:flex;gap:20px;">
+<div class="track-line track-blue" style="flex:1;"></div>
+<div class="track-line track-red" style="flex:1;"></div>
+</div>
+</div>
+<div class="year-text">
+周末，两个点第一次去了<strong>不同的方向</strong>。<br>
+🔵 东三环 &nbsp;&nbsp; 🔴 西边的商场<br>
+只有深夜，两个点才回到同一个坐标。
+</div>
+</div>
+
+<!-- Year 5 -->
+<div class="year-card">
+<div class="year-label">2022 · 第五年 <span class="tag tag-apart">平行</span></div>
+<div class="map-visual">
+<div style="display:flex;gap:40px;">
+<div class="track-line track-blue" style="flex:1;"></div>
+<div class="track-line track-red" style="flex:1;"></div>
+</div>
+</div>
+<div class="year-text">
+工作日轨迹完全分离。<br>
+周末偶尔重合——在超市，<span class="red-metric">12分钟</span>。<br>
+在家的重叠时间：<strong>23:40 — 07:10</strong><br>
+<span class="metric">都在睡觉。</span>
+</div>
+</div>
+
+<!-- Year 6 — Hospital -->
+<div class="year-card hospital-card">
+<div class="year-label">2023 · 第六年 <span class="tag tag-converge">交汇</span></div>
+<div class="map-visual" style="text-align:center;">
+<div style="font-size:40px;margin:10px 0;">🏥</div>
+<div style="display:inline-flex;gap:4px;">
+<div class="blue" style="width:12px;height:12px;border-radius:50%;background:#58A6FF;"></div>
+<div class="red" style="width:12px;height:12px;border-radius:50%;background:#F78166;"></div>
+</div>
+</div>
+<div class="year-text">
+<strong>3月17日。</strong><br>
+两个点同时出现在同一个位置——<br>
+市中心的三甲医院。产科。<br>
+停留 <span class="metric">4小时</span>。<br><br>
+这是 <strong>584天</strong> 来，他们第一次<br>在白天、在家以外的地方重合。
+</div>
+</div>
+
+<!-- Year 7 — The Third Dot -->
+<div class="year-card ending-card">
+<div class="year-label" style="color:#FFD700;">2024 · 第七年 <span class="tag tag-new">新的点</span></div>
+<div class="map-visual" style="text-align:center;">
+<div style="margin:10px 0;">
+<div class="gold" style="width:16px;height:16px;border-radius:50%;background:#FFD700;display:inline-block;animation:glow 2s infinite;"></div>
+</div>
+<style>@keyframes glow{0%,100%{box-shadow:0 0 8px #FFD700}50%{box-shadow:0 0 20px #FFD700}}</style>
+<div style="display:flex;justify-content:center;gap:20px;margin-top:10px;">
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div style="width:40px;height:2px;background:#58A6FF;border-radius:1px;transform:rotate(30deg);"></div>
+<div style="font-size:11px;color:#58A6FF;margin-top:4px;">🔵</div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div style="width:40px;height:2px;background:#F78166;border-radius:1px;transform:rotate(-30deg);"></div>
+<div style="font-size:11px;color:#F78166;margin-top:4px;">🔴</div>
+</div>
+</div>
+</div>
+<div class="ending-text">
+地图上多了一个点。<br>
+很小，<span class="gold">金色的</span>。<br>
+它不怎么动，永远在家那个坐标。<br><br>
+蓝点和红点的轨迹？<br>
+全部变了。<br>
+它们开始绕着第三个点转。<br><br>
+<strong>像两颗行星，<br>终于找到了共同的太阳。</strong>
+</div>
+</div>
+
+</body>
+</html>

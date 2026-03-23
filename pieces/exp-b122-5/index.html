@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI 周刊 · 2026年3月第3周</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0f0f0f;
+  color: #e0e0e0;
+  font-family: -apple-system, 'PingFang SC', sans-serif;
+  min-height: 100vh;
+}
+.app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(15,15,15,0.95);
+  backdrop-filter: blur(12px);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #222;
+}
+.app-bar .logo { font-size: 22px; }
+.app-bar h1 { font-size: 18px; color: #fff; }
+.app-bar .week { font-size: 12px; color: #666; margin-left: auto; }
+.feed {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 12px 12px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.card {
+  background: #1a1a1a;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #252525;
+  transition: transform 0.2s;
+}
+.card:active { transform: scale(0.98); }
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.card-body {
+  padding: 14px 16px 16px;
+}
+.card-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.tag-real { background: rgba(218,54,51,0.2); color: #ff6b6b; }
+.tag-fun { background: rgba(255,215,0,0.15); color: #ffd700; }
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.card-desc {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.6;
+}
+.card-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 16px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #aaa;
+}
+.card.open .card-detail {
+  max-height: 500px;
+  padding: 0 16px 16px;
+}
+.card-footer {
+  padding: 0 16px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-source { font-size: 12px; color: #555; }
+.card-expand {
+  font-size: 12px;
+  color: #58a6ff;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px 0;
+}
+.divider {
+  text-align: center;
+  color: #333;
+  font-size: 13px;
+  padding: 8px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="app-bar">
+  <span class="logo">🤖</span>
+  <h1>AI 周刊</h1>
+  <span class="week">2026.3.15 — 3.21</span>
+</div>
+
+<div class="feed">
+
+<!-- Card 1: Knuth -->
+<div class="card" onclick="this.classList.toggle('open')">
+  <img class="card-img" src="img/card1.jpg" alt="">
+  <div class="card-body">
+    <span class="card-tag tag-real">🔴 真实</span>
+    <div class="card-title">计算机之神Knuth惊呼"Shock!" — Claude解出了他研究数周的难题</div>
+    <div class="card-desc">87岁的高德纳教授发表论文，标题就叫"Claude's Cycles"，因为Anthropic的AI解决了他苦研数周的图论问题。</div>
+  </div>
+  <div class="card-detail">
+    Donald Knuth正在编写《计算机程序设计艺术》时，在三维有向图的哈密顿回路问题上卡住了数周。他把问题输入Claude Opus 4.6——AI不仅解出来了，还给出了优雅的构造方法。老爷子直接写了篇论文表达震惊。当连Knuth都开始承认AI的能力时，你知道世界真的变了。
+  </div>
+  <div class="card-footer">
+    <span class="card-source">来源: Radical Data Science · 3/10</span>
+    <button class="card-expand">展开详情 ↓</button>
+  </div>
+</div>
+
+<!-- Card 2: Robot Tennis -->
+<div class="card" onclick="this.classList.toggle('open')">
+  <img class="card-img" src="img/card2.jpg" alt="">
+  <div class="card-body">
+    <span class="card-tag tag-real">🔴 真实</span>
+    <div class="card-title">机器人学会了打网球，而且打得还不错</div>
+    <div class="card-desc">一个人形机器人在网球场上完成了真实对打，动作流畅到让人以为是CG。</div>
+  </div>
+  <div class="card-detail">
+    这不是预编程的固定动作——机器人通过强化学习掌握了发球、接球和走位。虽然离职业选手还差得远，但重点是：它在学习，而且学得越来越快。体育教练们可能是继会计师之后，下一个要认真思考职业转型的群体。
+  </div>
+  <div class="card-footer">
+    <span class="card-source">来源: NeuralBuddies · 3/20</span>
+    <button class="card-expand">展开详情 ↓</button>
+  </div>
+</div>
+
+<!-- Card 3: Dog ChatGPT -->
+<div class="card" onclick="this.classList.toggle('open')">
+  <img class="card-img" src="img/card3.jpg" alt="">
+  <div class="card-body">
+    <span class="card-tag tag-real">🔴 真实</span>
+    <div class="card-title">一个男人用ChatGPT治好了他的狗</div>
+    <div class="card-desc">兽医说"没办法了"，他不死心，把症状全部输入ChatGPT——AI建议了一个罕见的诊断，结果真的治好了。</div>
+  </div>
+  <div class="card-detail">
+    ChatGPT建议他检查一种极罕见的自身免疫性疾病。当地兽医从来没见过这种病，但专科医院确认了诊断。治疗三周后，狗狗完全康复。这个故事走红后引发了一场大讨论：AI医疗建议到底该不该信？答案可能是——当传统方法走到尽头时，多一个参考总不是坏事。
+  </div>
+  <div class="card-footer">
+    <span class="card-source">来源: NeuralBuddies · 3/20</span>
+    <button class="card-expand">展开详情 ↓</button>
+  </div>
+</div>
+
+<!-- Card 4: Smart Toaster (funny) -->
+<div class="card" onclick="this.classList.toggle('open')">
+  <img class="card-img" src="img/card4.jpg" alt="">
+  <div class="card-body">
+    <span class="card-tag tag-real">🔴 真实</span>
+    <div class="card-title">Visa正在让你的烤面包机自己买配件</div>
+    <div class="card-desc">Visa推出AI代理支付系统——让智能设备自动下单购买耗材和替换零件。是的，你的冰箱真的可以自己订牛奶了。</div>
+  </div>
+  <div class="card-detail">
+    Visa的新系统允许AI代理代表设备完成支付。听起来很方便，直到你发现你的扫地机器人偷偷订了一台新的扫地机器人"给自己当备用"。开个玩笑——但认真说，机器自主消费的时代真的来了，隐私和安全问题才刚开始。
+  </div>
+  <div class="card-footer">
+    <span class="card-source">来源: NeuralBuddies · 3/20</span>
+    <button class="card-expand">展开详情 ↓</button>
+  </div>
+</div>
+
+<!-- Card 5: White House AI -->
+<div class="card" onclick="this.classList.toggle('open')">
+  <img class="card-img" src="img/card5.jpg" alt="">
+  <div class="card-body">
+    <span class="card-tag tag-real">🔴 真实</span>
+    <div class="card-title">白宫发布AI立法蓝图：轻监管路线确认</div>
+    <div class="card-desc">特朗普政府向国会提交AI政策框架，主张"轻触式监管"——科技公司松了口气，民主党人不买账。</div>
+  </div>
+  <div class="card-detail">
+    蓝图要求科技公司签署"电力消费者保护承诺"，解决数据中心的能源消耗问题。Amazon、Google、OpenAI都签了。共和党主推"让创新跑起来，别用法规绊倒它"，但参议院多数党领袖Thune也暗示不会放任不管。AI监管的天平仍在摇摆——唯一确定的是，没人想错过这班车。
+  </div>
+  <div class="card-footer">
+    <span class="card-source">来源: Politico · 3/20</span>
+    <button class="card-expand">展开详情 ↓</button>
+  </div>
+</div>
+
+<div class="divider">—— 以下为搞笑虚构 ——</div>
+
+<!-- Card 6: Funny fake -->
+<div class="card" onclick="this.classList.toggle('open')">
+  <div class="card-body">
+    <span class="card-tag tag-fun">🟡 搞笑</span>
+    <div class="card-title">某大厂AI面试官把自己面挂了</div>
+    <div class="card-desc">一家科技公司用AI面试官筛选候选人，结果AI问了自己一道算法题，然后判定"该候选人不符合岗位要求"。</div>
+  </div>
+  <div class="card-detail">
+    HR发现这个bug时，AI已经拒绝了自己12次，还在面试记录里写了"该候选人思维僵化，缺乏创新精神"。这大概是史上最严格的自我批评了。
+  </div>
+  <div class="card-footer">
+    <span class="card-source">虚构 · 周刊编辑部出品</span>
+    <button class="card-expand">展开详情 ↓</button>
+  </div>
+</div>
+
+<!-- Card 7: Funny fake -->
+<div class="card" onclick="this.classList.toggle('open')">
+  <div class="card-body">
+    <span class="card-tag tag-fun">🟡 搞笑</span>
+    <div class="card-title">程序员用AI写辞职信，AI反过来把他劝留了</div>
+    <div class="card-desc">"我让ChatGPT帮我写辞职信，它分析了我的简历后说：'以你的水平，还是别走了吧。'"</div>
+  </div>
+  <div class="card-detail">
+    当事人表示AI给出了详细的SWOT分析：优势是"熟悉公司遗留系统"（别人接不了），劣势是"GitHub上只有fork没有star"。最后建议："建议先在LeetCode上刷到Hard，再考虑跳槽。"该程序员当天就续了劳动合同。
+  </div>
+  <div class="card-footer">
+    <span class="card-source">虚构 · 周刊编辑部出品</span>
+    <button class="card-expand">展开详情 ↓</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll('.card-expand').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    btn.closest('.card').classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>

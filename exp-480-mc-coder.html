@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码方块世界</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #1a1a2e;
+  color: #e0e0e0;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+.scene {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Title */
+.title-block {
+  background: linear-gradient(135deg, #2d5016 0%, #1a3a0a 100%);
+  padding: 40px 20px 30px;
+  text-align: center;
+  border-bottom: 4px solid #5d8a3c;
+  position: relative;
+  overflow: hidden;
+}
+.title-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 16px,
+    rgba(0,0,0,0.05) 16px,
+    rgba(0,0,0,0.05) 17px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 16px,
+    rgba(0,0,0,0.05) 16px,
+    rgba(0,0,0,0.05) 17px
+  );
+}
+.title-block h1 {
+  font-size: 28px;
+  color: #7fcc4a;
+  text-shadow: 2px 2px 0 #1a3a0a;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 4px;
+}
+.title-sub {
+  font-size: 16px;
+  color: #a0c880;
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Image blocks */
+.img-block {
+  width: 100%;
+}
+.img-block img {
+  width: 100%;
+  display: block;
+}
+
+/* Text blocks */
+.text-block {
+  padding: 20px 24px;
+}
+
+/* Different bg colors for variety */
+.bg-dark { background: #16213e; }
+.bg-deep { background: #1a1a2e; }
+.bg-green { background: #0f2b0f; }
+.bg-warm { background: #2e1a0f; }
+
+/* Accent text */
+.accent {
+  color: #7fcc4a;
+  font-weight: bold;
+}
+.gold {
+  color: #ffd700;
+  font-weight: bold;
+}
+.red {
+  color: #ff6b6b;
+}
+
+/* Divider */
+.pixel-divider {
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #5d8a3c 0px, #5d8a3c 8px,
+    #3d6a1c 8px, #3d6a1c 16px,
+    #7fcc4a 16px, #7fcc4a 24px,
+    transparent 24px, transparent 32px
+  );
+}
+
+/* Ending */
+.ending {
+  text-align: center;
+  padding: 30px 24px 50px;
+  background: linear-gradient(180deg, #1a1a2e 0%, #2d5016 100%);
+}
+.ending .emoji {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 16px;
+}
+.ending p {
+  font-size: 18px;
+  color: #a0c880;
+}
+</style>
+</head>
+<body>
+<div class="scene">
+
+  <div class="title-block">
+    <h1>⛏️ 代码方块世界</h1>
+    <div class="title-sub">一个程序员的像素奇梦</div>
+  </div>
+
+  <!-- 1. Office -->
+  <div class="img-block"><img src="exp-480-01-office.jpg" alt="加班的程序员" loading="eager"></div>
+  <div class="text-block bg-dark">
+    <p>林凡又加班到深夜。屏幕上的代码像蚂蚁一样密密麻麻，<span class="red">第三杯咖啡已经凉透</span>。</p>
+    <p>他揉了揉酸涩的眼睛，脑子里只有一个念头：<span class="accent">什么时候是个头啊……</span></p>
+  </div>
+
+  <div class="pixel-divider"></div>
+
+  <!-- 2. Dream -->
+  <div class="img-block"><img src="exp-480-02-dream.jpg" alt="坠入梦境" loading="lazy"></div>
+  <div class="text-block bg-deep">
+    <p>趴在键盘上的那一刻，林凡感觉身体在<span class="accent">像素化</span>——</p>
+    <p>一格一格地，他被吸进了屏幕里。</p>
+  </div>
+
+  <div class="pixel-divider"></div>
+
+  <!-- 3. Arrive -->
+  <div class="img-block"><img src="exp-480-03-arrive.jpg" alt="方块世界" loading="lazy"></div>
+  <div class="text-block bg-green">
+    <p>蓝天是方的，树是方的，连脚下的草地都是一格一格的。</p>
+    <p>林凡愣住了：<span class="gold">「我……进了我的世界？！」</span></p>
+    <p>他低头一看，自己穿着格子西装，手里居然握着一把<span class="accent">命令方块</span>。</p>
+  </div>
+
+  <div class="pixel-divider"></div>
+
+  <!-- 4. Code Build -->
+  <div class="img-block"><img src="exp-480-04-code-build.jpg" alt="代码建造" loading="lazy"></div>
+  <div class="text-block bg-dark">
+    <p>他试着在命令方块里输入代码——</p>
+    <p><span class="accent">石砖从地面拔地而起，自动拼接成城堡的形状！</span></p>
+    <p>写了十年代码的手指，在这里变成了<span class="gold">造物主的权杖</span>。别人挖矿挖一天，他一行代码搞定。</p>
+  </div>
+
+  <div class="pixel-divider"></div>
+
+  <!-- 5. Battle -->
+  <div class="img-block"><img src="exp-480-05-battle.jpg" alt="战斗" loading="lazy"></div>
+  <div class="text-block bg-warm">
+    <p>夜幕降临，怪物潮涌来。苦力怕嘶嘶作响，僵尸成群结队。</p>
+    <p>林凡深吸一口气，在命令方块里疯狂输入——</p>
+    <p><span class="gold">自动炮台启动！钻石剑附魔完成！怪物被批量清除！</span></p>
+    <p>他笑了：<span class="accent">「加班改了十年bug，打怪算什么。」</span></p>
+  </div>
+
+  <div class="pixel-divider"></div>
+
+  <!-- 6. Redstone -->
+  <div class="img-block"><img src="exp-480-06-redstone.jpg" alt="红石计算机" loading="lazy"></div>
+  <div class="text-block bg-deep">
+    <p>第三天，林凡干了一件大事——</p>
+    <p>他用红石电路造了一台<span class="gold">方块世界里的计算机</span>。</p>
+    <p>村民们围过来，目瞪口呆。他们从没见过有人能把红石玩成这样。</p>
+    <p><span class="accent">这哥们，是真正的"编程之神"啊。</span></p>
+  </div>
+
+  <div class="pixel-divider"></div>
+
+  <!-- 7. Victory -->
+  <div class="img-block"><img src="exp-480-07-victory.jpg" alt="加冕" loading="lazy"></div>
+  <div class="text-block bg-green">
+    <p>村民们自发给他建了一座<span class="gold">钻石王座</span>，烟花照亮了整片像素天空。</p>
+    <p>林凡坐在王座上，看着自己亲手用代码建造的一切，眼眶有点热。</p>
+    <p>在现实里，他只是一个<span class="red">没人注意的普通码农</span>。但在这里——</p>
+    <p><span class="accent">他是创造整个世界的人。</span></p>
+  </div>
+
+  <div class="pixel-divider"></div>
+
+  <!-- 8. Wake -->
+  <div class="img-block"><img src="exp-480-08-wake.jpg" alt="醒来" loading="lazy"></div>
+  <div class="text-block bg-dark">
+    <p>阳光照在脸上，林凡从键盘上抬起头。</p>
+    <p>梦醒了。但他发现，屏幕上昨晚卡了三天的bug——</p>
+    <p><span class="gold">他一眼就看出了问题所在。</span></p>
+    <p>林凡笑着敲下修复代码，轻声说：</p>
+    <p><span class="accent">「这个世界，也是可以用代码改变的嘛。」</span></p>
+  </div>
+
+  <!-- Ending -->
+  <div class="ending">
+    <span class="emoji">⛏️🌟</span>
+    <p>每个程序员心里，都住着一个方块世界。</p>
+    <p style="margin-top: 8px; font-size: 14px; color: #666;">— 代码方块世界 · 完 —</p>
+  </div>
+
+</div>
+
+<script>
+// Gentle fade-in on scroll via CSS animation
+document.querySelectorAll('.img-block, .text-block').forEach((el, i) => {
+  el.style.animation = `fadeUp 0.5s ease ${i * 0.05}s both`;
+});
+</script>
+<style>
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</body>
+</html>

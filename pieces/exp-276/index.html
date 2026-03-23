@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>转账备注·父子二十年 | EXP-276</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;background:#f5f6fa;color:#1a1a1a;font-size:20px;line-height:1.7;overflow-x:hidden}
+.container{max-width:420px;margin:0 auto;min-height:100vh;background:#f5f6fa}
+
+.app-header{background:linear-gradient(135deg,#1677ff,#4096ff);padding:52px 20px 20px;color:#fff;position:sticky;top:0;z-index:10}
+.app-header h1{font-size:18px;font-weight:600;text-align:center}
+.app-header .sub{font-size:13px;text-align:center;opacity:0.8;margin-top:4px}
+
+/* Account card */
+.account-card{background:#fff;margin:16px;border-radius:14px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.05)}
+.account-card .name{font-size:15px;color:#666;margin-bottom:4px}
+.account-card .id{font-size:13px;color:#999}
+.account-card .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1677ff,#4096ff);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;float:left;margin-right:14px}
+
+/* Year label */
+.year-label{padding:20px 20px 8px;font-size:13px;color:#999;font-weight:600;letter-spacing:2px;opacity:0;transform:translateY(10px)}
+.year-label.visible{opacity:1;transform:translateY(0);transition:all 0.5s ease}
+
+/* Transfer item */
+.transfer-item{background:#fff;margin:0 16px 2px;padding:16px 20px;display:flex;justify-content:space-between;align-items:flex-start;opacity:0;transform:translateX(-15px);position:relative}
+.transfer-item:first-of-type{border-radius:14px 14px 0 0}
+.transfer-item:last-of-type{border-radius:0 0 14px 14px;margin-bottom:0}
+.transfer-item.visible{opacity:1;transform:translateX(0);transition:all 0.5s ease}
+.t-left{flex:1;min-width:0}
+.t-label{font-size:16px;color:#333;font-weight:600;margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.t-label .direction{font-size:12px;padding:2px 6px;border-radius:6px;font-weight:500}
+.t-label .direction.in{background:#e6f7e9;color:#389e0d}
+.t-label .direction.out{background:#fff1e6;color:#d46b08}
+.t-note{font-size:17px;color:#555;line-height:1.6;margin-top:4px}
+.t-date{font-size:12px;color:#bbb;margin-top:4px}
+.t-amount{font-size:20px;font-weight:700;white-space:nowrap;margin-left:12px;padding-top:2px}
+.t-amount.in{color:#389e0d}
+.t-amount.out{color:#d46b08}
+
+/* Divider line inside grouped items */
+.transfer-item+.transfer-item{border-top:1px solid #f5f5f5}
+
+/* Coda */
+.coda{margin:28px 16px 40px;text-align:center;opacity:0;transform:translateY(20px)}
+.coda.visible{opacity:1;transform:translateY(0);transition:all 1s ease}
+.coda .empty{font-size:48px;margin-bottom:12px}
+.coda .text{font-size:15px;color:#999;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="app-header">
+  <h1>转账记录</h1>
+  <div class="sub">李建国 ↔ 李远</div>
+</div>
+
+<div class="account-card">
+  <div class="avatar">李</div>
+  <div class="name">李建国（爸）→ 李远（儿子）</div>
+  <div class="id">跨越二十年的转账</div>
+  <div style="clear:both"></div>
+</div>
+
+<!-- 2005 -->
+<div class="year-label" data-delay="0">—— 2005 ——</div>
+<div class="transfer-item" data-delay="100">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：生活费。省着点花</div>
+    <div class="t-date">2005-09-01</div>
+  </div>
+  <div class="t-amount out">-500.00</div>
+</div>
+
+<div class="transfer-item" data-delay="200">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：冬天了买件厚的</div>
+    <div class="t-date">2005-11-15</div>
+  </div>
+  <div class="t-amount out">-200.00</div>
+</div>
+
+<!-- 2008 -->
+<div class="year-label" data-delay="0">—— 2008 ——</div>
+<div class="transfer-item" data-delay="100">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：考试加油。考完了打电话</div>
+    <div class="t-date">2008-06-05</div>
+  </div>
+  <div class="t-amount out">-1,000.00</div>
+</div>
+
+<div class="transfer-item" data-delay="200">
+  <div class="t-left">
+    <div class="t-label">李远 <span class="direction in">转入</span></div>
+    <div class="t-note">备注：爸 这是我兼职赚的</div>
+    <div class="t-date">2008-08-20</div>
+  </div>
+  <div class="t-amount in">+300.00</div>
+</div>
+
+<div class="transfer-item" data-delay="300">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：你留着。爸不缺</div>
+    <div class="t-date">2008-08-20</div>
+  </div>
+  <div class="t-amount out">-300.00</div>
+</div>
+
+<!-- 2012 -->
+<div class="year-label" data-delay="0">—— 2012 ——</div>
+<div class="transfer-item" data-delay="100">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：第一个月上班 请同事吃个饭</div>
+    <div class="t-date">2012-07-10</div>
+  </div>
+  <div class="t-amount out">-2,000.00</div>
+</div>
+
+<div class="transfer-item" data-delay="200">
+  <div class="t-left">
+    <div class="t-label">李远 <span class="direction in">转入</span></div>
+    <div class="t-note">备注：爸 不用了 我发工资了</div>
+    <div class="t-date">2012-08-15</div>
+  </div>
+  <div class="t-amount in">+2,000.00</div>
+</div>
+
+<div class="transfer-item" data-delay="300">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：发工资了也收着。你爸还没退休呢</div>
+    <div class="t-date">2012-08-15</div>
+  </div>
+  <div class="t-amount out">-2,000.00</div>
+</div>
+
+<!-- 2016 -->
+<div class="year-label" data-delay="0">—— 2016 ——</div>
+<div class="transfer-item" data-delay="100">
+  <div class="t-left">
+    <div class="t-label">李远 <span class="direction in">转入</span></div>
+    <div class="t-note">备注：爸，生日快乐。去买件新衣服</div>
+    <div class="t-date">2016-03-12</div>
+  </div>
+  <div class="t-amount in">+1,000.00</div>
+</div>
+
+<div class="transfer-item" data-delay="200">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：衣服你妈买了。钱退你 买点好的给你媳妇</div>
+    <div class="t-date">2016-03-12</div>
+  </div>
+  <div class="t-amount out">-1,000.00</div>
+</div>
+
+<!-- 2019 -->
+<div class="year-label" data-delay="0">—— 2019 ——</div>
+<div class="transfer-item" data-delay="100">
+  <div class="t-left">
+    <div class="t-label">李远 <span class="direction in">转入</span></div>
+    <div class="t-note">备注：首付差一点。你别管了 我想办法</div>
+    <div class="t-date">2019-04-22</div>
+  </div>
+  <div class="t-amount in">+0.00</div>
+</div>
+
+<div class="transfer-item" data-delay="200">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：管不管不是你说了算</div>
+    <div class="t-date">2019-04-22</div>
+  </div>
+  <div class="t-amount out">-50,000.00</div>
+</div>
+
+<!-- 2021 -->
+<div class="year-label" data-delay="0">—— 2021 ——</div>
+<div class="transfer-item" data-delay="100">
+  <div class="t-left">
+    <div class="t-label">李远 <span class="direction in">转入</span></div>
+    <div class="t-note">备注：爸别省着花。想吃啥就买</div>
+    <div class="t-date">2021-01-28</div>
+  </div>
+  <div class="t-amount in">+5,000.00</div>
+</div>
+
+<div class="transfer-item" data-delay="200">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：给孙子的压岁钱。你别截留了</div>
+    <div class="t-date">2021-02-11</div>
+  </div>
+  <div class="t-amount out">-6,000.00</div>
+</div>
+
+<!-- 2023 -->
+<div class="year-label" data-delay="0">—— 2023 ——</div>
+<div class="transfer-item" data-delay="100">
+  <div class="t-left">
+    <div class="t-label">李远 <span class="direction in">转入</span></div>
+    <div class="t-note">备注：爸 你膝盖怎么样了 去医院看看</div>
+    <div class="t-date">2023-05-14</div>
+  </div>
+  <div class="t-amount in">+3,000.00</div>
+</div>
+
+<div class="transfer-item" data-delay="200">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：看了 没事。剩的给你妈买了个按摩椅</div>
+    <div class="t-date">2023-05-18</div>
+  </div>
+  <div class="t-amount out">-200.00</div>
+</div>
+
+<!-- 2025 -->
+<div class="year-label" data-delay="0">—— 2025 ——</div>
+<div class="transfer-item" data-delay="100">
+  <div class="t-left">
+    <div class="t-label">李远 <span class="direction in">转入</span></div>
+    <div class="t-note">备注：爸 过年不回去了 项目走不开。对不起</div>
+    <div class="t-date">2025-01-20</div>
+  </div>
+  <div class="t-amount in">+10,000.00</div>
+</div>
+
+<div class="transfer-item" data-delay="200">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：忙就忙 别老加班。钱退你 过年哪用你的钱</div>
+    <div class="t-date">2025-01-21</div>
+  </div>
+  <div class="t-amount out">-10,000.00</div>
+</div>
+
+<div class="transfer-item" data-delay="300">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note">备注：你妈包的饺子冻了一箱 快递给你了。这个收不收你说了不算</div>
+    <div class="t-date">2025-01-25</div>
+  </div>
+  <div class="t-amount out">-0.01</div>
+</div>
+
+<!-- 2025 late -->
+<div class="year-label" data-delay="0" style="color:#ccc;font-size:12px">—— 最近 ——</div>
+<div class="transfer-item" data-delay="200" style="background:#fffbe6">
+  <div class="t-left">
+    <div class="t-label">李建国 <span class="direction out">转出</span></div>
+    <div class="t-note" style="color:#333;font-weight:500">备注：测试一下 你手机还能收到吧</div>
+    <div class="t-date">2025-10-03</div>
+  </div>
+  <div class="t-amount out">-1.00</div>
+</div>
+
+<!-- Coda -->
+<div class="coda" data-delay="400">
+  <div class="empty">📱</div>
+  <div class="text">
+    他不会打字，<br>
+    转账备注是他唯一的朋友圈。
+  </div>
+</div>
+
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const delay = parseInt(entry.target.dataset.delay || 0);
+      setTimeout(() => entry.target.classList.add('visible'), delay);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.transfer-item, .year-label, .coda').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

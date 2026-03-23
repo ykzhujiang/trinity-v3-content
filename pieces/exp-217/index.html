@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前任的推荐算法还没更新</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Noto Sans SC', -apple-system, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    font-size: 20px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  
+  .phone-frame {
+    max-width: 420px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #fff;
+    position: relative;
+  }
+  
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .hero-section {
+    padding: 60px 24px 40px;
+    text-align: center;
+    background: linear-gradient(180deg, #fff 0%, #f0f0f5 100%);
+  }
+  
+  .hero-section h1 {
+    font-size: clamp(24px, 5.5vw, 32px);
+    font-weight: 900;
+    line-height: 1.4;
+    color: #1a1a1a;
+  }
+  
+  .hero-section .tagline {
+    font-size: 15px;
+    color: #999;
+    margin-top: 8px;
+  }
+  
+  .days-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #f8f8fa;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .days-counter .num {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ff4757;
+  }
+  
+  /* App sections */
+  .app-section {
+    margin: 24px 16px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .app-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .app-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .app-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  
+  .app-name { font-size: 17px; font-weight: 700; }
+  .app-desc { font-size: 13px; color: #999; }
+  
+  .app-badge {
+    margin-left: auto;
+    background: #ff4757;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  
+  .rec-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .app-section.expanded .rec-list {
+    max-height: 600px;
+  }
+  
+  .rec-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #f8f8f8;
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  
+  .app-section.expanded .rec-item {
+    animation: slideIn 0.35s ease-out forwards;
+  }
+  
+  .rec-item:nth-child(1) { animation-delay: 0.05s; }
+  .rec-item:nth-child(2) { animation-delay: 0.12s; }
+  .rec-item:nth-child(3) { animation-delay: 0.19s; }
+  .rec-item:nth-child(4) { animation-delay: 0.26s; }
+  
+  @keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  .rec-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  
+  .rec-title { font-size: 16px; font-weight: 600; }
+  .rec-price { font-size: 14px; color: #ff4757; font-weight: 700; margin-top: 2px; }
+  .rec-reason { font-size: 12px; color: #bbb; margin-top: 2px; }
+  
+  .narration {
+    padding: 20px 24px;
+    font-size: 15px;
+    color: #999;
+    line-height: 1.8;
+    border-top: 1px solid #f0f0f0;
+    display: none;
+  }
+  
+  .app-section.expanded .narration { display: block; }
+  
+  .tap-hint {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    color: #ccc;
+  }
+  
+  .app-section.expanded .tap-hint { display: none; }
+  
+  /* Notification popup */
+  .notification {
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 388px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    z-index: 100;
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    font-size: 14px;
+  }
+  
+  .notification.show { top: 16px; }
+  .notification .n-icon { font-size: 24px; flex-shrink: 0; }
+  .notification .n-app { font-weight: 700; font-size: 13px; color: #333; }
+  .notification .n-text { font-size: 13px; color: #666; margin-top: 2px; }
+  
+  /* Final section */
+  .final-section {
+    padding: 60px 24px 80px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+  
+  .final-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .final-section .big-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.8;
+  }
+  
+  .final-section .small-text {
+    font-size: 14px;
+    color: #bbb;
+    margin-top: 16px;
+  }
+  
+  .algorithm-note {
+    margin: 32px 24px 0;
+    padding: 16px 20px;
+    background: #f8f8fa;
+    border-radius: 12px;
+    font-size: 13px;
+    color: #aaa;
+    text-align: center;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="status-bar">
+    <span>9:41</span>
+    <span>📶 🔋 87%</span>
+  </div>
+  
+  <div class="hero-section">
+    <h1>前任的推荐算法<br>还没更新</h1>
+    <div class="tagline">你删了他的微信，但删不掉他的数据</div>
+    <div class="days-counter">
+      分手 <span class="num">94</span> 天
+    </div>
+  </div>
+
+  <!-- 外卖 App -->
+  <div class="app-section" data-app="waimai">
+    <div class="app-header" onclick="toggleApp(this)">
+      <div class="app-icon" style="background:#00c9ff">🥡</div>
+      <div>
+        <div class="app-name">某团外卖</div>
+        <div class="app-desc">猜你喜欢 · 基于历史订单</div>
+      </div>
+      <div class="app-badge">推荐</div>
+    </div>
+    <div class="tap-hint">点击查看推荐</div>
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-img" style="background:#fff3e0">🍕</div>
+        <div>
+          <div class="rec-title">双人披萨套餐</div>
+          <div class="rec-price">¥89 · 双人份</div>
+          <div class="rec-reason">你上次点的：7月18日（和 Ta 一起）</div>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-img" style="background:#e8f5e9">🍲</div>
+        <div>
+          <div class="rec-title">鸳鸯锅底 + 双人肥牛</div>
+          <div class="rec-price">¥158 · 已点 12 次</div>
+          <div class="rec-reason">常去店铺 · 上次备注："微辣，一个不吃香菜"</div>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-img" style="background:#fce4ec">🎂</div>
+        <div>
+          <div class="rec-title">6寸草莓蛋糕</div>
+          <div class="rec-price">¥128</div>
+          <div class="rec-reason">提醒：Ta 的生日还有 23 天</div>
+        </div>
+      </div>
+      <div class="narration">备注栏还保存着"不吃香菜"。你删不掉。因为那是默认地址的一部分。</div>
+    </div>
+  </div>
+
+  <!-- 购物 App -->
+  <div class="app-section" data-app="taobao">
+    <div class="app-header" onclick="toggleApp(this)">
+      <div class="app-icon" style="background:#ff6b35">🛒</div>
+      <div>
+        <div class="app-name">某宝</div>
+        <div class="app-desc">为你推荐 · 基于浏览记录</div>
+      </div>
+      <div class="app-badge">3条</div>
+    </div>
+    <div class="tap-hint">点击查看推荐</div>
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-img" style="background:#e3f2fd">👔</div>
+        <div>
+          <div class="rec-title">男士纯棉内裤 4条装</div>
+          <div class="rec-price">¥59.9 · 回头客优惠</div>
+          <div class="rec-reason">你买过 3 次 · 最近一次：6月12日</div>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-img" style="background:#fff8e1">💍</div>
+        <div>
+          <div class="rec-title">情侣对戒 · 纯银</div>
+          <div class="rec-price">¥299</div>
+          <div class="rec-reason">你收藏过 · 收藏时间：5月20日</div>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-img" style="background:#f3e5f5">📸</div>
+        <div>
+          <div class="rec-title">情侣写真摄影套餐</div>
+          <div class="rec-price">¥1,280</div>
+          <div class="rec-reason">猜你喜欢 · 基于收藏夹"明年要做的事"</div>
+        </div>
+      </div>
+      <div class="narration">你当时把"情侣写真"收藏到了一个叫"明年要做的事"的收藏夹。明年已经变成了今年。收藏夹还在。</div>
+    </div>
+  </div>
+
+  <!-- 视频 App -->
+  <div class="app-section" data-app="video">
+    <div class="app-header" onclick="toggleApp(this)">
+      <div class="app-icon" style="background:#1a1a2e;color:#fff">▶️</div>
+      <div>
+        <div class="app-name">某音</div>
+        <div class="app-desc">推荐 · 根据观看习惯</div>
+      </div>
+      <div class="app-badge">热门</div>
+    </div>
+    <div class="tap-hint">点击查看推荐</div>
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-img" style="background:#e8eaf6">🐱</div>
+        <div>
+          <div class="rec-title">"情侣一起养猫的日常"</div>
+          <div class="rec-price">播放量 340万</div>
+          <div class="rec-reason">你和 Ta 一起看完过 47 个养猫视频</div>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-img" style="background:#fbe9e7">✈️</div>
+        <div>
+          <div class="rec-title">"大理双人旅行VLOG"</div>
+          <div class="rec-price">播放量 128万</div>
+          <div class="rec-reason">你搜索过"大理 两个人 攻略" · 8月3日</div>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-img" style="background:#efebe9">💔</div>
+        <div>
+          <div class="rec-title">"分手后怎么走出来"</div>
+          <div class="rec-price">播放量 89万</div>
+          <div class="rec-reason">因为你最近 3 天凌晨反复搜索"分手"</div>
+        </div>
+      </div>
+      <div class="narration">算法终于发现了。但它的解决方案是：在"情侣养猫"和"分手疗愈"之间反复横跳。它也很纠结。</div>
+    </div>
+  </div>
+
+  <!-- 音乐 App -->
+  <div class="app-section" data-app="music">
+    <div class="app-header" onclick="toggleApp(this)">
+      <div class="app-icon" style="background:#e74c3c">🎵</div>
+      <div>
+        <div class="app-name">某易云音乐</div>
+        <div class="app-desc">每日推荐 · 30首</div>
+      </div>
+      <div class="app-badge">日推</div>
+    </div>
+    <div class="tap-hint">点击查看推荐</div>
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-img" style="background:#fce4ec">💿</div>
+        <div>
+          <div class="rec-title">晴天 — 周杰伦</div>
+          <div class="rec-price">单曲循环 238 次</div>
+          <div class="rec-reason">在你们在一起的时候 · 7月</div>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-img" style="background:#e1f5fe">💿</div>
+        <div>
+          <div class="rec-title">说散就散 — 袁娅维</div>
+          <div class="rec-price">最近循环 67 次</div>
+          <div class="rec-reason">在你们分手之后 · 10月</div>
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-img" style="background:#f1f8e9">💿</div>
+        <div>
+          <div class="rec-title">体面 — 于文文</div>
+          <div class="rec-price">今日推荐 #1</div>
+          <div class="rec-reason">算法觉得你现在处于"接受现实"阶段</div>
+        </div>
+      </div>
+      <div class="narration">网易云的算法最诚实。它直接用歌单给你做了五个阶段：否认→愤怒→讨价还价→抑郁→接受。你现在在第四个半。</div>
+    </div>
+  </div>
+
+  <!-- Final -->
+  <div class="final-section">
+    <div class="big-text">
+      你把聊天记录删了<br>
+      把合照删了<br>
+      把备注改回了名字<br>
+      <br>
+      但算法记得一切<br>
+      <span style="color:#bbb;font-size:17px;">它比你诚实</span>
+    </div>
+    <div class="algorithm-note">
+      系统提示：检测到你的消费习惯发生变化<br>
+      双人套餐 → 单人份<br>
+      周末出行 → 未检测到出行<br>
+      <br>
+      是否需要更新推荐？<br>
+      <span style="color:#ddd;font-size:12px;">[ 暂时不了 ]</span>
+    </div>
+    <div class="small-text" style="margin-top:32px;">
+      — 你的 App 们看到的你 —<br>
+      <span style="font-size:12px;color:#ddd;">分手94天。算法还要再过62天才能完全更新。</span>
+    </div>
+  </div>
+</div>
+
+<!-- Notification system -->
+<div class="notification" id="notif">
+  <span class="n-icon">🛒</span>
+  <div>
+    <div class="n-app">某宝</div>
+    <div class="n-text">你收藏的"情侣对戒"降价了！</div>
+  </div>
+</div>
+
+<script>
+function toggleApp(header) {
+  const section = header.closest('.app-section');
+  section.classList.toggle('expanded');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.app-section, .final-section').forEach(el => observer.observe(el));
+
+// Random notification popup
+const notifications = [
+  { icon: '🥡', app: '某团外卖', text: '你常点的"双人披萨"今日特价 ¥69' },
+  { icon: '🛒', app: '某宝', text: '你收藏的"情侣对戒"降价了！' },
+  { icon: '🎵', app: '网易云', text: '"和你在一起"歌单有3首新歌' },
+  { icon: '📍', app: '某点评', text: '你们常去的火锅店上了新菜' },
+];
+
+let notifIndex = 0;
+function showNotification() {
+  const n = notifications[notifIndex % notifications.length];
+  const el = document.getElementById('notif');
+  el.querySelector('.n-icon').textContent = n.icon;
+  el.querySelector('.n-app').textContent = n.app;
+  el.querySelector('.n-text').textContent = n.text;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3500);
+  notifIndex++;
+}
+
+setTimeout(showNotification, 4000);
+setTimeout(showNotification, 15000);
+setTimeout(showNotification, 30000);
+</script>
+</body>
+</html>

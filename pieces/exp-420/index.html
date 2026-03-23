@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>融资BOSS战 · 第二章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Hiragino Sans GB",sans-serif;background:#1a1a2e;color:#e0e0e0;font-size:18px;line-height:1.8;overflow-x:hidden}
+.game-screen{max-width:420px;margin:0 auto;min-height:100vh;position:relative;background:#0f0e17}
+.pixel-header{background:linear-gradient(180deg,#2d1b69,#1a1a2e);padding:20px 16px 12px;text-align:center;border-bottom:2px solid #ff6b6b}
+.pixel-header h1{font-size:20px;color:#ffd700;text-shadow:2px 2px 0 #000;letter-spacing:2px;font-weight:900}
+.pixel-header .subtitle{font-size:13px;color:#aaa;margin-top:4px}
+.battle-scene{padding:16px;position:relative}
+.boss-area{text-align:center;margin-bottom:16px;opacity:0;transform:translateY(-20px);transition:all .6s ease}
+.boss-area.visible{opacity:1;transform:translateY(0)}
+.boss-img{width:100%;border-radius:12px;border:3px solid #ff6b6b;box-shadow:0 0 20px rgba(255,107,107,.3)}
+.boss-name{font-size:16px;color:#ff6b6b;font-weight:900;margin-top:8px;text-shadow:1px 1px 0 #000}
+.hp-bar-container{margin:8px 0;background:#333;border-radius:8px;height:20px;position:relative;overflow:hidden;border:2px solid #555}
+.hp-bar{height:100%;border-radius:6px;transition:width 1.5s ease;position:relative}
+.hp-bar.boss{background:linear-gradient(90deg,#ff4444,#ff6b6b);width:100%}
+.hp-bar.player{background:linear-gradient(90deg,#44ff44,#6bff6b);width:100%}
+.hp-label{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:900;color:#fff;text-shadow:1px 1px 0 #000}
+.player-area{background:rgba(255,255,255,.05);border-radius:12px;padding:16px;margin:16px 0;border:1px solid rgba(255,215,0,.2)}
+.player-name{font-size:14px;color:#ffd700;font-weight:700;margin-bottom:6px}
+.round-card{background:rgba(255,255,255,.08);border-radius:16px;margin:20px 0;padding:20px 16px;border-left:4px solid #ffd700;opacity:0;transform:translateX(-20px);transition:all .6s ease}
+.round-card.visible{opacity:1;transform:translateX(0)}
+.round-num{font-size:13px;color:#ffd700;font-weight:900;letter-spacing:2px;margin-bottom:8px}
+.dialogue{margin:12px 0;padding:12px 16px;border-radius:12px;font-size:17px;line-height:1.9;position:relative}
+.dialogue.boss{background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.3)}
+.dialogue.boss::before{content:"🧑‍💼 投资人";font-size:12px;color:#ff6b6b;font-weight:700;display:block;margin-bottom:4px}
+.dialogue.player{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3)}
+.dialogue.player::before{content:"⚔️ 你";font-size:12px;color:#ffd700;font-weight:700;display:block;margin-bottom:4px}
+.skills-container{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.skill-btn{background:linear-gradient(135deg,#2d1b69,#1a1a4e);border:2px solid #ffd700;border-radius:12px;padding:14px 16px;color:#ffd700;font-size:15px;font-weight:700;cursor:pointer;text-align:left;transition:all .3s;position:relative;overflow:hidden}
+.skill-btn:active{transform:scale(.97);background:linear-gradient(135deg,#3d2b79,#2a2a5e)}
+.skill-btn .mp-cost{float:right;font-size:12px;color:#6baaff;font-weight:400}
+.skill-btn .skill-icon{font-size:20px;margin-right:8px}
+.result-box{display:none;margin:12px 0;padding:16px;border-radius:12px;font-size:16px;line-height:1.8;animation:fadeIn .5s ease}
+.result-box.show{display:block}
+.result-box.hit{background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.4);color:#ffe082}
+.result-box.crit{background:rgba(0,255,0,.1);border:1px solid rgba(0,255,0,.3);color:#a5d6a7}
+.damage-num{font-size:24px;font-weight:900;color:#ff4444;animation:floatUp 1s ease;display:inline-block}
+@keyframes floatUp{0%{opacity:0;transform:translateY(10px)}50%{opacity:1}100%{opacity:1;transform:translateY(-5px)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.victory-screen{display:none;text-align:center;padding:40px 20px;animation:victoryPop .8s ease}
+.victory-screen.show{display:block}
+.victory-screen h2{font-size:28px;color:#ffd700;text-shadow:2px 2px 0 #000;margin-bottom:16px}
+.victory-img{width:100%;border-radius:16px;border:3px solid #ffd700;box-shadow:0 0 30px rgba(255,215,0,.4);margin:16px 0}
+.loot-box{background:rgba(255,215,0,.1);border:2px solid #ffd700;border-radius:12px;padding:16px;margin:16px 0;text-align:left}
+.loot-item{font-size:16px;margin:8px 0;color:#ffe082}
+@keyframes victoryPop{0%{opacity:0;transform:scale(.5)}60%{transform:scale(1.05)}100%{opacity:1;transform:scale(1)}}
+.narrator{font-size:15px;color:#999;text-align:center;margin:16px 0;font-style:italic}
+.footer{text-align:center;font-size:12px;color:#444;padding:30px 16px 50px}
+</style>
+</head>
+<body>
+<div class="game-screen">
+
+<div class="pixel-header">
+<h1>⚔️ 融资BOSS战 · 第二章</h1>
+<div class="subtitle">「投资人的终极考验」</div>
+</div>
+
+<div class="battle-scene">
+<!-- BOSS info -->
+<div class="boss-area" id="boss">
+<img src="rpg1.jpg" alt="BOSS" class="boss-img">
+<div class="boss-name">💀 终极BOSS：张总（连续创业投资人）</div>
+<div class="hp-bar-container">
+<div class="hp-bar boss" id="bossHp"><span class="hp-label" id="bossHpText">HP 10000/10000</span></div>
+</div>
+</div>
+
+<!-- Player info -->
+<div class="player-area">
+<div class="player-name">⚔️ 勇者·你（Lv.3 连续创业者）</div>
+<div class="hp-bar-container">
+<div class="hp-bar player" id="playerHp"><span class="hp-label">HP 3000/3000</span></div>
+</div>
+<div style="font-size:13px;color:#6baaff;margin-top:4px">MP 200/200 · 💰 账户余额：¥47万</div>
+</div>
+
+<div class="narrator">—— 你推开会议室的门，第12次路演开始了 ——</div>
+
+<!-- ===== 第1轮 ===== -->
+<div class="round-card" id="r1">
+<div class="round-num">◆ 第一轮 · 开场试探</div>
+<div class="dialogue boss">「又一个做大模型的。你跟其他人有什么区别？上个月我见了27个，PPT都长一样。」<br><span class="damage-num">💥 -800 HP（精神伤害）</span></div>
+<img src="rpg2.jpg" alt="BOSS攻击" style="width:100%;border-radius:12px;margin:12px 0;border:2px solid #ff6b6b">
+<p style="font-size:14px;color:#ff6b6b;text-align:center">⚠️ 张总使出技能【我再想想】！精神攻击 -800！</p>
+<div class="skills-container" id="s1">
+<div class="skill-btn" onclick="pick(1,1)"><span class="skill-icon">📊</span>展示数据护盾<span class="mp-cost">MP -30</span></div>
+<div class="skill-btn" onclick="pick(1,2)"><span class="skill-icon">🔥</span>激情演讲冲击波<span class="mp-cost">MP -50</span></div>
+<div class="skill-btn" onclick="pick(1,3)"><span class="skill-icon">🎯</span>精准反问术<span class="mp-cost">MP -40</span></div>
+</div>
+<div class="result-box hit" id="r1r1">「我们的模型在垂直领域准确率93.7%，这是跑出来的数据，不是PPT上吹的。」<br>张总微微点头：<b>「继续。」</b><br>💛 命中！张总HP -2000</div>
+<div class="result-box crit" id="r1r2">你猛地站起来：「张总，我不讲PPT了，我给您看真东西——」掏出手机现场演示。<br>张总眼睛亮了：<b>「有点意思。」</b><br>💚 暴击！张总HP -3500</div>
+<div class="result-box hit" id="r1r3">「张总，您投的那27个里，有几个能现场给您跑一遍demo？」<br>张总笑了：<b>「就你胆子大。行，演示看看。」</b><br>💛 命中！张总HP -2500</div>
+</div>
+
+<!-- ===== 第2轮 ===== -->
+<div class="round-card" id="r2" style="display:none">
+<div class="round-num">◆ 第二轮 · 致命一击</div>
+<div class="dialogue boss">「模型是不错。但你想过没有，大厂随时可以碾压你？你的壁垒在哪？」<br><span class="damage-num">💥 -600 HP（灵魂拷问）</span></div>
+<img src="rpg3.jpg" alt="对决" style="width:100%;border-radius:12px;margin:12px 0;border:2px solid #ffd700">
+<p style="font-size:14px;color:#ffd700;text-align:center">⚡ 你蓄力释放终极技能！</p>
+<div class="skills-container" id="s2">
+<div class="skill-btn" onclick="pick(2,1)"><span class="skill-icon">🏰</span>护城河分析术<span class="mp-cost">MP -60</span></div>
+<div class="skill-btn" onclick="pick(2,2)"><span class="skill-icon">💎</span>真诚之剑（终极技）<span class="mp-cost">MP -100</span></div>
+<div class="skill-btn" onclick="pick(2,3)"><span class="skill-icon">🧮</span>单位经济学暴击<span class="mp-cost">MP -70</span></div>
+</div>
+<div class="result-box hit" id="r2r1">「大厂做通用，我们做垂直。他们的产品经理不会在凌晨三点蹲在客户车间里调参数，但我们会。」<br>张总沉默了三秒：<b>「说下去。」</b><br>💛 命中！张总HP -3000</div>
+<div class="result-box crit" id="r2r2">你深吸一口气：「张总，我不讲壁垒了。说实话，我也不确定能不能赢大厂。但我确定一件事——<b>我的用户昨天凌晨两点给我发微信说，你这个东西救了我的厂。</b>这是大厂给不了的。」<br>张总杯子放下了：<b>「……把合同拿出来吧。」</b><br>💚💚 超级暴击！张总HP -5000！！</div>
+<div class="result-box hit" id="r2r3">「我们获客成本¥23，LTV/CAC=8.7。大厂烧钱打不动这个比例——因为他们的销售不会骑电瓶车跑客户。」<br>张总笑出声：<b>「你挺实在。」</b><br>💛 命中！张总HP -3500</div>
+</div>
+
+<!-- ===== 第3轮 ===== -->
+<div class="round-card" id="r3" style="display:none">
+<div class="round-num">◆ 第三轮 · 最终决战</div>
+<div class="dialogue boss">张总靠回椅子，忽然笑了：「小伙子，你知道我为什么见你吗？因为你的竞对昨天刚拿了红杉的钱。你怎么看？」<br><span class="damage-num">💥 -400 HP（信息战）</span></div>
+<div class="skills-container" id="s3">
+<div class="skill-btn" onclick="pick(3,1)"><span class="skill-icon">🌟</span>格局展示术<span class="mp-cost">MP -50</span></div>
+<div class="skill-btn" onclick="pick(3,2)"><span class="skill-icon">🤝</span>真诚终极奥义<span class="mp-cost">全部MP</span></div>
+<div class="skill-btn" onclick="pick(3,3)"><span class="skill-icon">📈</span>数据碾压波<span class="mp-cost">MP -60</span></div>
+</div>
+<div class="result-box hit" id="r3r1">「他们拿钱做市场，我拿钱做产品。三个月后见分晓。」<br>💛 命中！张总HP归零！</div>
+<div class="result-box crit" id="r3r2">你站起来，鞠了一躬：「张总，实话说，我今天来之前改了十一遍BP。但最后发现——<b>数据会骗人，PPT会骗人，只有客户的续费率不会骗人。</b>这是我们连续6个月的续费数据。」<br>你把手机递过去。<br>张总看了整整两分钟。<br><b>「你明天来签合同。500万，我个人跟投100万。」</b><br>💚💚💚 终极暴击！！BOSS战结束！！</div>
+<div class="result-box hit" id="r3r3">「他们月活5万，我们月活2万。但我们的次日留存87%，他们32%。张总，您投的是数据，不是故事。」<br>💛 命中！张总HP归零！</div>
+</div>
+
+<!-- Victory -->
+<div class="victory-screen" id="victory">
+<h2>🏆 胜利！融资成功！</h2>
+<img src="rpg4.jpg" alt="胜利" class="victory-img">
+<div class="loot-box">
+<div style="font-size:14px;color:#ffd700;font-weight:900;margin-bottom:8px">🎁 战利品掉落：</div>
+<div class="loot-item">💰 融资款 · ¥500万</div>
+<div class="loot-item">📜 张总个人跟投 · ¥100万</div>
+<div class="loot-item">🏅 称号获得 · 「真诚の勇者」</div>
+<div class="loot-item">⭐ 经验值 +9999</div>
+</div>
+<div style="font-size:16px;color:#aaa;margin-top:20px;line-height:1.9">
+走出会议室，你看了看手机——<br>
+凌晨两点那条微信还在：<br>
+<b style="color:#ffd700;font-size:18px">「老板，你这个东西真的救了我的厂。」</b><br><br>
+你笑了。<br>
+这500万，值了。
+</div>
+</div>
+</div>
+
+<div class="footer">融资BOSS战 · 第二章 · 完</div>
+</div>
+
+<script>
+const state={round:1,bossHp:10000};
+function pick(round,choice){
+  if(state.round!==round)return;
+  // hide all buttons for this round
+  document.getElementById('s'+round).style.display='none';
+  // show result
+  const r=document.getElementById('r'+round+'r'+choice);
+  r.classList.add('show');
+  // damage
+  const dmg=round===1?[2000,3500,2500]:round===2?[3000,5000,3500]:[10000,10000,10000];
+  state.bossHp=Math.max(0,state.bossHp-dmg[choice-1]);
+  const pct=(state.bossHp/10000)*100;
+  document.getElementById('bossHp').style.width=pct+'%';
+  document.getElementById('bossHpText').textContent='HP '+state.bossHp+'/10000';
+  state.round++;
+  // show next round or victory
+  setTimeout(()=>{
+    if(state.bossHp<=0||state.round>3){
+      document.getElementById('victory').classList.add('show');
+      document.getElementById('victory').scrollIntoView({behavior:'smooth'});
+    }else{
+      const next=document.getElementById('r'+state.round);
+      next.style.display='block';
+      setTimeout(()=>next.scrollIntoView({behavior:'smooth'}),100);
+    }
+  },1500);
+}
+// scroll reveal
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.2});
+document.querySelectorAll('.boss-area,.round-card').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

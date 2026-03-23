@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赘婿·觉醒 — 第一章</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d0;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  overflow-x: hidden;
+}
+.cover {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #1a0a00 0%, #0a0a0a 100%);
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(180,80,20,0.15), transparent 70%);
+}
+.cover h1 {
+  font-size: 42px;
+  font-weight: 900;
+  color: #f4c542;
+  text-shadow: 0 0 30px rgba(244,197,66,0.4);
+  letter-spacing: 8px;
+  z-index: 1;
+  animation: fadeInDown 1s ease;
+}
+.cover .subtitle {
+  font-size: 18px;
+  color: #a89070;
+  margin-top: 12px;
+  letter-spacing: 4px;
+  z-index: 1;
+  animation: fadeInDown 1.2s ease;
+}
+.cover .chapter {
+  font-size: 22px;
+  color: #d4a054;
+  margin-top: 24px;
+  z-index: 1;
+  animation: fadeInDown 1.4s ease;
+}
+.cover .source {
+  font-size: 13px;
+  color: #706050;
+  margin-top: 16px;
+  z-index: 1;
+}
+.cover .scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  font-size: 14px;
+  color: #605040;
+  animation: bounce 2s infinite;
+  z-index: 1;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+@keyframes fadeInDown {
+  from { opacity:0; transform:translateY(-20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.manga-strip {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0;
+}
+.panel {
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+.panel .text {
+  padding: 16px 20px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #e0d8c8;
+  background: #111;
+  position: relative;
+}
+.panel .text.narrator {
+  font-style: italic;
+  color: #b0a090;
+  font-size: 16px;
+  text-align: center;
+  padding: 12px 20px;
+  background: #0d0d0d;
+}
+.panel .text.dialogue {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 500;
+  border-left: 3px solid #f4c542;
+  padding-left: 16px;
+  margin: 0 12px;
+  background: rgba(244,197,66,0.05);
+}
+.panel .text.thought {
+  color: #8ab4f8;
+  font-size: 17px;
+  font-style: italic;
+  text-align: center;
+  background: rgba(138,180,248,0.05);
+}
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3a2a1a, transparent);
+  margin: 0;
+}
+.section-title {
+  text-align: center;
+  padding: 40px 20px 20px;
+  font-size: 20px;
+  color: #d4a054;
+  letter-spacing: 6px;
+  font-weight: 700;
+}
+
+/* Hook / cliffhanger */
+.hook {
+  padding: 40px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0a0a, #1a0a00);
+}
+.hook .line {
+  font-size: 18px;
+  color: #a89070;
+  margin: 8px 0;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+.hook .line:nth-child(2) { animation-delay: 0.3s; }
+.hook .line:nth-child(3) { animation-delay: 0.6s; }
+.hook .big {
+  font-size: 26px;
+  color: #f4c542;
+  font-weight: 700;
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.9s forwards;
+}
+.hook .next {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #d4a054, #f4c542);
+  color: #1a0a00;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 24px;
+  text-decoration: none;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 1.2s forwards;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #d4a054, #f4c542);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="cover">
+  <h1>赘 婿</h1>
+  <div class="subtitle">原著 · 愤怒的香蕉</div>
+  <div class="chapter">第一章 · 觉醒</div>
+  <div class="source">故事渲染 · 基于起点中文网连载小说</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<div class="manga-strip" id="mangaStrip">
+
+<div class="section-title">· 穿越 ·</div>
+
+<div class="panel"><img src="images/exp470/scene-01.jpg" alt=""><div class="text narrator">武朝末年，江宁城，天下最繁华的商埠。</div></div>
+<div class="panel"><img src="images/exp470/scene-02.jpg" alt=""><div class="text narrator">苏家，江宁四大布商之首。</div></div>
+<div class="panel"><img src="images/exp470/scene-03.jpg" alt=""><div class="text narrator">今日苏家大喜——可新娘子跑了。</div></div>
+<div class="panel"><img src="images/exp470/scene-04.jpg" alt=""><div class="text narrator">新郎官宁毅，被情敌一板砖拍晕，昏迷了三天。</div></div>
+<div class="panel"><img src="images/exp470/scene-05.jpg" alt=""><div class="text thought">醒来时，他已不再是原来的宁毅。</div></div>
+<div class="panel"><img src="images/exp470/scene-06.jpg" alt=""><div class="text thought">前世，他是华尔街最年轻的对冲基金经理。这一世……</div></div>
+<div class="panel"><img src="images/exp470/scene-07.jpg" alt=""><div class="text dialogue">"姑爷，您终于醒了！小姐她……回来了。"</div></div>
+
+<div class="section-title">· 赘婿之辱 ·</div>
+
+<div class="panel"><img src="images/exp470/scene-08.jpg" alt=""><div class="text narrator">苏檀儿，苏家长房独女，十八岁便掌管半个家业。</div></div>
+<div class="panel"><img src="images/exp470/scene-09.jpg" alt=""><div class="text narrator">苏府家宴，所有人的目光都在嘲笑同一个人。</div></div>
+<div class="panel"><img src="images/exp470/scene-10.jpg" alt=""><div class="text dialogue">"听说新姑爷连字都认不全？大房这是要把家业拱手让人啊。"</div></div>
+<div class="panel"><img src="images/exp470/scene-11.jpg" alt=""><div class="text narrator">宁毅不动声色，只顾吃饭。在场所有人都觉得他是个废物。</div></div>
+
+<div class="section-title">· 暗流 ·</div>
+
+<div class="panel"><img src="images/exp470/scene-12.jpg" alt=""><div class="text narrator">但没人知道，这些数字在他眼中，是另一个世界。</div></div>
+<div class="panel"><img src="images/exp470/scene-13.jpg" alt=""><div class="text thought">"苏家的布匹生意，利润率只有一成二……太低了。"</div></div>
+<div class="panel"><img src="images/exp470/scene-14.jpg" alt=""><div class="text thought">"如果把中间商砍掉，直接对接织户……"</div></div>
+<div class="panel"><img src="images/exp470/scene-15.jpg" alt=""><div class="text narrator">第二天一早，宁毅出了苏府。众人以为他去喝花酒。</div></div>
+<div class="panel"><img src="images/exp470/scene-16.jpg" alt=""><div class="text narrator">他走遍了江宁城大大小小十七家染坊。</div></div>
+<div class="panel"><img src="images/exp470/scene-17.jpg" alt=""><div class="text dialogue">"你们一天能洗多少匹？""看天气，好的时候二十匹。"</div></div>
+
+<div class="section-title">· 危机 ·</div>
+
+<div class="panel"><img src="images/exp470/scene-18.jpg" alt=""><div class="text narrator">苏檀儿正为一件事发愁：乌家压价，布匹滞销。</div></div>
+<div class="panel"><img src="images/exp470/scene-19.jpg" alt=""><div class="text dialogue">"苏家的布？我乌家不收了。看他们能卖给谁。"</div></div>
+<div class="panel"><img src="images/exp470/scene-20.jpg" alt=""><div class="text narrator">苏家仓库堆了三千匹布，每多放一天就亏一天的银子。</div></div>
+<div class="panel"><img src="images/exp470/scene-21.jpg" alt=""><div class="text narrator">家族会议，三房吵成一团。</div></div>
+<div class="panel"><img src="images/exp470/scene-22.jpg" alt=""><div class="text dialogue">"这批布，我一定能卖出去。"</div></div>
+
+<div class="section-title">· 破局 ·</div>
+
+<div class="panel"><img src="images/exp470/scene-23.jpg" alt=""><div class="text narrator">所有人都在急，只有宁毅看起来无所事事。</div></div>
+<div class="panel"><img src="images/exp470/scene-24.jpg" alt=""><div class="text dialogue">"檀儿，布不要卖给布行了。"</div></div>
+<div class="panel"><img src="images/exp470/scene-25.jpg" alt=""><div class="text dialogue">"直接卖给老百姓。"</div></div>
+<div class="panel"><img src="images/exp470/scene-26.jpg" alt=""><div class="text dialogue">"布行才是我们的客户啊，从来没有直接卖给百姓的先例。"</div></div>
+<div class="panel"><img src="images/exp470/scene-27.jpg" alt=""><div class="text dialogue">"为什么要让布行赚中间差价？我们自己开铺子。"</div></div>
+<div class="panel"><img src="images/exp470/scene-28.jpg" alt=""><div class="text narrator">她第一次认真地看了这个"废物"赘婿一眼。</div></div>
+
+<div class="section-title">· 直营 ·</div>
+
+<div class="panel"><img src="images/exp470/scene-29.jpg" alt=""><div class="text narrator">三天后，苏家在江宁最热闹的街口开了第一家直营铺子。</div></div>
+<div class="panel"><img src="images/exp470/scene-30.jpg" alt=""><div class="text narrator">宁毅的要求很奇怪：布匹不要叠着放，要挂起来展示。</div></div>
+<div class="panel"><img src="images/exp470/scene-31.jpg" alt=""><div class="text narrator">他还搞了一个从未有过的促销——买三匹送一匹。</div></div>
+<div class="panel"><img src="images/exp470/scene-32.jpg" alt=""><div class="text narrator">开业第一天，铺子门口排起了长队。</div></div>
+<div class="panel"><img src="images/exp470/scene-33.jpg" alt=""><div class="text dialogue">"什么？苏家在直接卖布？价格比我们给布行的还低？！"</div></div>
+<div class="panel"><img src="images/exp470/scene-34.jpg" alt=""><div class="text dialogue">"小姐！三天卖了八百匹！比给布行一个月的量还多！"</div></div>
+<div class="panel"><img src="images/exp470/scene-35.jpg" alt=""><div class="text narrator">她终于相信，这个赘婿，不简单。</div></div>
+
+<div class="section-title">· 反击 ·</div>
+
+<div class="panel"><img src="images/exp470/scene-36.jpg" alt=""><div class="text dialogue">"怎么可能？一个赘婿能有这本事？"</div></div>
+<div class="panel"><img src="images/exp470/scene-37.jpg" alt=""><div class="text dialogue">"把苏家的供货渠道全部截断！"</div></div>
+<div class="panel"><img src="images/exp470/scene-38.jpg" alt=""><div class="text dialogue">"宁公子，乌家威胁我们，不让我们给苏家供货了……"</div></div>
+<div class="panel"><img src="images/exp470/scene-39.jpg" alt=""><div class="text narrator">没有布源，铺子就是空壳。苏家面临灭顶之灾。</div></div>
+<div class="panel"><img src="images/exp470/scene-40.jpg" alt=""><div class="text dialogue">"慌什么？他断我们的货，说明我们走对了路。"</div></div>
+
+<div class="section-title">· 出击 ·</div>
+
+<div class="panel"><img src="images/exp470/scene-41.jpg" alt=""><div class="text dialogue">"江宁的织户被控制了，但润州的呢？湖州的呢？"</div></div>
+<div class="panel"><img src="images/exp470/scene-42.jpg" alt=""><div class="text narrator">他连夜启程，直奔润州。</div></div>
+<div class="panel"><img src="images/exp470/scene-43.jpg" alt=""><div class="text dialogue">"你们一年织多少匹？我苏家全收，价格比乌家高两成。"</div></div>
+<div class="panel"><img src="images/exp470/scene-44.jpg" alt=""><div class="text narrator">三天，他拿下了润州七成的布源。</div></div>
+<div class="panel"><img src="images/exp470/scene-45.jpg" alt=""><div class="text narrator">乌启豪，这只是开始。</div></div>
+
+</div><!-- end manga-strip -->
+
+<div class="hook" id="hook">
+  <div class="line">乌启豪收到消息，脸色铁青。</div>
+  <div class="line">身后的幕僚低声说——</div>
+  <div class="line">"少东家，要不要……请梁山的人出手？"</div>
+  <div class="big">商战升级为生死之局</div>
+  <a class="next" href="#">下一章 · 赘婿·风云 →</a>
+</div>
+
+<script>
+// Scroll-triggered animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+
+// Progress bar
+const bar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (window.scrollY / h * 100) + '%';
+});
+
+// Hook animation trigger
+const hookObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.hook .line, .hook .big, .hook .next').forEach(el => hookObs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>📰 本周AI大事 · 2026.3.16-3.21</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#000; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:#fff; font-size:20px; line-height:1.7; }
+
+.story-container { max-width:375px; margin:0 auto; }
+
+/* Instagram Story风格头部 */
+.story-header {
+  padding:20px 16px;
+  background:linear-gradient(180deg,rgba(0,0,0,0.8) 0%,transparent 100%);
+  position:relative;
+}
+.progress-bar-wrap {
+  display:flex; gap:4px; margin-bottom:14px;
+}
+.progress-segment {
+  flex:1; height:3px; background:rgba(255,255,255,0.3);
+  border-radius:2px; overflow:hidden;
+}
+.progress-segment.active { background:#fff; }
+.progress-segment.done { background:rgba(255,255,255,0.7); }
+
+.header-row {
+  display:flex; align-items:center; gap:10px;
+}
+.header-avatar {
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; border:2px solid #fff;
+}
+.header-name { font-weight:600; font-size:15px; }
+.header-time { font-size:13px; color:#aaa; }
+
+/* 新闻卡片 */
+.news-card {
+  margin:16px; border-radius:20px; overflow:hidden;
+  opacity:0; transform:scale(0.95);
+  animation: cardIn 0.6s ease forwards;
+}
+.news-card:nth-child(2) { animation-delay:0.2s; }
+.news-card:nth-child(3) { animation-delay:0.4s; }
+.news-card:nth-child(4) { animation-delay:0.6s; }
+
+@keyframes cardIn {
+  to { opacity:1; transform:scale(1); }
+}
+
+.news-img {
+  width:100%; height:220px; object-fit:cover;
+}
+
+.news-body {
+  padding:20px;
+}
+
+.news-tag {
+  display:inline-block;
+  padding:4px 12px; border-radius:12px;
+  font-size:13px; font-weight:600;
+  margin-bottom:10px;
+}
+.tag-hot { background:#ff4444; color:#fff; }
+.tag-money { background:#ffd700; color:#000; }
+.tag-tech { background:#4fc3f7; color:#000; }
+
+.news-title {
+  font-size:22px; font-weight:bold; margin-bottom:10px;
+  line-height:1.4;
+}
+.news-summary {
+  font-size:17px; color:#ccc; margin-bottom:14px;
+  line-height:1.6;
+}
+.news-comment {
+  background:rgba(255,255,255,0.1);
+  padding:12px 16px; border-radius:12px;
+  font-size:17px; border-left:3px solid #ffd700;
+}
+.news-comment .label { font-size:13px; color:#ffd700; margin-bottom:4px; }
+
+.news-card:nth-child(2) .news-body { background:linear-gradient(135deg,#1a1a2e,#16213e); }
+.news-card:nth-child(3) .news-body { background:linear-gradient(135deg,#0f3460,#16213e); }
+.news-card:nth-child(4) .news-body { background:linear-gradient(135deg,#1a0a2e,#16213e); }
+
+/* 底部 */
+.footer-card {
+  margin:16px; padding:24px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  border-radius:20px; text-align:center;
+}
+.footer-title { font-size:20px; font-weight:bold; margin-bottom:8px; }
+.footer-sub { font-size:15px; opacity:0.8; }
+.footer-tag { font-size:13px; color:#ffd700; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<div class="story-container">
+
+<!-- 头部 -->
+<div class="story-header">
+  <div class="progress-bar-wrap">
+    <div class="progress-segment done"></div>
+    <div class="progress-segment done"></div>
+    <div class="progress-segment active"></div>
+  </div>
+  <div class="header-row">
+    <div class="header-avatar">📰</div>
+    <div>
+      <div class="header-name">本周AI快讯</div>
+      <div class="header-time">2026年3月16日 — 3月21日 · 真实新闻</div>
+    </div>
+  </div>
+</div>
+
+<!-- 新闻1 -->
+<div class="news-card">
+  <img src="img/news1-funding.jpg" alt="AI融资潮" class="news-img">
+  <div class="news-body" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">
+    <span class="news-tag tag-money">💰 融资</span>
+    <div class="news-title">3月已诞生史上最多亿美元级AI融资轮</div>
+    <div class="news-summary">
+      2026年3月前两周半，超1亿美元的AI融资轮数量已超过风投历史上任何同期。单日融资总额突破20亿美元，涉及Rox AI、PixVerse、Axiom等多家公司。
+    </div>
+    <div class="news-comment">
+      <div class="label">💬 辣评</div>
+      AI不是泡沫——泡沫不会每周长这么多牙。这是一轮真金白银的基建潮。
+    </div>
+  </div>
+</div>
+
+<!-- 新闻2 -->
+<div class="news-card">
+  <img src="img/news2-alibaba.jpg" alt="阿里云" class="news-img">
+  <div class="news-body">
+    <span class="news-tag tag-hot">🔥 重磅</span>
+    <div class="news-title">阿里云AI商业化收入突破1000亿元</div>
+    <div class="news-summary">
+      阿里巴巴财报电话会上，CEO吴泳铭宣布：阿里云截至2月底外部商业化收入正式突破1000亿元。旗下平头哥自研AI芯片累计出货47万片，年化营收达百亿级。
+    </div>
+    <div class="news-comment">
+      <div class="label">💬 辣评</div>
+      国产芯片47万片不是PPT，是真出货。平头哥这头号，终于不只是个名字响。
+    </div>
+  </div>
+</div>
+
+<!-- 新闻3 -->
+<div class="news-card">
+  <img src="img/news3-opc.jpg" alt="一人公司" class="news-img">
+  <div class="news-body">
+    <span class="news-tag tag-tech">🧑‍💻 趋势</span>
+    <div class="news-title">"一人公司"时代来临：在读博士生也在AI创业</div>
+    <div class="news-summary">
+      奥尔特曼预言"1人+1万块GPU=10亿美元独角兽"正在上海验证。张江AI小镇快速集聚一批OPC（一人公司），在读博士彭孜勉注册燧月智能，靠Vibe Coding（氛围编程）不写代码就能造产品。
+    </div>
+    <div class="news-comment">
+      <div class="label">💬 辣评</div>
+      以前是"不会编程别创业"，现在是"会说话就能创业"。门槛变了，但能走多远还是看人。
+    </div>
+  </div>
+</div>
+
+<!-- 底部 -->
+<div class="footer-card">
+  <div class="footer-title">以上均为真实新闻</div>
+  <div class="footer-sub">数据来源：36氪、新浪财经、The Neuron Daily</div>
+  <div class="footer-tag">📅 2026年3月第3周 · 每周更新</div>
+</div>
+
+</div>
+
+<div style="height:40px;"></div>
+
+</body>
+</html>

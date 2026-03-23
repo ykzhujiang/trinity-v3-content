@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外卖骑手的路线拓扑学</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: -apple-system, 'PingFang SC', sans-serif; line-height: 1.8; }
+  .container { max-width: 680px; margin: 0 auto; padding: 24px 20px 60px; }
+  
+  .header { text-align: center; padding: 48px 0 32px; border-bottom: 1px solid #222; margin-bottom: 32px; }
+  .journal-name { font-size: 11px; letter-spacing: 6px; color: #666; text-transform: uppercase; margin-bottom: 8px; }
+  h1 { font-size: 26px; font-weight: 300; letter-spacing: 2px; margin-bottom: 12px; color: #fff; }
+  .subtitle { font-size: 13px; color: #888; }
+  .authors { font-size: 12px; color: #555; margin-top: 16px; font-style: italic; }
+  
+  .abstract { background: #111; border-left: 3px solid #4a9eff; padding: 20px 24px; margin-bottom: 36px; border-radius: 0 8px 8px 0; }
+  .abstract h3 { font-size: 11px; letter-spacing: 4px; color: #4a9eff; margin-bottom: 8px; }
+  .abstract p { font-size: 14px; color: #aaa; }
+  
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 15px; color: #4a9eff; letter-spacing: 2px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #1a1a2e; }
+  
+  .route-map { background: #111; border-radius: 12px; padding: 24px; margin-bottom: 24px; position: relative; overflow: hidden; }
+  .route-map::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 40%, rgba(74,158,255,0.05) 0%, transparent 60%); }
+  .map-title { font-size: 13px; color: #666; margin-bottom: 12px; }
+  
+  .route-node { display: flex; align-items: flex-start; margin-bottom: 16px; position: relative; padding-left: 28px; }
+  .route-node::before { content: ''; position: absolute; left: 8px; top: 12px; width: 8px; height: 8px; border-radius: 50%; background: #4a9eff; }
+  .route-node::after { content: ''; position: absolute; left: 11px; top: 24px; width: 2px; height: calc(100% + 4px); background: linear-gradient(to bottom, #4a9eff33, transparent); }
+  .route-node:last-child::after { display: none; }
+  .node-time { font-size: 11px; color: #555; width: 48px; flex-shrink: 0; }
+  .node-content { flex: 1; }
+  .node-place { font-size: 14px; color: #ddd; }
+  .node-note { font-size: 12px; color: #888; margin-top: 2px; }
+  
+  .route-node.avoid::before { background: #ff4a4a; }
+  .route-node.warm::before { background: #ffb74a; }
+  .route-node.secret::before { background: #a74aff; }
+  
+  .field-note { background: #0d1117; border: 1px solid #1a1a2e; border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; }
+  .field-note-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .field-note-id { font-size: 11px; color: #4a9eff; font-family: monospace; }
+  .field-note-rider { font-size: 11px; color: #666; }
+  .field-note blockquote { font-size: 14px; color: #ccc; border-left: 2px solid #333; padding-left: 12px; margin: 8px 0; font-style: italic; }
+  .field-note .annotation { font-size: 12px; color: #666; margin-top: 8px; }
+  .annotation em { color: #4a9eff; font-style: normal; }
+  
+  .topology-diagram { text-align: center; padding: 20px; margin: 24px 0; }
+  .topology-diagram svg { max-width: 100%; }
+  
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .stat-card { background: #111; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 200; color: #4a9eff; }
+  .stat-label { font-size: 11px; color: #666; margin-top: 4px; }
+  .stat-note { font-size: 10px; color: #444; margin-top: 2px; }
+  
+  .emotional-layer { background: linear-gradient(135deg, #0d1117 0%, #111827 100%); border-radius: 12px; padding: 20px; margin: 24px 0; }
+  .layer-title { font-size: 12px; color: #ffb74a; letter-spacing: 2px; margin-bottom: 12px; }
+  .layer-item { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+  .layer-icon { font-size: 20px; flex-shrink: 0; width: 32px; text-align: center; }
+  .layer-text { font-size: 13px; color: #bbb; }
+  .layer-text strong { color: #fff; font-weight: 500; }
+  
+  .conclusion { text-align: center; padding: 40px 20px; margin-top: 32px; border-top: 1px solid #222; }
+  .conclusion p { font-size: 15px; color: #888; line-height: 2; }
+  .conclusion .highlight { color: #fff; font-size: 17px; display: block; margin-top: 12px; }
+  
+  .footnote { font-size: 11px; color: #444; text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #151515; }
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <div class="header">
+    <div class="journal-name">城市微观地理学报 · 第7卷</div>
+    <h1>外卖骑手的路线拓扑学</h1>
+    <div class="subtitle">— 基于347条GPS轨迹的情感地形分析 —</div>
+    <div class="authors">通讯作者：张三轮（化名） · 从业4年 · 累计配送58,291单<br>田野研究者：本刊编辑部外卖体验小组（已全部辞职）</div>
+  </div>
+  
+  <div class="abstract">
+    <h3>摘　要</h3>
+    <p>本研究对某二线城市外卖骑手"张三轮"的GPS轨迹进行了为期6个月的追踪分析。研究发现：骑手的最优路径并非数学意义上的最短路径，而是一套包含<strong>情感权重</strong>的个人拓扑——他们在城市里画出的线条，是一幅看不见的情感地图。</p>
+  </div>
+  
+  <div class="section">
+    <div class="section-title">一、路线偏差分析</div>
+    
+    <div class="route-map">
+      <div class="map-title">张三轮 · 3月7日午高峰路线（11:30-13:20）</div>
+      
+      <div class="route-node">
+        <span class="node-time">11:32</span>
+        <div class="node-content">
+          <div class="node-place">🏪 黄焖鸡米饭·大学城店</div>
+          <div class="node-note">取餐。等了8分钟。「老板永远说还有两分钟」</div>
+        </div>
+      </div>
+      
+      <div class="route-node avoid">
+        <span class="node-time">11:43</span>
+        <div class="node-content">
+          <div class="node-place">⚠️ 绕行：回避翡翠花园C栋</div>
+          <div class="node-note">多走340米。该楼住户曾因迟到2分钟给差评，备注"态度恶劣"。实际情况：电梯坏了爬了11楼。</div>
+        </div>
+      </div>
+      
+      <div class="route-node warm">
+        <span class="node-time">11:51</span>
+        <div class="node-content">
+          <div class="node-place">🐱 巷子口·流浪猫喂食点</div>
+          <div class="node-note">GPS显示停留47秒。车篮里常备猫粮。「它认识我电动车的声音」</div>
+        </div>
+      </div>
+      
+      <div class="route-node">
+        <span class="node-time">11:58</span>
+        <div class="node-content">
+          <div class="node-place">📦 金色阳光小区·12栋</div>
+          <div class="node-note">送达。用户备注"放门口就行"——骑手数据库注释：「独居老人，每次都开门说谢谢」</div>
+        </div>
+      </div>
+      
+      <div class="route-node secret">
+        <span class="node-time">12:15</span>
+        <div class="node-content">
+          <div class="node-place">🌳 市第三中学后门·长椅</div>
+          <div class="node-note">GPS显示停留4分12秒。午高峰中途。「从这里能看到我女儿教室的窗户」</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">17%</div>
+        <div class="stat-label">日均路线偏差率</div>
+        <div class="stat-note">vs 平台推荐路线</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2.3km</div>
+        <div class="stat-label">日均情感绕路</div>
+        <div class="stat-note">约占总里程的12%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">固定情感锚点</div>
+        <div class="stat-note">每天必经，无论接单方向</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">47s</div>
+        <div class="stat-label">猫咪站平均停留</div>
+        <div class="stat-note">全年无休，包括暴雨天</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <div class="section-title">二、田野笔记（访谈节选）</div>
+    
+    <div class="field-note">
+      <div class="field-note-header">
+        <span class="field-note-id">FN-001</span>
+        <span class="field-note-rider">张三轮 · 从业4年</span>
+      </div>
+      <blockquote>有些楼我宁愿超时也不去。不是怕差评，是那个楼让我不舒服。307栋的保安每次都查我身份证，好像我是来偷东西的。</blockquote>
+      <div class="annotation">研究者注：骑手将此类建筑标注为<em>"红色节点"</em>。平台算法看到的是一个地址，骑手看到的是一段经历。</div>
+    </div>
+    
+    <div class="field-note">
+      <div class="field-note-header">
+        <span class="field-note-id">FN-007</span>
+        <span class="field-note-rider">张三轮 · 谈到学校后门</span>
+      </div>
+      <blockquote>我知道从那里看不到她。三楼，窗户朝北，我在南边。但我就是想在那里停一下。四分钟够了。</blockquote>
+      <div class="annotation">研究者注：该站点在347条轨迹中出现了<em>289次</em>。出现频率与女儿学期日历完全重合——寒暑假期间，该节点消失。</div>
+    </div>
+    
+    <div class="field-note">
+      <div class="field-note-header">
+        <span class="field-note-id">FN-012</span>
+        <span class="field-note-rider">张三轮 · 谈到绕路</span>
+      </div>
+      <blockquote>你们看地图觉得我绕路了。但我的地图跟你们的不一样。我的地图上，有些路是亮的，有些路是暗的。</blockquote>
+      <div class="annotation">研究者注：这句话成为本论文标题的灵感来源。骑手的路线拓扑，本质上是一种<em>情感赋权的空间重构</em>。</div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <div class="section-title">三、情感拓扑分层模型</div>
+    
+    <div class="emotional-layer">
+      <div class="layer-title">回避层 AVOIDANCE LAYER</div>
+      <div class="layer-item">
+        <div class="layer-icon">🔴</div>
+        <div class="layer-text"><strong>翡翠花园C栋</strong> — 差评创伤。绕行6个月，多走约61公里。平台补偿：0元。</div>
+      </div>
+      <div class="layer-item">
+        <div class="layer-icon">🔴</div>
+        <div class="layer-text"><strong>万达广场B1层</strong> — 停车被拖。找车花了40分钟，当天损失11单。</div>
+      </div>
+    </div>
+    
+    <div class="emotional-layer">
+      <div class="layer-title">温暖层 WARMTH LAYER</div>
+      <div class="layer-item">
+        <div class="layer-icon">🟡</div>
+        <div class="layer-text"><strong>流浪猫巷</strong> — 每日47秒的确定性。「整个城市只有这只猫不催我」</div>
+      </div>
+      <div class="layer-item">
+        <div class="layer-icon">🟡</div>
+        <div class="layer-text"><strong>金色阳光12栋·独居老人</strong> — 每次多等30秒让她开门。她会说"小心骑车"。</div>
+      </div>
+    </div>
+    
+    <div class="emotional-layer">
+      <div class="layer-title">锚定层 ANCHOR LAYER</div>
+      <div class="layer-item">
+        <div class="layer-icon">🟣</div>
+        <div class="layer-text"><strong>第三中学后门长椅</strong> — 289/347天。<strong>看不到女儿，但需要靠近她。</strong></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="conclusion">
+    <p>平台说他一天跑了148公里。</p>
+    <p>算法说最优路线只需要131公里。</p>
+    <p>多出来的17公里，是他画给自己的城市。</p>
+    <span class="highlight">他的地图上，有些路是亮的，有些路是暗的。</span>
+  </div>
+  
+  <div class="footnote">
+    本研究数据均经受访者授权使用 · 所有地名及人名已做脱敏处理<br>
+    《城市微观地理学报》系虚构刊物 · 但这些路线是真实的
+  </div>
+  
+</div>
+</body>
+</html>

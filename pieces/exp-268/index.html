@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>10年快递 · 姐弟之间 | EXP-268</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', sans-serif;
+  background: #fafafa;
+  color: #1a1a2e;
+  font-size: 20px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+.container { max-width: 420px; margin: 0 auto; padding: 0 0 40px; }
+
+/* Header */
+.app-bar {
+  background: white; padding: 48px 20px 16px;
+  border-bottom: 1px solid #eee;
+  display: flex; align-items: center; gap: 12px;
+}
+.app-bar .logo { font-size: 28px; }
+.app-bar h1 { font-size: 18px; font-weight: 700; }
+.app-bar .sub { font-size: 12px; color: #9e9e9e; }
+
+/* Package list */
+.pkg-list { padding: 16px; }
+
+.pkg-card {
+  background: white; border-radius: 16px;
+  margin-bottom: 16px; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  opacity: 0; animation: fadeUp 0.5s ease forwards;
+}
+.pkg-card:nth-child(1) { animation-delay: 0.1s; }
+.pkg-card:nth-child(2) { animation-delay: 0.3s; }
+.pkg-card:nth-child(3) { animation-delay: 0.5s; }
+.pkg-card:nth-child(4) { animation-delay: 0.7s; }
+.pkg-card:nth-child(5) { animation-delay: 0.9s; }
+.pkg-card:nth-child(6) { animation-delay: 1.1s; }
+.pkg-card:nth-child(7) { animation-delay: 1.3s; }
+.pkg-card:nth-child(8) { animation-delay: 1.5s; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+.pkg-header {
+  padding: 16px 16px 0;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.pkg-year { font-size: 13px; color: #9e9e9e; }
+.pkg-status {
+  font-size: 11px; padding: 3px 8px;
+  border-radius: 8px;
+}
+.pkg-status.done { background: #e8f5e9; color: #2e7d32; }
+.pkg-status.transit { background: #fff3e0; color: #e65100; }
+.pkg-status.lost { background: #ffebee; color: #c62828; }
+
+.pkg-route {
+  padding: 8px 16px;
+  font-size: 14px; color: #757575;
+  display: flex; align-items: center; gap: 6px;
+}
+.pkg-route .arrow { color: #42a5f5; }
+
+.pkg-item {
+  padding: 0 16px; font-size: 16px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.pkg-note {
+  padding: 12px 16px 16px;
+  font-size: 15px; color: #616161; line-height: 1.6;
+}
+.pkg-note .label {
+  font-size: 12px; color: #bdbdbd; font-weight: 600;
+  margin-bottom: 2px;
+}
+.pkg-note .text {
+  background: #f5f5f5; border-radius: 8px;
+  padding: 10px 12px; font-style: italic;
+}
+
+/* Special card */
+.pkg-card.highlight { border-left: 4px solid #42a5f5; }
+.pkg-card.emotional { border-left: 4px solid #ff6f00; }
+.pkg-card.final { border-left: 4px solid #c62828; background: #fff8f8; }
+.pkg-card.counter { border-left: 4px solid #2e7d32; }
+
+/* Ending */
+.ending {
+  margin: 24px 16px; padding: 24px 20px;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border-radius: 16px; text-align: center;
+}
+.ending p { font-size: 17px; color: #1565c0; line-height: 1.8; }
+.ending .emoji { font-size: 32px; margin-bottom: 8px; }
+
+.footer { text-align: center; font-size: 12px; color: #bdbdbd; padding: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="app-bar">
+    <div class="logo">📦</div>
+    <div>
+      <h1>我的快递</h1>
+      <div class="sub">寄件人：陈一诺（姐） → 收件人：陈小远（弟）</div>
+    </div>
+  </div>
+
+  <div class="pkg-list">
+
+    <div class="pkg-card">
+      <div class="pkg-header">
+        <div class="pkg-year">2016年9月 · 弟弟大一</div>
+        <div class="pkg-status done">已签收</div>
+      </div>
+      <div class="pkg-route">成都 <span class="arrow">→</span> 北京</div>
+      <div class="pkg-item">📦 棉被×1 + 辣酱×4瓶</div>
+      <div class="pkg-note">
+        <div class="label">📝 备注</div>
+        <div class="text">北京冷，被子是新买的。辣酱是妈做的，省着吃，今年就做了这么多。</div>
+      </div>
+    </div>
+
+    <div class="pkg-card">
+      <div class="pkg-header">
+        <div class="pkg-year">2017年12月 · 弟弟大二</div>
+        <div class="pkg-status done">已签收</div>
+      </div>
+      <div class="pkg-route">成都 <span class="arrow">→</span> 北京</div>
+      <div class="pkg-item">📦 手套+围巾+暖宝宝</div>
+      <div class="pkg-note">
+        <div class="label">📝 备注</div>
+        <div class="text">手套是我织的，丑是丑了点，但暖和。你谈恋爱了记得告诉我，我给你女朋友也织一副。</div>
+      </div>
+    </div>
+
+    <div class="pkg-card highlight">
+      <div class="pkg-header">
+        <div class="pkg-year">2019年6月 · 弟弟毕业</div>
+        <div class="pkg-status done">已签收</div>
+      </div>
+      <div class="pkg-route">成都 <span class="arrow">→</span> 北京</div>
+      <div class="pkg-item">📦 西装×1套</div>
+      <div class="pkg-note">
+        <div class="label">📝 备注</div>
+        <div class="text">毕业快乐。西装是我用年终奖买的，面试穿。尺码我问了妈，应该合身。你要是嫌款式老气……忍一下。</div>
+      </div>
+    </div>
+
+    <div class="pkg-card">
+      <div class="pkg-header">
+        <div class="pkg-year">2020年4月 · 疫情期间</div>
+        <div class="pkg-status done">已签收（延迟7天）</div>
+      </div>
+      <div class="pkg-route">成都 <span class="arrow">→</span> 北京</div>
+      <div class="pkg-item">📦 口罩×200 + 连花清瘟×3盒 + 自热火锅×5</div>
+      <div class="pkg-note">
+        <div class="label">📝 备注</div>
+        <div class="text">口罩买不到了我找了三个药店才凑够的。火锅不要一次吃完。你一个人在北京，姐真的很担心。</div>
+      </div>
+    </div>
+
+    <div class="pkg-card emotional">
+      <div class="pkg-header">
+        <div class="pkg-year">2022年3月 · 弟弟创业</div>
+        <div class="pkg-status done">已签收</div>
+      </div>
+      <div class="pkg-route">成都 <span class="arrow">→</span> 北京</div>
+      <div class="pkg-item">📦 枸杞+维生素+护肝片</div>
+      <div class="pkg-note">
+        <div class="label">📝 备注</div>
+        <div class="text">妈说你瘦了。创业再忙也要吃饭。护肝片记得吃，别光喝咖啡。钱的事你不要管，姐有。</div>
+      </div>
+    </div>
+
+    <div class="pkg-card counter">
+      <div class="pkg-header">
+        <div class="pkg-year">2023年10月 · 弟弟寄的</div>
+        <div class="pkg-status done">已签收</div>
+      </div>
+      <div class="pkg-route">北京 <span class="arrow">→</span> 成都</div>
+      <div class="pkg-item">📦 SK-II神仙水×1 + 一封信</div>
+      <div class="pkg-note">
+        <div class="label">📝 备注</div>
+        <div class="text">姐，第一笔回款到了。这个你种草很久了吧？信里有我写的东西，你别在办公室看，会哭。</div>
+      </div>
+    </div>
+
+    <div class="pkg-card emotional">
+      <div class="pkg-header">
+        <div class="pkg-year">2025年1月</div>
+        <div class="pkg-status done">已签收</div>
+      </div>
+      <div class="pkg-route">成都 <span class="arrow">→</span> 北京</div>
+      <div class="pkg-item">📦 宝宝衣服×3件 + 奶嘴×2</div>
+      <div class="pkg-note">
+        <div class="label">📝 备注</div>
+        <div class="text">听说你要当爸爸了？？？妈激动得哭了一晚上。衣服是我挑的，不知道男孩女孩就买了黄色。你当年的小棉袄我也翻出来了，放在最下面。</div>
+      </div>
+    </div>
+
+    <div class="pkg-card final">
+      <div class="pkg-header">
+        <div class="pkg-year">2026年3月 · 今天</div>
+        <div class="pkg-status transit">运输中</div>
+      </div>
+      <div class="pkg-route">北京 <span class="arrow">→</span> 成都</div>
+      <div class="pkg-item">📦 机票×2 + 钥匙×1</div>
+      <div class="pkg-note">
+        <div class="label">📝 备注</div>
+        <div class="text">姐，五一的机票。我在北京买房了，第二把钥匙给你。以后来北京不用住酒店了。<br><br>这些年你寄给我的东西，我全留着。那副丑手套，我还在戴。</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ending">
+    <div class="emoji">📦→📦→📦→🏠</div>
+    <p>10年，23个快递<br>
+    从成都到北京，1800公里<br>
+    每一个包裹里都装着<br>
+    <strong>一个姐姐不知道怎么说出口的话</strong></p>
+  </div>
+
+  <div class="footer">
+    EXP-268 · Trinity V3 · 快递单号追踪UI<br>
+    虚构内容 · 亲情/姐弟
+  </div>
+</div>
+</body>
+</html>
