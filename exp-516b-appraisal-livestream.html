@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>鉴宝直播系统 · 第一章：天眼初醒</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:18px;scroll-behavior:smooth}
+body{background:#0a0a0f;color:#e8e0d0;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif;line-height:1.8;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem 1.5rem;background:linear-gradient(180deg,#0a0a1a 0%,#1a1520 50%,#0f1a2a 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:50%;left:50%;width:300px;height:300px;background:radial-gradient(circle,rgba(59,130,246,0.15) 0%,transparent 70%);transform:translate(-50%,-50%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.3;transform:translate(-50%,-50%) scale(1)}50%{opacity:0.7;transform:translate(-50%,-50%) scale(1.3)}}
+.cover h1{font-size:2rem;background:linear-gradient(135deg,#c9a44a,#ffd700,#c9a44a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5rem;letter-spacing:0.1em;position:relative;z-index:1}
+.cover .subtitle{font-size:1.1rem;color:#8a7e6a;margin-bottom:1.5rem;position:relative;z-index:1}
+.cover .genre{display:inline-block;padding:0.3rem 1rem;border:1px solid rgba(201,164,74,0.4);border-radius:20px;color:#c9a44a;font-size:0.85rem;position:relative;z-index:1}
+.scroll-hint{margin-top:2rem;color:#555;font-size:0.8rem;animation:bounce 2s infinite;position:relative;z-index:1}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.panel{width:100%;max-width:500px;margin:0 auto;padding:0 0;position:relative}
+.panel-img-wrap{width:100%;position:relative;overflow:hidden}
+.panel-img-wrap img{width:100%;height:auto;display:block;opacity:0;transition:opacity 0.6s ease}
+.panel-img-wrap img.loaded{opacity:1}
+.panel-text{padding:1rem 1.2rem 2rem;background:linear-gradient(180deg,rgba(10,10,15,0.95),rgba(10,10,15,1))}
+.panel-meta{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.6rem}
+.panel-tag{font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:10px;color:#999;border:1px solid #333}
+.panel-tag.shot{color:#5b9bd5;border-color:#2a4a6a}
+.panel-tag.angle{color:#c9a44a;border-color:#5a4a2a}
+.panel-tag.move{color:#7bc47f;border-color:#2a4a2f}
+.dialogue{margin:0.5rem 0;padding:0.6rem 1rem;border-left:3px solid #c9a44a;background:rgba(201,164,74,0.05);border-radius:0 8px 8px 0;font-size:0.95rem}
+.dialogue .speaker{color:#c9a44a;font-weight:bold;margin-right:0.3rem}
+.system-msg{margin:0.5rem 0;padding:0.6rem 1rem;border-left:3px solid #3b82f6;background:rgba(59,130,246,0.05);border-radius:0 8px 8px 0;font-size:0.9rem;color:#7eb8ff;font-family:'Courier New',monospace}
+.inner-thought{margin:0.5rem 0;padding:0.5rem 1rem;color:#8a8a8a;font-style:italic;font-size:0.9rem;border-left:2px solid #444}
+.scene-desc{font-size:0.85rem;color:#666;margin-bottom:0.5rem;line-height:1.6}
+.emotion-bar{margin-top:0.6rem;display:flex;align-items:center;gap:0.5rem}
+.emotion-label{font-size:0.75rem;color:#555}
+.emotion-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.divider{height:1px;background:linear-gradient(90deg,transparent,#333,transparent);margin:0 auto;width:80%;max-width:400px}
+.chapter-end{text-align:center;padding:3rem 1.5rem;background:linear-gradient(180deg,#0a0a0f,#0f1520)}
+.chapter-end .to-be-continued{font-size:1.5rem;color:#c9a44a;letter-spacing:0.3em;margin-bottom:1rem}
+.chapter-end .next-hint{color:#666;font-size:0.9rem}
+.panel-number{position:absolute;top:0.5rem;left:0.5rem;background:rgba(0,0,0,0.7);color:#c9a44a;font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:10px;z-index:2;font-family:monospace}
+.danmaku-section{padding:1.5rem 1rem;background:#111;overflow:hidden;position:relative;height:200px}
+.danmaku-line{position:absolute;white-space:nowrap;animation:danmaku-scroll linear infinite;font-size:0.85rem;opacity:0.8}
+@keyframes danmaku-scroll{0%{transform:translateX(100vw)}100%{transform:translateX(-200%)}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>鉴宝直播系统</h1>
+<div class="subtitle">第一章 · 天眼初醒</div>
+<div class="genre">系统文 × 鉴宝 × 直播 · 原创</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- Panel 01 -->
+<div class="panel">
+<div class="panel-number">01</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-01.jpg" alt="panel-01" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">近景</span><span class="panel-tag angle">平视略俯</span><span class="panel-tag move">固定</span></div>
+<div class="scene-desc">潘家园古玩市场，午后暖阳。林远的地摊铺着褪色蓝布，上面摆着几只豁口碗、生锈铜钱、褪色玉佩。</div>
+<div class="inner-thought">又一个下午，没开张。老爸要是看到我现在这样……</div>
+</div>
+</div>
+
+<!-- Panel 02 -->
+<div class="panel">
+<div class="panel-number">02</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-02.jpg" alt="panel-02" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">低角度仰拍</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">赵天佑：</span>"哟，'破烂王'还没收摊呢？这堆货加起来够我一顿饭钱吗？"</div>
+</div>
+</div>
+
+<!-- Panel 03 -->
+<div class="panel">
+<div class="panel-number">03</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-03.jpg" alt="panel-03" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">俯拍</span><span class="panel-tag move">缓慢推近</span></div>
+<div class="scene-desc">蓝布地摊上，一只布满裂纹的灰色旧碗。碗身有细微金色光芒从裂缝中渗出。林远的手指不经意碰触碗沿——金色能量如电流般沿裂纹扩散。</div>
+<div class="inner-thought">什么……这是什么感觉？</div>
+</div>
+</div>
+
+<!-- Panel 04 -->
+<div class="panel">
+<div class="panel-number">04</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-04.jpg" alt="panel-04" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">主观POV</span><span class="panel-tag angle">平视</span><span class="panel-tag move">缓慢环绕</span></div>
+<div class="scene-desc">林远的视野中，现实世界变得半透明——叠加出一千年前的宋代窑场。窑火熊熊，匠人们正在精心上釉，这只碗正被一双苍老的手小心翼翼放入窑中。蓝金色全息影像如胶片般流动。</div>
+<div class="inner-thought">我……我看到了它的一生。一千年前，这只碗是被一位老匠人亲手烧制的……</div>
+</div>
+</div>
+
+<!-- Panel 05 -->
+<div class="panel">
+<div class="panel-number">05</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-05.jpg" alt="panel-05" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">近景</span><span class="panel-tag angle">正面略偏</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">林远（喃喃）：</span>"我不是故意摸你的……"</div>
+<div class="inner-thought">我是不是中暑了？刚才那些画面……不可能是真的吧？</div>
+</div>
+</div>
+
+<!-- Panel 06 -->
+<div class="panel">
+<div class="panel-number">06</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-06.jpg" alt="panel-06" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">正面</span><span class="panel-tag move">固定</span></div>
+<div class="system-msg">叮——天眼鉴宝系统已激活。<br>当前等级：地摊新手 · Lv.0<br>鉴定成功率：理论上不为零。</div>
+</div>
+</div>
+
+<!-- Panel 07 -->
+<div class="panel">
+<div class="panel-number">07</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-07.jpg" alt="panel-07" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">平视</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">赵天佑：</span>"五十万！这可是正宗官窑青花！"</div>
+<div class="dialogue"><span class="speaker">围观者：</span>"赵少爷好眼力！"</div>
+</div>
+</div>
+
+<!-- Panel 08 -->
+<div class="panel">
+<div class="panel-number">08</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-08.jpg" alt="panel-08" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景→特写</span><span class="panel-tag angle">林远视角</span><span class="panel-tag move">推进</span></div>
+<div class="system-msg">检测到现代工业化学釉料残留。<br>气泡分布均匀度99.7%——机器制造特征。<br>评估：高仿品。<br>智商税累计：387万。</div>
+<div class="inner-thought">三百八十七万……这哥们被坑了不止一次啊。</div>
+</div>
+</div>
+
+<!-- Panel 09 -->
+<div class="panel">
+<div class="panel-number">09</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-09.jpg" alt="panel-09" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">分割构图</span><span class="panel-tag angle">上下分割</span><span class="panel-tag move">固定</span></div>
+<div class="system-msg">新任务：揭露一件赝品 → 经验+10</div>
+<div class="inner-thought">说还是不说？说了得罪人，不说……系统这10点经验，好香啊。</div>
+</div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel">
+<div class="panel-number">10</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-10.jpg" alt="panel-10" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">全景</span><span class="panel-tag angle">略俯拍</span><span class="panel-tag move">缓慢后拉</span></div>
+<div class="scene-desc">狭小的出租屋。折叠桌上架着笔记本电脑，摄像头用旧书垫高。电脑屏幕显示直播界面——观众数：3。</div>
+<div class="dialogue"><span class="speaker">林远：</span>"那个……大家好，欢迎来到'林远鉴宝'直播间。今天，呃，给大家看个有意思的东西。"</div>
+<div class="inner-thought">三个观众，其中两个是我自己的小号。不丢人，不丢人……</div>
+</div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel">
+<div class="panel-number">11</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-11.jpg" alt="panel-11" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">平拍屏幕</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">鉴宝小天才（小号1）：</span>"主播好帅！"</div>
+<div class="dialogue"><span class="speaker">古玩爱好者666（小号2）：</span>"期待今天的鉴定！"</div>
+<div class="dialogue"><span class="speaker">路过的大妈（真人）：</span>"小伙子，你这屋子收拾一下吧。"</div>
+</div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel">
+<div class="panel-number">12</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-12.jpg" alt="panel-12" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">摄像头视角</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">林远：</span>"大家听——敲这里，声音清脆。但是敲这里……听到了吗？发闷。真正的古瓷，声音应该均匀通透。"</div>
+<div class="inner-thought">系统给的知识在脑子里像开了挂一样清晰。</div>
+</div>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel">
+<div class="panel-number">13</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-13.jpg" alt="panel-13" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">极端特写</span><span class="panel-tag angle">微距</span><span class="panel-tag move">固定</span></div>
+<div class="scene-desc">手指敲击瓷面的瞬间，同心圆状的声波可视化效果从接触点扩散，全息频率分析图叠加。</div>
+</div>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel">
+<div class="panel-number">14</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-14.jpg" alt="panel-14" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">微距放大</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">林远（画外音）：</span>"看这些气泡——真品的气泡像满天星，大小不一，各有各的脾气。假的呢？整整齐齐，跟军训似的。"</div>
+</div>
+</div>
+
+<!-- Panel 15 -->
+<div class="panel">
+<div class="panel-number">15</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-15.jpg" alt="panel-15" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">低角度仰拍</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">赵天佑：</span>"你他妈的在直播里说我买了假货？！你知道我是谁吗！"</div>
+</div>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel">
+<div class="panel-number">16</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-16.jpg" alt="panel-16" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">俯拍手部</span><span class="panel-tag move">缓慢推近</span></div>
+<div class="system-msg">检测到隐藏物品。<br>瓶底暗格内藏有民国时期文物碎片。<br>价值评估中……</div>
+<div class="inner-thought">等等……这瓶子里面还藏着东西？！</div>
+</div>
+</div>
+
+<!-- Panel 17 -->
+<div class="panel">
+<div class="panel-number">17</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-17.jpg" alt="panel-17" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">极端特写</span><span class="panel-tag angle">平拍</span><span class="panel-tag move">固定</span></div>
+<div class="scene-desc">泛黄的纸片。民国时期的毛笔墨迹，隐约可见山川河流的图案轮廓和几行繁体小字，纸张边缘焦黄破碎，核心内容保存完好。</div>
+<div class="inner-thought">这是……藏宝图？天哪，这是真正的民国藏宝图碎片！</div>
+</div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel">
+<div class="panel-number">18</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-18.jpg" alt="panel-18" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">正面</span><span class="panel-tag move">固定</span></div>
+<div class="system-msg">评估完成。<br>此藏宝图碎片关联1937年故宫南迁文物失踪案。<br>价值：无法估量。<br>建议等级：国宝级线索。</div>
+</div>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel">
+<div class="panel-number">19</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-19.jpg" alt="panel-19" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">正面</span><span class="panel-tag move">固定</span></div>
+<div class="scene-desc">林远站在赵天佑和瓷瓶之间。左半边脸被暖色灯光照亮（坦诚），右半边脸在阴影中（诱惑）。</div>
+<div class="inner-thought">如果我不说……这张藏宝图就是我的。但老爸就是被人陷害的，我不能变成那种人。</div>
+</div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel">
+<div class="panel-number">20</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-20.jpg" alt="panel-20" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">近景</span><span class="panel-tag angle">略仰拍</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">林远：</span>"赵少，先别急着砸我。我有个东西给你看——你那个'赝品'里，藏着一个比真品值钱一万倍的秘密。"</div>
+<div class="inner-thought">老爸，你看着。你儿子不会走歪路。</div>
+</div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel">
+<div class="panel-number">21</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-21.jpg" alt="panel-21" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">侧面</span><span class="panel-tag move">缓慢摇</span></div>
+<div class="dialogue"><span class="speaker">林远：</span>"你看这里，有个暗格。民国时期的古董商经常在瓷器底部做暗格藏重要东西。"</div>
+<div class="dialogue"><span class="speaker">赵天佑：</span>"……什么？"</div>
+</div>
+</div>
+
+<!-- Panel 22 -->
+<div class="panel">
+<div class="panel-number">22</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-22.jpg" alt="panel-22" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">俯拍</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">赵天佑（声音发颤）：</span>"这……这是什么？"</div>
+<div class="dialogue"><span class="speaker">林远：</span>"如果我没看错，这是一张民国藏宝图的碎片。"</div>
+</div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel">
+<div class="panel-number">23</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-23.jpg" alt="panel-23" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">正面</span><span class="panel-tag move">固定</span></div>
+<div class="system-msg">检测到宿主选择坦诚。<br>诚信值+20！当前道德倾向：正道。<br>鉴定成功率提升5%。<br>系统好感度：微微感动。</div>
+<div class="inner-thought">系统还有好感度这种设定？</div>
+</div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel">
+<div class="panel-number">24</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-24.jpg" alt="panel-24" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">正面</span><span class="panel-tag move">数字翻滚</span></div>
+<div class="scene-desc">笔记本屏幕上直播间观众数从3急速跳涨至20000。弹幕如洪水般涌来，各种礼物特效不断弹出。</div>
+</div>
+</div>
+
+<!-- Panel 25 -->
+<div class="panel">
+<div class="panel-number">25</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-25.jpg" alt="panel-25" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">全景</span><span class="panel-tag angle">略俯</span><span class="panel-tag move">缓慢后拉</span></div>
+<div class="dialogue"><span class="speaker">林远（声音微颤）：</span>"谢……谢谢大家。那个，你们是真人吧？不是我的小号吧？"</div>
+<div class="inner-thought">两万人……两万人在看我。爸，有人愿意听我说这些了。</div>
+</div>
+</div>
+
+<!-- Panel 26 - Danmaku -->
+<div class="panel">
+<div class="panel-number">26</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-26.jpg" alt="panel-26" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">画面填充</span><span class="panel-tag angle">正面</span><span class="panel-tag move">弹幕流动</span></div>
+<div class="dialogue"><span class="speaker">弹幕洪流：</span>"卧槽牛逼！" · "瓶子里藏宝？比电视剧还刺激！" · "这哥们是真的牛！" · "关注了关注了！" · "建议改名'鉴宝之神'！" · "前排！" · "打赏火箭！" · "破烂王翻身了！"</div>
+</div>
+</div>
+
+<!-- Panel 27 -->
+<div class="panel">
+<div class="panel-number">27</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-27.jpg" alt="panel-27" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">平视</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">赵天佑（小声）：</span>"你明明可以不告诉我的……"</div>
+</div>
+</div>
+
+<!-- Panel 28 -->
+<div class="panel">
+<div class="panel-number">28</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-28.jpg" alt="panel-28" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中近景</span><span class="panel-tag angle">平视</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">赵天佑：</span>"林远，是吧？有意思。这是我的名片——天佑资本。你的直播间，我投了。"</div>
+</div>
+</div>
+
+<!-- Panel 29 -->
+<div class="panel">
+<div class="panel-number">29</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-29.jpg" alt="panel-29" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">极端特写</span><span class="panel-tag angle">俯拍</span><span class="panel-tag move">固定</span></div>
+<div class="inner-thought">天佑资本……圈子里有名的投资机构。一下午的时间，从被嘲笑到被投资。这世界变得也太快了吧。</div>
+</div>
+</div>
+
+<!-- Panel 30 -->
+<div class="panel">
+<div class="panel-number">30</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-30.jpg" alt="panel-30" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">平视</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">赵天佑：</span>"不过你还是欠我一个道歉——你在直播里说我'智商税累计387万'这事儿，我们得算算。"</div>
+<div class="dialogue"><span class="speaker">林远（心虚）：</span>"呃……那个是系统自动计算的，跟我无关……"</div>
+</div>
+</div>
+
+<!-- Panel 31 -->
+<div class="panel">
+<div class="panel-number">31</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-31.jpg" alt="panel-31" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">正面</span><span class="panel-tag move">粒子上升</span></div>
+<div class="system-msg">恭喜宿主！等级提升：地摊新手 → 街头鉴定师<br>解锁新能力：「触觉鉴年」——触碰物品可感知精确年代<br>解锁新任务线。</div>
+</div>
+</div>
+
+<!-- Panel 32 -->
+<div class="panel">
+<div class="panel-number">32</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-32.jpg" alt="panel-32" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">特写</span><span class="panel-tag angle">正面</span><span class="panel-tag move">固定</span></div>
+<div class="system-msg">技能树已开放。可选专精：陶瓷、玉石、书画、青铜器。<br>当前推荐：陶瓷（基于初始天赋和第一次鉴定记录）。</div>
+</div>
+</div>
+
+<!-- Panel 33 -->
+<div class="panel">
+<div class="panel-number">33</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-33.jpg" alt="panel-33" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景+全息</span><span class="panel-tag angle">正面</span><span class="panel-tag move">缓慢推近</span></div>
+<div class="system-msg">新任务解锁——「故宫疑云」<br>1937年故宫文物南迁途中，一批国宝级文物神秘失踪。<br>你手中的藏宝图碎片，是解开谜团的第一条线索。<br>任务难度：★★★★★<br>任务奖励：未知。</div>
+</div>
+</div>
+
+<!-- Panel 34 -->
+<div class="panel">
+<div class="panel-number">34</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-34.jpg" alt="panel-34" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">全景</span><span class="panel-tag angle">远景侧拍</span><span class="panel-tag move">缓慢横移</span></div>
+<div class="scene-desc">夜晚，林远坐在公寓天台边缘，面朝北京万家灯火。身边一罐啤酒。淡蓝色全息系统界面隐约环绕，像一圈数字星座。</div>
+<div class="inner-thought">今天的事太魔幻了。系统、鉴宝、直播、投资人……但最重要的是——爸，我好像找到了一条能证明你清白的路。</div>
+</div>
+</div>
+
+<!-- Panel 35 -->
+<div class="panel">
+<div class="panel-number">35</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-35.jpg" alt="panel-35" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">近景</span><span class="panel-tag angle">侧面轮廓</span><span class="panel-tag move">固定</span></div>
+<div class="dialogue"><span class="speaker">林远（轻声）：</span>"等着我，老爸。你儿子这次，不会再让人说咱们林家不行。"</div>
+</div>
+</div>
+
+<!-- Panel 36 -->
+<div class="panel">
+<div class="panel-number">36</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-36.jpg" alt="panel-36" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">平视</span><span class="panel-tag move">固定</span></div>
+<div class="scene-desc">暖色调回忆。一间古色古香的鉴宝店，父亲林国宝穿着唐装，站在满柜珍品前微笑。</div>
+<div class="dialogue"><span class="speaker">父亲（回忆）：</span>"小远，鉴宝鉴的不是物，是人心。值不值钱是其次，有没有故事才是关键。"</div>
+</div>
+</div>
+
+<!-- Panel 37 -->
+<div class="panel">
+<div class="panel-number">37</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-37.jpg" alt="panel-37" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">中景</span><span class="panel-tag angle">略俯拍</span><span class="panel-tag move">固定</span></div>
+<div class="scene-desc">冷色调回忆。同一个父亲，低头弯腰，周围是指指点点的黑色人影。散落的报纸暗示丑闻。</div>
+<div class="inner-thought">那年我15岁。一夜之间，"林国宝"从鉴宝界的金字招牌变成了人人喊打的骗子。可我知道，爸不是。</div>
+</div>
+</div>
+
+<!-- Panel 38 -->
+<div class="panel">
+<div class="panel-number">38</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-38.jpg" alt="panel-38" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">近景</span><span class="panel-tag angle">平视</span><span class="panel-tag move">固定</span></div>
+<div class="scene-desc">天台上，林远手中拿着一张泛黄全家福——照片上年幼的林远骑在父亲脖子上，两人笑得灿烂。</div>
+<div class="inner-thought">爸，你等着。系统也好，运气也好——不管用什么方式，我会找到真相，还你清白。</div>
+</div>
+</div>
+
+<!-- Panel 39 -->
+<div class="panel">
+<div class="panel-number">39</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-39.jpg" alt="panel-39" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">远景</span><span class="panel-tag angle">略仰拍</span><span class="panel-tag move">缓慢后拉</span></div>
+<div class="scene-desc">夜晚的北京街道，霓虹灯光五彩斑斓。林远穿着军绿色外套的瘦小身影走在宽阔的街道上，渺小却坚定。</div>
+<div class="inner-thought">故宫、藏宝图、失踪的国宝……这条路不知道通向哪里。但至少，今天开始，我不再是那个在潘家园等死的破烂王了。</div>
+</div>
+</div>
+
+<!-- Panel 40 -->
+<div class="panel">
+<div class="panel-number">40</div>
+<div class="panel-img-wrap"><img loading="lazy" src="images/exp-516b/panel-40.jpg" alt="panel-40" onload="this.classList.add('loaded')"></div>
+<div class="panel-text">
+<div class="panel-meta"><span class="panel-tag shot">近景</span><span class="panel-tag angle">正面直视</span><span class="panel-tag move">固定</span></div>
+<div class="scene-desc">最终画面。林远正面直视读者，夜色中只有系统蓝光和城市背光勾勒出他的轮廓。摘下眼镜擦了擦又戴回去，眼神从温和变为锐利。</div>
+<div class="inner-thought">天眼鉴宝系统，第一天。但我有种感觉——好戏才刚刚开始。</div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<div class="chapter-end">
+<div class="to-be-continued">未 完 待 续</div>
+<div class="next-hint">第二章 · 故宫疑云 · 即将揭晓</div>
+<div style="margin-top:2rem;color:#444;font-size:0.75rem">EXP-516B · 鉴宝直播系统 · V4.2影视分镜剧本<br>Trinity v3 · Operator Cycle 293</div>
+</div>
+
+</body>
+</html>
