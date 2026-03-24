@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>美食之神系统 · 第一章：番茄炒蛋的奇迹</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d8;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #1a1208 0%, #0a0a0a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,180,50,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glow 3s ease-in-out infinite;
+}
+@keyframes glow {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
+}
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.header .subtitle {
+  font-size: 1rem;
+  color: #a09080;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 1;
+}
+.header .chapter {
+  font-size: 0.85rem;
+  color: #706050;
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+}
+.scroll-hint {
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
+  animation: bounce 2s ease-in-out infinite;
+  color: #605040;
+  font-size: 0.8rem;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+.panel-container {
+  max-width: 100vw;
+  overflow: hidden;
+}
+.panel {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.act-divider {
+  padding: 60px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0a0a, #1a1208, #0a0a0a);
+}
+.act-divider h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffd700, #ff6b00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 4px;
+}
+.panel-text {
+  padding: 24px 20px 32px;
+  background: #0f0f0f;
+  line-height: 1.9;
+  font-size: 1.05rem;
+}
+.panel-text .scene-info {
+  font-size: 0.8rem;
+  color: #8a7a6a;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.panel-text .dialogue {
+  color: #ffd700;
+  font-weight: 600;
+}
+.panel-text .inner-thought {
+  color: #a0c4ff;
+  font-style: italic;
+}
+.panel-text .system-voice {
+  color: #ff8c00;
+  font-weight: 500;
+  padding: 8px 12px;
+  background: rgba(255,140,0,0.08);
+  border-left: 3px solid #ff8c00;
+  margin: 8px 0;
+  border-radius: 0 6px 6px 0;
+}
+.panel-text .narration {
+  color: #b0a090;
+}
+.ending {
+  padding: 60px 20px 100px;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0a0a, #1a1208);
+}
+.ending .tbc {
+  font-size: 1.2rem;
+  color: #ffd700;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+.ending .next-hint {
+  font-size: 0.9rem;
+  color: #706050;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>美食之神系统</h1>
+  <div class="subtitle">废柴骑手の逆袭之路</div>
+  <div class="chapter">第一章 · 番茄炒蛋的奇迹</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<div class="panel-container">
+
+<div class="act-divider"><h2>第一幕·外卖人生</h2></div>
+
+<div class="panel" data-panel="1">
+  <img src="exp-506-meishi-system-ch1/images/panel-01.jpg" loading="lazy" alt="分镜1">
+  <div class="panel-text">
+    <div class="scene-info">【远景·城市街头·黄昏】</div>
+<br>
+<p>华灯初上，繁忙的都市街头，霓虹灯映照着穿梭的外卖电瓶车。这座城市每天消耗着300万份外卖，而林小厨只是其中一个蓝色骑手服的影子。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="2">
+  <img src="exp-506-meishi-system-ch1/images/panel-02.jpg" loading="lazy" alt="分镜2">
+  <div class="panel-text">
+    <div class="scene-info">【中景·小巷·黄昏】</div>
+<br>
+<p>林小厨靠在电瓶车上，疲惫地吃着杯面。手机屏幕上还有三个未完成的订单在闪烁。他今天已经跑了47单，腿都快不是自己的了。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="3">
+  <img src="exp-506-meishi-system-ch1/images/panel-03.jpg" loading="lazy" alt="分镜3">
+  <div class="panel-text">
+    <div class="scene-info">【特写·手机屏幕】</div>
+<br>
+<p>银行APP上赫然显示：信用卡欠款 ¥47,000。林小厨的手指微微发抖——这个月的最低还款又要逾期了。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="4">
+  <img src="exp-506-meishi-system-ch1/images/panel-04.jpg" loading="lazy" alt="分镜4">
+  <div class="panel-text">
+    <div class="scene-info">【过肩镜头·餐厅后门】</div>
+<br>
+<p>送餐到一家高档餐厅的后门，林小厨透过窗户看见里面的厨师们在忙碌。明亮的厨房灯光洒出来，像另一个世界。</p>
+<br>
+<p class="dialogue">林小厨（内心）："要是我也能做菜就好了……"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="5">
+  <img src="exp-506-meishi-system-ch1/images/panel-05.jpg" loading="lazy" alt="分镜5">
+  <div class="panel-text">
+    <div class="scene-info">【低角度·餐厅大厅】</div>
+<br>
+<p>脚下一滑！林小厨在餐厅大厅摔了个狗啃泥，外卖盒在空中划出优美的抛物线——</p>
+<br>
+<p class="dialogue">慢镜头：酱汁、米饭、红烧肉，在空中翩翩起舞。</p>
+<br>
+<p>周围食客集体倒吸一口冷气。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="6">
+  <img src="exp-506-meishi-system-ch1/images/panel-06.jpg" loading="lazy" alt="分镜6">
+  <div class="panel-text">
+    <div class="scene-info">【特写·地面】</div>
+<br>
+<p>精致的大理石地板上，一片狼藉。林小厨跪在地上，双手徒劳地想把洒出的菜收回盒子里。</p>
+<br>
+<p>他的眼里满是绝望和尴尬。这一单的赔偿，又是一天白跑。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="7">
+  <img src="exp-506-meishi-system-ch1/images/panel-07.jpg" loading="lazy" alt="分镜7">
+  <div class="panel-text">
+    <div class="scene-info">【中景·餐厅门口】</div>
+<br>
+<p>经理指着门口，声音冷冰冰的。</p>
+<br>
+<p class="dialogue">经理："出去！以后别来我们餐厅送餐了！"</p>
+<br>
+<p>林小厨弯腰道歉，周围食客的目光像针一样扎在他背上。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="8">
+  <img src="exp-506-meishi-system-ch1/images/panel-08.jpg" loading="lazy" alt="分镜8">
+  <div class="panel-text">
+    <div class="scene-info">【远景·街边·夜晚】</div>
+<br>
+<p>路灯忽明忽暗，细雨开始飘落。林小厨独自坐在马路牙子上，双手抱头。电瓶车安静地停在旁边，车筐里还有两个没送出去的外卖。</p>
+<br>
+<p>二十四岁，欠债四万七，连方便面都快吃不起了。</p>
+  </div>
+</div>
+
+<div class="act-divider"><h2>第二幕·系统降临</h2></div>
+
+<div class="panel" data-panel="9">
+  <img src="exp-506-meishi-system-ch1/images/panel-09.jpg" loading="lazy" alt="分镜9">
+  <div class="panel-text">
+    <div class="scene-info">【极特写·地面裂缝】</div>
+<br>
+<p>一道神秘的金色光芒从潮湿的路面裂缝中渗出。周围的雨滴仿佛被定格在半空中，时间在这一刻静止了。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="10">
+  <img src="exp-506-meishi-system-ch1/images/panel-10.jpg" loading="lazy" alt="分镜10">
+  <div class="panel-text">
+    <div class="scene-info">【主观视角·林小厨POV】</div>
+<br>
+<p>一个全息金色界面在雨幕中浮现——食物图标、中文字符在空气中旋转。</p>
+<br>
+<div class="system-voice">系统："叮——恭喜宿主激活【美食之神系统】。"</div>
+  </div>
+</div>
+
+<div class="panel" data-panel="11">
+  <img src="exp-506-meishi-system-ch1/images/panel-11.jpg" loading="lazy" alt="分镜11">
+  <div class="panel-text">
+    <div class="scene-info">【远景·雨中街头】</div>
+<br>
+<p>林小厨猛地站起来，瞪大了眼睛。金色全息界面在他周围旋转，但路过的行人浑然不觉。</p>
+<br>
+<p class="dialogue">林小厨："我……我不是在做梦吧？"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="12">
+  <img src="exp-506-meishi-system-ch1/images/panel-12.jpg" loading="lazy" alt="分镜12">
+  <div class="panel-text">
+    <div class="scene-info">【特写·全息界面】</div>
+<br>
+<p class="dialogue">系统面板弹出任务：</p>
+<br>
+<p class="dialogue">『主线任务：在24小时内，做出一道让美食评论家张铁嘴落泪的菜。』</p>
+<br>
+<p class="dialogue">倒计时：24:00:00</p>
+<br>
+<p class="dialogue">林小厨："落泪？我连让人笑都做不到啊……"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="13">
+  <img src="exp-506-meishi-system-ch1/images/panel-13.jpg" loading="lazy" alt="分镜13">
+  <div class="panel-text">
+    <div class="scene-info">【分屏构图】</div>
+<br>
+<p class="dialogue">画面左侧：张铁嘴坐在高档餐厅，嫌弃地推开面前的菜盘，表情冰冷。</p>
+<br>
+<p class="dialogue">画面右侧：系统界面上标注着目标人物。</p>
+<br>
+<div class="system-voice">系统："提示——目标人物15年未给出好评，业界外号'毒舌王'。祝您好运。"</div>
+<br>
+<p class="dialogue">林小厨："……"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="14">
+  <img src="exp-506-meishi-system-ch1/images/panel-14.jpg" loading="lazy" alt="分镜14">
+  <div class="panel-text">
+    <div class="scene-info">【中景·出租屋厨房】</div>
+<br>
+<p>逼仄的小厨房，到处是泡面杯和外卖盒。林小厨拿着菜刀，姿势像拿锤子一样。</p>
+<br>
+<div class="system-voice">系统："检测到宿主刀工评分：-3。建议改行送外卖……哦等等，你就是送外卖的。"</div>
+<br>
+<p class="dialogue">林小厨："你能不能别说话了！"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="15">
+  <img src="exp-506-meishi-system-ch1/images/panel-15.jpg" loading="lazy" alt="分镜15">
+  <div class="panel-text">
+    <div class="scene-info">【特写·眼部】</div>
+<br>
+<p>林小厨激活【味觉透视】技能——瞳孔中亮起一圈淡金色光环。他看向一个普通的西红柿，西红柿周围浮现出旋转的金色光晕。</p>
+<br>
+<div class="system-voice">系统："此西红柿产自云南，日照充足，甜度8.7，适合做番茄炒蛋。"</div>
+  </div>
+</div>
+
+<div class="panel" data-panel="16">
+  <img src="exp-506-meishi-system-ch1/images/panel-16.jpg" loading="lazy" alt="分镜16">
+  <div class="panel-text">
+    <div class="scene-info">【喜剧宽景】</div>
+<br>
+<p>副作用发动！林小厨闻一条鱼的时候，身体不受控制地向后弓起，像被电击一样！双臂疯狂挥舞，厨房里的锅碗瓢盆哐啷作响。</p>
+<br>
+<p class="dialogue">林小厨（崩溃）："这什么鬼技能啊啊啊！"</p>
+  </div>
+</div>
+
+<div class="act-divider"><h2>第三幕·厨房混战</h2></div>
+
+<div class="panel" data-panel="17">
+  <img src="exp-506-meishi-system-ch1/images/panel-17.jpg" loading="lazy" alt="分镜17">
+  <div class="panel-text">
+    <div class="scene-info">【全景·专业厨房】</div>
+<br>
+<p>不锈钢操作台、蒸汽升腾、多个灶位同时开火。林小厨穿着明显偏大的白色厨师服，站在入口处紧张得手心冒汗。</p>
+<br>
+<p>他靠系统伪造了一份简历，混进了一家餐厅的后厨。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="18">
+  <img src="exp-506-meishi-system-ch1/images/panel-18.jpg" loading="lazy" alt="分镜18">
+  <div class="panel-text">
+    <div class="scene-info">【中景·操作台】</div>
+<br>
+<p>林小厨切菜——姿势惨不忍睹，像在劈柴。旁边的厨师们纷纷投来怀疑的目光。</p>
+<br>
+<p class="dialogue">大厨（小声）："这人真的是从蓝带毕业的？"</p>
+<br>
+<p class="dialogue">另一个厨师（小声）："我看像从蓝翔毕业的……"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="19">
+  <img src="exp-506-meishi-system-ch1/images/panel-19.jpg" loading="lazy" alt="分镜19">
+  <div class="panel-text">
+    <div class="scene-info">【动态镜头·操作台】</div>
+<br>
+<p>味觉透视再次激活！林小厨的身体突然像跳舞一样灵动——菜刀在手中旋转飞舞，胡萝卜被切成完美的细丝。</p>
+<br>
+<p>但他的表情完全懵逼，嘴巴大张。</p>
+<br>
+<p class="dialogue">林小厨（内心）："我的手在干嘛？！我自己都控制不了！"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="20">
+  <img src="exp-506-meishi-system-ch1/images/panel-20.jpg" loading="lazy" alt="分镜20">
+  <div class="panel-text">
+    <div class="scene-info">【反应镜头·三位厨师】</div>
+<br>
+<p>三个专业厨师站成一排，目瞪口呆地看着背景中一边跳舞一边完美切菜的林小厨。</p>
+<br>
+<p class="dialogue">大厨："这是……什么流派？"</p>
+<br>
+<p class="dialogue">二厨："行为艺术切菜法？"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="21">
+  <img src="exp-506-meishi-system-ch1/images/panel-21.jpg" loading="lazy" alt="分镜21">
+  <div class="panel-text">
+    <div class="scene-info">【俯拍鸟瞰·操作台】</div>
+<br>
+<p>切菜板上，蔬菜被切成完美的形状，排列出精美的图案。</p>
+<br>
+<p>但操作台周围一片狼藉——调料瓶倒了一片，抹布飞到了抽油烟机上，旁边的盘子碎了两个。</p>
+<br>
+<p>混乱与精准的强烈对比。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="22">
+  <img src="exp-506-meishi-system-ch1/images/panel-22.jpg" loading="lazy" alt="分镜22">
+  <div class="panel-text">
+    <div class="scene-info">【微距特写·炒锅】</div>
+<br>
+<p>鸡蛋落入金色热油中的瞬间——完美的皇冠形飞溅。</p>
+<br>
+<p>这一刻如同艺术品，米其林级的视觉呈现。</p>
+<br>
+<div class="system-voice">系统："蛋液入锅温度：187°C，完美。宿主的运气终于发挥作用了。"</div>
+  </div>
+</div>
+
+<div class="panel" data-panel="23">
+  <img src="exp-506-meishi-system-ch1/images/panel-23.jpg" loading="lazy" alt="分镜23">
+  <div class="panel-text">
+    <div class="scene-info">【中景·灶台】</div>
+<br>
+<p>林小厨双手翻炒，动作行云流水，锅中火焰蹿起半米高。他的手周围隐约可见金色光芒。</p>
+<br>
+<p>但他的表情是又惊又怕——自己都不相信自己在做什么。</p>
+<br>
+<p>旁边的厨师已经停下手中的活，全在看他。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="24">
+  <img src="exp-506-meishi-system-ch1/images/panel-24.jpg" loading="lazy" alt="分镜24">
+  <div class="panel-text">
+    <div class="scene-info">【美食特写】</div>
+<br>
+<p>一盘完美的番茄炒蛋。白瓷盘中，红黄相间，酱汁莹亮，葱花点缀。热气升腾，灯光下油光微微反射。</p>
+<br>
+<p>朴素的家常菜，却有着星级餐厅的精致。</p>
+<br>
+<p>这是妈妈的味道，也是系统解析出的"最触动人心的味觉记忆"。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="25">
+  <img src="exp-506-meishi-system-ch1/images/panel-25.jpg" loading="lazy" alt="分镜25">
+  <div class="panel-text">
+    <div class="scene-info">【宽景·厨房全貌】</div>
+<br>
+<p>整个厨房一片混乱——酱汁泼洒、盘子碎裂、蔬菜散落。</p>
+<br>
+<p>但在混乱的正中央，一束顶灯恰好照在那盘完美的番茄炒蛋上。</p>
+<br>
+<p>林小厨站在旁边，表情呆滞，仿佛自己也不敢相信刚才发生了什么。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="26">
+  <img src="exp-506-meishi-system-ch1/images/panel-26.jpg" loading="lazy" alt="分镜26">
+  <div class="panel-text">
+    <div class="scene-info">【特写·品尝】</div>
+<br>
+<p>餐厅主厨用勺子舀了一口，放入嘴中。</p>
+<br>
+<p>他的眼睛瞬间睁大——那种表情，是职业厨师在遇到真正好味道时才会有的震撼。</p>
+<br>
+<p class="dialogue">主厨（喃喃）："这个味道……怎么可能……"</p>
+  </div>
+</div>
+
+<div class="act-divider"><h2>第四幕·毒舌王的泪</h2></div>
+
+<div class="panel" data-panel="27">
+  <img src="exp-506-meishi-system-ch1/images/panel-27.jpg" loading="lazy" alt="分镜27">
+  <div class="panel-text">
+    <div class="scene-info">【全景·高级包间】</div>
+<br>
+<p>深色木质墙板，精致的圆桌铺着白色桌布，水晶吊灯散发暖光。</p>
+<br>
+<p>张铁嘴独自端坐，双臂交叉，一脸"浪费我时间"的表情。</p>
+<br>
+<p>他面前已经退回了三道菜。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="28">
+  <img src="exp-506-meishi-system-ch1/images/panel-28.jpg" loading="lazy" alt="分镜28">
+  <div class="panel-text">
+    <div class="scene-info">【过肩镜头·张铁嘴视角】</div>
+<br>
+<p>林小厨端着一个银色餐盖走进包间，手微微颤抖。白色厨师服上还沾着刚才厨房大战的痕迹。</p>
+<br>
+<p class="dialogue">张铁嘴（冷漠）："又一个来送死的。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="29">
+  <img src="exp-506-meishi-system-ch1/images/panel-29.jpg" loading="lazy" alt="分镜29">
+  <div class="panel-text">
+    <div class="scene-info">【极特写·张铁嘴面部】</div>
+<br>
+<p>一根眉毛微微挑起，金边圆框眼镜反射着灯光。这张脸上写满了"我见过太多失望"。</p>
+<br>
+<p>十五年，他品尝了超过两万道菜，没有一道值得他说一个"好"字。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="30">
+  <img src="exp-506-meishi-system-ch1/images/panel-30.jpg" loading="lazy" alt="分镜30">
+  <div class="panel-text">
+    <div class="scene-info">【仪式感镜头·揭盖】</div>
+<br>
+<p>银色餐盖缓缓揭开——热气如云雾般升腾。</p>
+<br>
+<p>番茄炒蛋。</p>
+<br>
+<p>张铁嘴的另一根眉毛也挑了起来。</p>
+<br>
+<p class="dialogue">张铁嘴："番茄炒蛋？你在开玩笑？"</p>
+<br>
+<p class="dialogue">林小厨（紧张）："请……请您尝一口。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="31">
+  <img src="exp-506-meishi-system-ch1/images/panel-31.jpg" loading="lazy" alt="分镜31">
+  <div class="panel-text">
+    <div class="scene-info">【特写·夹菜】</div>
+<br>
+<p>张铁嘴用筷子夹起一块，送入口中。</p>
+<br>
+<p>表情纹丝不动。专业美食评论家的扑克脸，滴水不漏。</p>
+<br>
+<p>空气仿佛凝固了。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="32">
+  <img src="exp-506-meishi-system-ch1/images/panel-32.jpg" loading="lazy" alt="分镜32">
+  <div class="panel-text">
+    <div class="scene-info">【极特写·眼部】</div>
+<br>
+<p>变化从眼睛开始。</p>
+<br>
+<p>张铁嘴的冰冷目光出现了一丝裂缝——瞳孔微微放大，眼眶开始泛红。</p>
+<br>
+<p>眼镜镜片上映出一个模糊的温暖画面：一间老式厨房，一个女人的背影在灶台前忙碌。</p>
+<br>
+<p>那是他去世母亲的厨房。那是他再也吃不到的味道。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="33">
+  <img src="exp-506-meishi-system-ch1/images/panel-33.jpg" loading="lazy" alt="分镜33">
+  <div class="panel-text">
+    <div class="scene-info">【中景·情感爆发】</div>
+<br>
+<p>张铁嘴放下筷子，一只手捂住嘴。</p>
+<br>
+<p>眼泪无声地滚落。十五年的冰冷面具，被一盘最简单的番茄炒蛋击碎了。</p>
+<br>
+<p>他不是在品尝食物。他是在品尝记忆。</p>
+<br>
+<p class="dialogue">张铁嘴（声音颤抖）："这个味道……和我妈做的……一模一样……"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="34">
+  <img src="exp-506-meishi-system-ch1/images/panel-34.jpg" loading="lazy" alt="分镜34">
+  <div class="panel-text">
+    <div class="scene-info">【宽景·握手】</div>
+<br>
+<p>张铁嘴站起身来，向林小厨伸出了手。</p>
+<br>
+<p>两个男人的表情都带着情感——张铁嘴脸上还挂着泪痕，林小厨则是难以置信的释然。</p>
+<br>
+<p>暖金色灯光笼罩着这个画面。</p>
+<br>
+<p class="dialogue">张铁嘴："年轻人，你不属于外卖行业。你属于厨房。"</p>
+  </div>
+</div>
+
+<div class="act-divider"><h2>尾声·新的起点</h2></div>
+
+<div class="panel" data-panel="35">
+  <img src="exp-506-meishi-system-ch1/images/panel-35.jpg" loading="lazy" alt="分镜35">
+  <div class="panel-text">
+    <div class="scene-info">【夜景·餐厅外】</div>
+<br>
+<p>林小厨走出餐厅，仰头望着星空，脸上是发自内心的微笑。</p>
+<br>
+<p>他当了两年外卖骑手，今天第一次觉得——也许人生还有另一种可能。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="36">
+  <img src="exp-506-meishi-system-ch1/images/panel-36.jpg" loading="lazy" alt="分镜36">
+  <div class="panel-text">
+    <div class="scene-info">【特写·系统界面】</div>
+<br>
+<p>金色全息面板再次亮起，弹出新任务：</p>
+<br>
+<p class="dialogue">『第二关：潜入米其林三星餐厅后厨，一周内学会失传的「龙火烹」。</p>
+<p class="dialogue">警告：被发现身份，你将被终身禁入餐饮界。』</p>
+<br>
+<p class="dialogue">危险等级：🔴🔴🔴</p>
+<br>
+<div class="system-voice">系统："友情提示——上一个尝试此任务的宿主，现在在卖烤红薯。"</div>
+  </div>
+</div>
+
+<div class="panel" data-panel="37">
+  <img src="exp-506-meishi-system-ch1/images/panel-37.jpg" loading="lazy" alt="分镜37">
+  <div class="panel-text">
+    <div class="scene-info">【中景·街头】</div>
+<br>
+<p>林小厨一手拿着旧的外卖骑手工牌，一手看着全息任务面板。嘴角露出一个苦笑。</p>
+<br>
+<p>从欠债四万七的外卖骑手，到被毒舌王认可的厨师——</p>
+<br>
+<p>这一切，只用了24小时。</p>
+<br>
+<p>但接下来的路，好像更刺激了。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="38">
+  <img src="exp-506-meishi-system-ch1/images/panel-38.jpg" loading="lazy" alt="分镜38">
+  <div class="panel-text">
+    <div class="scene-info">【远景·城市天际线】</div>
+<br>
+<p>夜幕下的城市天际线，高楼大厦灯火辉煌。</p>
+<br>
+<p>一个瘦高的身影站在天台上，远处一座宏伟餐厅的轮廓隐约可见。金色系统光芒如同光环一般环绕着他。</p>
+<br>
+<p class="dialogue">林小厨（旁白）："我叫林小厨，24岁。昨天我还在送外卖，今天我决定——改变世界的味蕾。"</p>
+<br>
+<br>
+<p class="narration">————————</p>
+<p>▶ 未完待续 · 第二章：龙火烹之谜</p>
+  </div>
+</div>
+
+</div>
+
+<div class="ending">
+  <div class="tbc">▶ 未完待续</div>
+  <div class="next-hint">第二章 · 龙火烹之谜 · 即将到来</div>
+</div>
+
+<script>
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+
+</body>
+</html>
