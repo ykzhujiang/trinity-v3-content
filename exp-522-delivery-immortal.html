@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>修仙者送外卖 · 第一章</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+.header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0f 100%);
+}
+.header h1 {
+  font-size: 32px;
+  color: #ffd700;
+  text-shadow: 0 0 20px rgba(255,215,0,0.3);
+  margin-bottom: 8px;
+}
+.header .subtitle {
+  font-size: 16px;
+  color: #888;
+}
+.header .tags {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.header .tag {
+  background: rgba(255,215,0,0.15);
+  color: #ffd700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+.panel {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 0 20px;
+}
+.panel-img {
+  width: 100%;
+  display: block;
+  border-bottom: 2px solid #1a1a2e;
+}
+.panel-info {
+  padding: 16px 20px;
+  background: #111118;
+  border-left: 3px solid #333;
+}
+.panel-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.panel-meta .shot-tag {
+  background: rgba(100,149,237,0.2);
+  color: #6495ed;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.panel-meta .camera-tag {
+  background: rgba(255,255,255,0.08);
+  color: #aaa;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.scene-desc {
+  color: #9a9ab0;
+  font-size: 15px;
+  margin-bottom: 8px;
+  padding-left: 12px;
+  border-left: 2px solid #2a2a3e;
+}
+.action-desc {
+  color: #c0c0d0;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.dialogue {
+  background: rgba(255,215,0,0.08);
+  border-left: 3px solid #ffd700;
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 0 8px 8px 0;
+  color: #f0e68c;
+  font-size: 17px;
+  white-space: pre-line;
+}
+.inner-thought {
+  background: rgba(100,149,237,0.08);
+  border-left: 3px solid #6495ed;
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 0 8px 8px 0;
+  color: #87ceeb;
+  font-style: italic;
+  font-size: 16px;
+  white-space: pre-line;
+}
+.emotion-tag {
+  display: inline-block;
+  background: rgba(255,105,180,0.15);
+  color: #ff69b4;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin: 4px 4px 4px 0;
+}
+.sfx {
+  color: #ff6347;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #333, transparent);
+  margin: 0 20px;
+}
+.ending {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+}
+.ending h2 {
+  font-size: 28px;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+.ending p {
+  color: #888;
+  font-size: 16px;
+  line-height: 2;
+}
+.ending .preview {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255,215,0,0.05);
+  border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 12px;
+  display: inline-block;
+}
+.ending .preview p {
+  color: #ffd700;
+  font-size: 15px;
+}
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.panel { opacity:0; animation: fadeInUp 0.6s ease forwards; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚡ 修仙者送外卖</h1>
+  <div class="subtitle">第一章 · 渡劫失败，骑手上线</div>
+  <div class="tags">
+    <span class="tag">🔥 系统文</span>
+    <span class="tag">😂 认知差幽默</span>
+    <span class="tag">🏍️ 外卖骑手</span>
+    <span class="tag">⚔️ 修仙</span>
+  </div>
+</div>
+
+<div class="panel" style="animation-delay:0.00s">
+  <img class="panel-img" src="img-522/panel-01.jpg" alt="分镜1" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 大远景 · 仰角</span>
+      <span class="camera-tag">📷 固定机位，轻微推进</span>
+    </div>
+    <div class="scene-desc">🎭 暴风雨夜空，紫色雷电交织。下方是现代都市霓虹灯闪烁的天际线。</div>
+    <div class="action-desc">陈九霄从天而降，身体翻滚下坠，双手本能地结着护体法印，但法力已经消散。道袍在雷火中燃烧蜕变为蓝色骑手服，碎片化为光点在身后飘散。</div>
+    <div class="inner-thought">💭 渡劫八百年……居然翻车了？！</div>
+    <div><span class="emotion-tag">震惊</span><span class="emotion-tag">不可置信</span><span class="emotion-tag">荒诞感</span></div>
+    <div class="sfx">🔊 轰隆隆——雷劫余音回荡</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.05s">
+  <img class="panel-img" src="img-522/panel-02.jpg" alt="分镜2" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 俯拍特写</span>
+      <span class="camera-tag">📷 正上方90度俯拍，聚焦坑内</span>
+    </div>
+    <div class="scene-desc">🎭 写字楼楼顶，水泥地面被砸出一个人形浅坑。四周有空调外机和晾衣架。</div>
+    <div class="action-desc">陈九霄四肢张开躺在坑中，身上冒着白烟。左手无力地举起手机凑近眼前，右手还在无意识比着法印。眼神从迷糊逐渐变成惊愕。</div>
+    <div class="inner-thought">💭 什么……饿了吗？我确实饿了……等等这不是外卖平台吗？</div>
+    <div><span class="emotion-tag">茫然</span><span class="emotion-tag">困惑</span><span class="emotion-tag">微微的黑色幽默</span></div>
+    <div class="sfx">🔊 叮——手机提示音</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.10s">
+  <img class="panel-img" src="img-522/panel-03.jpg" alt="分镜3" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 极近特写 · 道具</span>
+      <span class="camera-tag">📷 微距镜头，景深极浅</span>
+    </div>
+    <div class="scene-desc">🎭 手机屏幕占满画面。界面显示'饿了吗·骑手端'，用户名'陈九霄'，已完成0/10000单。</div>
+    <div class="action-desc">屏幕上的进度条微微闪烁，0/10000的数字格外刺眼。底部一行小字在发光。</div>
+    <div class="inner-thought">💭 【系统提示·冰冷机械声】恭喜宿主绑定外卖渡劫系统。完成一万单即可恢复修为。暴露修仙者身份一次，扣除一千单。祝您工作愉快。</div>
+    <div><span class="emotion-tag">冷幽默</span><span class="emotion-tag">荒诞</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.15s">
+  <img class="panel-img" src="img-522/panel-04.jpg" alt="分镜4" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 侧面中景</span>
+      <span class="camera-tag">📷 固定机位，城市灯光虚化为光斑</span>
+    </div>
+    <div class="scene-desc">🎭 楼顶边缘，陈九霄坐在女儿墙上，双腿悬空。身后璀璨都市夜景——高楼霓虹、车流光轨。</div>
+    <div class="action-desc">右手拿着手机，左手撑在身旁。风吹乱他的鸡窝头。蓝色骑手服在风中微微飘动，里面露出一角破旧道袍。嘴角微微抽搐，似笑非笑。</div>
+    <div class="inner-thought">💭 修炼八百年……到头来要靠送外卖赎身。师父要是知道了，棺材板都压不住。</div>
+    <div><span class="emotion-tag">落寞中带着自嘲，荒诞的悲壮感</span></div>
+    <div class="sfx">🔊 呜——夜风呼啸</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.20s">
+  <img class="panel-img" src="img-522/panel-05.jpg" alt="分镜5" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中全景</span>
+      <span class="camera-tag">📷 固定机位，单灯光源从头顶投射</span>
+    </div>
+    <div class="scene-desc">🎭 狭窄的城市巷子，一盏路灯发出昏黄光芒。一辆破旧电瓶车停在墙边，后座装着外卖保温箱。</div>
+    <div class="action-desc">陈九霄一只手轻轻抚摸电瓶车把手，动作像在安慰一位老友。另一只手攥拳颤抖。电瓶车表面隐隐有符文光芒闪过——这是他的法器飞剑被系统强制变形的产物。仪表盘闪了一下，像是在回应。</div>
+    <div class="dialogue">💬 陈九霄（咬牙切齿地低语）：……青冥剑，委屈你了。</div>
+    <div class="inner-thought">💭 我的本命法器啊……从万丈长虹变成了……续航50公里的电瓶车？</div>
+    <div><span class="emotion-tag">心痛</span><span class="emotion-tag">不忍</span><span class="emotion-tag">哭笑不得</span></div>
+    <div class="sfx">🔊 嗡——法器残留灵力共鸣</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.25s">
+  <img class="panel-img" src="img-522/panel-06.jpg" alt="分镜6" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 低角度动态</span>
+      <span class="camera-tag">📷 跟拍，横向运动</span>
+    </div>
+    <div class="scene-desc">🎭 夜晚繁忙的城市街道，霓虹招牌倒映在湿润的路面上。车流穿梭。</div>
+    <div class="action-desc">陈九霄弯腰压低身体，以不合常理的灵活度在车缝中穿梭。骑手服在风中鼓起，隐约露出道袍衣角。保温箱隐隐发光。</div>
+    <div class="inner-thought">💭 【系统提示】您有新订单——火锅套餐送达东方大厦30层。倒计时：28分钟。提示：电梯坏了。</div>
+    <div><span class="emotion-tag">紧迫</span><span class="emotion-tag">跃跃欲试</span></div>
+    <div class="sfx">🔊 嗖——电瓶车发出不属于电机的破空声</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.30s">
+  <img class="panel-img" src="img-522/panel-07.jpg" alt="分镜7" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中景 · 正面</span>
+      <span class="camera-tag">📷 固定，缓慢推进至面部</span>
+    </div>
+    <div class="scene-desc">🎭 东方大厦一楼大堂，大理石地面反光。两部电梯门上贴着'维修中'红色告示。</div>
+    <div class="action-desc">陈九霄双手稳稳端着一摞火锅外卖盒，热气蒸腾。眼角微微跳动。目光在楼梯口和电梯之间来回扫视。大堂保安在远处刷手机。</div>
+    <div class="dialogue">💬 陈九霄（面无表情）：三十层。没电梯。火锅。二十五分钟。</div>
+    <div class="inner-thought">💭 要是在以前，御剑直接飞上去了。现在……暴露身份扣一千单。忍。</div>
+    <div><span class="emotion-tag">隐忍</span><span class="emotion-tag">无奈</span><span class="emotion-tag">激烈思想斗争</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.35s">
+  <img class="panel-img" src="img-522/panel-08.jpg" alt="分镜8" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 仰角螺旋构图</span>
+      <span class="camera-tag">📷 固定仰拍，主角身影如鬼魅般向上掠过</span>
+    </div>
+    <div class="scene-desc">🎭 消防楼梯间，荧光灯闪烁。角落的监控摄像头红灯闪烁。</div>
+    <div class="action-desc">陈九霄的身影化为一道残影飞速向上攀升。脚尖点在楼梯扶手上借力飞掠，每一步跨越三层。最关键的——手中的火锅外卖盒纹丝不动，汤面被定身术固定，一滴不洒。</div>
+    <div class="inner-thought">💭 轻功不算暴露吧？又没人看见……大概……</div>
+    <div><span class="emotion-tag">侥幸</span><span class="emotion-tag">小心翼翼的刺激感</span></div>
+    <div class="sfx">🔊 嗖嗖嗖——轻功踏步声，几乎无声</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.40s">
+  <img class="panel-img" src="img-522/panel-09.jpg" alt="分镜9" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 特写 · 配角反应</span>
+      <span class="camera-tag">📷 固定近景，聚焦保安惊恐的表情</span>
+    </div>
+    <div class="scene-desc">🎭 监控室，多块屏幕发出蓝白光芒。其中一块屏幕上可以看到楼梯间里一团模糊的高速移动影像。</div>
+    <div class="action-desc">保安大叔端着保温杯愣在原地。手僵在半空，保温杯里的茶水微微晃动。眼睛瞪得滚圆，额头沁出冷汗。嘴巴微张。</div>
+    <div class="dialogue">💬 保安（声音颤抖）：这……这大厦闹鬼了？</div>
+    <div><span class="emotion-tag">惊恐</span><span class="emotion-tag">不可置信</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.45s">
+  <img class="panel-img" src="img-522/panel-10.jpg" alt="分镜10" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中景 · 正面</span>
+      <span class="camera-tag">📷 固定，主角居中</span>
+    </div>
+    <div class="scene-desc">🎭 30层走廊，暖色壁灯照明。门牌号3001清晰可见。</div>
+    <div class="action-desc">陈九霄站在门口，面带完美职业微笑，双手平端着热气腾腾的火锅外卖。呼吸平稳，一滴汗都没有。门缝中探出一个中年男人惊讶的脸。八百年修为练出的气定神闲。</div>
+    <div class="dialogue">💬 陈九霄（微笑）：您好，您的火锅到了。祝您用餐愉快。</div>
+    <div class="inner-thought">💭 八百年修为不是白练的。就是……有点大材小用。</div>
+    <div><span class="emotion-tag">表面淡定职业</span><span class="emotion-tag">内心小得意</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.50s">
+  <img class="panel-img" src="img-522/panel-11.jpg" alt="分镜11" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 特写 · 顾客反应</span>
+      <span class="camera-tag">📷 固定近景</span>
+    </div>
+    <div class="scene-desc">🎭 顾客站在门口，穿着格子睡衣。手机屏幕显示下单时间：8分钟前。火锅外卖冒着热气，汤面完美平整。</div>
+    <div class="action-desc">一手接过外卖，一手举着手机反复看时间。眉头紧锁，嘴巴张成O型。</div>
+    <div class="dialogue">💬 顾客（难以置信）：我……我8分钟前才下的单？电梯还坏了？你飞上来的？？</div>
+    <div><span class="emotion-tag">极度震惊</span><span class="emotion-tag">怀疑人生</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.55s">
+  <img class="panel-img" src="img-522/panel-12.jpg" alt="分镜12" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 背影中景</span>
+      <span class="camera-tag">📷 固定，主角渐行渐远</span>
+    </div>
+    <div class="scene-desc">🎭 走廊中，陈九霄背对镜头挥手告别。蓝色骑手服上隐隐叠了一层虚幻的道袍影像——灵力残留的幻影。走廊灯光温暖，影子拉得很长。</div>
+    <div class="action-desc">右手随意抬起摆了摆，步伐轻快但带着超越年龄的从容。走廊里似乎有微风吹过，但窗户是关的。</div>
+    <div class="dialogue">💬 陈九霄（头也不回）：好评记得给哦。</div>
+    <div class="inner-thought">💭 第一单……完成。还剩9999单。路漫漫其修远兮。</div>
+    <div><span class="emotion-tag">洒脱中带着一丝苦涩的浪漫</span></div>
+    <div class="sfx">🔊 【系统】叮——已完成1/10000单，获得微量灵力</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.60s">
+  <img class="panel-img" src="img-522/panel-13.jpg" alt="分镜13" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中全景 · 对比</span>
+      <span class="camera-tag">📷 侧面跟拍，展示他与其他骑手的对比</span>
+    </div>
+    <div class="scene-desc">🎭 暴雨夜晚的街道。其他外卖骑手浑身湿透艰难骑行。</div>
+    <div class="action-desc">陈九霄骑在他们中间，身上滴水未沾——雨滴在身周一尺处自动弹开，形成隐形干燥区域。悠闲单手扶把，另一只手在口袋里。表情像在散步而不是暴雨送外卖。周围骑手投来怀疑目光。</div>
+    <div class="inner-thought">💭 【系统警告】检测到宿主使用'雨遁术'——不扣单，但建议低调。当前隐蔽度：72%。</div>
+    <div><span class="emotion-tag">泰然自若</span><span class="emotion-tag">微微得意</span></div>
+    <div class="sfx">🔊 哗啦啦——暴雨声</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.65s">
+  <img class="panel-img" src="img-522/panel-14.jpg" alt="分镜14" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 极近特写 · 食物</span>
+      <span class="camera-tag">📷 微距感，景深极浅</span>
+    </div>
+    <div class="scene-desc">🎭 打开的外卖盒中，一碗热汤完美无缺——汤面平整如镜，没有一丝晃动痕迹。热气袅袅升起。</div>
+    <div class="action-desc">汤面上倒映出顾客惊讶的脸。筷子在汤面上方颤抖，迟迟没有落下。</div>
+    <div class="dialogue">💬 顾客（画外音）：这汤……送了五公里一滴都没洒？什么外卖黑科技？</div>
+    <div><span class="emotion-tag">惊叹</span><span class="emotion-tag">不可思议</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.70s">
+  <img class="panel-img" src="img-522/panel-15.jpg" alt="分镜15" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 道具特写</span>
+      <span class="camera-tag">📷 静止近景</span>
+    </div>
+    <div class="scene-desc">🎭 手机评价页面：五星好评，评语'汤一滴没洒，外卖有bug？''骑手好像不沾雨？？科技改变生活'。陈九霄的指尖有微弱灵光。</div>
+    <div class="action-desc">拇指划过评价列表，越看越心虚。</div>
+    <div class="inner-thought">💭 再这么下去，不是身份暴露就是上热搜……</div>
+    <div><span class="emotion-tag">心虚</span><span class="emotion-tag">苦笑</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.75s">
+  <img class="panel-img" src="img-522/panel-16.jpg" alt="分镜16" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中近景 · 侧面</span>
+      <span class="camera-tag">📷 隐蔽角度，像是偷窥</span>
+    </div>
+    <div class="scene-desc">🎭 小餐馆柜台，陈九霄趴在台面上等餐。柜台后的厨师完全没注意到异常。</div>
+    <div class="action-desc">上半身假装看手机，柜台下面双手飞速结着炼丹手法的法印，指尖泛着金色微光——正在给冷掉的外卖'加热'。手掌中聚集的灵热精确穿透外卖盒，将食物加热到完美温度。</div>
+    <div class="inner-thought">💭 炼丹八百年，如今最大的用途是……给外卖加热。师父，对不起。</div>
+    <div><span class="emotion-tag">自我嘲讽</span><span class="emotion-tag">哭笑不得</span></div>
+    <div class="sfx">🔊 嗡——极轻微的灵力震动</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.80s">
+  <img class="panel-img" src="img-522/panel-17.jpg" alt="分镜17" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 道具特写</span>
+      <span class="camera-tag">📷 静止</span>
+    </div>
+    <div class="scene-desc">🎭 手机骑手端荣誉页面：'最佳温度奖'，火焰图标闪烁。连续47条五星评价，关键词：'完美温度''从没收到过这么热的外卖''这骑手是不是自带加热？'</div>
+    <div class="inner-thought">💭 【系统提示】恭喜获得'炎之骑手'成就。备注：建议降低加热精度，过于完美会引起怀疑。</div>
+    <div><span class="emotion-tag">啼笑皆非</span></div>
+    <div class="sfx">🔊 叮叮叮——连续成就提示音</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.85s">
+  <img class="panel-img" src="img-522/panel-18.jpg" alt="分镜18" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 双人对峙中景</span>
+      <span class="camera-tag">📷 固定，强调两人间的张力</span>
+    </div>
+    <div class="scene-desc">🎭 安静的夜间街道，一盏路灯在两人之间投下光柱。</div>
+    <div class="action-desc">陈九霄（蓝色骑手服）和另一个骑手（绿色骑手服）在路灯下面对面停车。绿衣骑手矮胖圆脸，脖子上挂着剑形吊坠——法器被封印后的样子。两人同时急刹车，四目相对瞬间僵住。陈九霄右眼微眯——感应灵力的习惯动作。</div>
+    <div class="inner-thought">💭 这灵力波动……师弟？！赵一凡？！</div>
+    <div><span class="emotion-tag">极度震惊</span><span class="emotion-tag">难以置信</span></div>
+    <div class="sfx">🔊 嘎——两辆电瓶车的刹车声同时响起</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.90s">
+  <img class="panel-img" src="img-522/panel-19.jpg" alt="分镜19" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 分屏特写 · 双眼对照</span>
+      <span class="camera-tag">📷 急速推进至面部</span>
+    </div>
+    <div class="scene-desc">🎭 画面分为上下两半：上半是陈九霄的剑眉星目，瞳孔微缩；下半是赵一凡的圆眼，瞳孔放大。两人眼中都有金色灵光一闪而过。</div>
+    <div class="action-desc">陈九霄的瞳孔急速收缩，赵一凡的眼角剧烈跳动。</div>
+    <div class="inner-thought">💭 【两人同时】师兄/师弟？！你也……渡劫翻车了？！</div>
+    <div><span class="emotion-tag">震惊叠加尴尬叠加想笑又不敢笑</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:0.95s">
+  <img class="panel-img" src="img-522/panel-20.jpg" alt="分镜20" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中全景 · 喜剧</span>
+      <span class="camera-tag">📷 固定，强调尴尬氛围</span>
+    </div>
+    <div class="scene-desc">🎭 街道上，两人刻意面朝反方向站着。一只流浪猫蹲在两人中间，困惑地左看右看。两辆电瓶车仪表盘都在闪烁——法器互相感应。</div>
+    <div class="action-desc">两人以极其不自然的姿势背对背站立。陈九霄把手机举反了还在假装打电话。赵一凡拿着手机导航但屏幕是黑的。身体僵硬得像两根木头。</div>
+    <div class="dialogue">💬 陈九霄（假装打电话）：喂？对对我马上送到……
+赵一凡（假装看地图）：嗯……这个地址在哪……</div>
+    <div class="inner-thought">💭 别看我别看我别看我——系统说暴露一次扣1000单，互相认出来算不算暴露？？</div>
+    <div><span class="emotion-tag">极度尴尬</span><span class="emotion-tag">紧张</span><span class="emotion-tag">荒诞喜剧感爆棚</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-21.jpg" alt="分镜21" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 对称全景</span>
+      <span class="camera-tag">📷 固定，两人渐远</span>
+    </div>
+    <div class="scene-desc">🎭 两人骑车驶向相反方向。画面中心是空荡的路灯。</div>
+    <div class="action-desc">两人同时回头——目光在夜色中交汇。陈九霄嘴角微动，赵一凡微微点头——无声的默契。电瓶车的尾灯在夜色中渐行渐远，像两颗坠落凡间的星辰。</div>
+    <div class="inner-thought">💭 师弟……你也辛苦了。咱们……在凡间好好干吧。</div>
+    <div><span class="emotion-tag">心酸</span><span class="emotion-tag">温暖</span><span class="emotion-tag">战友般的默契</span></div>
+    <div class="sfx">🔊 两辆电瓶车的电机声渐渐消失</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-22.jpg" alt="分镜22" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 近景 · 面部+手机</span>
+      <span class="camera-tag">📷 缓慢推进</span>
+    </div>
+    <div class="scene-desc">🎭 小餐馆里，窗外暴雨如注。手机显示新订单：生日蛋糕，备注'女儿六岁生日，拜托小心送达，她等了一天了🎂'。</div>
+    <div class="action-desc">陈九霄的眉头从紧皱逐渐舒展，眼神变得柔软。拇指轻轻在备注文字上划过，像是在感受文字背后的温度。嘴角慢慢上扬。</div>
+    <div class="inner-thought">💭 六岁……等了一天。下着这么大的雨……我八百年前的师妹，小时候也是最喜欢生日蛋糕。</div>
+    <div><span class="emotion-tag">温柔</span><span class="emotion-tag">共情</span><span class="emotion-tag">淡淡的怀旧</span></div>
+    <div class="sfx">🔊 哗——窗外暴雨声</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-23.jpg" alt="分镜23" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 低角度动态</span>
+      <span class="camera-tag">📷 跟拍运动镜头</span>
+    </div>
+    <div class="scene-desc">🎭 暴雨中的城市街道，水花四溅。</div>
+    <div class="action-desc">陈九霄骑车冲锋，刻意让自己淋雨——但保温箱周围笼罩着半透明金色结界，雨滴打上去化为光点。他浑身湿透，只有蛋糕完美保护。双手紧握车把，身体前倾冲入雨幕。雨水顺着脸颊滑落，目光坚毅。灵力全部集中在保护蛋糕的结界上。</div>
+    <div class="inner-thought">💭 我可以保护自己——但那太显眼了。保护蛋糕就好……人家小姑娘等了一天。</div>
+    <div><span class="emotion-tag">坚定</span><span class="emotion-tag">温柔</span><span class="emotion-tag">隐忍的帅</span></div>
+    <div class="sfx">🔊 轰隆——雷声滚过</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-24.jpg" alt="分镜24" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中景 · 儿童视角</span>
+      <span class="camera-tag">📷 固定，温暖室内光线洒出</span>
+    </div>
+    <div class="scene-desc">🎭 居民楼走廊，门打开的瞬间。身后客厅布满气球和彩带。</div>
+    <div class="action-desc">六岁小女孩戴着纸皇冠穿着公主裙，踮起脚尖双手伸向前方想接蛋糕。纸皇冠歪在一边。气球被开门的风轻轻吹动。妈妈站在后面，脸上又感激又心疼。</div>
+    <div class="dialogue">💬 小女孩（惊喜地）：蛋糕！蛋糕来啦！！</div>
+    <div><span class="emotion-tag">纯真的快乐</span><span class="emotion-tag">期待</span><span class="emotion-tag">惊喜</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-25.jpg" alt="分镜25" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 近景 · 情感高点</span>
+      <span class="camera-tag">📷 固定近景，聚焦递蛋糕的瞬间</span>
+    </div>
+    <div class="scene-desc">🎭 走廊中，陈九霄单膝蹲下。蛋糕盒干燥完好。</div>
+    <div class="action-desc">双手把蛋糕盒端到小女孩面前。浑身湿透，头发贴在脸上滴着水，但嘴角带着温暖的笑容——不是职业假笑，是发自内心的。雨水从他身上滴落形成水洼，但蛋糕盒表面没有一滴水。微微侧头，用最自然的微笑看着小女孩。</div>
+    <div class="dialogue">💬 陈九霄（轻声）：生日快乐，小公主。蛋糕一点都没湿哦。</div>
+    <div class="inner-thought">💭 修仙八百年……原来保护一个蛋糕，也能让人开心啊。</div>
+    <div><span class="emotion-tag">温暖</span><span class="emotion-tag">柔软</span><span class="emotion-tag">发自内心的满足</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-26.jpg" alt="分镜26" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 俯拍特写 · 小女孩</span>
+      <span class="camera-tag">📷 固定俯拍</span>
+    </div>
+    <div class="scene-desc">🎭 小女孩抱着蛋糕盒子，仰头看向陈九霄（镜头视角）。眼睛里有星星一样的光芒。纸皇冠歪在额头上。暖色灯光给她镀上一层金边。</div>
+    <div class="action-desc">双手抱紧蛋糕盒，下巴放在盒子上，水汪汪的大眼睛一眨不眨。</div>
+    <div class="dialogue">💬 小女孩（仰头，认真地说）：哥哥……你是不是会魔法？</div>
+    <div><span class="emotion-tag">天真的好奇</span><span class="emotion-tag">崇拜</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-27.jpg" alt="分镜27" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 极近特写 · 面部</span>
+      <span class="camera-tag">📷 急速推近</span>
+    </div>
+    <div class="scene-desc">🎭 陈九霄脸部大特写。温柔表情瞬间变成心虚的慌张。</div>
+    <div class="action-desc">眉毛跳动，嘴角僵硬，太阳穴冒出冷汗。双手疯狂摆动否认，表情管理完全失控。笑容僵在脸上，眼神飘忽不定。</div>
+    <div class="dialogue">💬 陈九霄（慌张）：哈？魔法？不不不……哥哥只是……跑得比较快……</div>
+    <div class="inner-thought">💭 被六岁小孩看穿了？？这要是被系统判定暴露——扣1000单啊啊啊！！</div>
+    <div><span class="emotion-tag">极度心虚</span><span class="emotion-tag">慌张</span><span class="emotion-tag">内心崩溃</span></div>
+    <div class="sfx">🔊 【系统警告】嘀嘀嘀——暴露风险检测中……</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-28.jpg" alt="分镜28" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 道具特写</span>
+      <span class="camera-tag">📷 静止</span>
+    </div>
+    <div class="scene-desc">🎭 手机显示新五星评价。'蛋糕妈妈'写道：'暴雨天送来的蛋糕一滴水没沾。女儿说骑手哥哥会魔法，我也信了✨'。手机边缘有雨水。</div>
+    <div class="inner-thought">💭 会魔法……算是吧。</div>
+    <div><span class="emotion-tag">心软</span><span class="emotion-tag">欣慰</span><span class="emotion-tag">微微的骄傲</span></div>
+    <div class="sfx">🔊 叮——完成第N单</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-29.jpg" alt="分镜29" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中全景 · 独处</span>
+      <span class="camera-tag">📷 固定，静谧氛围</span>
+    </div>
+    <div class="scene-desc">🎭 深夜公园长椅，一盏路灯投下暖黄色光圈。陈九霄靠在椅背上。骑手服已经半干，露出里面道袍的衣领。手机放在膝盖上显示47/10000。公园空无一人。</div>
+    <div class="action-desc">仰头喝水，喉结滚动。放下水瓶后望着夜空——夜空中隐约有修仙界的云海在极高处浮动，只有他看得到。</div>
+    <div class="inner-thought">💭 47单了。比预想的……没那么痛苦。凡间的人，比仙界的简单多了。他们要的就是热饭、生日蛋糕、雨天的一把伞。</div>
+    <div><span class="emotion-tag">平和</span><span class="emotion-tag">释然</span><span class="emotion-tag">一个人的安静时刻</span></div>
+    <div class="sfx">🔊 唧唧——蟋蟀声</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-30.jpg" alt="分镜30" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 近景 · 转折</span>
+      <span class="camera-tag">📷 突然推近，打破之前的安静</span>
+    </div>
+    <div class="scene-desc">🎭 突然间手机屏幕变红。陈九霄从放松状态猛地坐直。红色光芒映在脸上，瞳孔急速收缩。</div>
+    <div class="action-desc">背部挺直，双手握紧手机。全身汗毛竖起——修仙者对危险的本能反应。</div>
+    <div class="inner-thought">💭 这是……什么？</div>
+    <div><span class="emotion-tag">警觉</span><span class="emotion-tag">紧张</span><span class="emotion-tag">不安</span></div>
+    <div class="sfx">🔊 嗡——不祥的低频嗡鸣</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-31.jpg" alt="分镜31" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 道具特写 · 异常</span>
+      <span class="camera-tag">📷 静止，但屏幕内容剧烈变化</span>
+    </div>
+    <div class="scene-desc">🎭 手机屏幕严重异常——单数在47和-1000之间跳动，未知账号连续点赞999次，屏幕边缘出现红色裂纹特效。底部弹出红色消息框。</div>
+    <div class="action-desc">数字疯狂跳动，像是有什么东西在入侵系统。</div>
+    <div class="inner-thought">💭 【系统告警】检测到外部干预……来源：未知。非本系统操作。宿主请保持警惕。</div>
+    <div><span class="emotion-tag">数据层面的诡异和不安</span></div>
+    <div class="sfx">🔊 滋滋滋——电流干扰声</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-32.jpg" alt="分镜32" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 道具特写 · 消息</span>
+      <span class="camera-tag">📷 静止，聚焦消息内容</span>
+    </div>
+    <div class="scene-desc">🎭 手机界面变成聊天窗口。对方头像是模糊的绿色图标——师弟赵一凡的骑手账号。消息逐字蹦出，像实时输入。聊天背景隐现法阵纹路。</div>
+    <div class="action-desc">消息逐字出现。最后一个句号落定，屏幕微微闪了一下。</div>
+    <div class="dialogue">💬 【消息内容】师兄，我找到回去的办法了。</div>
+    <div><span class="emotion-tag">震撼</span><span class="emotion-tag">期待</span><span class="emotion-tag">紧张</span></div>
+    <div class="sfx">🔊 咚——心跳般的低沉鼓点</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-33.jpg" alt="分镜33" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 全身中景 · 起身</span>
+      <span class="camera-tag">📷 缓慢推近，风起的瞬间</span>
+    </div>
+    <div class="scene-desc">🎭 公园中，落叶和纸屑在身周旋转。骑手服拉链被风吹开，露出里面的道袍——八百年前的遗物。眼睛里有金色灵光一闪而过。身后路灯明灭不定。</div>
+    <div class="action-desc">陈九霄猛地站起。风突然从四面八方涌来。握着手机的手微微颤抖——不是害怕，是期待。另一只手不自觉按在胸口——道袍之上。风吹乱鸡窝头，此刻倒像极了八百年前意气风发的修仙者。</div>
+    <div class="inner-thought">💭 师弟……你当真？回去的办法……但代价是什么？</div>
+    <div><span class="emotion-tag">震动</span><span class="emotion-tag">希望</span><span class="emotion-tag">警惕</span><span class="emotion-tag">复杂</span></div>
+    <div class="sfx">🔊 呼——异常风起</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-34.jpg" alt="分镜34" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 大远景 · 双世界</span>
+      <span class="camera-tag">📷 固定大全景</span>
+    </div>
+    <div class="scene-desc">🎭 公园中的渺小人影站在路灯下。身后都市天际线。天际线之上高空，一座半透明仙宫在云层中若隐若现——他来的地方。两个世界在同一画面中并存。</div>
+    <div class="action-desc">独立在公园中央，仰头望天。手机的光映在脸上。远处仙宫倒映在瞳孔中。</div>
+    <div class="inner-thought">💭 回去……还是留下？修仙界有长生，凡间有……生日蛋糕和下雨天。</div>
+    <div><span class="emotion-tag">宏大叙事中的个人渺小感</span><span class="emotion-tag">选择的重量</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-35.jpg" alt="分镜35" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 极近特写 · 双光源</span>
+      <span class="camera-tag">📷 固定极近景</span>
+    </div>
+    <div class="scene-desc">🎭 面部大特写。左半脸被手机冷蓝光照亮——凡间；右半脸被高空仙宫金色光芒笼罩——仙界。两种光在鼻梁处交汇。眼角有一滴泪——雨水还是真的泪，分不清。</div>
+    <div class="action-desc">嘴唇紧抿成一条线，然后慢慢放松——嘴角微微翘起。那是一个做了决定的人才有的表情。</div>
+    <div class="inner-thought">💭 八百年都等过来了。不差……再送几单外卖。</div>
+    <div><span class="emotion-tag">纠结过后的释然</span><span class="emotion-tag">一丝倔强的温柔</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-36.jpg" alt="分镜36" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 中近景 · 决心</span>
+      <span class="camera-tag">📷 固定，聚焦拉拉链的动作</span>
+    </div>
+    <div class="scene-desc">🎭 陈九霄把手机收进口袋。双手拉上骑手服拉链——道袍被一寸一寸遮住。</div>
+    <div class="action-desc">干脆利落地拉上拉链——这个动作既像封印，也像拥抱。拉链拉到顶端'咔哒'一声，像一个选择落定。拍拍胸口，转身朝电瓶车走去，步伐轻快。</div>
+    <div class="dialogue">💬 陈九霄（自言自语，微笑）：先把今天的单送完再说。</div>
+    <div class="inner-thought">💭 师弟的消息……回头再说。凡间的夜还长，有些人还在等外卖。</div>
+    <div><span class="emotion-tag">从容</span><span class="emotion-tag">温暖</span><span class="emotion-tag">一个已经想通的人的平静</span></div>
+    <div class="sfx">🔊 咔哒——拉链声</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-37.jpg" alt="分镜37" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 背影全景 · 远去</span>
+      <span class="camera-tag">📷 缓慢后拉</span>
+    </div>
+    <div class="scene-desc">🎭 雨停了的街道，路面积水倒映城市灯光如镜面。雨后天空裂开云层，几颗星星露出来。保温箱上还残留着结界散去后的金色微光。</div>
+    <div class="action-desc">陈九霄骑车远去的背影，微微抬头看了一眼天空的星星——然后加速，消失在城市灯火的尽头。一个送外卖的仙人，消失在城市的灯火中。</div>
+    <div><span class="emotion-tag">希望</span><span class="emotion-tag">温暖</span><span class="emotion-tag">故事才刚刚开始的感觉</span></div>
+    <div class="sfx">🔊 嗡——电瓶车渐行渐远</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-38.jpg" alt="分镜38" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 道具特写 · 收尾</span>
+      <span class="camera-tag">📷 静止</span>
+    </div>
+    <div class="scene-desc">🎭 手机骑手主页：陈九霄，评分5.0，完成47单。最新评价'骑手哥哥会魔法✨'被置顶。最底部红色通知在跳动——来自'赵一凡'的新消息。</div>
+    <div class="action-desc">屏幕上的红色通知持续跳动，等待点开。</div>
+    <div><span class="emotion-tag">悬念</span><span class="emotion-tag">期待</span></div>
+    <div class="sfx">🔊 咚、咚、咚——心跳般的节奏，渐强</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-39.jpg" alt="分镜39" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 大远景 · 结束镜头</span>
+      <span class="camera-tag">📷 固定大全景，安静收束</span>
+    </div>
+    <div class="scene-desc">🎭 雨后的城市街道，霓虹倒映在积水中。远处小小的电瓶车身影拐过街角消失——保温箱上的金色微光是最后一抹亮色。天空云层裂开，星光洒下。城市安静地呼吸。</div>
+    <div class="action-desc">远处的光点消失。只剩下空荡的街道和倒映的灯光。</div>
+    <div><span class="emotion-tag">宁静</span><span class="emotion-tag">余韵</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<div class="panel" style="animation-delay:1.00s">
+  <img class="panel-img" src="img-522/panel-40.jpg" alt="分镜40" loading="lazy" width="600">
+  <div class="panel-info">
+    <div class="panel-meta">
+      <span class="shot-tag">🎬 终幕 · 文字卡</span>
+      <span class="camera-tag">📷 固定</span>
+    </div>
+    <div class="scene-desc">🎭 黑色背景的结束画面。底部金色电瓶车剪影。顶部仙界云海淡影。中间留白。</div>
+    <div><span class="emotion-tag">余韵</span><span class="emotion-tag">期待后续</span></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+
+<div class="ending">
+  <h2>第一章 · 完</h2>
+  <p>八百年修仙路，一万单外卖情。</p>
+  <p>陈九霄的凡间渡劫，才刚刚开始。</p>
+  <div class="preview">
+    <p>🔔 第二章预告</p>
+    <p>师弟的神秘计划 × 平台大数据追踪 × 仙界来人</p>
+  </div>
+</div>
+
+<script>
+// Intersection Observer for lazy animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.panel').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
