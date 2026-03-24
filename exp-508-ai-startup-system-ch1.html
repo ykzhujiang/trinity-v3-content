@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI创业系统：代码之神 · 第一章：系统激活</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #08090d;
+  color: #e0e4ec;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #0a1628 0%, #08090d 100%);
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0,140,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+}
+.header h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00aaff, #0055ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+.header .subtitle {
+  font-size: 1.1rem;
+  color: rgba(200,220,255,0.7);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.header .chapter {
+  font-size: 0.85rem;
+  color: rgba(150,180,220,0.5);
+  letter-spacing: 4px;
+  position: relative;
+  z-index: 1;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+  color: rgba(150,180,220,0.4);
+  font-size: 0.8rem;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+.panel-container {
+  max-width: 100vw;
+  overflow: hidden;
+}
+.panel {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.panel-text {
+  padding: 20px 24px 28px;
+  background: #0c0e14;
+  line-height: 1.8;
+}
+.panel-text p {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+.panel-text .scene-info {
+  font-size: 0.8rem;
+  color: rgba(100,140,200,0.5);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+.panel-text .dialogue {
+  color: #e8eef8;
+  font-weight: 500;
+}
+.panel-text .inner-thought {
+  color: rgba(180,200,230,0.7);
+  font-style: italic;
+}
+.panel-text .system-voice {
+  color: #00aaff;
+  font-weight: 600;
+  background: rgba(0,100,255,0.08);
+  padding: 8px 12px;
+  border-left: 3px solid #0066ff;
+  border-radius: 0 6px 6px 0;
+  margin: 8px 0;
+  font-size: 1.05rem;
+}
+.panel-text .system-voice.danger {
+  background: rgba(255,0,0,0.08);
+  border-left-color: #ff3333;
+  color: #ff4444;
+}
+.panel-text .narration {
+  color: rgba(200,210,230,0.6);
+}
+.act-divider {
+  padding: 60px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #08090d, #0a1628, #08090d);
+}
+.act-divider h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00aaff, #0055ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.act-divider .act-desc {
+  font-size: 0.9rem;
+  color: rgba(150,180,220,0.5);
+  margin-top: 8px;
+}
+.ending {
+  padding: 80px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #08090d, #0a1628);
+}
+.ending h2 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ff4444, #ff8800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+.ending p {
+  font-size: 1.1rem;
+  color: rgba(200,210,230,0.6);
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="chapter">第一章</div>
+  <h1>AI创业系统：代码之神</h1>
+  <div class="subtitle">失业七次的程序员，意外激活了改变命运的系统</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<div class="panel-container">
+
+<div class="act-divider">
+  <h2>第一幕：第七次失业</h2>
+  <div class="act-desc">有些人的人生，是从第七次跌倒开始起飞的</div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-01.jpg" loading="lazy" alt="分镜1">
+  <div class="panel-text">
+    <div class="scene-info">场景：科技公司大厅 / 特写</div>
+    <p class="narration">林浩坐在科技公司大厅的沙发上，怀里抱着一个纸箱——里面是他全部的个人物品。第七家公司，第七次"优化"。</p>
+    <p class="inner-thought">（又被裁了。好消息是，我已经不会哭了。坏消息是，我连假装难过的演技都懒得使了。）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-02.jpg" loading="lazy" alt="分镜2">
+  <div class="panel-text">
+    <div class="scene-info">场景：公司门口 / 中景 / 雨天</div>
+    <p class="narration">雨中，林浩抱着纸箱走出大楼。身后是光鲜亮丽的科技园区，身前是看不到头的马路。</p>
+    <p class="inner-thought">（七份工作，平均存活期3.7个月。如果有个系统能统计失业数据，我大概能拿SSS评级。）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-03.jpg" loading="lazy" alt="分镜3">
+  <div class="panel-text">
+    <div class="scene-info">场景：特写 / 手部</div>
+    <p class="narration">手机震动。一个从未安装过的App突然出现在屏幕上——图标是深蓝色的电路纹路，名字只有四个字：</p>
+    <p class="dialogue">「创业系统」</p>
+    <p class="inner-thought">（又是什么诈骗App？等等……我什么时候装的？）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-04.jpg" loading="lazy" alt="分镜4">
+  <div class="panel-text">
+    <div class="scene-info">场景：公交站台 / 中近景 / 夜雨</div>
+    <p class="narration">公交站台下，雨水顺着棚檐滴落。林浩盯着手机屏幕上的"确认激活"按钮，手指悬在半空。</p>
+    <p class="inner-thought">（反正已经被裁了七次了，还能更惨吗？）</p>
+    <p class="narration">手指落下。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-05.jpg" loading="lazy" alt="分镜5">
+  <div class="panel-text">
+    <div class="scene-info">场景：公交站台 / 全景 / 特效</div>
+    <p class="narration">一道蓝白色的全息光芒从手机中炸开，照亮了整个雨幕！林浩差点把手机甩出去。</p>
+    <p class="dialogue">林浩："卧——！"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-06.jpg" loading="lazy" alt="分镜6">
+  <div class="panel-text">
+    <div class="scene-info">场景：林浩视角 / POV / 全息界面</div>
+    <div class="system-voice">【叮！AI创业系统v1.0激活成功。】<br>【欢迎宿主·林浩。失业次数：7。创业经验：0。信用评分：一言难尽。】<br>【新手任务已发布：24小时内，用100元赚到1000元。】<br>【提示：失败惩罚——手机变砖。】</div>
+    <p class="dialogue">林浩："……你是不是算错了？100变1000？你当我是巴菲特？"</p>
+    <div class="system-voice">【系统提示：巴菲特不会被裁员七次。请宿主认清现实。】</div>
+  </div>
+</div>
+
+<div class="act-divider">
+  <h2>第二幕：夜市求生</h2>
+  <div class="act-desc">有人在夜市找到了味道，有人找到了第一桶金</div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-07.jpg" loading="lazy" alt="分镜7">
+  <div class="panel-text">
+    <div class="scene-info">场景：夜市 / 全景 / 夜晚</div>
+    <p class="narration">热闹的夜市，烟火气扑面而来。林浩穿过人群，眼前的全息界面不断闪烁着各种商业数据——每个摊位上方都浮着利润率和客流量。</p>
+    <p class="inner-thought">（好家伙，这系统连夜市大妈赚多少都能算出来？比我之前公司的BI系统都强……）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-08.jpg" loading="lazy" alt="分镜8">
+  <div class="panel-text">
+    <div class="scene-info">场景：夜市摊位 / 中景</div>
+    <p class="narration">一个烧烤摊，味道飘出三条街，但门可罗雀。原因一目了然——招牌是用红油漆在纸板上写的，歪歪扭扭像小学生作业。</p>
+    <p class="dialogue">摊主大姐："生意越来越差，隔壁那家味道不如我，但人家招牌好看……"</p>
+    <div class="system-voice">【商机检测！摊位品牌价值：-50。潜在提升空间：+800%。建议宿主：用设计技能帮助升级。】</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-09.jpg" loading="lazy" alt="分镜9">
+  <div class="panel-text">
+    <div class="scene-info">场景：特写 / 灵感时刻</div>
+    <p class="narration">林浩的眼睛亮了——黑框眼镜的镜片上，倒映着全息界面的蓝光。</p>
+    <div class="system-voice">【新技能解锁：AI设计Lv1——可以快速生成品牌设计方案。】</div>
+    <p class="dialogue">林浩："等等……我一个写代码的，你让我做设计？"</p>
+    <div class="system-voice">【宿主的审美水平已记录在案。放心，AI会替你把关。】</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-10.jpg" loading="lazy" alt="分镜10">
+  <div class="panel-text">
+    <div class="scene-info">场景：夜市摊位 / 过肩镜头</div>
+    <p class="narration">林浩把笔记本电脑架在摊位的小折叠桌上，屏幕上是全新的招牌设计——大气、专业、让人食欲大开。</p>
+    <p class="dialogue">摊主大姐："这……这也太好看了吧！小伙子你是专业设计师啊？"</p>
+    <p class="dialogue">林浩："呃……勉强算是吧。"</p>
+    <div class="system-voice">【纠正：宿主上一份工作是后端开发，与设计毫无关系。】</div>
+    <p class="inner-thought">（你能不能别在关键时刻拆台？？）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-11.jpg" loading="lazy" alt="分镜11">
+  <div class="panel-text">
+    <div class="scene-info">场景：夜市摊位 / 中景 / 时间推进</div>
+    <p class="narration">新招牌挂上去后效果立竿见影——烧烤摊前排起了长队。路过的人被专业的视觉设计吸引，纷纷驻足。</p>
+    <p class="dialogue">排队顾客："这家新开的？看着就很厉害的样子！"</p>
+    <p class="dialogue">摊主大姐（热泪盈眶）："开了八年了……今天是生意最好的一天……"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-12.jpg" loading="lazy" alt="分镜12">
+  <div class="panel-text">
+    <div class="scene-info">场景：特写 / 奖励时刻</div>
+    <div class="system-voice">【任务进度：100元→350元。完成度35%。】<br>【额外奖励：摊主大姐赠送烤串x20。】<br>【系统评价：不错，至少比你写的代码好看。】</div>
+    <p class="dialogue">林浩："……你到底是创业系统还是毒舌系统？"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-13.jpg" loading="lazy" alt="分镜13">
+  <div class="panel-text">
+    <div class="scene-info">场景：夜市 / 全景 / 搞笑</div>
+    <p class="narration">消息传开了。整条夜市街的摊主们蜂拥而至，争先恐后地拉林浩帮忙做招牌。</p>
+    <p class="dialogue">烤串大叔："小伙子先帮我做！我给你加五串大腰子！"</p>
+    <p class="dialogue">煎饼大妈："我给十个鸡蛋！加双份薄脆！"</p>
+    <p class="dialogue">林浩（被围得水泄不通）："等、等等！一个一个来啊！！"</p>
+    <div class="system-voice">【检测到批量订单。建议宿主提高报价。毕竟你现在是这条街唯一的"设计师"。】</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-14.jpg" loading="lazy" alt="分镜14">
+  <div class="panel-text">
+    <div class="scene-info">场景：特写 / 技能解锁</div>
+    <p class="narration">忙到凌晨，最后一个招牌完工。全息界面闪烁着全新的金光——</p>
+    <div class="system-voice">【任务完成！100元→1200元！超额达成！】<br>【新手任务评价：A级（本来想给S级，但看到宿主的初始配色方案，扣了一档）】<br>【重要解锁：商业透视Lv1——可以看到任何商业场景的隐藏数据面板。】</div>
+    <p class="dialogue">林浩："商业透视？这也太作弊了吧……"</p>
+    <div class="system-voice">【宿主被裁七次的人生才是真正的作弊——反向的。】</div>
+  </div>
+</div>
+
+<div class="act-divider">
+  <h2>第三幕：咖啡厅的数据</h2>
+  <div class="act-desc">当你能看到别人看不到的东西，机会就在眼前</div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-15.jpg" loading="lazy" alt="分镜15">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅内 / 全景 / 白天</div>
+    <p class="narration">第二天上午。一家文艺范儿的小咖啡馆，装修很用心，但客人寥寥无几。林浩坐在角落，眼前的世界已经不一样了——</p>
+    <p class="inner-thought">（商业透视开启后，整个世界变成了一个巨大的数据面板。这感觉……像是开了上帝视角。）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-16.jpg" loading="lazy" alt="分镜16">
+  <div class="panel-text">
+    <div class="scene-info">场景：林浩视角 / POV / 数据叠加</div>
+    <p class="narration">透过商业透视，咖啡馆的一切都有了数据注解：月营收下降曲线、客户复购率（惨淡的12%）、最大痛点——"产品好但完全不会营销"。</p>
+    <div class="system-voice">【分析完成。该咖啡馆产品评分8.2，但营销评分1.5。典型的"酒香也怕巷子深"。】<br>【提示：这是你的机会。】</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-17.jpg" loading="lazy" alt="分镜17">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅 / 中景 / 对话</div>
+    <p class="dialogue">林浩（端着咖啡走向老板）："老板，你这咖啡真好喝。但恕我直言……你的营销方式，有亿点点问题。"</p>
+    <p class="dialogue">咖啡厅老板（疲惫）："你是第几个来推销广告的？我试过了，没用。"</p>
+    <p class="dialogue">林浩："我不卖广告。我有一个方案，三天内让你营业额翻倍。做不到——这杯咖啡算我请你。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-18.jpg" loading="lazy" alt="分镜18">
+  <div class="panel-text">
+    <div class="scene-info">场景：特写 / 笔记本屏幕</div>
+    <p class="narration">林浩翻开笔记本，展示了一套完整的方案——AI生成的营销策略、视觉优化、社交媒体运营计划，每一页都精确到数字。</p>
+    <p class="dialogue">老板（震惊）："这……你怎么知道我的客户年龄分布？这数据我自己都没统计过！"</p>
+    <p class="inner-thought">（因为系统直接扫描出来的……但这个我不能说。）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-19.jpg" loading="lazy" alt="分镜19">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅 / 中景 / 白板讲解</div>
+    <p class="dialogue">林浩："核心思路就三个字——'造场景'。你的咖啡不是卖给所有人的，是卖给那些需要'第三空间'的人。"</p>
+    <p class="dialogue">老板："第三空间？"</p>
+    <p class="dialogue">林浩："家是第一空间，公司是第二空间，你这里——是他们逃离两个世界的第三空间。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-20.jpg" loading="lazy" alt="分镜20">
+  <div class="panel-text">
+    <div class="scene-info">场景：蒙太奇 / 改造过程</div>
+    <p class="narration">三天，七十二小时。林浩几乎住在了咖啡馆——重新设计菜单、拍摄产品照、搭建社交账号、调整座位布局。</p>
+    <div class="system-voice">【系统实时监控中。改造进度：78%。预估营收提升：186%。】<br>【顺便说一句，宿主连续工作36小时了。虽然系统不关心你的健康，但死了就没法完成任务了。】</div>
+    <p class="dialogue">林浩（顶着黑眼圈）："谢谢你的关心，非常温暖。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-21.jpg" loading="lazy" alt="分镜21">
+  <div class="panel-text">
+    <div class="scene-info">场景：改造后咖啡厅 / 全景</div>
+    <p class="narration">第三天。改造后的咖啡馆焕然一新——不是装修变了，而是整个"气质"变了。络绎不绝的顾客举着手机拍照打卡，座位满了还有人排队。</p>
+    <p class="dialogue">老板（红了眼眶）："开店两年……第一次不够坐……"</p>
+    <p class="dialogue">林浩（假装淡定）："基操，勿6。"</p>
+    <p class="inner-thought">（其实我腿都在抖。万一失败了连咖啡钱都付不起……）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-22.jpg" loading="lazy" alt="分镜22">
+  <div class="panel-text">
+    <div class="scene-info">场景：特写 / 系统奖励</div>
+    <div class="system-voice">【任务完成！咖啡厅营收：第三天达到日常2.3倍！】<br>【奖励：AI产品经理技能Lv1——现在你可以快速分析任何产品的优劣势。】<br>【系统评价：B+。扣分原因——你的PPT还是丑了一点。】</div>
+    <p class="dialogue">林浩："你能不能夸人夸到底？非要在最后扎一刀？"</p>
+    <div class="system-voice">【这是系统的核心功能之一：保持宿主谦虚。】</div>
+  </div>
+</div>
+
+<div class="act-divider">
+  <h2>第四幕：看不透的人</h2>
+  <div class="act-desc">当系统第一次显示"无法解析"，故事才真正开始</div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-23.jpg" loading="lazy" alt="分镜23">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅 / 中景 / 黄昏</div>
+    <p class="narration">打烊时分。林浩一个人坐在窗边，端着老板特制的"感谢咖啡"。三天没睡好，但心里踏实。</p>
+    <p class="narration">窗外，一辆黑色轿车无声地停在了门口。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-24.jpg" loading="lazy" alt="分镜24">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅门口 / 低角度 / 戏剧感</div>
+    <p class="narration">车门打开，下来一个人——银灰色短发，深灰色定制西装，每一步都带着不容忽视的气场。</p>
+    <p class="narration">林浩的商业透视自动启动，开始扫描来人的数据——</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-25.jpg" loading="lazy" alt="分镜25">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅内 / 中景 / 双人对坐</div>
+    <p class="dialogue">投资人："林浩，28岁，被裁员七次，上周激活了一个……很有意思的工具。三天改造一家咖啡馆，营业额翻倍。"</p>
+    <p class="dialogue">林浩（震惊）："你怎么知道——"</p>
+    <p class="dialogue">投资人："我知道的比你想象的多。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-26.jpg" loading="lazy" alt="分镜26">
+  <div class="panel-text">
+    <div class="scene-info">场景：极特写 / 林浩面部</div>
+    <p class="narration">林浩的瞳孔骤然收缩——在他的视野中，投资人头顶的数据面板不像其他人那样显示数字，而是……</p>
+    <p class="narration">一片雪花般的静电噪点。所有数据框都是跳动的问号。</p>
+    <div class="system-voice danger">【警告：目标数据无法解析。信息屏蔽等级：SSS。】<br>【建议：保持警惕。该目标的数据防护等级，超出系统当前权限。】</div>
+    <p class="inner-thought">（看不透……商业透视第一次完全失效。这个人——到底什么来头？）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-27.jpg" loading="lazy" alt="分镜27">
+  <div class="panel-text">
+    <div class="scene-info">场景：特写 / 名片</div>
+    <p class="narration">投资人从西装内袋取出一张名片，轻轻放在桌上。名片极简，高端纸质，只有一行字和一个电话号码。没有公司名，没有职位。</p>
+    <p class="dialogue">投资人："这是我的联系方式。考虑好了，打这个电话。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-28.jpg" loading="lazy" alt="分镜28">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅 / 中景 / 黑色电影感</div>
+    <p class="dialogue">投资人（微微前倾，嘴角带笑）："我有一个项目。AI赛道，风口上的风口。但需要一个……特殊的人来做。"</p>
+    <p class="dialogue">投资人："你的能力，很有意思。不是你的编程——那个确实一般。"</p>
+    <p class="dialogue">林浩："……你能不能不要跟我的系统一样说话？"</p>
+    <p class="dialogue">投资人（笑了）："我说的是，你看到的世界，跟别人不一样。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-29.jpg" loading="lazy" alt="分镜29">
+  <div class="panel-text">
+    <div class="scene-info">场景：特写 / 手机警告</div>
+    <p class="narration">投资人离开后，林浩低头看手机——系统界面疯狂闪烁红光。</p>
+    <div class="system-voice danger">【⚠️ 紧急警告 ⚠️】<br>【检测到S级创业任务触发条件。】<br>【风险等级：极高。奖励：？？？】<br>【注意：此任务一旦接受，不可撤回。】<br>【是否接受？ [接受] [拒绝]】</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-30.jpg" loading="lazy" alt="分镜30">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅 / 全景 / 戏剧构图</div>
+    <p class="narration">空荡荡的咖啡馆里，林浩一个人对着发红光的手机和桌上的名片，陷入了沉默。</p>
+    <p class="narration">窗外，投资人的黑色轿车缓缓驶离，尾灯消失在夜色中。</p>
+    <p class="inner-thought">（一边是未知的巨大风险，一边是继续在夜市帮大妈做招牌。）</p>
+    <p class="inner-thought">（林浩，你这辈子最疯狂的决定是什么？）</p>
+    <p class="inner-thought">（大概……是现在。）</p>
+  </div>
+</div>
+
+<div class="act-divider">
+  <h2>第五幕：决定</h2>
+  <div class="act-desc">有些路，走之前就知道回不了头</div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-31.jpg" loading="lazy" alt="分镜31">
+  <div class="panel-text">
+    <div class="scene-info">场景：闪回蒙太奇 / 多场景叠加</div>
+    <p class="narration">记忆像走马灯一样闪过——七次被裁的画面叠在一起。七间不同的HR办公室，七句几乎一模一样的"很遗憾"。</p>
+    <p class="narration">但在那些灰色的记忆中，蓝色的格子衬衫像一面倔强的旗帜，始终没有褪色。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-32.jpg" loading="lazy" alt="分镜32">
+  <div class="panel-text">
+    <div class="scene-info">场景：出租屋 / 中近景 / 夜晚</div>
+    <p class="narration">林浩的出租屋，十平米，桌上堆满泡面盒。电脑屏幕上是一排排"已投递"。</p>
+    <p class="narration">但桌角有一个相框——毕业照，他笑得像个傻子。</p>
+    <p class="inner-thought">（那时候以为写代码就能改变世界。现在发现，连房租都改变不了。）</p>
+    <p class="inner-thought">（但如果……有了这个系统呢？）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-33.jpg" loading="lazy" alt="分镜33">
+  <div class="panel-text">
+    <div class="scene-info">场景：夜市 / 中景 / 温暖</div>
+    <p class="narration">夜市收摊前，烧烤大姐追上林浩，双手递过一沓零钱。她的摊位后面排着长队。</p>
+    <p class="dialogue">摊主大姐："小伙子，你是好人。以后来吃烧烤永远不收你钱！"</p>
+    <p class="narration">林浩接过钱，鼻子突然酸了一下。被裁七次，没人说过他是好人。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-34.jpg" loading="lazy" alt="分镜34">
+  <div class="panel-text">
+    <div class="scene-info">场景：城市街道 / 动态镜头 / 夜晚</div>
+    <p class="narration">深夜的城市街道，林浩奔跑在灯火通明的马路上。不知道前面是什么，但身后那个失业七次的自己，已经被甩在了后面。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-35.jpg" loading="lazy" alt="分镜35">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅 / 特写 / 碰杯</div>
+    <p class="dialogue">老板："以后你就是我的合伙人。"</p>
+    <p class="dialogue">林浩："我才帮你改了三天，就合伙了？"</p>
+    <p class="dialogue">老板："你比我认识的所有MBA都强。"</p>
+    <div class="system-voice">【系统补充：宿主高考数学87分，勉强够用。】</div>
+    <p class="dialogue">林浩："……求你闭嘴。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-36.jpg" loading="lazy" alt="分镜36">
+  <div class="panel-text">
+    <div class="scene-info">场景：街道 / 中景 / 黑色电影</div>
+    <p class="narration">投资人走向黑色轿车，走到车门前停了一下，回头望了一眼咖啡馆——那个亮着灯的小店。</p>
+    <p class="narration">他的嘴角微微上扬，像是在看一颗刚发芽的种子。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-37.jpg" loading="lazy" alt="分镜37">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅 / 特写 / 抉择</div>
+    <p class="narration">空荡的咖啡馆里，林浩左手拿着那张极简名片，右手握着闪烁红光的手机。</p>
+    <p class="narration">半透明的系统界面上，"接受"和"拒绝"两个按钮一明一暗地闪烁着。</p>
+    <p class="narration">林浩深吸一口气——</p>
+    <p class="dialogue">林浩："系统，你觉得我应该接吗？"</p>
+    <div class="system-voice">【系统无法提供建议。此任务超出分析范围。】<br>【但如果宿主在意系统的个人看法……】<br>【你被裁了七次都没放弃。这种人，不适合安全的路。】</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-508-ai-startup-system-ch1/images/panel-38.jpg" loading="lazy" alt="分镜38">
+  <div class="panel-text">
+    <div class="scene-info">场景：咖啡厅外 / 全景 / 结尾</div>
+    <p class="narration">林浩走出咖啡馆，站在夜风中，仰头望着这座城市的天际线。</p>
+    <p class="narration">万家灯火，每一盏灯背后都是一个普通人的故事。而他的故事，从今天开始，不再普通。</p>
+    <p class="narration">全息系统的蓝光在他身边微微闪烁，像一层薄薄的盔甲。</p>
+    <p class="narration">他按下了"接受"。</p>
+    <div class="system-voice danger">【S级任务已接受。倒计时开始。】<br>【欢迎来到真正的游戏，宿主。】</div>
+  </div>
+</div>
+
+</div><!-- end panel-container -->
+
+<div class="ending">
+  <h2>第一章 · 完</h2>
+  <p>林浩按下了接受键。<br>他不知道等待他的是什么，<br>但他知道——<br>一个被裁七次的程序员，<br>已经没什么好怕的了。</p>
+  <p style="margin-top:32px;color:rgba(150,180,220,0.4);font-size:0.85rem;">第二章：当AI遇见资本 · 敬请期待</p>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.panel').forEach(panel => {
+  observer.observe(panel);
+});
+</script>
+
+</body>
+</html>
