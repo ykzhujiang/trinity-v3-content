@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重启·2015 — 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080c12;color:#e0e0e0;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:18px;line-height:1.8;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#080c12 0%,#0f1a2e 50%,#080c12 100%);text-align:center;padding:20px}
+.cover h1{font-size:2.4em;background:linear-gradient(135deg,#4a9eff,#7ec8ff,#4a9eff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;font-weight:900;letter-spacing:4px}
+.cover .subtitle{font-size:1.1em;color:#6a8caa;margin-bottom:8px}
+.cover .tagline{font-size:0.95em;color:#556;margin-bottom:30px;font-style:italic}
+.cover .ch{font-size:1.3em;color:#4a9eff;border:1px solid #4a9eff44;padding:8px 24px;border-radius:4px}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:#556;font-size:14px;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+
+.act-divider{padding:60px 20px;text-align:center;background:linear-gradient(180deg,transparent,#0f1a2e 30%,#0f1a2e 70%,transparent)}
+.act-divider h2{font-size:1.6em;color:#4a9eff;letter-spacing:6px;margin-bottom:8px}
+.act-divider .act-sub{color:#556;font-size:0.9em}
+
+.panel{position:relative;width:100%;max-width:500px;margin:0 auto}
+.panel img{width:100%;display:block}
+.panel-text{padding:16px 20px 28px;background:linear-gradient(180deg,rgba(8,12,18,0.95),#080c12);font-size:17px;line-height:1.9;max-width:500px;margin:0 auto}
+.panel-text .speaker{color:#4a9eff;font-weight:bold;margin-right:4px}
+.panel-text .thought{color:#8899aa;font-style:italic;font-size:0.95em;margin-top:6px;padding-left:12px;border-left:2px solid #1a2a3a}
+.panel-text .narration{color:#aabbcc;font-size:0.95em}
+.panel-text .funny{color:#ffcc44;font-size:0.9em;margin-top:6px}
+
+.decision{max-width:500px;margin:20px auto;padding:24px 20px;background:linear-gradient(135deg,#0d1520,#101828);border:1px solid #4a9eff33;border-radius:8px}
+.decision .d-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.decision .d-icon{font-size:1.4em}
+.decision .d-title{color:#4a9eff;font-size:1.1em;font-weight:bold}
+.decision .d-situation{color:#99aabb;margin-bottom:16px;font-size:0.95em;line-height:1.7}
+.decision .d-options{list-style:none;padding:0}
+.decision .d-options li{padding:12px 16px;margin:8px 0;background:#ffffff06;border:1px solid #ffffff10;border-radius:6px;color:#bcc;font-size:0.95em;line-height:1.6;cursor:pointer;transition:all 0.3s}
+.decision .d-options li:hover{background:#4a9eff12;border-color:#4a9eff44}
+.decision .d-options li.chosen{background:#4a9eff18;border-color:#4a9eff;position:relative}
+.decision .d-options li.chosen::after{content:"✓ 朱江的选择";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#4a9eff;font-size:0.8em;font-weight:bold}
+.decision .d-reveal{display:none;color:#8899aa;font-size:0.85em;margin-top:12px;padding-top:12px;border-top:1px solid #ffffff08}
+.decision.revealed .d-reveal{display:block}
+
+.panel-spacer{height:8px}
+.section-spacer{height:40px}
+
+.end-card{padding:80px 20px;text-align:center;background:linear-gradient(180deg,#080c12,#0f1a2e)}
+.end-card h2{font-size:1.8em;color:#4a9eff;margin-bottom:12px}
+.end-card p{color:#6a8caa;font-size:1em;margin-bottom:8px}
+.end-card .cliff{color:#ffcc44;font-size:1.1em;margin-top:20px;font-style:italic}
+
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+@media(min-width:500px){
+  .panel-text{padding:20px 24px 32px}
+  .decision{padding:28px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>重启·2015</h1>
+  <div class="subtitle">虚拟朱江 · V5互动分镜</div>
+  <div class="tagline">如果带着2026年的记忆回到2015……你会怎么选？</div>
+  <div class="ch">第一章：时间裂缝</div>
+  <div class="scroll-hint">↓ 向下滑动开始</div>
+</div>
+
+<!-- ===== 第一幕：觉醒 ===== -->
+<div class="act-divider fade-in">
+  <h2>第一幕</h2>
+  <div class="act-sub">觉醒</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p01.jpg" loading="lazy" alt="P1"></div>
+<div class="panel-text fade-in"><span class="narration">【远景·俯拍·夜】整栋写字楼只有三楼一间办公室还亮着灯。2026年3月，凌晨三点半。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p02.jpg" loading="lazy" alt="P2"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·手机屏幕】三条未读消息。投资人：「经慎重考虑，不再继续本轮。」房东：「两个月了……」妈妈：「注意身体。」</span><div class="thought">前两条是刀，第三条才是最重的那一刀。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p03.jpg" loading="lazy" alt="P3"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·侧面】朱江趴在键盘上睡着了。屏幕上的代码还在闪烁。咖啡杯倒了，褐色液体慢慢流向鼠标垫。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p04.jpg" loading="lazy" alt="P4"></div>
+<div class="panel-text fade-in"><span class="narration">【主观镜头·模糊转清晰】画面剧烈晃动。光线突然变亮——暖黄色的，不是办公室的冷白光。嘈杂的人声、碰杯声涌入耳朵。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p05.jpg" loading="lazy" alt="P5"></div>
+<div class="panel-text fade-in"><span class="narration">【全景·餐厅包间】一张圆桌，八个人，转盘上摆满菜。所有人都穿着2015年的衣服——宽松的polo衫，那种过时的发型。朱江猛地抬头，手里握着一杯精酿啤酒。</span><div class="thought">这……什么情况？</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p06.jpg" loading="lazy" alt="P6"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·朱江脸部】大眼睛瞪得溜圆。络腮胡——等等，胡子怎么少了？手——手也不对，比记忆中年轻。</span><div class="thought">我在做梦？我一定是在做梦。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p07.jpg" loading="lazy" alt="P7"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·老陈】一个戴眼镜的瘦高男人正在慷慨激昂地说着什么。穿着某大厂的polo衫，头发还没秃。</span><span class="speaker">老陈：</span>"我跟你们说，这个叫'深度学习'的东西，绝对是下一个风口！你们信不信？"</div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p08.jpg" loading="lazy" alt="P8"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·朱江反应】啤酒杯握得太紧，手指发白。嘴角不自觉地抽搐——他想笑，又不敢笑。</span><div class="thought">深度学习？深度学习？？老哥你知不知道你说的这个东西，11年后会把全世界翻个底朝天？</div></div>
+<div class="panel-spacer"></div>
+
+<!-- DECISION 1 -->
+<div class="decision fade-in" id="d1">
+  <div class="d-header"><span class="d-icon">⚡</span><span class="d-title">决策点 #1</span></div>
+  <div class="d-situation">老同学转头问朱江："你觉得深度学习有前途吗？"——所有人看向他。</div>
+  <ul class="d-options">
+    <li onclick="reveal(this,'d1')">A. 说真话：「有前途，而且比你们想的大一万倍。」暴露先知身份的风险。</li>
+    <li onclick="reveal(this,'d1')">B. 装不知道：「不太了解，你给我讲讲？」安全但错过引导机会。</li>
+    <li class="chosen" onclick="reveal(this,'d1')">C. 含糊暗示：「感觉挺有意思的，值得关注。」不暴露，但埋下种子。</li>
+  </ul>
+  <div class="d-reveal">💭 朱江选择了含糊暗示。他天性谨慎——信息不对称时不轻易暴露底牌。但那个微微上扬的嘴角，出卖了他。</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p09.jpg" loading="lazy" alt="P9"></div>
+<div class="panel-text fade-in"><span class="speaker">朱江：</span>"嗯……挺有意思的，值得关注。"<div class="thought">忍住。忍住。不能说Transformer。不能说GPT。不能——</div><div class="funny">差点脱口而出"大模型"三个字。2015年，这仨字说出来约等于"大模型飞机"。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p10.jpg" loading="lazy" alt="P10"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·朱江举杯】复杂的表情——半是紧张半是兴奋。举起啤酒杯的手在微微颤抖。所有人碰杯。没人知道，这杯酒对他意味着一个全新的人生。</span></div>
+
+<div class="section-spacer"></div>
+
+<!-- ===== 第二幕：试探 ===== -->
+<div class="act-divider fade-in">
+  <h2>第二幕</h2>
+  <div class="act-sub">试探</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p11.jpg" loading="lazy" alt="P11"></div>
+<div class="panel-text fade-in"><span class="narration">【远景·夜·上海街头】朱江一个人站在餐厅外的路灯下。2015年的上海——霓虹灯少了一半，共享单车还没出生，空气里有一种质朴的味道。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p12.jpg" loading="lazy" alt="P12"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·手机屏幕】百度搜索："深度学习 人工智能 2015"。搜索结果全是恐慌文——「人工智能将取代90%的工作！」</span><div class="funny">朱江看着这网速，认真地怀疑自己是不是断网了。3G……他已经忘了3G是什么感觉了。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p13.jpg" loading="lazy" alt="P13"></div>
+<div class="panel-text fade-in"><span class="narration">【远景·校园】月光下的交大校园。树影婆娑，远处传来模糊的吉他声。朱江一个人走在林荫道上。</span><div class="thought">十一年。我有十一年的时间。如果这不是梦的话。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p14.jpg" loading="lazy" alt="P14"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·眼睛】朱江的大眼睛映着路灯的光。瞳孔深处，是某种近乎疯狂的光芒。</span><div class="thought">这一次，我不会再犯同样的错。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p15.jpg" loading="lazy" alt="P15"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·咖啡馆·日】第二天。朱江约了老陈喝咖啡。一间简朴的2015年style咖啡馆，木桌上两杯美式。阳光从落地窗照进来。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p16.jpg" loading="lazy" alt="P16"></div>
+<div class="panel-text fade-in"><span class="speaker">老陈：</span>"我跟你说，我准备辞职了！拉几个人搞个O2O生活服务平台。百度在做、阿里在做，我们也能做——"<div class="thought">（朱江内心：O2O……2016年就全死了……）</div></div>
+<div class="panel-spacer"></div>
+
+<!-- DECISION 2 -->
+<div class="decision fade-in" id="d2">
+  <div class="d-header"><span class="d-icon">⚡</span><span class="d-title">决策点 #2</span></div>
+  <div class="d-situation">朱江知道老陈三年后创业失败，家庭破裂。此刻老陈兴致勃勃——要不要提前警告？</div>
+  <ul class="d-options">
+    <li onclick="reveal(this,'d2')">A. 霹雳手段：直接说"别做O2O，这个方向明年就死"。可能救他一次，也可能友尽。</li>
+    <li class="chosen" onclick="reveal(this,'d2')">B. 菩萨心肠：旁敲侧击引导，不直接否定。"O2O竞争太激烈了，你有没有想过其他方向？"</li>
+    <li onclick="reveal(this,'d2')">C. 不干预：蝴蝶效应太可怕，管好自己就行。</li>
+  </ul>
+  <div class="d-reveal">💭 朱江选了旁敲侧击。他想帮老陈，但不愿意直接命令别人的人生——菩萨心肠，不是上帝视角。</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p17.jpg" loading="lazy" alt="P17"></div>
+<div class="panel-text fade-in"><span class="speaker">朱江：</span>"老陈，O2O竞争太激烈了。你算法这么强，有没有想过……做点跟数据、跟模型相关的？"<span class="narration">一只大手搭上老陈的肩膀。眼里是真诚的关切。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p18.jpg" loading="lazy" alt="P18"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·餐厅入口】一个利落的女人出现了。Lisa，28岁，投资人，手里拿着一个皮质文件夹。锐利的眼神扫过整个房间。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p19.jpg" loading="lazy" alt="P19"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·吧台】酒吧。Lisa聊起自己手里的2000万基金，正在看AI方向。朱江听着，嘴角浮起一个"我知道结局"的微笑。</span><span class="speaker">Lisa：</span>"说实话，2015年做AI投资，大家都觉得我疯了。"</div>
+<div class="panel-spacer"></div>
+
+<!-- DECISION 3 -->
+<div class="decision fade-in" id="d3">
+  <div class="d-header"><span class="d-icon">⚡</span><span class="d-title">决策点 #3</span></div>
+  <div class="d-situation">Lisa手里有钱，朱江有未来的认知。主动搭讪争取融资，还是先做出产品再说？</div>
+  <ul class="d-options">
+    <li onclick="reveal(this,'d3')">A. 效率优先：直接pitch，用未来认知说服她投资。来钱最快。</li>
+    <li class="chosen" onclick="reveal(this,'d3')">B. 实力说话：先做出东西，用产品说话。不想空口忽悠。</li>
+    <li onclick="reveal(this,'d3')">C. 两手都要：先聊着保持联系，同时做产品。</li>
+  </ul>
+  <div class="d-reveal">💭 朱江选了先做产品。真诚是他的底线——拿着"未来记忆"去忽悠投资人，赢了也心虚。</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p20.jpg" loading="lazy" alt="P20"></div>
+<div class="panel-text fade-in"><span class="speaker">朱江：</span>"你没疯。AI这个方向——"<span class="narration">手举到一半，嘴巴张开——</span><div class="funny">差点说出"GPT-4会改变世界"。硬生生改口：</div><span class="speaker">朱江：</span>"那个……通用的……那个东西……以后会很厉害的。"<span class="narration">Lisa一脸问号。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p21.jpg" loading="lazy" alt="P21"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·餐巾纸】朱江手不自觉地在餐巾纸上画了个框架图。方块、箭头、层级结构——看起来像2026年的某种架构图。</span><div class="thought">等等……这不就是Transformer吗？我在干什么？！</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p22.jpg" loading="lazy" alt="P22"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·朱江】慌忙把餐巾纸揉成一团塞进口袋。四处张望，表情像做了什么亏心事。</span><div class="funny">Lisa目睹了全程，表情从好奇变成了"这人是不是有病"。</div></div>
+
+<div class="section-spacer"></div>
+
+<!-- ===== 第三幕：抉择 ===== -->
+<div class="act-divider fade-in">
+  <h2>第三幕</h2>
+  <div class="act-sub">抉择</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p23.jpg" loading="lazy" alt="P23"></div>
+<div class="panel-text fade-in"><span class="narration">【远景·天台·日出】上海浦东天际线。2015年的陆家嘴——比记忆中少了好几栋楼。朱江站在天台栏杆边，晨光打在脸上。</span><div class="thought">短视频2016年爆发。AI 2023年爆发。中间有七年的空窗期。我该先做哪个？</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p24.jpg" loading="lazy" alt="P24"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·小办公室】租了一间交大附近的小办公室。两张桌子、一块白板、一台空调——全部家当。朱江站在白板前，手里攥着记号笔。</span></div>
+<div class="panel-spacer"></div>
+
+<!-- DECISION 4 -->
+<div class="decision fade-in" id="d4">
+  <div class="d-header"><span class="d-icon">⚡</span><span class="d-title">决策点 #4</span></div>
+  <div class="d-situation">创业方向的终极选择。短视频确定性高来钱快，AI是终局但还要等八年。</div>
+  <ul class="d-options">
+    <li onclick="reveal(this,'d4')">A. 直接做AI：八年磨一剑。可能饿死在黎明前。</li>
+    <li onclick="reveal(this,'d4')">B. 先做短视频：确定性高，2016年风口就来。但可能沉迷赚钱忘了初心。</li>
+    <li class="chosen" onclick="reveal(this,'d4')">C. 先短视频积累再转AI：务实路线。先活下来，再追梦。</li>
+  </ul>
+  <div class="d-reveal">💭 朱江选了稳健路线。他是务实的创业者——有钱才能追梦。但最终目标，永远是AI。</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p25.jpg" loading="lazy" alt="P25"></div>
+<div class="panel-text fade-in"><span class="narration">【近景·白板】朱江在白板上画路线图。第一阶段→第二阶段→第三阶段，箭头越画越多，越画越像2026年投资人PPT。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p26.jpg" loading="lazy" alt="P26"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·门口】小马出现了。瘦瘦的年轻人，穿着印花T恤牛仔裤，背着一个双肩包。站在门口看白板，下巴都快掉了。</span><span class="speaker">小马：</span>"朱哥……你这是商业计划还是科幻小说？"<div class="funny">朱江低头看了看自己画的东西——确实有点超前了，大概超前了十年。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p27.jpg" loading="lazy" alt="P27"></div>
+<div class="panel-text fade-in"><span class="narration">【过肩镜头·从小马角度看白板】白板上密密麻麻的框架、箭头、标注。一个2015年不可能存在的技术路线图。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p28.jpg" loading="lazy" alt="P28"></div>
+<div class="panel-text fade-in"><span class="narration">【双人中景】小马双手做"停"的手势，笑得前仰后合。朱江尴尬地挠头——画太多了。</span><span class="speaker">小马：</span>"行行行，我听不懂但我大受震撼。你是不是偷偷去了一趟未来？"<div class="thought">（朱江：谢谢你说对了。）</div></div>
+<div class="panel-spacer"></div>
+
+<!-- DECISION 5 -->
+<div class="decision fade-in" id="d5">
+  <div class="d-header"><span class="d-icon">⚡</span><span class="d-title">决策点 #5</span></div>
+  <div class="d-situation">小马想入伙。但朱江记得——上一世他们因为方向分歧分道扬镳，伤了感情。接受还是拒绝？</div>
+  <ul class="d-options">
+    <li class="chosen" onclick="reveal(this,'d5')">A. 给第二次机会：人可以改变，我也变了。这次不一样。</li>
+    <li onclick="reveal(this,'d5')">B. 委婉拒绝：上一世的伤疤还在。不想再经历一次。</li>
+  </ul>
+  <div class="d-reveal">💭 朱江选了接受。永不放弃——不只是对自己，也是对身边的人。每个人都值得第二次机会。</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p29.jpg" loading="lazy" alt="P29"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·握手】朱江的大手握住小马的手。两人都在笑。阳光从窗户打进来，照在他们中间。</span><span class="speaker">朱江：</span>"干就完了。"</div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p30.jpg" loading="lazy" alt="P30"></div>
+<div class="panel-text fade-in"><span class="narration">【俯拍·夜】朱江一个人在办公室加班。桌上摊满了纸，笔记本电脑的光映在脸上。窗外城市灯火通明。</span><div class="thought">上一世走过的弯路，这一世一条都不能走。但新的路上会有什么？蝴蝶效应……</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p31.jpg" loading="lazy" alt="P31"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·手机屏幕】比特币交易页面。2015年的交易所界面——简陋得不像真的。价格：1600元/枚。</span><div class="funny">朱江盯着这个UI看了三十秒，认真地怀疑这是钓鱼网站。2015年的交易所UI……说好听点叫复古，说难听点叫"我为什么要把钱放进这种网页"。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p32.jpg" loading="lazy" alt="P32"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·侧脸·明暗分割】朱江脸部半明半暗。光与影的分界线穿过鼻梁——像他此刻的内心。</span><div class="thought">一个比特币1600块。2021年最高4万美金。买一百个，三年后就是财务自由。但这不是作弊吗？</div></div>
+<div class="panel-spacer"></div>
+
+<!-- DECISION 6 -->
+<div class="decision fade-in" id="d6">
+  <div class="d-header"><span class="d-icon">⚡</span><span class="d-title">决策点 #6</span></div>
+  <div class="d-situation">融资泡汤，启动资金告急。比特币1600一个，朱江知道它会涨到4万美金。用先知能力赚快钱？</div>
+  <ul class="d-options">
+    <li onclick="reveal(this,'d6')">A. 买！这不是作弊，这是合理利用信息优势。先活下来最重要。</li>
+    <li class="chosen" onclick="reveal(this,'d6')">B. 不买。靠未来记忆赚金融钱=走捷径。要用正当方式赢。</li>
+  </ul>
+  <div class="d-reveal">💭 朱江选了不买。底线感极强——菩萨心肠不只是对别人慈悲，也是不允许自己走歪路。哪怕是合法的捷径，他也过不了自己这关。</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p33.jpg" loading="lazy" alt="P33"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·动作】朱江把手机"啪"地扣在桌上。咬紧牙关。指关节发白。</span><span class="speaker">朱江（对自己）：</span>"不走捷径。不走捷径。"<div class="thought">上一世靠实力走到了千万美金收入。这一世也可以。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p34.jpg" loading="lazy" alt="P34"></div>
+<div class="panel-text fade-in"><span class="narration">【远景·剪影】朱江站在窗前，双手插兜，望着窗外。手机被留在身后的桌上，屏幕的光慢慢熄灭。一个选择结束了。</span></div>
+
+<div class="section-spacer"></div>
+
+<!-- ===== 第四幕：危机 ===== -->
+<div class="act-divider fade-in">
+  <h2>第四幕</h2>
+  <div class="act-sub">蝴蝶效应</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p35.jpg" loading="lazy" alt="P35"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·会议室】Lisa坐在对面，表情严肃。她把一份文件推过来。</span><span class="speaker">Lisa：</span>"对不起朱江。合伙人突然要撤资，基金可能要解散。这种事——历史上从没发生过。"<div class="thought">（朱江：历史上确实没有。因为历史上我没有出现在那个饭局上。蝴蝶效应……来了。）</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p36.jpg" loading="lazy" alt="P36"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·文件】Lisa公司的正式函件。浅景深，朱江的手搭在文件旁，微微发颤。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p37.jpg" loading="lazy" alt="P37"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·街头·雨】朱江走在上海街头。没带伞，雨浇在他身上。衬衫湿透了贴在壮实的上半身。他仰头看天——不是绝望，是在思考。</span><div class="thought">上一世我没有提前改变任何事。所以一切按剧本走。这一世我动了太多变量……未来已经不一样了。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p38.jpg" loading="lazy" alt="P38"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·酒吧】昏暗的酒吧。朱江和老陈并排坐着。老陈面前的酒一口没动，眼神空洞——那个慷慨激昂聊深度学习的人不见了。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p39.jpg" loading="lazy" alt="P39"></div>
+<div class="panel-text fade-in"><span class="speaker">老陈：</span>"你说的对，O2O确实竞争太激烈。我没去做。但是……我现在不知道该做什么了。在公司待着没劲，出来又不知道干嘛。"<span class="narration">眼镜歪了一点，他没去扶。</span></div>
+<div class="panel-spacer"></div>
+
+<!-- DECISION 7 -->
+<div class="decision fade-in" id="d7">
+  <div class="d-header"><span class="d-icon">⚡</span><span class="d-title">决策点 #7</span></div>
+  <div class="d-situation">朱江的"好意"让老陈没去创业，但也失去了人生方向。一片好心办了坏事——怎么补救？</div>
+  <ul class="d-options">
+    <li onclick="reveal(this,'d7')">A. 给他介绍工作：帮他找个好公司安顿下来。稳妥但不热血。</li>
+    <li onclick="reveal(this,'d7')">B. 鼓励他自己找方向：每个人要走自己的路。</li>
+    <li class="chosen" onclick="reveal(this,'d7')">C. 带他入伙："来，跟我干。"用行动拉人，不说空话。</li>
+  </ul>
+  <div class="d-reveal">💭 朱江选了带他入伙。用行动帮人，不说空话——保护者本能。而且，他需要一个强算法搭档。一箭双雕，但出发点是真心。</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p40.jpg" loading="lazy" alt="P40"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·动作】朱江突然双手抓住老陈的肩膀，把他转过来面对面。大眼睛直直地盯着老陈。</span><span class="speaker">朱江：</span>"老陈。跟我干。"<span class="narration">三个字，没有修饰，没有PPT，没有商业计划书。就三个字。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p41.jpg" loading="lazy" alt="P41"></div>
+<div class="panel-text fade-in"><span class="narration">【远景·雨中街道】两个人共撑一把伞走在上海夜晚的街道上。霓虹灯在积水中倒映成彩色的河流。没有对话，但一切已经说完了。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p42.jpg" loading="lazy" alt="P42"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·办公室·晨】第二天清晨。朱江坐在办公桌前，黑眼圈很重但眼里有光。日出的光从窗户照进来，打在他摊开的笔记上。</span><div class="thought">融资没了。没关系。重生不是让我"抄作业"的——是让我"重新考试"。答案已经变了。</div></div>
+
+<div class="section-spacer"></div>
+
+<!-- ===== 第五幕：破局 ===== -->
+<div class="act-divider fade-in">
+  <h2>第五幕</h2>
+  <div class="act-sub">重新出发</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p43.jpg" loading="lazy" alt="P43"></div>
+<div class="panel-text fade-in"><span class="narration">【全景·办公室】三个人站在白板前。朱江壮实如山站在中间，老陈瘦高在左推着眼镜，小马年轻灵活在右。白板上是一个全新的、更简洁的计划。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p44.jpg" loading="lazy" alt="P44"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·手部】朱江粗壮的手握着红色记号笔在白板上写。袖子卷到小臂，露出结实的肌肉。这一次，他写得克制——只画了2015年能做的事。</span><div class="thought">不再画十年后的蓝图了。一步一步来。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p45.jpg" loading="lazy" alt="P45"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·欢乐】三个人围着小桌子，打开外卖盒。朱江往嘴里塞了一大口红烧肉，老陈在吐槽代码，小马在笑。笔记本电脑和外卖盒混在一起——创业最初的样子。</span><div class="funny">朱江看了眼外卖单价：一份红烧肉饭15块。2026年这个价格只够买半碗……他默默又加了一份。</div></div>
+<div class="panel-spacer"></div>
+
+<!-- DECISION 8 -->
+<div class="decision fade-in" id="d8">
+  <div class="d-header"><span class="d-icon">⚡</span><span class="d-title">决策点 #8</span></div>
+  <div class="d-situation">团队三人，一笔小天使轮在路上。最终创业方向是什么？</div>
+  <ul class="d-options">
+    <li onclick="reveal(this,'d8')">A. 纯娱乐内容平台：做短视频内容，来钱快。</li>
+    <li onclick="reveal(this,'d8')">B. 纯AI工具：做AI基础设施，技术导向。</li>
+    <li class="chosen" onclick="reveal(this,'d8')">C. AI×娱乐融合：用AI做内容。正是2026年朱江一直在做的事——提前11年开始。</li>
+  </ul>
+  <div class="d-reveal">💭 朱江选了AI×娱乐融合。这不是最"聪明"的选择，却是最"朱江"的选择。因为他的使命从来没变过——构建人与AI和谐共生的新文明。只不过这一次，他提前了十一年出发。</div>
+</div>
+
+<div class="panel fade-in"><img src="img/p46.jpg" loading="lazy" alt="P46"></div>
+<div class="panel-text fade-in"><span class="narration">【中景·窗前】朱江站在办公室窗前，目光越过眼前的小巷，望向远处交大校园的轮廓。金色的夕阳给一切镀上了暖色。</span><div class="thought">上一世，我43岁才找到这条路。这一世，32岁就开始。多出来的十一年……够了。</div></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p47.jpg" loading="lazy" alt="P47"></div>
+<div class="panel-text fade-in"><span class="narration">【远景·街道·晨】朱江走在上海清晨的街道上。壮实的身影混在上班族人流里，但步伐比任何人都坚定。城市在他身后铺展开来。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel fade-in"><img src="img/p48.jpg" loading="lazy" alt="P48"></div>
+<div class="panel-text fade-in"><span class="narration">【特写·手机屏幕闪烁】朱江坐在办公桌前，手机突然亮了。一条新闻推送。他的表情从平静瞬间变成——瞳孔放大，嘴微张。</span><div class="thought">不对……这条新闻——上一世根本没有发生过。</div><div class="thought">蝴蝶效应……比我想象的更深远。</div></div>
+
+<div class="section-spacer"></div>
+
+<!-- ===== 尾声 ===== -->
+<div class="end-card fade-in">
+  <h2>第一章 · 完</h2>
+  <p>三个人，一间小办公室，一个不属于这个时代的计划。</p>
+  <p>重启，不是抄答案——是重新考试。</p>
+  <div class="cliff">⚡ 那条不该存在的新闻，揭开了一个比重生更大的秘密……</div>
+  <p style="margin-top:30px;color:#445;font-size:0.85em">《重启·2015》第二章 · 敬请期待</p>
+</div>
+
+<script>
+function reveal(el,id){
+  document.getElementById(id).classList.add('revealed');
+}
+// Intersection Observer for fade-in
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:0.15});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
