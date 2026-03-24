@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>直播之王系统 · 第一章：从0粉丝到被全网追杀</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#0a0a12 0%,#0d1a2a 50%,#0a0a12 100%);padding:20px;text-align:center;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(0,255,200,0.15),transparent 70%);top:20%;left:50%;transform:translateX(-50%);border-radius:50%;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.3;transform:translateX(-50%) scale(1)}50%{opacity:0.8;transform:translateX(-50%) scale(1.3)}}
+.cover h1{font-size:28px;font-weight:900;background:linear-gradient(135deg,#00ffc8,#00a8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;position:relative;z-index:1}
+.cover .subtitle{font-size:18px;color:#8899aa;margin-bottom:24px;position:relative;z-index:1}
+.cover .tag{display:inline-block;background:rgba(0,255,200,0.1);border:1px solid rgba(0,255,200,0.3);color:#00ffc8;padding:4px 14px;border-radius:20px;font-size:13px;margin:4px}
+.panel{width:100%;max-width:420px;margin:0 auto;padding:0 12px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-img{width:100%;border-radius:8px;margin-bottom:0;display:block;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.panel-text{padding:16px 4px 32px;font-size:17px;line-height:1.8;color:#ccd6e0}
+.panel-text .scene-tag{display:inline-block;background:rgba(0,255,200,0.08);border:1px solid rgba(0,255,200,0.2);color:#00ffc8;font-size:11px;padding:2px 8px;border-radius:4px;margin-bottom:8px}
+.panel-text .dialogue{color:#fff;font-weight:600;margin:8px 0}
+.panel-text .dialogue::before{content:'「';color:#00ffc8}
+.panel-text .dialogue::after{content:'」';color:#00ffc8}
+.panel-text .system{background:rgba(0,200,255,0.06);border-left:3px solid #00c8ff;padding:8px 12px;margin:8px 0;border-radius:0 6px 6px 0;font-size:15px;color:#7fdbff}
+.panel-text .inner{color:#99aabb;font-style:italic;font-size:15px}
+.panel-text .narrator{color:#8899aa;font-size:15px}
+.divider{text-align:center;padding:24px 0;color:#334455;font-size:20px;letter-spacing:8px}
+.chapter-end{text-align:center;padding:48px 20px;background:linear-gradient(180deg,transparent,rgba(0,255,200,0.03),transparent)}
+.chapter-end h2{font-size:22px;color:#00ffc8;margin-bottom:12px}
+.chapter-end p{color:#667788;font-size:15px}
+.stats-bar{display:flex;justify-content:center;gap:16px;padding:16px;flex-wrap:wrap}
+.stat{background:rgba(0,255,200,0.05);border:1px solid rgba(0,255,200,0.15);border-radius:8px;padding:8px 16px;text-align:center}
+.stat .label{font-size:11px;color:#669988;text-transform:uppercase;letter-spacing:1px}
+.stat .value{font-size:20px;font-weight:700;color:#00ffc8}
+</style>
+</head>
+<body>
+
+<!-- Cover -->
+<div class="cover">
+<h1>直播之王系统</h1>
+<div class="subtitle">第一章：从0粉丝到被全网追杀</div>
+<div>
+<span class="tag">系统文</span>
+<span class="tag">直播逆袭</span>
+<span class="tag">都市</span>
+</div>
+<div class="stats-bar" style="margin-top:24px">
+<div class="stat"><div class="label">主角</div><div class="value">陈小北</div></div>
+<div class="stat"><div class="label">等级</div><div class="value">素人 Lv.0</div></div>
+<div class="stat"><div class="label">粉丝</div><div class="value">0</div></div>
+<div class="stat"><div class="label">余额</div><div class="value">¥83.5</div></div>
+</div>
+</div>
+
+<!-- Panel 1 -->
+<div class="panel">
+<img src="exp-504-images/panel-01.jpg" alt="陈小北独坐出租屋" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">场景：出租屋 / 夜晚 / 特写</span>
+<p class="narrator">凌晨两点，三线城市城中村的一间出租屋。</p>
+<p>陈小北坐在廉价塑料椅上，手机屏幕的冷光打在他的脸上。电商店铺因为刷单被平台封了。12万货款，冻结。</p>
+</div>
+</div>
+
+<!-- Panel 2 -->
+<div class="panel">
+<img src="exp-504-images/panel-02.jpg" alt="手机余额83.5元" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：极端特写 / 手机屏幕</span>
+<p>账户余额：<strong style="color:#ff4444;font-size:22px">83.5元</strong>。</p>
+<p class="inner">这够干什么？半个月的泡面钱。</p>
+</div>
+</div>
+
+<!-- Panel 3 -->
+<div class="panel">
+<img src="exp-504-images/panel-03.jpg" alt="陈小北看分手短信" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：中景 / 出租屋 / 昏暗灯光</span>
+<p>手机震动。女朋友的消息——</p>
+<p class="dialogue">你连自己都养不活。</p>
+<p class="narrator">简短，干脆，没有一句废话。就像法院判决书。</p>
+</div>
+</div>
+
+<!-- Panel 4 -->
+<div class="panel">
+<img src="exp-504-images/panel-04.jpg" alt="系统激活通知" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 手机屏幕 / 科幻</span>
+<div class="system">📢 恭喜！直播之王系统已激活。<br>您的起始等级：<strong>素人</strong>（粉丝：0）<br>系统AI助手"流量"已上线。</div>
+<p class="inner">……我手机中毒了？</p>
+</div>
+</div>
+
+<!-- Panel 5 -->
+<div class="panel">
+<img src="exp-504-images/panel-05.jpg" alt="全景-流量出现" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：俯拍全景 / 出租屋 / 科幻光效</span>
+<p>一个半透明的、发着青蓝色光的▶️形小三角，凭空出现在眼前。</p>
+<p class="narrator">它在空中浮着，像个骄傲的播放按钮。</p>
+</div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 6 -->
+<div class="panel">
+<img src="exp-504-images/panel-06.jpg" alt="陈小北惊恐" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：中近景 / 出租屋 / 全息光</span>
+<p>陈小北往后一仰，差点从椅子上摔下去。</p>
+<p class="dialogue">你、你什么东西？！</p>
+</div>
+</div>
+
+<!-- Panel 7 -->
+<div class="panel">
+<img src="exp-504-images/panel-07.jpg" alt="流量毒舌" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：过肩镜头 / 陈小北看流量</span>
+<p>"流量"上下打量了他一圈，语气充满了嫌弃——</p>
+<p class="dialogue">就这？你确定你不是系统随机分配的测试用户？</p>
+<p>陈小北："……"</p>
+<p class="dialogue">我这颜值能直播吗？</p>
+<p class="dialogue">颜值？你以为直播拼的是颜值？丑人才有辨识度。恭喜你，你赢在了起跑线。</p>
+</div>
+</div>
+
+<!-- Panel 8 -->
+<div class="panel">
+<img src="exp-504-images/panel-08.jpg" alt="陈小北苦笑" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：极端特写 / 面部 / 半明半暗</span>
+<p>陈小北嘴角抽搐了一下。被一个三角形吐槽长相，这种体验他以前还真没有过。</p>
+<p class="inner">行吧，反正也不能更惨了。</p>
+</div>
+</div>
+
+<!-- Panel 9 -->
+<div class="panel">
+<img src="exp-504-images/panel-09.jpg" alt="镜前练习" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：全身 / 浴室 / 镜像构图</span>
+<p>"流量"教他第一个技能——<strong style="color:#00ffc8">镜头感 Lv.1</strong>。</p>
+<p class="narrator">简单来说，就是能本能地感知摄像头的最佳角度。像是在你脸上装了个隐形罗盘，永远指向"好看那边"。</p>
+<p class="dialogue">虽然你那张脸怎么转都差不多，但好歹有个进步方向。</p>
+</div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 10 -->
+<div class="panel">
+<img src="exp-504-images/panel-10.jpg" alt="倒计时任务" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 全息界面 / 红色警告</span>
+<div class="system">🎯 新手任务<br>在24小时内获得100个真实粉丝<br>⏰ 倒计时：24:00:00<br>✅ 奖励：口才Lv.1 + 500流量点<br>❌ 失败：热度值-50，限流3天</div>
+<p class="dialogue">我连开播都不敢，你让我24小时100粉？</p>
+<p class="dialogue">别废话。你现在是0粉。0到100比你想的容易。从100到1000才是地狱。</p>
+</div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel">
+<img src="exp-504-images/panel-11.jpg" alt="紧张准备开播" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：中景 / 出租屋 / 暖色灯光</span>
+<p>陈小北用几本书摞了个"手机支架"，把唯一一盏台灯掰成补光灯的角度，对着镜头深呼吸了三次。</p>
+<p class="inner">就当……就当在跟空气说话。</p>
+</div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel">
+<img src="exp-504-images/panel-12.jpg" alt="尴尬的第一镜" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：手机镜头POV / 自拍视角</span>
+<p>画面里的陈小北试图微笑，但那表情——</p>
+<p class="narrator">像是便秘第三天终于进了厕所的人。</p>
+<p class="dialogue">大、大家好……我是……呃……</p>
+</div>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel">
+<img src="exp-504-images/panel-13.jpg" alt="在线人数1" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：分屏 / 直播界面 / 数据</span>
+<p>在线人数：<strong style="color:#ff4444;font-size:24px">1</strong></p>
+<p class="narrator">那是他自己的小号。</p>
+<p class="dialogue">说话！你是直播不是默剧！</p>
+<p class="dialogue">我、我说什么？</p>
+<p class="dialogue">说你为什么穷！穷人的故事最吸引穷人！</p>
+</div>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel">
+<img src="exp-504-images/panel-14.jpg" alt="陈小北开始吐槽" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：侧面中景 / 动态 / 暖+冷光</span>
+<p>陈小北被激怒了。</p>
+<p>他不再紧张，开始疯狂吐槽自己的创业失败——进了一万双"智能加热拖鞋"，结果三月份气温突然飙到30度，一双没卖出去。为了清库存去刷单，被平台抓了个正着。</p>
+<p class="narrator">他说得太真实、太狠毒了。就像一个人站在楼顶往下看，反而获得了一种疯狂的自由。</p>
+</div>
+</div>
+
+<!-- Panel 15 -->
+<div class="panel">
+<img src="exp-504-images/panel-15.jpg" alt="在线人数暴涨" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 手机屏幕 / 数据跳动</span>
+<p>弹幕突然开始刷屏——</p>
+<p style="color:#ffcc00;font-size:15px">「哈哈哈哈哈哈」「智能加热拖鞋是什么鬼」「这哥们是真惨还是在演的」「笑死我了关注了」</p>
+<p>在线人数：1 → 50 → <strong style="color:#00ffc8;font-size:22px">200</strong></p>
+</div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 16 -->
+<div class="panel">
+<img src="exp-504-images/panel-16.jpg" alt="评论区热闹" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：全景 / 出租屋 / 全息弹幕</span>
+<p>他的"智能加热拖鞋"段子被人录屏发到了群里。人越来越多。但画风开始不对——</p>
+<p style="color:#ff6666;font-size:15px">「可怜」「这种人也配直播？」「电商都做不好还想当主播？」「下播吧兄弟别丢人了」</p>
+</div>
+</div>
+
+<!-- Panel 17 -->
+<div class="panel">
+<img src="exp-504-images/panel-17.jpg" alt="陈小北看到恶评" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：极端特写 / 眼睛 / 屏幕反光</span>
+<p>那些字像针一样扎进来。</p>
+<p class="inner">他们说得……也没错。电商做不好的人，凭什么做直播？</p>
+<p>"流量"的声音冷不丁冒出来——</p>
+<p class="dialogue">检测到负面流量。是否激活"控场Lv.1"预览？</p>
+</div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel">
+<img src="exp-504-images/panel-18.jpg" alt="情绪分析系统" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：中景 / AR可视化 / 多色光</span>
+<p>他眼前的弹幕突然变了。每一条弹幕都带上了颜色——</p>
+<div class="system">🔴 红色 = 愤怒/恶意<br>🔵 蓝色 = 无聊/路过<br>🟢 绿色 = 好奇/潜在粉丝</div>
+<p class="narrator">原来骂他最狠的那几个，全是红色。而默默看着没说话的大多数，是绿色。</p>
+<p class="dialogue">让那些喷你的人，变成你的粉丝。</p>
+</div>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel">
+<img src="exp-504-images/panel-19.jpg" alt="自信反击" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：近景 / 动态 / 自信姿态</span>
+<p>陈小北对着镜头，嘴角微微上扬。</p>
+<p class="dialogue">说我可怜的那位——你凌晨三点看我直播，你是不是也睡不着？</p>
+<p class="narrator">弹幕安静了一秒。</p>
+</div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel">
+<img src="exp-504-images/panel-20.jpg" alt="精准回击" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：手机镜头POV / 直视观众</span>
+<p class="dialogue">说我不配的那位——你头像是保时捷，备注是"月薪8000"。你我……半斤八两啊兄弟。</p>
+<p style="color:#ffcc00;font-size:15px">「哈哈哈哈开大了」「保时捷那个人呢？跑了吧」「这哥们有点东西啊」「关注了关注了！」</p>
+</div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel">
+<img src="exp-504-images/panel-21.jpg" alt="风向逆转" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：俯拍全景 / 绿色弹幕 / 氛围转暖</span>
+<p>评论区风向逆转。红色弹幕一条条变绿。</p>
+<p>在线人数：<strong style="color:#00ffc8">80+</strong></p>
+<p class="narrator">原来把黑粉变成粉丝的诀窍不是证明他错了——而是证明你们是一样的。</p>
+</div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 22 -->
+<div class="panel">
+<img src="exp-504-images/panel-22.jpg" alt="MCN办公室" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">场景切换：MCN公司 / 高端办公室 / 冷色调</span>
+<p class="narrator">与此同时。某MCN公司，34楼，全玻璃幕墙。</p>
+<p>一个穿定制西装的星探，在数据监控屏上注意到了一个异常——一个0粉素人，在线人数30分钟内从1冲到了200。</p>
+</div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel">
+<img src="exp-504-images/panel-23.jpg" alt="MCN私信" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 手机 / 私信界面</span>
+<p>陈小北下播后看到一条私信——</p>
+<p style="background:rgba(255,255,255,0.05);padding:12px;border-radius:8px;margin:8px 0">
+「你好，我是星辰MCN的签约经理。你今晚的表现很有潜力。我们愿意提供签约合作：<strong>保底月薪2万</strong>，公司提供流量扶持、选题策划、设备场地。」
+</p>
+<p class="inner">两万块……那能还好几个月的债……</p>
+</div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel">
+<img src="exp-504-images/panel-24.jpg" alt="流量警告" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：中景 / 出租屋 / 红色全息警告</span>
+<p>"流量"投射出合同条款——</p>
+<div class="system" style="border-color:#ff4444;color:#ff8888">⚠️ 警告：陷阱合同<br>• 收入分成：70%归MCN<br>• 独家绑定：3年<br>• 违约金：50万<br>• 你 = 给别人打工的工具人</div>
+<p class="dialogue">签了你就是给别人打工的工具人。拒绝他。</p>
+<p class="dialogue">可是两万块钱……</p>
+<p class="dialogue">你现在欠12万。2万能还几个月？但如果你自己做到十万粉，你值200万。</p>
+</div>
+</div>
+
+<!-- Panel 25 -->
+<div class="panel">
+<img src="exp-504-images/panel-25.jpg" alt="流量认真时刻" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 流量 / 罕见严肃</span>
+<p class="narrator">"流量"第一次没有阴阳怪气。小三角的光变得沉稳而坚定。</p>
+<p class="dialogue">我说认真的。签约是最安全的路，但安全的路不会让你到达你想去的地方。</p>
+</div>
+</div>
+
+<!-- Panel 26 -->
+<div class="panel">
+<img src="exp-504-images/panel-26.jpg" alt="清晨决定" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 晨光 / 转折</span>
+<p>陈小北想了一整晚。窗外天亮了。</p>
+<p class="narrator">清晨的光照在他脸上，那件灰卫衣在这一刻看起来像是战甲。</p>
+</div>
+</div>
+
+<!-- Panel 27 -->
+<div class="panel">
+<img src="exp-504-images/panel-27.jpg" alt="发送拒绝" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 手指打字 / 晨光</span>
+<p>他打了两个字，发送——</p>
+<p style="background:rgba(0,255,200,0.08);padding:12px;border-radius:8px;margin:8px 0;text-align:right;font-weight:700;color:#00ffc8">
+不好意思，我自己来。
+</p>
+</div>
+</div>
+
+<!-- Panel 28 -->
+<div class="panel">
+<img src="exp-504-images/panel-28.jpg" alt="MCN冷笑" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：中景 / MCN办公室 / 冷光</span>
+<p>MCN星探看到回复，冷笑一声。</p>
+<p class="dialogue">你会后悔的。这个行业，没有公司扶持的素人，平均寿命不到3个月。</p>
+<p>陈小北的回复很快——</p>
+<p class="dialogue">那我就做不平均的那一个。</p>
+</div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 29 -->
+<div class="panel">
+<img src="exp-504-images/panel-29.jpg" alt="紧急开播" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：分屏 / 倒计时+紧急 / 红色警告</span>
+<p>倒计时最后一小时。粉丝卡在——</p>
+<p style="text-align:center;font-size:28px;font-weight:900;color:#ff4444">97</p>
+<p>系统倒计时在眼角闪烁红光。陈小北手忙脚乱地架起手机，紧急开播。</p>
+</div>
+</div>
+
+<!-- Panel 30 -->
+<div class="panel">
+<img src="exp-504-images/panel-30.jpg" alt="真情流露" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：近景 / 情感特写 / 真实</span>
+<p>这一次他没有吐槽，没有段子。</p>
+<p class="dialogue">今天有个MCN公司找我签约，保底月薪2万。我拒绝了。</p>
+<p class="dialogue">你们知道为什么吗？</p>
+<p class="dialogue">因为12万的债不是2万能还的。但我的命，不值70%的分成。</p>
+<p class="narrator">直播间安静了三秒。然后弹幕爆了——</p>
+</div>
+</div>
+
+<!-- Panel 31 -->
+<div class="panel">
+<img src="exp-504-images/panel-31.jpg" alt="粉丝数跳动" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：极端特写 / 数字 / 高潮</span>
+<p style="text-align:center;font-size:22px;line-height:2.5">
+<span style="color:#aaa">97</span> → <span style="color:#ffaa00">98</span> → <span style="color:#ff8800">99</span> → <span style="color:#00ffc8;font-size:32px;font-weight:900">100!</span>
+</p>
+<p style="color:#ffcc00;font-size:15px">「牛逼！」「拒绝MCN的男人」「关注！关注！」「这种人不火天理难容」</p>
+</div>
+</div>
+
+<!-- Panel 32 -->
+<div class="panel">
+<img src="exp-504-images/panel-32.jpg" alt="升级庆祝" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：全景 / 出租屋 / 金色粒子 / 高潮</span>
+<div class="system" style="border-color:#ffd700;color:#ffd700;background:rgba(255,215,0,0.08)">🎊 任务完成！<br>等级提升：素人 → 小透明<br>解锁技能：口才 Lv.1<br>获得：500 流量点<br>当前粉丝：137</div>
+<p class="narrator">金色的粒子在出租屋里炸开。虽然只是全息投影，但在这间月租600的房间里，它比任何烟花都好看。</p>
+</div>
+</div>
+
+<!-- Panel 33 -->
+<div class="panel">
+<img src="exp-504-images/panel-33.jpg" alt="升级动画" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：全身 / 升级动画 / 史诗感</span>
+<p>陈小北站在出租屋正中间，被金色光芒包裹。</p>
+<p class="inner">137个人。有137个陌生人，愿意在这个深夜里，记住我的名字。</p>
+</div>
+</div>
+
+<!-- Panel 34 -->
+<div class="panel">
+<img src="exp-504-images/panel-34.jpg" alt="流量温暖时刻" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 流量 / 金色暖光</span>
+<p>"流量"飘过来，一反常态地发出温暖的金色光芒。</p>
+<p class="dialogue">不错。你用了23小时47分。还算……没丢人。</p>
+<p class="narrator">它的语气还是那么欠揍，但这一次，陈小北听出了别的东西。</p>
+</div>
+</div>
+
+<!-- Panel 35 -->
+<div class="panel">
+<img src="exp-504-images/panel-35.jpg" alt="安静的胜利" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：中景 / 出租屋 / 暖光 / 平静</span>
+<p>关播以后。出租屋恢复了安静。</p>
+<p>陈小北对着手机上"粉丝：137"的数字，傻笑了整整五分钟。</p>
+</div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 36 -->
+<div class="panel">
+<img src="exp-504-images/panel-36.jpg" alt="新任务弹出" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 新任务界面 / 科幻</span>
+<p>手机震动。系统新任务——</p>
+<div class="system">🎯 进阶任务<br>• 7天内达到 <strong>1000</strong> 粉丝<br>• 必须完成一次直播带货<br>• 退货率 < 10%<br>⏰ 倒计时：7天<br>✅ 奖励：算法直觉Lv.1 + 热点嗅觉Lv.1</div>
+<p class="inner">直播带货？我连卖什么都不知道……</p>
+</div>
+</div>
+
+<!-- Panel 37 -->
+<div class="panel">
+<img src="exp-504-images/panel-37.jpg" alt="MCN威胁" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">场景：MCN星探的豪车 / 夜景 / 城市霓虹</span>
+<p>同一时间，那个MCN星探在豪车里发了一条朋友圈——</p>
+<p style="background:rgba(255,68,68,0.08);padding:12px;border-radius:8px;margin:8px 0;border:1px solid rgba(255,68,68,0.2);color:#ff8888">
+「有些人不知道天高地厚。市场会教他做人。@全体达人」
+</p>
+</div>
+</div>
+
+<!-- Panel 38 -->
+<div class="panel">
+<img src="exp-504-images/panel-38.jpg" alt="陈小北自信微笑" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：特写 / 夜晚 / 自信</span>
+<p>陈小北看着这条朋友圈。</p>
+<p class="narrator">嘴角慢慢上扬。不是苦笑，是那种"你等着看"的笑。</p>
+</div>
+</div>
+
+<!-- Panel 39 -->
+<div class="panel">
+<img src="exp-504-images/panel-39.jpg" alt="流量提问" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：过肩 / 桌面 / 暖+冷光</span>
+<p>"流量"飘过来——</p>
+<p class="dialogue">怎么，怕了？</p>
+<p class="dialogue">怕个屁。开始研究怎么带货吧。</p>
+<p class="dialogue">行。先说好——你那个灰卫衣别穿了，影响转化率。</p>
+<p class="dialogue">就这一件干净的。</p>
+<p class="dialogue">……我是不是分配到了一个丐帮用户？</p>
+</div>
+</div>
+
+<!-- Panel 40 -->
+<div class="panel">
+<img src="exp-504-images/panel-40.jpg" alt="窗前眺望城市" loading="lazy" class="panel-img">
+<div class="panel-text">
+<span class="scene-tag">景别：全景 / 窗前 / 城市夜景 / 终章</span>
+<p class="narrator">出租屋的窗户很小，但城市的灯火很亮。</p>
+<p class="narrator">陈小北站在窗前，"流量"浮在他身侧。灰色卫衣的轮廓映在玻璃上，背后是万家灯火。</p>
+<p class="inner">137个粉丝。12万的债。一个毒舌的三角形。</p>
+<p class="inner">够了。够开始了。</p>
+</div>
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end">
+<h2>第一章 · 完</h2>
+<div class="stats-bar">
+<div class="stat"><div class="label">等级</div><div class="value">小透明</div></div>
+<div class="stat"><div class="label">粉丝</div><div class="value">137</div></div>
+<div class="stat"><div class="label">技能</div><div class="value">镜头感·口才</div></div>
+<div class="stat"><div class="label">余额</div><div class="value">¥83.5</div></div>
+</div>
+<p style="margin-top:16px">下一章：《七天之约——从137到1000的地狱之路》</p>
+<p style="margin-top:8px;color:#445566;font-size:13px">敬请期待</p>
+</div>
+
+<script>
+// Scroll-triggered fade-in
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
