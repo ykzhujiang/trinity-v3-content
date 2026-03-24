@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>盗墓鉴宝系统 · 第一章：地摊捡漏王</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e0d0;font-family:'PingFang SC','Noto Sans SC',sans-serif;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0f 0%,#1a1510 50%,#0a0a0f 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(212,175,55,0.15) 0%,transparent 70%);top:30%;left:50%;transform:translateX(-50%);border-radius:50%;animation:glow 4s ease-in-out infinite}
+@keyframes glow{0%,100%{opacity:0.3;transform:translateX(-50%) scale(1)}50%{opacity:0.8;transform:translateX(-50%) scale(1.3)}}
+.cover h1{font-size:2.2em;color:#d4af37;text-shadow:0 0 30px rgba(212,175,55,0.5);letter-spacing:0.15em;z-index:1;margin-bottom:0.3em}
+.cover .subtitle{font-size:1.1em;color:#a08850;letter-spacing:0.3em;z-index:1;margin-bottom:1em}
+.cover .ch{font-size:0.9em;color:#666;z-index:1}
+.scroll-hint{position:absolute;bottom:30px;color:#555;font-size:0.8em;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.panel{position:relative;width:100%;max-width:450px;margin:0 auto;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:2px}
+.panel-text{padding:16px 20px 32px;line-height:1.9;font-size:18px;color:#d4c8a8}
+.panel-text .dialogue{color:#e8d080;font-weight:500;margin:8px 0}
+.panel-text .system{color:#d4af37;font-size:0.9em;padding:8px 12px;margin:8px 0;border-left:2px solid #d4af37;background:rgba(212,175,55,0.05)}
+.panel-text .narration{color:#999;font-style:italic;margin:6px 0}
+.panel-text .inner{color:#b8a880;margin:6px 0}
+
+.panel-num{position:absolute;top:8px;left:12px;background:rgba(212,175,55,0.85);color:#0a0a0f;font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;z-index:2}
+
+.divider{text-align:center;padding:20px 0;color:#333;font-size:1.5em;letter-spacing:0.5em}
+
+.cliffhanger{text-align:center;padding:60px 20px;font-size:1.3em;color:#d4af37;letter-spacing:0.1em;line-height:2;background:linear-gradient(180deg,#0a0a0f,#151008,#0a0a0f)}
+.cliffhanger .next{font-size:0.7em;color:#666;margin-top:20px;letter-spacing:0.3em}
+
+@media(min-width:500px){.panel{max-width:450px}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>鉴宝系统</h1>
+  <div class="subtitle">第一章 · 地摊捡漏王</div>
+  <div class="ch">盗墓鉴宝系统 — 原创连载</div>
+  <div class="scroll-hint">↓ 向下滑动开始</div>
+</div>
+
+<!-- Panel 1 -->
+<div class="panel"><span class="panel-num">01</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-01.jpg" loading="lazy" alt="雨夜被逐">
+<div class="panel-text">
+<div class="narration">潘家园古玩城，雨夜。</div>
+店门在身后合上，灯灭了。陈北提着一个破纸箱站在雨里——这是他在古玩行三年的全部家当。
+</div></div>
+
+<!-- Panel 2 -->
+<div class="panel"><span class="panel-num">02</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-02.jpg" loading="lazy" alt="师傅的话">
+<div class="panel-text">
+<div class="narration">雨水打在纸箱里的鉴定书上，墨迹开始化开。</div>
+<div class="dialogue">「三年了，你连真假都分不清。这行不适合你。」</div>
+师傅最后的话还在耳边回响。
+</div></div>
+
+<!-- Panel 3 -->
+<div class="panel"><span class="panel-num">03</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-03.jpg" loading="lazy" alt="碎瓷片">
+<div class="panel-text">
+脚边的水洼旁，一片碎瓷片在路灯下泛着微光。<br>
+天青色——在昏黄灯光下格外显眼。<br>
+陈北蹲下身，职业本能让他忍不住捡了起来。
+</div></div>
+
+<!-- Panel 4 -->
+<div class="panel"><span class="panel-num">04</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-04.jpg" loading="lazy" alt="系统激活">
+<div class="panel-text">
+碎片触手冰凉，然后——<br>
+一道金光从瓷片中冲出，沿着手臂蔓延开来。<br>
+雨滴仿佛凝固在空中。世界静止了零点三秒。
+</div></div>
+
+<!-- Panel 5 -->
+<div class="panel"><span class="panel-num">05</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-05.jpg" loading="lazy" alt="HUD界面">
+<div class="panel-text">
+<div class="system">【鉴宝大师系统 v1.0 已激活】<br>宿主识别完成：陈北<br>鉴宝能力评级——F</div>
+<div class="system">「F是什么概念？就是您目前的鉴宝水平，和菜市场挑西瓜的大妈差不多。」</div>
+</div></div>
+
+<!-- Panel 6 -->
+<div class="panel"><span class="panel-num">06</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-06.jpg" loading="lazy" alt="陈北的反应">
+<div class="panel-text">
+<div class="dialogue">「我……眼花了？还是淋雨淋傻了？」</div>
+<div class="system">「都不是。建议宿主先找个不漏雨的地方，您现在的状态会拉低系统的用户体验评分。」</div>
+</div></div>
+
+<!-- Panel 7 -->
+<div class="panel"><span class="panel-num">07</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-07.jpg" loading="lazy" alt="碎片鉴定">
+<div class="panel-text">
+<div class="system">【鉴定结果】<br>北宋 · 汝窑 · 天青釉残片<br>年代：公元1086-1106年<br>品相：残片（原器推测为笔洗）<br>参考估值：残片 ≥ 50万</div>
+陈北的手开始发抖。
+</div></div>
+
+<!-- Panel 8 -->
+<div class="panel"><span class="panel-num">08</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-08.jpg" loading="lazy" alt="决定去鬼市">
+<div class="panel-text">
+坐在出租屋的铁架床上，面前是碎瓷片和一杯泡面。窗外是潘家园的轮廓。<br>
+如果系统是真的……明天凌晨三点就是鬼市。
+<div class="system">「建议宿主早点休息。以您的体质，熬夜鉴宝不如直接去医院。」</div>
+</div></div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 9 -->
+<div class="panel"><span class="panel-num">09</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-09.jpg" loading="lazy" alt="鬼市入口">
+<div class="panel-text">
+<div class="narration">凌晨三点，潘家园鬼市。</div>
+古玩行最原始的交易场——没有灯光，只有手电。零星的光束在黑暗中交错，人影绰绰。<br>
+在这里，有人一夜暴富，有人血本无归。
+</div></div>
+
+<!-- Panel 10 -->
+<div class="panel"><span class="panel-num">10</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-10.jpg" loading="lazy" alt="寻宝雷达">
+<div class="panel-text">
+<div class="system">【寻宝雷达已启动】<br>扫描范围：50米<br>当前区域古玩382件<br>赝品361件 | 仿品16件 | 有价值4件 | 值得关注1件</div>
+<div class="dialogue">「361件赝品？这也太……」</div>
+<div class="system">「欢迎来到古玩行。」</div>
+</div></div>
+
+<!-- Panel 11 -->
+<div class="panel"><span class="panel-num">11</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-11.jpg" loading="lazy" alt="赝品扫描">
+<div class="panel-text">
+陈北路过一个又一个摊位，系统毫不留情——
+<div class="system">「义乌小商品批发市场，2024年产」<br>「树脂倒模，成本约8元」<br>「打印机打的，墨都没干」</div>
+</div></div>
+
+<!-- Panel 12 -->
+<div class="panel"><span class="panel-num">12</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-12.jpg" loading="lazy" alt="发现老黄">
+<div class="panel-text">
+鬼市最深处，一个不起眼的角落。<br>
+摊主是个胖老头，军大衣裹得严严实实，老花眼镜后面是一双精明的小眼睛。<br>
+陈北的雷达在这里——亮了一个绿点。
+</div></div>
+
+<!-- Panel 13 -->
+<div class="panel"><span class="panel-num">13</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-13.jpg" loading="lazy" alt="绿色光点">
+<div class="panel-text">
+满摊的赝品中间——有一个光点，亮得刺眼。<br>
+一只脏兮兮的碗，被压在一堆仿品盘子底下，沾满了泥。<br>
+<div class="inner">谁能想到，八百万就藏在三十块钱的地摊货下面。</div>
+</div></div>
+
+<!-- Panel 14 -->
+<div class="panel"><span class="panel-num">14</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-14.jpg" loading="lazy" alt="拿起碗">
+<div class="panel-text">
+陈北尽量控制表情，随手拿起那只碗。<br>
+手指触碰的瞬间——碗身温润，不像普通瓷器。<br>
+手电光下，泥缝里隐约露出一丝天青色。<br>
+心跳开始加速。
+</div></div>
+
+<!-- Panel 15 -->
+<div class="panel"><span class="panel-num">15</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-15.jpg" loading="lazy" alt="系统鉴定">
+<div class="panel-text">
+<div class="system">【鉴定结果】<br>北宋 · 汝窑 · 天青釉盏<br>年代：约公元1100年<br>品相：上等（表面污损不影响本体）<br>天然冰裂纹，开片自然<br>估值：800万 - 1200万</div>
+陈北的瞳孔猛地收缩。
+</div></div>
+
+<!-- Panel 16 -->
+<div class="panel"><span class="panel-num">16</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-16.jpg" loading="lazy" alt="心跳加速">
+<div class="panel-text">
+八百万。手里这个脏兮兮的碗——价值八百万。
+<div class="system">「检测到宿主心率156次/分钟，建议深呼吸。或者放弃，反正以您的演技，再假装淡定三秒钟就要穿帮了。」</div>
+</div></div>
+
+<!-- Panel 17 -->
+<div class="panel"><span class="panel-num">17</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-17.jpg" loading="lazy" alt="假装随意">
+<div class="panel-text">
+<div class="dialogue">「老板，这堆碗碟怎么卖？」</div>
+老黄吐了口烟：<div class="dialogue">「小伙子，有眼光。这些可都是有年头的，我从乡下收来的……」</div>
+<div class="system">「他在说谎。这堆东西90%是他从义乌批发的，总成本约340元。」</div>
+</div></div>
+
+<!-- Panel 18 -->
+<div class="panel"><span class="panel-num">18</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-18.jpg" loading="lazy" alt="砍价博弈">
+<div class="panel-text">
+陈北指着旁边一个花瓶：<div class="dialogue">「这个瓶子多少？」</div>
+<div class="dialogue">「那个啊，清朝官窑，少说也得三万。」</div>
+<div class="system">「1998年景德镇旅游纪念品，成本3块2毛。建议宿主不要在这个话题上浪费超过十秒钟。」</div>
+</div></div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 19 -->
+<div class="panel"><span class="panel-num">19</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-19.jpg" loading="lazy" alt="竞争者出现">
+<div class="panel-text">
+一个黑风衣男人走了过来。<br>
+他没看别的，眼睛直直地锁定了那只碗。<br>
+<div class="inner">陈北的心沉了一下——行家。</div>
+</div></div>
+
+<!-- Panel 20 -->
+<div class="panel"><span class="panel-num">20</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-20.jpg" loading="lazy" alt="行家出手">
+<div class="panel-text">
+<div class="dialogue">「这碗，我看看。」</div>
+陈北比他快了半秒，把碗拿在手里：
+<div class="dialogue">「不好意思，我先看的。」</div>
+</div></div>
+
+<!-- Panel 21 -->
+<div class="panel"><span class="panel-num">21</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-21.jpg" loading="lazy" alt="系统辅助">
+<div class="panel-text">
+<div class="system">【对手扫描】<br>身份：职业古玩经纪人，从业约15年<br>判断准确率：约70%——已起疑但不确定<br>建议：展示专业知识，压制对手信心</div>
+</div></div>
+
+<!-- Panel 22 -->
+<div class="panel"><span class="panel-num">22</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-22.jpg" loading="lazy" alt="陈北反击">
+<div class="panel-text">
+陈北翻转碗底：<div class="dialogue">「老板你看，碗底这些纹路——是天然冰裂纹，不是人工做旧。人工做旧的裂纹是均匀的，天然的才会这样不规则分布。」</div>
+老黄愣了。行家的眉头皱得更深。
+<div class="system">「数据来源：我。语气来源：宿主天赋。配合得不错，打分：C+。」</div>
+</div></div>
+
+<!-- Panel 23 -->
+<div class="panel"><span class="panel-num">23</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-23.jpg" loading="lazy" alt="老黄动摇">
+<div class="panel-text">
+<div class="inner">老黄心里犯嘀咕：这碗是他从乡下花30块收的，原本以为也就值个百来块……这小伙子说得头头是道，难道真有来头？</div>
+但老黄是老江湖，犹豫只持续了两秒。
+</div></div>
+
+<!-- Panel 24 -->
+<div class="panel"><span class="panel-num">24</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-24.jpg" loading="lazy" alt="开价">
+<div class="panel-text">
+<div class="dialogue">「小伙子懂行啊。你要真想要——两百。」</div>
+两百块。买一个价值八百万的碗。<br>
+<div class="system">「建议宿主控制面部肌肉。您现在的表情像中了彩票。」</div>
+</div></div>
+
+<!-- Panel 25 -->
+<div class="panel"><span class="panel-num">25</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-25.jpg" loading="lazy" alt="行家抬价">
+<div class="panel-text">
+<div class="dialogue">「老板，这碗我出一千。」</div>
+行家直接亮出一叠现金。老黄眼睛亮了。陈北心一紧。
+<div class="system">「局势分析：如果宿主不在5秒内出价，碗归他人。概率87%。」</div>
+</div></div>
+
+<!-- Panel 26 -->
+<div class="panel"><span class="panel-num">26</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-26.jpg" loading="lazy" alt="陈北出手">
+<div class="panel-text">
+陈北从口袋里掏出所有的钱——几张皱巴巴的红票子，加起来刚好200多块。<br>
+啪的一声拍在摊位上：
+<div class="dialogue">「老板，你刚才说两百我就要了。一口价，鬼市的规矩——先问价先成交。」</div>
+</div></div>
+
+<!-- Panel 27 -->
+<div class="panel"><span class="panel-num">27</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-27.jpg" loading="lazy" alt="老黄的选择">
+<div class="panel-text">
+一千 vs 两百。换谁都知道该怎么选。<br>
+但老黄在鬼市摆摊二十年，有一条铁律——
+<div class="inner">鬼市的规矩大过天。坏了规矩，以后没人来你摊上看货了。</div>
+</div></div>
+
+<!-- Panel 28 -->
+<div class="panel"><span class="panel-num">28</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-28.jpg" loading="lazy" alt="成交">
+<div class="panel-text">
+老黄一把抓起皱巴巴的200块往军大衣兜里一揣：
+<div class="dialogue">「这位老板，先来后到的规矩您比我懂。下次赶早。」</div>
+行家咬了咬牙，转身消失在黑暗中。<br>
+<div class="system">「恭喜宿主完成首次捡漏。投资回报率：399,900%。评价：运气不错，实力约等于零。」</div>
+</div></div>
+
+<div class="divider">· · ·</div>
+
+<!-- Panel 29 -->
+<div class="panel"><span class="panel-num">29</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-29.jpg" loading="lazy" alt="离开鬼市">
+<div class="panel-text">
+陈北把碗裹在夹克里，几乎是跑着离开鬼市的。<br>
+怀里的碗沉甸甸的——200块，汝窑天青釉盏，800万。<br>
+天空泛出第一缕鱼肚白。
+</div></div>
+
+<!-- Panel 30 -->
+<div class="panel"><span class="panel-num">30</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-30.jpg" loading="lazy" alt="行家拦路">
+<div class="panel-text">
+行家堵在巷口，声音平静但有压迫感：
+<div class="dialogue">「小兄弟，这碗转给我吧。十万，现金。」</div>
+十万——是陈北十年都存不到的数字。
+</div></div>
+
+<!-- Panel 31 -->
+<div class="panel"><span class="panel-num">31</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-31.jpg" loading="lazy" alt="拒绝">
+<div class="panel-text">
+<div class="dialogue">「不卖。」</div>
+行家沉默了几秒，然后笑了——不是友善的笑。
+<div class="dialogue">「小兄弟，你知道你抱着的是什么吗？你守不住的。」</div>
+转身消失在黑暗中。
+</div></div>
+
+<!-- Panel 32 -->
+<div class="panel"><span class="panel-num">32</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-32.jpg" loading="lazy" alt="系统警告">
+<div class="panel-text">
+<div class="system">【危险人物标记】<br>此人背景：某地下古玩交易网络成员<br>建议宿主提高警惕</div>
+<div class="system">「另外，宿主您现在身上只剩23块钱了。建议先解决温饱问题。」</div>
+<div class="dialogue">「……你能不能一次只说一个坏消息？」</div>
+</div></div>
+
+<!-- Panel 33 -->
+<div class="panel"><span class="panel-num">33</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-33.jpg" loading="lazy" alt="回家路上">
+<div class="panel-text">
+<div class="narration">天快亮了。</div>
+陈北抱着价值800万的碗，口袋里只剩23块钱。<br>
+路过师傅的古玩店——灯还没开。<br>
+<div class="inner">三年学徒，被说「不适合这行」。他低头看了看怀里的碗，笑了。</div>
+</div></div>
+
+<!-- Panel 34 -->
+<div class="panel"><span class="panel-num">34</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-34.jpg" loading="lazy" alt="神秘女人">
+<div class="panel-text">
+<div class="narration">在陈北没注意到的角落——</div>
+一个穿旗袍的女人目送他离开。她举起手机。
+</div></div>
+
+<!-- Panel 35 -->
+<div class="panel"><span class="panel-num">35</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-35.jpg" loading="lazy" alt="打电话">
+<div class="panel-text">
+<div class="dialogue">「找到了。新激活的。……鉴宝系统。」</div>
+电话那头沉默了三秒。
+<div class="dialogue">「盯住他。地下鉴宝大会还有七天。」</div>
+</div></div>
+
+<!-- Panel 36 -->
+<div class="panel"><span class="panel-num">36</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-36.jpg" loading="lazy" alt="回到出租屋">
+<div class="panel-text">
+陈北小心擦去碗上的泥。<br>
+天青色的釉面在灯下温润如玉——这是传说中<strong>「雨过天青云破处」</strong>的颜色。<br>
+<div class="inner">存世的汝窑完整器全世界不超过90件。他手里，就有一件。</div>
+</div></div>
+
+<!-- Panel 37 -->
+<div class="panel"><span class="panel-num">37</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-37.jpg" loading="lazy" alt="邀请函">
+<div class="panel-text">
+正沉浸在汝窑的美中——门缝下滑进来一个东西。<br>
+一个黑色信封。烫金边。没有寄件人，没有地址。<br>
+只有一个从未见过的古老印章。
+</div></div>
+
+<!-- Panel 38 -->
+<div class="panel"><span class="panel-num">38</span>
+<img src="exp-505-jianbao-system-ch1/images/panel-38.jpg" loading="lazy" alt="结尾悬念">
+<div class="panel-text">
+陈北拿起信封，表情从好奇变成凝重。<br>
+系统的光芒在眼角跳动，碗在桌上静静发光。<br>
+<div class="inner">有些门一旦推开，就再也关不上了。</div>
+</div></div>
+
+<div class="cliffhanger">
+  鉴宝系统 · 第一章 · 完<br><br>
+  地下鉴宝大会，七天后开启。<br>
+  神秘女人，究竟为谁而来？<br>
+  师傅赶走陈北，是保护还是另有隐情？<br><br>
+  <div class="next">— 第二章 · 即将更新 —</div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
