@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>厨神下山 · 第一章 · 一碗面征服整条街</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#1a0f08;
+  color:#f0e6d8;
+  font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  font-size:18px;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+.header{
+  text-align:center;
+  padding:60px 20px 30px;
+  background:linear-gradient(180deg,#2a1508 0%,#1a0f08 100%);
+}
+.header h1{
+  font-size:28px;
+  background:linear-gradient(135deg,#ff8c00,#ff6347,#ff8c00);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+  animation:flame 3s ease-in-out infinite;
+}
+@keyframes flame{0%,100%{filter:brightness(1);}50%{filter:brightness(1.3);}}
+.header .subtitle{color:#a08060;font-size:14px;}
+.header .tags{margin-top:12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;}
+.header .tag{
+  background:rgba(255,140,0,0.15);border:1px solid rgba(255,140,0,0.3);
+  padding:4px 12px;border-radius:20px;font-size:13px;color:#ffb060;
+}
+.panels{max-width:420px;margin:0 auto;padding:10px 0;}
+.panel{margin:0 0 2px;opacity:0;transform:translateY(30px);transition:all 0.6s ease;}
+.panel.visible{opacity:1;transform:translateY(0);}
+.panel-img-wrap{width:100%;overflow:hidden;}
+.panel-img-wrap img{width:100%;display:block;object-fit:cover;}
+.panel-text{
+  padding:16px 20px 24px;
+  background:linear-gradient(180deg,rgba(40,20,8,0.95) 0%,rgba(26,15,8,0.98) 100%);
+  border-left:3px solid rgba(255,140,0,0.4);
+}
+.panel-text .shot-info{font-size:12px;color:#806040;margin-bottom:6px;letter-spacing:1px;}
+.panel-text .dialogue{color:#ffcc80;font-weight:600;margin:6px 0;}
+.panel-text .inner{color:#c0a080;font-style:italic;margin:4px 0;}
+.panel-text .narration{color:#d0c0a8;margin:4px 0;}
+.panel-text .emotion-tag{
+  display:inline-block;background:rgba(255,99,71,0.2);color:#ff8c60;
+  padding:2px 8px;border-radius:10px;font-size:12px;margin-top:4px;
+}
+.sys-msg{color:#00ffcc !important;font-family:'Courier New',monospace;font-size:15px;background:rgba(0,255,204,0.05);padding:8px 12px;border-radius:6px;border:1px solid rgba(0,255,204,0.15);margin:6px 0;}
+.chapter-end{
+  text-align:center;padding:40px 20px 60px;
+  background:linear-gradient(180deg,#1a0f08 0%,#0d0805 100%);
+}
+.chapter-end .end-text{color:#ff8c00;font-size:22px;font-weight:bold;}
+.chapter-end .next{color:#806040;font-size:14px;margin-top:8px;}
+.footer{text-align:center;padding:20px;color:#4a3020;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>厨神下山</h1>
+  <div class="subtitle">第一章 · 被赶出师门的少年用一碗面征服整条街</div>
+  <div class="tags">
+    <span class="tag">🍜 美食</span>
+    <span class="tag">🔥 逆袭</span>
+    <span class="tag">🎮 系统文</span>
+    <span class="tag">😂 搞笑</span>
+  </div>
+</div>
+
+<div class="panels" id="panels">
+
+<div class="panel" data-panel="1">
+<div class="panel-img-wrap"><img src="images/panel-01.jpg" loading="lazy" alt="深山道观，少年下山"></div>
+<div class="panel-text">
+<div class="shot-info">【远景·俯拍】深山道观 · 清晨</div>
+<p class="narration">大明山，云深不知处。</p>
+<p class="narration">十八年前，一个婴儿被放在道观门口。十八年后，一个少年背着铁锅下山了。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="2">
+<div class="panel-img-wrap"><img src="images/panel-02.jpg" loading="lazy" alt="林小厨面部特写"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·正面】林小厨</div>
+<p class="dialogue">「师父说，我的厨艺已经超过他了。」</p>
+<p class="inner">（其实师父原话是——"你小子天天糟蹋我的食材，滚下山祸害别人去吧。"）</p>
+</div>
+</div>
+
+<div class="panel" data-panel="3">
+<div class="panel-img-wrap"><img src="images/panel-03.jpg" loading="lazy" alt="白发老道士赶人"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·侧面】清风观门口</div>
+<p class="dialogue">「走走走！再不走老道我要收伙食费了！」</p>
+<p class="narration">师父嘴上嫌弃，偷偷往林小厨的包袱里塞了一本泛黄的手抄菜谱——和一张银行卡。卡里有200块。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="4">
+<div class="panel-img-wrap"><img src="images/panel-04.jpg" loading="lazy" alt="手抄菜谱和银行卡"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·手部】菜谱</div>
+<p class="inner">（200块……师父你是认真的吗？这够吃几顿？）</p>
+<p class="narration">系统提示音突然在脑海响起——</p>
+</div>
+</div>
+
+<div class="panel" data-panel="5">
+<div class="panel-img-wrap"><img src="images/panel-05.jpg" loading="lazy" alt="厨神系统界面"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·主观视角】系统激活</div>
+<p class="sys-msg">【厨神系统激活中……宿主：林小厨。等级：D级厨工。首个任务：用现有食材做出一碗让10个人真心叫好的面。奖励：解锁技能·火候心眼】</p>
+</div>
+</div>
+
+<div class="panel" data-panel="6">
+<div class="panel-img-wrap"><img src="images/panel-06.jpg" loading="lazy" alt="背锅少年走在城市街头"></div>
+<div class="panel-text">
+<div class="shot-info">【远景·全景】城市夜景</div>
+<p class="narration">下山第一天。林小厨发现了一个惊人的事实——</p>
+<p class="dialogue">「一碗面要35块？！我200块只够吃5碗？！」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="7">
+<div class="panel-img-wrap"><img src="images/panel-07.jpg" loading="lazy" alt="老刘面馆vs连锁快餐"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·正面】城南老街</div>
+<p class="narration">城南老街，曾经最热闹的美食街。如今只剩下一家面馆还在苦撑。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="8">
+<div class="panel-img-wrap"><img src="images/panel-08.jpg" loading="lazy" alt="刘姐趴在桌上"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·内景】老刘面馆</div>
+<p class="narration">老板娘刘姐，46岁。三年前丈夫走了，留下这家面馆和一屁股债。</p>
+<p class="inner">（今天又是零进账的一天……）</p>
+</div>
+</div>
+
+<div class="panel" data-panel="9">
+<div class="panel-img-wrap"><img src="images/panel-09.jpg" loading="lazy" alt="刘姐含泪特写"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·面部】刘姐</div>
+<p class="dialogue">「老刘啊，你说我是不是该把店关了？」</p>
+<p class="narration">没人回答。墙上的照片里，老刘还在笑。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="10">
+<div class="panel-img-wrap"><img src="images/panel-10.jpg" loading="lazy" alt="林小厨出现在门口"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·门口】面馆门前</div>
+<p class="dialogue">「老板，你们这……还营业吗？」</p>
+<p class="dialogue">「……你有钱吗？」</p>
+<p class="dialogue">「有！200块！」</p>
+<p class="dialogue">「……进来吧，一碗素面8块。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="11">
+<div class="panel-img-wrap"><img src="images/panel-11.jpg" loading="lazy" alt="林小厨品面"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·内景】面馆</div>
+<p class="narration">林小厨吃了第一口。</p>
+<p class="narration">然后他放下了筷子。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="12">
+<div class="panel-img-wrap"><img src="images/panel-12.jpg" loading="lazy" alt="品鉴表情"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·面部表情】品鉴</div>
+<p class="dialogue">「面条筋道不错，手工擀的。碱水比例控制得好，师父级别的手艺。」</p>
+<p class="dialogue">「但是——」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="13">
+<div class="panel-img-wrap"><img src="images/panel-13.jpg" loading="lazy" alt="刘姐震惊"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·对话】面馆内</div>
+<p class="dialogue">「汤底太平了。骨汤没有分层熬制，香料投放时机不对。」</p>
+<p class="dialogue">「你小子多大啊？来教我做面？」</p>
+<p class="dialogue">「十八。我师父做了六十年面。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="14">
+<div class="panel-img-wrap"><img src="images/panel-14.jpg" loading="lazy" alt="食材扫描"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·系统界面】食材扫描</div>
+<p class="sys-msg">【任务提醒：检测到宿主品评食物。附近食材扫描完成。可用食材：牛骨×4、面粉5kg、葱姜蒜充足、香料柜齐全……建议方案：已加载】</p>
+</div>
+</div>
+
+<div class="panel" data-panel="15">
+<div class="panel-img-wrap"><img src="images/panel-15.jpg" loading="lazy" alt="铁锅上桌"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·对话】交易达成</div>
+<p class="dialogue">「刘姐，我帮你做一碗面。做好了，你管我吃住。做不好，我立刻走。」</p>
+<p class="dialogue">「……你认真的？」</p>
+<p class="dialogue">「我这口锅跟了师父四十年。认不认真，你尝了就知道。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="16">
+<div class="panel-img-wrap"><img src="images/panel-16.jpg" loading="lazy" alt="系围裙变身"></div>
+<div class="panel-text">
+<div class="shot-info">【全景·厨房】变身</div>
+<p class="narration">系在围裙的那一刻，吊儿郎当的少年消失了。</p>
+<p class="narration">站在灶前的，是大明山清风观第四十七代传人。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="17">
+<div class="panel-img-wrap"><img src="images/panel-17.jpg" loading="lazy" alt="揉面特写"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·手部动作】揉面</div>
+<p class="narration">揉面。大明山秘法——借天地之力，不是用蛮力压面，而是让面团自己「醒」过来。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="18">
+<div class="panel-img-wrap"><img src="images/panel-18.jpg" loading="lazy" alt="拉面三十二折"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·动态】拉面</div>
+<p class="narration">手拉三十二折。普通拉面师傅最多十六折，他直接翻倍。</p>
+<p class="dialogue">「三十二折？！」</p>
+<p class="narration">刘姐在门口看傻了。她做了二十年面，最多也就十六折。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="19">
+<div class="panel-img-wrap"><img src="images/panel-19.jpg" loading="lazy" alt="牛骨汤翻滚"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·锅中】熬汤</div>
+<p class="narration">牛骨汤，别人熬四个小时，他只要十五分钟。</p>
+<p class="narration">不是偷懒，是大明山秘法——先用猛火逼出骨髓精华，再用文火锁住鲜味，最后用回转火让汤色变白。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="20">
+<div class="panel-img-wrap"><img src="images/panel-20.jpg" loading="lazy" alt="刘姐被香味震惊"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·刘姐反应】震惊</div>
+<p class="dialogue">「十五分钟熬骨汤？？你小子是不是在忽悠我？」</p>
+<p class="narration">然后香气飘出来了。</p>
+<p class="narration">刘姐的话卡在了喉咙里。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="21">
+<div class="panel-img-wrap"><img src="images/panel-21.jpg" loading="lazy" alt="香气飘散街道"></div>
+<div class="panel-text">
+<div class="shot-info">【远景·街道】香气扩散</div>
+<p class="narration">香气穿过厨房，穿过面馆，穿过街道——</p>
+<p class="narration">像一只无形的手，拽住了每一个路过的人的鼻子。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="22">
+<div class="panel-img-wrap"><img src="images/panel-22.jpg" loading="lazy" alt="快餐店员工闻到香味"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·室内】对面快餐店</div>
+<p class="dialogue">「什么味道？你们闻到没？」</p>
+<p class="dialogue">「哪来的香……天呐这也太香了吧？！」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="23">
+<div class="panel-img-wrap"><img src="images/panel-23.jpg" loading="lazy" alt="完美牛骨面"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·美食】一碗面</div>
+<p class="narration">一碗面。</p>
+<p class="narration">汤白如玉，面细如丝，肉薄如翼。</p>
+<p class="narration">简单到极致，就是极致的不简单。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="24">
+<div class="panel-img-wrap"><img src="images/panel-24.jpg" loading="lazy" alt="端面出场"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·端面】出场</div>
+<p class="dialogue">「刘姐，尝尝。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="25">
+<div class="panel-img-wrap"><img src="images/panel-25.jpg" loading="lazy" alt="刘姐吃面"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·吃面】品尝</div>
+<p class="narration">第一口，舌尖碰到面条。</p>
+<p class="narration">第二口，汤汁浸透味蕾。</p>
+<p class="narration">第三口——刘姐哭了。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="26">
+<div class="panel-img-wrap"><img src="images/panel-26.jpg" loading="lazy" alt="刘姐含泪微笑"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·面部】感动</div>
+<p class="dialogue">「这个味道……这是老刘……」</p>
+<p class="narration">她想起来了。二十年前第一次吃到老刘做的面，也是这个味道。平凡食材里藏着的，是对每一口的认真。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="27">
+<div class="panel-img-wrap"><img src="images/panel-27.jpg" loading="lazy" alt="快餐店小哥闻香而来"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·门口】慕名而来</div>
+<p class="dialogue">「老板……你们这面多少钱一碗？」</p>
+<p class="dialogue">「八块。」</p>
+<p class="dialogue">「给我来一碗！」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="28">
+<div class="panel-img-wrap"><img src="images/panel-28.jpg" loading="lazy" alt="吃面后被电击般的反应"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·吃面反应】灵魂冲击</div>
+<p class="narration">他吃了一口。</p>
+<p class="narration">沉默了三秒。</p>
+<p class="narration">然后掏出手机。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="29">
+<div class="panel-img-wrap"><img src="images/panel-29.jpg" loading="lazy" alt="辞职电话"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·打电话】人生转折</div>
+<p class="dialogue">「喂，张经理？我辞职了。」</p>
+<p class="dialogue">「？？你疯了？为什么？」</p>
+<p class="dialogue">「因为我找到了人生的意义。就在城南老街，一碗八块钱的面里。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="30">
+<div class="panel-img-wrap"><img src="images/panel-30.jpg" loading="lazy" alt="面馆排队盛况"></div>
+<div class="panel-text">
+<div class="shot-info">【远景·面馆】排队盛况</div>
+<p class="narration">一传十，十传百。</p>
+<p class="narration">半小时后，老刘面馆三年来第一次——排队了。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="31">
+<div class="panel-img-wrap"><img src="images/panel-31.jpg" loading="lazy" alt="任务完成"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·系统界面】任务完成</div>
+<p class="sys-msg">【叮！任务完成：10位食客真心叫好。】</p>
+<p class="sys-msg">【奖励发放中……解锁技能：火候心眼（Lv.1）】</p>
+<p class="sys-msg">【技能说明：可视化感知食材最佳烹饪温度。冷却时间：无。】</p>
+</div>
+</div>
+
+<div class="panel" data-panel="32">
+<div class="panel-img-wrap"><img src="images/panel-32.jpg" loading="lazy" alt="金色瞳孔"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·眼部】火候心眼</div>
+<p class="narration">火候心眼激活的瞬间，林小厨看到了一个不同的世界。</p>
+<p class="narration">铁锅表面的温度像热力图一样显现——红色是高温区，蓝色是低温区。每一种食材都在闪烁着不同颜色的光，告诉他最佳的入锅时机。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="33">
+<div class="panel-img-wrap"><img src="images/panel-33.jpg" loading="lazy" alt="快餐店老板阴沉"></div>
+<div class="panel-text">
+<div class="shot-info">【全景·对面快餐店】暗流涌动</div>
+<p class="dialogue">「对面那个破面馆……怎么突然这么多人？」</p>
+<p class="narration">快餐店老板王总，三个月前盘下这个位置，就是为了挤走老刘面馆，把整条街变成他的连锁版图。</p>
+<p class="inner">（不可能。一家快倒闭的面馆，怎么可能翻盘？）</p>
+</div>
+</div>
+
+<div class="panel" data-panel="34">
+<div class="panel-img-wrap"><img src="images/panel-34.jpg" loading="lazy" alt="王总打电话"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·打电话】阴谋</div>
+<p class="dialogue">「老陈，你不是认识那个参加过厨王争霸赛的厨师吗？叫什么来着——」</p>
+<p class="dialogue">「对对对，就他。让他明天来一趟。我要灭了对面那个面馆。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="35">
+<div class="panel-img-wrap"><img src="images/panel-35.jpg" loading="lazy" alt="深夜看星空"></div>
+<div class="panel-text">
+<div class="shot-info">【远景·夜景】安宁</div>
+<p class="narration">打烊后，林小厨给自己做了碗面。</p>
+<p class="dialogue">「师父，山下的星星没有山上亮。」</p>
+<p class="dialogue">「但是山下的面，比山上好吃。因为有人一起吃。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="36">
+<div class="panel-img-wrap"><img src="images/panel-36.jpg" loading="lazy" alt="发现纸条"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·内景】纸条</div>
+<p class="narration">刘姐收桌子时发现了一张纸条——是第一个吃面的快餐店小哥留的。</p>
+<p class="dialogue">「老板：你们这面要是涨价到35块我也吃。但千万别涨，让我快餐店的前同事们也吃得起。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="37">
+<div class="panel-img-wrap"><img src="images/panel-37.jpg" loading="lazy" alt="挂新招牌"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·第二天早晨】新生</div>
+<p class="narration">第二天，面馆多了一行小字：</p>
+<p class="dialogue">「"每碗面，用心做。——老刘家训"」</p>
+<p class="narration">林小厨看着招牌，想起了师父的话——"厨艺的最高境界不是技术，是心。"</p>
+</div>
+</div>
+
+<div class="panel" data-panel="38">
+<div class="panel-img-wrap"><img src="images/panel-38.jpg" loading="lazy" alt="门口长队"></div>
+<div class="panel-text">
+<div class="shot-info">【远景·面馆门口】口碑爆发</div>
+<p class="narration">消息在本地论坛传开了——"城南老街有家面馆复活了，八块钱一碗，吃完能让你哭出来。"</p>
+</div>
+</div>
+
+<div class="panel" data-panel="39">
+<div class="panel-img-wrap"><img src="images/panel-39.jpg" loading="lazy" alt="B级厨师登场"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·对峙】踢馆</div>
+<p class="narration">第三天中午，他来了。</p>
+<p class="narration">王总请来的B级厨师——外号"快刀"的陈剑锋。去年厨王争霸赛十六强。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="40">
+<div class="panel-img-wrap"><img src="images/panel-40.jpg" loading="lazy" alt="日本刀出鞘"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·手部】亮刀</div>
+<p class="dialogue">「听说这条街出了个小天才？」</p>
+<p class="narration">他抽出刀，随手切了一根黄瓜——</p>
+<p class="narration">黄瓜片薄如纸，光可透。围观的人倒吸一口冷气。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="41">
+<div class="panel-img-wrap"><img src="images/panel-41.jpg" loading="lazy" alt="对峙"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·对话】D级 vs B级</div>
+<p class="dialogue">「B级厨师？」</p>
+<p class="dialogue">「你是？」</p>
+<p class="dialogue">「D级。刚激活系统三天。」</p>
+<p class="narration">围观群众：他在说什么？什么系统？</p>
+<p class="inner">（只有林小厨知道，这话不是说给人听的——是回答系统弹窗。）</p>
+</div>
+</div>
+
+<div class="panel" data-panel="42">
+<div class="panel-img-wrap"><img src="images/panel-42.jpg" loading="lazy" alt="对手扫描"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·系统弹窗】威胁评估</div>
+<p class="sys-msg">【警告：检测到对手实力——B级厨师·陈剑锋。刀工：S级。火候：A级。综合战力远超宿主。】</p>
+<p class="sys-msg">【建议：使用技能·火候心眼辅助。是否激活？】</p>
+</div>
+</div>
+
+<div class="panel" data-panel="43">
+<div class="panel-img-wrap"><img src="images/panel-43.jpg" loading="lazy" alt="自信微笑"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·面部】自信</div>
+<p class="dialogue">「不用。」</p>
+<p class="narration">他弯腰，从铁锅底下的暗格里抽出一把菜刀。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="44">
+<div class="panel-img-wrap"><img src="images/panel-44.jpg" loading="lazy" alt="师父的旧菜刀"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·菜刀】传承</div>
+<p class="narration">这把刀没有名字，没有品牌。</p>
+<p class="narration">它只有一个身份——跟着师父切了四十年菜的无名刀。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="45">
+<div class="panel-img-wrap"><img src="images/panel-45.jpg" loading="lazy" alt="面对面对峙"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·面对面】对决</div>
+<p class="dialogue">「比什么？」</p>
+<p class="dialogue">「比刀工。你挑规则。」</p>
+<p class="narration">陈剑锋眯了眯眼。这小子的自信让他有点意外。一个D级，拿着一把旧菜刀，居然不怕？</p>
+</div>
+</div>
+
+<div class="panel" data-panel="46">
+<div class="panel-img-wrap"><img src="images/panel-46.jpg" loading="lazy" alt="陈剑锋轻蔑"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·陈剑锋表情】轻蔑</div>
+<p class="dialogue">「好。那就比最基础的——切豆腐。」</p>
+<p class="dialogue">「一块豆腐，谁切得薄、切得多、切得不碎，谁赢。」</p>
+<p class="narration">围观群众议论纷纷：切豆腐？这不是最考验基本功的项目吗？D级对B级，基本功对决？</p>
+</div>
+</div>
+
+<div class="panel" data-panel="47">
+<div class="panel-img-wrap"><img src="images/panel-47.jpg" loading="lazy" alt="两块豆腐"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·豆腐】赌注</div>
+<p class="narration">两块豆腐，同一家买的，同样大小。</p>
+<p class="narration">规则简单，胜负却残酷——豆腐是最脆弱的食材，刀工差一丝，就碎了。</p>
+</div>
+</div>
+
+<div class="panel" data-panel="48">
+<div class="panel-img-wrap"><img src="images/panel-48.jpg" loading="lazy" alt="双方举刀"></div>
+<div class="panel-text">
+<div class="shot-info">【中景·对峙】蓄势</div>
+<p class="dialogue">「开始。」</p>
+</div>
+</div>
+
+<div class="panel" data-panel="49">
+<div class="panel-img-wrap"><img src="images/panel-49.jpg" loading="lazy" alt="金色瞳孔微闪"></div>
+<div class="panel-text">
+<div class="shot-info">【特写·林小厨眼神】心法</div>
+<p class="inner">（师父说过，真正的刀工不在刀上。）</p>
+<p class="inner">（在心上。）</p>
+</div>
+</div>
+
+<div class="panel" data-panel="50">
+<div class="panel-img-wrap"><img src="images/panel-50.jpg" loading="lazy" alt="定格——刀即将落下"></div>
+<div class="panel-text">
+<div class="shot-info">【远景·定格】悬念</div>
+<p class="narration">两把刀，一新一旧。</p>
+<p class="narration">两个人，一强一弱。</p>
+<p class="narration">一块豆腐，决定一条街的命运。</p>
+</div>
+</div>
+
+</div>
+
+<div class="chapter-end">
+  <div class="end-text">—— 第一章 · 完 ——</div>
+  <div class="next">下一章：刀工对决 · 火候心眼的真正力量</div>
+</div>
+
+<div class="footer">厨神下山 · 原创故事 · EXP-525</div>
+
+<script>
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+},{threshold:0.1,rootMargin:'0px 0px 100px 0px'});
+document.querySelectorAll('.panel').forEach(p=>io.observe(p));
+</script>
+</body>
+</html>
