@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>隐龙·战神归来 — 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e8e8e8;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:18px;line-height:1.8;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0a 0%,#1a1020 50%,#0a0a0a 100%);text-align:center;padding:20px}
+.cover h1{font-size:2.4em;background:linear-gradient(135deg,#c9a644,#f0d878,#c9a644);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;font-weight:900;letter-spacing:4px}
+.cover .subtitle{font-size:1.1em;color:#888;margin-bottom:30px}
+.cover .ch{font-size:1.3em;color:#c9a644;border:1px solid #c9a64466;padding:8px 24px;border-radius:4px}
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:#666;font-size:14px;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+
+.act-divider{padding:60px 20px;text-align:center;background:linear-gradient(180deg,transparent,#1a1020 30%,#1a1020 70%,transparent)}
+.act-divider h2{font-size:1.6em;color:#c9a644;letter-spacing:6px;margin-bottom:8px}
+.act-divider .act-sub{color:#666;font-size:0.9em}
+
+.panel{position:relative;width:100%;max-width:500px;margin:0 auto}
+.panel img{width:100%;display:block;border-radius:0}
+.panel-text{padding:16px 20px 28px;background:linear-gradient(180deg,rgba(10,10,10,0.95),#0a0a0a);font-size:17px;line-height:1.9}
+.panel-text .speaker{color:#c9a644;font-weight:bold;margin-right:4px}
+.panel-text .thought{color:#999;font-style:italic;font-size:0.95em;margin-top:6px;padding-left:12px;border-left:2px solid #333}
+.panel-text .narration{color:#bbb;font-size:0.95em}
+
+/* Decision Points */
+.decision{max-width:500px;margin:20px auto;padding:24px 20px;background:linear-gradient(135deg,#1a1520,#15101e);border:1px solid #c9a64444;border-radius:8px}
+.decision .d-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.decision .d-icon{font-size:1.4em}
+.decision .d-title{color:#c9a644;font-size:1.1em;font-weight:bold}
+.decision .d-situation{color:#ccc;margin-bottom:16px;font-size:0.95em;line-height:1.7}
+.decision .d-options{list-style:none;padding:0}
+.decision .d-options li{padding:12px 16px;margin:8px 0;background:#ffffff08;border:1px solid #ffffff15;border-radius:6px;color:#ddd;font-size:0.95em;line-height:1.6;transition:all 0.3s}
+.decision .d-options li:hover{background:#c9a64415;border-color:#c9a64466}
+.decision .d-options li.chosen{background:#c9a64420;border-color:#c9a644;position:relative}
+.decision .d-options li.chosen::after{content:"✓ 朱江的选择";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#c9a644;font-size:0.8em;font-weight:bold}
+.decision .d-reveal{color:#888;font-size:0.85em;margin-top:12px;padding-top:12px;border-top:1px solid #ffffff10}
+
+.panel-spacer{height:8px}
+.section-spacer{height:40px}
+
+.end-card{padding:80px 20px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#1a1520)}
+.end-card h2{font-size:1.8em;color:#c9a644;margin-bottom:12px}
+.end-card p{color:#888;font-size:1em}
+
+@media(min-width:500px){
+  .panel-text{padding:20px 24px 32px}
+  .decision{padding:28px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>隐龙·战神归来</h1>
+  <div class="subtitle">虚拟朱江 · V5互动分镜</div>
+  <div class="ch">第一章：觉醒</div>
+  <div class="scroll-hint">↓ 向下滑动开始</div>
+</div>
+
+<!-- ===== 第一幕：至暗时刻 ===== -->
+<div class="act-divider">
+  <h2>第一幕</h2>
+  <div class="act-sub">至暗时刻</div>
+</div>
+
+<div class="panel"><img src="img/p01.jpg" loading="lazy" alt="P1"></div>
+<div class="panel-text"><span class="narration">深夜。整栋写字楼只有三楼一间办公室亮着灯。城市已经睡了，他还没有。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p02.jpg" loading="lazy" alt="P2"></div>
+<div class="panel-text"><span class="narration">三张桌子，两张空着。墙上「改变世界」的标语已经褪色——就像账上的数字一样。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p03.jpg" loading="lazy" alt="P3"></div>
+<div class="panel-text"><span class="narration">手机亮了。三条未读消息，三种不同的绝望。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p04.jpg" loading="lazy" alt="P4"></div>
+<div class="panel-text">
+  <span class="narration">投资人李总：「朱江，经过慎重考虑，我们决定不再继续本轮投资。祝好。」</span><br>
+  <span class="narration">房东王姐：「小朱啊，房租能不能先付一下？已经拖两个月了。」</span><br>
+  <span class="narration">妈：「儿子，最近忙不忙？注意身体。」</span>
+  <div class="thought">前两条是刀，第三条才是最重的那一刀。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p05.jpg" loading="lazy" alt="P5"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"当年子弹都没让我皱眉头，现在被一条微信搞到失眠。"
+  <div class="thought">苦笑着把手机扣在桌上。妈妈永远不会知道儿子快撑不住了。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p06.jpg" loading="lazy" alt="P6"></div>
+<div class="panel-text"><span class="narration">银行余额：47,328.16元。团队工资：小李15000 + 小周12000 + 小陈12000 = 39000。还能撑——一个月。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p07.jpg" loading="lazy" alt="P7"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"还能撑一个月。一个月够了。"
+  <div class="thought">不是盲目乐观。是被打到第一百次还能站起来的本能。关掉Excel，打开代码编辑器。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<!-- Decision 1 -->
+<div class="decision">
+  <div class="d-header"><span class="d-icon">⚖️</span><span class="d-title">决策点 1：最后一个月</span></div>
+  <div class="d-situation">账上只够发一个月工资。三个跟你从零开始的兄弟。怎么办？</div>
+  <ul class="d-options">
+    <li>A. 把真实情况告诉团队，让大家自己决定去留</li>
+    <li>B. 先不说，自己背着压力疯狂找出路</li>
+    <li class="chosen">C. 告诉团队，同时拿出一个疯狂的30天作战计划</li>
+  </ul>
+  <div class="d-reveal">朱江选了C——说出真相，但带着方案。不是求助，是战前动员。</div>
+</div>
+
+<div class="panel"><img src="img/p08.jpg" loading="lazy" alt="P8"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"兄弟们，我想了一晚上。账上还够发一个月。但我有个计划——30天，我们赌一把。"
+  <div class="thought">白板上写下「30天作战」。三个人的表情从震惊变成认真。这不是求助，是战前动员。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p09.jpg" loading="lazy" alt="P9"></div>
+<div class="panel-text">
+  <span class="speaker">小李：</span>"老大，你说干啥？"
+  <div class="narration">小李站起来，眼神坚定。小周和小陈互看一眼，也站了起来。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p10.jpg" loading="lazy" alt="P10"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"行了行了别搞得跟誓师大会似的。先说正事——咱那个AI模型还有个致命bug，小周你今天能修不？"
+  <div class="thought">自嘲打破煽情——这才是朱江。大家笑了。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p11.jpg" loading="lazy" alt="P11"></div>
+<div class="panel-text">
+  <span class="speaker">小周（小声）：</span>"老大没说的是……他上个月自己的工资就没发了吧？"
+  <div class="narration">小陈沉默点头。两人看着办公室里已经开始写代码的朱江。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p12.jpg" loading="lazy" alt="P12"></div>
+<div class="panel-text">
+  <span class="narration">特写——朱江的手指在键盘上飞速敲击。节奏精准而稳定，不像程序员，像在扣扳机。</span>
+  <div class="thought">八年了，有些东西永远不会忘。</div>
+</div>
+
+<div class="section-spacer"></div>
+
+<!-- ===== 第二幕：意外闯入 ===== -->
+<div class="act-divider">
+  <h2>第二幕</h2>
+  <div class="act-sub">意外闯入</div>
+</div>
+
+<div class="panel"><img src="img/p13.jpg" loading="lazy" alt="P13"></div>
+<div class="panel-text"><span class="narration">三天后。深夜11点。朱江独自加班，戴着耳机写代码。桌上的咖啡已经凉了。走廊灯已灭。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p14.jpg" loading="lazy" alt="P14"></div>
+<div class="panel-text">
+  <span class="speaker">陌生男子：</span>"朱江？朱江先生？"
+  <div class="thought">朱江摘下耳机——身体下意识微微后倾，重心移到后脚。训练过的人的本能反应，普通人不会注意到。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p15.jpg" loading="lazy" alt="P15"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"您哪位？我们不需要保险也不需要净水器。"
+  <div class="thought">表面轻松。实际0.3秒内已完成评估——身高185，右手有枪茧，站位堵住门口。不是普通人。手已经悄悄握住桌上的马克杯。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<!-- Decision 2 -->
+<div class="decision">
+  <div class="d-header"><span class="d-icon">⚖️</span><span class="d-title">决策点 2：深夜不速之客</span></div>
+  <div class="d-situation">深夜办公室来了一个明显受过训练的陌生人。战斗本能已被唤醒，但你已"退役"多年。</div>
+  <ul class="d-options">
+    <li class="chosen">A. 保持伪装，继续装普通创业者，先看对方什么来头</li>
+    <li>B. 直接表明察觉到危险，用气场震慑对方</li>
+    <li>C. 找借口起身，移动到更有利的空间位置</li>
+  </ul>
+  <div class="d-reveal">朱江选了A——黑客基因决定一切：先收集信息，再行动。</div>
+</div>
+
+<div class="panel"><img src="img/p16.jpg" loading="lazy" alt="P16"></div>
+<div class="panel-text">
+  <span class="speaker">赵鹏：</span>"朱先生，我姓赵。这是我的名片。"
+  <div class="narration">名片上写着：「赵鹏 / 鼎盛资本 / 投资总监」</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p17.jpg" loading="lazy" alt="P17"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"鼎盛资本？你们不是只投C轮以上吗？我们连天使都没关。"
+  <div class="thought">鼎盛资本——50亿美金基金，来找一个快死的种子期公司？不对劲。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p18.jpg" loading="lazy" alt="P18"></div>
+<div class="panel-text">
+  <span class="speaker">赵鹏：</span>"我们对你的AI模型很感兴趣。特别是……你们那个'幽灵协议'。"
+  <div class="thought">空气突然凝固。「幽灵协议」——没告诉过任何人的实验性功能。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p19.jpg" loading="lazy" alt="P19"></div>
+<div class="panel-text">
+  <span class="speaker">朱江（语气没变）：</span>"幽灵协议？你在说什么？我们是做内容推荐的。"
+  <div class="thought">他怎么知道？只有三个可能：黑了我的服务器、有内鬼、或者——他们一直在监控我。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p20.jpg" loading="lazy" alt="P20"></div>
+<div class="panel-text">
+  <span class="speaker">赵鹏（笑了）：</span>"朱先生，我们的尽调非常……深入。今晚只是来聊聊。明天上午10点，这个地址。"
+  <div class="narration">赵鹏放下卡片转身离开。走路方式——脚跟先着地，步幅均匀。军人步态。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p21.jpg" loading="lazy" alt="P21"></div>
+<div class="panel-text"><span class="narration">卡片上只有一个地址，和一行字：「关于"隐龙"的事，我们可以不提。」</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p22.jpg" loading="lazy" alt="P22"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"操。退役八年了还能被人挖坟。"
+  <div class="thought">他们知道「隐龙」。这不是普通投资。手拿着卡片，完全不抖——训练的痕迹。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<!-- Decision 3 -->
+<div class="decision">
+  <div class="d-header"><span class="d-icon">⚖️</span><span class="d-title">决策点 3：「隐龙」身份被揭穿</span></div>
+  <div class="d-situation">隐藏了8年的军事身份被揭穿。对方知道你的过去，同时对你的AI技术有兴趣。明天要不要赴约？</div>
+  <ul class="d-options">
+    <li class="chosen">A. 去，但做好万全准备——提前侦察地点、设定撤离路线</li>
+    <li>B. 不去，连夜转移核心数据，保护团队安全</li>
+    <li>C. 去，不做特殊准备——堂堂正正地谈</li>
+  </ul>
+  <div class="d-reveal">朱江选了A——不回避，但必须掌握信息。霹雳手段从不打无准备的仗。</div>
+</div>
+
+<div class="panel"><img src="img/p23.jpg" loading="lazy" alt="P23"></div>
+<div class="panel-text"><span class="narration">凌晨三点。出租屋里，朱江坐在电脑前查卫星地图。旁边记事本上画着建筑平面图。角落里一个落灰的哑铃架——唯一暗示过去的物件。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p24.jpg" loading="lazy" alt="P24"></div>
+<div class="panel-text"><span class="narration">手在记事本上飞速标注——「入口2个」「监控3个」「后巷有消防通道」。手法专业、精确，肌肉记忆八年后依然分毫不差。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p25.jpg" loading="lazy" alt="P25"></div>
+<div class="panel-text">
+  <span class="speaker">朱江（对着镜子）：</span>"你看看你，一个写代码的，半夜画地形图。"
+  <div class="thought">但嘴角有一丝……兴奋？像一个被封印的引擎突然启动。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p26.jpg" loading="lazy" alt="P26"></div>
+<div class="panel-text"><span class="narration">床下拉出一个落灰的军用背包。里面：战术手套、瑞士军刀、旧军用指南针，和一张泛黄的合影——年轻的朱江穿着作训服，身边战友的脸全打了马赛克。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p27.jpg" loading="lazy" alt="P27"></div>
+<div class="panel-text">
+  <span class="speaker">朱江（低声）：</span>"老赵、大刘、小胖……你们还好吗？"
+  <div class="thought">退役八年，有些人再也没联系过。不是不想，是那段记忆太重了。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<!-- Decision 4 -->
+<div class="decision">
+  <div class="d-header"><span class="d-icon">⚖️</span><span class="d-title">决策点 4：面对过去的记忆</span></div>
+  <div class="d-situation">打开尘封8年的背包，看到战友合影。情绪涌上来了。</div>
+  <ul class="d-options">
+    <li class="chosen">A. 允许自己沉浸片刻，然后收好情绪，专注明天的事</li>
+    <li>B. 迅速合上背包，不让情绪干扰判断</li>
+    <li>C. 打电话给最信任的老战友，问问近况</li>
+  </ul>
+  <div class="d-reveal">朱江选了A——感性的人不压抑感受，但也不沉溺。情绪在了，不影响行动。</div>
+</div>
+
+<div class="panel"><img src="img/p28.jpg" loading="lazy" alt="P28"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"行了。明天的事明天再说。"
+  <div class="narration">把照片看了最后一眼，轻轻放回背包。躺到床上，闭眼。三秒后就睡着了——军人的入睡能力。</div>
+</div>
+
+<div class="section-spacer"></div>
+
+<!-- ===== 第三幕：暗流 ===== -->
+<div class="act-divider">
+  <h2>第三幕</h2>
+  <div class="act-sub">暗流</div>
+</div>
+
+<div class="panel"><img src="img/p29.jpg" loading="lazy" alt="P29"></div>
+<div class="panel-text"><span class="narration">第二天上午十点。高档写字楼前。朱江穿着昨天那件T恤+牛仔裤，左手插兜，右手一杯便利店咖啡。周围全是西装革履的金融人士。他格格不入，毫不在意。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p30.jpg" loading="lazy" alt="P30"></div>
+<div class="panel-text">
+  <span class="speaker">前台：</span>"请问您找哪位？"
+  <span class="speaker">朱江：</span>"鼎盛资本，赵鹏。"
+  <div class="thought">前台的眼神有一丝轻视。朱江笑了笑。不介意。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p31.jpg" loading="lazy" alt="P31"></div>
+<div class="panel-text"><span class="narration">38楼。落地窗外是整个城市的天际线。会议室里不止赵鹏——还有一个气质凌厉的中年女人，和一个沉默的年轻人，耳朵里塞着耳机，眼神始终在扫描。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p32.jpg" loading="lazy" alt="P32"></div>
+<div class="panel-text">
+  <div class="thought">0.5秒内完成观察——女人：决策者，45岁，右手中指有笔茧，但坐姿挺拔过度，受过纪律训练。年轻人：保镖/特工，左耳耳机=通讯设备，手臂肌肉线条=格斗训练。</div>
+  <span class="narration">朱江面带微笑坐下，把便利店咖啡放在一桌精致茶具中间。格外扎眼。</span>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p33.jpg" loading="lazy" alt="P33"></div>
+<div class="panel-text">
+  <span class="speaker">沈姐：</span>"朱先生，我姓沈。直接说吧——我们不是来投资的。"
+  <div class="narration">推过来一个文件夹。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p34.jpg" loading="lazy" alt="P34"></div>
+<div class="panel-text"><span class="narration">朱江的完整军事档案。服役记录、格斗评级S级、作战参与记录全部涂黑但日期可见。最后一行：「退役原因：家庭因素。评估：极度可惜。建议：条件允许时召回。」</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p35.jpg" loading="lazy" alt="P35"></div>
+<div class="panel-text">
+  <span class="speaker">朱江（语气很平静）：</span>"你们是谁？"
+  <div class="thought">不是害怕。是确认。眼神变了——不再是创业者的疲惫和友善，是教官的眼神。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<!-- Decision 5 -->
+<div class="decision">
+  <div class="d-header"><span class="d-icon">⚖️</span><span class="d-title">决策点 5：身份全面暴露</span></div>
+  <div class="d-situation">对方掌握了所有军事档案。两个身份此刻交汇。</div>
+  <ul class="d-options">
+    <li>A. 冷静谈判——你们需要我，开条件吧</li>
+    <li>B. 表现愤怒，质问凭什么调查自己</li>
+    <li class="chosen">C. 沉默等待，让对方先出所有牌</li>
+  </ul>
+  <div class="d-reveal">朱江选了C——沉默是最强的武器。让对方自己填补沉默，暴露更多。</div>
+</div>
+
+<div class="panel"><img src="img/p36.jpg" loading="lazy" alt="P36"></div>
+<div class="panel-text">
+  <span class="speaker">沈姐（等了10秒，朱江一言不发）：</span>"三天前，一个叫'幽灵协议'的程序原型出现在暗网上。有人在拍卖。"
+  <div class="thought">朱江的瞳孔微微收缩。幽灵协议——只存在他的加密硬盘上。有人偷了它。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p37.jpg" loading="lazy" alt="P37"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"有人偷了我的东西。"
+  <div class="thought">不是"有人在卖我的代码"，是"有人入侵了我的系统"。作为黑客，这比被打一拳更让他愤怒。手指在桌面无意识敲了三下。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p38.jpg" loading="lazy" alt="P38"></div>
+<div class="panel-text">
+  <span class="speaker">沈姐：</span>"那个程序落入错误的人手里……后果你比我清楚。我们需要你拿回来。你有你想要的——资金、你公司的未来。我们有我们需要的——你的能力。"
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p39.jpg" loading="lazy" alt="P39"></div>
+<div class="panel-text">
+  <span class="speaker">朱江（突然笑了）：</span>"你知道吗沈姐，我创业三年，见过的投资人没一百也有八十。这是第一次有人直接说'我们需要你'而不是'我们看好你的市场空间'。"
+  <div class="thought">自嘲化解紧张。内心已经在计算——幽灵协议泄露，不只是商业问题。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p40.jpg" loading="lazy" alt="P40"></div>
+<div class="panel-text">
+  <span class="speaker">朱江：</span>"条件。第一，我的团队不能知道。第二，我公司的事你们帮我解决——不是投资，是订单。第三……"
+  <div class="narration">端起便利店咖啡喝了一口。</div>
+  <span class="speaker">朱江：</span>"这杯咖啡比你们那个龙井好喝。"
+  <div class="thought">沈姐笑了。年轻保镖第一次有了表情——微微挑眉。</div>
+</div>
+
+<div class="section-spacer"></div>
+
+<!-- ===== 第四幕：觉醒 ===== -->
+<div class="act-divider">
+  <h2>第四幕</h2>
+  <div class="act-sub">觉醒</div>
+</div>
+
+<div class="panel"><img src="img/p41.jpg" loading="lazy" alt="P41"></div>
+<div class="panel-text"><span class="narration">当晚。城市边缘，一个废弃的地下训练场。朱江独自站在中央，面前是一排崭新的训练设备——沙袋、木人桩、靶标。八年了。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p42.jpg" loading="lazy" alt="P42"></div>
+<div class="panel-text">
+  <span class="speaker">朱江（低声）：</span>"八年了。"
+  <div class="thought">手掌贴上沙袋的瞬间，全身的肌肉记忆像电流一样苏醒。T恤下的身体——不是健身房练出来的，是实战打出来的线条。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p43.jpg" loading="lazy" alt="P43"></div>
+<div class="panel-text"><span class="narration">第一拳试探。第二拳找回节奏。第三拳——砰。沙袋链条震颤。拳头精准击中同一位置。专业的寸劲。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p44.jpg" loading="lazy" alt="P44"></div>
+<div class="panel-text"><span class="narration">特写拳头——指关节上是旧伤痕。沙袋上那个点已经凹进去了。这双手写了三年代码，但从未忘记过怎么打人。</span></div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p45.jpg" loading="lazy" alt="P45"></div>
+<div class="panel-text"><span class="narration">完整的格斗套路——闪避、反击、擒拿、地面技。流畅得不像生疏了八年。空气中只有击打声和呼吸声。</span></div>
+<div class="panel-spacer"></div>
+
+<!-- Decision 6 -->
+<div class="decision">
+  <div class="d-header"><span class="d-icon">⚖️</span><span class="d-title">决策点 6：战斗本能复苏</span></div>
+  <div class="d-situation">你的身体记住了一切。八年没用的技能像从未离开。你现在感受到什么？</div>
+  <ul class="d-options">
+    <li class="chosen">A. "原来我不只是一个创业者。我一直都是两个人。"</li>
+    <li>B. "这是工具，不是我。用完就放回去。"</li>
+    <li>C. "操，为什么停了八年。这感觉太爽了。"</li>
+  </ul>
+  <div class="d-reveal">朱江选了A（混合C）——一边打一边笑。身体的快乐和内心的领悟同时到来。</div>
+</div>
+
+<div class="panel"><img src="img/p46.jpg" loading="lazy" alt="P46"></div>
+<div class="panel-text">
+  <span class="speaker">朱江（喘着气，突然笑了）：</span>"一个写代码的和一个打人的……居然都是我。"
+  <div class="thought">不是困惑，是接纳。创业者、黑客、格斗教官、儿子、兄弟——全是他。从来不只是一个身份。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p47.jpg" loading="lazy" alt="P47"></div>
+<div class="panel-text">
+  <span class="narration">从背包掏出手机，给小李发消息：「明天正常上班。AI模型的事我有新想法。」</span>
+  <div class="thought">两个世界，他都不会放弃。</div>
+</div>
+<div class="panel-spacer"></div>
+
+<div class="panel"><img src="img/p48.jpg" loading="lazy" alt="P48"></div>
+<div class="panel-text">
+  <span class="speaker">朱江（低声）：</span>"隐龙……回来了。"
+  <div class="thought">不是复仇，不是使命感。是一个一直压着一半自己的人，终于完整了。</div>
+</div>
+
+<div class="end-card">
+  <h2>第一章 · 完</h2>
+  <p>未完待续</p>
+  <p style="margin-top:20px;color:#c9a64488;font-size:0.85em">隐龙·战神归来 — V5虚拟朱江互动分镜</p>
+</div>
+
+<script>
+// Lazy load observer
+if('IntersectionObserver' in window){
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const img=e.target;
+        if(img.dataset.src){img.src=img.dataset.src;img.removeAttribute('data-src')}
+        img.style.opacity='1';
+        obs.unobserve(img);
+      }
+    });
+  },{rootMargin:'200px'});
+  document.querySelectorAll('.panel img').forEach(img=>{
+    img.style.opacity='0';img.style.transition='opacity 0.5s';
+    obs.observe(img);
+  });
+}
+// Decision reveal toggle
+document.querySelectorAll('.decision').forEach(d=>{
+  const reveal=d.querySelector('.d-reveal');
+  const chosen=d.querySelector('.chosen');
+  if(reveal){
+    reveal.style.display='none';
+    if(chosen){
+      chosen.style.cursor='pointer';
+      chosen.addEventListener('click',()=>{reveal.style.display='block'});
+    }
+    // Also reveal on any option click
+    d.querySelectorAll('.d-options li').forEach(li=>{
+      li.style.cursor='pointer';
+      li.addEventListener('click',()=>{reveal.style.display='block'});
+    });
+  }
+});
+</script>
+</body>
+</html>
