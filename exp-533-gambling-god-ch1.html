@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赌神觉醒 · 第一章：概率之子</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.title-screen{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0a 0%,#1a0a2e 50%,#0a0a0a 100%);position:relative;overflow:hidden}
+.title-screen::before{content:'';position:absolute;top:50%;left:50%;width:300px;height:300px;background:radial-gradient(circle,rgba(59,130,246,0.15) 0%,transparent 70%);transform:translate(-50%,-50%);animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.5}50%{transform:translate(-50%,-50%) scale(1.3);opacity:1}}
+.title-screen h1{font-size:2.5rem;font-weight:900;letter-spacing:0.3em;background:linear-gradient(135deg,#3b82f6,#60a5fa,#93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;z-index:1}
+.subtitle{font-size:1.1rem;color:#64748b;margin-top:1rem;letter-spacing:0.2em;z-index:1}
+.chapter-info{font-size:0.85rem;color:#475569;margin-top:2rem;z-index:1}
+.scroll-hint{position:absolute;bottom:2rem;color:#475569;font-size:0.8rem;animation:bounce 2s ease-in-out infinite;z-index:1}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.panel{width:100%;max-width:430px;margin:0 auto;position:relative;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block}
+.pt{padding:1rem 1.4rem;font-size:1.12rem;line-height:1.85;background:#0a0a0a}
+.tag{display:inline-block;font-size:0.72rem;color:#3b82f6;background:rgba(59,130,246,0.1);padding:2px 8px;border-radius:3px;margin-bottom:0.5rem;letter-spacing:0.1em}
+.d{color:#f1f5f9;font-weight:500}
+.n{color:#94a3b8;font-style:italic}
+.t{color:#60a5fa;font-style:italic}
+.sys{color:#22d3ee;font-family:'Courier New',monospace;font-size:0.95rem;background:rgba(34,211,238,0.05);padding:0.5rem 0.8rem;border-left:2px solid #22d3ee;margin:0.5rem 0;display:block}
+.sfx{color:#f59e0b;font-weight:700;font-size:1.2rem;text-align:center;display:block;margin:0.3rem 0}
+.divider{width:100%;max-width:430px;margin:0 auto;padding:1.5rem 0;text-align:center;color:#334155;letter-spacing:0.5em;font-size:1rem}
+.sanity{max-width:430px;margin:0 auto;padding:0.6rem 1.4rem;background:rgba(10,10,10,0.95)}
+.sanity-label{font-size:0.65rem;color:#475569;letter-spacing:0.15em;margin-bottom:3px}
+.sanity-bar{height:4px;background:#1e293b;border-radius:2px;overflow:hidden}
+.sanity-fill{height:100%;border-radius:2px;transition:width 0.8s ease}
+.sg{background:#22c55e}.sy{background:#eab308}.sr{background:#ef4444;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0.5}}
+.ending{max-width:430px;margin:0 auto;padding:3rem 1.5rem;text-align:center;background:linear-gradient(180deg,#0a0a0a 0%,#1a0a2e 100%)}
+.tbc{font-size:1.5rem;font-weight:700;color:#3b82f6;letter-spacing:0.3em;margin-bottom:1rem}
+.teaser{font-size:1rem;color:#64748b;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="title-screen">
+  <h1>赌 神 觉 醒</h1>
+  <div class="subtitle">第一章 · 概率之子</div>
+  <div class="chapter-info">原创 · 赌术×系统文 · 暗色调拟真漫画</div>
+  <div class="scroll-hint">↓ 向下滑动 ↓</div>
+</div>
+
+<!-- P1 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-01.jpg" loading="lazy"><div class="pt">
+<span class="tag">深夜 · 城市街角便利店</span><br>
+<span class="n">城市的夜，从来不属于秦默。</span><br>
+<span class="n">便利店的荧光灯把他的脸照得发白，像一个被困在玻璃箱里的标本。</span>
+</div></div>
+
+<!-- P2 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-02.jpg" loading="lazy"><div class="pt">
+<span class="tag">便利店内 · 中近景</span><br>
+<span class="d">老板："秦默，你被辞退了。收银总出错，我养不起废物。"</span><br>
+<span class="n">秦默面无表情地摘下围裙，叠好，放在柜台上。</span><br>
+<span class="t">（第三份工了。这个月。）</span>
+</div></div>
+
+<!-- P3 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-03.jpg" loading="lazy"><div class="pt">
+<span class="tag">雨夜街道 · 全身背影</span><br>
+<span class="n">细雨落在霓虹灯映出的地面上，秦默把手插进卫衣口袋，漫无目的地走。</span><br>
+<span class="n">手机余额38块7。距离交房租还有4天。</span>
+</div></div>
+
+<!-- P4 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-04.jpg" loading="lazy"><div class="pt">
+<span class="tag">路边牌局 · 俯瞰</span><br>
+<span class="n">路灯下支着一张破折叠桌，烟雾缭绕。四个男人围坐在塑料凳上，啤酒罐散落一地。</span><br>
+<span class="n">这是刘瘸子的"地盘"——街边最小的牌局，赌注从不超过一百。</span>
+</div></div>
+
+<!-- P5 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-05.jpg" loading="lazy"><div class="pt">
+<span class="tag">路边 · 中景</span><br>
+<span class="d">刘瘸子一把抓住路过的秦默："小伙子！来来来，三缺一！"</span><br>
+<span class="d">秦默："……我不会打牌。"</span><br>
+<span class="d">刘瘸子："不会打？正好！来送钱的最受欢迎！"</span><br>
+<span class="n">其他几个赌徒笑成一团。</span>
+</div></div>
+
+<!-- P6 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-06.jpg" loading="lazy"><div class="pt">
+<span class="tag">牌桌 · 手部特写</span><br>
+<span class="n">秦默拿起牌，表情微妙——不是紧张，是困惑。</span><br>
+<span class="t">（这游戏……规则到底是什么来着？梅花比红心大？还是反过来？）</span>
+</div></div>
+
+<!-- P7 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-07.jpg" loading="lazy"><div class="pt">
+<span class="tag">牌桌 · 动态中景</span><br>
+<span class="n">秦默随手出了一张牌——赢了。</span><br>
+<span class="n">又赢了。</span><br>
+<span class="n">连赢三把。</span><br>
+<span class="n">刘瘸子嘴里的烟差点掉了。其他三个赌徒面面相觑。</span><br>
+<span class="t">（等等，我好像还是没搞懂规则……）</span>
+</div></div>
+
+<!-- P8 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-08.jpg" loading="lazy"><div class="pt">
+<span class="sfx">叮——</span>
+<span class="sys">【赌神系统绑定成功】</span>
+<span class="sys">宿主：秦默 | 等级：Lv.0 菜鸡 | 理智值：100/100</span>
+<span class="n">秦默眼前突然闪过一层淡蓝色的数字光芒。他以为自己低血糖犯了。</span>
+</div></div>
+
+<div class="sanity"><div class="sanity-label">理智值 SANITY</div><div class="sanity-bar"><div class="sanity-fill sg" style="width:100%"></div></div></div>
+
+<!-- P9 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-09.jpg" loading="lazy"><div class="pt">
+<span class="tag">秦默视角 · 主观镜头</span><br>
+<span class="n">牌面上，每张牌的上方都浮现出半透明的数字——</span><br>
+<span class="n">胜率：78%、23%、91%……</span><br>
+<span class="n">像是有人在他的眼睛里装了一个赌场版的抬头显示器。</span><br>
+<span class="sys">系统："检测到宿主智商足够但情商堪忧。已自动开启概率浮窗功能。"</span>
+</div></div>
+
+<!-- P10 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-10.jpg" loading="lazy"><div class="pt">
+<span class="tag">牌桌 · 中景</span><br>
+<span class="n">秦默面前的钞票越堆越高。他的脸上依然没有任何表情。</span><br>
+<span class="n">刘瘸子看他的眼神，已经从"肥羊"变成了"大佬"。</span><br>
+<span class="d">刘瘸子（小声）："这……这小子到底什么来头？"</span>
+</div></div>
+
+<!-- P11 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-11.jpg" loading="lazy"><div class="pt">
+<span class="tag">刘瘸子脸部 · 大特写</span><br>
+<span class="n">刘瘸子瞪大了眼，嘴里的烟彻底歪了。</span><br>
+<span class="n">他在道上混了三十年，从没见过赢钱赢得这么面无表情的人。</span><br>
+<span class="t">刘瘸子内心：（不是高手就是傻子……但傻子不可能连赢七把啊！）</span>
+</div></div>
+
+<div class="divider">· · · · ·</div>
+
+<!-- P12 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-12.jpg" loading="lazy"><div class="pt">
+<span class="tag">街道远处 · 广角</span><br>
+<span class="n">三道黑影从巷子深处走来。</span><br>
+<span class="n">牌桌上的人同时抬起头，气氛瞬间凝固。</span><br>
+<span class="n">刘瘸子的笑容消失了。</span>
+</div></div>
+
+<!-- P13 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-13.jpg" loading="lazy"><div class="pt">
+<span class="tag">街灯下 · 中景</span><br>
+<span class="n">赵姐踏入灯光，身后跟着两个壮汉。高马尾，黑西装，眼角细纹挡不住的压迫感。</span><br>
+<span class="d">赵姐："刘瘸子，你这小摊子上藏了个有意思的人啊。"</span><br>
+<span class="n">她的目光锁定秦默。</span>
+</div></div>
+
+<!-- P14 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-14.jpg" loading="lazy"><div class="pt">
+<span class="sfx">哐——！</span>
+<span class="n">保镖一脚踢翻了折叠桌。牌和钞票飞溅。</span><br>
+<span class="n">街头赌徒们作鸟兽散，只有刘瘸子死死护着自己那份钱。</span><br>
+<span class="n">秦默站在原地，一动不动。</span>
+</div></div>
+
+<!-- P15 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-15.jpg" loading="lazy"><div class="pt">
+<span class="tag">近景双人 · 对峙</span><br>
+<span class="n">赵姐走到秦默面前，上下打量。</span><br>
+<span class="d">赵姐："你叫什么？"</span><br>
+<span class="d">秦默："秦默。"</span><br>
+<span class="d">赵姐："赢了七把，心跳没变过？"</span><br>
+<span class="d">秦默："……心跳应该变吗？"</span><br>
+<span class="n">赵姐笑了。</span>
+</div></div>
+
+<!-- P16 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-16.jpg" loading="lazy"><div class="pt">
+<span class="tag">暗巷 · 广角</span><br>
+<span class="n">霓虹灯映在湿漉漉的地面上，一扇厚重的铁门隐藏在巷子深处。</span><br>
+<span class="n">赵姐在前面走，秦默在后面跟。</span><br>
+<span class="d">赵姐："铜级赌场。最低级的。你先从这里开始。"</span><br>
+<span class="sys">系统："检测到赌场等级提升。建议宿主……算了，说了你也不听。"</span>
+</div></div>
+
+<!-- P17 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-17.jpg" loading="lazy"><div class="pt">
+<span class="tag">铜级赌场内部 · 全景</span><br>
+<span class="n">推开门的一刻，烟雾和喧嚣扑面而来。</span><br>
+<span class="n">琥珀色吊灯、绿色牌桌、筹码碰撞声、低沉的笑声——这是另一个世界。</span><br>
+<span class="n">秦默站在门口，表情没变。但他的手指微微蜷缩了一下。</span>
+</div></div>
+
+<!-- P18 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-18.jpg" loading="lazy"><div class="pt">
+<span class="tag">赌场走廊 · 中景</span><br>
+<span class="n">秦默站在自动售货机前，表情罕见地慌了。</span><br>
+<span class="n">他按了三个按钮，投了两次币，饮料卡在出口不上不下。</span><br>
+<span class="d">秦默（小声）："……出来。"</span><br>
+<span class="n">他开始用手拍售货机。</span>
+</div></div>
+
+<!-- P19 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-19.jpg" loading="lazy"><div class="pt">
+<span class="tag">赵姐 · 特写</span><br>
+<span class="n">赵姐一只手扶额，眼睛闭上了。</span><br>
+<span class="t">赵姐内心：（我到底带了个什么回来……）</span><br>
+<span class="sys">系统："建议宿主放弃售货机。胜率：3%。"</span>
+</div></div>
+
+<div class="divider">· · · · ·</div>
+
+<!-- P20 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-20.jpg" loading="lazy"><div class="pt">
+<span class="tag">铜级赌场 · 德州扑克桌 · 广角</span><br>
+<span class="n">绿色牌桌。筹码。两个人对坐。</span><br>
+<span class="n">对面是铜级老牌——"蛇眼"。瘦长脸、三角眼、蛇纹丝绸衬衫。一看就不是善茬。</span><br>
+<span class="d">蛇眼："赵姐带来的新鲜肉？"</span>
+</div></div>
+
+<!-- P21 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-21.jpg" loading="lazy"><div class="pt">
+<span class="tag">蛇眼 · 大特写</span><br>
+<span class="n">蛇眼的三角眼微微眯起，嘴角勾出一丝蔑笑。</span><br>
+<span class="n">在铜级混了五年，还没输过给新人。</span><br>
+<span class="d">蛇眼："小子，入场费两千。输光了就从哪来回哪去。"</span>
+</div></div>
+
+<!-- P22 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-22.jpg" loading="lazy"><div class="pt">
+<span class="tag">秦默视角 · 过肩镜头</span><br>
+<span class="n">秦默看着手中的牌——概率浮窗显示胜率78%。</span><br>
+<span class="n">他把筹码推出去。弃牌。</span><br>
+<span class="sys">系统："宿主？这把能赢啊？你在干什么？"</span><br>
+<span class="t">（让他赢。先让他觉得我是废物。）</span>
+</div></div>
+
+<div class="sanity"><div class="sanity-label">理智值 SANITY</div><div class="sanity-bar"><div class="sanity-fill sy" style="width:72%"></div></div></div>
+
+<!-- P23 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-23.jpg" loading="lazy"><div class="pt">
+<span class="tag">蛇眼 · 中景</span><br>
+<span class="n">蛇眼得意地把筹码划拉到自己面前，翘起二郎腿。</span><br>
+<span class="d">蛇眼："就这？赵姐的眼光也不过如此嘛。"</span><br>
+<span class="n">周围几个看客窃笑。</span>
+</div></div>
+
+<!-- P24 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-24.jpg" loading="lazy"><div class="pt">
+<span class="tag">秦默脸部侧面 · 特写</span><br>
+<span class="n">蓝光在秦默眼底若隐若现。理智值的全息条已经从绿色变成了黄色。</span><br>
+<span class="sys">系统："理智值消耗提醒：当前72%。每次启动概率浮窗消耗5%。请合理使用。"</span><br>
+<span class="sys">系统："另外，宿主的演技堪忧。理智值额外扣0.5%——因为看不下去。"</span>
+</div></div>
+
+<!-- P25 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-25.jpg" loading="lazy"><div class="pt">
+<span class="tag">牌桌俯瞰</span><br>
+<span class="n">第二把，秦默又弃了。</span><br>
+<span class="n">蛇眼的筹码堆成了小山，秦默面前只剩薄薄一层。</span><br>
+<span class="n">力量对比悬殊得几乎可笑。</span><br>
+<span class="n">看客们开始摇头——"完了，这新人要被清零了。"</span>
+</div></div>
+
+<!-- P26 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-26.jpg" loading="lazy"><div class="pt">
+<span class="tag">赵姐 · 阴影中 · 中近景</span><br>
+<span class="n">赵姐站在暗处，双臂交叉，眼睛眯起。</span><br>
+<span class="n">烟雾从她身边飘过。</span><br>
+<span class="t">赵姐内心：（连输两把，但他的手……一点都不抖。）</span><br>
+<span class="t">（这小子在装。）</span>
+</div></div>
+
+<div class="divider">· · · · ·</div>
+
+<!-- P27 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-27.jpg" loading="lazy"><div class="pt">
+<span class="tag">秦默双眼 · 极致特写</span><br>
+<span class="n">第三把牌发下来的瞬间，秦默眼底的蓝光骤然变亮。</span><br>
+<span class="n">概率数字疯狂跳动——96%。</span><br>
+<span class="n">嘴角几乎不可察觉地微微上扬了0.5毫米。</span><br>
+<span class="n">这是秦默今晚唯一的表情变化。</span>
+</div></div>
+
+<!-- P28 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-28.jpg" loading="lazy"><div class="pt">
+<span class="sfx">全 押。</span>
+<span class="tag">低角度仰拍</span><br>
+<span class="n">秦默双手把所有剩余筹码推向桌子中央。</span><br>
+<span class="n">从这个角度看上去，他像一个把一切都押上去的赌徒。</span><br>
+<span class="n">但只有他知道——这不是赌博，是数学。</span>
+</div></div>
+
+<!-- P29 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-29.jpg" loading="lazy"><div class="pt">
+<span class="sfx">啪——！</span>
+<span class="tag">牌面特写</span><br>
+<span class="n">牌摊在绿色桌面上。</span><br>
+<span class="n">秦默的牌——完美碾压。</span><br>
+<span class="n">全场静了半秒。然后炸开了锅。</span>
+</div></div>
+
+<!-- P30 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-30.jpg" loading="lazy"><div class="pt">
+<span class="tag">蛇眼 · 大特写</span><br>
+<span class="n">蛇眼的脸僵住了。</span><br>
+<span class="n">那个自信的蔑笑碎成了渣，取而代之的是纯粹的不可置信。</span><br>
+<span class="d">蛇眼："不……不可能……我做了标记的牌……"</span><br>
+<span class="n">他说到一半，自己捂住了嘴。</span>
+</div></div>
+
+<!-- P31 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-31.jpg" loading="lazy"><div class="pt">
+<span class="tag">赌场全景 · 人群反应</span><br>
+<span class="n">看客们站了起来。有人指指点点，有人倒吸凉气。</span><br>
+<span class="d">"他刚才不是一直在输吗？"</span><br>
+<span class="d">"故意的吧……这是钓鱼啊！"</span><br>
+<span class="n">秦默坐在筹码堆里，像什么都没发生一样。</span>
+</div></div>
+
+<div class="sanity"><div class="sanity-label">理智值 SANITY ⚠</div><div class="sanity-bar"><div class="sanity-fill sr" style="width:28%"></div></div></div>
+
+<!-- P32 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-32.jpg" loading="lazy"><div class="pt">
+<span class="tag">秦默脸部 · 特写</span><br>
+<span class="n">但没人注意到，秦默的太阳穴上青筋微微鼓起。</span><br>
+<span class="n">他的眼睛开始发酸，视野边缘出现了模糊。</span><br>
+<span class="sys">系统："⚠ 理智值28%。进入警戒区。建议立即停止使用概率浮窗。"</span><br>
+<span class="sys">系统："再不停的话，下一次你醒来可能在医院里。或者更糟。"</span>
+</div></div>
+
+<!-- P33 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-33.jpg" loading="lazy"><div class="pt">
+<span class="tag">微距特写</span><br>
+<span class="n">一滴鲜血从鼻腔滴落，落在绿色牌桌上，在扑克牌旁边晕开一个小小的红点。</span><br>
+<span class="n">没人注意到。</span><br>
+<span class="n">除了秦默自己。</span>
+</div></div>
+
+<!-- P34 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-34.jpg" loading="lazy"><div class="pt">
+<span class="tag">中景</span><br>
+<span class="n">秦默假装不经意地用卫衣袖子擦了一下鼻子。</span><br>
+<span class="n">袖口上留下一道浅红色的痕迹。</span><br>
+<span class="t">（代价来了。）</span><br>
+<span class="n">他的面前堆着赢来的全部筹码，但他的目光落在那滴血上。</span>
+</div></div>
+
+<!-- P35 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-35.jpg" loading="lazy"><div class="pt">
+<span class="tag">赵姐从暗处走出 · 中景</span><br>
+<span class="n">赵姐从阴影中走出来，缓缓鼓掌。</span><br>
+<span class="n">掌声不大，但在安静下来的赌场里格外清晰。</span><br>
+<span class="d">赵姐："秦默。有点意思。"</span><br>
+<span class="n">她的眼里有兴趣，也有算计。</span>
+</div></div>
+
+<!-- P36 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-36.jpg" loading="lazy"><div class="pt">
+<span class="tag">双人近景 · 耳语</span><br>
+<span class="n">赵姐绕到秦默身后，俯身在他耳边。</span><br>
+<span class="d">赵姐（低声）："铜级太小了。银级要不要试试？"</span><br>
+<span class="d">秦默："……银级赌注多少？"</span><br>
+<span class="d">赵姐："起步十万。"</span><br>
+<span class="n">秦默沉默了。鼻血在他嘴唇边上又渗出一滴。</span>
+</div></div>
+
+<!-- P37 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-37.jpg" loading="lazy"><div class="pt">
+<span class="tag">空荡赌场 · 广角</span><br>
+<span class="n">人群散了。赌场关灯了大半。</span><br>
+<span class="n">秦默独自坐在牌桌前，面前是一堆筹码，脚下是几滴血迹。</span><br>
+<span class="n">头顶孤灯，照出一个小小的光圈，像是聚光灯，又像是牢笼。</span><br>
+<span class="sys">系统："理智值已恢复至31%。建议宿主回家睡觉。明天还有更大的麻烦等着你。"</span>
+</div></div>
+
+<!-- P38 -->
+<div class="panel"><img src="exp-533-gambling-god-ch1/panel-38.jpg" loading="lazy"><div class="pt">
+<span class="tag">结尾 · 破晓巷口</span><br>
+<span class="n">秦默走出暗巷，天边泛起鱼肚白。</span><br>
+<span class="n">他抬头看了一眼天空，然后低头看了一眼自己沾着血的袖口。</span><br>
+<span class="t">（赌神……吗。）</span><br>
+<span class="t">（代价倒是挺公平的。用命换钱。）</span><br>
+<span class="t">（但我好像……没有别的选择了。）</span>
+</div></div>
+
+<div class="sanity"><div class="sanity-label">理智值 SANITY</div><div class="sanity-bar"><div class="sanity-fill sr" style="width:15%"></div></div></div>
+
+<div class="ending">
+  <div class="tbc">未 完 待 续</div>
+  <div class="teaser">
+    银级赌场。十万起步。<br>
+    赌术更狠，对手更强，<br>
+    而秦默的理智值……所剩无几。<br><br>
+    <span style="color:#3b82f6">第二章：银色陷阱</span><br>
+    <span style="color:#475569; font-size:0.85rem">敬请期待</span>
+  </div>
+</div>
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel').forEach(p => obs.observe(p));
+</script>
+</body>
+</html>
