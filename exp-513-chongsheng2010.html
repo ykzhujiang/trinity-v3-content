@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重生2010·创业系统 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a1628 0%,#1a0a28 100%);padding:20px;text-align:center;position:relative;overflow:hidden}
+.cover::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(0,200,255,0.15) 0%,transparent 70%);animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}}
+.cover h1{font-size:2.2em;font-weight:900;margin-bottom:12px;background:linear-gradient(90deg,#00c8ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:1}
+.cover .subtitle{font-size:1.1em;color:#8899aa;margin-bottom:24px;position:relative;z-index:1}
+.cover .genre{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
+.cover .genre span{background:rgba(168,85,247,0.2);border:1px solid rgba(168,85,247,0.4);padding:4px 12px;border-radius:20px;font-size:0.85em;color:#c084fc}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;color:#556;font-size:0.9em}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+.panel{position:relative;width:100%;margin:0 auto}
+.panel img{width:100%;height:auto;display:block}
+.panel-text{padding:16px 20px;background:linear-gradient(180deg,rgba(10,10,10,0.95),rgba(10,10,10,1));line-height:1.8;font-size:18px}
+.scene-tag{color:#00c8ff;font-size:0.75em;font-weight:700;letter-spacing:2px;margin-bottom:4px}
+.shot-tag{color:#555;font-size:0.72em;margin-bottom:8px}
+.dialogue{margin:6px 0;padding-left:12px;border-left:3px solid #a855f7}
+.dialogue .speaker{color:#a855f7;font-weight:700}
+.narration{color:#8899aa;font-style:italic;margin:6px 0}
+.system-msg{color:#00c8ff;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);padding:8px 12px;border-radius:8px;margin:8px 0;font-family:"Courier New",monospace;font-size:0.9em}
+.inner{color:#c9a0dc;font-style:italic;margin:6px 0}
+.divider{height:2px;background:linear-gradient(90deg,transparent,#a855f7,transparent);margin:0}
+.ending{padding:40px 20px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0a1628)}
+.ending h2{font-size:1.5em;color:#a855f7;margin-bottom:16px}
+.ending .next{color:#00c8ff;font-size:1.1em;margin-top:20px}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>重生2010·创业系统</h1>
+<div class="subtitle">第一章 · 487元与一枚芯片</div>
+<div class="genre">
+<span>重生</span><span>创业</span><span>系统文</span><span>爽+搞笑</span>
+</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- Panel 01: 天台 远景 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-01.jpg" alt="天台远景" loading="eager">
+<div class="panel-text">
+<div class="scene-tag">📍 2026年，某互联网公司大楼天台，黄昏</div>
+<div class="shot-tag">🎬 远景/全景</div>
+<div class="narration">2026年3月，林远被裁员的第三天。</div>
+<div class="inner">💭 林远：三十二岁，十年青春换来一封体面的离职邮件。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 02: 面部特写 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-02.jpg" alt="面部特写" loading="eager">
+<div class="panel-text">
+<div class="shot-tag">🎬 面部特写</div>
+<div class="dialogue"><span class="speaker">林远</span>（喃喃）十年……写了一百万行代码，最后连个赔偿都没谈下来。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 03: 系统激活 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-03.jpg" alt="系统激活" loading="eager">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景/特效</div>
+<div class="narration">突然，视野中出现半透明光幕——</div>
+<div class="system-msg">🖥️ "检测到宿主即将归零。启动创业导航系统v1.0。"</div>
+<div class="dialogue"><span class="speaker">林远</span>（惊恐后退）什么鬼？！</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 04: 重生·宿舍 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-04.jpg" alt="大学宿舍" loading="lazy">
+<div class="panel-text">
+<div class="scene-tag">📍 2010年，某大学男生宿舍，清晨</div>
+<div class="shot-tag">🎬 中景</div>
+<div class="narration">林远睁开眼，发现自己躺在一张吱呀作响的上下铺里。</div>
+<div class="dialogue"><span class="speaker">林远</span>（坐起来，摸自己的脸）这……这是宿舍？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 05: 室友诺基亚 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-05.jpg" alt="室友诺基亚" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 过肩镜头</div>
+<div class="dialogue"><span class="speaker">室友大壮</span>（举着诺基亚）远哥！快看，我新买的N95，一千八！贼牛逼，能上QQ空间！</div>
+<div class="inner">💭 林远：（震惊）诺基亚……N95……这真的是2010年？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 06: 系统显示室友数据 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-06.jpg" alt="系统扫描室友" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 主观镜头（林远视角）</div>
+<div class="system-msg">🖥️ 姓名：王大壮 | 未来身价预测：0.3亿 | 关键转折点：2014年</div>
+<div class="inner">💭 林远：（目瞪口呆）大壮？？那个天天打DOTA挂科的大壮，未来身价三千万？？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 07: 照镜子 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-07.jpg" alt="照镜子" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="dialogue"><span class="speaker">林远</span>（对着镜子）二十岁的脸……（声音颤抖）</div>
+<div class="system-msg">🖥️ "宿主年龄已重置。提醒：您的创业知识库保留了2026年全部记忆。"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 08: 食堂远景 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-08.jpg" alt="大学食堂" loading="lazy">
+<div class="panel-text">
+<div class="scene-tag">📍 大学食堂，午餐时间</div>
+<div class="shot-tag">🎬 远景</div>
+<div class="narration">林远决定测试这个系统到底是真是假。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 09: 食堂阿姨 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-09.jpg" alt="食堂阿姨" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="system-msg">🖥️ 张阿姨 | 未来成就：连锁餐饮品牌创始人 | 成功率：87% | 关键：她的秘制辣酱配方</div>
+<div class="dialogue"><span class="speaker">林远</span>（震惊）阿姨……您这辣酱是自己调的吗？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 10: 阿姨表情 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-10.jpg" alt="阿姨表情" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 特写</div>
+<div class="dialogue"><span class="speaker">张阿姨</span>小伙子，你是来吃饭的还是来查户口的？</div>
+<div class="dialogue"><span class="speaker">林远</span>不不不，我是说……阿姨您有没有想过自己开店？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 11: 被当神经病 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-11.jpg" alt="被笑" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="dialogue"><span class="speaker">张阿姨</span>（大笑）开店？我一个打菜的开什么店！小伙子你是不是昨晚没睡好？</div>
+<div class="dialogue"><span class="speaker">后面同学</span>（窃笑）这人谁啊，跟阿姨聊创业……</div>
+<div class="inner">💭 林远：好吧，2010年的人确实没法理解。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 12: 系统评价 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-12.jpg" alt="系统评价" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 系统界面特写</div>
+<div class="system-msg">🖥️ "社交能力评估：D+。建议：不要在公共场合透露未来信息。这不是电视剧。"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 13: 校园BBS -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-13.jpg" alt="校园BBS" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 屏幕特写</div>
+<div class="narration">回到宿舍，林远打开校园BBS。</div>
+<div class="system-msg">📋 "出几台二手智能机，诺基亚5230/多普达，价格好商量——联系QQ:285746xxx"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 14: 系统警报 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-14.jpg" alt="系统警报" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="system-msg">🖥️ ⚡ 风口预警：移动互联网爆发倒计时18个月。建议策略：囤积智能手机零部件。预期回报率：1200%</div>
+<div class="dialogue"><span class="speaker">林远</span>（咽了口口水）一千二百……percent？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 15: 钱包 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-15.jpg" alt="钱包" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 钱包特写</div>
+<div class="dialogue"><span class="speaker">林远</span>（翻钱包）四百……八十七块。这是我全部身家。</div>
+<div class="system-msg">🖥️ "资金评估：极度不足。建议：先找到低成本切入点。"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 16: 思考 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-16.jpg" alt="思考" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="inner">💭 林远：487块……在2026年连顿好饭都吃不起。但在2010年……</div>
+<div class="system-msg">🖥️ "检测到宿主正在调用未来记忆。提醒：您知道接下来十六年每一个风口的时间表。"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 17: 下决心 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-17.jpg" alt="下决心" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 面部特写</div>
+<div class="dialogue"><span class="speaker">林远</span>（握拳）四百八十七块……够了。我不需要多，我只需要一个开始。</div>
+<div class="system-msg">🖥️ "检测到宿主决心值上升。解锁功能：'商业嗅觉'基础版。"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 18: 出门 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-18.jpg" alt="走出宿舍" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 远景</div>
+<div class="narration">林远带着全部身家487元，走出了宿舍楼。</div>
+<div class="narration">日光从阴影切到明亮——新的开始。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 19: 宿舍争论 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-19.jpg" alt="宿舍争论" loading="lazy">
+<div class="panel-text">
+<div class="scene-tag">📍 宿舍，晚上</div>
+<div class="shot-tag">🎬 中景</div>
+<div class="dialogue"><span class="speaker">大壮</span>林远你疯了吧？不去上课天天研究手机？期末考你打算挂几科？</div>
+<div class="dialogue"><span class="speaker">林远</span>（激动）你们不懂！手机以后会改变一切！</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 20: 激动表情 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-20.jpg" alt="激动表情" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 特写</div>
+<div class="dialogue"><span class="speaker">林远</span>（脱口而出）你知道十年后人人都用手机付钱吗？买菜、打车、点外卖，全用手机！现金都快淘汰了！</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 21: 沉默 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-21.jpg" alt="全宿舍沉默" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 全景（沉默三秒）</div>
+<div class="narration">宿舍安静了整整三秒。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 22: 爆笑 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-22.jpg" alt="爆笑" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="dialogue"><span class="speaker">大壮</span>（笑到捶床）哈哈哈哈手机付钱！你咋不说以后手机能炒菜呢！</div>
+<div class="dialogue"><span class="speaker">瘦猴</span>（笑喷）远哥你是不是看科幻小说看多了！</div>
+<div class="dialogue"><span class="speaker">林远</span>（无奈叹气）行吧……你们等着看。</div>
+<div class="system-msg">🖥️ "建议：减少预言频率。当前可信度已降至0。"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 23: 图书馆 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-23.jpg" alt="图书馆" loading="lazy">
+<div class="panel-text">
+<div class="scene-tag">📍 大学图书馆，下午</div>
+<div class="shot-tag">🎬 远景</div>
+<div class="narration">林远来图书馆查找2010年的商业资料。他需要找到最低成本的切入点。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 24: 发现女生 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-24.jpg" alt="图书馆女生" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="narration">转过书架，林远看到一个女生正在专注地看书。</div>
+<div class="system-msg">🖥️ "检测到高价值目标。正在分析……"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 25: 乔布斯传 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-25.jpg" alt="乔布斯传" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 书本特写</div>
+<div class="narration">她看的是——《乔布斯传》。2010年，这本书还没有在中国大火。</div>
+<div class="inner">💭 林远：乔布斯传……这女生有眼光。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 26: 系统分析女生 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-26.jpg" alt="系统分析" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 主观镜头（林远视角）</div>
+<div class="system-msg">🖥️ 姓名：苏小晴 | 创业成功率：0.01% | ⚡隐藏成就：改变此概率可解锁"命运改写者"称号</div>
+<div class="inner">💭 林远：0.01%……但有隐藏成就？这系统在暗示什么？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 27: 决定帮她 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-27.jpg" alt="决定帮她" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="dialogue"><span class="speaker">林远</span>（自言自语，微笑）0.01%的成功率……在我重生之前，我的成功率大概也是0吧。</div>
+<div class="dialogue"><span class="speaker">林远</span>决定了，我要帮她。</div>
+<div class="system-msg">🖥️ "提醒：助人为乐不计入KPI。但宿主似乎不在意。"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 28: 电子市场 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-28.jpg" alt="电子市场" loading="lazy">
+<div class="panel-text">
+<div class="scene-tag">📍 城中电子市场</div>
+<div class="shot-tag">🎬 远景</div>
+<div class="narration">林远带着487块钱来到电子市场。目标：进一批智能机零件。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 29: 交易 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-29.jpg" alt="交易" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="dialogue"><span class="speaker">老板</span>（金牙闪光）小伙子，这批货绝对正品，市面上找不到第二家这个价！</div>
+<div class="dialogue"><span class="speaker">林远</span>（递钱）487……全在这了。</div>
+<div class="system-msg">🖥️ "警告：验货功能尚未解锁……"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 30: 假货 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-30.jpg" alt="假货" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 零件特写</div>
+<div class="dialogue"><span class="speaker">林远</span>（检查零件，脸色发白）这……这印刷都是歪的。全是假货。</div>
+<div class="narration">487块钱，全打了水漂。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 31: 系统打脸 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-31.jpg" alt="系统打脸" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="system-msg">🖥️ "商业判断力评估：F-。验货能力：不存在。建议：先学会验货再谈创业。"</div>
+<div class="dialogue"><span class="speaker">林远</span>（崩溃）你就不能早说吗？！</div>
+<div class="system-msg">🖥️ "你没问。"</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 32: 绝望 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-32.jpg" alt="绝望" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 面部特写</div>
+<div class="dialogue"><span class="speaker">林远</span>（苦笑）重生了又怎样……知道未来又怎样……连四百块钱都保不住。</div>
+<div class="narration">那一刻，林远觉得系统可能就是个垃圾软件。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 33: 发现芯片 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-33.jpg" alt="发现芯片" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 芯片特写</div>
+<div class="narration">林远翻着假货打算扔掉的时候——指尖碰到一片不一样的东西。</div>
+<div class="dialogue"><span class="speaker">林远</span>（定睛一看）等等……这个做工……这不是假的。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 34: 系统确认 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-34.jpg" alt="系统确认" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景</div>
+<div class="system-msg">🖥️ "扫描完成！这是一枚工程样品级芯片。市场估值：远超宿主想象。"</div>
+<div class="dialogue"><span class="speaker">林远</span>（不敢相信）你是说……这堆假货里混了一个真宝贝？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 35: 任务更新 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-35.jpg" alt="任务更新" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 系统界面（主观镜头）</div>
+<div class="system-msg">🖥️ "意外收获概率已计入模型。运气指数+15。新任务更新：找到愿意为此芯片买单的人。"</div>
+<div class="dialogue"><span class="speaker">林远</span>（握紧芯片）这次，我不会再犯蠢了。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 36: 站起来 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-36.jpg" alt="站起来" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 低角度远景</div>
+<div class="narration">487块钱买了一堆废铁，但废铁里藏着一颗金子。</div>
+<div class="inner">💭 林远：这大概就是创业吧——大部分时间在踩坑，偶尔捡到金子。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 37: 网吧 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-37.jpg" alt="网吧" loading="lazy">
+<div class="panel-text">
+<div class="scene-tag">📍 校外网吧，深夜</div>
+<div class="shot-tag">🎬 中景</div>
+<div class="narration">林远在网上查这枚芯片的设计者信息。</div>
+<div class="dialogue"><span class="speaker">林远</span>（疯狂搜索）这个型号……设计团队是……</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 38: 发现真相 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-38.jpg" alt="发现真相" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 屏幕特写</div>
+<div class="narration">搜索结果出来了——这枚芯片的设计者，是隔壁大学微电子系的一个研究生。</div>
+<div class="dialogue"><span class="speaker">林远</span>（声音发抖）赵……赵启明？？</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 39: 震惊 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-39.jpg" alt="震惊" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 面部特写</div>
+<div class="inner">💭 林远：赵启明……2026年，他是"芯海科技"的CEO。也是亲手签了我裁员通知书的人。</div>
+<div class="inner">💭 林远：而现在……他还只是个研究生。</div>
+</div></div><div class="divider"></div>
+
+<!-- Panel 40: 三个选项 -->
+<div class="panel fade-in">
+<img src="exp-513-chongsheng2010/images/panel-40.jpg" alt="三个选项" loading="lazy">
+<div class="panel-text">
+<div class="shot-tag">🎬 中景 + 系统界面</div>
+<div class="system-msg">🖥️ "命运交汇点检测。三个选项已解锁——"</div>
+<div class="system-msg">① 合作（成功率23%）——与赵启明共同创业</div>
+<div class="system-msg">② 竞争（成功率67%）——抢先占领他的赛道</div>
+<div class="system-msg">③ 无视（成功率41%）——走完全不同的路</div>
+<div class="dialogue"><span class="speaker">林远</span>（盯着三个选项，嘴角上扬）有意思……</div>
+<div class="narration">命运的齿轮，在2010年的深夜，开始重新转动。</div>
+<div style="text-align:center;color:#a855f7;font-size:1.2em;margin:16px 0">—— 第一章 完 ——</div>
+<div class="system-msg">🖥️ "本章评估：创业潜力C+，运气B，判断力F-。总评：有待观察。下一章预告：林远将面对第一次真正的商业决策。"</div>
+</div></div><div class="divider"></div>
+
+<div class="ending fade-in">
+<h2>第一章 · 完</h2>
+<p style="color:#8899aa">林远的创业之路才刚刚开始。</p>
+<p style="color:#8899aa;margin-top:8px">487元、一堆假货、一枚真芯片、一个改变命运的选择。</p>
+<div class="next">📖 第二章 · 敬请期待</div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
