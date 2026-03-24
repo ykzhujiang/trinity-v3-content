@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>时间回溯赌神 · 第一章：概率之眼</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#07060e;color:#e0dfe8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story{max-width:430px;margin:0 auto;padding:0}
+.panel{position:relative;width:100%;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;min-height:200px;background:#0d0c18}
+.text-block{padding:16px 20px;font-size:17px;line-height:1.8;background:linear-gradient(180deg,rgba(7,6,14,0.95),rgba(7,6,14,1))}
+.dialogue{color:#00e5ff;font-weight:600;margin:4px 0}
+.narration{color:#a8a0c0;font-style:italic;margin:4px 0}
+.inner{color:#bf7fff;margin:4px 0;font-style:italic}
+.scene-tag{display:inline-block;background:rgba(0,229,255,0.08);color:#00e5ff88;font-size:12px;padding:2px 8px;border-radius:4px;margin-bottom:8px;border:1px solid rgba(0,229,255,0.15)}
+.chapter-title{text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,#000 0%,#07060e 100%)}
+.chapter-title h1{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:2px;text-shadow:0 0 30px rgba(0,229,255,0.3)}
+.chapter-title h2{font-size:16px;color:#666;font-weight:400}
+.chapter-title .subtitle{font-size:13px;color:#bf7fff88;margin-top:8px}
+.divider{height:40px;background:linear-gradient(180deg,rgba(7,6,14,1),rgba(15,10,30,1),rgba(7,6,14,1));display:flex;align-items:center;justify-content:center}
+.divider::after{content:'';width:60px;height:1px;background:linear-gradient(90deg,transparent,#00e5ff33,transparent)}
+.end-card{text-align:center;padding:60px 20px 100px;background:#07060e}
+.end-card h3{font-size:22px;color:#00e5ff;margin-bottom:12px;text-shadow:0 0 20px rgba(0,229,255,0.3)}
+.end-card p{color:#666;font-size:14px}
+.action{color:#ff4d6a;font-weight:600;margin:4px 0}
+.math{color:#00ff88;font-family:monospace;font-size:14px;margin:4px 0}
+.glitch{animation:glitch 0.3s ease-in-out;color:#bf7fff;font-weight:700}
+@keyframes glitch{0%{text-shadow:2px 0 #ff004d,-2px 0 #00e5ff}25%{text-shadow:-2px 0 #ff004d,2px 0 #00e5ff}50%{text-shadow:2px 2px #ff004d,-2px -2px #00e5ff}75%{text-shadow:-2px 2px #ff004d,2px -2px #00e5ff}100%{text-shadow:0 0 transparent}}
+</style>
+</head>
+<body>
+<div class="story">
+
+<div class="chapter-title">
+<h1>时间回溯赌神</h1>
+<h2>第一章 · 概率之眼</h2>
+<div class="subtitle">三分钟。改变一切只需要三分钟。</div>
+</div>
+
+<!-- ACT 1: 破旧出租屋 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-01.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">深夜·城中村出租屋</div><p class="narration">方一鸣的出租屋只有九平米。墙上贴满了数学推导手稿，密密麻麻的公式像另一种语言。</p><p class="narration">桌上堆着泡面桶和空啤酒罐。唯一值钱的东西是一台二手笔记本电脑。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-02.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">墙上最显眼的位置，钉着一张照片——一个中年教授在学术会议上意气风发的样子。照片上被圆珠笔画了无数个圈。</p><p class="inner">（赵明远教授。我的导师。窃取我论文的人。）</p><p class="narration">手机响了。又是房东催租。方一鸣没有接。</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 2: 赌场日常 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-32.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">夜·地下赌场入口</div><p class="narration">一家普通的火锅店后面，有一条通往地下的楼梯。两个壮汉站在门口，只对熟面孔点头放行。</p><p class="narration">方一鸣从员工通道走进去，换上黑色马甲——他是这里的发牌员。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-03.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">地下赌场·主厅</div><p class="narration">方一鸣站在发牌位，手指灵活地切牌、派牌。他的动作机械而精准——但他的大脑从来没有停过。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-04.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">在他眼中，每个赌客上方都浮现着数字——</p><p class="math">左一号位：跟注概率72%，诈唬倾向0.3</p><p class="math">右二号位：手牌强度预估前15%</p><p class="inner">（数学不会骗人。这些人的底牌，我比他们自己还清楚。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-05.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">监控室</div><p class="narration">赵老板坐在监控室，金链子在屏幕蓝光下闪烁。</p><p class="dialogue">「方一鸣！你发牌能不能快点？客人都等烦了！」</p><p class="narration">对讲机里传来赵老板的怒骂。方一鸣面无表情地加快了速度。</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 3: 意外触发 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-06.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">赌场·贵宾桌</div><p class="narration">一个输红了眼的贵宾赌客突然站起来，一巴掌甩向方一鸣——</p><p class="dialogue">「你他妈是不是在牌里做了手脚！」</p><p class="action">巴掌来得又快又狠。方一鸣来不及闪避。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-07.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">然后——世界碎了。</p><p class="narration">不是比喻。方一鸣亲眼看到现实像玻璃一样裂开，时间碎片倒着飞。三分钟前的画面像倒放的电影，从眼前掠过。</p><p class="inner">（这……是什么？！）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-08.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣回到了三分钟前。贵宾赌客还没有站起来。巴掌还没有甩出来。</p><p class="narration">他的心脏狂跳，但大脑——数学天才的大脑——已经开始分析。</p><p class="inner">（如果我提前往左移半步……）</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 4: 验证 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-09.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">贵宾赌客果然暴怒站起，一巴掌甩过来——</p><p class="action">方一鸣微微侧身，巴掌擦着鼻尖过去。赌客甩了个空，自己差点摔倒。</p><p class="narration">全桌的人都惊了。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-33.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣甚至「预判」了下一手牌——在牌翻开之前，准确说出了贵宾手里的底牌。</p><p class="dialogue">「您手里是红心七和方块九。建议您……换张桌子冷静一下。」</p><p class="narration">贵宾面色铁青，但说不出一个字。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-10.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣低头，发现指尖上有血——鼻血。</p><p class="inner">（这就是代价吗？回溯三分钟，换来流鼻血。）</p><p class="inner">（值。太值了。）</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 5: 第一局 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-11.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">深夜·下班后</div><p class="narration">凌晨三点，方一鸣脱下发牌员马甲，揣着仅有的三千块钱积蓄，坐到了赌桌的另一边。</p><p class="narration">从发牌员变成赌客——这是两个完全不同的世界。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-42.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">他走进赌场主厅，选了一张中等赌注的桌子。周围的老赌客打量着他——一个瘦弱的戴眼镜年轻人，看起来像误入狼群的羊。</p><p class="inner">（三千块。全部身家。输了就真的去睡桥洞了。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-34.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">第一手牌，方一鸣下注五百——输了。概率计算没有问题，但运气这东西不讲道理。</p><p class="inner">（不慌。我还有后手。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-12.jpg" loading="lazy" alt=""><div class="text-block"><p class="action">时间回溯——启动。</p><p class="narration">世界再次碎裂、倒流。方一鸣回到了下注之前。这一次他换了策略——</p><p class="narration">赢了。</p><p class="narration">但鼻血又来了。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-13.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">旁边一只手递过来一张纸巾。方一鸣抬头——</p><p class="narration">一个冷面美人，长发如墨，面无表情。是赌场的荷官，柳如烟。</p><p class="dialogue">「鼻炎？」</p><p class="dialogue">方一鸣接过纸巾：「嗯。老毛病。」</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 6: 连赢升级 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-14.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">赌场·主厅</div><p class="narration">三局。五局。八局。方一鸣的筹码越堆越高。</p><p class="narration">他不是每局都赢——那太假了。他用概率控制着节奏，输小赢大，看起来就像手气爆棚。</p><p class="inner">（时间回溯不是万能的。每天只能用三次，每次头疼欲裂。得省着用。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-15.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">监控室里，赵老板的笑容消失了。他掐灭了雪茄，盯着屏幕上那个刚刚还在给自己打工的瘦小伙子。</p><p class="dialogue">「把刘千叫来。」</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-16.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">刘千。赌场的「看门人」。传说中的千术大师——没有人能在他手下赢钱。</p><p class="narration">他穿着考究的西装，脸上一道旧伤疤，从左眉角延伸到颧骨。走过赌场时，所有老赌客自觉让路。</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 7: 刘千 vs 方一鸣 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-17.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">赌场·中央赌桌</div><p class="narration">刘千坐到了方一鸣对面。两个人之间隔着一张绿毯赌桌、一副新拆封的牌，和一种说不清的杀意。</p><p class="dialogue">「小子，赢了不少嘛。跟我玩一把？」</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-36.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣推了推眼镜，镜片反射着赌场的霓虹。他看到了——</p><p class="inner">（他的右手食指和中指夹牌的角度不对。标准发牌是15度，他是22度——多出的7度，足够在切牌时偷换一张。）</p><p class="inner">（出千。从第一手牌就开始了。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-18.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣看穿了刘千的千术。但他不能揭穿——在这个赌场揭穿「看门人」出千，等于找死。</p><p class="inner">（不能硬来。得让他自己露馅。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-19.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣的大脑高速运转。概率树在脑海中展开——如果刘千下一手从底牌区偷换黑桃A，而我提前……</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-20.jpg" loading="lazy" alt=""><div class="text-block"><p class="action">时间回溯。第二次。</p><p class="narration">方一鸣已经看过了这一手的结果。他回到下注前，故意改变了自己的下注节奏——逼刘千调整出千时机。</p><p class="inner">（你换牌的窗口只有0.3秒。我只要让你晚0.1秒……你就会换错。）</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 8: 反杀 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-21.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">果然。刘千的节奏被打乱了。他的手指差了那么一点点——换出来的牌，不是他想要的那张。</p><p class="narration">翻牌的瞬间，刘千脸色大变。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-22.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">满桌的人都看到了——刘千手里多出了一张牌。出千的铁证。</p><p class="narration">「千术大师」刘千，在所有人面前翻车了。</p><p class="narration">方一鸣坐在对面，面无表情地扶了扶眼镜。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-23.jpg" loading="lazy" alt=""><div class="text-block"><p class="action">刘千暴怒掀桌！</p><p class="narration">筹码飞散，牌漫天乱飞。他一把抓向方一鸣——</p><p class="narration">方一鸣往后微微一仰，椅子刚好倾斜到安全角度。刘千的手从他鼻尖划过。</p><p class="inner">（距离3厘米。我算过的。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-38.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣躲进洗手间，双手撑着洗手台。镜子里的自己苍白如纸，鼻血滴在白瓷上触目惊心。</p><p class="inner">（三次用完了。今天不能再回溯了。）</p><p class="inner">（但……赢了。我赢了。）</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 9: 赵老板的招揽 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-24.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">赌场·主厅</div><p class="narration">赵老板亲自出场了。两个保镖跟在身后。他一抬手，整个赌场安静下来。</p><p class="narration">刘千像被人拎住后领的猫，瞬间老实了。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-25.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">赵老板低头看着从洗手间出来的方一鸣。出乎所有人意料——他笑了。</p><p class="dialogue">「有意思。小子，你叫什么来着？」</p><p class="dialogue">「方一鸣。」</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-37.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣看到赵老板办公室墙上挂着「诚信经营」的牌匾。牌匾下面的抽屉半开着，露出灌了铅的骰子和做了记号的牌。</p><p class="inner">（好一个诚信经营。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-26.jpg" loading="lazy" alt=""><div class="text-block"><p class="dialogue">「方一鸣，想不想换个工作？不当发牌员了。给我当……数学顾问。」</p><p class="narration">赵老板的「邀请」不是在问你。是在通知你。</p><p class="inner">（数学顾问？说白了就是帮他算怎么赢更多人的钱。但……这是我接近这个圈子核心的唯一机会。）</p></div></div>
+
+<div class="divider"></div>
+
+<!-- ACT 10: 柳如烟 + 结尾 -->
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-27.jpg" loading="lazy" alt=""><div class="text-block"><div class="scene-tag">凌晨·赌场后巷</div><p class="narration">方一鸣从赌场出来，手里攥着今晚赢来的钱。不多，两万三。但对他来说是两个月的房租。</p><p class="narration">雨开始下了。霓虹灯的光在水洼里碎成一片。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-35.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">他掏出手机打开外卖APP，犹豫了三分钟——最终还是点了一份泡面。习惯这种东西，比概率更难改变。</p><p class="inner">（赢了两万三还在吃泡面……方一鸣你是不是有病。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-28.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">巷子口，一个身影靠在墙上。长发如墨，双臂交叉——柳如烟。她不知道等了多久。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-29.jpg" loading="lazy" alt=""><div class="text-block"><p class="dialogue">「你不是普通人。」</p><p class="narration">柳如烟的声音冷而清晰，像雨中的刀刃。</p><p class="dialogue">方一鸣停下脚步：「你也不是。」</p><p class="narration">两个人在雨中对视。谁也没有先开口。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-30.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣的手机震动了一下。他低头一看——朋友圈里，赵明远教授正在某个国际学术会议上领奖，身后的大屏幕上是方一鸣写的论文。</p><p class="narration">台下掌声雷动。</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-31.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">方一鸣握紧了拳头。鼻血又滴了一滴，落进脚下的水洼。</p><p class="inner">（赵明远……你欠我的，我会一分不少地拿回来。）</p><p class="inner">（三分钟的时间回溯，够不够改变命运？）</p><p class="inner">（够了。一定够。）</p></div></div>
+
+<div class="panel"><img src="exp-532-time-gambler-ch1/panel-39.jpg" loading="lazy" alt=""><div class="text-block"><p class="narration">天快亮了。方一鸣走在空无一人的街道上，城市的霓虹渐渐被晨光取代。</p><p class="narration">他是一个被偷走论文的数学天才。一个地下赌场的发牌员。一个刚刚发现自己能回溯时间的人。</p><p class="narration">故事，才刚刚开始。</p></div></div>
+
+<div class="end-card">
+<h3>第一章 · 完</h3>
+<p>《时间回溯赌神》</p>
+<p style="margin-top:8px;color:#bf7fff88">三分钟，足以改变一切。</p>
+<p style="margin-top:20px;color:#444;font-size:12px">下一章：赌场新秩序</p>
+</div>
+
+</div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
