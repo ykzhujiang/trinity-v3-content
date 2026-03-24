@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>厨神下山 · 第一章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d0;
+  font-family: 'PingFang SC', 'Noto Sans SC', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #1a1208 0%, #0a0a0a 100%);
+}
+.header h1 {
+  font-size: 2.8em;
+  color: #f4c542;
+  text-shadow: 0 0 30px rgba(244,197,66,0.3);
+  margin-bottom: 10px;
+  letter-spacing: 8px;
+}
+.header .subtitle {
+  font-size: 1.1em;
+  color: #a89070;
+  margin-bottom: 30px;
+}
+.header .tagline {
+  font-size: 0.9em;
+  color: #706050;
+  max-width: 300px;
+}
+.panel {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 16px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  border-radius: 4px;
+  display: block;
+  margin: 20px 0 12px;
+}
+.panel .scene-info {
+  font-size: 0.7em;
+  color: #8a7a60;
+  border-left: 3px solid #f4c542;
+  padding-left: 10px;
+  margin-bottom: 8px;
+}
+.panel .narration {
+  font-size: 1em;
+  color: #d8d0c0;
+  margin-bottom: 6px;
+}
+.panel .dialogue {
+  font-size: 1.05em;
+  color: #f4c542;
+  padding: 8px 14px;
+  background: rgba(244,197,66,0.08);
+  border-radius: 8px;
+  margin: 8px 0;
+}
+.panel .dialogue .speaker {
+  font-size: 0.8em;
+  color: #a89070;
+  margin-bottom: 2px;
+}
+.panel .inner {
+  font-size: 0.95em;
+  color: #a0b8d0;
+  font-style: italic;
+  margin: 6px 0;
+}
+.panel .sfx {
+  font-size: 1.3em;
+  color: #e85040;
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0;
+  text-shadow: 0 0 10px rgba(232,80,64,0.3);
+}
+.divider {
+  width: 60px;
+  height: 2px;
+  background: #f4c542;
+  margin: 30px auto;
+  opacity: 0.4;
+}
+.chapter-end {
+  text-align: center;
+  padding: 60px 20px 100px;
+  color: #706050;
+}
+.chapter-end h2 {
+  color: #f4c542;
+  font-size: 1.6em;
+  margin-bottom: 16px;
+}
+.chapter-end p {
+  font-size: 0.95em;
+  max-width: 320px;
+  margin: 0 auto 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>厨 神 下 山</h1>
+  <div class="subtitle">第一章 · 味绝峰的最后一课</div>
+  <div class="tagline">武当山有座无名峰，山上住着一个会做饭的道士。<br>师父说：下山去，用厨艺征服天下。<br>他以为的天下是江湖——<br>实际上是2026年的北京。</div>
+</div>
+
+<!-- Panel 1: Wudang establishing -->
+<div class="panel">
+  <div class="scene-info">【场景】武当山顶·味绝峰 | 远景·航拍感 | 清晨</div>
+  <img src="exp-511-chushen-ch1/images/panel-01.jpg" loading="lazy" alt="武当山远景">
+  <div class="narration">武当山深处，有一座连本地人都不知道的小峰。</div>
+  <div class="narration">山上没有道观，只有一间厨房。</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 2: Knife cutting tofu -->
+<div class="panel">
+  <div class="scene-info">【场景】味绝峰厨房 | 特写·手部 | 晨光</div>
+  <img src="exp-511-chushen-ch1/images/panel-02.jpg" loading="lazy" alt="切豆腐特写">
+  <div class="narration">一把黑铁厨刀划过豆腐，刀起刀落间——</div>
+  <div class="narration">豆腐丝细如发丝，透光如绸。</div>
+  <div class="sfx">唰——</div>
+</div>
+
+<!-- Panel 3: Chen Xiaodao knife action -->
+<div class="panel">
+  <div class="scene-info">【场景】味绝峰厨台 | 中景·动态 | 清晨</div>
+  <img src="exp-511-chushen-ch1/images/panel-03.jpg" loading="lazy" alt="陈小刀展示刀法">
+  <div class="narration">二十三岁的陈小刀，味绝峰第十七代唯一传人。</div>
+  <div class="narration">别人练武用剑，他练武用菜刀。</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 4: Master's farewell -->
+<div class="panel">
+  <div class="scene-info">【场景】竹屋内 | 中近景 | 油灯暖光</div>
+  <img src="exp-511-chushen-ch1/images/panel-04.jpg" loading="lazy" alt="师父遗言">
+  <div class="dialogue"><div class="speaker">师父</div>小刀啊……为师时日无多了。</div>
+  <div class="dialogue"><div class="speaker">师父</div>你该下山了。去，用味绝峰的厨艺，征服天下。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>师父！弟子一定不辱师门！</div>
+  <div class="inner">（他不知道师父说的"天下"不是江湖……）</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 5: Descending -->
+<div class="panel">
+  <div class="scene-info">【场景】武当山石阶 | 全景·俯拍 | 雾气</div>
+  <img src="exp-511-chushen-ch1/images/panel-05.jpg" loading="lazy" alt="下山路">
+  <div class="narration">陈小刀背上布包，腰别黑铁厨刀，踏上下山的石阶。</div>
+  <div class="narration">他以为山下还是马车和客栈。</div>
+</div>
+
+<!-- Panel 6: Culture shock - highway -->
+<div class="panel">
+  <div class="scene-info">【场景】山脚公路 | 中景·正面 | 白天</div>
+  <img src="exp-511-chushen-ch1/images/panel-06.jpg" loading="lazy" alt="看到公路">
+  <div class="sfx">嗡嗡嗡——</div>
+  <div class="narration">一排铁盒子正以不可思议的速度从面前飞过。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>这、这些铁马……不吃草的吗？！</div>
+</div>
+
+<!-- Panel 7: Poking the car -->
+<div class="panel">
+  <div class="scene-info">【场景】路边停车位 | 中近景·侧面 | 日光</div>
+  <img src="exp-511-chushen-ch1/images/panel-07.jpg" loading="lazy" alt="戳汽车">
+  <div class="narration">陈小刀小心翼翼地伸出一根手指，戳了戳一辆停着的汽车。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>嗯……铁皮挺厚。比师父的炒锅还硬。</div>
+  <div class="inner">（车里的司机一脸懵：这人什么毛病？）</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 8: Entering the city -->
+<div class="panel">
+  <div class="scene-info">【场景】城市街头 | 全景·仰拍 | 午后</div>
+  <img src="exp-511-chushen-ch1/images/panel-08.jpg" loading="lazy" alt="初入城市">
+  <div class="narration">高楼大厦，霓虹闪烁，人群如潮水。</div>
+  <div class="narration">陈小刀仰头看着摩天大楼，嘴巴合不拢。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>这……这就是江湖吗？比师父说的壮观多了！</div>
+</div>
+
+<!-- Panel 9: Supermarket entrance -->
+<div class="panel">
+  <div class="scene-info">【场景】超市入口 | 中景·正面 | 室内灯光</div>
+  <img src="exp-511-chushen-ch1/images/panel-09.jpg" loading="lazy" alt="超市自动门">
+  <div class="narration">自动门"嘶——"地打开。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>谁在那里？！</div>
+  <div class="narration">他下意识把手按在了厨刀柄上。</div>
+  <div class="inner">（保安：又一个……）</div>
+</div>
+
+<!-- Panel 10: Produce section -->
+<div class="panel">
+  <div class="scene-info">【场景】超市蔬果区 | 中景·跟拍 | 明亮</div>
+  <img src="exp-511-chushen-ch1/images/panel-10.jpg" loading="lazy" alt="超市蔬果区">
+  <div class="narration">他的眼睛亮了。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>天……天底下竟有如此多的食材！！这个绿的是什么？这个红的呢？这个……怎么是方形的？！</div>
+  <div class="inner">（他拿的是一块西瓜……）</div>
+</div>
+
+<!-- Panel 11: Lobster stare-down -->
+<div class="panel">
+  <div class="scene-info">【场景】超市海鲜区 | 近景·对视 | 蓝色灯光</div>
+  <img src="exp-511-chushen-ch1/images/panel-11.jpg" loading="lazy" alt="和龙虾对视">
+  <div class="narration">海鲜区。</div>
+  <div class="narration">陈小刀蹲在水箱前，和一只波士顿龙虾进行了长达三分钟的对视。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>你……是螃蟹成精了吧？长这么大？</div>
+</div>
+
+<!-- Panel 12: Challenging the supermarket -->
+<div class="panel">
+  <div class="scene-info">【场景】超市熟食区 | 近景·面部特写 | 灯光</div>
+  <img src="exp-511-chushen-ch1/images/panel-12.jpg" loading="lazy" alt="要挑战超市厨师">
+  <div class="dialogue"><div class="speaker">陈小刀</div>掌柜的！我要挑战你们的厨师！</div>
+  <div class="narration">熟食区大姐抬起头，看了看这个穿道袍背菜刀的年轻人。</div>
+  <div class="dialogue"><div class="speaker">熟食区大姐</div>小伙子，这是超市，不是擂台。卤鸡腿八块一个，要不要？</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 13: Night market -->
+<div class="panel">
+  <div class="scene-info">【场景】美食街 | 全景·广角 | 夜晚霓虹</div>
+  <img src="exp-511-chushen-ch1/images/panel-13.jpg" loading="lazy" alt="美食街夜景">
+  <div class="narration">夜幕降临。</div>
+  <div class="narration">陈小刀循着香气，走进了一条灯火通明的美食街。</div>
+  <div class="narration">烟火气扑面而来——这里才是他认识的江湖。</div>
+</div>
+
+<!-- Panel 14: Watching the BBQ vendor -->
+<div class="panel">
+  <div class="scene-info">【场景】烧烤摊前 | 中景·侧面 | 炭火光</div>
+  <img src="exp-511-chushen-ch1/images/panel-14.jpg" loading="lazy" alt="观察烧烤摊">
+  <div class="narration">一个烧烤摊老板正在费力地切羊肉。刀钝，肉碎，汁水四溅。</div>
+  <div class="narration">陈小刀看得眉头紧皱，如同亲眼目睹暴殄天物。</div>
+  <div class="inner">（这刀法……简直是对食材的侮辱！）</div>
+</div>
+
+<!-- Panel 15: Drawing the knife -->
+<div class="panel">
+  <div class="scene-info">【场景】烧烤摊 | 中近景·动态 | 夜市灯光</div>
+  <img src="exp-511-chushen-ch1/images/panel-15.jpg" loading="lazy" alt="拔刀">
+  <div class="dialogue"><div class="speaker">陈小刀</div>让我来。</div>
+  <div class="sfx">铿——！</div>
+  <div class="narration">黑铁厨刀出鞘，寒光一闪。</div>
+  <div class="narration">周围的食客"哗"地退后三步。</div>
+</div>
+
+<!-- Panel 16: Impossibly thin slices -->
+<div class="panel">
+  <div class="scene-info">【场景】烧烤摊案板 | 特写·微距 | 暖光</div>
+  <img src="exp-511-chushen-ch1/images/panel-16.jpg" loading="lazy" alt="极薄羊肉片">
+  <div class="narration">刀落。</div>
+  <div class="narration">羊肉被切成薄如蝉翼的片，一片片重叠在砧板上，透光如纸。</div>
+  <div class="narration">空气安静了三秒。</div>
+</div>
+
+<!-- Panel 17: BBQ boss kneels -->
+<div class="panel">
+  <div class="scene-info">【场景】烧烤摊 | 中景·低角度 | 夜市灯</div>
+  <img src="exp-511-chushen-ch1/images/panel-17.jpg" loading="lazy" alt="烧烤摊老板跪了">
+  <div class="sfx">扑通——</div>
+  <div class="dialogue"><div class="speaker">烧烤摊老板</div>大师！收我为徒吧！！</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>不收。你那刀法，先回去练三年再说。</div>
+  <div class="dialogue"><div class="speaker">烧烤摊老板</div>三、三年……</div>
+</div>
+
+<!-- Panel 18: Crowd filming -->
+<div class="panel">
+  <div class="scene-info">【场景】烧烤摊围观 | 全景·俯拍 | 手机光</div>
+  <img src="exp-511-chushen-ch1/images/panel-18.jpg" loading="lazy" alt="围观拍摄">
+  <div class="narration">然后——所有人都举起了手机。</div>
+  <div class="narration">闪光灯此起彼伏，比过年的烟花还热闹。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>你们……拿的是什么法器？为什么对着我发光？</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 19: Douyin viral -->
+<div class="panel">
+  <div class="scene-info">【场景】手机屏幕 | 特写·UI界面 | 数字</div>
+  <img src="exp-511-chushen-ch1/images/panel-19.jpg" loading="lazy" alt="抖音爆了">
+  <div class="narration">当天晚上，"刀法哥"的视频冲上热搜。</div>
+  <div class="narration">播放量：一百万。点赞：五十万。</div>
+  <div class="narration">评论区炸了——</div>
+  <div class="inner">"这是特效吧？""求同款厨刀链接！""这哥们是从古代穿越来的？"</div>
+</div>
+
+<!-- Panel 20: Viral contrast -->
+<div class="panel">
+  <div class="scene-info">【场景】公园长椅 / 手机屏幕 | 分割构图 | 夜</div>
+  <img src="exp-511-chushen-ch1/images/panel-20.jpg" loading="lazy" alt="睡长椅vs百万播放">
+  <div class="narration">陈小刀对此一无所知。</div>
+  <div class="narration">他正躺在公园长椅上，枕着黑铁厨刀，打呼噜。</div>
+  <div class="narration">互联网上，一场风暴正在酝酿。</div>
+</div>
+
+<!-- Panel 21: Blogger antagonist -->
+<div class="panel">
+  <div class="scene-info">【场景】网红工作室 | 中景·正面 | 专业灯光</div>
+  <img src="exp-511-chushen-ch1/images/panel-21.jpg" loading="lazy" alt="网红美食博主">
+  <div class="narration">全网粉丝三千万的美食博主"厨王小杰"也看到了这个视频。</div>
+  <div class="dialogue"><div class="speaker">厨王小杰</div>切个肉而已，至于这么吹？</div>
+  <div class="narration">他嘴上不屑，手指却在发抖——因为他看出来了，那一刀的功力远在他之上。</div>
+</div>
+
+<!-- Panel 22: Challenge posted -->
+<div class="panel">
+  <div class="scene-info">【场景】工作室 | 近景·指向镜头 | 补光灯</div>
+  <img src="exp-511-chushen-ch1/images/panel-22.jpg" loading="lazy" alt="发起挑战">
+  <div class="dialogue"><div class="speaker">厨王小杰</div>刀法哥？不管你是谁，我厨王小杰正式向你发起挑战！不服来战！</div>
+  <div class="narration">视频发出三分钟，热搜第一。</div>
+  <div class="narration">全网沸腾："刀法哥 vs 厨王小杰"</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 23: Competition setup -->
+<div class="panel">
+  <div class="scene-info">【场景】商场中庭 | 大全景·俯拍 | 舞台灯</div>
+  <img src="exp-511-chushen-ch1/images/panel-23.jpg" loading="lazy" alt="比赛现场">
+  <div class="narration">三天后。北京某商场中庭。</div>
+  <div class="narration">两个灶台面对面，上百名观众围在护栏后。手机、摄影机、直播设备密密麻麻。</div>
+  <div class="narration">陈小刀是被烧烤摊老板连拉带拽弄来的。他至今不知道"直播"是什么意思。</div>
+</div>
+
+<!-- Panel 24: Chen ties apron -->
+<div class="panel">
+  <div class="scene-info">【场景】灶台旁 | 近景·人物肖像 | 舞台灯</div>
+  <img src="exp-511-chushen-ch1/images/panel-24.jpg" loading="lazy" alt="系围裙">
+  <div class="narration">陈小刀换上了白围裙。</div>
+  <div class="narration">黑铁厨刀平放在案板上，刀面映出他平静的眼神。</div>
+  <div class="inner">（师父，弟子第一次在山下比武……不，比厨。）</div>
+</div>
+
+<!-- Panel 25: Internal energy cooking -->
+<div class="panel">
+  <div class="scene-info">【场景】灶台 | 动态·低角度 | 火光</div>
+  <img src="exp-511-chushen-ch1/images/panel-25.jpg" loading="lazy" alt="内功颠锅">
+  <div class="sfx">轰——！！</div>
+  <div class="narration">他单手举起铁锅，内力灌注锅底——</div>
+  <div class="narration">火苗窜起三米高，食材在空中翻飞旋转，精准落回锅中。</div>
+  <div class="narration">前排观众被热浪吹得头发飘起。</div>
+  <div class="dialogue"><div class="speaker">观众</div>卧槽！！！这是做饭还是喷火？！</div>
+</div>
+
+<!-- Panel 26: The dish -->
+<div class="panel">
+  <div class="scene-info">【场景】灶台 | 特写·食物 | 暖色调</div>
+  <img src="exp-511-chushen-ch1/images/panel-26.jpg" loading="lazy" alt="红烧肉成品">
+  <div class="narration">十五分钟后。</div>
+  <div class="narration">一道红烧肉端上桌——色泽如琥珀，酱汁在灯光下缓缓流淌，香气弥漫整个商场。</div>
+  <div class="narration">三楼卖衣服的店员都探出了头。</div>
+</div>
+
+<!-- Panel 27: Contrast dishes -->
+<div class="panel">
+  <div class="scene-info">【场景】评委桌 | 中景·对比构图 | 自然光</div>
+  <img src="exp-511-chushen-ch1/images/panel-27.jpg" loading="lazy" alt="两道菜对比">
+  <div class="narration">厨王小杰的菜也端了上来——摆盘精致、技法纯熟，像教科书一般完美。</div>
+  <div class="narration">但评委们的身体不由自主地……偏向了陈小刀那边。</div>
+  <div class="narration">鼻子是骗不了人的。</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 28: Villain entrance -->
+<div class="panel">
+  <div class="scene-info">【场景】商场外 | 低角度·仰拍 | 阴影</div>
+  <img src="exp-511-chushen-ch1/images/panel-28.jpg" loading="lazy" alt="反派登场">
+  <div class="narration">就在结果即将揭晓时——</div>
+  <div class="narration">一辆黑色迈巴赫停在商场门口。</div>
+  <div class="narration">米其林三星主厨赵天成，缓步走入。</div>
+  <div class="narration">他笑得很客气，眼神却像在看一块待宰的食材。</div>
+</div>
+
+<!-- Panel 29: Business card -->
+<div class="panel">
+  <div class="scene-info">【场景】灶台旁 | 中近景·递名片 | 舞台灯</div>
+  <img src="exp-511-chushen-ch1/images/panel-29.jpg" loading="lazy" alt="递名片">
+  <div class="dialogue"><div class="speaker">赵天成</div>年轻人，好刀法。来我的餐厅吧——年薪五百万，不是问题。</div>
+  <div class="narration">陈小刀接过名片，翻来覆去看了半天。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>这张纸……是什么符咒？上面的字我不太认识。</div>
+  <div class="inner">（名片是英文的……）</div>
+</div>
+
+<!-- Panel 30: Refusal -->
+<div class="panel">
+  <div class="scene-info">【场景】灶台旁 | 近景·面部 | 侧光</div>
+  <img src="exp-511-chushen-ch1/images/panel-30.jpg" loading="lazy" alt="拒绝">
+  <div class="narration">陈小刀把名片还了回去。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>味绝峰的厨艺不卖。师父教过我，做饭是修行，不是生意。</div>
+  <div class="narration">身后，烧烤摊老板和夜市的摊贩们不知什么时候已经站在了他身后。</div>
+</div>
+
+<!-- Panel 31: Villain exits -->
+<div class="panel">
+  <div class="scene-info">【场景】商场走廊 | 背影·远去 | 暗调</div>
+  <img src="exp-511-chushen-ch1/images/panel-31.jpg" loading="lazy" alt="反派离去">
+  <div class="narration">赵天成笑了笑，转身离开。</div>
+  <div class="narration">他的拳头在西装口袋里悄悄攥紧。</div>
+  <div class="dialogue"><div class="speaker">赵天成</div>年轻人，你会后悔的。</div>
+  <div class="inner">（一场更大的风暴即将来临……）</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Panel 32: Rooftop letter -->
+<div class="panel">
+  <div class="scene-info">【场景】屋顶 | 中景·月光 | 蓝色调</div>
+  <img src="exp-511-chushen-ch1/images/panel-32.jpg" loading="lazy" alt="看信">
+  <div class="narration">深夜。</div>
+  <div class="narration">陈小刀坐在天台上，借着月光，打开了师父留下的那封信。</div>
+  <div class="narration">信上只有一个地址——北京，某条胡同，某个门牌号。</div>
+  <div class="narration">和一行字："去那里，你会找到答案。"</div>
+</div>
+
+<!-- Panel 33: Hutong -->
+<div class="panel">
+  <div class="scene-info">【场景】北京胡同 | 全景·纵深 | 午后暖光</div>
+  <img src="exp-511-chushen-ch1/images/panel-33.jpg" loading="lazy" alt="胡同">
+  <div class="narration">第二天，他按照地址找到了一条安静的胡同。</div>
+  <div class="narration">灰砖墙、红灯笼、落叶满地。</div>
+  <div class="narration">和北京其他地方不一样——这里安静得像另一个时空。</div>
+</div>
+
+<!-- Panel 34: Old restaurant -->
+<div class="panel">
+  <div class="scene-info">【场景】老餐馆门口 | 中景·正面 | 逆光</div>
+  <img src="exp-511-chushen-ch1/images/panel-34.jpg" loading="lazy" alt="破旧餐馆">
+  <div class="narration">胡同尽头，是一家关了不知道多少年的老餐馆。</div>
+  <div class="narration">木门半掩，招牌上的字已经看不清。</div>
+  <div class="narration">但阳光恰好落在牌匾上，像一个无声的邀请。</div>
+</div>
+
+<!-- Panel 35: Interior -->
+<div class="panel">
+  <div class="scene-info">【场景】餐馆内部 | 全景·光影 | 尘埃暖光</div>
+  <img src="exp-511-chushen-ch1/images/panel-35.jpg" loading="lazy" alt="餐馆内部">
+  <div class="narration">推门而入。</div>
+  <div class="narration">灰尘、蛛网、倒塌的桌椅——但厨房还在。一口巨大的铁锅，挂满了干枯的香料。</div>
+  <div class="narration">这里曾经是一家很了不起的餐馆。</div>
+</div>
+
+<!-- Panel 36: Wiping photo -->
+<div class="panel">
+  <div class="scene-info">【场景】餐馆墙壁 | 特写·手部 | 暖光</div>
+  <img src="exp-511-chushen-ch1/images/panel-36.jpg" loading="lazy" alt="擦拭照片">
+  <div class="narration">墙上有一个相框，落满了灰。</div>
+  <div class="narration">陈小刀伸手擦去灰尘——</div>
+  <div class="narration">然后，他愣住了。</div>
+</div>
+
+<!-- Panel 37: The photograph -->
+<div class="panel">
+  <div class="scene-info">【场景】老照片 | 特写·定格 | 泛黄暖调</div>
+  <img src="exp-511-chushen-ch1/images/panel-37.jpg" loading="lazy" alt="泛黄老照片">
+  <div class="narration">照片里——</div>
+  <div class="narration">年轻时候的师父，穿着厨师服，笑得意气风发。</div>
+  <div class="narration">旁边站着一个美丽的女人，也穿着厨师服。</div>
+  <div class="narration">身后是这间餐馆——当年宾客盈门、热气腾腾的样子。</div>
+  <div class="inner">（师父……原来你曾经在这里……）</div>
+</div>
+
+<!-- Panel 38: Resolution -->
+<div class="panel">
+  <div class="scene-info">【场景】餐馆中央 | 全景·人物居中 | 金色晨光</div>
+  <img src="exp-511-chushen-ch1/images/panel-38.jpg" loading="lazy" alt="下定决心">
+  <div class="narration">陈小刀站在空荡荡的餐馆中央。</div>
+  <div class="narration">晨光穿过破窗洒进来，照在他和黑铁厨刀上。</div>
+  <div class="narration">他握紧了刀。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>师父，我明白了。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>味绝峰的厨艺不该藏在山上。</div>
+  <div class="dialogue"><div class="speaker">陈小刀</div>这家店——我来重新开。</div>
+</div>
+
+<div class="chapter-end">
+  <h2>第一章 · 完</h2>
+  <p>师父的秘密……那个女人是谁？<br>赵天成会如何报复？<br>"刀法哥"的爆火会带来什么？</p>
+  <p style="color: #f4c542;">—— 第二章 · 胡同里的厨王 ——<br>敬请期待</p>
+</div>
+
+<script>
+// Intersection Observer for fade-in
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel').forEach(p => obs.observe(p));
+</script>
+
+</body>
+</html>
