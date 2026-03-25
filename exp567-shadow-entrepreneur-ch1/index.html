@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暗影创业者 第一章：退役</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;font-size:18px;line-height:1.8;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:linear-gradient(180deg,#0a0a0a 0%,#0d1117 40%,#1a0a0a 100%)}
+.cover h1{font-size:28px;color:#c0392b;margin-bottom:12px;text-shadow:0 0 20px rgba(192,57,43,0.4)}
+.cover .subtitle{font-size:16px;color:#888;margin-bottom:8px}
+.cover .series{font-size:14px;color:#666;border:1px solid #333;padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:20px}
+.cover .intro{background:#111;border-left:3px solid #c0392b;padding:16px;margin:20px 0;text-align:left;font-size:15px;color:#999;border-radius:0 8px 8px 0;max-width:360px}
+.cover .intro strong{color:#c0392b}
+.panel{padding:0;margin:0}
+.panel img{width:100%;display:block}
+.panel-text{padding:20px 16px;background:#111;border-left:3px solid transparent}
+.panel-text.narration{border-left-color:#555}
+.panel-text.decision{border-left-color:#c0392b;background:#1a0f0f}
+.panel-text.decision::before{content:"⚡ 决策时刻";display:block;color:#c0392b;font-size:14px;font-weight:bold;margin-bottom:8px;letter-spacing:2px}
+.panel-text.tension{border-left-color:#e74c3c;background:#1a0808}
+.panel-text.humor{border-left-color:#f39c12;background:#1a1700}
+.panel-text.insight{border-left-color:#3498db;background:#0f141a}
+.panel-text.action{border-left-color:#e74c3c;background:#1a0808}
+.panel-text.reveal{border-left-color:#9b59b6;background:#1a0f2e}
+.panel-text p{margin-bottom:12px}
+.panel-text p:last-child{margin-bottom:0}
+.dialogue{color:#fff;font-weight:500}
+.thought{color:#aaa;font-style:italic}
+.highlight{color:#c0392b}
+.danger{color:#e74c3c}
+.calm{color:#3498db}
+.divider{height:2px;background:linear-gradient(90deg,transparent,#333,transparent);margin:0}
+.section-label{text-align:center;padding:16px;color:#c0392b;font-size:13px;letter-spacing:4px;background:#1a0808}
+.chapter-end{text-align:center;padding:40px 20px;background:linear-gradient(180deg,#0a0a0a,#1a0a0a)}
+.chapter-end h2{color:#c0392b;font-size:22px;margin-bottom:16px}
+.chapter-end .preview{background:#111;border:1px solid #333;border-radius:12px;padding:20px;margin-top:16px;max-width:360px;margin-left:auto;margin-right:auto}
+.chapter-end .preview h3{color:#e74c3c;font-size:16px;margin-bottom:8px}
+.option-box{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px 16px;margin:8px 0}
+.option-box .label{color:#c0392b;font-weight:bold;font-size:14px}
+.option-box.chosen{border-color:#c0392b;background:#1a0808}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="series">暗影创业者 · V5沉浸式</div>
+  <h1>第一章：退役</h1>
+  <div class="subtitle">战神归来 · 创业 · 隐藏身份</div>
+  <div class="intro">
+    <strong>我叫朱江。</strong>源点科技CEO，B轮融资进行中，员工三十人。这是我名片上写的。名片上没写的那些——特殊行动队"暗影"前队长，代号"棋手"——我以为已经埋进了三年前的告别报告里。直到今天，一个不该响起的电话号码，出现在我的手机上。
+  </div>
+</div>
+
+<!-- ===== 段落1: 创业者的早晨 (格1-5) ===== -->
+<div class="section-label">凌 · 晨 · 三 · 点</div>
+
+<div class="panel fade-in">
+  <img src="images/p01.jpg" loading="eager" alt="深夜办公">
+  <div class="panel-text humor">
+    <p>凌晨三点十七分。</p>
+    <p>我的眼睛已经在BP上来回扫了第六遍，每个字都认识，连在一起就像天书。</p>
+    <p class="thought">融资的事搞得我三天没睡好。投资人比当年的恐怖分子还难对付——至少恐怖分子不会在凌晨两点发微信问你"DAU增长模型能不能再跑一版"。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p02.jpg" loading="lazy" alt="手机震动">
+  <div class="panel-text narration">
+    <p>手机震动。屏幕亮起。</p>
+    <p class="dialogue">"明天9:00 meeting，BP发一下最新版。"</p>
+    <p>投资人的消息。我叹了口气，把手机扣在桌上。</p>
+    <p class="thought">兄弟，现在已经是"明天"了。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p03.jpg" loading="lazy" alt="清晨跑步">
+  <div class="panel-text humor">
+    <p>六点。我换了跑鞋出门。</p>
+    <p>跑步是唯一能让我脑子清空的事，虽然我的步频好像永远改不掉军队时候的节奏——每分钟180步，像刻在DNA里。</p>
+    <p class="thought">有一次林可跟我跑了五分钟，说"你跑步像赶着去执行暗杀任务"。我笑了笑没接话。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p04.jpg" loading="lazy" alt="到公司">
+  <div class="panel-text narration">
+    <p>八点。源点科技。</p>
+    <p class="dialogue">"江哥早！"</p>
+    <p>前台小刘冲我挥手。我把带的豆浆油条放在她桌上。</p>
+    <p class="dialogue">"谢谢江哥！每次都是双份油条！"</p>
+    <p class="thought">当老板最重要的一件事——让员工吃饱。这条道理，以前在部队就懂了。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p05.jpg" loading="lazy" alt="进办公室">
+  <div class="panel-text narration">
+    <p>推开办公室的门，林可已经在我位子上坐着了，对着我的电脑噼里啪啦敲代码。</p>
+    <p class="dialogue">"你的终端配置太丑了，我帮你改了。"</p>
+    <p class="dialogue">"……这是我的电脑。"</p>
+    <p class="dialogue">"你的审美不配拥有它。"</p>
+    <p class="thought">CTO霸占CEO的电脑，我估计在任何管理学教材里都没见过这种案例。</p>
+  </div>
+</div>
+
+<!-- ===== 段落2: 投资人会议 (格6-11) ===== -->
+<div class="section-label">会 · 议 · 室</div>
+
+<div class="panel fade-in">
+  <img src="images/p06.jpg" loading="lazy" alt="会议室">
+  <div class="panel-text tension">
+    <p>九点整。会议室。</p>
+    <p>对面坐着的是张总——道源资本的合伙人，西装笔挺，手指有节奏地敲着桌面。</p>
+    <p class="dialogue">"朱江，你的AI模型壁垒在哪？市面上做大模型的没有一百也有八十。"</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p07.jpg" loading="lazy" alt="观察微表情">
+  <div class="panel-text insight">
+    <p>我没急着回答。</p>
+    <p class="thought">他左眼角跳了一下。不明显，但跳了。这是虚张声势的信号——跟审讯室里的表现一模一样。</p>
+    <p class="thought">算了，不能这么想。我现在是CEO，不是审讯官。</p>
+    <p>但身体的反应比大脑诚实。我已经在0.3秒内完成了对他的评估：紧张，但在装镇定。他需要这笔deal。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p08.jpg" loading="lazy" alt="投资人压价">
+  <div class="panel-text tension">
+    <p>张总亮出了底牌。</p>
+    <p class="dialogue">"估值我们的意见是压30%。市场环境不好，你应该理解。"</p>
+    <p>压30%。相当于把源点科技三十个人半年的命，打了七折。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p09.jpg" loading="lazy" alt="决策瞬间">
+  <div class="panel-text decision">
+    <p class="thought">三个选项在脑海里排开——</p>
+    <div class="option-box">
+      <p class="label">A：观察-分析-精准反击</p>
+      <p>先不表态，抛三个问题暴露他的底牌，再一击致命</p>
+    </div>
+    <div class="option-box">
+      <p class="label">B：直接拒绝走人</p>
+      <p>"不缺你这个爷"，展现骨气</p>
+    </div>
+    <div class="option-box">
+      <p class="label">C：表面妥协暗中布局</p>
+      <p>先签term sheet争取时间，同时联系其他投资人制造竞争</p>
+    </div>
+    <div class="option-box chosen">
+      <p class="label">✦ 我的选择：A</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p10.jpg" loading="lazy" alt="反击">
+  <div class="panel-text action">
+    <p>我笑了笑，往后一靠。</p>
+    <p class="dialogue">"张总，我有三个问题。第一，你们基金这期LP的DPI要求是多少？"</p>
+    <p>他的手指停了。</p>
+    <p class="dialogue">"第二，道源上一个AI项目是不是上个月刚撤了？第三——"</p>
+    <p>我倾身向前。</p>
+    <p class="dialogue">"——你今天是不是必须带一个项目回去交差？"</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p11.jpg" loading="lazy" alt="谈判逆转">
+  <div class="panel-text humor">
+    <p>张总的脸色精彩极了——三秒内换了四种表情，比川剧变脸还快。</p>
+    <p class="dialogue">"……你怎么知道的？"</p>
+    <p class="dialogue">"我做过情报分析。"</p>
+    <p class="dialogue">"什么？"</p>
+    <p class="dialogue">"我说，我做过市场调研。"</p>
+    <p class="thought">差点嘴漏了。</p>
+    <p>最终估值只压了8%。我很满意。</p>
+  </div>
+</div>
+
+<!-- ===== 段落3: 旧日来电 (格12-16) ===== -->
+<div class="section-label">旧 · 日 · 来 · 电</div>
+
+<div class="panel fade-in">
+  <img src="images/p12.jpg" loading="lazy" alt="午饭时间">
+  <div class="panel-text narration">
+    <p>午饭。公司楼下的面馆。</p>
+    <p>林可坐对面吸着牛肉面，一边看手机一边嘟囔："张总那个表情你录下来没？能当表情包用一年。"</p>
+    <p>我刚想回她话，手机响了。</p>
+    <p>一个陌生号码。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p13.jpg" loading="lazy" alt="看到号码">
+  <div class="panel-text tension">
+    <p>我看到了号码前缀。</p>
+    <p>手突然僵住了。筷子从指间滑落，"啪"地掉在碗沿上。</p>
+    <p class="thought">这个区号……我已经三年没见过了。031——那是暗影小队专用的通信前缀。</p>
+    <p class="dialogue">"江哥？你没事吧？"林可放下手机看我。</p>
+    <p class="dialogue">"没事，手滑了。"</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p14.jpg" loading="lazy" alt="接电话">
+  <div class="panel-text tension">
+    <p>我走出面馆，在巷子口接起了电话。</p>
+    <p class="dialogue">"棋手，好久不见。"</p>
+    <p>老陈的声音。低沉、沙哑，像砂纸磨过铁皮。三年了，一点没变。</p>
+    <p class="dialogue">"有件事，必须当面说。"</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p15.jpg" loading="lazy" alt="表情变化">
+  <div class="panel-text narration">
+    <p>我靠在墙上，仰头看天。</p>
+    <p>阳光很好。这是一个适合开会、吃面、改BP的普通工作日。</p>
+    <p>不是适合接到暗影来电的日子。</p>
+    <p class="thought">世界上没有适合接到暗影来电的日子。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p16.jpg" loading="lazy" alt="约见面决策">
+  <div class="panel-text decision">
+    <p class="dialogue">"见面？在哪？"我问。</p>
+    <div class="option-box">
+      <p class="label">A：选一个我熟悉的地形</p>
+      <p>公司对面的咖啡馆，有退路</p>
+    </div>
+    <div class="option-box">
+      <p class="label">B：直接去老陈指定的地点</p>
+      <p>信任老战友</p>
+    </div>
+    <div class="option-box">
+      <p class="label">C：先不见面，让林可查老陈近况</p>
+      <p>创业者的尽调思维</p>
+    </div>
+    <div class="option-box chosen">
+      <p class="label">✦ 我的选择：A</p>
+      <p class="thought">信任老陈，但不信任"叫老陈给我打电话"的人。咖啡馆对面就是公司，三秒钟能回到安全区域。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 段落4: 街头异变 (格17-24) ===== -->
+<div class="section-label">街 · 头 · 异 · 变</div>
+
+<div class="panel fade-in">
+  <img src="images/p17.jpg" loading="lazy" alt="走在街上">
+  <div class="panel-text narration">
+    <p>下午两点。我跟林可说有个老朋友要见，提前离开了公司。</p>
+    <p>换了件连帽卫衣，戴上棒球帽。不是为了耍帅——是习惯。降低辨识度，这是基本功。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p18.jpg" loading="lazy" alt="发现跟踪">
+  <div class="panel-text tension">
+    <p>走出公司不到三百米，我就发现了。</p>
+    <p class="thought">后方三个人。两男一女。间距十五米，交替领先。</p>
+    <p class="thought">职业手法。不是街上的小毛贼，是受过训练的。</p>
+    <p>我的心跳从72瞬间蹦到110。不是恐惧——是兴奋。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p19.jpg" loading="lazy" alt="假装打电话">
+  <div class="panel-text insight">
+    <p>我掏出手机假装接电话，自然地拐进了一条小路。</p>
+    <p class="thought">如果是巧合，他们会直走。如果不是——</p>
+    <p>十秒后，那个穿灰色风衣的男人也拐了进来。</p>
+    <p class="thought">不是巧合。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p20.jpg" loading="lazy" alt="变换路线">
+  <div class="panel-text tension">
+    <p>连续变换了三次路线。每一次，他们都跟上来了。配合默契，像编排好的舞蹈。</p>
+    <p class="thought">业务水平不错。至少是专业安保级别。但比起当年暗影的跟踪训练——差了两个档次。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p21.jpg" loading="lazy" alt="心跳加速">
+  <div class="panel-text humor">
+    <p>我深呼吸了一下。</p>
+    <p class="thought">该死。我已经退役三年了。心跳怎么还会因为这种事——</p>
+    <p class="thought">兴奋。</p>
+    <p class="thought">这不对。一个正常的CEO遇到跟踪应该害怕，不应该觉得手痒。</p>
+    <p class="thought">朱江你冷静一点。你现在是企业家。企业家。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p22.jpg" loading="lazy" alt="决策被跟踪">
+  <div class="panel-text decision">
+    <p class="thought">怎么处理？</p>
+    <div class="option-box">
+      <p class="label">A：走进商场，拍照发给老陈</p>
+      <p>创业者方式，让别人处理</p>
+    </div>
+    <div class="option-box">
+      <p class="label">B：甩掉他们</p>
+      <p>利用地形脱离</p>
+    </div>
+    <div class="option-box">
+      <p class="label">C：主动制造接触</p>
+      <p>假装"不小心"撞到其中一个，近距离观察</p>
+    </div>
+    <div class="option-box chosen">
+      <p class="label">✦ 我的选择：C</p>
+      <p class="thought">先收集信息。不知道对手是谁，甩掉了也没用——他们会再来。不如先弄清楚他们的底。</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p23.jpg" loading="lazy" alt="制造接触">
+  <div class="panel-text action">
+    <p>我突然停下来，假装看手机。</p>
+    <p>灰风衣男没来得及减速，差点撞上我。我顺势一个侧身，手搭上了他的肩膀。</p>
+    <p class="dialogue">"哥们，不好意思——"</p>
+    <p class="thought">左腋下有硬物。枪。右手虎口有茧——射击茧。腰带加厚——可能藏了匕首。</p>
+    <p>0.5秒。我摸清了他身上三件武器。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p24.jpg" loading="lazy" alt="对方动手">
+  <div class="panel-text tension">
+    <p>但意外发生了。</p>
+    <p>灰风衣男的眼神变了。他认出了我的手法——不是普通人的搭肩动作。</p>
+    <p>他的右手像蛇一样抽出，直奔我的喉咙。</p>
+    <p class="thought">不好。他判断我是威胁，直接进入攻击模式。</p>
+  </div>
+</div>
+
+<!-- ===== 段落5: 暴露与克制 (格25-32) ===== -->
+<div class="section-label">战 · 神 · 一 · 闪</div>
+
+<div class="panel fade-in">
+  <img src="images/p25.jpg" loading="lazy" alt="闪避">
+  <div class="panel-text action">
+    <p>身体比大脑先动了。</p>
+    <p>侧头，避开手刀。左手抓住他的手腕外翻，右脚卡进他的重心线，肩膀一送——</p>
+    <p>标准的擒拿动作。三秒完成。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p26.jpg" loading="lazy" alt="制服">
+  <div class="panel-text action">
+    <p>灰风衣男的脸贴在了地面上。我的膝盖压着他的背，把他的手臂反锁在身后。</p>
+    <p class="thought">我发誓我只是想拦一下。</p>
+    <p class="thought">但三年前的肌肉记忆不同意。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p27.jpg" loading="lazy" alt="路人围观">
+  <div class="panel-text humor">
+    <p>路过的大妈停下了脚步，手里的菜差点掉了。</p>
+    <p>一个外卖小哥掏出手机就要拍。</p>
+    <p class="thought">完了。要是上了抖音，我的B轮融资可以直接作废。标题大概是："AI公司CEO街头暴打路人，投资人连夜撤资"。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p28.jpg" loading="lazy" alt="迅速放手">
+  <div class="panel-text humor">
+    <p>我赶紧松手，站起来整理衣服，摆出最无害的笑容。</p>
+    <p class="dialogue">"不好意思不好意思，朋友之间闹着玩，闹着玩……"</p>
+    <p>灰风衣男从地上爬起来，看我的眼神像看到了鬼。</p>
+    <p class="thought">这要是被林可知道了，她肯定说我cosplay杰森·伯恩。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p29.jpg" loading="lazy" alt="跟踪者撤退">
+  <div class="panel-text narration">
+    <p>另外两个人迅速上前架走了灰风衣男。三人消失在巷子尽头。</p>
+    <p>专业。撤退动作干净利落。</p>
+    <p class="thought">不是普通安保。军方背景的概率超过70%。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p30.jpg" loading="lazy" alt="发现信封">
+  <div class="panel-text tension">
+    <p>我低头。灰风衣男趴着的位置，地上掉了一个东西。</p>
+    <p>黄色信封。没有署名，没有邮戳。</p>
+    <p>但信封的右下角，印着一个极小的标记——一枚棋子。</p>
+    <p class="thought">"棋手"。这是给我的。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p31.jpg" loading="lazy" alt="捡起信封">
+  <div class="panel-text narration">
+    <p>我把信封揣进衣兜。</p>
+    <p>手指在抖。不是害怕。是我花了三年试图埋葬的东西，被人挖了出来。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p32.jpg" loading="lazy" alt="整理自己">
+  <div class="panel-text humor">
+    <p>深呼吸。整理卫衣。</p>
+    <p class="thought">好消息：我的格斗技术三年没退化。</p>
+    <p class="thought">坏消息：我现在可能上了某个机构的监控名单。</p>
+    <p class="thought">更坏的消息：我迟到了，咖啡要凉了。</p>
+  </div>
+</div>
+
+<!-- ===== 段落6: 悬念结尾 (格33-35) ===== -->
+<div class="section-label">真 · 相 · 开 · 端</div>
+
+<div class="panel fade-in">
+  <img src="images/p33.jpg" loading="lazy" alt="到达咖啡馆">
+  <div class="panel-text narration">
+    <p>咖啡馆。角落的位置。</p>
+    <p>老陈已经在了。板寸头，左脸一道疤从眉角划到下巴。三年了，头发白了不少，但眼神还是那么锐。</p>
+    <p class="dialogue">"棋手。"</p>
+    <p class="dialogue">"老陈。"</p>
+    <p>我坐下。把信封放在桌上。</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p34.jpg" loading="lazy" alt="老陈变脸">
+  <div class="panel-text reveal">
+    <p>老陈看到信封的瞬间，脸色变了。</p>
+    <p class="dialogue">"他们已经找到你了？比我想的快。"</p>
+    <p>他压低声音，身体前倾。</p>
+    <p class="dialogue">"暗影小队的人——三年前那次任务——<span class="danger">有人没死。</span>"</p>
+  </div>
+</div>
+
+<div class="panel fade-in">
+  <img src="images/p35.jpg" loading="lazy" alt="朱江眼神特写">
+  <div class="panel-text decision">
+    <div class="option-box">
+      <p class="label">A："告诉我所有事"</p>
+      <p>直面过去</p>
+    </div>
+    <div class="option-box">
+      <p class="label">B："我已经退役了"</p>
+      <p>保护现在的生活</p>
+    </div>
+    <div class="option-box">
+      <p class="label">C："先说清楚，是谁在跟踪我"</p>
+      <p>先搞清全局再决定</p>
+    </div>
+    <div class="option-box chosen">
+      <p class="label">✦ 我的选择：C</p>
+      <p class="thought">信息优先。先弄清整个棋盘上有哪些棋子，再决定我要不要重新入局。</p>
+    </div>
+    <p style="margin-top:16px;text-align:center;">
+      <span class="thought">我以为创业就是我的新战场。</span><br>
+      <span class="thought">看来……旧战场还没有结束。</span>
+    </p>
+  </div>
+</div>
+
+<div class="chapter-end">
+  <h2>第一章 · 完</h2>
+  <p style="color:#888;font-size:14px;margin-bottom:16px;">暗影创业者 · V5沉浸式</p>
+  <div class="preview">
+    <h3>第二章预告：棋局</h3>
+    <p style="color:#999;font-size:15px;">信封里藏着三年前那次任务的真相。而那个"没死"的人，正在这座城市里看着我。</p>
+    <p style="color:#666;font-size:13px;margin-top:8px;">我需要做一个选择——是继续当CEO假装一切没发生过，还是重新拿起那把我以为已经放下的枪。</p>
+  </div>
+</div>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:0.15});
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
