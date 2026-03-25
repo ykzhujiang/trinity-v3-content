@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>朱江·赌局 — 德扑×商战</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e8e0d0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.container{max-width:430px;margin:0 auto;padding:0}
+/* Title */
+.title-screen{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0a 0%,#1a1008 50%,#0a0a0a 100%);padding:20px;text-align:center;position:relative}
+.title-screen::before{content:'';position:absolute;top:50%;left:50%;width:200px;height:200px;background:radial-gradient(circle,rgba(212,175,55,0.15) 0%,transparent 70%);transform:translate(-50%,-50%);border-radius:50%}
+.title-screen h1{font-size:42px;font-weight:900;color:#d4af37;letter-spacing:6px;text-shadow:0 0 30px rgba(212,175,55,0.4);margin-bottom:16px;line-height:1.3}
+.title-screen .subtitle{font-size:18px;color:#8a7e6d;letter-spacing:3px;margin-bottom:40px}
+.title-screen .start-hint{font-size:14px;color:#5a5248;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+
+/* Panels */
+.panel{position:relative;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;aspect-ratio:9/16;object-fit:cover}
+.panel-text{padding:20px 24px;background:linear-gradient(180deg,rgba(10,10,10,0.95),#0a0a0a);line-height:1.9;font-size:17px;letter-spacing:0.5px}
+.panel-text p{margin-bottom:12px}
+.panel-text p:last-child{margin-bottom:0}
+
+/* Decision */
+.decision{background:linear-gradient(180deg,#1a1508,#0f0c06);border-left:3px solid #d4af37;margin:0 16px;padding:16px 20px;border-radius:0 8px 8px 0}
+.decision-tag{color:#d4af37;font-size:13px;font-weight:700;letter-spacing:4px;margin-bottom:8px}
+
+/* Dialogue */
+.dialogue{color:#d4af37;font-style:italic}
+.inner-voice{color:#8a9aad;font-style:italic;font-size:15px}
+
+/* Act divider */
+.act-divider{text-align:center;padding:40px 20px;color:#5a5248;font-size:13px;letter-spacing:8px;text-transform:uppercase}
+.act-divider span{display:block;font-size:22px;color:#d4af37;margin-bottom:8px;letter-spacing:4px}
+
+/* Humor */
+.humor{background:rgba(212,175,55,0.05);border-radius:8px;padding:16px 20px;margin:8px 16px;border:1px solid rgba(212,175,55,0.1)}
+
+/* End */
+.end-screen{text-align:center;padding:60px 24px;background:linear-gradient(180deg,#0a0a0a,#1a1008)}
+.end-screen .fin{font-size:28px;color:#d4af37;letter-spacing:8px;margin-bottom:20px}
+.end-screen .quote{font-size:16px;color:#8a7e6d;line-height:2;max-width:300px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="title-screen">
+<h1>朱江·赌局</h1>
+<div class="subtitle">德扑 × 商战</div>
+<div class="start-hint">↓ 向下滑动开始 ↓</div>
+</div>
+
+<!-- ACT 1: 入局 -->
+<div class="act-divider"><span>第一幕</span>入 局</div>
+
+<div class="panel" id="p1">
+<img src="images/panel-01.jpg" loading="lazy" alt="panel 1">
+<div class="panel-text">
+<p>深夜十一点半，我正在改第三版融资PPT。</p>
+<p>一张黑金卡片，不知道什么时候滑进了门缝下面。上面只印了一行字：<span class="dialogue">「你的公司值多少？来证明。」</span></p>
+<p>我翻过来，背面是一个地址和时间——今晚，凌晨一点，金茂大厦顶层。</p>
+</div>
+</div>
+
+<div class="panel" id="p2">
+<img src="images/panel-02.jpg" loading="lazy" alt="panel 2">
+<div class="panel-text">
+<p>金茂顶层，六十八楼。</p>
+<p>电梯门打开的瞬间，我闻到了雪茄和单麦威士忌的味道。</p>
+<p><span class="dialogue">「朱先生，请。」</span>穿黑西装的男人微微欠身。</p>
+<p>我整了整衣领。创业三年，我见过各种局，但这种级别的——还是头一回。</p>
+</div>
+</div>
+
+<div class="panel" id="p3">
+<img src="images/panel-03.jpg" loading="lazy" alt="panel 3">
+<div class="panel-text">
+<p>圆桌上已经坐了四个人。</p>
+<p>冷面男——某大厂AI负责人，手指有节奏地敲着桌面，像在审批OKR。</p>
+<p>笑面虎——圈内最有名的投资人之一，笑容堆到眼角褶子里，看谁都像在估值。</p>
+<p>愣头青——竞品公司CEO，比我小两岁，但烧钱速度比我快十倍。</p>
+<p>还有一个沉默的女人，黑色西装，表情像一面镜子——什么都不露。</p>
+<p><span class="inner-voice">我坐下。这不是赌局，这是商战的缩影。</span></p>
+</div>
+</div>
+
+<div class="panel" id="p4">
+<img src="images/panel-04.jpg" loading="lazy" alt="panel 4">
+<div class="panel-text">
+<p>荷官递来赌注清单，我差点没端住。</p>
+<p>一张A100算力卡 = 一百万美金筹码。千万级数据集、独家API接口、甚至——收购要约。</p>
+<div class="humor">
+<p>我心里默算了一下公司账上的现金，嗯……大概够买两杯桌上的酒。</p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p5">
+<img src="images/panel-05.jpg" loading="lazy" alt="panel 5">
+<div class="panel-text">
+<p>但创业者最不缺的就是——拿别人的钱赌自己的命。</p>
+<p>我拿起筹码，感受了一下重量。</p>
+<p><span class="dialogue">「开始吧。」</span></p>
+</div>
+</div>
+
+<!-- ACT 2: 试探 -->
+<div class="act-divider"><span>第二幕</span>试 探</div>
+
+<div class="panel" id="p6">
+<img src="images/panel-06.jpg" loading="lazy" alt="panel 6">
+<div class="panel-text">
+<p>第一局，我没急着出手。</p>
+<p><span class="inner-voice">创业教会我一件事——进入新市场，先观察，别急着烧钱。</span></p>
+<p>冷面男每次下注前都要看三遍牌，像他们公司立项要过三轮评审。</p>
+<p>投资人出手极快，一局能加注四次——跟他们投项目一样，赌的就是概率。</p>
+</div>
+</div>
+
+<div class="panel" id="p7">
+<img src="images/panel-07.jpg" loading="lazy" alt="panel 7">
+<div class="panel-text">
+<div class="decision">
+<div class="decision-tag">▸ 决策时刻</div>
+<p>我拿到一对Q。不算差，但也不算好。</p>
+<p>投资人直接加注五十万——还没看清局势就梭了？</p>
+<p><span class="inner-voice">我脑子里两个声音打架：一个说「信息不够，弃牌」，另一个说「你是来打牌的，不是来看的」。</span></p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p8">
+<img src="images/panel-08.jpg" loading="lazy" alt="panel 8">
+<div class="panel-text">
+<p>我推出筹码：<span class="dialogue">「跟。」</span></p>
+<p>不是冲动。花小钱买信息，是做AI的人最懂的事——先拿到数据，再训练模型。</p>
+<p>投资人的笑容微微僵了零点三秒。</p>
+<p>够了。这零点三秒值五十万。</p>
+</div>
+</div>
+
+<div class="panel" id="p9">
+<img src="images/panel-09.jpg" loading="lazy" alt="panel 9">
+<div class="panel-text">
+<div class="humor">
+<p>裤兜里手机震了一下。</p>
+<p>CTO发来消息：<span class="dialogue">「老板你在哪？服务器又挂了！！！」</span></p>
+<p>我单手在桌下打字：<span class="dialogue">「你先重启。我在处理一个……更复杂的分布式系统。」</span></p>
+<p><span class="dialogue">「什么系统？」</span></p>
+<p><span class="dialogue">「人性。」</span></p>
+<p><span class="dialogue">「？？？」</span></p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p10">
+<img src="images/panel-10.jpg" loading="lazy" alt="panel 10">
+<div class="panel-text">
+<p>第三局结束，我输了一小笔。</p>
+<p>但我注意到一个细节——</p>
+<p>投资人加注的时候，愣头青的右手食指会轻轻敲两下桌面。而投资人弃牌的时候，愣头青会摸一下鼻子。</p>
+<p><span class="inner-voice">巧合？我不信巧合。做AI的人都知道：一次是噪音，两次是信号，三次是特征。</span></p>
+</div>
+</div>
+
+<!-- ACT 3: 危机 -->
+<div class="act-divider"><span>第三幕</span>危 机</div>
+
+<div class="panel" id="p11">
+<img src="images/panel-11.jpg" loading="lazy" alt="panel 11">
+<div class="panel-text">
+<p>第五局，愣头青亮了一把顺子，赢走了我一个千万级数据集的筹码。</p>
+<p>他笑着说：<span class="dialogue">「朱总，你家模型训练不是缺数据吗？可惜了。」</span></p>
+<p><span class="inner-voice">我面不改色。因为我已经确认了——他们是一伙的。暗号系统，至少有六种信号组合。</span></p>
+</div>
+</div>
+
+<div class="panel" id="p12">
+<img src="images/panel-12.jpg" loading="lazy" alt="panel 12">
+<div class="panel-text">
+<div class="decision">
+<div class="decision-tag">▸ 决策时刻</div>
+<p>我可以现在翻桌。证据？我脑子里已经记录了十七组信号——足够了。</p>
+<p>但如果我现在揭穿，两个人联手针对我，这局没法打了。</p>
+<p><span class="inner-voice">菩萨心肠，霹雳手段。——我不是不揭穿你。我是要让你输得更彻底。</span></p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p13">
+<img src="images/panel-13.jpg" loading="lazy" alt="panel 13">
+<div class="panel-text">
+<p>接下来三局，我「连输三把」。</p>
+<p>投资人和愣头青越来越放松，暗号越来越明显——人在得意的时候，最容易犯错。</p>
+<p>冷面男看了我一眼，目光里有一丝……同情？</p>
+<p><span class="inner-voice">同情就对了。我需要所有人以为我快完了。</span></p>
+</div>
+</div>
+
+<div class="panel" id="p14">
+<img src="images/panel-14.jpg" loading="lazy" alt="panel 14">
+<div class="panel-text">
+<p>我借着擦手的动作，在餐巾纸上记下了他们的暗号体系：</p>
+<p>敲两下 = 我有大牌，配合加注。<br>摸鼻子 = 弃牌信号。<br>左手托腮 = 换我来做庄家牌。</p>
+<p><span class="inner-voice">六种信号，全部破解。该反击了。</span></p>
+</div>
+</div>
+
+<div class="panel" id="p15">
+<img src="images/panel-15.jpg" loading="lazy" alt="panel 15">
+<div class="panel-text">
+<p>我直起身子，整了整袖口。</p>
+<p>之前的朱江是猎物。</p>
+<p>现在？</p>
+<p><strong style="color:#d4af37;font-size:20px">猎人就位。</strong></p>
+</div>
+</div>
+
+<!-- ACT 4: 反击 -->
+<div class="act-divider"><span>第四幕</span>反 击</div>
+
+<div class="panel" id="p16">
+<img src="images/panel-16.jpg" loading="lazy" alt="panel 16">
+<div class="panel-text">
+<p>第九局。</p>
+<p>愣头青敲了两下桌面——他有大牌，要投资人配合加注。</p>
+<p>我微笑着跟注。因为我知道他有大牌，我的牌更大。</p>
+<p>翻牌的时候，愣头青脸上的表情——值一千万。</p>
+</div>
+</div>
+
+<div class="panel" id="p17">
+<img src="images/panel-17.jpg" loading="lazy" alt="panel 17">
+<div class="panel-text">
+<p>第十局，赢。第十一局，赢。第十二局——我故意输了一小把，免得他们太早醒悟。第十三局，又赢。</p>
+<p>投资人终于笑不出来了。愣头青开始冒汗。</p>
+<div class="humor">
+<p><span class="inner-voice">我心里默念：这叫——过拟合陷阱。你们训练数据太少，泛化能力不够。</span></p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p18">
+<img src="images/panel-18.jpg" loading="lazy" alt="panel 18">
+<div class="panel-text">
+<div class="decision">
+<div class="decision-tag">▸ 决策时刻</div>
+<p>沉默女人开口了——整晚第一次说话。</p>
+<p><span class="dialogue">「朱先生，你的AI模型，API独家授权给我的公司。作为交换——我帮你清理这两个作弊的。」</span></p>
+<p><span class="inner-voice">条件很诱人。但「独家授权」这四个字——创业者有一条铁律：永远不把核心能力独家给任何人。</span></p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p19">
+<img src="images/panel-19.jpg" loading="lazy" alt="panel 19">
+<div class="panel-text">
+<p><span class="dialogue">「不做独家。」</span>我说。</p>
+<p>她眼神微冷。</p>
+<p><span class="dialogue">「但我可以给你非独家授权，外加利润分成。你赚到的，我抽两成。」</span></p>
+<p>她沉默了三秒。</p>
+<p><span class="dialogue">「成交。」</span></p>
+<p><span class="inner-voice">我不卖灵魂。但我可以分享利润。——这是创业三年交的最贵的学费教会我的。</span></p>
+</div>
+</div>
+
+<div class="panel" id="p20">
+<img src="images/panel-20.jpg" loading="lazy" alt="panel 20">
+<div class="panel-text">
+<div class="decision">
+<div class="decision-tag">▸ 决策时刻</div>
+<p>第十五局。我手里的牌能让愣头青直接清零——他押上了最后的筹码。</p>
+<p>赢了，他的公司估计撑不过下个月。</p>
+<p><span class="inner-voice">我想起他去年在行业大会上跟我打招呼的样子，眼睛里全是野心和天真——像三年前的我。算了。赢归赢，别赶尽杀绝。</span></p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p21">
+<img src="images/panel-21.jpg" loading="lazy" alt="panel 21">
+<div class="panel-text">
+<p>我亮牌，赢走了核心资源。</p>
+<p>然后——我把他那张算力卡推了回去。</p>
+<p><span class="dialogue">「还你。你会需要的。」</span></p>
+<p>愣头青愣住了：<span class="dialogue">「为什么？」</span></p>
+<div class="humor">
+<p><span class="dialogue">「因为我妈说做人要留一线。」</span>我笑了笑，<span class="dialogue">「而且主要是怕你以后报复我。」</span></p>
+</div>
+<p><span class="inner-voice">——菩萨心肠。但核心利益，一分不让。</span></p>
+</div>
+</div>
+
+<div class="panel" id="p22">
+<img src="images/panel-22.jpg" loading="lazy" alt="panel 22">
+<div class="panel-text">
+<div class="humor">
+<p>手机又震了。</p>
+<p>CTO：<span class="dialogue">「修好了！原因找到了，有人把测试环境的配置推到了生产。」</span></p>
+<p>CTO：<span class="dialogue">「等等老板你到底在干嘛？？」</span></p>
+<p>CTO：<span class="dialogue">「你是不是去打麻将了？？」</span></p>
+<p>我：<span class="dialogue">「德扑。」</span></p>
+<p>CTO：<span class="dialogue">「……」</span></p>
+<p>CTO：<span class="dialogue">「赢了吗？」</span></p>
+<p>我：<span class="dialogue">「目前看，ROI比咱们上轮融资高。」</span></p>
+</div>
+</div>
+</div>
+
+<!-- ACT 5: 摊牌 -->
+<div class="act-divider"><span>第五幕</span>摊 牌</div>
+
+<div class="panel" id="p23">
+<img src="images/panel-23.jpg" loading="lazy" alt="panel 23">
+<div class="panel-text">
+<p>牌桌上只剩两个人。我，和投资人。</p>
+<p>赌注？我公司的领投权。</p>
+<p>如果我赢——我掌握融资主动权。如果我输——他进我的董事会，带着否决权。</p>
+<p>荷官发牌。我看了一眼。</p>
+<p><span class="inner-voice">我的心跳慢了半拍——不是紧张，是兴奋。</span></p>
+</div>
+</div>
+
+<div class="panel" id="p24">
+<img src="images/panel-24.jpg" loading="lazy" alt="panel 24">
+<div class="panel-text">
+<div class="decision">
+<div class="decision-tag">▸ 决策时刻</div>
+<p>翻牌前，投资人放下牌，盯着我：</p>
+<p><span class="dialogue">「小朱，你赢了牌局也没用。我一个电话，整个一级市场没人敢投你。」</span></p>
+<p>空气冷了两度。</p>
+<p>旁边看牌的冷面男轻轻叹了口气。沉默女人端起酒杯，遮住了嘴角。</p>
+<p><span class="inner-voice">他在等我怕。</span></p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p25">
+<img src="images/panel-25.jpg" loading="lazy" alt="panel 25">
+<div class="panel-text">
+<p>我站了起来。</p>
+<p>把牌翻开，拍在桌上。</p>
+<p><span class="dialogue" style="font-size:20px;color:#d4af37">「我的DAU是你投的项目的十倍。不是我需要你——是你错过了我。」</span></p>
+<p>然后我转向沉默女人：<span class="dialogue">「合作的事，明天正式聊。」</span></p>
+</div>
+</div>
+
+<div class="panel" id="p26">
+<img src="images/panel-26.jpg" loading="lazy" alt="panel 26">
+<div class="panel-text">
+<div class="decision">
+<div class="decision-tag">▸ 决策时刻</div>
+<p>沉默女人忽然鼓了两下掌。</p>
+<p><span class="dialogue">「朱先生，这场牌局——是我设计的。一场压力测试。」</span></p>
+<p>她递过一张名片。某顶级基金LP。管理规模——我多看了两遍，确认没多数零。</p>
+<p><span class="dialogue">「你通过了。但我有一个条件——公司必须承诺，永远不做军事AI。」</span></p>
+<p>我看着她的眼睛。</p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p27">
+<img src="images/panel-27.jpg" loading="lazy" alt="panel 27">
+<div class="panel-text">
+<p><span class="dialogue">「这不是你的条件。」</span>我说。</p>
+<p>她挑了挑眉。</p>
+<p><span class="dialogue">「这是我自己的底线。」</span></p>
+<p><span class="inner-voice">我想起创业第一天写在白板上的那句话：构建人与AI和谐共生的新文明时代。</span></p>
+<p><span class="dialogue">「人和AI应该互相成就，不是互相伤害。这件事——我不需要任何人来要求我。」</span></p>
+<p>她笑了。整晚第一个真笑。</p>
+<p><span class="dialogue">「所以你确实通过了。」</span></p>
+</div>
+</div>
+
+<!-- 结尾 -->
+<div class="act-divider"><span>尾声</span></div>
+
+<div class="panel" id="p28">
+<img src="images/panel-28.jpg" loading="lazy" alt="panel 28">
+<div class="panel-text">
+<p>凌晨三点半。</p>
+<p>上海的夜灯还没灭，天边已经有了一点点亮。</p>
+<p>CTO发来消息：<span class="dialogue">「老板服务器彻底稳了。你到底去哪了？？？」</span></p>
+<p>我：<span class="dialogue">「去上了一堂商学院没教的课。」</span></p>
+<p>手机弹出一条推送：「某基金宣布领投一家AI创业公司，估值翻三倍。」</p>
+<p>我笑着收起手机，打开笔记本电脑。</p>
+<p><span class="inner-voice">凌晨三点半，最适合写代码。</span></p>
+</div>
+</div>
+
+<div class="panel" id="p29">
+<img src="images/panel-29.jpg" loading="lazy" alt="panel 29">
+<div class="panel-text">
+<div class="humor">
+<p>临走前我刷了一眼朋友圈。</p>
+<p>愣头青发了一条：「今晚亏了一个亿，但学到了一件事：永远不要和创业者赌。他们早就押上了全部。」</p>
+<p>底下评论区：</p>
+<p>冷面男：「同意。」<br>投资人：「……」</p>
+<p>我默默点了个赞。</p>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p30">
+<img src="images/panel-30.jpg" loading="lazy" alt="panel 30">
+<div class="panel-text">
+<p>有人问我：你不怕吗？</p>
+<p>创业者哪有不怕的。</p>
+<p>但怕和退，是两回事。</p>
+<p>赌桌上最大的筹码，从来不是钱。</p>
+<p><strong style="color:#d4af37;font-size:20px">是你愿不愿意——把自己全押上去。</strong></p>
+</div>
+</div>
+
+<div class="end-screen">
+<div class="fin">【 完 】</div>
+<div class="quote">朱江·赌局<br>德扑 × 商战<br><br><span style="font-size:13px;color:#5a5248">EXP-554 · Trinity V3</span></div>
+</div>
+
+</div>
+
+<script>
+// Intersection Observer for scroll animation
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:0.1});
+document.querySelectorAll('.panel').forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
