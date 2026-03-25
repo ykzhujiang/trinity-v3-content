@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重启源码 · 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:'PingFang SC','Noto Sans SC',sans-serif;font-size:20px;line-height:1.8;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#1a1020 0%,#0a0a0f 100%);text-align:center;padding:20px}
+.cover h1{font-size:36px;background:linear-gradient(135deg,#00ff88,#00ccff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;letter-spacing:4px}
+.cover .subtitle{font-size:18px;color:#88aacc;margin-bottom:8px}
+.cover .chapter{font-size:16px;color:#667788;margin-top:20px}
+.story{max-width:430px;margin:0 auto;padding:0 0 60px}
+.panel{width:100%;margin:0;opacity:0;transform:translateY(30px);transition:opacity 0.6s,transform 0.6s}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block}
+.panel-text{padding:16px 20px 24px;position:relative}
+.narrator{color:#b0c4d8;font-size:18px;margin-bottom:8px}
+.dialog{padding:8px 14px;border-radius:12px;margin-bottom:8px;font-size:19px;display:inline-block;max-width:90%}
+.dialog.zhujiang{background:#1a3a2a;color:#88ffaa;border-left:3px solid #00ff88}
+.dialog.laoma{background:#3a2a1a;color:#ffcc88;border-left:3px solid #ff9944}
+.dialog.linxiaowei{background:#2a1a3a;color:#cc88ff;border-left:3px solid #aa44ff}
+.dialog.professor{background:#1a2a3a;color:#88ccff;border-left:3px solid #4488ff}
+.dialog.bbs{background:#0a1a0a;color:#00ff00;border-left:3px solid #00ff00;font-family:'Courier New',monospace}
+.inner{color:#ffdd88;font-style:italic;font-size:18px;margin-bottom:8px;padding-left:12px;border-left:2px solid #554422}
+.sfx{color:#ff6688;font-size:16px;text-align:center;letter-spacing:4px;margin:8px 0}
+.time-tag{text-align:center;color:#557799;font-size:14px;letter-spacing:6px;padding:20px 0 8px;text-transform:uppercase}
+.scene-break{height:40px;display:flex;align-items:center;justify-content:center}
+.scene-break span{display:block;width:60%;height:1px;background:linear-gradient(90deg,transparent,#334455,transparent)}
+.decision-box{background:linear-gradient(135deg,#1a1a2a,#0a0a1a);border:1px solid #334466;border-radius:16px;margin:16px 20px;padding:20px;position:relative;overflow:hidden}
+.decision-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#00ff88,#00ccff,#aa44ff)}
+.decision-box .label{font-size:14px;color:#557799;letter-spacing:2px;margin-bottom:12px}
+.decision-box .question{font-size:20px;color:#e8e8e8;margin-bottom:16px;font-weight:600}
+.choice{padding:10px 14px;margin-bottom:8px;border-radius:10px;font-size:17px;transition:all 0.3s}
+.choice.rejected{background:#1a1015;color:#665555;text-decoration:line-through}
+.choice.chosen{background:#0a2a1a;color:#88ffaa;border:1px solid #00ff88;font-weight:600}
+.choice .reason{font-size:14px;color:#889988;margin-top:4px;font-style:italic}
+.cliffhanger{background:linear-gradient(180deg,#0a0a0f,#1a0a0a);padding:40px 20px;text-align:center;min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.cliffhanger .bbs-msg{font-family:'Courier New',monospace;color:#00ff00;font-size:22px;padding:20px;border:1px solid #003300;background:#0a0a0a;border-radius:8px;margin:16px 0;text-align:left;max-width:90%}
+.cliffhanger .tbc{font-size:14px;color:#445566;letter-spacing:8px;margin-top:30px}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="subtitle">V5 · 重生×黑客×创业</div>
+  <h1>重 启 源 码</h1>
+  <div class="chapter">第一章 · 开学第一天，我黑进了学校教务系统</div>
+</div>
+
+<div class="story">
+
+<div class="time-tag">二〇〇五年 · 九月一日</div>
+
+<!-- P1: 黑屏醒来 -->
+<div class="panel"><img src="images/p01.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我睁开眼，天花板上贴着一张周杰伦的海报——《七里香》专辑封面。</p>
+  <p class="inner">这海报……我大一的时候贴的。等等。</p>
+</div>
+
+<!-- P2: 翻找手机 -->
+<div class="panel"><img src="images/p02.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我猛地坐起来，手在枕头下摸到一个硬邦邦的东西——诺基亚。</p>
+  <p class="inner">不是智能手机。是诺基亚。那种能砸核桃的诺基亚。</p>
+</div>
+
+<!-- P3: 看日期确认 -->
+<div class="panel"><img src="images/p03.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">屏幕亮起，日期赫然写着：2005年9月1日。</p>
+  <p class="inner">我他妈重生了？！</p>
+  <p class="sfx">嗡——</p>
+</div>
+
+<!-- P4: 摸脸确认 -->
+<div class="panel"><img src="images/p04.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我冲到窗边，对着模糊的玻璃看自己的脸——没有胡子，下巴线条很紧，瘦了至少三十斤。</p>
+  <p class="inner">二十二岁的我。操。真的是二十二岁。</p>
+</div>
+
+<!-- P5: 录取通知书 -->
+<div class="panel"><img src="images/p05.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">行李箱里翻出一张录取通知书：上海交通大学，计算机科学与技术。</p>
+  <p class="inner">上辈子读的就是这个专业。这次，我可以重新来。</p>
+</div>
+
+<!-- P6: 老马踢门而入 -->
+<div class="panel"><img src="images/p06.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="sfx">砰——！</p>
+  <p class="narrator">门被一脚踢开，一个圆脸胖子扛着巨大的行李箱冲了进来。</p>
+  <p class="dialog laoma">"兄弟！东北来的！以后罩着你！"</p>
+</div>
+
+<!-- P7: 老马自我介绍 -->
+<div class="panel"><img src="images/p07.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">他一屁股坐在对面床上，弹簧发出惨叫。</p>
+  <p class="dialog laoma">"我叫马大壮，你叫我老马就行。你QQ号多少？加个好友！"</p>
+  <p class="dialog zhujiang">"加我微——"</p>
+  <p class="inner">我差点说出"加我微信"。2005年。没有微信。</p>
+</div>
+
+<!-- P8: 微信梗 -->
+<div class="panel"><img src="images/p08.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog laoma">"加你啥？微啥？"</p>
+  <p class="dialog zhujiang">"微……微机课本。我说我微机课本找不到了。"</p>
+  <p class="inner">好险。以后说话得过脑子。</p>
+</div>
+
+<!-- P9: 宿舍全景 -->
+<div class="panel"><img src="images/p09.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">宿舍四人间，上下铺，墙面斑驳，风扇吱呀转着。2005年的大学宿舍，连独立卫浴都是奢望。</p>
+  <p class="inner">但我看着这一切，竟然有点想笑。上辈子最怀念的时光，竟然真的回来了。</p>
+</div>
+
+<div class="scene-break"><span></span></div>
+<div class="time-tag">开学典礼结束后</div>
+
+<!-- P10: 教务系统崩溃 -->
+<div class="panel"><img src="images/p10.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">选课系统。全校三万人同时在线。页面白了。</p>
+  <p class="dialog laoma">"完了完了完了！我要选的体育课全被抢了！"</p>
+  <p class="narrator">老马急得满头大汗，疯狂刷新着CRT显示器上的页面。</p>
+</div>
+
+<!-- P11: 朱江观察URL -->
+<div class="panel"><img src="images/p11.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我坐在自己的位置上，慢悠悠打开了那台联想旭日——厚得像砖头一样的笔记本。</p>
+  <p class="inner">看了看教务系统的URL结构。2005年的Web安全……</p>
+</div>
+
+<!-- P12: 黑客操作特写 -->
+<div class="panel"><img src="images/p12.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="inner">跟没穿衣服一样。</p>
+  <p class="narrator">我的手指在键盘上飞速敲击，一条SQL注入语句输入地址栏。</p>
+  <p class="sfx">嗒嗒嗒嗒嗒——</p>
+</div>
+
+<!-- P13: 进入后台 -->
+<div class="panel"><img src="images/p13.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">五分钟。教务系统后台管理界面在我面前打开。</p>
+  <p class="inner">学生名单、课程数据库、选课记录……全在这了。</p>
+</div>
+
+<!-- P14: 老马惊呆 -->
+<div class="panel"><img src="images/p14.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog laoma">"卧槽！！你你你……你干了啥？！"</p>
+  <p class="narrator">老马看到我的屏幕，嘴巴张成了O型。</p>
+  <p class="dialog zhujiang">"别喊。你要选哪门课？"</p>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box">
+  <div class="label">▸ 决策点 · 壹</div>
+  <div class="question">发现教务系统漏洞后，怎么办？</div>
+  <div class="choice rejected">A. 只给自己和老马选上课就收手<span class="reason">格局太小，不像我</span></div>
+  <div class="choice rejected">B. 悄悄修复漏洞，匿名通知学校<span class="reason">太保守了，我是行动派</span></div>
+  <div class="choice chosen">C. 帮整栋楼的人都选上课，顺便留个后门以备后用 ✓<span class="reason">帮人是本能，留后门是黑客的直觉</span></div>
+</div>
+
+<!-- P15: 帮全楼选课 -->
+<div class="panel"><img src="images/p15.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我花了二十分钟，把403寝室所在的整栋宿舍楼、一百二十个新生的课全选好了。</p>
+  <p class="inner">顺手在系统里留了个小小的后门。不是为了干坏事——是职业习惯。上辈子做安全出身的，看到洞不留门，浑身难受。</p>
+</div>
+
+<!-- P16: 老马佩服 -->
+<div class="panel"><img src="images/p16.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog laoma">"兄弟你是不是黑客啊？你是不是上过黑客帝国的培训班？"</p>
+  <p class="dialog zhujiang">"别瞎说。我就是……计算机基础比较好。"</p>
+  <p class="inner">上辈子写了二十年代码的人，"基础比较好"——这大概是我这辈子说过最谦虚的话。</p>
+</div>
+
+<!-- P17: 消息传开 -->
+<div class="panel"><img src="images/p17.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">一个小时后，整栋楼都知道了——403有个技术大神，帮全楼选上了课。</p>
+  <p class="narrator">走廊里不断有人探头："哪个是那个大神？"</p>
+  <p class="inner">出名得也太快了。低调，要低调。</p>
+</div>
+
+<!-- P18: 走廊堵人 -->
+<div class="panel"><img src="images/p18.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我出门去买水，在楼道转角被一个人拦住了。</p>
+  <p class="narrator">马尾辫，黑框眼镜，白色T恤配牛仔裤，干练得不像学生。</p>
+</div>
+
+<!-- P19: 林小薇出场 -->
+<div class="panel"><img src="images/p19.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog linxiaowei">"你就是那个帮全楼选课的人？"</p>
+  <p class="narrator">她的语气不像在问，更像在确认。</p>
+  <p class="inner">这个声音……上辈子在技术论坛见过她的ID。交大BBS上排名第一的技术版主。没想到真人长这样。</p>
+</div>
+
+<!-- P20: 老马使眼色 -->
+<div class="panel"><img src="images/p20.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">老马不知道什么时候冒了出来，在我身后疯狂使眼色。</p>
+  <p class="dialog laoma">（小声）"兄弟牛逼啊，刚开学就有学姐找！"</p>
+  <p class="inner">我选择性忽略他。</p>
+</div>
+
+<!-- P21: 林小薇自我介绍 -->
+<div class="panel"><img src="images/p21.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog linxiaowei">"林小薇，计算机系大三，学生会技术部部长。你用了SQL注入？"</p>
+  <p class="inner">她甚至知道我用了什么方法。不简单。</p>
+  <p class="dialog zhujiang">"学姐对Web安全也有研究？"</p>
+  <p class="dialog linxiaowei">"我管着校内技术论坛。每天看各种漏洞报告。你那个手法，很老练。不像新生。"</p>
+</div>
+
+<!-- P22: 邀请加入 -->
+<div class="panel"><img src="images/p22.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog linxiaowei">"技术部缺人。你来不来？"</p>
+  <p class="narrator">她推了推眼镜，目光锐利。</p>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box">
+  <div class="label">▸ 决策点 · 贰</div>
+  <div class="question">林小薇邀请加入技术部，怎么回应？</div>
+  <div class="choice rejected">A. 直接答应加入<span class="reason">我不会轻易被招揽</span></div>
+  <div class="choice rejected">B. 直接拒绝<span class="reason">太冷了，没必要把路堵死</span></div>
+  <div class="choice chosen">C. "我可以帮忙，但不加入。我有自己想做的事。有技术问题随时找我。" ✓<span class="reason">保持独立，但释放善意</span></div>
+</div>
+
+<!-- P23: 朱江回应 -->
+<div class="panel"><img src="images/p23.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog zhujiang">"学姐，我可以帮忙。但我不加入技术部。"</p>
+  <p class="narrator">她的眉毛微微挑起。</p>
+  <p class="dialog zhujiang">"我有自己想做的事。不过你们要是有技术问题，可以随时找我。"</p>
+</div>
+
+<!-- P24: 林小薇反应 -->
+<div class="panel"><img src="images/p24.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">林小薇盯着我看了三秒，然后笑了——是那种"有意思"的笑。</p>
+  <p class="dialog linxiaowei">"大一新生口气不小。行，我记住你了。"</p>
+  <p class="narrator">她转身走了，马尾在走廊里甩出一道弧线。</p>
+</div>
+
+<!-- P25: 老马吐槽 -->
+<div class="panel"><img src="images/p25.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog laoma">"你你你你疯了吧？！学姐主动找你你还不去？！计算机系技术部啊！"</p>
+  <p class="dialog zhujiang">"老马，人生短暂。我不想把时间花在别人的项目上。"</p>
+  <p class="dialog laoma">"你讲话怎么跟四十岁似的……"</p>
+  <p class="inner">因为我确实四十岁。只是你不知道。</p>
+</div>
+
+<div class="scene-break"><span></span></div>
+<div class="time-tag">当天夜晚 · 宿舍楼天台</div>
+
+<!-- P26: 天台全景 -->
+<div class="panel"><img src="images/p26.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">十一点，宿舍熄灯。我爬上了楼顶天台。</p>
+  <p class="narrator">2005年的上海夜景——陆家嘴还没有后来那些摩天大楼，浦东的天际线稀稀拉拉。</p>
+</div>
+
+<!-- P27: 远眺夜景 -->
+<div class="panel"><img src="images/p27.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="inner">这一次，我知道每一个风口在哪里。</p>
+  <p class="inner">2007年，iPhone发布。2010年，微博爆发。2011年，微信上线。2012年，今日头条。2016年，抖音。2020年，AI。</p>
+</div>
+
+<!-- P28: 特写思考 -->
+<div class="panel"><img src="images/p28.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="inner">但我也知道，光知道未来没用。上辈子最大的教训——</p>
+  <p class="inner">执行力和时机，比远见更重要。</p>
+</div>
+
+<!-- P29: 自嘲 -->
+<div class="panel"><img src="images/p29.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="inner">当然，上辈子我也不差。好歹公司上市了。</p>
+  <p class="inner">但如果再来一次……我想试试更大的。</p>
+  <p class="inner">上辈子四十二岁还在熬夜写PPT。这辈子二十二岁还是在熬夜——不过这次，是写代码。</p>
+</div>
+
+<!-- DECISION 3 -->
+<div class="decision-box">
+  <div class="label">▸ 决策点 · 叁</div>
+  <div class="question">重生后的第一步，做什么？</div>
+  <div class="choice rejected">A. 立刻开始做项目赚钱<span class="reason">急功近利，不是我的风格</span></div>
+  <div class="choice rejected">B. 先安心读书，等时机成熟<span class="reason">太被动了，浪费了重生的优势</span></div>
+  <div class="choice chosen">C. 先用黑客技能摸清学校和周边的技术生态，同时物色合伙人 ✓<span class="reason">情报先行，这是做大事的基本功</span></div>
+</div>
+
+<!-- P30: 打开笔记本 -->
+<div class="panel"><img src="images/p30.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我回到宿舍，打开笔记本。老马已经打呼了，鼾声如雷。</p>
+  <p class="inner">先摸清楚这个学校的技术生态。谁在做什么项目，谁有潜力，谁值得拉拢。</p>
+</div>
+
+<!-- P31: 校内BBS -->
+<div class="panel"><img src="images/p31.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">校内BBS。2005年的互联网社区长这样——绿色字符界面，像黑客帝国的终端。</p>
+  <p class="inner">技术版、创业版、二手交易版……信息量不大，但每一条都是原始的。没有算法推荐，没有信息茧房。</p>
+</div>
+
+<!-- P32: 发现隐藏板块 -->
+<div class="panel"><img src="images/p32.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">在翻阅板块目录的时候，我注意到一个没有公开索引的隐藏板块。</p>
+  <p class="inner">这个板块用了一层简单的URL混淆。对2005年的学生来说可能很隐蔽，但对我……</p>
+  <p class="sfx">点击——</p>
+</div>
+
+<!-- P33: 校园通项目 -->
+<div class="panel"><img src="images/p33.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">板块名叫"创业者空间"，里面只有十几个帖子。最热的一个：</p>
+  <p class="inner">"校园通——下一代校园社交平台，技术合伙人招募中"</p>
+  <p class="narrator">商业计划书写得非常专业。方向和我想做的……几乎一模一样。</p>
+</div>
+
+<!-- P34: 商业计划书详情 -->
+<div class="panel"><img src="images/p34.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="inner">校园实名社交、课程评价、二手交易、活动组织……</p>
+  <p class="inner">这不就是后来的人人网吗？而且他们的执行计划比我预期的周全得多。</p>
+  <p class="narrator">最后一条回复——十分钟前发的。发帖人还在线。</p>
+</div>
+
+<!-- DECISION 4 -->
+<div class="decision-box">
+  <div class="label">▸ 决策点 · 肆</div>
+  <div class="question">发现有人在做和自己同方向的项目，怎么办？</div>
+  <div class="choice rejected">A. 加入他们的团队<span class="reason">我是领导者，不是跟随者</span></div>
+  <div class="choice rejected">B. 无视他们，自己单干<span class="reason">知己知彼是基本功</span></div>
+  <div class="choice chosen">C. 先以"感兴趣的新生"身份去了解他们的实力，再决定竞争还是合作 ✓<span class="reason">信息优先，永远是最优策略</span></div>
+</div>
+
+<!-- P35: 注册ID -->
+<div class="panel"><img src="images/p35.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我注册了一个新ID，用了一个毫无特色的名字，在帖子下面回复：</p>
+  <p class="inner">"大一新生，计算机系，对校园社交很感兴趣，可以聊聊吗？"</p>
+  <p class="inner">低调。不暴露实力。先了解对手。</p>
+</div>
+
+<!-- P36: 等待回复 -->
+<div class="panel"><img src="images/p36.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">回复发出去不到两分钟，对方就回了——很快，说明他一直在线刷帖。</p>
+  <p class="inner">"有兴趣就好！加QQ详聊：XXXXXXX。我们周六在图书馆三楼有个碰头会。"</p>
+</div>
+
+<!-- P37: 准备关电脑 -->
+<div class="panel"><img src="images/p37.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">我正准备关掉电脑，BBS突然弹出一条私信通知。</p>
+  <p class="sfx">叮——</p>
+</div>
+
+<!-- P38: 私信特写 -->
+<div class="panel"><img src="images/p38.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="narrator">发信人ID：<strong>root_admin</strong></p>
+  <p class="inner">root_admin？</p>
+</div>
+
+<!-- P39: 私信内容 -->
+<div class="panel"><img src="images/p39.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="dialog bbs">"你就是今天黑进教务系统的那个新生吧？"</p>
+</div>
+
+<!-- P40: 朱江震惊 -->
+<div class="panel"><img src="images/p40.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="inner">我的手悬在键盘上方，没有按下去。</p>
+  <p class="inner">root_admin。这个ID，上辈子我见过。</p>
+</div>
+
+<!-- P41: 回忆 -->
+<div class="panel"><img src="images/p41.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="inner">交大校内网的幽灵。从没有人见过他的真面目。传说是研究生，传说是博士，传说是已经毕业的校友远程挂着。</p>
+  <p class="inner">但上辈子，我后来知道了他是谁。</p>
+</div>
+
+<!-- P42: 他后来去了…… -->
+<div class="panel"><img src="images/p42.jpg" loading="lazy" alt=""></div>
+<div class="panel-text">
+  <p class="inner">他后来去了——</p>
+</div>
+
+<!-- P43: 悬念画面 -->
+<div class="panel"><img src="images/p43.jpg" loading="lazy" alt=""></div>
+
+<div class="cliffhanger">
+  <div class="bbs-msg">
+    > 发信人: root_admin<br>
+    > 时间: 2005-09-01 23:47<br>
+    > 标题: (无)<br><br>
+    "你就是今天黑进教务系统的那个新生吧？"<br><br>
+    > 回复？[Y/N] _
+  </div>
+  <p class="inner" style="margin-top:20px;font-size:22px">这个人，我必须见。</p>
+  <div class="tbc">—— 第一章 · 完 ——</div>
+  <div class="tbc" style="margin-top:12px">第二章 · root_admin的真面目</div>
+</div>
+
+</div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+
+</body>
+</html>
