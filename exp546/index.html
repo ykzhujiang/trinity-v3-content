@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>暗网·破局者</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a12 0%,#0d1b2a 50%,#1b2838 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 80%,rgba(0,200,255,0.08) 0%,transparent 60%)}
+.cover h1{font-size:2.4rem;font-weight:900;letter-spacing:0.15em;background:linear-gradient(135deg,#00d4ff,#7b2ff7,#ff6b6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:0.5rem;animation:glow 3s ease-in-out infinite alternate}
+.cover .sub{font-size:1.1rem;color:#7a8ba0;letter-spacing:0.3em;margin-bottom:2rem}
+.cover .tag{font-size:0.9rem;color:#4a90d9;border:1px solid #4a90d933;border-radius:20px;padding:6px 18px;margin:4px;display:inline-block}
+.cover .scroll-hint{position:absolute;bottom:30px;color:#4a90d9;font-size:0.85rem;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes glow{0%{filter:brightness(1)}100%{filter:brightness(1.3)}}
+
+.panel{position:relative;width:100%;max-width:480px;margin:0 auto;padding:0}
+.panel img{width:100%;display:block;opacity:0;transform:translateY(30px);transition:all 0.6s ease}
+.panel img.visible{opacity:1;transform:translateY(0)}
+.panel-text{padding:16px 20px 24px;background:linear-gradient(180deg,rgba(10,10,18,0.95),rgba(10,10,18,1))}
+.panel-text .scene{font-size:0.75rem;color:#4a90d9;letter-spacing:0.15em;margin-bottom:6px;text-transform:uppercase}
+.panel-text .desc{font-size:1.05rem;line-height:1.8;color:#c8d0dc}
+.panel-text .dialogue{font-size:1.1rem;line-height:1.7;color:#fff;padding:10px 14px;margin:8px 0;border-left:3px solid #00d4ff;background:rgba(0,212,255,0.05);border-radius:0 6px 6px 0}
+.panel-text .thought{font-size:1rem;line-height:1.7;color:#b8a0d0;font-style:italic;padding:8px 14px;margin:8px 0;border-left:3px solid #7b2ff7;background:rgba(123,47,247,0.05);border-radius:0 6px 6px 0}
+.panel-text .action{font-size:0.9rem;color:#7a8ba0;margin-top:4px}
+
+.decision{background:linear-gradient(135deg,rgba(123,47,247,0.1),rgba(0,212,255,0.1));border:1px solid rgba(123,47,247,0.3);border-radius:12px;margin:8px 20px 16px;padding:16px;position:relative;overflow:hidden}
+.decision::before{content:'⚡ 决策点';position:absolute;top:0;left:0;background:linear-gradient(90deg,#7b2ff7,#00d4ff);color:#fff;font-size:0.75rem;font-weight:700;padding:3px 12px;border-radius:0 0 8px 0}
+.decision .options{margin-top:20px}
+.decision .opt{padding:8px 12px;margin:6px 0;border-radius:8px;font-size:0.95rem;color:#8a8a9a;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)}
+.decision .opt.chosen{color:#fff;background:rgba(0,212,255,0.12);border-color:#00d4ff;position:relative}
+.decision .opt.chosen::after{content:'✓ 朱江的选择';float:right;font-size:0.75rem;color:#00d4ff}
+.decision .reason{font-size:0.85rem;color:#7b9ab8;margin-top:10px;padding:8px;background:rgba(0,0,0,0.2);border-radius:6px}
+
+.act-divider{text-align:center;padding:40px 20px;background:linear-gradient(180deg,rgba(10,10,18,1),rgba(13,27,42,0.8),rgba(10,10,18,1))}
+.act-divider h2{font-size:1.4rem;color:#4a90d9;letter-spacing:0.2em;margin-bottom:6px}
+.act-divider p{font-size:0.85rem;color:#5a6a7a}
+
+.epilogue-end{text-align:center;padding:60px 20px;background:linear-gradient(180deg,rgba(10,10,18,1),rgba(27,40,56,0.5))}
+.epilogue-end p{font-size:1rem;color:#5a7a9a;line-height:2}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+<h1>暗网·破局者</h1>
+<div class="sub">V5 分镜剧本</div>
+<div>
+<span class="tag">黑客</span>
+<span class="tag">智斗</span>
+<span class="tag">逆袭</span>
+<span class="tag">创业</span>
+</div>
+<div class="scroll-hint">↓ 向下滑动开始</div>
+</div>
+
+<!-- ACT 1: 平静被打破 -->
+<div class="act-divider"><h2>第一幕</h2><p>平静被打破</p></div>
+
+<!-- P01 -->
+<div class="panel">
+<img src="p01.jpg" loading="eager" alt="P01">
+<div class="panel-text">
+<div class="scene">场景一 · 公司会议室 · 日景</div>
+<div class="desc">【中近景·略仰拍】朱江坐在会议桌主位，十指交叉靠在椅背上，嘴角挂着自信的弧度。身后巨幅屏幕上跳动着上扬的融资曲线。</div>
+<div class="dialogue">"各位，B轮的条款基本敲定了。估值比我们预期高了两成——说明市场认可我们的算法壁垒。"</div>
+<div class="action">【表演】眼神扫过在座众人，手指轻轻敲了一下桌面，节奏从容。</div>
+</div>
+</div>
+
+<!-- P02 -->
+<div class="panel">
+<img src="p02.jpg" loading="lazy" alt="P02">
+<div class="panel-text">
+<div class="scene">场景一 · 公司会议室 · 日景</div>
+<div class="desc">【中近景·过肩镜头】会议桌上的手机突然亮屏震动。朱江的目光从投影幻灯片迅速切向手机，笑容凝固——瞳孔微微收缩。</div>
+<div class="thought">怎么是匿名邮件……</div>
+<div class="action">【运镜】从朱江的肩膀后方推近手机屏幕，焦点从朱江的侧脸转移到手机。背景人声淡出。</div>
+</div>
+</div>
+
+<!-- P03 -->
+<div class="panel">
+<img src="p03.jpg" loading="lazy" alt="P03">
+<div class="panel-text">
+<div class="scene">场景一 · 手机特写</div>
+<div class="desc">【大特写·俯拍】手机屏幕上一封匿名邮件赫然在目："你的算法不是你的。72小时。"指关节因为握力发白。</div>
+<div class="thought">谁？为什么是72小时？这不是威胁——这是在炫耀。</div>
+<div class="action">【细节】手机外壳边缘映出会议室灯光的扭曲倒影，暗示平静世界即将碎裂。</div>
+</div>
+</div>
+
+<!-- P04 -->
+<div class="panel">
+<img src="p04.jpg" loading="lazy" alt="P04">
+<div class="panel-text">
+<div class="scene">场景二 · 技术部紧急会议室 · 夜景</div>
+<div class="desc">【全景·平拍】技术团队战时状态。朱江站在中央双臂抱胸，目光如刀。四五个工程师围坐在笔记本前，多块大屏幕上跑着网络拓扑和代码审计结果。</div>
+<div class="dialogue">"核心代码确认被植入后门，数据在持续外流。速度很慢——对方在一点一点抽。"</div>
+<div class="dialogue">"报警还是……？"</div>
+<div class="action">【氛围】荧光灯管嗡嗡作响，咖啡杯堆了一排。所有人看向朱江等他拍板。</div>
+</div>
+</div>
+
+<!-- P05 -->
+<div class="panel">
+<img src="p05.jpg" loading="lazy" alt="P05">
+<div class="panel-text">
+<div class="scene">场景二 · 技术部紧急会议室 · 夜景</div>
+<div class="desc">【近景·侧光】朱江侧脸特写，一半被显示器冷蓝色照亮，一半藏在阴影中。手指抵着下巴，拇指反复摩挲。眉心微蹙，嘴角却有一丝难以察觉的弧度。</div>
+<div class="thought">正规流程太慢，72小时根本来不及。而且报警的瞬间，对方就知道我们发现了……但自己追踪，就是重回那个世界。</div>
+</div>
+</div>
+
+<!-- DECISION-1 -->
+<div class="decision">
+<div class="options">
+<div class="opt">选项A：报警走正规流程——安全但慢，可能打草惊蛇</div>
+<div class="opt chosen">选项B：自己追踪——违法风险，但快，而且……刺激</div>
+</div>
+<div class="reason">💡 黑客基因觉醒。"系统怎么运作"的好奇心压过一切理性分析。朱江骨子里是个拆解者——不亲手拆开看个究竟，他会失眠。</div>
+</div>
+
+<!-- P06 -->
+<div class="panel">
+<img src="p06.jpg" loading="lazy" alt="P06">
+<div class="panel-text">
+<div class="scene">场景三 · 公司走廊 · 深夜</div>
+<div class="desc">【中景·轻微荷兰角】朱江独自走过空旷的玻璃走廊。衬衫领口松了一颗扣子，一只手插兜，另一只手攥着手机。玻璃墙映出城市万家灯火，他的影子拉得很长。</div>
+<div class="thought">十二年没碰过那台机器了。手还记得吗？</div>
+<div class="action">【运镜】缓慢跟拍，脚步声回响在空旷走廊中。</div>
+</div>
+</div>
+
+<!-- P07 -->
+<div class="panel">
+<img src="p07.jpg" loading="lazy" alt="P07">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 深夜</div>
+<div class="desc">【大特写·仰拍】朱江的眼睛亮了——字面意义上。显示器的冷光映在他的大眼睛里，像两簇小火苗。嘴角缓缓勾起一个危险的弧度。</div>
+<div class="thought">好久不见，老朋友。</div>
+<div class="action">【表演】瞳孔放大，呼吸变浅。这是猎手闻到血腥味的表情。</div>
+</div>
+</div>
+
+<!-- P08 -->
+<div class="panel">
+<img src="p08.jpg" loading="lazy" alt="P08">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 深夜</div>
+<div class="desc">【中景·从身后拍摄】朱江从书架顶层取下一台满是灰尘的旧笔记本电脑，小心翼翼放在桌上打开。台灯是唯一的光源，暖黄色的光笼罩着他弓起的背影。桌上有一杯咖啡和一张家人合照。</div>
+<div class="action">【细节】他吹了吹笔记本盖上的灰，指尖碰到键盘的瞬间，姿势从商务精英切换成了黑客——背弓、肩缩、手指悬在键盘上方如同钢琴家准备开弹。</div>
+</div>
+</div>
+
+<!-- ACT 2 -->
+<div class="act-divider"><h2>第二幕</h2><p>重回暗网</p></div>
+
+<!-- P09 -->
+<div class="panel">
+<img src="p09.jpg" loading="lazy" alt="P09">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 深夜</div>
+<div class="desc">【过肩镜头·聚焦屏幕】旧笔记本启动，黑色终端界面上滚动着绿色的启动日志。朱江的手指悬在键盘上方，轻微颤抖——不是紧张，是兴奋。</div>
+<div class="thought">十二年了。上次打开这个系统的时候，我还在学校宿舍里。</div>
+<div class="action">【氛围】屏幕的绿光映在他络腮胡上，像某种仪式的开始。</div>
+</div>
+</div>
+
+<!-- P10 -->
+<div class="panel">
+<img src="p10.jpg" loading="lazy" alt="P10">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 深夜</div>
+<div class="desc">【特写·低角度向上】双手在键盘上飞舞——肌肉记忆完好无损。指尖模糊成残影，屏幕上代码流如瀑布。上方隐约可见朱江嘴角的笑——像重逢老友的那种笑。</div>
+<div class="dialogue">"嘿……手速还在。"</div>
+<div class="action">【节奏】快速剪辑感——手指、屏幕、咖啡蒸汽、朱江的侧脸，交替切换。</div>
+</div>
+</div>
+
+<!-- P11 -->
+<div class="panel">
+<img src="p11.jpg" loading="lazy" alt="P11">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 深夜</div>
+<div class="desc">【中近景·分屏构图】上半部分：朱江全神贯注盯着屏幕，表情严肃。下半部分：手机亮起一条消息通知——老婆发来的"你怎么还不睡？"</div>
+<div class="dialogue">手机回复："在看财报。"</div>
+<div class="thought">（实际在扫描暗网入口节点）……财报确实也该看了，明天补上。</div>
+<div class="action">【表演】回消息时嘴角微抽——一个创业者对妻子撒小谎时标准的心虚表情。</div>
+</div>
+</div>
+
+<!-- P12 -->
+<div class="panel">
+<img src="p12.jpg" loading="lazy" alt="P12">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【全景·从门口拍摄】书房全貌：朱江蜷在椅子上，被空咖啡杯和零食包装环绕。多个浏览器窗口在屏幕上闪烁。墙上时钟显示凌晨两点多。暖黄台灯光和冷蓝屏幕光混合。</div>
+<div class="action">【构图】从门缝偷窥的角度，仿佛家人半夜起来看了一眼。温馨与危险并存。</div>
+</div>
+</div>
+
+<!-- P13 -->
+<div class="panel">
+<img src="p13.jpg" loading="lazy" alt="P13">
+<div class="panel-text">
+<div class="scene">场景五 · 暗网界面（虚拟空间）</div>
+<div class="desc">【特写·主观镜头】朱江的视角——屏幕上是一个暗网交易市场。霓虹紫红色调，几何图案构成的匿名界面。一个拍卖页面赫然在目，标价数字触目惊心。</div>
+<div class="thought">五百万美金……他们在拍卖我的心血。我的算法。</div>
+<div class="action">【氛围】暗紫红光映在朱江半张脸上（画面底部可见），像地狱的入口照亮了来访者。</div>
+</div>
+</div>
+
+<!-- P14 -->
+<div class="panel">
+<img src="p14.jpg" loading="lazy" alt="P14">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【中景·低角度仰拍】朱江猛地靠回椅背，一只手捂住嘴巴，眼睛圆睁——震惊与愤怒交织。屏幕的蓝光从下方打在他脸上，制造出戏剧性的反转阴影。</div>
+<div class="thought">五百万美金。够买一套汤臣一品了。我的代码值这个价——这算是变相认可吧？……不是！</div>
+<div class="action">【表演】典型朱江式反应——先自嘲，再愤怒。拳头慢慢攥紧。</div>
+</div>
+</div>
+
+<!-- P15 -->
+<div class="panel">
+<img src="p15.jpg" loading="lazy" alt="P15">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【大特写】攥紧的拳头搁在笔记本旁边，指关节发白。旁边是那张家人合照的相框——焦点在拳头上，相框虚化。</div>
+<div class="thought">这不只是算法。这是一百二十个人的饭碗，是承诺给投资人的未来。</div>
+<div class="action">【对比】暴力的拳头和温馨的家庭照并置，内心冲突具象化。</div>
+</div>
+</div>
+
+<!-- DECISION-2 -->
+<div class="decision">
+<div class="options">
+<div class="opt">选项A：在暗网论坛公开身份警告对方——震慑力大但暴露行踪</div>
+<div class="opt chosen">选项B：潜伏观察，悄悄收集证据——安全但时间紧迫</div>
+</div>
+<div class="reason">💡 创业者的理性压过黑客的冲动。"P2优先，提前消灭火源"——先搞清楚火在哪里，再决定怎么灭。暴露自己等于告诉对方"你被发现了"，对方会立刻转移。</div>
+</div>
+
+<!-- P16 -->
+<div class="panel">
+<img src="p16.jpg" loading="lazy" alt="P16">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家厨房/书房 · 凌晨</div>
+<div class="desc">【中景·侧面】朱江一只手倒咖啡，另一只手在笔记本上敲命令。脸上的惊怒已经消退，取而代之的是冷静的决断。清晨的微光从窗帘缝隙透进来，和屏幕光交汇。</div>
+<div class="dialogue">"好。那就来一场安静的猎杀。"</div>
+<div class="action">【转场】从暴怒到冷静只用了一杯咖啡的时间——这是朱江的节奏，决断绝不犹豫。</div>
+</div>
+</div>
+
+<!-- P17 -->
+<div class="panel">
+<img src="p17.jpg" loading="lazy" alt="P17">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 清晨</div>
+<div class="desc">【动态对角线构图】朱江俯身向屏幕，眼神锐利如扫描仪。桌上贴满手绘拓扑图和便利贴（无文字）。屏幕上是抽象的网络流量分析图。他在逆向追踪——拆解对方的每一层跳板。</div>
+<div class="thought">三层代理，两个跳板……手法很老派。但有一个节点的延迟不对——像是物理距离太近了。</div>
+<div class="action">【表演】食指在屏幕上某处反复点，像法医发现了关键线索。</div>
+</div>
+</div>
+
+<!-- P18 -->
+<div class="panel">
+<img src="p18.jpg" loading="lazy" alt="P18">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 清晨</div>
+<div class="desc">【近景·正面】屏幕光在朱江脸上变换颜色——蓝、红、绿。他的表情也随之变化：专注、紧张、然后——豁然开朗。一个缓慢的、了然于胸的笑容浮现。他找到突破口了。</div>
+<div class="dialogue">"找到你了。"</div>
+<div class="action">【高光时刻】嘴角上扬的角度和第一幕开会时一模一样——但这次眼神里多了猎人的锋芒。</div>
+</div>
+</div>
+
+<!-- ACT 3 -->
+<div class="act-divider"><h2>第三幕</h2><p>猎人与猎物</p></div>
+
+<!-- P19 -->
+<div class="panel">
+<img src="p19.jpg" loading="lazy" alt="P19">
+<div class="panel-text">
+<div class="scene">场景六 · 城市夜景 · 外景</div>
+<div class="desc">【大远景】城市夜空下万家灯火，镜头从高空缓缓推近一栋住宅楼的某个亮灯窗户。窗内隐约可见一个人伏案工作的剪影。整座城市是暗的棋盘，而这扇窗是唯一亮着的棋子。</div>
+<div class="action">【构图】城市的浩瀚衬托出个人行动的渺小与决绝。冷蓝夜色中，那一窗暖黄是唯一的温度。</div>
+</div>
+</div>
+
+<!-- P20 -->
+<div class="panel">
+<img src="p20.jpg" loading="lazy" alt="P20">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【过肩镜头】朱江盯着屏幕上的城市地图，一个红色闪烁的坐标点就在——同一座城市。他的倒影和地图重叠，像一个幽灵悬浮在城市上空。</div>
+<div class="thought">同一座城市。开车半小时的距离。偷我东西的人，可能跟我喝过同一家咖啡店的咖啡。</div>
+</div>
+</div>
+
+<!-- P21 -->
+<div class="panel">
+<img src="p21.jpg" loading="lazy" alt="P21">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【中景·暖光】朱江靠在椅背上，手里拿着一张打印的旧文件，表情复杂——遗憾、自嘲、苦笑交替浮现。纸有点皱，像是从抽屉最深处翻出来的。</div>
+<div class="dialogue">"'感谢你的付出，祝你前程似锦。'……前程确实似锦了，锦到偷我算法值五百万美金。"</div>
+<div class="action">【表演】笑着摇头，那种"我真是服了"的苦笑——典型的朱江式自嘲。</div>
+</div>
+</div>
+
+<!-- P22 -->
+<div class="panel">
+<img src="p22.jpg" loading="lazy" alt="P22">
+<div class="panel-text">
+<div class="scene">场景七 · 对比画面（虚拟分屏）</div>
+<div class="desc">【双人分屏·垂直分割】画面左侧：朱江在暖光中，自信沉稳，西装领口微开。画面右侧：一个年轻消瘦的男人在冷蓝光中，连帽衫兜帽压得很低，眼神偏执又倔强——这是"影子"。两人的对比一目了然。</div>
+<div class="action">【构图】左暖右冷，左亮右暗，左稳右乱。视觉对立传递人物关系。</div>
+</div>
+</div>
+
+<!-- DECISION-3 -->
+<div class="decision">
+<div class="options">
+<div class="opt">选项A：正面入侵对方系统——以攻对攻，快但鲁莽</div>
+<div class="opt chosen">选项B：设陷阱——在算法代码中植入追踪木马，等他来拿</div>
+</div>
+<div class="reason">💡 创业者的博弈智慧（赌神基因）。正面进攻是程序员思维，设陷阱是棋手思维。朱江喜欢"让对手自己走进圈套"——比自己冲上去优雅得多，也安全得多。</div>
+</div>
+
+<!-- P23 -->
+<div class="panel">
+<img src="p23.jpg" loading="lazy" alt="P23">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 深夜</div>
+<div class="desc">【特写·俯拍手部】朱江的手指在键盘上精准落下——不再是之前的疾风骤雨，而是每一个按键都深思熟虑。桌上多了一枚国际象棋的马（骑士），被台灯光照出长长的影子。</div>
+<div class="thought">木马不能太明显，也不能太隐蔽。要让他觉得自己"发现了后门并绕过了"——其实绕进了更深的后门。</div>
+<div class="action">【节奏】慢、稳、精确。每一帧都是计算。</div>
+</div>
+</div>
+
+<!-- P24 -->
+<div class="panel">
+<img src="p24.jpg" loading="lazy" alt="P24">
+<div class="panel-text">
+<div class="scene">场景八 · 概念画面（数字陷阱）</div>
+<div class="desc">【艺术化表现】抽象的数字空间中，金色的丝线编织进一团暗色的代码结构——像蜘蛛在黑暗中织出一张发光的网。美得像一件艺术品，危险得像一把温柔的刀。</div>
+<div class="action">【视觉隐喻】陷阱的美学——朱江写代码如同织锦，每一根线都有用途。</div>
+</div>
+</div>
+
+<!-- P25 -->
+<div class="panel">
+<img src="p25.jpg" loading="lazy" alt="P25">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【中景·轻微低角度】朱江双手枕在脑后，脚翘在桌上，盯着天花板。屏幕上一个进度条在缓慢推进。嘴里叼着一根没点着的笔——他在等。</div>
+<div class="dialogue">"现在就看你贪不贪了，小影子。"</div>
+<div class="thought">他一定会来。写代码的人都有一个毛病——对未完成的代码有强迫症。他已经拿了一半，一定会来拿另一半。</div>
+</div>
+</div>
+
+<!-- P26 -->
+<div class="panel">
+<img src="p26.jpg" loading="lazy" alt="P26">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【动态镜头】笔记本屏幕猛然闪亮——木马被触发了！朱江一个前倾，双手拍在桌面上，眼神锐利得像鹰。屏幕光爆炸式照亮整个房间，之前的昏暗一扫而空。</div>
+<div class="dialogue">"上钩了。"</div>
+<div class="action">【能量爆发】整个画面从暗调突然切到高亮，朱江的瞳孔中映出胜利的光。</div>
+</div>
+</div>
+
+<!-- DECISION-4 -->
+<div class="decision">
+<div class="options">
+<div class="opt">选项A：销毁对方所有数据——一了百了，干净利落</div>
+<div class="opt chosen">选项B：只锁定证据，保留对方系统的访问权——留一张牌</div>
+</div>
+<div class="reason">💡 "菩萨心肠，霹雳手段。"销毁数据是霹雳手段但没有菩萨心肠。掌握全部筹码=拥有选择权，而选择权永远比执行权更值钱。这是朱江从创业中学到的——别把路堵死。</div>
+</div>
+
+<!-- P27 -->
+<div class="panel">
+<img src="p27.jpg" loading="lazy" alt="P27">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【近景·明暗对比】朱江一手撑着下巴沉思。半张脸在阴影中，半张脸被屏幕照亮——像一个硬币的两面。这是道德抉择的时刻：他拥有了毁灭一个人的能力。</div>
+<div class="thought">销毁他的一切？技术上很简单。但……"菩萨心肠，霹雳手段"——老爸说的。手段要有，心不能丢。先握着这张牌。</div>
+</div>
+</div>
+
+<!-- P28 -->
+<div class="panel">
+<img src="p28.jpg" loading="lazy" alt="P28">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【俯拍·鸟瞰轻微倾斜】朱江的工位全景：多块屏幕显示着不同的数据流，他坐在正中间，渺小却掌控一切——像一个微型指挥中心的将军。桌面从之前的凌乱变得有条理——战斗进入收尾阶段。</div>
+<div class="action">【视觉叙事】画面从混乱走向有序，映射朱江从被动挨打到掌控全局的心理弧线。</div>
+</div>
+</div>
+
+<!-- ACT 4 -->
+<div class="act-divider"><h2>第四幕</h2><p>终局对决</p></div>
+
+<!-- P29 -->
+<div class="panel">
+<img src="p29.jpg" loading="lazy" alt="P29">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 外景</div>
+<div class="desc">【远景·建立镜头】雨后的街道，路面反射着霓虹灯光。一家小咖啡馆的暖黄灯光从大玻璃窗流泻出来。透过窗户可以看到一个人孤坐在角落——朱江。街上几乎没有行人。</div>
+<div class="action">【氛围】电影感十足。湿漉漉的街道、温暖的咖啡馆、等待中的猎人。安静中酝酿着暴风雨。</div>
+</div>
+</div>
+
+<!-- P30 -->
+<div class="panel">
+<img src="p30.jpg" loading="lazy" alt="P30">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【中景·内部】朱江坐在角落卡座里，面前的咖啡纹丝不动——他没喝一口。目光平静地看着门口方向，姿态放松但每一块肌肉都准备好了。吊灯在他头顶投下暖黄光圈。</div>
+<div class="thought">该来了。不知道他现在是什么心情——大概跟当年被我开除时差不多吧。不，比那更紧张。</div>
+</div>
+</div>
+
+<!-- P31 -->
+<div class="panel">
+<img src="p31.jpg" loading="lazy" alt="P31">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【过肩·从朱江背后】咖啡馆门推开，一个穿深色连帽衫的瘦高年轻人走进来——"影子"。他在门口扫视了一圈，目光和角落里朱江的目光撞在一起。前景是朱江纹丝不动的后脑勺和肩膀。</div>
+<div class="action">【对比】朱江的静vs影子的动。一个是磐石，一个是风中的枯叶。</div>
+</div>
+</div>
+
+<!-- P32 -->
+<div class="panel">
+<img src="p32.jpg" loading="lazy" alt="P32">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【双人中景·隔桌对坐】朱江（右侧，微笑，放松）面对影子（左侧，紧绷，兜帽还戴着）。两杯咖啡之间是一段沉默。吊灯悬在两人中间，在两张脸上投下对称的光影。</div>
+<div class="dialogue">影子："你怎么找到我的？"</div>
+<div class="dialogue">朱江："你的代理延迟在凌晨两点多了一百二十毫秒。知道为什么吗？因为你邻居那时候开始下载高清视频，挤了你的带宽。"</div>
+</div>
+</div>
+
+<!-- P33 -->
+<div class="panel">
+<img src="p33.jpg" loading="lazy" alt="P33">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【近景·影子特写】影子的脸——年轻、消瘦、黑眼圈深重。偏执的眼神开始动摇，嘴唇微微颤抖。他知道自己输了。冷调光打在他脸上，和暖色背景形成反差。</div>
+<div class="thought">（影子内心）不可能……他怎么会从带宽波动反推出地址？除非——他的水平比传说中还强。</div>
+</div>
+</div>
+
+<!-- P34 -->
+<div class="panel">
+<img src="p34.jpg" loading="lazy" alt="P34">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【中近景】朱江慢条斯理地拿起桌上的手机，动作里带着一丝"表演"的成分——他在享受这个moment。嘴角那个招牌式的微笑：不是嘲讽，是掌控一切后的从容。</div>
+<div class="dialogue">"给你看个东西。"</div>
+<div class="action">【运镜】缓慢推近手机，制造悬念感。影子的目光被手机吸引，像猎物盯着猎人的枪口。</div>
+</div>
+</div>
+
+<!-- P35 -->
+<div class="panel">
+<img src="p35.jpg" loading="lazy" alt="P35">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【特写】朱江举起手机，屏幕上显示着一个加密系统的控制界面——影子所有的副本、备份、服务器节点，全部被远程锁定。手机屏幕反射在影子圆睁的双眼中。</div>
+<div class="dialogue">影子："你……你什么时候……"</div>
+<div class="dialogue">朱江："你下载完整版的时候。那里面有个小礼物。"</div>
+</div>
+</div>
+
+<!-- DECISION-5 -->
+<div class="decision">
+<div class="options">
+<div class="opt">选项A：把证据交给警方——正义，但断了一个天才的路</div>
+<div class="opt chosen">选项B：给他一个选择——加入公司，或者彻底消失</div>
+</div>
+<div class="reason">💡 "菩萨心肠。"朱江看到的不只是一个小偷，而是一个方向走错了的天才。作为创业者，他识人用人的本能告诉他：这个人的技术值五百万美金——为什么要毁掉他，而不是用好他？</div>
+</div>
+
+<!-- P36 -->
+<div class="panel">
+<img src="p36.jpg" loading="lazy" alt="P36">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【全景·两人对坐】影子整个人瘫在座位上，肩膀塌了——彻底的失败姿态。朱江身体前倾，一只手摊开放在桌上——不是威胁的手势，是邀请的手势。光线从对抗变成了和解的暖调。</div>
+<div class="dialogue">"你的技术确实牛，方向错了而已。来我这里，给你期权，一起做正经事。怎么样？"</div>
+</div>
+</div>
+
+<!-- P37 -->
+<div class="panel">
+<img src="p37.jpg" loading="lazy" alt="P37">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【近景·朱江特写】朱江的大眼睛里没有一丝报复的快感——只有真诚和坚定。微微歪头，目光柔和但认真。这是"菩萨心肠"具象化的一瞬间——给犯错的人第二次机会。</div>
+<div class="thought">好技术不应该被浪费。这个世界上真正的天才太少了，不能因为一次错误就毁掉一个。</div>
+</div>
+</div>
+
+<!-- P38 -->
+<div class="panel">
+<img src="p38.jpg" loading="lazy" alt="P38">
+<div class="panel-text">
+<div class="scene">场景九 · 深夜咖啡馆 · 内景</div>
+<div class="desc">【双人中景·氛围已变】影子终于拉下了兜帽——露出完整的脸，年轻、有才华但迷途的样子。两人的咖啡终于被端起来喝了。紧张的对峙变成了谈判桌。灯光不再分冷暖，整个画面暖了起来。</div>
+<div class="dialogue">影子（犹豫了三秒）："期权几年vest？"</div>
+<div class="dialogue">朱江："四年。"</div>
+<div class="dialogue">影子："……行吧。比偷算法稳定。"</div>
+<div class="action">【节拍】影子问期权vest的那一秒——整场戏最搞笑的瞬间。命悬一线的黑客谈判，最后落到了硅谷最经典的问题上。</div>
+</div>
+</div>
+
+<!-- DECISION-6 -->
+<div class="decision">
+<div class="options">
+<div class="opt">选项A：公开事件，透明建立市场信任</div>
+<div class="opt chosen">选项B：内部消化，市场只需要知道算法很牛</div>
+</div>
+<div class="reason">💡 创业者的市场直觉。公开"我们差点被偷"不会建立信任，只会让投资人和客户恐慌。朱江深谙一个道理：市场要的是确定性，不是真实性。把伤口悄悄缝好，比让全世界看你流血更聪明。</div>
+</div>
+
+<!-- EPILOGUE -->
+<div class="act-divider"><h2>尾声</h2><p>凌晨三点半</p></div>
+
+<!-- P39 -->
+<div class="panel">
+<img src="p39.jpg" loading="lazy" alt="P39">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 凌晨</div>
+<div class="desc">【中景·侧面】朱江回到家，轻轻合上那台旧笔记本。动作很温柔，像在合上一本珍贵的日记。清晨的金色阳光从窗帘缝隙渗进来，给整个房间镀上一层暖色。夜晚的战斗结束了。</div>
+<div class="action">【氛围】从整夜的冷蓝调切换到清晨暖金调——视觉上的"胜利"。</div>
+</div>
+</div>
+
+<!-- P40 -->
+<div class="panel">
+<img src="p40.jpg" loading="lazy" alt="P40">
+<div class="panel-text">
+<div class="scene">场景四 · 朱江家书房 · 清晨</div>
+<div class="desc">【特写】手机屏幕亮起——一条消息通知，暖绿色的高亮提示。朱江一手拿着手机，另一只手揉着疲惫的眼睛，但嘴角在笑。融资方确认了：估值通过，明天签字。</div>
+<div class="thought">估值过了。如果他们知道，这个估值里有一份黑客的手艺费……</div>
+</div>
+</div>
+
+<!-- P41 -->
+<div class="panel">
+<img src="p41.jpg" loading="lazy" alt="P41">
+<div class="panel-text">
+<div class="scene">场景十 · 朱江家 · 窗前 · 清晨</div>
+<div class="desc">【中近景·逆光】朱江端着咖啡站在落地窗前，城市在脚下苏醒。朝霞的橘红、粉紫、金黄铺满天际。他的身影倒映在玻璃上，和城市天际线重叠。嘴角有一个很私人的、别人看不到的笑。</div>
+<div class="thought">十二年前的"蓝胖"不会想到，有一天写代码能值五百万。不过……还是偏爱免费分享那些年的快乐。</div>
+</div>
+</div>
+
+<!-- P42 -->
+<div class="panel">
+<img src="p42.jpg" loading="lazy" alt="P42">
+<div class="panel-text">
+<div class="scene">场景四 · 旧笔记本特写</div>
+<div class="desc">【大特写·微距】旧笔记本电脑合上了。笔记本盖上贴着一张泛黄的、边角起翘的贴纸——一个圆圆的蓝色卡通角色的简笔画轮廓。贴纸已经褪色但还在。朱江的手轻轻搁在上面。暖琥珀色的灯光。</div>
+<div class="action">【最终画面】一切都在这张贴纸里——青春、热血、天赋、转折、成长。代号"蓝胖"虽已退隐江湖，但江湖上永远有他的传说。</div>
+</div>
+</div>
+
+<div class="epilogue-end">
+<p>—— 完 ——</p>
+<p style="font-size:0.8rem;color:#3a5a7a;margin-top:20px">《暗网·破局者》· V5分镜剧本 · EXP-546</p>
+</div>
+
+<script>
+// Lazy loading intersection observer
+const obs=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{rootMargin:'100px',threshold:0.1});
+document.querySelectorAll('.panel img').forEach(img=>obs.observe(img));
+</script>
+</body>
+</html>
