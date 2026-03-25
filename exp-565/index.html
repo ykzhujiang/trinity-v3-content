@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>概率之眼 · 第一章：负债者的第一局</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--text:#e8e8e8;--accent:#00e5c8;--accent2:#00b4d8;--gold:#d4a843;--dim:#666;--panel-gap:2px}
+html{font-size:18px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story-container{max-width:430px;margin:0 auto;padding:0}
+
+/* Title screen */
+.title-screen{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a1a 0%,#0d1520 50%,#0a0a0f 100%);position:relative;overflow:hidden}
+.title-screen::before{content:'';position:absolute;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(0,229,200,0.06) 0%,transparent 60%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:0.5}50%{transform:scale(1.1);opacity:1}}
+.title-screen h1{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.15em;z-index:1;text-shadow:0 0 40px rgba(0,229,200,0.3)}
+.title-screen .subtitle{font-size:1rem;color:var(--dim);margin-top:1rem;z-index:1;letter-spacing:0.3em}
+.title-screen .chapter{font-size:1.1rem;color:var(--accent);margin-top:2rem;z-index:1;opacity:0.8}
+.scroll-hint{position:absolute;bottom:2rem;color:var(--dim);font-size:0.8rem;animation:bounce 2s infinite;z-index:1}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Panel styles */
+.panel{position:relative;width:100%;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;object-fit:cover}
+.panel-text{padding:1rem 1.2rem;background:linear-gradient(180deg,rgba(10,10,15,0.95),rgba(10,10,15,1));position:relative}
+.panel-text p{font-size:1rem;line-height:1.8;margin-bottom:0.5rem}
+.panel-text .dialogue{color:var(--text);font-style:normal;padding-left:0}
+.panel-text .thought{color:var(--accent);font-style:italic;opacity:0.9}
+.panel-text .narration{color:#aaa;font-size:0.95rem}
+.panel-text .humor{color:var(--gold);font-size:0.95rem}
+
+/* Scene divider */
+.scene-divider{padding:2rem 1rem;text-align:center;background:linear-gradient(180deg,var(--bg),rgba(0,229,200,0.03),var(--bg))}
+.scene-divider h2{font-size:1.2rem;color:var(--accent);letter-spacing:0.2em;font-weight:400}
+.scene-divider .line{width:60px;height:1px;background:var(--accent);margin:0.8rem auto;opacity:0.4}
+
+/* Decision point */
+.decision-point{background:linear-gradient(135deg,rgba(0,229,200,0.08),rgba(0,180,216,0.05));border-left:3px solid var(--accent);margin:0;padding:1.5rem 1.2rem}
+.decision-point .decision-label{font-size:0.8rem;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.8rem}
+.decision-point .situation{color:#ccc;font-size:0.95rem;margin-bottom:1rem;line-height:1.7}
+.decision-point .options{margin:1rem 0}
+.decision-point .option{padding:0.6rem 0;color:#999;font-size:0.9rem;border-bottom:1px solid rgba(255,255,255,0.05)}
+.decision-point .option.chosen{color:var(--accent);font-weight:600;border-bottom-color:var(--accent);opacity:1}
+.decision-point .option.chosen::before{content:'▸ '}
+.decision-point .reasoning{color:var(--gold);font-size:0.9rem;margin-top:1rem;padding:0.8rem;background:rgba(212,168,67,0.05);border-radius:6px;line-height:1.7}
+
+/* Cliffhanger */
+.cliffhanger{padding:2rem 1.2rem;background:linear-gradient(180deg,var(--bg),rgba(0,229,200,0.05));text-align:center}
+.cliffhanger p{font-size:1.05rem;line-height:2;color:var(--text)}
+.cliffhanger .to-be-continued{font-size:1.3rem;color:var(--accent);margin-top:2rem;letter-spacing:0.3em;font-weight:300}
+
+/* Metadata */
+.meta-bar{padding:2rem 1.2rem;text-align:center;color:var(--dim);font-size:0.75rem;border-top:1px solid rgba(255,255,255,0.05)}
+
+/* Chapter label */
+.chapter-label{font-size:0.75rem;color:var(--accent);letter-spacing:0.15em;opacity:0.6;padding:0.3rem 1.2rem;text-align:right}
+</style>
+</head>
+<body>
+
+<div class="story-container">
+
+<!-- Title Screen -->
+<div class="title-screen">
+<h1>概率之眼</h1>
+<div class="subtitle">PROBABILITY EYE</div>
+<div class="chapter">第一章 · 负债者的第一局</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- ACT 1: DESPAIR -->
+<div class="scene-divider"><div class="line"></div><h2>第一幕 · 绝路</h2><div class="line"></div></div>
+
+<div class="panel"><img src="panel-01.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">清晨六点，我被手机震动吵醒。</p>
+<p class="narration">27条未接来电。全是催债的。</p>
+</div></div>
+
+<div class="panel"><img src="panel-02.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">余额：347.82元。</p>
+<p class="thought">账户余额比我写过最短的函数还短。</p>
+</div></div>
+
+<div class="panel"><img src="panel-03.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我坐在出租屋的薄床垫上，盯着那个数字看了很久。</p>
+<p class="narration">三个月前，我的账户还有七位数。</p>
+</div></div>
+
+<div class="panel"><img src="panel-04.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">【闪回】</p>
+<p class="narration">李维——我的合伙人，带着公司核心算法和2000万投资款消失了。</p>
+<p class="narration">我亲眼看着他走出办公室的背影。那时我还以为他只是出去见客户。</p>
+</div></div>
+
+<div class="panel"><img src="panel-05.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">股价归零。员工遣散。投资人的电话从客气变成咆哮，最后变成律师函。</p>
+<p class="narration">估值3亿的公司，一夜之间变成负债2000万的空壳。</p>
+</div></div>
+
+<div class="panel"><img src="panel-06.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">【闪回结束】</p>
+<p class="thought">两千万。这个数字每天早上醒来的第一秒就会跳出来，像一个永远关不掉的弹窗。</p>
+</div></div>
+
+<div class="panel"><img src="panel-07.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">门外传来砸门声。</p>
+<p class="dialogue">"朱江！开门！别装死！"</p>
+<p class="narration">追债的又来了。</p>
+</div></div>
+
+<div class="panel"><img src="panel-08.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">门被踹开。我被推搡间头撞到了门框。</p>
+<p class="narration">眼前一黑。</p>
+</div></div>
+
+<div class="panel"><img src="panel-09.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">再醒来时在一间小诊所。医生说脑部轻微震荡，建议住院观察。</p>
+<p class="thought">住院？我连挂号费都是借的。</p>
+<p class="narration">签字出院。</p>
+</div></div>
+
+<div class="panel"><img src="panel-10.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">走出诊所的那一刻，世界变了。</p>
+<p class="narration">我看见了——不，是"看到了"——空气中浮现着半透明的蓝绿色数字。</p>
+<p class="narration">路人身边、红绿灯上、街角的老虎机上……到处都是概率数值。</p>
+</div></div>
+
+<div class="panel"><img src="panel-11.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">行人摔倒概率：0.03%。红灯剩余变灯概率：87.2%。老虎机中奖概率：0.001%。</p>
+<p class="narration">数据像全息HUD一样悬浮在现实世界之上，无法关闭。</p>
+</div></div>
+
+<div class="panel"><img src="panel-12.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="thought">我的大脑……坏了？</p>
+<p class="thought">不，这些数字太精确了，不像幻觉。幻觉不会有小数点后两位。</p>
+</div></div>
+
+<!-- DECISION 1 -->
+<div class="panel"><img src="panel-13.jpg" loading="lazy" alt="">
+<div class="decision-point">
+<div class="decision-label">决策点 · 壹</div>
+<p class="situation">我发现自己能看到概率。面前是一台街边老虎机，上面浮现着"下次中奖概率：0.001%"。旁边是一个彩票站，各种数字在跳动。</p>
+<div class="options">
+<div class="option">A. 先找个安静的地方弄清楚这到底是什么——理性分析</div>
+<div class="option chosen">B. 直接试试——买张彩票看这数字准不准——实证主义</div>
+<div class="option">C. 赶紧去医院，这肯定是脑震荡后遗症——否认</div>
+</div>
+<div class="reasoning">我选了B。黑客思维——发现一个新系统，第一反应是测试它。何况我只有347块，最差也不过是少两块钱。我已经欠了两千万了，不差这两块。</div>
+</div></div>
+
+<!-- ACT 2: VERIFICATION -->
+<div class="scene-divider"><div class="line"></div><h2>第二幕 · 验证</h2><div class="line"></div></div>
+
+<div class="panel"><img src="panel-14.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我买了第一张2元刮刮乐。概率之眼显示：中奖概率0.00%。</p>
+<p class="narration">换了一张——0.00%。再换——突然跳到98.7%（五等奖10元）。</p>
+</div></div>
+
+<div class="panel"><img src="panel-15.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">刮开。果然中了10元。</p>
+<p class="humor">投资回报率400%。可惜本金只有两块。</p>
+</div></div>
+
+<div class="panel"><img src="panel-16.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">接下来的一个小时，我在街头疯狂验证。</p>
+<p class="narration">抛硬币、猜红绿灯、观察路人。十几次测试，准确率近乎完美。</p>
+</div></div>
+
+<div class="panel"><img src="panel-17.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我的视野变成了一个实时数据面板。每个人、每件事都有自己的概率标签。</p>
+<p class="thought">这不是幻觉。这是某种……外挂？</p>
+</div></div>
+
+<div class="panel"><img src="panel-18.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我在公园长椅上坐下，用手机记录测试数据。</p>
+<p class="thought">对纯随机事件的精确度：99.5%以上。对人类行为的判断：大约60-80%。合理——人不是随机数生成器。</p>
+</div></div>
+
+<div class="panel"><img src="panel-19.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我站在一家地下棋牌室门口。</p>
+<p class="narration">门内传来的概率数据像数据瀑布一样涌出来——每张牌、每个赌局的胜率都清清楚楚。</p>
+</div></div>
+
+<div class="panel"><img src="panel-20.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">牌桌上的数据密度堪比股票交易终端。每一张牌型的概率、每个玩家的筹码变化趋势、每一手的期望值……</p>
+<p class="thought">如果概率精确到小数点后两位……在纯概率游戏中，我就是上帝视角。</p>
+</div></div>
+
+<div class="panel"><img src="panel-21.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我的瞳孔中映出蓝绿色的数据光芒。</p>
+<p class="thought">两千万……不是不可能。</p>
+</div></div>
+
+<div class="panel"><img src="panel-22.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">但同时，我的理性在拉警报。</p>
+<p class="thought">bug-free的系统不存在。这个能力一定有限制和代价，我只是还没找到。</p>
+</div></div>
+
+<div class="panel"><img src="panel-23.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="thought">概率网络中有几个节点是红色的——意味着存在我还看不懂的异常数据。</p>
+<p class="thought">没关系。先记下来，后续debug。</p>
+</div></div>
+
+<div class="panel"><img src="panel-24.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我深吸一口气，向那家棋牌室走去。</p>
+<p class="thought">该上生产环境了。</p>
+</div></div>
+
+<!-- DECISION 2 -->
+<div class="panel"><img src="panel-25.jpg" loading="lazy" alt="">
+<div class="decision-point">
+<div class="decision-label">决策点 · 贰</div>
+<p class="situation">我确认了这个能力是真的。现在站在一家地下棋牌室门口，里面传来麻将声和笑骂声。</p>
+<div class="options">
+<div class="option chosen">A. 先小赌试水，用最小筹码测试能力在真实赌局中的表现——MVP思维</div>
+<div class="option">B. 不急着赌，先系统研究这个能力的边界和限制——工程师思维</div>
+<div class="option">C. 直接上大注——两千万的债不是小打小闹能还的——赌徒思维</div>
+</div>
+<div class="reasoning">我选了A。我写代码从来不直接上生产环境。先在test里跑通了再说。200块筹码，就是我的最小可行产品。</div>
+</div></div>
+
+<!-- ACT 3: FIRST GAME -->
+<div class="scene-divider"><div class="line"></div><h2>第三幕 · 第一局</h2><div class="line"></div></div>
+
+<div class="panel"><img src="panel-26.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">地下棋牌室。烟雾缭绕，昏黄的吊灯，磨损的绿呢桌面。</p>
+<p class="humor">上次坐在这种环境里还是大学时代在网吧通宵写代码。氛围差不多，都是在烧生命。</p>
+</div></div>
+
+<div class="panel"><img src="panel-27.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我用仅剩的200元换了筹码。小姐姐数钱的表情带着一丝同情——这是今晚最小的买入。</p>
+</div></div>
+
+<div class="panel"><img src="panel-28.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">坐上一桌德州扑克。对面是个戴金链子穿花衬衫的大肚子中年男人——后来知道叫马大成。</p>
+<p class="narration">还有三个散客。</p>
+</div></div>
+
+<div class="panel"><img src="panel-29.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">概率之眼瞬间启动。</p>
+<p class="narration">每张翻出的公共牌，瞬间计算出所有可能的牌型组合和对应概率。视野里全是跳动的蓝绿色数据流。</p>
+</div></div>
+
+<div class="panel"><img src="panel-30.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="thought">深呼吸。冷静。把这当成一次数据分析实验，不是赌博。</p>
+</div></div>
+
+<div class="panel"><img src="panel-31.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">筹码在桌面上发出清脆的声响。公共牌一张张翻开，概率数值随之实时更新。</p>
+</div></div>
+
+<div class="panel"><img src="panel-32.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">前几手我小赢小输，故意压低节奏。在试探能力的精确度。</p>
+<p class="thought">纯随机事件的预测精确度：99.5%。人类行为判断：65%左右。果然，随机数好算，人类不好算。</p>
+</div></div>
+
+<div class="panel"><img src="panel-33.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">关键手来了。</p>
+<p class="dialogue">"全押！"马大成一把推出所有筹码，金链子跟着晃。</p>
+<p class="narration">嗓门大得整个房间都安静了。</p>
+</div></div>
+
+<div class="panel"><img src="panel-34.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">概率之眼扫描结果：马大成的牌型——两对或以上的概率78%。</p>
+<p class="narration">我的牌：同花听牌，完成概率34.8%。</p>
+<p class="thought">数学上，应该弃牌。</p>
+</div></div>
+
+<div class="panel"><img src="panel-35.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">但我注意到了一个细节——马大成的右手在微微发抖。金链子在轻轻晃动。</p>
+<p class="thought">有意思……</p>
+</div></div>
+
+<div class="panel"><img src="panel-36.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我主动聚焦，深入分析他的行为模式——</p>
+<p class="narration">诈唬概率：72%。</p>
+<p class="narration">太阳穴开始一阵一阵地疼。代价来了。</p>
+</div></div>
+
+<div class="panel"><img src="panel-37.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="thought">确认了。他在bluff。</p>
+<p class="thought">如果确认了对手的bug，最优策略不是防御——是exploit。这是渗透测试的基本原则。</p>
+</div></div>
+
+<!-- DECISION 3 -->
+<div class="panel"><img src="panel-38.jpg" loading="lazy" alt="">
+<div class="decision-point">
+<div class="decision-label">决策点 · 叁</div>
+<p class="situation">概率之眼告诉我马大成有78%概率拿着好牌。但行为分析显示他72%在诈唬。我的同花只有34.8%概率成。头开始疼了——这是主动聚焦的代价。</p>
+<div class="options">
+<div class="option">A. 相信行为分析，跟注——人类直觉+概率辅助</div>
+<div class="option">B. 相信数学，弃牌——纯理性</div>
+<div class="option chosen">C. 反加注——如果他在诈唬，加压力让他先崩——攻击性策略</div>
+</div>
+<div class="reasoning">菩萨心肠，霹雳手段。确认了对手的bug，就不该只是被动跟注。"最优策略不是防御，是exploit。"我反加注。</div>
+</div></div>
+
+<div class="panel"><img src="panel-39.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">马大成脸色变了。犹豫了五秒——像是过了五年。</p>
+<p class="narration">然后他把牌甩到桌上。弃了。</p>
+<p class="dialogue">"妈的，你运气好。"他嘟囔着。</p>
+</div></div>
+
+<div class="panel"><img src="panel-40.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我把筹码拢过来的时候，感觉有东西从鼻子里流出来。</p>
+<p class="narration">低头一看——一滴血落在纸巾上。</p>
+<p class="thought">主动聚焦的代价：头痛+鼻血。连续三次就到极限。这不是无限外挂，更像是应急急救包。省着点用。</p>
+</div></div>
+
+<div class="panel"><img src="panel-41.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我悄悄用纸巾擦掉鼻血。</p>
+<p class="narration">没人注意到——除了荷官。那个短发女人面无表情，但她的目光在我鼻子那里停留了0.5秒。</p>
+<p class="thought">她看到了。</p>
+</div></div>
+
+<div class="panel"><img src="panel-42.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">两小时后。200元变成了8000元。</p>
+<p class="humor">今天的测试数据够了，该回去写分析报告了。</p>
+<p class="narration">我开始低调地收拾筹码，准备离场。</p>
+</div></div>
+
+<!-- ACT 4: INTO THE GAME -->
+<div class="scene-divider"><div class="line"></div><h2>第四幕 · 入局</h2><div class="line"></div></div>
+
+<div class="panel"><img src="panel-43.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">我站起来准备走。</p>
+<p class="dialogue">"小伙子。"</p>
+<p class="narration">一个笑眯眯的矮胖中年人不知从哪冒出来，挡在了去路上。五十多岁，穿着低调但质感很好的深色西装。像个和蔼的邻居大爷。</p>
+<p class="narration">但他的眼睛是冷的。</p>
+</div></div>
+
+<div class="panel"><img src="panel-44.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="dialogue">"打得不错。"他递过来一张黑色名片。"楼上有个更有意思的局，要不要来看看？"</p>
+<p class="narration">概率之眼扫描：说谎概率12%。</p>
+<p class="thought">他没在骗我，确实在邀请。但"有意思"这个词对他来说可能跟对我来说意思不一样。</p>
+</div></div>
+
+<div class="panel"><img src="panel-45.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">黑色名片上只有两行金色小字。名字：赵四海。没有头衔，没有电话。</p>
+<p class="thought">连名片都是极简风。这人不简单。</p>
+</div></div>
+
+<div class="panel"><img src="panel-46.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="thought">我需要更大的局面来还两千万。200变8000只是概念验证，离还债还差两万四千九百九十二块。</p>
+<p class="thought">但我也不能无条件答应任何事。</p>
+</div></div>
+
+<!-- DECISION 4 -->
+<div class="panel"><img src="panel-46.jpg" loading="lazy" alt="">
+<div class="decision-point">
+<div class="decision-label">决策点 · 肆</div>
+<p class="situation">赵四海递过来一张黑色名片，邀请我去"楼上的局"。他没在说谎（12%），但"有意思"对他来说可能跟对我来说意思不一样。</p>
+<div class="options">
+<div class="option">A. 接受邀请——我需要更大的赌局来还两千万</div>
+<div class="option">B. 礼貌拒绝——今天信息量够大了，先消化</div>
+<div class="option chosen">C. 接受，但提条件——"我可以先看看，不一定参与"——保留退路</div>
+</div>
+<div class="reasoning">谈判的第一原则是永远给自己留退路。我不会拒绝机会——创业者本能。但也不会无条件接受——"if err != nil, return err. 任何接口调用都要有错误处理。"</div>
+</div></div>
+
+<div class="panel"><img src="panel-47.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="dialogue">"我可以上去看看。"我说，"但不一定参与。"</p>
+<p class="narration">赵四海笑了笑，像是早就知道我会这么说。</p>
+<p class="dialogue">"当然。看看又不花钱。"</p>
+<p class="narration">我跟着他走上楼梯。</p>
+</div></div>
+
+<div class="panel"><img src="panel-48.jpg" loading="lazy" alt=""><div class="panel-text">
+<p class="narration">走到一半，概率之眼突然剧烈闪烁。</p>
+<p class="narration">从楼上涌下来的不只是牌桌数据——还有一组我从未见过的数据模式。</p>
+<p class="thought">这不是赌场的概率分布……这是资金流向概率矩阵。</p>
+<p class="narration">厚重的门缓缓打开。里面的灯光很亮，赌桌也精致得多。但我的注意力全被概率之眼中的数据吸引——</p>
+<p class="thought">这个赌场的资金流动模式，和我创业时研究过的某个洗钱模型……几乎一模一样。</p>
+</div></div>
+
+<!-- CLIFFHANGER -->
+<div class="cliffhanger">
+<p>身后传来一个平静的女声。</p>
+<p>是那个荷官——林薇。</p>
+<p>不知何时跟了上来。</p>
+<p style="margin-top:1.5rem;color:var(--accent);font-size:1.1rem;font-weight:600">"想清楚再进去。</p>
+<p style="color:var(--accent);font-size:1.1rem;font-weight:600">进去了，就没那么容易出来。"</p>
+<div class="to-be-continued">第一章 · 完<br><span style="font-size:0.8rem;opacity:0.6">CHAPTER 1 · END</span></div>
+</div>
+
+<div class="meta-bar">
+《概率之眼》V5 · 朱江的故事<br>
+EXP-565 · Trinity V3 · 2026
+</div>
+
+</div>
+
+<script>
+// Scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(panel => observer.observe(panel));
+
+// Preload next images
+let loaded = new Set();
+function preloadAhead() {
+  const panels = document.querySelectorAll('.panel img[loading="lazy"]');
+  const scrollY = window.scrollY;
+  const viewH = window.innerHeight;
+  panels.forEach(img => {
+    const rect = img.getBoundingClientRect();
+    if (rect.top < viewH * 3 && !loaded.has(img.src)) {
+      img.loading = 'eager';
+      loaded.add(img.src);
+    }
+  });
+}
+window.addEventListener('scroll', preloadAhead, { passive: true });
+</script>
+</body>
+</html>
