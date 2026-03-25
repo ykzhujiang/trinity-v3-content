@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>灵根·觉醒 — 商道修仙系统</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0f;
+  color: #e8e0d0;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.panel {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+
+.panel-text {
+  padding: 16px 20px;
+  font-size: 17px;
+  line-height: 1.7;
+  background: linear-gradient(180deg, rgba(10,10,15,0.95) 0%, rgba(15,12,20,0.98) 100%);
+}
+
+.panel-text.system {
+  background: linear-gradient(135deg, rgba(20,15,5,0.95) 0%, rgba(30,20,10,0.95) 100%);
+  border-left: 3px solid #d4a040;
+  margin: 0 12px;
+  padding: 12px 16px;
+  font-size: 15px;
+  color: #d4a040;
+  border-radius: 4px;
+}
+
+.panel-text.dialogue {
+  font-style: normal;
+  color: #f0e8d8;
+}
+
+.panel-text .speaker {
+  color: #80b0ff;
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.panel-text .narration {
+  color: #a0a0a0;
+  font-size: 15px;
+}
+
+.decision-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #d4a040, #f0c060);
+  color: #1a1a1a;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.chapter-title {
+  text-align: center;
+  padding: 60px 20px 40px;
+  background: linear-gradient(180deg, #0a0a0f 0%, rgba(20,15,30,0.9) 50%, #0a0a0f 100%);
+}
+
+.chapter-title h1 {
+  font-size: 32px;
+  color: #d4a040;
+  text-shadow: 0 0 20px rgba(212,160,64,0.5);
+  margin-bottom: 12px;
+}
+
+.chapter-title .subtitle {
+  font-size: 16px;
+  color: #808080;
+}
+
+.end-card {
+  text-align: center;
+  padding: 60px 20px 80px;
+  background: linear-gradient(180deg, #0a0a0f 0%, rgba(20,15,30,0.9) 50%, #0a0a0f 100%);
+}
+
+.end-card h2 {
+  font-size: 24px;
+  color: #d4a040;
+  margin-bottom: 16px;
+}
+
+.end-card p {
+  color: #808080;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(212,160,64,0.3), transparent);
+  margin: 8px 0;
+}
+
+/* Fade in animation */
+.panel {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-title">
+  <h1>灵根·觉醒</h1>
+  <div class="subtitle">商道修仙系统 · 第一章</div>
+  <div class="subtitle" style="margin-top:8px;color:#d4a040">主角：朱江</div>
+</div>
+
+<!-- P01 -->
+<div class="panel">
+  <img src="p01.jpg" loading="eager" alt="加班猝死">
+  <div class="panel-text">
+    <div class="narration">朱江，连续创业者，35岁。</div>
+    死因：第17次修改BP后心脏骤停。
+  </div>
+</div>
+
+<!-- P02 -->
+<div class="panel">
+  <img src="p02.jpg" loading="eager" alt="白光隧道">
+  <div class="panel-text dialogue">"我是不是……死了？"</div>
+</div>
+
+<!-- P03 -->
+<div class="panel">
+  <img src="p03.jpg" loading="eager" alt="系统激活">
+  <div class="panel-text system">【系统提示】检测到灵魂载体异常终止。原因：过度劳累。评价：在凡界叫996，在修仙界叫自杀。</div>
+</div>
+
+<!-- P04 -->
+<div class="panel">
+  <img src="p04.jpg" loading="lazy" alt="重生落地">
+  <div class="panel-text dialogue">"嗷！这个重生方式有点敷衍吧？！"</div>
+</div>
+
+<!-- P05 -->
+<div class="panel">
+  <img src="p05.jpg" loading="lazy" alt="打量新世界">
+  <div class="panel-text">
+    仙人骑剑飞过头顶。朱江的创业直觉瞬间启动：<br>
+    <span style="color:#d4a040">"这个市场……很蓝海啊。"</span>
+  </div>
+</div>
+
+<!-- P06 DECISION-1 -->
+<div class="panel">
+  <img src="p06.jpg" loading="lazy" alt="初始天赋选择">
+  <div class="panel-text">
+    <div class="decision-badge">决策点 1</div><br>
+    系统初始化：选择天赋
+  </div>
+  <div class="panel-text system">【系统】初始天赋选择。提示：选A的宿主平均存活14天，选C的12天。选B的——数据不足，因为没人选过。</div>
+</div>
+
+<!-- P07 -->
+<div class="panel">
+  <img src="p07.jpg" loading="lazy" alt="选择人心洞察术">
+  <div class="panel-text dialogue">"做生意嘛，工具可以买，时间可以挤，但看不透人心——一切白搭。"</div>
+</div>
+
+<!-- P08 -->
+<div class="panel">
+  <img src="p08.jpg" loading="lazy" alt="系统评价">
+  <div class="panel-text system">【系统】已选择：人心洞察术。历史选择率：0.7%。评价：宿主是个奇葩。但恭喜，奇葩的活得最久。</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- P09 -->
+<div class="panel">
+  <img src="p09.jpg" loading="lazy" alt="灵石镇集市">
+  <div class="panel-text">
+    灵石镇——修仙界最大的自由交易市场。日均交易额三万灵石。<br>
+    <span class="narration">朱江心想：才三万？我以前的月流水……算了不比了。</span>
+  </div>
+</div>
+
+<!-- P10 DECISION-2 -->
+<div class="panel">
+  <img src="p10.jpg" loading="lazy" alt="发现欺凌">
+  <div class="panel-text">
+    <div class="decision-badge">决策点 2</div><br>
+    巷子里，三个宗门弟子围住散修阿灰。
+  </div>
+  <div class="panel-text dialogue">"炼丹的废物也敢来集市？你那破丹药也配卖？"</div>
+  <div class="panel-text system">人心洞察术自动激活——散修：【愤怒72% 恐惧25% 绝望3%】</div>
+</div>
+
+<!-- P11 -->
+<div class="panel">
+  <img src="p11.jpg" loading="lazy" alt="朱江观察">
+  <div class="panel-text system">三个宗门弟子：【贪婪88%】【从众91%】【恐惧权威67%】——典型的欺软怕硬组合。</div>
+</div>
+
+<!-- P12 -->
+<div class="panel">
+  <img src="p12.jpg" loading="lazy" alt="出手交易">
+  <div class="panel-text dialogue">"几位道友，这位是我的合伙人。他的债就是我的债。说个数吧——多少灵石能解决？"</div>
+</div>
+
+<!-- P13 -->
+<div class="panel">
+  <img src="p13.jpg" loading="lazy" alt="宗门弟子犹豫">
+  <div class="panel-text system">【系统】宿主正在用商务谈判技能对付筑基期修士。这就像用PPT打BOSS。理论上不可能，但宿主好像……很认真。</div>
+</div>
+
+<!-- P14 -->
+<div class="panel">
+  <img src="p14.jpg" loading="lazy" alt="收服阿灰">
+  <div class="panel-text dialogue">"跟我干。你负责炼丹，我负责卖。五五分。"</div>
+  <div class="panel-text system">阿灰情绪变化：【绝望3%→0%】【信任12%→47%】</div>
+</div>
+
+<!-- P15 -->
+<div class="panel">
+  <img src="p15.jpg" loading="lazy" alt="商业成就">
+  <div class="panel-text system">【系统】恭喜宿主完成首次人才招募。给了50%分成。在凡界这叫联合创始人，在修仙界这叫冤大头。</div>
+</div>
+
+<!-- P16 -->
+<div class="panel">
+  <img src="p16.jpg" loading="lazy" alt="阿灰炼丹">
+  <div class="panel-text">
+    <div class="narration">第一天：零资金、零灵石、零客户。完美复刻了朱江前三次创业的开局。</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- P17 -->
+<div class="panel">
+  <img src="p17.jpg" loading="lazy" alt="第一笔交易">
+  <div class="panel-text dialogue">"道友，看看回灵丹？纯手工、无添加、散修炼制——比宗门量产的灵气浓度高30%！"</div>
+</div>
+
+<!-- P18 -->
+<div class="panel">
+  <img src="p18.jpg" loading="lazy" alt="交易惨败">
+  <div class="panel-text system">【系统】恭喜宿主完成第一笔灵石交易。利润率：负47%。评价：这在凡界叫天使轮。</div>
+</div>
+
+<!-- P19 -->
+<div class="panel">
+  <img src="p19.jpg" loading="lazy" alt="洞察客户">
+  <div class="panel-text dialogue">"问题不是丹药不好，是没人信散修的丹药。这个市场缺的不是产品——是信任。"</div>
+</div>
+
+<!-- P20 -->
+<div class="panel">
+  <img src="p20.jpg" loading="lazy" alt="试药营销">
+  <div class="panel-text dialogue">"我朱江亲自试药！效果不好当场退灵石！"</div>
+  <div class="panel-text system">【系统】检测到宿主服用未经认证丹药。评价：这在凡界叫创始人用自己的产品。挺蠢的。但有效。</div>
+</div>
+
+<!-- P21 -->
+<div class="panel">
+  <img src="p21.jpg" loading="lazy" alt="口碑传播">
+  <div class="panel-text">
+    三天后，"朱氏回灵丹"在灵石镇口碑爆炸。<br>
+    <span style="color:#d4a040">朱江的商道修为从练气一层直升练气七层。</span>
+  </div>
+</div>
+
+<!-- P22 -->
+<div class="panel">
+  <img src="p22.jpg" loading="lazy" alt="宗门招收大会公告">
+  <div class="panel-text">修仙界最大的"招聘会"——天机宗百年大收。所有人都削尖脑袋想进七大宗门。</div>
+</div>
+
+<!-- P23 DECISION-3 -->
+<div class="panel">
+  <img src="p23.jpg" loading="lazy" alt="是否加入宗门">
+  <div class="panel-text">
+    <div class="decision-badge">决策点 3</div>
+  </div>
+  <div class="panel-text dialogue">
+    <div class="speaker">阿灰</div>
+    "江哥，进天机宗我们就有资源了！"
+  </div>
+  <div class="panel-text">
+    <div class="narration">朱江心中浮现数据：加入宗门=打工，分成1:9。自建组织=创业，分成自己定。</div>
+  </div>
+</div>
+
+<!-- P24 -->
+<div class="panel">
+  <img src="p24.jpg" loading="lazy" alt="选择自建">
+  <div class="panel-text dialogue">"我三次创业，最后悔的就是加入别人的公司。"</div>
+  <div class="panel-text system">【系统】宿主选择不加入宗门。独立修士存活率：3.2%。宿主，你又在那3.2%里创造奇迹的路上了。</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- P25 -->
+<div class="panel">
+  <img src="p25.jpg" loading="lazy" alt="遇见苏凌">
+  <div class="panel-text dialogue">
+    <div class="speaker">苏凌（天机宗）</div>
+    "一个散修也敢在灵石镇做生意？商道修仙？闻所未闻的歪门邪道。"
+  </div>
+</div>
+
+<!-- P26 -->
+<div class="panel">
+  <img src="p26.jpg" loading="lazy" alt="朱江回应">
+  <div class="panel-text dialogue">"歪门邪道？三百年前飞剑术也被叫歪门邪道。道友，创新这东西——被嘲笑才说明做对了。"</div>
+  <div class="panel-text system">【苏凌：好奇37% 不屑58% 隐藏焦虑5%】</div>
+</div>
+
+<!-- P27 DECISION-4 -->
+<div class="panel">
+  <img src="p27.jpg" loading="lazy" alt="灵矿消息">
+  <div class="panel-text">
+    <div class="decision-badge">决策点 4</div><br>
+    茶馆里，老者兜售一块疑似废灵矿的矿脉。
+  </div>
+  <div class="panel-text system">人心洞察术：【老者：真诚80% 隐瞒20%】——没有说谎，但也没说完全部真相。</div>
+</div>
+
+<!-- P28 -->
+<div class="panel">
+  <img src="p28.jpg" loading="lazy" alt="对赌协议">
+  <div class="panel-text dialogue">"我不买，我也不拒绝。咱们对赌——矿出灵石，按市价六四分成；是废矿，你赔我勘探费的双倍。"</div>
+</div>
+
+<!-- P29 -->
+<div class="panel">
+  <img src="p29.jpg" loading="lazy" alt="系统风控">
+  <div class="panel-text system">【系统】风控模型分析完毕。风险收益比1:7.3。评价：在凡界叫天使投资。在修仙界——嗯——还是叫天使投资。宿主果然从哪个世界来都是这个德行。</div>
+</div>
+
+<!-- P30 -->
+<div class="panel">
+  <img src="p30.jpg" loading="lazy" alt="矿脉开采">
+  <div class="panel-text">
+    团队扩张到7人。零底薪，纯分成。<br>
+    <span class="narration">朱江在修仙界再次发明了"期权激励"。</span>
+  </div>
+</div>
+
+<!-- P31 -->
+<div class="panel">
+  <img src="p31.jpg" loading="lazy" alt="发现道基石">
+  <div class="panel-text">
+    <span style="color:#d4a040;font-size:20px">道基石</span><br>
+    传说中突破金丹必需的稀世材料。整个灵石镇一年交易量不超过三块。
+  </div>
+</div>
+
+<!-- P32 -->
+<div class="panel">
+  <img src="p32.jpg" loading="lazy" alt="消息走漏">
+  <div class="panel-text system">【系统】警告：检测到多个高等级灵识扫描。翻译成人话：有人盯上你了。建议跑路。宿主：不跑。系统：……知道了。</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- P33 -->
+<div class="panel">
+  <img src="p33.jpg" loading="lazy" alt="团队壮大">
+  <div class="panel-text dialogue">"从今天起，我们不是散修，是'灵石镇第一创业团'。目标：三个月内，让七大宗门买我们的丹药。"</div>
+  <div class="panel-text"><div class="narration">阿灰在角落默默记笔记。</div></div>
+</div>
+
+<!-- P34 -->
+<div class="panel">
+  <img src="p34.jpg" loading="lazy" alt="陈默加入">
+  <div class="panel-text system">洞察术：【陈默：感激63% 野心32% 隐藏意图5%】</div>
+  <div class="panel-text">
+    朱江看了看那5%，选择忽略。<br>
+    <span style="color:#d4a040">"每个创业团队都有野心的人，这才正常。"</span>
+  </div>
+</div>
+
+<!-- P35 -->
+<div class="panel">
+  <img src="p35.jpg" loading="lazy" alt="核心配方">
+  <div class="panel-text">
+    阿灰突破了——研发出<span style="color:#d4a040">"破境丹"</span>，能帮筑基期修士快速突破。<br>
+    成本只有宗门版的三分之一。这是灵石镇第一创业团的核武器。
+  </div>
+</div>
+
+<!-- P36 DECISION-5 -->
+<div class="panel">
+  <img src="p36.jpg" loading="lazy" alt="背叛">
+  <div class="panel-text">
+    <div class="decision-badge">决策点 5</div>
+  </div>
+  <div class="panel-text">
+    陈默连夜带着破境丹配方投奔天机宗。<br>
+    <span class="narration">那5%的隐藏意图，终于兑现了。</span>
+  </div>
+</div>
+
+<!-- P37 -->
+<div class="panel">
+  <img src="p37.jpg" loading="lazy" alt="团队震荡">
+  <div class="panel-text dialogue">"追！把他抓回来！""杀了这个叛徒！"</div>
+  <div class="panel-text"><div class="narration">朱江睁开眼，异常冷静。</div></div>
+</div>
+
+<!-- P38 -->
+<div class="panel">
+  <img src="p38.jpg" loading="lazy" alt="公开配方决策">
+  <div class="panel-text dialogue" style="font-size:20px;color:#d4a040">"不追。把配方公开。公告灵石镇——破境丹配方免费开放，任何人都可以炼制。"</div>
+</div>
+
+<!-- P39 -->
+<div class="panel">
+  <img src="p39.jpg" loading="lazy" alt="全场震惊">
+  <div class="panel-text system">【系统】检测到宿主行为模式：开源精神。评价：在凡界，这毁灭了一家公司。但在修仙界，这摧毁了一个宗门的垄断。陈默带去的配方，瞬间一文不值。</div>
+</div>
+
+<!-- P40 -->
+<div class="panel">
+  <img src="p40.jpg" loading="lazy" alt="陈默失势">
+  <div class="panel-text">
+    天机宗花了三千灵石买来的"独家配方"，第二天全灵石镇都有了。<br>
+    <span class="narration">陈默从"功臣"变成"废物"，只用了十二个时辰。</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- P41 -->
+<div class="panel">
+  <img src="p41.jpg" loading="lazy" alt="声望暴涨">
+  <div class="panel-text">
+    公开配方后，朱江的商道修为暴涨。<br>
+    <span style="color:#d4a040;font-size:20px">筑基……大圆满。</span><br>
+    所有散修都知道了一个名字——"灵石镇的朱江"。
+  </div>
+</div>
+
+<!-- P42 DECISION-6 -->
+<div class="panel">
+  <img src="p42.jpg" loading="lazy" alt="道心选择">
+  <div class="panel-text">
+    <div class="decision-badge">决策点 6</div><br>
+    突破金丹需选择道心方向
+  </div>
+  <div class="panel-text system">【系统】筑基大圆满。突破金丹需选择道心方向：A) 霸道——以力服人 B) 王道——以德服人 C) 诡道——以智服人</div>
+</div>
+
+<!-- P43 -->
+<div class="panel">
+  <img src="p43.jpg" loading="lazy" alt="朱江沉思">
+  <div class="panel-text">
+    霸道？太累。诡道？太孤独。<br>
+    <span class="narration">他想起自己为什么做AI——不是为了控制，是为了让每个人都用得起技术。</span>
+  </div>
+</div>
+
+<!-- P44 -->
+<div class="panel">
+  <img src="p44.jpg" loading="lazy" alt="选择王道">
+  <div class="panel-text dialogue" style="font-size:20px;color:#d4a040">"我选王道。不是因为它对，是因为——只有王道，才能让团队里每个人都变强。"</div>
+</div>
+
+<!-- P45 -->
+<div class="panel">
+  <img src="p45.jpg" loading="lazy" alt="系统嘲讽">
+  <div class="panel-text system">【系统】王道修士历史存活率：12%。宿主确定不是在作死？<br><br>补充数据：宿主在0.3%概率下成功率为87%。<br><br>结论：建议继续作死。</div>
+</div>
+
+<!-- P46 -->
+<div class="panel">
+  <img src="p46.jpg" loading="lazy" alt="金丹形成">
+  <div class="panel-text">
+    金丹成形——不是传统的圆球，而是一个<span style="color:#d4a040">网络状的金色结构</span>。<br>
+    每个节点都是他帮助过的人。
+  </div>
+</div>
+
+<!-- P47 -->
+<div class="panel">
+  <img src="p47.jpg" loading="lazy" alt="同源系统信号">
+  <div class="panel-text system" style="border-left-color:#ff4040;color:#ff6060">【系统·紧急】检测到同源系统信号——距离：未知。备注：这很不正常。建议宿主——啊信号中断了。</div>
+</div>
+
+<!-- P48 -->
+<div class="panel">
+  <img src="p48.jpg" loading="lazy" alt="终章">
+  <div class="panel-text" style="text-align:center;font-size:20px">
+    <span style="color:#d4a040">金丹境 · 商道修士 · 朱江</span><br>
+    <span style="font-size:16px">灵石镇第一创业团创始人</span><br><br>
+    <span style="color:#808080;font-size:15px">下一站——七大宗门的生意，他要做。</span>
+  </div>
+</div>
+
+<div class="end-card">
+  <h2>第一章 · 完</h2>
+  <p>《灵根·觉醒》</p>
+  <p style="margin-top:12px;color:#d4a040">未完待续……</p>
+</div>
+
+<script>
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.panel').forEach(panel => observer.observe(panel));
+
+// Make first 3 panels visible immediately
+document.querySelectorAll('.panel').forEach((panel, i) => {
+  if (i < 3) panel.classList.add('visible');
+});
+</script>
+
+</body>
+</html>
