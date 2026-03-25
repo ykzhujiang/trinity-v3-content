@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>入赘逆袭 · 第一章</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #0a0a0f;
+    color: #e8e0d8;
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 19px;
+    line-height: 1.8;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #0a0a0f 0%, #1a1520 40%, #2a1a30 100%);
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 80%, rgba(180,130,80,0.15), transparent 60%);
+  }
+  .header h1 {
+    font-size: 2.4em;
+    font-weight: 900;
+    background: linear-gradient(135deg, #d4a54a 0%, #f0d78c 50%, #d4a54a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.3em;
+    position: relative;
+    animation: fadeInDown 1.2s ease-out;
+  }
+  .header .subtitle {
+    font-size: 1.1em;
+    color: #a89880;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5em;
+    animation: fadeInUp 1.2s ease-out 0.3s both;
+  }
+  .header .chapter {
+    font-size: 0.9em;
+    color: #6a5a4a;
+    letter-spacing: 0.2em;
+    animation: fadeInUp 1.2s ease-out 0.6s both;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #5a4a3a;
+    font-size: 0.8em;
+    animation: bounce 2s infinite;
+  }
+
+  /* Panel container */
+  .story {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 0 12px 60px;
+  }
+
+  /* Each story panel */
+  .panel {
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Panel image */
+  .panel-img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  /* Panel text */
+  .panel-text {
+    padding: 16px 4px;
+    font-size: 18px;
+    line-height: 1.85;
+    color: #d8d0c8;
+  }
+
+  /* Scene/shot description */
+  .shot-info {
+    font-size: 0.75em;
+    color: #6a5a4a;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+    border-left: 2px solid #3a2a1a;
+    padding-left: 8px;
+  }
+
+  /* Decision point */
+  .decision {
+    background: linear-gradient(135deg, #1a1520 0%, #2a1a30 100%);
+    border: 1px solid #3a2a40;
+    border-radius: 12px;
+    padding: 20px 16px;
+    margin: 20px 0;
+    position: relative;
+  }
+  .decision::before {
+    content: '🎯 决策点';
+    display: block;
+    font-size: 0.85em;
+    color: #d4a54a;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+  }
+  .decision .option {
+    padding: 10px 14px;
+    margin: 6px 0;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #a89880;
+    font-size: 0.95em;
+    transition: all 0.3s;
+  }
+  .decision .option.chosen {
+    background: rgba(212,165,74,0.12);
+    border-color: #d4a54a;
+    color: #f0d78c;
+    font-weight: 600;
+  }
+  .decision .option.chosen::before {
+    content: '✅ ';
+  }
+  .choice-reason {
+    font-size: 0.82em;
+    color: #8a7a6a;
+    margin-top: 8px;
+    padding-left: 14px;
+    border-left: 2px solid #d4a54a;
+    font-style: italic;
+  }
+
+  /* Inner monologue */
+  .inner {
+    color: #b0a090;
+    font-style: italic;
+    border-left: 3px solid #d4a54a;
+    padding-left: 14px;
+    margin: 8px 0;
+  }
+
+  /* Dialogue */
+  .dialogue {
+    color: #e8e0d8;
+    font-weight: 500;
+  }
+  .dialogue::before { content: '"'; color: #d4a54a; }
+  .dialogue::after { content: '"'; color: #d4a54a; }
+
+  /* Act divider */
+  .act-divider {
+    text-align: center;
+    padding: 50px 0 30px;
+    position: relative;
+  }
+  .act-divider h2 {
+    font-size: 1.4em;
+    color: #d4a54a;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+  .act-divider .line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4a54a, transparent);
+    margin: 12px auto;
+  }
+
+  /* Ending */
+  .ending {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(180deg, transparent, #1a1520);
+  }
+  .ending .to-be-continued {
+    font-size: 1.3em;
+    color: #d4a54a;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .ending .tease {
+    font-size: 0.9em;
+    color: #6a5a4a;
+    line-height: 1.6;
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>入赘逆袭</h1>
+  <div class="subtitle">赘婿商战 · 朱江篇</div>
+  <div class="chapter">第一章 · 上门女婿</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<div class="story">
+
+<!-- ═══════════ 第一幕：屈辱 ═══════════ -->
+<div class="act-divider">
+  <h2>第一幕 · 屈辱</h2>
+  <div class="line"></div>
+</div>
+
+<!-- P01 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p01.jpg" alt="P01">
+  <div class="panel-text">
+    <div class="shot-info">【中景】陈家别墅门口 · 午后</div>
+    <p class="inner">曾经千万美金的公司，现在我连首付都没有。</p>
+    <p>我拎着那个破行李箱站在陈家别墅门口，阳光把影子拉得老长。门口停着三辆车——一辆保时捷、一辆奔驰、还有一辆我叫不出名字的跑车。</p>
+    <p>我深吸一口气，按下了门铃。</p>
+  </div>
+</div>
+
+<!-- P02 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p02.jpg" alt="P02">
+  <div class="panel-text">
+    <div class="shot-info">【特写】岳母面部 · 客厅</div>
+    <p>岳母上下打量了我三遍。</p>
+    <p>从我那双穿了两年的运动鞋，到我褪色的旧T恤，到我那个轮子都快掉了的行李箱。</p>
+    <p class="inner">她的眼神比上海一月的寒风还冷。</p>
+  </div>
+</div>
+
+<!-- P03 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p03.jpg" alt="P03">
+  <div class="panel-text">
+    <div class="shot-info">【中全景】家宴 · 餐厅</div>
+    <p>晚宴。满桌子鲍鱼龙虾，我只敢夹青菜。</p>
+    <p>小舅子陈浩举着红酒杯，当着全家亲戚的面开腔了：</p>
+    <p class="dialogue">听说姐夫是做人工智能的？那让人工智能帮你还债啊！</p>
+    <p>全桌哄笑。连服务的保姆都偷偷笑了。</p>
+    <p>我低头夹了一筷子菜，嘴角微微上扬。</p>
+    <p class="inner">这帮人不知道——我上个公司的核心算法专利，还在我名下。</p>
+  </div>
+</div>
+
+<!-- P04 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p04.jpg" alt="P04">
+  <div class="panel-text">
+    <div class="shot-info">【俯视】小书房 · 深夜</div>
+    <p>分给我的房间在二楼角落，又小又暗。但我不在乎。</p>
+    <p>打开笔记本，连上陈家零售业务的内部系统——岳父给了个"了解公司"的权限，大概觉得我也看不懂。</p>
+    <p class="inner">供应链冗余37%。库存周转率只有行业平均的一半。营销投入产出比……算了，说出来会伤他们感情。</p>
+    <p>我做数据分析出身，这些问题，闭着眼睛都看得出来。</p>
+  </div>
+</div>
+
+<!-- P05 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p05.jpg" alt="P05">
+  <div class="panel-text">
+    <div class="shot-info">【中景】会议室 · 白天</div>
+    <p>公司会议，我被安排端茶倒水。</p>
+    <p>十几个高管西装革履，没有人看我一眼。陈浩坐在主位旁边，翘着二郎腿。</p>
+    <p class="inner">有意思。这个季度的供应商报价，至少有三家虚高了40%以上。</p>
+    <p>我把茶杯轻轻放在岳父面前，什么都没说。</p>
+  </div>
+</div>
+
+<!-- P06 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p06.jpg" alt="P06">
+  <div class="panel-text">
+    <div class="shot-info">【特写】咖啡泼溅 · 走廊</div>
+    <p>陈浩"不小心"把咖啡泼在我白衬衫上。</p>
+    <p class="dialogue">哎呀，姐夫，对不住对不住——衬衫不贵吧？要不我赔你一件？</p>
+    <p>他身后几个小弟跟着嘿嘿笑。</p>
+  </div>
+</div>
+
+<!-- P07 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p07.jpg" alt="P07">
+  <div class="panel-text">
+    <div class="shot-info">【中近景】走廊</div>
+    <p>我用纸巾擦了擦衬衫，笑了。</p>
+    <p class="dialogue">没事，这衣服确实不贵。</p>
+    <p class="inner">上辈子做创业者学到的最重要的一课：不是每一拳都值得还手。真正的反击，只需要一次。</p>
+  </div>
+</div>
+
+<!-- P08 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p08.jpg" alt="P08">
+  <div class="panel-text">
+    <div class="shot-info">【分割构图】今昔对比</div>
+    <p>夜深了。我坐在小书房里，屏幕的光映在脸上。</p>
+    <p class="inner">半年前，我坐在同样的位置——不过是自己公司的CEO办公室，面对的是三块50寸大屏，团队80人。现在呢，一个人，一台笔记本，一间6平米的小房间。</p>
+    <p>但核心技术还在我脑子里。这才是最值钱的东西。</p>
+  </div>
+</div>
+
+<!-- DECISION-1 -->
+<div class="decision">
+  <p>小舅子在公司和家里反复羞辱，我选择——</p>
+  <div class="option">当场反击，暴露实力</div>
+  <div class="option chosen">忍耐微笑，暗中观察</div>
+  <div class="option">找妻子告状</div>
+  <div class="choice-reason">"菩萨心肠霹雳手段"——不到时机，绝不出手。真正的猎手，永远等待最佳射击窗口。</div>
+</div>
+
+<!-- ═══════════ 第二幕：初露锋芒 ═══════════ -->
+<div class="act-divider">
+  <h2>第二幕 · 初露锋芒</h2>
+  <div class="line"></div>
+</div>
+
+<!-- P09 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p09.jpg" alt="P09">
+  <div class="panel-text">
+    <div class="shot-info">【中全景】家庭餐厅 · 晚餐</div>
+    <p>又是一顿家宴。岳父脸色很差——零售事业部季度亏损三千万。</p>
+    <p>他叹了口气，放下筷子：<span class="dialogue">老陈家三十年基业，不能毁在我手里。</span></p>
+    <p>全桌安静。</p>
+    <p>我"随口"说了一句：<span class="dialogue">爸，您的社区超市如果用智能算法重新调配供应链，毛利率能提15个点。</span></p>
+    <p>所有人的筷子停在半空中。</p>
+  </div>
+</div>
+
+<!-- P10 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p10.jpg" alt="P10">
+  <div class="panel-text">
+    <div class="shot-info">【中景】社区超市 · 白天</div>
+    <p>岳父把我带到了一家快倒闭的社区超市——货架半空，灯管忽明忽暗，收银台排着长队但结账巨慢。</p>
+    <p class="dialogue">小朱啊，你说的那些……能在这试试吗？</p>
+    <p>他的语气是试探的，大概率觉得我在吹牛。</p>
+    <p class="inner">他不知道的是——这种规模的供应链优化，是我上个公司最基础的功能模块。</p>
+  </div>
+</div>
+
+<!-- P11 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p11.jpg" alt="P11">
+  <div class="panel-text">
+    <div class="shot-info">【中景】超市办公室 · 白板前</div>
+    <p>三天。我只用了三天，就把整套方案画出来了。</p>
+    <p>站在白板前，面对七个超市员工——他们眼神里从怀疑变成了兴奋。</p>
+    <p class="dialogue">供应商砍到三家，动态补货替代人工盘点，会员系统上线第一周至少拉回30%的流失客户。</span></p>
+    <p class="inner">说实话，我甚至有点怀念这种感觉——从零到一，把一件破事做成。</p>
+  </div>
+</div>
+
+<!-- P12 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p12.jpg" alt="P12">
+  <div class="panel-text">
+    <div class="shot-info">【对比分割】改造前后</div>
+    <p>三个月后。</p>
+    <p>同一家超市——货架满了，灯换了，自助收银上线了，门口排队的是来抢特价的大妈。</p>
+    <p>月利润：从亏损80万到盈利120万。</p>
+    <p class="inner">这只是热身。</p>
+  </div>
+</div>
+
+<!-- P13 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p13.jpg" alt="P13">
+  <div class="panel-text">
+    <div class="shot-info">【中景】陈浩办公室</div>
+    <p>陈浩看到利润报告，把杯子摔了。</p>
+    <p class="dialogue">运气！就是运气！一个小超市而已！</p>
+    <p class="inner">我理解他的愤怒。一个入赘的穷光蛋，三个月干出了他三年没干成的事。这对自尊心的杀伤力，堪比核弹。</p>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p14.jpg" alt="P14">
+  <div class="panel-text">
+    <div class="shot-info">【中景】岳父办公室</div>
+    <p>岳父在办公室里跟我握手。</p>
+    <p class="dialogue">小朱，我打算让你负责整个社区零售板块，六十家店。你……愿意吗？</span></p>
+    <p>我看着他眼里的期待，点了点头。</p>
+    <p class="inner">不是为了地位。是因为六十家店的数据，够我训练一个真正有用的零售算法模型了。</p>
+  </div>
+</div>
+
+<!-- DECISION-2 -->
+<div class="decision">
+  <p>岳父提拔我负责六十家店，我选择——</p>
+  <div class="option chosen">欣然接受——不为地位，而是更大的数据和舞台</div>
+  <div class="option">谦虚推辞</div>
+  <div class="option">提出条件</div>
+  <div class="choice-reason">务实。创业者不会拒绝验证技术的机会。六十家店的真实数据，比任何投资人的钱都值钱。</div>
+</div>
+
+<!-- ═══════════ 第三幕：暗流涌动 ═══════════ -->
+<div class="act-divider">
+  <h2>第三幕 · 暗流涌动</h2>
+  <div class="line"></div>
+</div>
+
+<!-- P15 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p15.jpg" alt="P15">
+  <div class="panel-text">
+    <div class="shot-info">【低角度】大伯书房 · 夜晚</div>
+    <p>我不知道的是——暗处有人比陈浩更恨我。</p>
+    <p>陈家大伯，二股东，正在密室里打电话。</p>
+    <p class="dialogue">那个赘婿越来越碍事了……对，联系他前公司的人。每个人都有软肋。</p>
+    <p>他挂了电话，脸上的阴影像是两把刀。</p>
+  </div>
+</div>
+
+<!-- P16 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p16.jpg" alt="P16">
+  <div class="panel-text">
+    <div class="shot-info">【过肩镜头】办公室 · 深夜</div>
+    <p>凌晨两点。我在跑陈家的财务数据——本来是为了优化现金流模型。</p>
+    <p>然后我看到了不该看到的东西。</p>
+    <p class="inner">过去两年，有超过一亿资金通过三家空壳公司流出。账面做得很干净，但数据不会撒谎——这种异常模式，我的算法一秒就能识别。</p>
+    <p>我靠在椅背上，盯着屏幕上那些红色高亮的数字。</p>
+    <p class="inner">大伯，你手脚不太干净啊。</p>
+  </div>
+</div>
+
+<!-- P17 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p17.jpg" alt="P17">
+  <div class="panel-text">
+    <div class="shot-info">【特写】手机来电 · 暗色调</div>
+    <p>第二天深夜，手机突然响了。</p>
+    <p>屏幕上显示：未知号码。</p>
+    <p>我犹豫了一秒——然后接了。</p>
+    <p class="dialogue">朱江，好久不见。</p>
+    <p>那个声音——我前合伙人，把我踢出公司的那个人。</p>
+    <p class="dialogue">听说你在陈家混得不错？可惜啊……你以为你躲得掉吗？</p>
+    <p class="inner">原来如此。大伯找到了我的软肋——或者说，他以为是软肋。</p>
+  </div>
+</div>
+
+<!-- P18 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p18.jpg" alt="P18">
+  <div class="panel-text">
+    <div class="shot-info">【中景·暖光】书房门口 · 深夜</div>
+    <p>挂了电话，书房门口传来脚步声。</p>
+    <p>雨晴端着两杯茶走进来。她穿着睡衣，头发散着，看起来也没睡。</p>
+    <p>她把茶放在桌上，没走。</p>
+    <p class="dialogue">你不是普通人吧。</p>
+    <p>不是问句，是肯定句。</p>
+  </div>
+</div>
+
+<!-- P19 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p19.jpg" alt="P19">
+  <div class="panel-text">
+    <div class="shot-info">【双人中近景】客厅 · 暖色灯光</div>
+    <p>她坐在我对面，眯着眼睛研究我。</p>
+    <p class="dialogue">一个普通的上门女婿，不会三个月救活一家快倒闭的超市。也不会在凌晨两点还对着财务报表皱眉。</p>
+    <p>我笑了。</p>
+    <p class="dialogue">我只是一个会写代码的赘婿。</p>
+    <p>她没信。但她也没追问。只是起身离开前说了句：</p>
+    <p class="dialogue">不管你是谁……小心点。这个家没你想的那么简单。</p>
+  </div>
+</div>
+
+<!-- P20 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p20.jpg" alt="P20">
+  <div class="panel-text">
+    <div class="shot-info">【全景】阳台 · 夜晚</div>
+    <p>我一个人站在阳台上，看着上海的夜景。</p>
+    <p>前合伙人、大伯、一亿暗账、陈家的权力结构……所有线索在脑子里快速连接。</p>
+    <p class="inner">他们以为我是一只待宰的羔羊。他们不知道的是——我曾经用一套算法，在三天内把一家公司从濒临破产拉到了C轮融资。</p>
+    <p class="inner">这次，我的对手从资本市场换成了一个家族。</p>
+    <p class="inner">更简单了。</p>
+  </div>
+</div>
+
+<!-- DECISION-3 -->
+<div class="decision">
+  <p>发现大伯一亿暗账后，我选择——</p>
+  <div class="option">直接告诉岳父</div>
+  <div class="option chosen">收集完整证据链，在董事会上一击必杀</div>
+  <div class="option">私下找大伯谈判</div>
+  <div class="choice-reason">"霹雳手段"——打蛇打七寸。零敲碎打只会打草惊蛇，真正的致命一击只需要一次，但必须是完美的一次。</div>
+</div>
+
+<!-- ═══════════ 第四幕：全场震惊 ═══════════ -->
+<div class="act-divider">
+  <h2>第四幕 · 全场震惊</h2>
+  <div class="line"></div>
+</div>
+
+<!-- P21 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p21.jpg" alt="P21">
+  <div class="panel-text">
+    <div class="shot-info">【全景】董事会会议室 · 白天</div>
+    <p>两周后。陈家临时董事会。</p>
+    <p>大伯带着律师和三个外部投资人，浩浩荡荡坐在一边。他的底气很足——手里握着30%的股份，加上外部资本，足够发动一次逼宫。</p>
+    <p>岳父坐在另一头，脸色铁青。</p>
+    <p>然后，我推门走了进来。</p>
+    <p>全场安静了。</p>
+  </div>
+</div>
+
+<!-- P22 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p22.jpg" alt="P22">
+  <div class="panel-text">
+    <div class="shot-info">【特写组合】董事会成员反应</div>
+    <p>十几双眼睛瞪着我。</p>
+    <p>大伯冷笑：<span class="dialogue">这是董事会，不是菜市场。谁让他进来的？</span></p>
+    <p>岳父张了张嘴，显然也不知道我会来。</p>
+    <p>我把西装扣子解开，在空位坐了下来。</p>
+    <p class="dialogue">爸，不好意思来晚了。我有些东西想给大家看看。</p>
+  </div>
+</div>
+
+<!-- P23 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p23.jpg" alt="P23">
+  <div class="panel-text">
+    <div class="shot-info">【中景·投影光】董事会</div>
+    <p>投影幕亮起。</p>
+    <p>三家空壳公司的注册信息。资金流转路径。时间轴。金额。最终受益人。</p>
+    <p>每一笔都标注了来源和去向。每一个数字都经过了交叉验证。</p>
+    <p>我站在投影旁边，像律师一样逐条讲解。</p>
+    <p class="dialogue">过去24个月，共有1.17亿资金通过三家空壳公司流出陈氏集团。这些公司的最终受益人——</p>
+    <p>我看了大伯一眼。</p>
+    <p class="dialogue">——都是同一个人。</p>
+  </div>
+</div>
+
+<!-- P24 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p24.jpg" alt="P24">
+  <div class="panel-text">
+    <div class="shot-info">【特写】大伯面部</div>
+    <p>大伯的脸以肉眼可见的速度变白。</p>
+    <p>额头冒汗。手指紧攥着椅子扶手。</p>
+    <p class="dialogue">你……你胡说！这些数据是伪造的！</p>
+    <p>我笑了。</p>
+    <p class="dialogue">大伯，这是您自己公司服务器上的原始数据。所有提取过程有完整的操作日志，时间戳精确到毫秒。您要不要看看？</p>
+  </div>
+</div>
+
+<!-- DECISION-4 -->
+<div class="decision">
+  <p>大伯求饶，想私了。我选择——</p>
+  <div class="option">赶尽杀绝</div>
+  <div class="option chosen">给一条生路，但剥夺全部股份</div>
+  <div class="option">交给岳父决定</div>
+  <div class="choice-reason">"菩萨心肠"——留一线，日后好相见。但底线不能破：偷走的钱必须还，股份必须交出。有边界的善良，才是真正的善良。</div>
+</div>
+
+<!-- P25 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p25.jpg" alt="P25">
+  <div class="panel-text">
+    <div class="shot-info">【中景·暖光】董事会 · 尘埃落定</div>
+    <p>大伯签了股权转让协议，灰溜溜地走了。他带来的投资人更快——资料还没收完，人已经跑了。</p>
+    <p>岳父看着我，眼眶有点红。</p>
+    <p class="dialogue">小朱……你……</p>
+    <p class="dialogue">爸，这是我入赘以来第一次正式发言。希望不是最后一次。</p>
+    <p>全场掌声。</p>
+    <p class="inner">但我知道，掌声不重要。重要的是——我终于有了足够的信任和资源，去做真正想做的事。</p>
+  </div>
+</div>
+
+<!-- P26 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p26.jpg" alt="P26">
+  <div class="panel-text">
+    <div class="shot-info">【双人中近景】公园长椅 · 黄昏</div>
+    <p>晚上，我和雨晴坐在小区花园的长椅上。秋天的风吹过来，有桂花的味道。</p>
+    <p>她看着我，这次不是审视，是温柔。</p>
+    <p class="dialogue">所以……你到底是什么人？</p>
+    <p>我想了想，决定不再藏了。</p>
+    <p class="dialogue">我叫朱江。连续创业者。曾经做到过C轮融资。被合伙人背刺出局。负债累累。入赘还债。但我从来没放弃过我的技术。</p>
+    <p>她听完，安静了很久。</p>
+    <p class="dialogue">谢谢你告诉我真话。</p>
+  </div>
+</div>
+
+<!-- DECISION-5 -->
+<div class="decision">
+  <p>妻子问我到底是什么人，我选择——</p>
+  <div class="option chosen">全部坦白——真诚是最好的策略</div>
+  <div class="option">继续隐藏</div>
+  <div class="option">半真半假</div>
+  <div class="choice-reason">对伴侣不隐瞒。真诚是必杀技——不只是对外的策略，更是对内的原则。亲密关系靠信任，而信任靠真话。</div>
+</div>
+
+<!-- ═══════════ 第五幕：新格局 ═══════════ -->
+<div class="act-divider">
+  <h2>第五幕 · 新格局</h2>
+  <div class="line"></div>
+</div>
+
+<!-- P27 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p27.jpg" alt="P27">
+  <div class="panel-text">
+    <div class="shot-info">【全景】新办公区 · 白天</div>
+    <p>陈氏集团二十三楼，多了一个全新的部门：智能零售事业部。</p>
+    <p>我站在满屏数据大盘前，身后是一群90后工程师——有几个是我从前公司挖来的老战友。</p>
+    <p class="inner">六十家店的数据，够训练一个中等规模的零售算法模型。但如果是六百家呢？六千家呢？</p>
+    <p>想到这里，我忍不住笑了。</p>
+  </div>
+</div>
+
+<!-- P28 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p28.jpg" alt="P28">
+  <div class="panel-text">
+    <div class="shot-info">【中景·暖光】家庭晚餐</div>
+    <p>岳母亲手端着一碗虫草花炖鸡汤走过来。</p>
+    <p class="dialogue">小朱啊，多喝点。你太瘦了，工作别太累。</p>
+    <p class="inner">三个月前她看我像看路边的流浪狗。现在我坐在她亲手铺了软垫的主位上。</p>
+    <p>我接过汤碗，真诚地说了声谢谢。</p>
+    <p class="inner">人性就是这样——当你弱的时候，善良是奢侈品。当你强的时候，善良是必需品。</p>
+  </div>
+</div>
+
+<!-- P29 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p29.jpg" alt="P29">
+  <div class="panel-text">
+    <div class="shot-info">【中景】办公桌前 · 下午</div>
+    <p>陈浩穿着卫衣，没了以前那股嚣张劲，坐在我旁边，盯着笔记本屏幕。</p>
+    <p class="dialogue">姐夫……这个数据清洗是什么意思？你教教我呗。</p>
+    <p>我拍了拍他肩膀。</p>
+    <p class="dialogue">行，不过先把你那些设计师联名款卫衣脱了。写代码穿太好会分心。</p>
+    <p>他嘿嘿笑了。</p>
+    <p class="inner">这小子其实不笨，就是被惯坏了。有的人需要被打醒，有的人需要被带着走。</p>
+  </div>
+</div>
+
+<!-- P30 -->
+<div class="panel">
+  <img class="panel-img" loading="lazy" src="images/exp556/p30.jpg" alt="P30">
+  <div class="panel-text">
+    <div class="shot-info">【全景·电影感】城市天台 · 夜景</div>
+    <p>深夜。陈氏大厦顶楼。</p>
+    <p>城市的灯火在脚下铺展开来，像一张巨大的数据可视化图。</p>
+    <p>雨晴走过来，递给我一杯咖啡。</p>
+    <p class="dialogue">又在想什么？</p>
+    <p class="dialogue">在想一个问题。</p>
+    <p class="dialogue">什么问题？</p>
+    <p>我喝了一口咖啡，看着远方。</p>
+    <p class="dialogue">人工智能可以救活一家超市，可以救活一个集团。那——它能不能改变一个行业？</p>
+    <p>风吹过天台，她的头发拂过我的肩膀。</p>
+    <p>我没有等她回答。</p>
+    <p class="inner">因为我已经知道答案了。</p>
+  </div>
+</div>
+
+<!-- DECISION-6 -->
+<div class="decision">
+  <p>关于未来方向，我选择——</p>
+  <div class="option">留在陈家做CEO</div>
+  <div class="option chosen">用陈家资源+自己的技术，创办新公司，做零售行业独角兽</div>
+  <div class="option">回去做纯技术</div>
+  <div class="choice-reason">连续创业者的血液里流的不是血，是代码和商业计划书。陈家是跳板，不是终点。下一站——改变一个行业。</div>
+</div>
+
+<!-- Ending -->
+<div class="ending">
+  <div class="to-be-continued">—— 第一章 · 完 ——</div>
+  <div class="tease">
+    <p>下一章预告：</p>
+    <p style="margin-top:8px;">新公司刚成立，前合伙人带着律师函卷土重来。<br>
+    而大伯虽然出局了，他留下的暗桩还在陈氏集团里……<br>
+    更棘手的是——一个神秘投资人开始接触雨晴。</p>
+    <p style="margin-top:12px; color:#d4a54a;">他说他认识"以前的朱江"。</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+// Intersection Observer for scroll-in animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel, .decision, .act-divider').forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
