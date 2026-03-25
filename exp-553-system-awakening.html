@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>朱江·觉醒 — 创业系统v1.0</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e8e6e3;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.header{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(180deg,#0a0a12 0%,#0d1b2a 50%,#1b2838 100%);overflow:hidden}
+.header::before{content:'';position:absolute;top:50%;left:50%;width:400px;height:400px;background:radial-gradient(circle,rgba(0,200,255,0.1) 0%,transparent 70%);transform:translate(-50%,-50%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}}
+.header h1{font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,#00c8ff,#7b68ee,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;letter-spacing:4px;position:relative;z-index:1}
+.header .subtitle{font-size:1.1rem;color:#8b8fa3;margin-bottom:24px;position:relative;z-index:1}
+.header .v5-badge{display:inline-block;padding:6px 16px;border:1px solid rgba(0,200,255,0.4);border-radius:20px;color:#7bb8d0;font-size:0.85rem;letter-spacing:2px;position:relative;z-index:1}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:#555;font-size:0.85rem;animation:bounce 2s infinite;z-index:1}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+.panel{position:relative;width:100%;max-width:500px;margin:0 auto;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-img{width:100%;display:block}
+.panel-text{padding:16px 20px 32px;background:linear-gradient(180deg,rgba(10,10,18,0.95),rgba(10,10,18,1))}
+.panel-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:0.75rem;color:#555;flex-wrap:wrap}
+.panel-meta .shot-tag{padding:2px 8px;border:1px solid #333;border-radius:10px;color:#777}
+.panel-meta .mood-tag{padding:2px 8px;background:rgba(0,200,255,0.1);border-radius:10px;color:#7bb8d0}
+.narration{font-size:1.05rem;line-height:1.8;color:#b0adb5;margin-bottom:10px}
+.dialogue{font-size:1.1rem;line-height:1.8;color:#00c8ff;font-weight:500;padding-left:12px;border-left:3px solid #00a0d0;margin-bottom:10px;white-space:pre-line}
+.inner-thought{font-size:1rem;line-height:1.8;color:#9b8ec4;font-style:italic;padding-left:12px;border-left:3px solid rgba(123,104,238,0.5);margin-bottom:10px;white-space:pre-line}
+.system-msg{font-size:0.95rem;line-height:1.6;color:#00ff88;padding:8px 12px;background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);border-radius:8px;margin-bottom:10px;font-family:'Courier New',monospace}
+.act-divider{text-align:center;padding:60px 20px;position:relative}
+.act-divider h2{font-size:1.6rem;color:#00c8ff;letter-spacing:6px;position:relative;z-index:1}
+.act-divider::before{content:'';position:absolute;top:50%;left:50%;width:200px;height:1px;background:linear-gradient(90deg,transparent,#00c8ff,transparent);transform:translate(-50%,-50%)}
+.decision-box{background:linear-gradient(135deg,rgba(123,104,238,0.1),rgba(30,30,60,0.8));border:1px solid rgba(123,104,238,0.3);border-radius:12px;padding:16px 20px;margin:12px 0}
+.decision-label{font-size:0.8rem;color:#7b68ee;letter-spacing:2px;margin-bottom:8px}
+.decision-situation{color:#b0adb5;font-size:0.95rem;margin-bottom:8px}
+.decision-choice{color:#00ff88;font-weight:600;font-size:1rem}
+.decision-reason{color:#9b8ec4;font-size:0.9rem;margin-top:6px;font-style:italic}
+.ending{text-align:center;padding:60px 20px 100px}
+.ending h2{font-size:1.4rem;color:#00c8ff;margin-bottom:12px}
+.ending p{color:#666;font-size:0.95rem}
+.ending .ghost-text{color:rgba(123,104,238,0.4);font-size:1rem;margin-top:20px;animation:fadeInOut 3s ease-in-out infinite}
+@keyframes fadeInOut{0%,100%{opacity:0.2}50%{opacity:0.8}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>朱江·觉醒</h1>
+  <div class="subtitle">V5 虚拟朱江 · 创业系统v1.0 · 第一章</div>
+  <div class="v5-badge">🎮 系统文 × 创业 × 人心博弈</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<div class="act-divider"><h2>第一幕 · 觉醒</h2></div>
+
+<!-- P01 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p01.jpg" alt="P01" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">特写·侧光</span><span class="mood-tag">疲惫压抑</span></div>
+<div class="narration">深夜十一点，整栋写字楼只剩朱江办公室的灯还亮着。路演失败的邮件通知静静躺在收件箱里，显示器上满屏的bug日志像一面冰冷的墙。</div>
+<div class="inner-thought">「第三次路演失败了……投资人的眼神比这些bug还冷。」</div>
+</div></div>
+
+<!-- P02 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p02.jpg" alt="P02" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·正面</span><span class="mood-tag">惊异</span></div>
+<div class="narration">屏幕突然闪烁——不是bug，是一道蓝紫色的光从显示器里溢出来。一个半透明的赛博风格UI面板凭空浮现在朱江面前。</div>
+<div class="inner-thought">「……我是不是加班加出幻觉了？」</div>
+</div></div>
+
+<!-- P03 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p03.jpg" alt="P03" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">特写·面板UI</span><span class="mood-tag">游戏感</span></div>
+<div class="system-msg">【创业系统 v1.0 已激活】<br>宿主：朱江<br>技能树：融资 LV2 | 谈判 LV3 | 产品 LV5 | 忽悠 LV1</div>
+<div class="inner-thought">「忽悠 LV1？我忽悠才1级？……投资人一个都没忽悠到，行吧，确实。」</div>
+</div></div>
+
+<!-- P04 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p04.jpg" alt="P04" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·对角线构图</span><span class="mood-tag">紧张发现</span></div>
+<div class="narration">第二天早会。CTO赵阳正在汇报技术进度，朱江习惯性地点头——然后他看到了赵阳头顶浮现的属性面板。</div>
+<div class="system-msg">赵阳 | 忠诚度：32% ⚠️<br>隐藏状态：正在面试字节跳动</div>
+</div></div>
+
+<!-- P05 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p05.jpg" alt="P05" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">特写·表情</span><span class="mood-tag">震惊掩饰</span></div>
+<div class="inner-thought">「32%……我以为至少80%。一起熬了两年的夜，他忠诚度32%？」</div>
+<div class="narration">朱江的嘴角维持着点头微笑的弧度，但额头渗出了细密的汗珠。</div>
+</div></div>
+
+<!-- DECISION 1 -->
+<div class="panel visible">
+<div class="panel-text">
+<div class="decision-box">
+<div class="decision-label">⚡ 决策点 D-1</div>
+<div class="decision-situation">CTO忠诚度仅32%，正在面试字节跳动。怎么办？</div>
+<div class="decision-choice">✅ 不质问，暗中启动backup plan</div>
+<div class="decision-reason">「先确认再行动，不打草惊蛇。菩萨心肠，雷霆手段——但手段要藏在后面。」</div>
+</div>
+</div></div>
+
+<!-- P06 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p06.jpg" alt="P06" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">远景→中景</span><span class="mood-tag">暗流涌动</span></div>
+<div class="narration">投资人李总来访。西装笔挺，笑容温暖，递过来一份TS（投资条款）。但朱江看到了他头顶的面板——</div>
+<div class="system-msg">李总 | 信任值：89% ⚠️<br>隐藏议程：对赌条款 + 控制权转移</div>
+</div></div>
+
+<!-- P07 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p07.jpg" alt="P07" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">分屏·对比</span><span class="mood-tag">表里不一</span></div>
+<div class="narration">上半：李总笑容满面，双手推过合同——「朱总，这是我见过最有潜力的AI团队。」下半：朱江视角，合同上叠加着密密麻麻的红色警告标记。</div>
+</div></div>
+
+<!-- DECISION 2 -->
+<div class="panel visible">
+<div class="panel-text">
+<div class="decision-box">
+<div class="decision-label">⚡ 决策点 D-2</div>
+<div class="decision-situation">投资人信任值89%，但暗藏对赌条款和控制权转移。接不接TS？</div>
+<div class="decision-choice">✅ 拒绝</div>
+<div class="dialogue">「李总，你的诚意我收到了。但这TS里面藏着的东西……我也收到了。」</div>
+<div class="decision-reason">对"假"零容忍——表面89%信任但暗藏控制权条款=欺骗。</div>
+</div>
+</div></div>
+
+<div class="act-divider"><h2>第二幕 · 试炼</h2></div>
+
+<!-- P08 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p08.jpg" alt="P08" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">仰角·全身</span><span class="mood-tag">气场碾压</span></div>
+<div class="narration">竞对公司CTO张强推门而入。黑色高领衫，锐利眼神，整个人像一把出鞘的刀。他头顶的面板亮得刺眼——</div>
+<div class="system-msg">张强 | 潜力值：99（系统最高）<br>忠诚度：？？？（数据不足）<br>⚠️ 高风险高回报</div>
+</div></div>
+
+<!-- P09 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p09.jpg" alt="P09" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·对称构图</span><span class="mood-tag">博弈对峙</span></div>
+<div class="narration">两个人隔着会议桌对坐。张强翘着二郎腿，朱江靠在椅背上。桌上两杯咖啡，一黑一白，像棋盘上的两枚棋子。</div>
+</div></div>
+
+<!-- DECISION 3 -->
+<div class="panel visible">
+<div class="panel-text">
+<div class="decision-box">
+<div class="decision-label">⚡ 决策点 D-3</div>
+<div class="decision-situation">竞对CTO潜力值99（系统最高），但忠诚度完全未知。挖不挖？</div>
+<div class="decision-choice">✅ 挖</div>
+<div class="dialogue">「薪资你说了算。但有一个条件——你得让我看看，99分的潜力到底什么样。」</div>
+<div class="decision-reason">黑客基因：对高能力人才的好奇心+赌性。朱江相信自己能用真诚换忠诚。</div>
+</div>
+</div></div>
+
+<!-- P10 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p10.jpg" alt="P10" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">UI特写</span><span class="mood-tag">游戏升级</span></div>
+<div class="system-msg">【系统升级可用】需要放弃一项能力换取新能力：<br>A. 放弃"忽悠LV1" → 获得"识谎LV5"<br>B. 放弃"产品LV5" → 获得"管理LV5"<br>C. 放弃"谈判LV3" → 获得"预知LV3"</div>
+</div></div>
+
+<!-- P11 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p11.jpg" alt="P11" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">特写·动作</span><span class="mood-tag">洒脱果断</span></div>
+<div class="narration">朱江毫不犹豫地伸手点向选项A，蓝紫色能量从卡片流入手臂。</div>
+</div></div>
+
+<!-- DECISION 4 -->
+<div class="panel visible">
+<div class="panel-text">
+<div class="decision-box">
+<div class="decision-label">⚡ 决策点 D-4</div>
+<div class="decision-situation">系统升级三选一</div>
+<div class="decision-choice">✅ 放弃"忽悠LV1"，获得"识谎LV5"</div>
+<div class="inner-thought">「忽悠LV1……放弃它毫无心理压力。我本来就不会忽悠，也不想会。但识破所有谎言？这才是我想要的能力。」</div>
+<div class="decision-reason">真诚>套路，宁可不会忽悠，也要能识破所有谎言。</div>
+</div>
+</div></div>
+
+<!-- P12 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p12.jpg" alt="P12" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·侧面</span><span class="mood-tag">紧张发现</span></div>
+<div class="narration">几天后的技术评审会。朱江正低头看文件，余光发现张强一直在盯着他头顶上方看。</div>
+<div class="inner-thought">「他……看到我的属性面板了？！」</div>
+<div class="system-msg">⚠️ 系统Bug：宿主属性面板偶尔对他人可见</div>
+</div></div>
+
+<!-- P13 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p13.jpg" alt="P13" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">特写·自嘲</span><span class="mood-tag">幽默化解</span></div>
+</div></div>
+
+<!-- DECISION 5 -->
+<div class="panel visible">
+<div class="panel-text">
+<div class="decision-box">
+<div class="decision-label">⚡ 决策点 D-5</div>
+<div class="decision-situation">系统有bug会泄露自己的属性面板给别人看。继续用吗？</div>
+<div class="decision-choice">✅ 继续使用，但更谨慎</div>
+<div class="inner-thought">「反正我的数据又没什么见不得人的。忠诚度100%——对自己的公司。忽悠LV0——升级后直接归零了。有什么好怕的？」</div>
+<div class="decision-reason">坦荡无惧——没有黑数据就不怕被看到。</div>
+</div>
+</div></div>
+
+<div class="act-divider"><h2>第三幕 · 抉择</h2></div>
+
+<!-- P14 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p14.jpg" alt="P14" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·暖光</span><span class="mood-tag">感伤温暖</span></div>
+<div class="narration">深夜，老同学老王带着一瓶二锅头出现在朱江办公室。皱巴巴的衬衫，红红的眼眶，一坐下就沉默了很久。</div>
+<div class="dialogue">老王：「哥……我创业失败了。」</div>
+<div class="system-msg">老王 | 投资回报率：-80%<br>当前状态：精神崩溃边缘<br>隐藏属性：产品感觉 LV4</div>
+</div></div>
+
+<!-- P15 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p15.jpg" alt="P15" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·动作</span><span class="mood-tag">坚定温暖</span></div>
+<div class="system-msg">⚠️ 非理性决策警告：投资回报率-80%，建议拒绝。</div>
+<div class="narration">朱江做出挥手赶走面板的动作。</div>
+<div class="inner-thought">「闭嘴。」</div>
+</div></div>
+
+<!-- DECISION 6 -->
+<div class="panel visible">
+<div class="panel-text">
+<div class="decision-box">
+<div class="decision-label">⚡ 决策点 D-6</div>
+<div class="decision-situation">老同学创业失败来求助，系统显示投资回报率-80%。帮不帮？</div>
+<div class="decision-choice">✅ 帮——但不是给钱投资，而是给他一个岗位</div>
+<div class="dialogue">「钱的事先不提。我看了你的能力面板——产品感觉LV4。来我这做产品总监，你比我这里90%的人都强。」</div>
+<div class="decision-reason">义气重于理性，但帮法有智慧——给岗位不给钱，既保住兄弟面子又发挥他的真实能力。</div>
+</div>
+</div></div>
+
+<!-- P16 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p16.jpg" alt="P16" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·侧光</span><span class="mood-tag">危机预警</span></div>
+<div class="narration">公司估值到1亿。朱江站在落地窗前，城市夜景璀璨——但面前浮现的巨大红色面板让一切美景都蒙上了阴影。</div>
+<div class="system-msg">🔴 紧急预警<br>6个月后AI行业寒冬<br>估值将缩水70%<br>建议：立刻出售股权</div>
+</div></div>
+
+<!-- DECISION 7 -->
+<div class="panel visible">
+<div class="panel-text">
+<div class="decision-box">
+<div class="decision-label">⚡ 决策点 D-7</div>
+<div class="decision-situation">估值1亿，系统预警6个月后行业崩盘、估值缩水70%。提前卖掉？</div>
+<div class="decision-choice">✅ 不卖。但做好过冬准备。</div>
+<div class="dialogue">「如果寒冬要来，那我们做那个有棉袄的人。」</div>
+<div class="decision-reason">悟空精神——不逃跑，但不莽撞。储备现金，精简团队，砍掉非核心项目。</div>
+</div>
+</div></div>
+
+<!-- P17 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p17.jpg" alt="P17" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">俯拍·中景</span><span class="mood-tag">战略部署</span></div>
+<div class="narration">白板上画满了过冬战略图。朱江站在白板前，手握马克笔，面对团队成员。没有人知道他看到了什么预警——他们只知道老板突然开始"降本增效"了。</div>
+<div class="dialogue">「从今天开始，我们只做一件事：活下来。」</div>
+</div></div>
+
+<div class="act-divider"><h2>第四幕 · 超越</h2></div>
+
+<!-- P18 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p18.jpg" alt="P18" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">远景·蒙太奇</span><span class="mood-tag">萧条</span></div>
+<div class="narration">寒冬果然来了。竞对公司的大楼灯光一栋栋熄灭。科技媒体头条全是"裁员"、"倒闭"、"泡沫破裂"。</div>
+</div></div>
+
+<!-- P19 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p19.jpg" alt="P19" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">低角度仰拍</span><span class="mood-tag">逆势崛起</span></div>
+<div class="narration">但朱江的公司不仅活了下来——还在寒冬中收购了两家倒闭竞对的核心团队。朱江穿着深色羽绒服走进新收购公司的大堂，阳光从玻璃门照进来。</div>
+<div class="inner-thought">「棉袄穿上了。顺便把隔壁没穿棉袄的人也捡回来了。」</div>
+</div></div>
+
+<!-- P20 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p20.jpg" alt="P20" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">特写·温暖光效</span><span class="mood-tag">告别</span></div>
+<div class="narration">某天深夜，系统面板突然发出温暖的橙色光芒——不是红色警告，不是蓝色信息，是从未出现过的橙色。</div>
+<div class="system-msg">【系统提示】<br>创业系统检测到宿主已不再需要本系统。<br>是否关闭？关闭后无法恢复。<br><br>宿主成长曲线：忽悠LV1 → 识谎LV5 → ……已超出系统量化范围。</div>
+</div></div>
+
+<!-- P21 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p21.jpg" alt="P21" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">UI特写</span><span class="mood-tag">消散之美</span></div>
+</div></div>
+
+<!-- DECISION 8 -->
+<div class="panel visible">
+<div class="panel-text">
+<div class="decision-box">
+<div class="decision-label">⚡ 决策点 D-8</div>
+<div class="decision-situation">系统问"你不需要我了"——关闭后无法恢复。是否告别系统，回到普通人？</div>
+<div class="decision-choice">✅ 关闭</div>
+<div class="dialogue">「你教会了我一件事——不需要看数据也能看懂一个人。谢谢。」</div>
+<div class="narration">面板化为金色光点消散，像萤火虫一样飘散在空气中。但朱江发现，那些数值已经内化成了直觉——他不需要面板，也能本能地判断人。</div>
+<div class="decision-reason">独立精神，不依赖外挂。真正的成长是把工具内化成能力。</div>
+</div>
+</div></div>
+
+<!-- P22 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p22.jpg" alt="P22" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">远景·背影</span><span class="mood-tag">从容</span></div>
+<div class="narration">新办公室。更大的落地窗，更高的楼层。朱江站在窗前，城市在脚下铺展。手机震动。</div>
+</div></div>
+
+<!-- P23 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p23.jpg" alt="P23" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·特写手机</span><span class="mood-tag">轻描淡写</span></div>
+<div class="narration">新闻推送："AI创业寒冬后首个10亿美金独角兽诞生"。朱江看了一眼，嘴角微微上扬，然后随手把手机放下了。</div>
+<div class="inner-thought">「10亿美金？嗯。那接下来呢？」</div>
+</div></div>
+
+<!-- P24 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p24.jpg" alt="P24" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">中景·温暖</span><span class="mood-tag">快乐生活</span></div>
+<div class="narration">朱江转身面对团队，灿烂地笑着。张强在团队中，老王也在。所有人都在。</div>
+<div class="dialogue">「走，吃火锅。」</div>
+</div></div>
+
+<!-- P25 -->
+<div class="panel">
+<img class="panel-img" data-src="exp-553-system-awakening/p25.jpg" alt="P25" loading="lazy">
+<div class="panel-text">
+<div class="panel-meta"><span class="shot-tag">远景·背影</span><span class="mood-tag">余韵悠长</span></div>
+<div class="narration">朱江走向画面深处，城市黄昏的橙色光线洒在背影上。头顶上方，隐约浮现一行极淡的文字——然后消失了。</div>
+</div></div>
+
+<div class="ending">
+<div class="ghost-text">忠诚度：100%。对象：自己的梦想。</div>
+<br>
+<h2>— 第一章 · 完 —</h2>
+<p style="margin-top:12px;color:#555">朱江·觉醒 | V5 影视分镜剧本</p>
+<p style="margin-top:8px;color:#444;font-size:0.85rem">系统可以关闭，但看人的直觉永远在线。</p>
+</div>
+
+<script>
+// Lazy load images
+document.addEventListener('DOMContentLoaded',()=>{
+  const imgs=document.querySelectorAll('img[data-src]');
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.src=e.target.dataset.src;
+        io.unobserve(e.target);
+      }
+    });
+  },{rootMargin:'200px'});
+  imgs.forEach(i=>io.observe(i));
+
+  // Fade in panels on scroll
+  const panels=document.querySelectorAll('.panel:not(.visible)');
+  const po=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+      }
+    });
+  },{threshold:0.1});
+  panels.forEach(p=>po.observe(p));
+});
+</script>
+</body>
+</html>
