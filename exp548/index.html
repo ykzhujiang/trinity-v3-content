@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>重启·创业之神 — 第一章：系统降临</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story-container{max-width:430px;margin:0 auto;padding:0}
+/* Panel wrapper */
+.panel{position:relative;width:100%;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;height:auto}
+/* Text overlay below image */
+.panel-text{padding:16px 20px;background:linear-gradient(180deg,rgba(10,10,18,0.95),rgba(10,10,18,1));font-size:17px;line-height:1.8;letter-spacing:0.3px}
+.panel-text .shot-info{font-size:12px;color:#5a7a9a;margin-bottom:8px;font-family:monospace}
+.panel-text .dialogue{color:#f0d060;font-size:18px;margin:8px 0}
+.panel-text .inner-voice{color:#80c0ff;font-style:italic;margin:6px 0}
+.panel-text .system-msg{color:#00ff88;font-size:16px;margin:8px 0;padding:8px 12px;border-left:3px solid #00ff88;background:rgba(0,255,136,0.05)}
+.panel-text .system-sarcasm{color:#ff6b6b;font-size:15px;margin:4px 0 4px 16px}
+.panel-text .narration{color:#c0c0c0;margin:6px 0}
+.panel-text .emotion{color:#9a6aff;font-size:13px;margin-top:4px}
+/* Decision panel */
+.decision{background:linear-gradient(135deg,rgba(20,20,40,0.98),rgba(10,30,50,0.98));border:1px solid #2a4a6a;border-radius:12px;margin:16px 8px;padding:20px 16px}
+.decision h3{color:#f0d060;font-size:20px;margin-bottom:12px;text-align:center}
+.decision .option{padding:10px 14px;margin:8px 0;border-radius:8px;border:1px solid #2a3a5a;background:rgba(30,40,60,0.6);font-size:15px;line-height:1.6}
+.decision .option.chosen{border-color:#00ff88;background:rgba(0,255,136,0.1);box-shadow:0 0 12px rgba(0,255,136,0.2)}
+.decision .option .label{font-weight:bold;color:#80c0ff}
+.decision .soul-analysis{margin-top:12px;padding:12px;background:rgba(154,106,255,0.1);border-radius:8px;border:1px solid #5a3a8a}
+.decision .soul-analysis h4{color:#9a6aff;margin-bottom:6px;font-size:14px}
+.decision .soul-analysis p{font-size:14px;line-height:1.7;color:#c0b0e0}
+/* Stat panel */
+.stat-panel{background:linear-gradient(135deg,#0d1520,#1a2535);border:1px solid #1a3a5a;border-radius:16px;margin:16px 8px;padding:20px 16px;font-family:"Courier New",monospace;box-shadow:0 0 30px rgba(0,180,255,0.1)}
+.stat-panel h3{text-align:center;color:#00d4ff;font-size:18px;margin-bottom:16px;text-shadow:0 0 10px rgba(0,212,255,0.3)}
+.stat-row{display:flex;align-items:center;margin:8px 0;font-size:14px}
+.stat-row .stat-name{width:80px;color:#8ab4d4}
+.stat-row .stat-bar{flex:1;height:16px;background:#0a1520;border-radius:8px;overflow:hidden;margin:0 8px}
+.stat-row .stat-bar .fill{height:100%;border-radius:8px;transition:width 1.5s ease}
+.stat-row .stat-val{width:60px;text-align:right;color:#00ff88;font-weight:bold}
+.stat-row .stat-change{color:#ffd700;font-size:12px;margin-left:4px}
+.stat-info{display:flex;justify-content:space-between;margin:6px 0;font-size:13px;color:#6a8aaa}
+.stat-info .val{color:#e0e0e0}
+/* Title */
+.title-screen{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a12 0%,#0d1a2a 50%,#0a0a12 100%);text-align:center;padding:40px 20px}
+.title-screen h1{font-size:32px;color:#00d4ff;text-shadow:0 0 20px rgba(0,212,255,0.4);margin-bottom:8px;letter-spacing:4px}
+.title-screen h2{font-size:20px;color:#f0d060;margin-bottom:24px}
+.title-screen .subtitle{font-size:15px;color:#6a8aaa;line-height:1.8}
+/* Chapter end */
+.chapter-end{padding:40px 20px;text-align:center;background:linear-gradient(180deg,rgba(10,10,18,1),rgba(20,10,10,0.95))}
+.chapter-end .preview{color:#ff6b6b;font-size:16px;line-height:1.8;margin:16px 0;padding:16px;border:1px solid #4a2020;border-radius:12px;background:rgba(255,50,50,0.05)}
+.chapter-end .quote{color:#f0d060;font-size:20px;margin-top:20px}
+/* scroll hint */
+.scroll-hint{text-align:center;padding:20px;color:#4a6a8a;font-size:13px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="story-container">
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <h1>重启·创业之神</h1>
+  <h2>第一章：系统降临</h2>
+  <div class="subtitle">
+    2026年的深夜，一个创业者的意识<br>
+    穿越回了2010年。<br><br>
+    这一次，他带着未来的记忆，<br>
+    和一个不太靠谱的系统。
+  </div>
+  <div class="scroll-hint" style="margin-top:40px">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- P01: 2026深夜办公室 -->
+<div class="panel">
+  <img src="p01.jpg" loading="eager" alt="深夜办公室">
+  <div class="panel-text">
+    <div class="shot-info">【特写 · 俯拍15° · 固定机位】深夜办公室</div>
+    <div class="narration">2026年，凌晨三点。上海，某AI公司总部。</div>
+    <div class="inner-voice">搞了这么多年AI创业，怎么还是在写代码到凌晨三点……</div>
+    <div class="narration">屏幕的蓝光映在朱江疲惫的脸上，桌上的咖啡早就凉了。</div>
+    <div class="emotion">【情绪：疲惫 · 但眼神中有不甘】</div>
+  </div>
+</div>
+
+<!-- P02: 屏幕特写 -->
+<div class="panel">
+  <img src="p02.jpg" loading="lazy" alt="屏幕数据">
+  <div class="panel-text">
+    <div class="shot-info">【极端特写 · 平拍 · 固定】电脑屏幕</div>
+    <div class="narration">Trinity V3系统的数据图表在屏幕上跳动。用户满意度曲线、内容生成指标、Loss值……</div>
+    <div class="inner-voice">这些数字背后，到底是什么？是我十六年创业的全部答案吗？</div>
+  </div>
+</div>
+
+<!-- P03: 头痛 -->
+<div class="panel">
+  <img src="p03.jpg" loading="lazy" alt="头痛">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 荷兰角倾斜 · 动感模糊】办公室</div>
+    <div class="narration">突然，一阵剧烈的头痛袭来——像是有什么东西要从脑子里撕裂出去。</div>
+    <div class="dialogue">"呃啊——！"</div>
+    <div class="narration">椅子猛然后仰，咖啡杯摔碎在地。眼前的一切开始扭曲、旋转……</div>
+    <div class="emotion">【情绪：剧痛 · 失控 · 恐惧】</div>
+  </div>
+</div>
+
+<!-- P04: 时空隧道 -->
+<div class="panel">
+  <img src="p04.jpg" loading="lazy" alt="时空隧道">
+  <div class="panel-text">
+    <div class="shot-info">【全景 · 主观视角 · 高速推进】时空隧道</div>
+    <div class="narration">意识坠入无尽的光之隧道。2026……2020……2015……2010——</div>
+    <div class="narration">时间碎片在身边飞速掠过。每一片都是一段记忆，一个转折，一次选择。</div>
+    <div class="inner-voice">如果……能重来一次……</div>
+  </div>
+</div>
+
+<!-- P05: 醒来 -->
+<div class="panel">
+  <img src="p05.jpg" loading="lazy" alt="铁架床">
+  <div class="panel-text">
+    <div class="shot-info">【远景 · 俯拍 · 固定】上海闵行合租房</div>
+    <div class="narration">朱江猛然坐起。</div>
+    <div class="narration">吱呀作响的铁架床。贴满海报的墙。方便面味道。诺基亚N73。</div>
+    <div class="narration">日历上的数字像一把锤子砸进脑子——</div>
+    <div class="dialogue">"2010年……3月15号？！"</div>
+    <div class="emotion">【情绪：极度震惊 · 不可置信 · 瞳孔放大】</div>
+  </div>
+</div>
+
+<!-- P06: 系统降临 -->
+<div class="panel">
+  <img src="p06.jpg" loading="lazy" alt="系统降临">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 仰拍 · 固定】合租房</div>
+    <div class="system-msg">叮——创业之神系统已绑定宿主·朱江。</div>
+    <div class="system-msg">检测到宿主携带16年未来记忆，正在初始化属性面板……</div>
+    <div class="narration">一块半透明的蓝色全息面板凭空浮现在眼前，粒子光效在空中飘散。</div>
+    <div class="dialogue">"这什么……游戏界面？？"</div>
+    <div class="emotion">【情绪：又惊又喜 · 张大嘴巴】</div>
+  </div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision">
+  <h3>⚡ 决策点一：选择初始天赋</h3>
+  <div class="option"><span class="label">A）未来先知</span> — 精确记忆未来3年所有科技大事件时间线。稳健流，降低风险。</div>
+  <div class="option chosen"><span class="label">B）人心洞察 ✓</span> — 一眼看穿任何人的真实意图和能力值。社交流，组建团队。</div>
+  <div class="option"><span class="label">C）代码之神</span> — 编程能力直接拉满到2026年水准。技术流，产品碾压。</div>
+  <div class="soul-analysis">
+    <h4>🧠 朱江的选择逻辑</h4>
+    <p>黑客基因让他想看懂"人这个系统"。十六年创业经验告诉他——技术不是瓶颈，人才是。未来记忆本身已经覆盖了A的部分功能。菩萨心肠——他想真正理解人，而不只是利用信息差。</p>
+  </div>
+</div>
+
+<!-- P07: 三选项界面 -->
+<div class="panel">
+  <img src="p07.jpg" loading="lazy" alt="三选项">
+  <div class="panel-text">
+    <div class="shot-info">【特写 · 平拍 · 固定】面部+全息UI</div>
+    <div class="narration">三个发光的选项卡在面前悬浮。蓝色、绿色、紫色——三种光映在朱江的脸上。</div>
+    <div class="inner-voice">代码之神？未来的代码我都会写，这个意义不大。未来先知？记忆本身就是最大的先知。但人心……</div>
+    <div class="inner-voice">十六年来最大的教训是什么？不是技术不够强，是看不懂人心。</div>
+  </div>
+</div>
+
+<!-- P08: 选择确认 -->
+<div class="panel">
+  <img src="p08.jpg" loading="lazy" alt="选择人心洞察">
+  <div class="panel-text">
+    <div class="shot-info">【特写 · 平拍 · 固定】手部+光效</div>
+    <div class="narration">手指坚定地触碰绿色选项——</div>
+    <div class="narration">绿色粒子从指尖爆发，扩散到整个房间。</div>
+    <div class="system-msg">天赋【人心洞察】已激活。宿主将获得识别他人核心属性的能力。</div>
+    <div class="system-sarcasm">系统吐槽：建议选C，毕竟宿主2010年的代码水平……算了不说了。</div>
+    <div class="dialogue">"你才代码烂！我当年可是交大计算机系的！"</div>
+    <div class="system-sarcasm">系统：是的，所以才建议选C。</div>
+    <div class="emotion">【情绪：又好气又好笑】</div>
+  </div>
+</div>
+
+<!-- Stat Panel: Initial -->
+<div class="stat-panel" id="stat-initial">
+  <h3>━━ 创业之神系统 · 宿主档案 ━━</h3>
+  <div style="text-align:center;color:#8ab4d4;margin-bottom:12px">
+    姓名：朱江 ｜ 等级：Lv.1 搬砖程序员
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">商业直觉</span>
+    <div class="stat-bar"><div class="fill" style="width:42%;background:linear-gradient(90deg,#ff6b35,#ff9a56)"></div></div>
+    <span class="stat-val">42</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">技术能力</span>
+    <div class="stat-bar"><div class="fill" style="width:71%;background:linear-gradient(90deg,#00b4d8,#48cae4)"></div></div>
+    <span class="stat-val">71</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">人脉网络</span>
+    <div class="stat-bar"><div class="fill" style="width:18%;background:linear-gradient(90deg,#9a6aff,#c09aff)"></div></div>
+    <span class="stat-val">18</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">领导力</span>
+    <div class="stat-bar"><div class="fill" style="width:29%;background:linear-gradient(90deg,#f0d060,#ffe08a)"></div></div>
+    <span class="stat-val">29</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">运气值</span>
+    <div class="stat-bar"><div class="fill" style="width:55%;background:linear-gradient(90deg,#00ff88,#66ffbb)"></div></div>
+    <span class="stat-val">55</span>
+  </div>
+  <div style="margin-top:12px;border-top:1px solid #1a3a5a;padding-top:12px">
+    <div class="stat-info"><span>天赋</span><span class="val" style="color:#00ff88">【人心洞察】已激活</span></div>
+    <div class="stat-info"><span>💰 资产</span><span class="val">47,832元</span></div>
+    <div class="stat-info"><span>📱 手机</span><span class="val">诺基亚N73</span></div>
+    <div class="stat-info"><span>🏠 住所</span><span class="val">上海闵行合租房</span></div>
+  </div>
+</div>
+
+<!-- P09 -->
+<div class="panel">
+  <img src="p09.jpg" loading="lazy" alt="属性面板全貌">
+  <div class="panel-text">
+    <div class="shot-info">【全景 · 平拍 · 缓慢推进】合租房</div>
+    <div class="narration">朱江双手叉腰，看着面前这个荒诞又真实的游戏面板。</div>
+    <div class="dialogue">"商业直觉42，人脉18……"</div>
+    <div class="inner-voice">2010年的我，确实就是这样——一个只会写代码的愣头青。</div>
+    <div class="inner-voice">但这次不一样了。</div>
+    <div class="emotion">【情绪：自信 · 嘴角上翘 · 蓄势待发】</div>
+  </div>
+</div>
+
+<!-- P10 -->
+<div class="panel">
+  <img src="p10.jpg" loading="lazy" alt="面板特写">
+  <div class="panel-text">
+    <div class="shot-info">【极端特写 · 固定】属性面板UI</div>
+    <div class="narration">面板上的数值微微跳动，像是有生命一样。每一个数字都代表着他在这个世界的起跑线。</div>
+    <div class="system-msg">系统提示：宿主当前综合战斗力排名——全国创业者第2,847,391名。加油。</div>
+    <div class="dialogue">"……你这个系统是来帮忙的还是来打击人的？"</div>
+    <div class="system-sarcasm">系统：客观数据不带感情色彩。但如果宿主需要，我可以加个鼓励表情：💪</div>
+  </div>
+</div>
+
+<!-- P11: 走进办公室 -->
+<div class="panel">
+  <img src="p11.jpg" loading="lazy" alt="2010年办公室">
+  <div class="panel-text">
+    <div class="shot-info">【远景 · 跟随镜头 · 缓慢横移】2010年互联网公司</div>
+    <div class="narration">第二天早上。朱江走进公司，一切都是记忆中的样子。</div>
+    <div class="narration">灰色格子间、CRT显示器、老式饮水机咕嘟咕嘟响……</div>
+    <div class="inner-voice">十六年后再看这个办公室，竟然有一种莫名的亲切感。</div>
+  </div>
+</div>
+
+<!-- P12: XP开机 -->
+<div class="panel">
+  <img src="p12.jpg" loading="lazy" alt="Windows XP">
+  <div class="panel-text">
+    <div class="shot-info">【特写 · 过肩镜头 · 固定】朱江工位</div>
+    <div class="narration">打开电脑，经典的蓝天白云桌面缓缓出现。</div>
+    <div class="narration">朱江差点笑出声。</div>
+    <div class="inner-voice">Windows XP……我的青春啊。2026年的系统要是有你一半稳定就好了。</div>
+    <div class="system-sarcasm">系统冷不丁插嘴：宿主现在的心情，和你2026年看到Windows 95的反应一模一样。</div>
+  </div>
+</div>
+
+<!-- P13: 人心洞察-李工 -->
+<div class="panel">
+  <img src="p13.jpg" loading="lazy" alt="扫描李工">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 朱江主观视角 · 浅景深】工位区</div>
+    <div class="narration">【人心洞察】自动激活——</div>
+    <div class="narration">看向隔壁工位的李工，他头顶浮现一串半透明数据：</div>
+    <div class="system-msg">李工（前端）：忠诚度85 / 能力62 / 野心30<br>隐藏属性：有一个改变行业的idea但不敢说</div>
+    <div class="inner-voice">有意思……老李这家伙，原来一直藏着个好点子。</div>
+  </div>
+</div>
+
+<!-- P14: 人心洞察-王姐 -->
+<div class="panel">
+  <img src="p14.jpg" loading="lazy" alt="扫描王姐">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 侧拍 · 固定】会议室</div>
+    <div class="narration">目光转向正在讲产品方案的王姐——</div>
+    <div class="system-msg">王姐（产品）：忠诚度45 / 能力78 / 野心90<br>⚠ 隐藏属性：3个月后跳槽去腾讯</div>
+    <div class="inner-voice">怪不得当年她突然离职，原来早就在物色下家了。</div>
+    <div class="inner-voice">能力78，确实是个人才。可惜留不住。</div>
+  </div>
+</div>
+
+<!-- P15: 人心洞察-张总 -->
+<div class="panel">
+  <img src="p15.jpg" loading="lazy" alt="扫描张总">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 仰拍 · 固定】老板办公室外</div>
+    <div class="narration">最后看向玻璃办公室里打电话的张总——</div>
+    <div class="system-msg">张总（老板）：忠诚度?? / 能力55 / 野心99<br>🔴 隐藏属性：正在和投资人密谈卖公司</div>
+    <div class="emotion">【情绪：凝重 · 瞳孔微缩】</div>
+  </div>
+</div>
+
+<!-- P16: 震惊 -->
+<div class="panel">
+  <img src="p16.jpg" loading="lazy" alt="震惊">
+  <div class="panel-text">
+    <div class="shot-info">【面部大特写 · 平拍 · 固定】</div>
+    <div class="inner-voice">好家伙……原来当年公司是这么散的。</div>
+    <div class="inner-voice">老板要卖公司，产品骨干要跳槽，前端藏着idea不敢说——</div>
+    <div class="inner-voice">而我当时什么都不知道，每天傻乎乎996。</div>
+    <div class="system-sarcasm">系统温馨提示：检测到宿主正在摸鱼看同事属性，已自动帮您打开IDE假装在写代码。请注意职业素养。</div>
+    <div class="dialogue">"……你还挺贴心。"</div>
+  </div>
+</div>
+
+<!-- P17: 发现密谈 -->
+<div class="panel">
+  <img src="p17.jpg" loading="lazy" alt="老板密谈">
+  <div class="panel-text">
+    <div class="shot-info">【远景 · 偷窥视角 · 门缝构图】老板办公室</div>
+    <div class="narration">午休时间，朱江"路过"老板办公室。</div>
+    <div class="narration">透过半掩的百叶窗，清楚地看到——张总在和一个西装笔挺的陌生男人握手。桌上摊着厚厚的合同文件。</div>
+    <div class="inner-voice">来了。收购谈判。</div>
+    <div class="inner-voice">历史上这笔交易三个月后完成，普通员工一分钱没拿到。</div>
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision">
+  <h3>⚡ 决策点二：老板要卖公司</h3>
+  <div class="option"><span class="label">A）提前辞职</span> — 拿着5万块直接开始创业，快刀斩乱麻。</div>
+  <div class="option chosen"><span class="label">B）找老板摊牌 ✓</span> — 要求参与谈判，争取所有员工的利益。</div>
+  <div class="option"><span class="label">C）暗度陈仓</span> — 假装不知道，偷偷挖人组建自己的团队。</div>
+  <div class="option"><span class="label">D）买入股权</span> — 利用信息差，赚第一桶金。</div>
+  <div class="soul-analysis">
+    <h4>🧠 朱江的选择逻辑</h4>
+    <p>菩萨心肠——不可能眼看同事被坑而不说。霹雳手段——直接摊牌而非偷偷摸摸。不会选D——不是靠信息差投机的人，是创造者。选A太草率，选C太阴——都不是朱江的风格。</p>
+  </div>
+</div>
+
+<!-- P18: 纠结 -->
+<div class="panel">
+  <img src="p18.jpg" loading="lazy" alt="纠结">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 荷兰角 · 固定】茶水间</div>
+    <div class="narration">茶水间里，朱江靠着墙，双臂抱胸。</div>
+    <div class="system-msg">支线任务触发：利用信息差炒股赚100万。<br>奖励：商业直觉+10</div>
+    <div class="dialogue">"不做。"</div>
+    <div class="system-sarcasm">系统：……宿主你确定吗？这是白给的钱。</div>
+    <div class="dialogue">"确定。我靠本事赚钱。"</div>
+    <div class="system-sarcasm">系统：记录宿主选择：放弃白嫖。道德值+5，智商评估-10。</div>
+    <div class="dialogue">"你说什么？！"</div>
+    <div class="system-sarcasm">系统：没什么。</div>
+  </div>
+</div>
+
+<!-- P19: 摊牌推门 -->
+<div class="panel">
+  <img src="p19.jpg" loading="lazy" alt="推门摊牌">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 低角度仰拍 · 固定】老板办公室门口</div>
+    <div class="narration">深吸一口气。</div>
+    <div class="narration">朱江推开了老板办公室的门。逆光中，他的身影坚毅而果决。</div>
+    <div class="inner-voice">菩萨心肠，霹雳手段。该出手时就出手。</div>
+    <div class="emotion">【情绪：下定决心 · 眼神锐利】</div>
+  </div>
+</div>
+
+<!-- P20: 对峙 -->
+<div class="panel">
+  <img src="p20.jpg" loading="lazy" alt="对峙">
+  <div class="panel-text">
+    <div class="shot-info">【双人中景 · 对称构图 · 固定】老板办公室</div>
+    <div class="dialogue">"张总，我知道您在谈收购。"</div>
+    <div class="narration">张总的表情从惊讶到震怒到沉默，最后变成了一种复杂的凝视。</div>
+    <div class="dialogue">"……你怎么知道的？"</div>
+    <div class="dialogue">"不重要。重要的是——兄弟们跟您干了三年，总不能什么都不给吧？"</div>
+    <div class="narration">百叶窗的光影打在两个人脸上，一条一条，像是天平的刻度。</div>
+    <div class="emotion">【情绪：紧张对峙 · 但朱江内心平静】</div>
+  </div>
+</div>
+
+<!-- P21: 技术沙龙 -->
+<div class="panel">
+  <img src="p21.jpg" loading="lazy" alt="技术沙龙">
+  <div class="panel-text">
+    <div class="shot-info">【全景 · 平拍 · 缓慢横摇】咖啡馆</div>
+    <div class="narration">周末，一场小型技术沙龙。2010年的技术圈还很纯粹——十几个年轻人挤在一间咖啡馆里，聊的都是梦想。</div>
+    <div class="narration">朱江坐在角落，啜着美式咖啡，默默观察。</div>
+    <div class="inner-voice">这里面有没有……未来的合伙人？</div>
+  </div>
+</div>
+
+<!-- P22: 发现陈默 -->
+<div class="panel">
+  <img src="p22.jpg" loading="lazy" alt="发现陈默">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 浅景深 · 固定】咖啡馆角落</div>
+    <div class="narration">然后他看到了一个人。</div>
+    <div class="narration">角落里，一个瘦高的年轻人独自坐着，戴黑框眼镜，低头看手机，浑身散发着"别过来"的气场。</div>
+    <div class="narration">【人心洞察】自动激活——</div>
+    <div class="emotion">【情绪：瞬间锁定 · 眼睛亮了】</div>
+  </div>
+</div>
+
+<!-- P23: 扫描陈默 -->
+<div class="panel">
+  <img src="p23.jpg" loading="lazy" alt="扫描陈默">
+  <div class="panel-text">
+    <div class="shot-info">【特写 · 侧面 · 数据叠加】陈默</div>
+    <div class="system-msg">陈默 · 25岁<br>忠诚度：92 / 能力：88 / 野心：75<br>🌟 隐藏属性：未来独角兽CTO潜质<br>当前状态：迷茫，刚从大公司裸辞<br>缺陷：社恐严重，不擅长表达</div>
+    <div class="inner-voice">能力88……忠诚度92……这数据简直是梦幻合伙人。</div>
+    <div class="inner-voice">可是2010年的他，只是一个被全世界忽视的裸辞程序员。</div>
+  </div>
+</div>
+
+<!-- DECISION 3 -->
+<div class="decision">
+  <h3>⚡ 决策点三：如何接近陈默</h3>
+  <div class="option"><span class="label">A）展示远见</span> — 直接邀请创业，用移动互联网爆发预判来说服他。</div>
+  <div class="option chosen"><span class="label">B）先交朋友 ✓</span> — 帮他解决眼前困境，建立信任后再聊。</div>
+  <div class="option"><span class="label">C）精准打击</span> — 用人心洞察找到痛点，让他无法拒绝。</div>
+  <div class="soul-analysis">
+    <h4>🧠 朱江的选择逻辑</h4>
+    <p>菩萨心肠——先帮人，不功利。创业经验——知道合伙人信任比能力更重要，急不来。不会选C——虽然能看到痛点，但操控人不是朱江的风格。黑客思维是"理解系统"而非"操控系统"。</p>
+  </div>
+</div>
+
+<!-- P24: 走向陈默 -->
+<div class="panel">
+  <img src="p24.jpg" loading="lazy" alt="走向陈默">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 跟随镜头 · 缓慢推进】咖啡馆</div>
+    <div class="narration">朱江端起两杯咖啡，走向角落。</div>
+    <div class="system-sarcasm">系统建议：使用【人心洞察】进行精准社交攻略。</div>
+    <div class="dialogue">"我交朋友不需要攻略。"</div>
+    <div class="system-sarcasm">系统：提醒宿主，您2010年的人脉值只有18。</div>
+    <div class="dialogue">"那就从19开始涨呗。"</div>
+    <div class="system-sarcasm">系统：……好的。已记录宿主选择：佛系社交。人脉经验+1。</div>
+  </div>
+</div>
+
+<!-- P25: 两人交谈 -->
+<div class="panel">
+  <img src="p25.jpg" loading="lazy" alt="交谈">
+  <div class="panel-text">
+    <div class="shot-info">【双人中景 · 平拍 · 固定】咖啡馆角落</div>
+    <div class="dialogue">"你好，我叫朱江，也是程序员。看你一个人坐着，请你喝杯咖啡。"</div>
+    <div class="narration">陈默抬头，警惕地看了一眼，但还是接过了咖啡。</div>
+    <div class="dialogue">"……谢谢。我叫陈默。"</div>
+    <div class="narration">聊了十分钟。从技术框架聊到创业想法，从行业趋势聊到人生迷茫。</div>
+    <div class="narration">陈默的防线一点一点松下来。</div>
+    <div class="emotion">【情绪：从防备→放松→微笑】</div>
+  </div>
+</div>
+
+<!-- P26: 陈默眼中有光 -->
+<div class="panel">
+  <img src="p26.jpg" loading="lazy" alt="陈默有光">
+  <div class="panel-text">
+    <div class="shot-info">【面部特写 · 平拍 · 固定】陈默</div>
+    <div class="narration">当朱江说到"我觉得移动互联网会改变一切"的时候——</div>
+    <div class="narration">陈默的眼睛亮了。</div>
+    <div class="narration">那是一种被理解的光，一种找到同类的光。</div>
+    <div class="dialogue">"你……你也这么想？公司里没人相信我说的。"</div>
+    <div class="inner-voice">（朱江）：这个人，值得等。</div>
+    <div class="emotion">【情绪：感动 · 被看见的喜悦】</div>
+  </div>
+</div>
+
+<!-- P27: 辞职 -->
+<div class="panel">
+  <img src="p27.jpg" loading="lazy" alt="辞职">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 平拍 · 固定】办公室工位</div>
+    <div class="narration">月底。在和张总的博弈中，朱江帮核心团队争取到了不错的离职补偿。</div>
+    <div class="narration">然后他收拾了自己的工位——仙人掌盆栽、几本技术书、一张泛黄的照片。</div>
+    <div class="dialogue">"走了，兄弟们。后会有期。"</div>
+    <div class="system-msg">系统：任务完成——摊牌老板。奖励：领导力+4，人脉+3。</div>
+    <div class="emotion">【情绪：轻松自在 · 卸下重担 · 蓄势待发】</div>
+  </div>
+</div>
+
+<!-- P28: ThinkPad -->
+<div class="panel">
+  <img src="p28.jpg" loading="lazy" alt="ThinkPad">
+  <div class="panel-text">
+    <div class="shot-info">【特写 · 俯拍 · 固定】合租房书桌</div>
+    <div class="narration">全部家当：一台ThinkPad、一叠写满笔记的A4纸、计算器上显示的数字——47,832。</div>
+    <div class="inner-voice">四万七千八百三十二块。这是我重新开始的全部筹码。</div>
+    <div class="inner-voice">2026年的我，管着几千万的项目。2010年的我，连房租都要精打细算。</div>
+    <div class="inner-voice">……但奇怪的是，此刻我比任何时候都兴奋。</div>
+  </div>
+</div>
+
+<!-- DECISION 4 -->
+<div class="decision">
+  <h3>⚡ 决策点四：选择第一个创业方向</h3>
+  <div class="option"><span class="label">A）团购</span> — 现在入场正好，知道美团模式会赢，可以抄作业。</div>
+  <div class="option"><span class="label">B）移动工具App</span> — 不追风口，做真正有用的工具，慢但壁垒高。</div>
+  <div class="option"><span class="label">C）移动社交</span> — 2010年还是空白市场，虽然微信会出来，但细分赛道有机会。</div>
+  <div class="option chosen"><span class="label">D）内容平台 ✓</span> — 短视频/内容分发，现在太早但可以先做图文版，积累生态。</div>
+  <div class="soul-analysis">
+    <h4>🧠 朱江的选择逻辑</h4>
+    <p>内容是朱江骨子里的方向——终极使命就是"AIGC娱乐内容平台"。不会选A——抄作业不是创造者的风格。B太无聊——朱江是有野心的人。黑客思维：4G没有？先做图文版，等基础设施到了再升级。</p>
+  </div>
+</div>
+
+<!-- P29: 四选项 -->
+<div class="panel">
+  <img src="p29.jpg" loading="lazy" alt="四个方向">
+  <div class="panel-text">
+    <div class="shot-info">【全景 · 平拍 · 固定】合租房，科幻感</div>
+    <div class="narration">四个巨大的全息投影在合租房里旋转。团购、工具、社交、内容——四条截然不同的路。</div>
+    <div class="inner-voice">我知道团购最赚快钱。我知道工具最稳。我知道社交最大。</div>
+    <div class="inner-voice">但……</div>
+    <div class="narration">目光不由自主地锁定在"内容平台"的全息投影上。</div>
+  </div>
+</div>
+
+<!-- P30: 瞳孔放大 -->
+<div class="panel">
+  <img src="p30.jpg" loading="lazy" alt="瞳孔放大">
+  <div class="panel-text">
+    <div class="shot-info">【极端特写 · 平拍 · 固定】朱江瞳孔</div>
+    <div class="system-sarcasm">系统分析完毕：以宿主当前资产47,832元入场团购赛道，预计存活时间——17天。</div>
+    <div class="dialogue">"……那做内容呢？"</div>
+    <div class="system-sarcasm">系统：预计存活时间——16天。但会死得更有尊严。</div>
+    <div class="dialogue">"我选D。"</div>
+    <div class="system-sarcasm">系统：已记录。顺便说一句——宿主查看团购分析时，眼睛完全没亮。看到内容平台时瞳孔放大了0.3毫米。</div>
+    <div class="system-sarcasm">所以您的选择，系统早就知道了。</div>
+  </div>
+</div>
+
+<!-- P31: 选择确认 -->
+<div class="panel">
+  <img src="p31.jpg" loading="lazy" alt="选择内容">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 低角度仰拍 · 固定】合租房</div>
+    <div class="narration">手触碰到"内容平台"的全息选项的瞬间——金色光芒爆发。</div>
+    <div class="narration">其他三个选项渐渐暗淡、消散。</div>
+    <div class="inner-voice">内容。永远是内容。</div>
+    <div class="inner-voice">无论2010年还是2026年，我的答案从来没变过。</div>
+    <div class="emotion">【情绪：坚定 · 兴奋 · 使命感】</div>
+  </div>
+</div>
+
+<!-- P32: 系统吐槽 -->
+<div class="panel">
+  <img src="p32.jpg" loading="lazy" alt="系统吐槽">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 平拍 · 固定】合租房</div>
+    <div class="dialogue">"行了行了，别在那幸灾乐祸了。"</div>
+    <div class="system-msg">系统：谁幸灾乐祸了？我这是在为宿主的浪漫主义创业精神鼓掌。</div>
+    <div class="system-sarcasm">系统：👏👏👏（此处掌声由系统自动生成，不代表真实情感）</div>
+    <div class="dialogue">"……你这个破系统，嘴是真的毒。"</div>
+    <div class="system-sarcasm">系统：感谢宿主好评。毒舌系统，为您服务。</div>
+    <div class="emotion">【情绪：又好气又好笑 · 但心情很好】</div>
+  </div>
+</div>
+
+<!-- P33: 深夜写代码 -->
+<div class="panel">
+  <img src="p33.jpg" loading="lazy" alt="深夜敲代码">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 侧面剪影 · 固定】合租房深夜</div>
+    <div class="narration">深夜。上海闵行的出租屋里，只有ThinkPad屏幕的光。</div>
+    <div class="narration">朱江的手指在键盘上飞快跳动。一行一行代码，构建着一个还不存在的世界。</div>
+    <div class="inner-voice">十六年前，我也是这样开始的。</div>
+    <div class="inner-voice">不，不一样。这一次，我知道终点在哪里。</div>
+    <div class="inner-voice">这一次，我不会走弯路。</div>
+  </div>
+</div>
+
+<!-- P34: 升级动画 -->
+<div class="panel">
+  <img src="p34.jpg" loading="lazy" alt="升级">
+  <div class="panel-text">
+    <div class="shot-info">【全景 · 平拍 · 华丽特效】合租房</div>
+    <div class="system-msg">🎊 第一章任务全部完成！</div>
+    <div class="system-msg">决策评分：S级（4/4最优解）<br>获得经验：+200<br>等级提升：Lv.1 搬砖程序员 → Lv.2 草根创业者</div>
+    <div class="narration">金色和蓝色的光柱从地板升起，粒子特效在空中飘散。</div>
+    <div class="narration">朱江仰头微笑，被光芒笼罩。</div>
+    <div class="system-sarcasm">系统：恭喜宿主从"搬砖程序员"升级为"草根创业者"。虽然听起来没什么区别，但至少title变了。</div>
+  </div>
+</div>
+
+<!-- Upgraded Stat Panel -->
+<div class="stat-panel">
+  <h3>━━ 创业之神系统 · 等级提升！━━</h3>
+  <div style="text-align:center;color:#ffd700;margin-bottom:12px">
+    等级：Lv.2 草根创业者 ⬆
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">商业直觉</span>
+    <div class="stat-bar"><div class="fill" style="width:48%;background:linear-gradient(90deg,#ff6b35,#ff9a56)"></div></div>
+    <span class="stat-val">48</span><span class="stat-change">↑6</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">技术能力</span>
+    <div class="stat-bar"><div class="fill" style="width:71%;background:linear-gradient(90deg,#00b4d8,#48cae4)"></div></div>
+    <span class="stat-val">71</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">人脉网络</span>
+    <div class="stat-bar"><div class="fill" style="width:25%;background:linear-gradient(90deg,#9a6aff,#c09aff)"></div></div>
+    <span class="stat-val">25</span><span class="stat-change">↑7</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">领导力</span>
+    <div class="stat-bar"><div class="fill" style="width:33%;background:linear-gradient(90deg,#f0d060,#ffe08a)"></div></div>
+    <span class="stat-val">33</span><span class="stat-change">↑4</span>
+  </div>
+  <div class="stat-row">
+    <span class="stat-name">运气值</span>
+    <div class="stat-bar"><div class="fill" style="width:55%;background:linear-gradient(90deg,#00ff88,#66ffbb)"></div></div>
+    <span class="stat-val">55</span>
+  </div>
+  <div style="margin-top:12px;border-top:1px solid #1a3a5a;padding-top:12px">
+    <div class="stat-info"><span>💰 资产</span><span class="val">42,100元 <span style="color:#ff6b6b">(-5,732)</span></span></div>
+    <div class="stat-info"><span>🏠 住所</span><span class="val">朝南小单间 ⬆</span></div>
+    <div class="stat-info"><span>👥 队伍</span><span class="val">陈默（未正式入伙）</span></div>
+  </div>
+</div>
+
+<!-- P35 -->
+<div class="panel">
+  <img src="p35.jpg" loading="lazy" alt="新面板">
+  <div class="panel-text">
+    <div class="shot-info">【特写 · 固定】升级后属性面板</div>
+    <div class="narration">面板上的数值闪着金色的增长箭头。虽然每个属性只涨了几个点，但这是真实的成长。</div>
+    <div class="inner-voice">从18到25的人脉值，只是因为真诚地交了一个朋友。</div>
+    <div class="inner-voice">这就够了。</div>
+  </div>
+</div>
+
+<!-- P36: 天台并肩 -->
+<div class="panel">
+  <img src="p36.jpg" loading="lazy" alt="天台并肩">
+  <div class="panel-text">
+    <div class="shot-info">【双人中景 · 背影 · 固定】天台</div>
+    <div class="narration">天台。夕阳把整个上海染成金色。</div>
+    <div class="narration">朱江和陈默并肩站着，眺望远方的城市天际线。</div>
+    <div class="dialogue">"陈默，你相信移动互联网会改变一切吗？"</div>
+    <div class="dialogue">"……以前不太信。但你刚才说的那些，让我觉得好像真的会。"</div>
+    <div class="dialogue">"那——愿不愿意一起试试？"</div>
+    <div class="narration">陈默沉默了很久。然后轻轻点了点头。</div>
+    <div class="emotion">【情绪：温暖 · 夕阳余晖 · 梦开始的地方】</div>
+  </div>
+</div>
+
+<!-- P37: 第一行代码 -->
+<div class="panel">
+  <img src="p37.jpg" loading="lazy" alt="第一行代码">
+  <div class="panel-text">
+    <div class="shot-info">【极端特写 · 固定】ThinkPad屏幕</div>
+    <div class="narration">光标在黑色的代码编辑器上闪烁。</div>
+    <div class="narration">朱江敲下了第一行代码——这是一个内容平台的第一个字符。</div>
+    <div class="inner-voice">2010年。内容平台。5万块钱。一个社恐的合伙人。一个毒舌的系统。</div>
+    <div class="inner-voice">就这么开始吧。</div>
+  </div>
+</div>
+
+<!-- P38: 悬念钩子 -->
+<div class="panel">
+  <img src="p38.jpg" loading="lazy" alt="下章预告">
+  <div class="panel-text">
+    <div class="shot-info">【中景 · 平拍 · 固定】合租房深夜</div>
+    <div class="narration">就在朱江沉浸在代码中的时候——</div>
+    <div class="narration">系统面板突然亮起刺眼的红色警告。</div>
+    <div class="system-msg" style="border-left-color:#ff3333;color:#ff3333;background:rgba(255,50,50,0.08)">⚠ 紧急警报：检测到异常穿越信号。<br>距离宿主当前位置：3.2公里。<br>信号特征：与宿主穿越方式高度相似。</div>
+    <div class="narration">朱江盯着屏幕，嘴角缓缓上翘。</div>
+    <div class="dialogue">"有意思。"</div>
+  </div>
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end">
+  <div class="preview">
+    <strong style="color:#ff6b6b;font-size:18px">📖 下一章预告</strong><br><br>
+    宿主将遭遇第一个真正的对手——<br>
+    一个同样从未来穿越回来的人。<br><br>
+    而且，他选择的是A选项。<br><br>
+    <span style="color:#f0d060">他已经开始了团购大战。</span>
+  </div>
+  <div class="quote">"有意思。"</div>
+  <div style="margin-top:30px;color:#4a6a8a;font-size:13px">
+    — 重启·创业之神 · 第一章 完 —<br>
+    EXP-548 · Trinity V3
+  </div>
+</div>
+
+</div>
+
+<script>
+// Lazy reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.panel, .decision, .stat-panel, .chapter-end').forEach(el => observer.observe(el));
+
+// Stat bar animation
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => { bar.style.width = w; }, 100);
+      });
+      statObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stat-panel').forEach(el => statObserver.observe(el));
+</script>
+</body>
+</html>
