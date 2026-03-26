@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>灵根觉醒 · 第一章：编译天道</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e8e8f0;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif;overflow-x:hidden;line-height:1.8}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a12 0%,#0f1428 50%,#1a0f2e 100%);text-align:center;padding:20px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 60%,rgba(100,60,255,0.15),transparent 70%);pointer-events:none}
+.cover h1{font-size:2.2rem;background:linear-gradient(135deg,#7c6cff,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;font-weight:900;letter-spacing:2px;text-shadow:0 0 40px rgba(100,60,255,0.3)}
+.cover .subtitle{font-size:1.1rem;color:#8888aa;margin-bottom:20px}
+.cover .hint{font-size:0.85rem;color:#555;margin-top:40px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.5}50%{opacity:1}}
+
+.panel{width:100%;max-width:420px;margin:0 auto;padding:0 12px;margin-bottom:4px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:8px;display:block}
+.panel .text{padding:14px 8px;font-size:1.1rem;line-height:1.9}
+.panel .text .dialogue{color:#7ce0ff;font-weight:600}
+.panel .text .thought{color:#c4a0ff;font-style:italic}
+.panel .text .narration{color:#ccc}
+.panel .text .cat{color:#ffb347;font-weight:600}
+.panel .text .scene-tag{display:inline-block;background:rgba(100,60,255,0.2);color:#9d8cff;padding:2px 10px;border-radius:4px;font-size:0.8rem;margin-bottom:8px}
+.panel .text .decision{background:linear-gradient(135deg,rgba(100,60,255,0.15),rgba(0,200,255,0.1));border-left:3px solid #7c6cff;padding:12px;border-radius:0 8px 8px 0;margin:10px 0}
+.panel .text .decision .label{color:#7c6cff;font-weight:700;font-size:0.9rem;margin-bottom:6px}
+.panel .text .decision .chosen{color:#00d4ff;font-weight:600}
+.panel .text .decision .rejected{color:#666;text-decoration:line-through;font-size:0.95rem}
+
+.scene-divider{text-align:center;padding:30px 0;color:#444;font-size:0.85rem;letter-spacing:6px}
+
+.chapter-end{text-align:center;padding:60px 20px;background:linear-gradient(180deg,#0a0a12,#1a0f2e)}
+.chapter-end .suspense{font-size:1.15rem;color:#9d8cff;line-height:2;margin-bottom:30px}
+.chapter-end .next{font-size:0.9rem;color:#555}
+
+footer{text-align:center;padding:30px;color:#333;font-size:0.75rem}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>灵根觉醒</h1>
+<div class="subtitle">第一章：编译天道</div>
+<p style="color:#666;font-size:0.9rem">V5 · 虚拟朱江走进故事世界</p>
+<div class="hint">↓ 向下滚动开始阅读</div>
+</div>
+
+<!-- Scene 1: 深夜办公室 -->
+<div class="panel"><img src="images/f01.jpg" loading="lazy" alt="深夜办公室"><div class="text">
+<span class="scene-tag">凌晨 3:30 · 公司办公室</span><br>
+<span class="narration">又是一个通宵。AI模型跑了72小时终于收敛了，我盯着loss曲线从悬崖跌落到谷底，像看着一个奇迹在显示器上降临。</span>
+</div></div>
+
+<div class="panel"><img src="images/f02.jpg" loading="lazy" alt="盯着代码"><div class="text">
+<span class="narration">屏幕上的代码在我眼前模糊又清晰。整整三天三夜，只靠咖啡和大橘的体温撑过来。</span><br>
+<span class="thought">（老子终于把这破模型调通了……等等，这段代码——）</span>
+</div></div>
+
+<div class="panel"><img src="images/f03.jpg" loading="lazy" alt="大橘霸占键盘"><div class="text">
+<span class="cat">大橘四仰八叉趴在键盘上，左爪精准地按住了Delete键。</span><br>
+<span class="thought">（这猫迟早要把我的代码全删了。但现在不是处理它的时候——）</span>
+</div></div>
+
+<div class="panel"><img src="images/f04.jpg" loading="lazy" alt="代码自动变化"><div class="text">
+<span class="narration">代码在自己变。</span><br>
+<span class="narration">不是bug，不是大橘踩键盘，是真的在——自己——变。一行行从未见过的符号从屏幕底端涌上来，形成了某种函数结构。它不是任何我认识的编程语言，但有递归、有条件判断、有内存分配。</span>
+</div></div>
+
+<div class="panel"><img src="images/f05.jpg" loading="lazy" alt="朱江震惊"><div class="text">
+<span class="thought">（什么鬼？这不是Python，不是Rust，不是LISP……但它有结构。有逻辑。这是某种——程序？）</span><br>
+<span class="narration">我的困意瞬间全消了。</span>
+</div></div>
+
+<div class="panel"><img src="images/f06.jpg" loading="lazy" alt="手悬在键盘上"><div class="text">
+<div class="decision">
+<div class="label">⚡ 决策点一</div>
+<span class="rejected">A: Ctrl+Z撤销——可能是安全威胁</span><br>
+<span class="rejected">B: 直接运行看看效果</span><br>
+<span class="chosen">✦ C: 先复制保存，再逐行分析</span><br>
+<span class="thought">（黑客的第一法则：遇到未知代码，先留证据，再逆向分析。莽着运行的是菜鸟，吓得Ctrl+Z的是普通人。）</span>
+</div>
+</div></div>
+
+<div class="panel"><img src="images/f07.jpg" loading="lazy" alt="复制保存代码"><div class="text">
+<span class="narration">我新建了一个文件，一字不差地把那段神秘代码复制过去。手指在键盘上飞舞，动作快得连大橘都被惊醒了，从键盘上滚下去。</span>
+</div></div>
+
+<div class="scene-divider">· · ·</div>
+
+<!-- Scene 2: 灵根觉醒 -->
+<div class="panel"><img src="images/f08.jpg" loading="lazy" alt="逐行分析"><div class="text">
+<span class="scene-tag">凌晨 4:15 · 逆向分析</span><br>
+<span class="narration">逐行分析。这段代码的结构令人着迷——它像是某种自然进化出来的算法，每一行都精确得不像人写的。因为它确实不是人写的。</span>
+</div></div>
+
+<div class="panel"><img src="images/f09.jpg" loading="lazy" alt="灵根觉醒瞬间"><div class="text">
+<span class="narration">当我试图在脑海里"编译"这段代码时——</span><br>
+<span class="narration">一股暖流从指尖涌入，顺着手臂、肩膀、胸口，直灌到小腹某个从未有过感觉的位置。整个过程不超过三秒。</span><br>
+<span class="thought">（这TM是buffer overflow？？？）</span>
+</div></div>
+
+<div class="panel"><img src="images/f10.jpg" loading="lazy" alt="指尖蓝色光芒"><div class="text">
+<span class="narration">我低头看自己的手——指尖有光。微弱的蓝白色光芒，像萤火虫似地从皮肤下渗出来，带着细碎的光粒子向上漂浮。</span><br>
+<span class="thought">（好。冷静。深呼吸。这不是幻觉。这是——某种能量。）</span>
+</div></div>
+
+<div class="panel"><img src="images/f11.jpg" loading="lazy" alt="大橘炸毛"><div class="text">
+<span class="cat">大橘全身的毛炸成了一个橘色毛球，尾巴粗得像奶瓶刷子，两只铜铃大的眼睛死死盯着我。</span><br>
+<span class="thought">（连猫都看得出不对劲。好在这猫不会说话——）</span>
+</div></div>
+
+<div class="panel"><img src="images/f12.jpg" loading="lazy" alt="黑客表情"><div class="text">
+<span class="narration">恐惧？不。我嘴角忍不住翘了起来。</span><br>
+<span class="thought">（一个全新的系统。未知的架构。没有文档。没有Stack Overflow。只有我和它。）</span><br>
+<span class="thought">（这不就是黑客最爱的东西吗？）</span>
+</div></div>
+
+<div class="panel"><img src="images/f13.jpg" loading="lazy" alt="打开日志记录"><div class="text">
+<div class="decision">
+<div class="label">⚡ 决策点二</div>
+<span class="rejected">A: 去医院检查</span><br>
+<span class="chosen">✦ B: 把身体当作新系统——记录数据、测试边界、逆向分析</span><br>
+<span class="rejected">C: 恐惧，试图压制</span><br>
+<span class="thought">（遇到未知系统，第一反应不是害怕，是理解它。打开新建文件：body_system_log_v0.1.md）</span>
+</div>
+</div></div>
+
+<div class="scene-divider">· · ·</div>
+
+<!-- Scene 3: 天台修炼 -->
+<div class="panel"><img src="images/f14.jpg" loading="lazy" alt="天台盘膝"><div class="text">
+<span class="scene-tag">凌晨 5:00 · 公司天台</span><br>
+<span class="narration">天边泛起鱼肚白。我盘膝坐在天台上，城市的灯火在脚下延伸到天际线。闭上眼睛，用调试思维追踪那股暖流。</span>
+</div></div>
+
+<div class="panel"><img src="images/f15.jpg" loading="lazy" alt="经脉网络可视化"><div class="text">
+<span class="thought">（等等——这不就是网络拓扑图吗？）</span><br>
+<span class="narration">闭眼之后的黑暗中，我"看到"了自己身体内部的结构。一张发光的线路网络，从丹田向外辐射，贯穿四肢百骸。有的线路粗亮——带宽大；有的纤细暗淡——瓶颈节点。</span>
+</div></div>
+
+<div class="panel"><img src="images/f16.jpg" loading="lazy" alt="手臂灵气流动"><div class="text">
+<span class="narration">我睁开眼，举起右手。金色的灵气丝线沿着经脉流动，清晰可见——像电路板上的信号走线。</span><br>
+<span class="thought">（原来所谓的"打坐入定"，本质上就是让系统进入idle状态，让后台进程整理内存碎片。玄学的皮，计算机的核。）</span>
+</div></div>
+
+<div class="panel"><img src="images/f17.jpg" loading="lazy" alt="debug模式"><div class="text">
+<span class="narration">我开启了"人体debug模式"——在脑中标记出两个明显的灵气阻塞点，一个在右肩，一个在左膝。</span><br>
+<span class="thought">（两个bottleneck。如果能优化这两个节点的通量，整个系统性能至少提升30%。问题是——走常规路径，还是……）</span>
+</div></div>
+
+<div class="panel"><img src="images/f18.jpg" loading="lazy" alt="两条路径可视化"><div class="text">
+<div class="decision">
+<div class="label">⚡ 决策点三</div>
+<span class="rejected">A: 常规路径——安全稳定</span><br>
+<span class="chosen">✦ B: 测试"未文档化API"——少量灵气探路，不全量投入</span><br>
+<span class="rejected">C: 全量灌入未知路径</span><br>
+<span class="thought">（黑客精神：大胆假设，小心求证。先发一个小包探探路，确认安全了再跑全量。）</span>
+</div>
+</div></div>
+
+<div class="panel"><img src="images/f19.jpg" loading="lazy" alt="小心试探"><div class="text">
+<span class="narration">我小心翼翼地导入一缕灵气进入那条"未文档化"的经脉——像黑客发送第一个探测包。如果被拒绝，损失可控。如果通了——</span>
+</div></div>
+
+<div class="panel"><img src="images/f20.jpg" loading="lazy" alt="捷径生效"><div class="text">
+<span class="narration">通了。</span><br>
+<span class="narration">紫金色的能量沿着新路径爆发性地点亮，像高速公路突然通车。右肩的阻塞瞬间被绕过去了。整条经脉被灵气灌满，发出比其他路径亮三倍的光。</span><br>
+<span class="thought">（果然！每个系统都有后门。传说中的"苦修百年"，不过是没找到正确的exploit罢了。）</span>
+</div></div>
+
+<div class="panel"><img src="images/f21.jpg" loading="lazy" alt="大橘翻白眼"><div class="text">
+<span class="cat">大橘不知什么时候跟上了天台，趴在铁栏杆上，用看白痴的眼神看着浑身发光的我。</span><br>
+<span class="cat">"你能不能别什么都拿代码比喻？"</span><br>
+<span class="thought">（等等——它刚才是不是……说话了？？算了，先不管，刚才那条路径的性能数据太漂亮了——）</span>
+</div></div>
+
+<div class="scene-divider">· · ·</div>
+
+<!-- Scene 4: 公司白天 -->
+<div class="panel"><img src="images/f22.jpg" loading="lazy" alt="能看见数据流"><div class="text">
+<span class="scene-tag">上午 10:00 · 公司办公区</span><br>
+<span class="narration">一觉醒来，世界变了。</span><br>
+<span class="narration">走在公司走廊上，我能"看到"——WiFi信号像蓝色丝线在空气中编织，手机信号是跳动的绿色光点，蓝牙像白色细线连接着每个人的耳机和手机。整个办公室是一张巨大的、肉眼可见的数据网络。</span>
+</div></div>
+
+<div class="panel"><img src="images/f23.jpg" loading="lazy" alt="开会走神"><div class="text">
+<span class="narration">林姐在白板前讲AI模型优化方案，图表画得漂亮。我人在座位上，心思却被另一样东西吸引了——机房方向有一股异常的能量流动。不是电子信号，是灵气。</span><br>
+<span class="thought">（那不是无线信号。那是……和我体内一样的东西。为什么公司机房会有灵气？）</span>
+</div></div>
+
+<div class="panel"><img src="images/f24.jpg" loading="lazy" alt="眼睛金光"><div class="text">
+<span class="narration">我的瞳孔微微泛金，聚焦在机房方向那道紫色的灵气流上。它比所有电子信号都粗、都亮、都……古老。</span><br>
+<span class="thought">（有问题。大问题。）</span>
+</div></div>
+
+<div class="panel"><img src="images/f25.jpg" loading="lazy" alt="借故离开"><div class="text">
+<div class="decision">
+<div class="label">⚡ 决策点四</div>
+<span class="chosen">✦ A: 不声不响自己去调查</span><br>
+<span class="rejected">B: 告诉林姐</span><br>
+<span class="rejected">C: 忽略专注工作</span><br>
+<span class="thought">（信息不足时暴露自己的发现是最蠢的选择。先搞清楚是什么，再决定告诉谁。）</span>
+</div>
+<span class="narration">"林姐，我去上个厕所。"我尽量表现得自然地站了起来。</span>
+</div></div>
+
+<div class="scene-divider">· · ·</div>
+
+<!-- Scene 5: 机房 -->
+<div class="panel"><img src="images/f26.jpg" loading="lazy" alt="进入机房"><div class="text">
+<span class="scene-tag">上午 10:20 · 服务器机房</span><br>
+<span class="narration">推开机房的门，冷气扑面而来。一排排服务器像黑色墓碑整齐排列，绿色指示灯在暗处明灭。</span><br>
+<span class="narration">但在我的灵气视觉里——这里是一座神殿。</span>
+</div></div>
+
+<div class="panel"><img src="images/f27.jpg" loading="lazy" alt="服务器灵气阵"><div class="text">
+<span class="narration">紫金色的灵气纹路从每台服务器的缝隙中溢出，在半空中交织成一个复杂的几何图案——像某种古老的阵法。服务器的物理排列方式，竟然恰好与这个阵法的节点一一对应。</span><br>
+<span class="thought">（这不是巧合。不可能是巧合。但如果是有意的——谁设计的？）</span>
+</div></div>
+
+<div class="panel"><img src="images/f28.jpg" loading="lazy" alt="顿悟瞬间"><div class="text">
+<span class="narration">我仰头看着服务器上空交织的灵气阵法，答案突然砸了过来——</span><br>
+<span class="thought">（我的AI模型不是因为算法优化才跑通的。是这个阵法在增幅算力。灵气增幅了服务器的运算效能。所以那72小时的loss曲线——不全是我的功劳。）</span><br>
+<span class="narration">苦笑。但紧接着，一个更大的念头浮了上来。</span>
+</div></div>
+
+<div class="panel"><img src="images/f29.jpg" loading="lazy" alt="战略思考"><div class="text">
+<div class="decision">
+<div class="label">⚡ 决策点五</div>
+<span class="rejected">A: 保密独占，用于自己修炼</span><br>
+<span class="chosen">✦ B: 研究如何主动优化阵法，让公司AI获得不可复制的竞争壁垒</span><br>
+<span class="rejected">C: 拆掉阵法防止失控</span><br>
+<span class="thought">（我是builder，不是destroyer。如果这个阵法可以被主动优化——我们的AI产品就拥有了竞争对手绝对无法理解、无法复制的技术壁垒。灵气+算力。这才是真正的护城河。）</span>
+</div>
+</div></div>
+
+<div class="scene-divider">· · ·</div>
+
+<!-- Scene 6: 悬念结尾 -->
+<div class="panel"><img src="images/f30.jpg" loading="lazy" alt="天台夜景"><div class="text">
+<span class="scene-tag">深夜 · 公司天台</span><br>
+<span class="narration">又是深夜。天台上风很大，我的卫衣帽子被吹得猎猎作响。盘膝修炼时的灵气感知范围比早上又扩大了三倍——现在我能感应到整栋楼周围两公里内的所有灵气波动。</span><br>
+<span class="narration">然后我感应到了它。</span>
+</div></div>
+
+<div class="panel"><img src="images/f31.jpg" loading="lazy" alt="远方强大灵气源"><div class="text">
+<span class="narration">城市另一端——ByteForce总部大楼方向。一个灵气源。比我们公司机房强十倍。不，至少十倍。那个紫色的光柱在我的灵气视觉里冲天而起，像一座灯塔。</span><br>
+<span class="thought">（那个强度……绝不可能是无意形成的。有人在主动构建灵气阵法。而且他们比我早得多。）</span>
+</div></div>
+
+<div class="panel"><img src="images/f32.jpg" loading="lazy" alt="结尾对话"><div class="text">
+<span class="cat">大橘不知什么时候又跟到了天台，趴在栏杆上，顺着我的视线望向远方那栋发光的大楼。</span><br>
+<span class="cat">"所以……AI大战要升级成修仙大战了？"</span><br>
+<span class="narration">我嘴角一勾。</span><br>
+<span class="dialogue">"看来不只是我们的服务器有这个'巧合'。"</span>
+</div></div>
+
+<div class="chapter-end">
+<div class="suspense">
+ByteForce——他们是有意构建的灵气阵法，还是和我一样无意中发现的？<br>
+如果是有意的……他们比我先走了多少步？<br>
+修仙世界的到来，会如何改变AI创业的竞争格局？<br><br>
+<span style="color:#7c6cff;font-size:1.3rem;font-weight:700">第二章：逆向天道 · 即将更新</span>
+</div>
+<div class="next">—— 灵根觉醒 · 第一章 完 ——</div>
+</div>
+
+<footer>Trinity V3 · EXP-599 · 灵根觉醒</footer>
+
+<script>
+// Lazy reveal on scroll
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.15});
+document.querySelectorAll('.panel').forEach(p=>observer.observe(p));
+</script>
+</body>
+</html>
