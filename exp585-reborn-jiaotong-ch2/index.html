@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重生交大：创业系统激活 — 第二章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a0f;
+  color: #e8e8e8;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Loading screen */
+.loading-screen {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: #0a0a0f;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease;
+}
+.loading-screen.hidden { opacity: 0; pointer-events: none; }
+.loading-title {
+  font-size: 28px; font-weight: 700; color: #00f0ff;
+  text-shadow: 0 0 20px rgba(0,240,255,0.5);
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+.loading-bar {
+  width: 200px; height: 4px; background: #1a1a2e; border-radius: 2px; overflow: hidden;
+}
+.loading-fill {
+  width: 0%; height: 100%; background: linear-gradient(90deg, #00f0ff, #7b2fff);
+  transition: width 0.3s ease;
+}
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+/* Progress bar */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 100;
+  background: linear-gradient(90deg, #00f0ff, #7b2fff, #ff6b6b);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(0,240,255,0.5);
+}
+
+/* Chapter header */
+.chapter-header {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px 20px;
+  background: radial-gradient(ellipse at center, #0f1629 0%, #0a0a0f 70%);
+  position: relative;
+  overflow: hidden;
+}
+.chapter-header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="55" text-anchor="middle" font-size="60" fill="rgba(0,240,255,0.03)">⚡</text></svg>') repeat;
+  background-size: 80px;
+  animation: bgScroll 20s linear infinite;
+}
+@keyframes bgScroll { 0% { transform: translateY(0); } 100% { transform: translateY(-80px); } }
+
+.series-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(0,240,255,0.1);
+  border: 1px solid rgba(0,240,255,0.3);
+  border-radius: 20px;
+  font-size: 14px;
+  color: #00f0ff;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.chapter-title {
+  font-size: 32px; font-weight: 800;
+  background: linear-gradient(135deg, #00f0ff, #7b2fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.chapter-subtitle {
+  font-size: 20px; color: rgba(255,255,255,0.6);
+  text-align: center;
+  position: relative; z-index: 1;
+  margin-bottom: 16px;
+}
+.recap-box {
+  max-width: 340px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  font-size: 15px; line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+  position: relative; z-index: 1;
+  text-align: left;
+}
+.recap-box .recap-title {
+  font-size: 13px; font-weight: 600; color: #00f0ff;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Panel container */
+.panels { max-width: 100%; padding: 0; }
+
+.panel {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel img {
+  width: 100%;
+  display: block;
+}
+
+/* Text overlays between panels */
+.panel-text {
+  padding: 20px 24px;
+  position: relative;
+}
+
+.narration {
+  font-size: 18px; line-height: 1.8;
+  color: rgba(255,255,255,0.85);
+  padding: 16px 20px;
+  border-left: 3px solid rgba(0,240,255,0.4);
+  margin: 8px 0;
+  background: rgba(0,240,255,0.03);
+}
+
+.dialogue {
+  font-size: 19px; line-height: 1.7;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 12px;
+}
+.dialogue-zhu {
+  background: rgba(0,240,255,0.08);
+  border: 1px solid rgba(0,240,255,0.15);
+}
+.dialogue-other {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.dialogue-liu {
+  background: rgba(255,165,0,0.06);
+  border: 1px solid rgba(255,165,0,0.15);
+}
+.dialogue-zhanglei {
+  background: rgba(76,255,136,0.06);
+  border: 1px solid rgba(76,255,136,0.15);
+}
+.dialogue-laochen {
+  background: rgba(255,200,50,0.06);
+  border: 1px solid rgba(255,200,50,0.15);
+}
+.dialogue .speaker {
+  font-size: 14px; font-weight: 600;
+  color: #00f0ff;
+  margin-bottom: 4px;
+}
+.dialogue-other .speaker { color: #ffa726; }
+.dialogue-liu .speaker { color: #ff8f00; }
+.dialogue-zhanglei .speaker { color: #4cff88; }
+.dialogue-laochen .speaker { color: #ffd740; }
+
+.thought {
+  font-size: 17px; line-height: 1.7;
+  color: rgba(0,240,255,0.7);
+  font-style: italic;
+  padding: 12px 20px;
+  margin: 8px 0;
+  background: rgba(0,240,255,0.03);
+  border-radius: 8px;
+  border: 1px dashed rgba(0,240,255,0.15);
+}
+
+.system-msg {
+  font-size: 15px; line-height: 1.6;
+  color: #7b2fff;
+  padding: 12px 16px;
+  margin: 8px 0;
+  background: rgba(123,47,255,0.06);
+  border: 1px solid rgba(123,47,255,0.2);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+}
+.system-msg::before {
+  content: '📱 系统';
+  display: block;
+  font-size: 12px;
+  color: rgba(123,47,255,0.6);
+  margin-bottom: 4px;
+  font-family: 'PingFang SC', sans-serif;
+}
+
+.decision-box {
+  padding: 20px;
+  margin: 12px 0;
+  background: linear-gradient(135deg, rgba(0,240,255,0.08), rgba(123,47,255,0.08));
+  border: 1px solid rgba(0,240,255,0.3);
+  border-radius: 12px;
+  position: relative;
+}
+.decision-box .decision-title {
+  font-size: 16px; font-weight: 700;
+  color: #00f0ff;
+  margin-bottom: 10px;
+}
+.decision-box .choice {
+  font-size: 17px; line-height: 1.6;
+  color: #4cff88;
+  padding: 8px 0;
+}
+.decision-box .choice::before {
+  content: '✅ ';
+}
+.decision-box .reason {
+  font-size: 15px; line-height: 1.6;
+  color: rgba(255,255,255,0.5);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Scene divider */
+.scene-divider {
+  text-align: center;
+  padding: 40px 20px;
+  position: relative;
+}
+.scene-divider .scene-name {
+  font-size: 22px; font-weight: 700;
+  color: #00f0ff;
+  text-shadow: 0 0 15px rgba(0,240,255,0.4);
+}
+.scene-divider::before, .scene-divider::after {
+  content: '';
+  position: absolute;
+  left: 20%; right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,240,255,0.3), transparent);
+}
+.scene-divider::before { top: 15px; }
+.scene-divider::after { bottom: 15px; }
+
+/* Task progress bar */
+.task-progress {
+  padding: 12px 20px;
+  margin: 8px 0;
+  background: rgba(255,107,107,0.06);
+  border: 1px solid rgba(255,107,107,0.2);
+  border-radius: 8px;
+}
+.task-progress .label {
+  font-size: 13px; color: rgba(255,107,107,0.7);
+  margin-bottom: 6px;
+}
+.task-progress .bar-bg {
+  height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;
+}
+.task-progress .bar-fill {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, #ff6b6b, #ffa726);
+  transition: width 0.6s ease;
+}
+.task-progress .stats {
+  font-size: 14px; color: rgba(255,255,255,0.5);
+  margin-top: 6px;
+  display: flex; justify-content: space-between;
+}
+
+/* Cliffhanger */
+.cliffhanger {
+  padding: 40px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,50,50,0.05), transparent);
+}
+.cliffhanger .hook {
+  font-size: 20px; font-weight: 600;
+  color: #ff6b6b;
+  line-height: 1.6;
+}
+.cliffhanger .tbc {
+  font-size: 24px; font-weight: 800;
+  margin-top: 30px;
+  color: rgba(0,240,255,0.8);
+  text-shadow: 0 0 20px rgba(0,240,255,0.3);
+}
+
+/* Footer */
+.chapter-footer {
+  padding: 60px 20px;
+  text-align: center;
+  background: radial-gradient(ellipse at center bottom, #0f1629 0%, #0a0a0f 70%);
+}
+.footer-meta {
+  font-size: 14px;
+  color: rgba(255,255,255,0.3);
+  line-height: 2;
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-title">创业天命系统 · 第二章加载中…</div>
+  <div class="loading-bar"><div class="loading-fill" id="loadingFill"></div></div>
+</div>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+<!-- Chapter Header -->
+<div class="chapter-header">
+  <div class="series-tag">V5 · 虚拟朱江 · 重生系统文</div>
+  <h1 class="chapter-title">重生交大<br>创业系统激活</h1>
+  <p class="chapter-subtitle">第二章 — 辅导员约谈与校园BBS的秘密</p>
+  <div class="recap-box">
+    <div class="recap-title">◇ 上集回顾 ◇</div>
+    重生回2001年交大。获得"创业天命系统"。<br>
+    72小时赚1000元任务启动。<br>
+    澡堂预报服务34人 + IC电话卡赊了5张。<br>
+    进度：7.5% | 资金：37.5元<br>
+    ⚠️ 辅导员刘姐约谈——有人举报违规广告。
+  </div>
+</div>
+
+<div class="panels">
+
+<!-- ===== 场景1: 辅导员约谈 ===== -->
+<div class="scene-divider"><span class="scene-name">◇ 辅导员约谈——霹雳手段化解 ◇</span></div>
+
+<!-- P1 -->
+<div class="panel" data-panel="1">
+  <img src="p1.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">9月2日上午。辅导员办公室门口。</div>
+    <div class="thought">上辈子面对SEC调查都扛过来了。辅导员约谈？当热身。</div>
+    <div class="system-msg">事件：[辅导员约谈]。危险等级：D。建议应对策略：装傻 / 认错 / 反杀。当前可用技能：[25年商业记忆] [口才Lv.0]。提醒：你的口才还是0级，建议少说多听。</div>
+  </div>
+</div>
+
+<!-- P2 -->
+<div class="panel" data-panel="2">
+  <img src="p2.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-liu"><div class="speaker">刘姐</div>朱江同学，坐吧。这个，是你贴的？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>是我。刘老师，我——</div>
+    <div class="dialogue dialogue-liu"><div class="speaker">刘姐</div>知道学校有规定吗？公共区域张贴物需要审批。你这个"实时排队预报"是什么？</div>
+  </div>
+</div>
+
+<!-- P3 -->
+<div class="panel" data-panel="3">
+  <img src="p3.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="decision-box">
+      <div class="decision-title">【决策点4 · 揭晓】如何应对辅导员约谈？</div>
+      <div class="choice">B：带着商业计划说服辅导员</div>
+      <div class="reason">关键词选对了。2001年高校最吃的话术是"创新"和"服务同学"。</div>
+    </div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>刘老师，我先道歉——没走审批流程是我的错。但这个"澡堂预报"……不是商业行为，是我想做的一个校园服务创新项目。</div>
+  </div>
+</div>
+
+<!-- P4 -->
+<div class="panel" data-panel="4">
+  <img src="p4.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>您想啊——每天下午5到7点，男生澡堂排队40分钟。大家怨声载道。我用短信通知大家各澡堂实时人数，分流排队——学校减少投诉，同学少等半小时。双赢。</div>
+    <div class="dialogue dialogue-liu"><div class="speaker">刘姐</div>你一个大一新生……想法倒是挺成熟。</div>
+    <div class="system-msg">辅导员好感度：32% → 48%。继续。</div>
+  </div>
+</div>
+
+<!-- P5 -->
+<div class="panel" data-panel="5">
+  <img src="p5.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">我掏出那张折叠的纸——昨晚写的商业模式图。但只展示了"校园服务"部分，电话卡倒卖的部分被我用手遮住了。</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>我还想申请一下——能不能在勤工俭学中心挂个名？这样既合规，也能给其他同学做个榜样。</div>
+    <div class="thought">给对方一个"他在我管理下"的控制感。管理者最需要的不是消灭创新，是把创新纳入自己的功劳簿。</div>
+    <div class="system-msg">谈判技巧分析：为对方提供管理归属感。好手段。但口才还是0级，纯靠经验硬撑。</div>
+  </div>
+</div>
+
+<!-- P6 -->
+<div class="panel" data-panel="6">
+  <img src="p6.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-liu"><div class="speaker">刘姐（电话中）</div>……对，大一新生，挺有想法的……你们那还缺人不？</div>
+    <div class="dialogue dialogue-liu"><div class="speaker">刘姐</div>行。我帮你挂在勤工俭学中心名下，你的服务项目算"勤工俭学创新实践"。但有三个条件——</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>第一不收钱，第二走审批贴海报，第三定期汇报。对吗？</div>
+    <div class="dialogue dialogue-liu"><div class="speaker">刘姐</div>你这脑子……真是新生？</div>
+    <div class="system-msg">辅导员好感度：48% → 72%。隐藏成就解锁：[体制内盟友]。</div>
+  </div>
+</div>
+
+<!-- P7 -->
+<div class="panel" data-panel="7">
+  <img src="p7.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhu"><div class="speaker">我（走到门口回头）</div>刘老师……我听说学校有个创新创业基金？新生也能申请吗？</div>
+    <div class="dialogue dialogue-liu"><div class="speaker">刘姐</div>……你倒是什么都打听到了。可以申请，但名额竞争很激烈。你写份计划书给我看看。</div>
+    <div class="thought">上辈子写的BP能绕地球三圈。计划书？给我十分钟。</div>
+    <div class="system-msg">支线任务解锁：[创新创业基金申请]。奖励：创业值+30，资金+5000元启动金。但需要一份合格的计划书。</div>
+  </div>
+</div>
+
+<!-- P8 -->
+<div class="panel" data-panel="8">
+  <img src="p8.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">走出办公楼，阳光洒在脸上。长出一口气。</div>
+    <div class="thought">危机化解。不仅没被处罚，还拿到了"官方背书"＋创新基金线索。这就是——</div>
+    <div class="system-msg">这就是你花了25年学会的：把危机变成机会。很好。现在——任务倒计时：56小时。当前进度：7.5%。请加速。</div>
+  </div>
+</div>
+
+<!-- ===== 场景2: 校园BBS的秘密 ===== -->
+<div class="scene-divider"><span class="scene-name">◇ 校园BBS的秘密——认识张磊 ◇</span></div>
+
+<!-- P9 -->
+<div class="panel" data-panel="9">
+  <img src="p9.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">下午，图书馆旁的信息栏。密密麻麻贴满各种广告，最显眼的是——"交大水源BBS——你的校园第一平台"。</div>
+    <div class="thought">水源BBS……上辈子泡了四年的论坛。2001年，它才刚起步。流量不大，但未来会成为交大人的精神家园。</div>
+    <div class="system-msg">检测到高价值目标。交大水源BBS：2001年日活约200，2003年日活约5000。增长潜力：2400%。建议：控制此平台。</div>
+  </div>
+</div>
+
+<!-- P10 -->
+<div class="panel" data-panel="10">
+  <img src="p10.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">花1块钱上了一小时网。CRT显示器，Windows 98。BBS界面简陋，帖子稀疏。</div>
+    <div class="thought">这就是2001年的互联网……全校在线人数：23人。放到2026年，这叫"种子用户"。</div>
+    <div class="system-msg">线上获客启动。成本：1元/小时机时费。性价比远超线下海报——如果有人看的话。当前BBS在线：23人。</div>
+  </div>
+</div>
+
+<!-- P11 -->
+<div class="panel" data-panel="11">
+  <img src="p11.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>你是新生？在水源发广告？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>……不是广告，是免费服务。</div>
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>免费的才是最贵的。你是学什么的？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>计算机。</div>
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>哦？我大三，也是计算机的。我叫张磊——水源BBS的站长。</div>
+    <div class="system-msg">⚠️ 关键人物出现！张磊，计算机系大三，BBS站长。技术能力：A级。人脉价值：极高。社交属性：典型技术宅，不善言辞但极度聪明。</div>
+  </div>
+</div>
+
+<!-- P12 -->
+<div class="panel" data-panel="12">
+  <img src="p12.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>你那个澡堂预报的点子不错。但用短信太笨了。你应该做成BBS上的一个版块——实时更新，所有人都能看。</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我（故意装不懂）</div>做版块……怎么做？</div>
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>我能帮你写个脚本。每小时自动更新一个帖子。但——你给BBS带流量当回报，怎么样？</div>
+    <div class="thought">这就是程序员思维——用技术方案替代人力方案。他不知道，他刚才提的就是2010年O2O的雏形。</div>
+  </div>
+</div>
+
+<!-- P13 -->
+<div class="panel" data-panel="13">
+  <img src="p13.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="decision-box">
+      <div class="decision-title">【决策点5】是否与张磊合作？</div>
+      <div class="choice">A：合作——获得技术支持＋BBS流量入口</div>
+      <div class="reason">我的创业哲学核心是"合伙"而非"单干"。技术是杠杆。更重要的是——系统提示张磊技术A级，以后用得上。菩萨心肠＝真心合作；霹雳手段＝现在就锁住关键人才。</div>
+    </div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>成交。但我有个条件——我不只是给BBS带流量。我想帮你把BBS的用户从200做到2000。</div>
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>2000？你知道我们做了一年才200吗？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我（笑）</div>我有办法。</div>
+    <div class="system-msg">合伙触发！人脉+1：张磊（技术A级）。提示：宿主上辈子的合伙记录——成功3次，失败5次。这次希望属于前者。</div>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="panel" data-panel="14">
+  <img src="p14.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>你看——现在BBS只有"学习交流"和"二手市场"两个版。用户没有留下来的理由。</div>
+    <div class="narration">我在纸上画出新版块——"新生求助"：每年开学季流量爆发；"匿名树洞"：满足八卦需求；"失物招领"：刚需且高频。</div>
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊（推了推眼镜）</div>你确定你是新生？你说话的方式……像做了十年产品经理。</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>……我看的书多。</div>
+    <div class="system-msg">⚠️ 暴露风险+1。建议减少使用2026年的词汇。"产品经理"这个岗位2001年还不存在。</div>
+  </div>
+</div>
+
+<!-- P15 -->
+<div class="panel" data-panel="15">
+  <img src="p15.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>我帮你做技术——自动更新脚本＋新版块。你负责运营和拉人。公平？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>公平。但有一条——我们不只是做一个校园BBS。我在想更大的事。</div>
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>多大？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我（停下脚步）</div>你有没有想过——如果每个大学都有一个这样的平台，把所有学生连起来？</div>
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>……那不是要做中国的——</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我（打断）</div>先做交大。做好一个，再想下一个。</div>
+    <div class="thought">Facebook 2004年才出现。现在是2001年。我有三年窗口期。但不能说太多——一步一步来。</div>
+    <div class="system-msg">检测到宿主在画饼。提醒：画饼是创业者核心技能。但请确保饼不要太大，目前你的等级是Lv.1。</div>
+  </div>
+</div>
+
+<!-- P16 -->
+<div class="panel" data-panel="16">
+  <img src="p16.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊</div>朱江——你要是真能把BBS做到2000人，我跟你干。不只是BBS——什么都行。</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我（伸出手）</div>一言为定。</div>
+    <div class="system-msg">里程碑事件：[核心团队雏形]。这是你这辈子的第一个合伙承诺。上辈子第一个合伙人……算了，系统选择不提。</div>
+    <div class="thought">握手时，内心一瞬间闪过上辈子那些合伙破裂的画面——但只是一瞬。好的合伙人比好的商业模式更重要。这一条，我花了200万才学会。</div>
+  </div>
+</div>
+
+<!-- ===== 场景3: 夜间加速 ===== -->
+<div class="scene-divider"><span class="scene-name">◇ 夜间加速——IC卡闪电战 ◇</span></div>
+
+<!-- P17 -->
+<div class="panel" data-panel="17">
+  <img src="p17.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">傍晚，宿舍。</div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈</div>你今天一天不上课，跑哪去了？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>勤工俭学。</div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈</div>勤工俭学能笑成这样？你表情管理有问题。</div>
+    <div class="system-msg">室友好感度：55%。关系标签：好奇＋担忧。建议培养为早期用户/推销渠道。</div>
+  </div>
+</div>
+
+<!-- P18 -->
+<div class="panel" data-panel="18">
+  <img src="p18.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">手机屏幕——34个澡堂预报用户里，已经有8个人回复"要一张电话卡"。加上白天口头预定的3个＝11张订单。</div>
+    <div class="thought">11张×15元利润＝165元。但我手上只有5张卡。供不应求。</div>
+    <div class="system-msg">供需失衡。经典创业问题：需求有了，供给跟不上。解决方案：增加供给 或 提高单价。</div>
+  </div>
+</div>
+
+<!-- P19 -->
+<div class="panel" data-panel="19">
+  <img src="p19.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="decision-box">
+      <div class="decision-title">【决策点6】是否拉老陈入伙？</div>
+      <div class="choice">B：拉老陈帮忙跑腿送货，给佣金，扩大产能</div>
+      <div class="reason">规模化需要人手。更重要的是，系统标注老陈"编程天赋S级"。提前建立信任关系，以后这个人可能价值百倍。</div>
+    </div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>老陈，想赚零花钱不？帮我送电话卡，一张给你5块。</div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈</div>5块？一张？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>今晚至少10张。</div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈（眼睛亮了）</div>50块！我来！</div>
+    <div class="system-msg">员工#1招聘成功。工资：5元/单。朱江老板，你的团队扩张到2人了。恭喜从个体户升级为……还是个体户。</div>
+  </div>
+</div>
+
+<!-- P20 -->
+<div class="panel" data-panel="20">
+  <img src="p20.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>老板，我昨天拿的5张，全卖了。今天要30张。</div>
+    <div class="dialogue dialogue-other"><div class="speaker">批发商</div>一天就卖完了？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>学生市场。我有渠道。先拿后付——卖一张结一张的账。</div>
+    <div class="narration">我掏出手机翻短信记录给他看——11条真实预约。</div>
+    <div class="dialogue dialogue-other"><div class="speaker">批发商</div>行。但最多赊20张。卖完再来拿。</div>
+    <div class="system-msg">谈判成功。赊账额度提升：5→20张。融资能力+10。提醒：你现在相当于拿了600块的"天使投资"——投资人是一个电子市场的手机卡批发商。历史最草根。</div>
+  </div>
+</div>
+
+<!-- P21 -->
+<div class="panel" data-panel="21">
+  <img src="p21.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">夜晚8点。宿舍楼走廊。我和老陈兵分两路——我负责1到3楼，老陈负责4到6楼。一人手里攥着10张IC电话卡。</div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈</div>我就问一句——这不犯法吧？</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>合法倒卖。进货30，出售45，校内零售店卖50。我们是在为同学省钱。</div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈</div>……你说的好像挺有道理。</div>
+    <div class="system-msg">销售话术模板：不是赚你的钱，是帮你省钱。经典。</div>
+  </div>
+</div>
+
+<!-- P22 -->
+<div class="panel" data-panel="22">
+  <img src="p22.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">蒙太奇——敲门、递卡、收钱。钱在桌上一张一张叠起来。</div>
+    <div class="system-msg">+15元 +15元 +15元 +15元……</div>
+  </div>
+</div>
+
+<!-- P23 -->
+<div class="panel" data-panel="23">
+  <img src="p23.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">晚上10点半。楼梯间汇合。</div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈</div>我卖了7张！</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>我卖了9张。加上之前的5张——今天共卖21张。</div>
+    <div class="thought">21张×15元＝315元利润。加上昨天的5张＝共26张＝390元。</div>
+    <div class="task-progress">
+      <div class="label">72小时任务进度</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:39%"></div></div>
+      <div class="stats"><span>390 / 1000元 (39%)</span><span>剩余36小时</span></div>
+    </div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈</div>390块？！我一个月生活费才300！</div>
+  </div>
+</div>
+
+<!-- P24 -->
+<div class="panel" data-panel="24">
+  <img src="p24.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">回到宿舍。给老陈数佣金——7张×5元＝35元。</div>
+    <div class="dialogue dialogue-laochen"><div class="speaker">老陈（攥着35块）</div>我决定了。你以后干什么我都跟。</div>
+    <div class="dialogue dialogue-zhu"><div class="speaker">我</div>老陈，这才第一天。以后的事……比这刺激一百倍。</div>
+    <div class="system-msg">团队忠诚度更新。陈伟明：忠诚度72%（金钱驱动，但有潜力转化为事业驱动）。</div>
+    <div class="thought">上辈子我的第一个合伙人也是这样——先被钱吸引，后来才是信念。</div>
+  </div>
+</div>
+
+<!-- P25 -->
+<div class="panel" data-panel="25">
+  <img src="p25.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">深夜。手机亮着——BBS上的帖子有了12条回复。其中一条来自张磊：</div>
+    <div class="dialogue dialogue-zhanglei"><div class="speaker">张磊（BBS）</div>自动更新脚本写好了。明天来机房部署。</div>
+    <div class="thought">技术就位了。明天澡堂预报服务自动化——我就能腾出手来专心做电话卡。</div>
+    <div class="system-msg">提醒：别忘了给辅导员写那份创新创业基金计划书。截止日期未知，但越早越好。</div>
+  </div>
+</div>
+
+<!-- ===== 场景4: 突破时刻 ===== -->
+<div class="scene-divider"><span class="scene-name">◇ 突破时刻 ◇</span></div>
+
+<!-- P26 -->
+<div class="panel" data-panel="26">
+  <img src="p26.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">深夜11:30。宿舍大多已熄灯。我在桌上铺开一张大纸，画出一张完整的"校园生态图"——</div>
+    <div class="narration">BBS（流量入口）→ 澡堂预报（免费服务/引流）→ 电话卡（变现第一步）→ ???（下一步）</div>
+    <div class="thought">这只是开始。电话卡是一次性生意——买过就不会再买。我需要一个持续的收入来源。</div>
+    <div class="system-msg">分析正确。一次性消费品的LTV太低。需要构建复购模型或订阅制。——2001年版的说法是：需要找到"回头客"生意。</div>
+  </div>
+</div>
+
+<!-- P27 -->
+<div class="panel" data-panel="27">
+  <img src="p27.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">在"???"位置写下——"打印店"。然后划掉。太重资产了。</div>
+    <div class="narration">重新写了四个字——<strong>"代理招聘"</strong>。</div>
+    <div class="thought">2001年，校园兼职信息严重不对称。企业找不到学生，学生找不到兼职。如果我在BBS上开一个"兼职招聘"板块——向企业收发布费……</div>
+    <div class="system-msg">商业嗅觉评分：B+。校园招聘信息平台，10年后叫"大街网"。你比它早了10年。</div>
+  </div>
+</div>
+
+<!-- P28 -->
+<div class="panel" data-panel="28">
+  <img src="p28.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="thought">72小时任务只是开始。电话卡赚的钱是种子。BBS是平台。张磊是技术。老陈是……老陈是早期员工。</div>
+    <div class="thought">这一次——不是为了钱。是为了验证一件事：如果让我从零开始，带着所有记忆，我能走多远？</div>
+    <div class="system-msg">检测到宿主进入[战略思考]模式。创业值+5（思考也是一种行动）。当前等级：Lv.1 菜鸟创业者。距离Lv.2还需：创业值60/100。</div>
+  </div>
+</div>
+
+<!-- P29 -->
+<div class="panel" data-panel="29">
+  <img src="p29.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">手机突然震动——一条新短信。</div>
+    <div class="dialogue dialogue-other"><div class="speaker">未知号码</div>朱江同学你好，我是隔壁复旦的。听说你在交大搞电话卡生意？我们这边也想做，能聊聊合作吗？——李文</div>
+    <div class="thought">复旦的？消息传这么快？</div>
+    <div class="system-msg">⚠️⚠️⚠️ 事件触发：[竞争者出现]。李文，复旦计算机系大二。系统无法扫描校外人员，详细信息未知。危险等级：未知。</div>
+    <div class="system-msg">提醒：合作的反面可能是吞并。你上辈子应该懂。</div>
+  </div>
+</div>
+
+<!-- P30 -->
+<div class="panel" data-panel="30">
+  <img src="p30.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="thought">竞争……来了。</div>
+    <div class="thought">但上辈子教会我一件事——真正的竞争不是打价格战，是抢先一步建护城河。</div>
+    <div class="task-progress">
+      <div class="label">主线任务 #1 进度</div>
+      <div class="bar-bg"><div class="bar-fill" style="width:39%"></div></div>
+      <div class="stats"><span>390 / 1000元 (39%)</span><span>剩余36小时</span></div>
+    </div>
+    <div class="system-msg">⚠️ 新事件预告：竞争者＋创新基金＋BBS部署……明天会很忙。睡觉吧菜鸟。</div>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="hook">
+    复旦的竞争者李文——是合作还是对手？<br><br>
+    交大BBS自动化上线后能否引爆用户增长？<br><br>
+    72小时任务能否在36小时内从39%冲到100%？
+  </div>
+  <div class="decision-box" style="margin-top:20px; text-align:left;">
+    <div class="decision-title">【决策点7】如何回应复旦李文？</div>
+    <div style="color:rgba(255,255,255,0.5); font-size:16px; padding:8px 0;">
+      A：回复同意见面聊合作<br>
+      B：不回复，专注自己的盘子<br>
+      C：回复但设条件——要见面可以，但在我的主场（交大）
+    </div>
+    <div class="reason">悬念保留——答案在第三章揭晓。</div>
+  </div>
+  <div class="tbc">▸ 未完待续 ◂</div>
+</div>
+
+</div>
+
+<div class="chapter-footer">
+  <div class="footer-meta">
+    《重生交大：创业系统激活》第二章<br>
+    Trinity V3 · EXP-585<br>
+    为朱江生成
+  </div>
+</div>
+
+<script>
+// Loading screen
+let loaded = 0;
+const fill = document.getElementById('loadingFill');
+const screen = document.getElementById('loadingScreen');
+
+document.querySelectorAll('.panel img').forEach(img => {
+  const check = () => {
+    loaded++;
+    const pct = Math.min(100, Math.round(loaded / 5 * 100));
+    fill.style.width = pct + '%';
+    if (loaded >= 3) {
+      setTimeout(() => screen.classList.add('hidden'), 500);
+    }
+  };
+  if (img.complete) check();
+  else { img.addEventListener('load', check); img.addEventListener('error', check); }
+});
+setTimeout(() => screen.classList.add('hidden'), 5000);
+
+// Progress bar
+const bar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+
+</body>
+</html>
