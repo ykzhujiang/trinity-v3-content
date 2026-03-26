@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>代码之眼 · 第一章：觉醒</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e8f0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a12 0%,#0d1a2e 50%,#0a0a12 100%);padding:20px;text-align:center;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="10" y="50" fill="%231a3a5a" font-size="4" opacity="0.3">01001 10110 01101 00111 10010</text></svg>') repeat;opacity:0.15;animation:drift 20s linear infinite}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-50px)}}
+.cover h1{font-size:2.4em;color:#4af;text-shadow:0 0 30px rgba(68,170,255,0.5);margin-bottom:12px;letter-spacing:4px;animation:glow 3s ease-in-out infinite alternate}
+@keyframes glow{from{text-shadow:0 0 20px rgba(68,170,255,0.3)}to{text-shadow:0 0 40px rgba(68,170,255,0.8),0 0 80px rgba(68,170,255,0.3)}}
+.cover .sub{font-size:1.1em;color:#7ab;margin-bottom:30px;opacity:0.8}
+.cover .chapter{font-size:1.6em;color:#6cf;margin-bottom:8px}
+.cover .scroll-hint{font-size:0.9em;color:#456;margin-top:40px;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+.panel{max-width:440px;margin:0 auto;padding:0 12px;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:8px;display:block;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.panel .text{padding:16px 8px 40px;font-size:1.15em;line-height:1.8;color:#c8d8e8}
+.panel .text .inner{color:#8ab;font-style:italic;font-size:0.95em;margin-top:8px;padding-left:12px;border-left:2px solid #345}
+.panel .text .dialog{color:#eef;font-weight:500}
+.panel .text .humor{color:#f8d;font-size:0.95em}
+
+.decision-box{max-width:440px;margin:0 auto;padding:20px 16px 60px;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.decision-box.visible{opacity:1;transform:translateY(0)}
+.decision-box h3{color:#4af;font-size:1.3em;text-align:center;margin-bottom:16px}
+.decision-option{background:rgba(68,170,255,0.08);border:1px solid rgba(68,170,255,0.3);border-radius:12px;padding:16px;margin:12px 0;cursor:pointer;transition:all 0.3s}
+.decision-option:hover,.decision-option:active{background:rgba(68,170,255,0.15);border-color:#4af;transform:scale(1.02)}
+.decision-option .label{color:#4af;font-weight:bold;font-size:1.1em}
+.decision-option .desc{color:#9ab;font-size:0.95em;margin-top:4px}
+
+.ending{max-width:440px;margin:0 auto;padding:40px 20px 80px;text-align:center;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.ending.visible{opacity:1;transform:translateY(0)}
+.ending h2{color:#4af;font-size:1.8em;margin-bottom:16px}
+.ending p{color:#789;font-size:1em;line-height:1.7}
+.ending .next-hint{color:#4af;margin-top:30px;font-size:1.1em;animation:glow 3s ease-in-out infinite alternate}
+
+.separator{height:2px;max-width:200px;margin:10px auto 30px;background:linear-gradient(90deg,transparent,#234,transparent)}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<div class="chapter">第一章</div>
+<h1>代码之眼 · 觉醒</h1>
+<div class="sub">都市异能 × 黑客 × AI创业</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<div class="panel" id="p1">
+<img src="images/p01.jpg" alt="深圳南山夜景" loading="eager">
+<div class="text">凌晨三点的深圳南山，整栋楼只剩我一个活人。</div>
+</div>
+
+<div class="panel">
+<img src="images/p02.jpg" alt="朱江工位" loading="eager">
+<div class="text">创业第十八个月，我已经分不清今天是周几了。反正对我来说都是"还没搞定的一天"。
+<div class="humor">桌上三桶泡面，是这十八个月唯一忠诚的伙伴。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p03.jpg" alt="屏幕代码" loading="eager">
+<div class="text">这个bug已经折磨我三天了。<strong>三天！</strong>我觉得它在嘲笑我。</div>
+</div>
+
+<div class="panel">
+<img src="images/p04.jpg" alt="手机来电" loading="lazy">
+<div class="text">投资人林总明天要看demo。<strong>明天！</strong>而我的后端还在以一种极其优雅的方式——崩溃。
+<div class="inner">手机屏幕亮起"林总"，心跳漏了一拍。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p05.jpg" alt="啃鸡腿" loading="lazy">
+<div class="text">负债两百万。房东的催租短信比我妈的关心还准时。
+<div class="humor">但此刻最让我焦虑的是——这鸡腿怎么比我的代码还硬。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p06.jpg" alt="灵感乍现" loading="lazy">
+<div class="text"><div class="dialog">等等……我看到了！</div>
+这个接口调用的返回值根本没做异常处理！十八个月的经验在这一刻凝聚成一道闪电。</div>
+</div>
+
+<div class="panel">
+<img src="images/p07.jpg" alt="站起来庆祝" loading="lazy">
+<div class="text"><div class="dialog">"搞定了！我是天才！人类之光！深圳南山最后的希望！"</div>
+<div class="humor">椅子被我推出去两米远，差点撞到服务器机架。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p08.jpg" alt="得意" loading="lazy">
+<div class="text">编译成功。我靠在椅背上，双手抱在脑后，露出了创业以来最得意的笑容。
+<div class="inner">好，现在跑一下压测，让林总明天看到一个完美的——</div></div>
+</div>
+
+<div class="separator"></div>
+
+<div class="panel">
+<img src="images/p09.jpg" alt="服务器报警" loading="lazy">
+<div class="text" style="color:#f66"><strong>嗡嗡嗡——</strong>
+<div style="color:#c8d8e8;margin-top:8px">服务器指示灯从绿色齐刷刷变红，像一排愤怒的眼睛同时睁开。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p10.jpg" alt="惊恐" loading="lazy">
+<div class="text"><div class="dialog">"……啊？"</div>
+我得意的笑容凝固在脸上。屏幕上红色报错像瀑布一样刷屏，快到我连一行都看不清。</div>
+</div>
+
+<div class="panel">
+<img src="images/p11.jpg" alt="火花" loading="lazy">
+<div class="text"><strong>不不不不不！</strong>这声响不对劲——
+<div class="inner">一台服务器开始冒火花，旁边的灭火器指示灯也在疯狂闪烁，好像在说"你自己看着办吧"。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p12.jpg" alt="狂奔" loading="lazy">
+<div class="text">我以百米冲刺的速度冲向机房。
+<div class="humor">心想——两百万的债还没还，不能再加一台服务器的钱。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p13.jpg" alt="拔电源" loading="lazy">
+<div class="text">冲进机房，浓烟呛得我眼泪直流。一台服务器在剧烈震动。我伸手去拔电源线——
+<div class="inner">就在我碰到电源线的那一刻——</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p14.jpg" alt="电弧" loading="lazy">
+<div class="text" style="text-align:center;font-size:1.3em;color:#4af"><strong>一切变白了。</strong></div>
+</div>
+
+<div class="panel">
+<img src="images/p15.jpg" alt="黑暗" loading="lazy">
+<div class="text" style="text-align:center">我以为我死了。
+<div class="humor" style="margin-top:12px">说实话，以我现在的经济状况，死了也许还能省点钱。</div></div>
+</div>
+
+<div class="separator"></div>
+
+<div class="panel">
+<img src="images/p16.jpg" alt="醒来" loading="lazy">
+<div class="text">但我没死。因为死人应该看不到天花板上的水渍——
+<div class="dialog" style="margin-top:8px">等等，那是什么？</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p17.jpg" alt="数据流" loading="lazy">
+<div class="text">天花板上……不仅有水渍，还浮现着淡蓝色的半透明数据流。数字、代码片段、网络协议标识在空气中缓缓流动。
+<div class="inner">我是不是脑子被电坏了？</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p18.jpg" alt="四周数据" loading="lazy">
+<div class="text">从地上爬起来，我一脸懵地看着四周。整个机房到处飘浮着淡蓝色的数据流——从服务器、网线、甚至灭火器上都在流出数据。
+<div class="humor">难道这就是传说中的……猝死前的走马灯？还挺高科技的，比我预想的精彩多了。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p19.jpg" alt="手掌数据" loading="lazy">
+<div class="text">我伸出手——手掌上方浮现着我自己的生物数据：心率87、体温36.8、血压偏高。
+<div class="humor">最近睡眠时间：2.3小时。好吧，这个数据倒是很真实。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p20.jpg" alt="银行余额" loading="lazy">
+<div class="text">回到工位，手机上方飘着蓝色数据流。银行余额 <strong style="color:#f66">-1,983,621.00</strong> 赫然浮在空中。
+<div class="humor">好家伙，这个数字在空中看比在手机上看还刺眼。负债两百万这种事，用任何维度来看都很扎心。</div></div>
+</div>
+
+<div class="separator"></div>
+
+<div class="panel">
+<img src="images/p21.jpg" alt="出门" loading="lazy">
+<div class="text">天亮了。我决定出去走走，看看这个"超能力"是不是只在室内有效。
+<div class="humor">剧透：不是。</div>
+<div class="inner">每个路人身上都飘着淡蓝色的数据。整个世界在我眼里变成了一个巨大的数据库。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p22.jpg" alt="外卖小哥" loading="lazy">
+<div class="text">便利店门口，一个外卖小哥身上的数据：今日第12单、里程23公里、收入187.5元。
+<div class="humor">外卖小哥今天跑了23公里……比我创业十八个月的进度还快。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p23.jpg" alt="麻辣烫" loading="lazy">
+<div class="text">不小心瞥到另一个路人——穿着睡衣拿外卖的年轻人，数据显示：本周外卖记录——麻辣烫×7。
+<div class="humor">这哥们一周点了七次麻辣烫……跟我一周吃了七桶泡面比起来，我觉得我们是同一种人。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p24.jpg" alt="台阶沉思" loading="lazy">
+<div class="text">坐在路边台阶上，手里拿着便利店买的咖啡。周围的世界充满了蓝色数据流。
+<div class="inner">如果这不是幻觉……如果这是真的……我现在能看到所有数据。所有的。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p25.jpg" alt="眼睛特写" loading="lazy">
+<div class="text" style="text-align:center">两百万的债。一个今天就要看的demo。<br>一个可能改变一切的超能力。
+<div style="color:#4af;font-size:1.2em;margin-top:12px"><strong>有意思。</strong></div></div>
+</div>
+
+<div class="separator"></div>
+
+<div class="panel">
+<img src="images/p26.jpg" alt="路过公司" loading="lazy">
+<div class="text">就在这时，我路过了隔壁那家刚拿到B轮融资的"星辰科技"——</div>
+</div>
+
+<div class="panel">
+<img src="images/p27.jpg" alt="透视数据" loading="lazy">
+<div class="text">他们的……<strong>所有数据</strong>，就这样漂在空中，对我敞开了。
+<div class="inner">商业计划、核心代码、用户数据……全部。像全息投影一样悬浮在空中，清晰可读。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p28.jpg" alt="诱惑" loading="lazy">
+<div class="text">我的心跳加速了。这是一种从未有过的感觉——不是恐惧，是……
+<div class="inner" style="border-color:#f64">饥渴？</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p29.jpg" alt="挣扎" loading="lazy">
+<div class="text"><div class="inner">看一眼？只是看一眼？反正他们也不知道……</div>
+<div class="inner" style="margin-top:8px">但这和偷有什么区别？</div>
+<div class="inner" style="margin-top:8px">可如果我看了，也许我能做出更好的产品——</div>
+<div class="inner" style="margin-top:8px;border-color:#f64">不对，我这是在给自己找借口。</div></div>
+</div>
+
+<div class="panel">
+<img src="images/p30.jpg" alt="闪烁" loading="lazy">
+<div class="text">但在我做出决定之前——
+<div style="color:#4af;font-size:1.15em;margin-top:12px">我的"超能力"突然开始<strong>抽风</strong>了。</div>
+<div style="color:#789;margin-top:8px">视线一阵模糊，蓝色数据流忽闪忽灭，像信号不好的电视。</div>
+<div class="humor" style="margin-top:12px">看来这东西也不太稳定啊……</div></div>
+</div>
+
+<div class="decision-box">
+<h3>⚡ 你的选择是什么？</h3>
+<div class="decision-option" onclick="this.style.borderColor='#4af';this.style.background='rgba(68,170,255,0.2)'">
+<div class="label">A. 看一眼</div>
+<div class="desc">反正能力都给了，不用白不用。看看他们做了什么，我做得更好就行了。</div>
+</div>
+<div class="decision-option" onclick="this.style.borderColor='#4f8';this.style.background='rgba(68,255,136,0.15)'">
+<div class="label">B. 闭眼不看</div>
+<div class="desc">靠偷来的东西赢了，那跟以前的我有什么区别？我要用自己的本事证明自己。</div>
+</div>
+<div class="decision-option" onclick="this.style.borderColor='#f84';this.style.background='rgba(255,136,68,0.15)'">
+<div class="label">C. 看了，但决定自己做更好的</div>
+<div class="desc">知己知彼，百战不殆。看清对手的底牌，然后——碾压他们。</div>
+</div>
+</div>
+
+<div class="ending">
+<h2>—— 第一章 · 完 ——</h2>
+<p>代码之眼不稳定的真相，<br>以及林总的demo……还能撑住吗？</p>
+<div class="next-hint">第二章 · 即将更新</div>
+</div>
+
+<script>
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.15});
+document.querySelectorAll('.panel,.decision-box,.ending').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
