@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>最强创业者 · 第一章：入局</title>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #0a0a14;
+  --card-bg: #12121f;
+  --accent-gold: #ffd700;
+  --accent-red: #ff3b3b;
+  --accent-neon: #00e5ff;
+  --text: #e8e8f0;
+  --text-dim: #8888aa;
+  --text-narr: #c4c4dd;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* === Header === */
+.header {
+  position: relative;
+  width: 100%;
+  padding: 60px 20px 40px;
+  text-align: center;
+  background: linear-gradient(180deg, #1a0a2e 0%, var(--bg) 100%);
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,215,0,0.08) 0%, transparent 60%);
+  animation: headerPulse 6s ease-in-out infinite;
+}
+@keyframes headerPulse {
+  0%,100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.header h1 {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--accent-gold);
+  text-shadow: 0 0 30px rgba(255,215,0,0.3);
+  margin-bottom: 8px;
+  position: relative;
+}
+.header .subtitle {
+  font-size: 20px;
+  color: var(--text-dim);
+  position: relative;
+}
+.header .chapter {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 24px;
+  border: 1px solid var(--accent-gold);
+  border-radius: 20px;
+  font-size: 14px;
+  color: var(--accent-gold);
+  letter-spacing: 2px;
+  position: relative;
+}
+
+/* === Progress Bar === */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-neon));
+  z-index: 100;
+  transition: width 0.1s;
+}
+
+/* === Panel Container === */
+.panels {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 12px 80px;
+}
+
+/* === Panel === */
+.panel {
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel-img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* Narration text */
+.panel-text {
+  padding: 12px 8px;
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--text-narr);
+}
+
+/* Inner monologue */
+.inner {
+  position: relative;
+  padding: 14px 16px;
+  margin: 8px 0;
+  background: linear-gradient(135deg, rgba(0,229,255,0.06) 0%, rgba(255,215,0,0.04) 100%);
+  border-left: 3px solid var(--accent-neon);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--accent-neon);
+  font-size: 16px;
+}
+
+/* Dialogue */
+.dialogue {
+  padding: 10px 14px;
+  margin: 8px 0;
+  background: rgba(255,255,255,0.04);
+  border-radius: 12px;
+  font-size: 17px;
+}
+.dialogue .speaker {
+  font-weight: 700;
+  color: var(--accent-gold);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+/* Decision point */
+.decision {
+  margin: 16px 0;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(255,59,59,0.08) 0%, rgba(255,215,0,0.06) 100%);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 12px;
+}
+.decision .decision-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--accent-red);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+.decision .decision-text {
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.decision .decision-choice {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: rgba(255,215,0,0.08);
+  border-radius: 8px;
+  color: var(--accent-gold);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Section divider */
+.section-divider {
+  text-align: center;
+  padding: 40px 0;
+  position: relative;
+}
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+.section-divider span {
+  position: relative;
+  background: var(--bg);
+  padding: 0 20px;
+  color: var(--accent-gold);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+/* Variety show-style subtitle bar */
+.show-bar {
+  display: inline-block;
+  padding: 6px 16px;
+  background: linear-gradient(90deg, var(--accent-red), #ff6b35);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin: 8px 0;
+  letter-spacing: 1px;
+}
+
+/* Chat message style */
+.chat-group {
+  padding: 8px 0;
+}
+.chat-msg {
+  display: flex;
+  align-items: flex-start;
+  margin: 6px 0;
+  gap: 8px;
+}
+.chat-bubble {
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  font-size: 15px;
+  max-width: 85%;
+}
+
+/* Scoreboard */
+.scoreboard {
+  margin: 12px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,215,0,0.2);
+}
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-size: 16px;
+}
+.score-row:nth-child(odd) { background: rgba(255,255,255,0.03); }
+.score-row .team { font-weight: 600; }
+.score-row .score { color: var(--accent-gold); font-weight: 700; }
+.score-row.highlight { background: rgba(0,229,255,0.08); border-left: 3px solid var(--accent-neon); }
+
+/* Cliffhanger ending */
+.cliffhanger {
+  margin: 24px 0;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(255,59,59,0.06) 0%, rgba(0,229,255,0.06) 100%);
+  border: 1px solid rgba(255,59,59,0.2);
+  border-radius: 12px;
+  text-align: center;
+}
+.cliffhanger .next-ep {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.cliffhanger .hook {
+  font-size: 18px;
+  color: var(--accent-gold);
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="header">
+  <h1>最强创业者</h1>
+  <div class="subtitle">综艺×AI创业 · V5实验</div>
+  <div class="chapter">第一章：入局</div>
+</div>
+
+<div class="panels">
+
+<!-- ==================== 序幕：邀请 ==================== -->
+<div class="section-divider"><span>序 幕 · 邀 请</span></div>
+
+<!-- P01 -->
+<div class="panel">
+  <img class="panel-img" src="p01.jpg" alt="深夜办公室" loading="eager">
+  <div class="panel-text">
+    <div class="inner">凌晨两点半，我的AI内容平台月活终于破了50万。咖啡早就凉透了，我连喝一口的时间都没有——后台数据像过年的鞭炮，噼里啪啦往上蹦。</div>
+    <p>然后我收到了一封改变一切的邮件。</p>
+  </div>
+</div>
+
+<!-- P02 -->
+<div class="panel">
+  <img class="panel-img" src="p02.jpg" alt="邀请函" loading="eager">
+  <div class="panel-text">
+    <p>手机弹出一张金色邀请函——<strong>《最强创业者》第一季</strong>。</p>
+    <div class="inner">我挑了挑眉。这节目我知道，全网热度拉满，据说冠军能拿10亿战投。但是……他们为什么找我？50万月活在互联网圈，连浪花都算不上。</div>
+  </div>
+</div>
+
+<!-- P03 / DECISION-1 -->
+<div class="panel">
+  <img class="panel-img" src="p03.jpg" alt="梦想vs现实" loading="eager">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="decision-tag">⚡ 决策点 1</div>
+      <div class="decision-text">50万月活，在字节面前连零头都不算。要么继续做温室里的花，要么去擂台上证明——AI不只能写代码，它能创造让人笑、让人哭、让人停不下来的故事。</div>
+      <div class="decision-choice">→ 参加。不是为了钱，是为了在全国观众面前打脸那些说"AI做不了内容"的人。</div>
+    </div>
+  </div>
+</div>
+
+<!-- P04 -->
+<div class="panel">
+  <img class="panel-img" src="p04.jpg" alt="发消息" loading="eager">
+  <div class="panel-text">
+    <p>关掉电脑，我打开团队群发了条消息：</p>
+    <div class="chat-group">
+      <div class="chat-msg"><div class="chat-bubble">各位，我要去参加个节目，公司交给你们一个月。别把服务器烧了就行。</div></div>
+      <div class="chat-msg"><div class="chat-bubble">？？？</div></div>
+      <div class="chat-msg"><div class="chat-bubble">老板你认真的？</div></div>
+      <div class="chat-msg"><div class="chat-bubble">要不要带电脑去？</div></div>
+    </div>
+    <div class="inner">最后一条消息让我犹豫了一秒。然后我把Mac塞进了背包。</div>
+  </div>
+</div>
+
+<!-- P05 -->
+<div class="panel">
+  <img class="panel-img" src="p05.jpg" alt="出租车夜景" loading="eager">
+  <div class="panel-text">
+    <p>出租车划过陆家嘴的天际线，东方明珠在夜色里像一根巨大的信号塔。</p>
+    <div class="inner">50万月活。在这座城市里，有人一天就能做到这个数。但他们做的是工具。我做的是故事。这个区别，我要让所有人看到。</div>
+  </div>
+</div>
+
+<!-- ==================== 第一幕：入场 ==================== -->
+<div class="section-divider"><span>第 一 幕 · 入 场</span></div>
+
+<!-- P06 -->
+<div class="panel">
+  <img class="panel-img" src="p06.jpg" alt="创业塔外景" loading="lazy">
+  <div class="panel-text">
+    <p>创业塔。</p>
+    <p>一栋玻璃幕墙大厦拔地而起，巨型LED屏上"<strong>最强创业者</strong>"四个字金光灿烂。十二个选手陆续到达门口。</p>
+    <div class="inner">我站在门口抬头看了三秒，脖子有点酸。这楼比我公司的共享办公空间……大概大一百倍。</div>
+  </div>
+</div>
+
+<!-- P07 -->
+<div class="panel">
+  <img class="panel-img" src="p07.jpg" alt="大厅观察" loading="lazy">
+  <div class="panel-text">
+    <p>大厅里已经聚了不少人。</p>
+    <div class="inner">我穿着节目组发的深蓝Polo衫，胸口别着编号"07"，扫了一圈其他选手——西装革履的、戴VR眼镜的、抱着机械臂的……我感觉自己像混进校友聚会的外卖员。</div>
+  </div>
+</div>
+
+<!-- P08 -->
+<div class="panel">
+  <img class="panel-img" src="p08.jpg" alt="老周握手" loading="lazy">
+  <div class="panel-text">
+    <p>一个高瘦的光头男人走过来，金丝眼镜后面的眼睛笑成两条缝。</p>
+    <div class="dialogue">
+      <div class="speaker">老周</div>
+      朱总！久仰久仰！你们做AI内容的吧？我前东家字节也在做这块，改天交流交流。
+    </div>
+    <div class="inner">"改天交流"在互联网圈的意思是"我知道你的底牌了"。我笑着握手，手劲刚好——不卑不亢。</div>
+  </div>
+</div>
+
+<!-- P09 -->
+<div class="panel">
+  <img class="panel-img" src="p09.jpg" alt="小林写代码" loading="lazy">
+  <div class="panel-text">
+    <p>角落里，一个瘦小的年轻人缩在沙发上敲笔记本电脑，周围没人理他。蓬乱的长发，大框黑眼镜，拖鞋。</p>
+    <p>我走近时不经意瞄了一眼他的屏幕——</p>
+    <div class="inner">这代码……函数命名像诗一样优雅，架构清晰得让人想流泪。写得比我见过的所有工程师都好。</div>
+  </div>
+</div>
+
+<!-- P10 -->
+<div class="panel">
+  <img class="panel-img" src="p10.jpg" alt="苏雨晴社交" loading="lazy">
+  <div class="panel-text">
+    <p>另一边，一个短发干练的女人正同时和三个选手聊天，笑容完美得像AI生成的。她手里的iPad上在做笔记。</p>
+    <div class="inner">她在建人际关系网。第一个小时就开始了。厉害。</div>
+  </div>
+</div>
+
+<!-- P11 -->
+<div class="panel">
+  <img class="panel-img" src="p11.jpg" alt="张导师登场" loading="lazy">
+  <div class="panel-text">
+    <p>全场突然安静。</p>
+    <p>一个满脸横肉的中年男人走了进来，西装绷在壮实的身体上，表情像在参加葬礼。</p>
+    <div class="dialogue">
+      <div class="speaker">张导师</div>
+      欢迎来到《最强创业者》。这里没有PPT，没有故事会，只有一个问题——你的产品，值不值10个亿？
+    </div>
+    <div class="inner">空气凝固了大概三秒。我旁边有人咽了口口水。</div>
+  </div>
+</div>
+
+<!-- P12 -->
+<div class="panel">
+  <img class="panel-img" src="p12.jpg" alt="规则公布" loading="lazy">
+  <div class="panel-text">
+    <div class="show-bar">📺 节目规则</div>
+    <div class="dialogue">
+      <div class="speaker">张导师</div>
+      30天，10轮挑战。每轮淘汰至少一人。最终三人进入决赛。
+    </div>
+    <p>十二个人站成一排，像待宰的……不对，像即将上场的斗士。我排在第七个，编号"07"闪着微光。</p>
+  </div>
+</div>
+
+<!-- P13 -->
+<div class="panel">
+  <img class="panel-img" src="p13.jpg" alt="抽签分组" loading="lazy">
+  <div class="panel-text">
+    <p>分组抽签。我把手伸进玻璃碗，摸出一张卡片——</p>
+    <p style="text-align:center;font-size:24px;font-weight:900;color:var(--accent-neon);margin:12px 0;">B 组</p>
+    <p>队友：小林（角落里写代码的天才），陈博士（做AI医疗的中年人）。</p>
+    <p>老周在A组，和苏雨晴一组。</p>
+    <div class="inner">强弱还看不出来。但我注意到老周抽到签时，嘴角动了一下。他对这个分组……似乎很满意。</div>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="panel">
+  <img class="panel-img" src="p14.jpg" alt="小林对话" loading="lazy">
+  <div class="panel-text">
+    <p>我还没来得及自我介绍，小林已经冲到面前：</p>
+    <div class="dialogue">
+      <div class="speaker">小林</div>
+      你的内容平台用的什么模型？Transformer改的？loss function是什么？
+    </div>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      ……你好，我叫朱江。
+    </div>
+    <div class="dialogue">
+      <div class="speaker">小林</div>
+      我知道。回答问题。
+    </div>
+  </div>
+</div>
+
+<!-- P15 -->
+<div class="panel">
+  <img class="panel-img" src="p15.jpg" alt="苦笑" loading="lazy">
+  <div class="panel-text">
+    <div class="inner">我的队友是个不会说人话的天才。不知道是好事还是坏事。大概率……两者都是。</div>
+  </div>
+</div>
+
+<!-- ==================== 第二幕：第一战 ==================== -->
+<div class="section-divider"><span>第 二 幕 · 第 一 战</span></div>
+
+<!-- P16 -->
+<div class="panel">
+  <img class="panel-img" src="p16.jpg" alt="第一轮挑战" loading="lazy">
+  <div class="panel-text">
+    <div class="show-bar">🔥 第一轮挑战</div>
+    <div class="dialogue">
+      <div class="speaker">张导师</div>
+      24小时内，做出一个AI产品demo。第二天，3分钟路演。最差的一组——直接淘汰一人。
+    </div>
+    <div class="inner">24小时。3分钟路演。淘汰。三个词砸下来，会议室里的空气突然有了重量。</div>
+  </div>
+</div>
+
+<!-- P17 -->
+<div class="panel">
+  <img class="panel-img" src="p17.jpg" alt="团队讨论" loading="lazy">
+  <div class="panel-text">
+    <p>散开之后，B组三个人面面相觑。</p>
+    <div class="dialogue">
+      <div class="speaker">陈博士</div>
+      做AI医疗问诊？我有经验——
+    </div>
+    <div class="dialogue">
+      <div class="speaker">小林</div>
+      太慢。医疗数据合规、模型微调、界面搭建，24小时根本不够。
+    </div>
+    <p>沉默了五秒。两个人同时看向我。</p>
+  </div>
+</div>
+
+<!-- P18 / DECISION-2 -->
+<div class="panel">
+  <img class="panel-img" src="p18.jpg" alt="提出方案" loading="lazy">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="decision-tag">⚡ 决策点 2</div>
+      <div class="decision-text">需要一个24小时能搞定、又能让评委眼前一亮的demo。做什么？</div>
+      <div class="decision-choice">→ 做AI故事渲染——把爆款小说自动转成漫画。这就是我真正在做的事。</div>
+    </div>
+    <div class="dialogue">
+      <div class="speaker">小林</div>
+      有意思。模型我来搞，你负责内容策略。
+    </div>
+    <div class="dialogue">
+      <div class="speaker">陈博士</div>
+      ……那我负责什么？
+    </div>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      你负责……用户测试。
+    </div>
+    <div class="inner">翻译：你负责当观众。但我不能这么说。</div>
+  </div>
+</div>
+
+<!-- P19 -->
+<div class="panel">
+  <img class="panel-img" src="p19.jpg" alt="深夜赶工" loading="lazy">
+  <div class="panel-text">
+    <p>深夜。三组并行赶工。</p>
+    <p>A组：老周指挥若定，像在字节时一样。他居然还叫来了两个"远程技术顾问"——据说是前同事。</p>
+    <p>C组：在吵架。做AI音乐的和做AI视频的对方案产生了分歧。音量越来越大。</p>
+    <p>B组：我和小林肩并肩疯狂coding。能量饮料空罐堆成了小金字塔。</p>
+  </div>
+</div>
+
+<!-- P20 -->
+<div class="panel">
+  <img class="panel-img" src="p20.jpg" alt="走廊发现" loading="lazy">
+  <div class="panel-text">
+    <p>凌晨三点。我去走廊自动售货机买咖啡，手机WiFi信号突然跳了一下。</p>
+    <div class="inner">黑客直觉。大学时候逆向工程练出来的本能——信号异常意味着网络配置有问题。我打开手机扫了一眼……创业塔的内网有一个未关闭的管理员端口。</div>
+    <p>通过这个端口，理论上能看到其他组的工作进度。</p>
+  </div>
+</div>
+
+<!-- P21 / DECISION-3 -->
+<div class="panel">
+  <img class="panel-img" src="p21.jpg" alt="内心挣扎" loading="lazy">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="decision-tag">⚡ 决策点 3</div>
+      <div class="decision-text">看还是不看？这个端口就像一扇半开的门，推开就能看到对手的底牌。</div>
+      <div class="decision-choice">→ 先记下来。菩萨心肠是默认设置，霹雳手段……等需要的时候再说。</div>
+    </div>
+    <div class="inner">我把端口信息存进了备忘录，锁上手机，买了罐咖啡回去继续干活。底牌这种东西，关键不在于有没有，而在于什么时候打。</div>
+  </div>
+</div>
+
+<!-- P22 -->
+<div class="panel">
+  <img class="panel-img" src="p22.jpg" alt="披外套" loading="lazy">
+  <div class="panel-text">
+    <p>早上八点。阳光照进来。</p>
+    <p>小林趴在键盘上睡着了，屏幕上显示四个字：<strong>渲染完成</strong>。Demo跑通了。</p>
+    <p>我脱下外套给他披上，自己继续调内容参数。</p>
+    <div class="inner">这小子是真的猛。六个小时写完了别人团队一周的工作量。技术天才这四个字，第一次在我面前有了具体的形状。</div>
+  </div>
+</div>
+
+<!-- P23 -->
+<div class="panel">
+  <img class="panel-img" src="p23.jpg" alt="老周路演" loading="lazy">
+  <div class="panel-text">
+    <div class="show-bar">📺 路演大会</div>
+    <p>A组先上。</p>
+    <p>老周的产品：AI智能办公助手。PPT精美到让人怀疑是不是提前做了三个月。数据漂亮，逻辑清晰，三个评委频频点头。</p>
+    <div class="inner">……不愧是前字节。这PPT比我公司的融资材料好十倍。不，一百倍。我那个融资PPT还是用免费模板做的。</div>
+  </div>
+</div>
+
+<!-- P24 -->
+<div class="panel">
+  <img class="panel-img" src="p24.jpg" alt="朱江路演" loading="lazy">
+  <div class="panel-text">
+    <p>轮到我们了。我深呼一口气，走上台。</p>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      大家好，我是朱江。我们要解决的问题很简单——这个世界上有无数好故事，但99%的人没时间看完。所以我们做了一个东西：你给它一部小说，它还你一部漫画。
+    </div>
+    <p>现场demo：输入一段赘婿小说文本，几秒后——竖屏漫画出现在屏幕上。角色有表情，有动作，有分镜。</p>
+  </div>
+</div>
+
+<!-- P25 -->
+<div class="panel">
+  <img class="panel-img" src="p25.jpg" alt="观众惊讶" loading="lazy">
+  <div class="panel-text">
+    <p>全场安静了一秒。然后——</p>
+    <p>张导师罕见地点了一下头。评委席上有人在低声说"有意思"。</p>
+    <div class="inner">但我注意到A组席位上，苏雨晴微微皱了皱眉。她在分析竞争格局。这个女人……不简单。</div>
+  </div>
+</div>
+
+<!-- P26 -->
+<div class="panel">
+  <img class="panel-img" src="p26.jpg" alt="C组崩溃" loading="lazy">
+  <div class="panel-text">
+    <p>C组上台了。他们做AI音乐——</p>
+    <p>然后demo崩了。</p>
+    <p>大屏幕上红色错误弹窗像烟花一样绽放。两个队员在台上开始互相甩锅。张导师面无表情地说了两个字：</p>
+    <div class="dialogue">
+      <div class="speaker">张导师</div>
+      下一个。
+    </div>
+    <div class="inner">……我默默为他们点了根精神上的蜡烛。</div>
+  </div>
+</div>
+
+<!-- P27 -->
+<div class="panel">
+  <img class="panel-img" src="p27.jpg" alt="分数公布" loading="lazy">
+  <div class="panel-text">
+    <div class="show-bar">📊 第一轮结果</div>
+    <div class="scoreboard">
+      <div class="score-row"><span class="team">A组（老周）</span><span class="score">8.5 分</span></div>
+      <div class="score-row highlight"><span class="team">B组（朱江）</span><span class="score">8.2 分</span></div>
+      <div class="score-row"><span class="team">C组</span><span class="score" style="color:var(--accent-red)">4.1 分</span></div>
+    </div>
+    <p>勉强第二。</p>
+    <div class="inner">老周回头看了我一眼，微微一笑。那个笑容翻译过来大概是："还行啊，小兄弟。不过，也就这样了吧。"</div>
+  </div>
+</div>
+
+<!-- ==================== 悬念结尾 ==================== -->
+<div class="section-divider"><span>悬 念 · 暗 流</span></div>
+
+<!-- P28 -->
+<div class="panel">
+  <img class="panel-img" src="p28.jpg" alt="淘汰选手离开" loading="lazy">
+  <div class="panel-text">
+    <p>夜里，C组一个选手被淘汰了。他拖着行李箱往出口走，经过我身边时停了下来。</p>
+    <div class="dialogue">
+      <div class="speaker">被淘汰的选手</div>
+      小心老周。
+    </div>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      ……什么意思？
+    </div>
+    <div class="dialogue">
+      <div class="speaker">被淘汰的选手</div>
+      他路演的demo，我看着眼熟。
+    </div>
+    <p>说完他就走了。行李箱轮子碾过地板的声音，在空荡荡的走廊里格外清晰。</p>
+  </div>
+</div>
+
+<!-- P29 -->
+<div class="panel">
+  <img class="panel-img" src="p29.jpg" alt="房间犹豫" loading="lazy">
+  <div class="panel-text">
+    <p>回到房间，我坐在床边发了好一会儿呆。</p>
+    <p>然后打开了笔记本电脑。</p>
+    <div class="inner">白天记下的那个管理端口，此刻像一颗定时炸弹一样安静地躺在我的备忘录里。</div>
+  </div>
+</div>
+
+<!-- P30 / DECISION-4 -->
+<div class="panel">
+  <img class="panel-img" src="p30.jpg" alt="查看端口" loading="lazy">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="decision-tag">⚡ 决策点 4</div>
+      <div class="decision-text">"只看一眼。就一眼。"被淘汰选手的提醒触发了我的警觉——如果老周真的有问题，我需要知道。</div>
+      <div class="decision-choice">→ 快速查看A组的项目文件目录。只看文件名，不打开文件。有底线。</div>
+    </div>
+  </div>
+</div>
+
+<!-- P31 -->
+<div class="panel">
+  <img class="panel-img" src="p31.jpg" alt="发现文件" loading="lazy">
+  <div class="panel-text">
+    <p>A组项目文件夹里的内容一目了然。方案文档、技术架构、测试脚本……</p>
+    <p>然后一个文件名让我瞳孔骤缩——</p>
+    <p style="text-align:center;font-size:20px;font-weight:700;color:var(--accent-red);margin:16px 0;font-family:monospace;">competitor_analysis_zhuj.xlsx</p>
+    <div class="inner">zhuj。朱江的缩写。这个文件……是在分析我。</div>
+  </div>
+</div>
+
+<!-- P32 -->
+<div class="panel">
+  <img class="panel-img" src="p32.jpg" alt="合上电脑" loading="lazy">
+  <div class="panel-text">
+    <p>我慢慢合上电脑。</p>
+    <p>震惊只持续了三秒。然后是冷静。然后是——</p>
+    <div class="inner">好啊，老周。你不是来"交流"的，你是来打仗的。第一天就开始建档分析对手。前字节VP的套路，果然不是盖的。</div>
+  </div>
+</div>
+
+<!-- P33 -->
+<div class="panel">
+  <img class="panel-img" src="p33.jpg" alt="窗前剪影" loading="lazy">
+  <div class="panel-text">
+    <p>我走到窗前。上海的夜景在眼前铺开，霓虹灯像是这座城市的脉搏。</p>
+    <div class="inner" style="border-color:var(--accent-gold);color:var(--accent-gold);">好消息是，我也不是来交朋友的。</div>
+  </div>
+</div>
+
+<!-- P34 -->
+<div class="panel">
+  <img class="panel-img" src="p34.jpg" alt="下一轮预告" loading="lazy">
+  <div class="panel-text">
+    <div class="show-bar">📺 下一轮挑战预告</div>
+    <p style="text-align:center;font-size:22px;font-weight:900;color:var(--accent-gold);margin:16px 0;">第二轮：48小时用户增长大战</p>
+    <div class="inner">用户增长……这是老周最擅长的领域。字节系的增长黑客，那是写进基因里的。而我呢？50万月活都是靠口碑慢慢攒的。</div>
+  </div>
+</div>
+
+<!-- P35 -->
+<div class="panel">
+  <img class="panel-img" src="p35.jpg" alt="深夜消息" loading="lazy">
+  <div class="panel-text">
+    <p>手机震了一下。小林深夜发来的消息。</p>
+    <div class="chat-group">
+      <div class="chat-msg"><div class="chat-bubble" style="border:1px solid var(--accent-neon);">老板，我刚发现一个很有意思的事。A组的AI助手后端……调用了我开源的框架。而且，没标注出处。</div></div>
+    </div>
+    <p>我嘴角上扬。</p>
+    <div class="inner" style="border-color:var(--accent-gold);color:var(--accent-gold);">两张底牌。一张是我手里的WiFi漏洞，一张是小林发现的开源侵权证据。老周，你以为你在布局？你不知道的是——棋盘下面还有一层。</div>
+  </div>
+</div>
+
+<!-- ==================== 结尾 ==================== -->
+<div class="cliffhanger">
+  <div class="next-ep">第一章 · 完</div>
+  <div class="hook">老周的暗棋、小林的发现、未关闭的管理端口……<br>第二轮，用户增长大战。48小时。<br>游戏才刚刚开始。</div>
+</div>
+
+</div><!-- .panels -->
+
+<div class="footer">
+  EXP-584 · 综艺×AI创业《最强创业者》Ch1<br>
+  Trinity v3 · 向死而生
+</div>
+
+<script>
+// Progress bar
+const bar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = h > 0 ? (window.scrollY / h * 100) + '%' : '0%';
+});
+
+// Intersection Observer for scroll animations
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(p => obs.observe(p));
+</script>
+
+</body>
+</html>
