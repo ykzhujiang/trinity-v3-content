@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗流 · 第二章 蜜罐</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a12;
+  color: #e8e8f0;
+  font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, #00d4ff, #ff006e, #00d4ff);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+  z-index: 1000; transition: width 0.3s ease;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 60px 20px 30px;
+  background: linear-gradient(180deg, rgba(0,212,255,0.08) 0%, transparent 100%);
+}
+.header .series { font-size: 14px; color: #00d4ff; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px; }
+.header h1 { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #00d4ff, #ff006e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+.header .subtitle { font-size: 16px; color: #888; }
+.header .chapter-nav { margin-top: 16px; font-size: 13px; color: #555; }
+.header .chapter-nav a { color: #00d4ff; text-decoration: none; }
+
+/* Panel container */
+.panels { max-width: 420px; margin: 0 auto; padding: 0 0 80px; }
+
+/* Individual panel */
+.panel {
+  margin-bottom: 2px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible { opacity: 1; transform: translateY(0); }
+
+.panel img {
+  width: 100%; display: block;
+  border-radius: 0;
+}
+
+/* Text blocks */
+.panel-text {
+  padding: 20px 24px;
+  font-size: 17px;
+  line-height: 1.85;
+  color: #ccc;
+  background: #0d0d18;
+}
+.panel-text .dialogue {
+  color: #e0e0f0;
+  font-weight: 500;
+  padding: 8px 0;
+  border-left: 3px solid #00d4ff;
+  padding-left: 14px;
+  margin: 10px 0;
+}
+.panel-text .inner-voice {
+  color: #aa88cc;
+  font-style: italic;
+  padding: 8px 0;
+  border-left: 3px solid #aa88cc;
+  padding-left: 14px;
+  margin: 10px 0;
+}
+.panel-text .narration {
+  color: #999;
+  font-size: 15px;
+  margin: 8px 0;
+}
+.panel-text .humor {
+  color: #ffd700;
+  background: rgba(255,215,0,0.05);
+  padding: 8px 14px;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+/* Decision points */
+.decision-block {
+  margin: 8px 24px 24px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(255,0,110,0.05));
+  border: 1px solid rgba(0,212,255,0.3);
+  border-radius: 12px;
+}
+.decision-block .decision-label {
+  font-size: 12px;
+  color: #00d4ff;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+.decision-block .decision-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #e0e0f0;
+  margin-bottom: 10px;
+}
+.decision-block .decision-choice {
+  font-size: 16px;
+  color: #ff006e;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.decision-block .decision-reason {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.7;
+}
+
+/* Act dividers */
+.act-divider {
+  text-align: center;
+  padding: 40px 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.act-divider.visible { opacity: 1; transform: translateY(0); }
+.act-divider .act-num { font-size: 12px; color: #ff006e; letter-spacing: 6px; margin-bottom: 8px; }
+.act-divider .act-title { font-size: 22px; font-weight: 700; color: #e0e0f0; }
+.act-divider .act-line { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #00d4ff, transparent); margin: 16px auto 0; }
+
+/* Cliffhanger ending */
+.cliffhanger {
+  text-align: center;
+  padding: 40px 24px 60px;
+  background: linear-gradient(180deg, transparent, rgba(255,0,110,0.06));
+}
+.cliffhanger .to-be-continued { font-size: 14px; color: #ff006e; letter-spacing: 6px; margin-bottom: 16px; }
+.cliffhanger .tease { font-size: 18px; color: #888; line-height: 1.8; max-width: 320px; margin: 0 auto; }
+.cliffhanger .chapter-title { font-size: 24px; font-weight: 800; color: #e0e0f0; margin-top: 20px; }
+
+/* Scroll animations */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="header">
+  <div class="series">暗 流</div>
+  <h1>第二章 · 蜜罐</h1>
+  <div class="subtitle">黑客×商战 · V5原创长篇</div>
+  <div class="chapter-nav"><a href="../exp580-hacker-bizwar/">← 第一章 水印</a></div>
+</div>
+
+<div class="panels">
+
+  <!-- ═══ ACT 1: 水印触发 ═══ -->
+  <div class="act-divider">
+    <div class="act-num">第 一 幕</div>
+    <div class="act-title">水印触发</div>
+    <div class="act-line"></div>
+  </div>
+
+  <!-- P01 -->
+  <div class="panel">
+    <img src="p01.jpg" loading="eager" alt="深圳南山科技园夜景">
+    <div class="panel-text">
+      <div class="narration">【远景·仰拍·固定镜头】深圳南山科技园，凌晨三点。大多数写字楼已经暗了，只有几扇窗户还亮着。</div>
+      <div class="inner-voice">加班到凌晨三点的CEO不稀奇。稀奇的是我今晚不是在加班——我在钓鱼。</div>
+    </div>
+  </div>
+
+  <!-- P02 -->
+  <div class="panel">
+    <img src="p02.jpg" loading="eager" alt="朱江在办公室值班">
+    <div class="panel-text">
+      <div class="narration">【中景·侧拍·固定】办公室内，三台显示器排开。我窝在工位前，面前是一杯已经凉了的咖啡。</div>
+      <div class="humor">公司最贵的资产不是服务器，是这台还能跑的咖啡机。它和我一样，凌晨三点还在工作。</div>
+    </div>
+  </div>
+
+  <!-- P03 -->
+  <div class="panel">
+    <img src="p03.jpg" loading="eager" alt="屏幕报警">
+    <div class="panel-text">
+      <div class="narration">【特写·平拍·推镜头】主屏突然刷红。水印监控系统——我三天前亲手埋下的钓鱼线——咬钩了。</div>
+      <div class="inner-voice">心跳瞬间加速。等了72小时，终于来了。</div>
+    </div>
+  </div>
+
+  <!-- P04 -->
+  <div class="panel">
+    <img src="p04.jpg" loading="eager" alt="朱江震惊表情">
+    <div class="panel-text">
+      <div class="narration">【极近特写·平拍·固定】屏幕红光映在我脸上。震惊——不是因为有人触发了水印，而是因为触发的是谁。</div>
+    </div>
+  </div>
+
+  <!-- P05 -->
+  <div class="panel">
+    <img src="p05.jpg" loading="eager" alt="屏幕显示林薇">
+    <div class="panel-text">
+      <div class="narration">【特写·平拍·固定】屏幕上赫然显示：第6号嫌疑人——林薇。</div>
+      <div class="inner-voice">林薇。跟我一起创业三年的合伙人。管产品的，不碰代码库。为什么是她的工号？</div>
+    </div>
+  </div>
+
+  <!-- P06 -->
+  <div class="panel">
+    <img src="p06.jpg" loading="lazy" alt="朱江握拳">
+    <div class="panel-text">
+      <div class="narration">【特写·俯拍·固定】我的手不自觉攥紧，指节发白。三秒后，慢慢松开。</div>
+      <div class="inner-voice">不对。这不合理。林薇连git命令都不会用，她怎么访问标记版本的代码？</div>
+      <div class="inner-voice">愤怒是最廉价的反应。我需要的是逻辑。</div>
+    </div>
+  </div>
+
+  <!-- P07 -->
+  <div class="panel">
+    <img src="p07.jpg" loading="lazy" alt="朱江查VPN日志">
+    <div class="panel-text">
+      <div class="narration">【肩上镜头·平拍·固定】我开始敲键盘。VPN日志、权限记录、访问时间——一行行调出来。</div>
+    </div>
+  </div>
+
+  <!-- P08 -->
+  <div class="panel">
+    <img src="p08.jpg" loading="lazy" alt="VPN日志异常">
+    <div class="panel-text">
+      <div class="narration">【特写·平拍·固定】屏幕上的数据让我皱了眉。登录时间：凌晨1:47。IP地址——不在林薇家，不在公司。一个共享办公空间的IP。</div>
+      <div class="inner-voice">林薇昨晚不在公司。这我确定。那凌晨1:47用她工号登录的人……是谁？</div>
+    </div>
+  </div>
+
+  <!-- P09 - DECISION 1 -->
+  <div class="panel">
+    <img src="p09.jpg" loading="lazy" alt="朱江思考决策">
+    <div class="panel-text">
+      <div class="narration">【中景·侧面·固定】我靠在椅背上，十指交叉抵住下巴。办公室只有屏幕的光。</div>
+    </div>
+    <div class="decision-block">
+      <div class="decision-label">决 策 点 ①</div>
+      <div class="decision-title">水印指向合伙人——下一步怎么做？</div>
+      <div class="decision-choice">➤ 不打草惊蛇。先查VPN日志，验证是否本人操作。</div>
+      <div class="decision-reason">三年战友，必须证据确凿才能下结论。但如果确认了——绝不手软。菩萨心肠，霹雳手段。这两样，一个都不能少。</div>
+    </div>
+  </div>
+
+  <!-- P10 -->
+  <div class="panel">
+    <img src="p10.jpg" loading="lazy" alt="朱江拿起车钥匙">
+    <div class="panel-text">
+      <div class="narration">【低角度仰拍·推镜头】我站起来，从桌上抓起车钥匙。</div>
+      <div class="inner-voice">凌晨三点半。我要去那个地址亲眼看看。</div>
+    </div>
+  </div>
+
+  <!-- ═══ ACT 2: 真相比想象复杂 ═══ -->
+  <div class="act-divider">
+    <div class="act-num">第 二 幕</div>
+    <div class="act-title">真相比想象复杂</div>
+    <div class="act-line"></div>
+  </div>
+
+  <!-- P11 -->
+  <div class="panel">
+    <img src="p11.jpg" loading="lazy" alt="深圳夜景驾车">
+    <div class="panel-text">
+      <div class="narration">【广角·跟拍·移动镜头】深圳凌晨的街道出奇安静。霓虹招牌还在闪，但路上只有我一辆车。</div>
+      <div class="humor">我一个CEO，凌晨三点蹲在停车场像个私家侦探。创业到最后果然什么都要自己干。</div>
+    </div>
+  </div>
+
+  <!-- P12 -->
+  <div class="panel">
+    <img src="p12.jpg" loading="lazy" alt="共享办公空间">
+    <div class="panel-text">
+      <div class="narration">【远景·平拍·固定】目标地址。一栋普通的写字楼，"创联共享空间"的招牌在二楼亮着。大部分楼层都黑了。</div>
+    </div>
+  </div>
+
+  <!-- P13 -->
+  <div class="panel">
+    <img src="p13.jpg" loading="lazy" alt="认出周远的车">
+    <div class="panel-text">
+      <div class="narration">【第一人称视角·车内·固定】我刚停好车就看到了——停车场角落那辆黑色路虎揽胜。车牌号很眼熟。</div>
+      <div class="inner-voice">周远的车。</div>
+    </div>
+  </div>
+
+  <!-- P14 -->
+  <div class="panel">
+    <img src="p14.jpg" loading="lazy" alt="周远回忆">
+    <div class="panel-text">
+      <div class="narration">【回忆画面·暖色调·柔焦】周远。深圳AI圈子里的"干净先生"。投资人饭局上见过几次，总是笑得很职业，说话从不带脏字。</div>
+      <div class="inner-voice">我一直觉得他笑的方式不对劲——太干净了，像打磨过的。干净到让人不安。</div>
+    </div>
+  </div>
+
+  <!-- P15 -->
+  <div class="panel">
+    <img src="p15.jpg" loading="lazy" alt="朱江在车里等">
+    <div class="panel-text">
+      <div class="narration">【中景·侧拍·固定】我在车里等了三个小时。天色从黑变蓝，又从蓝变橙。</div>
+      <div class="inner-voice">等待的过程比写代码难多了。写代码至少有进度条。</div>
+    </div>
+  </div>
+
+  <!-- P16 -->
+  <div class="panel">
+    <img src="p16.jpg" loading="lazy" alt="林薇走出大楼">
+    <div class="panel-text">
+      <div class="narration">【中远景·朱江车内视角·固定】早上六点过几分。楼门开了。林薇走了出来。深色外套，低头看手机，脸色非常差。</div>
+      <div class="inner-voice">她看起来不像是刚干完一票得意的样子。她看起来像是被什么东西压垮了。</div>
+    </div>
+  </div>
+
+  <!-- P17 -->
+  <div class="panel">
+    <img src="p17.jpg" loading="lazy" alt="朱江紧握方向盘">
+    <div class="panel-text">
+      <div class="narration">【特写·侧面·固定】我的手紧紧握着方向盘，指关节发白。我没有下车。</div>
+      <div class="inner-voice">我在等一个答案：林薇是主动叛变，还是被控制了？这个答案决定了我接下来的所有选择。</div>
+    </div>
+  </div>
+
+  <!-- P18 -->
+  <div class="panel">
+    <img src="p18.jpg" loading="lazy" alt="回公司路上查手机">
+    <div class="panel-text">
+      <div class="narration">【中景·侧拍·移动镜头】回公司的路上，我一手握方向盘，一手调出公司考勤系统。</div>
+    </div>
+  </div>
+
+  <!-- P19 -->
+  <div class="panel">
+    <img src="p19.jpg" loading="lazy" alt="考勤异常记录">
+    <div class="panel-text">
+      <div class="narration">【特写·手机屏幕·固定】林薇过去三个月的考勤记录。每周四，晚上十点以后离开。规律得像闹钟。</div>
+      <div class="humor">陈磊（我们的CTO）之前开玩笑说林薇周四肯定是去相亲了。现在想来那个笑话一点都不好笑。</div>
+    </div>
+  </div>
+
+  <!-- P20 - DECISION 2 -->
+  <div class="panel">
+    <img src="p20.jpg" loading="lazy" alt="朱江在窗边思考">
+    <div class="panel-text">
+      <div class="narration">【中景·侧面剪影·固定】回到办公室。早上的阳光从窗户洒进来，但我没心思欣赏。</div>
+    </div>
+    <div class="decision-block">
+      <div class="decision-label">决 策 点 ②</div>
+      <div class="decision-title">合伙人可能被竞品CEO控制——怎么办？</div>
+      <div class="decision-choice">➤ 约林薇单独谈。给她一次机会。同时部署陈磊做第二道防线。</div>
+      <div class="decision-reason">如果她是被逼的，我要先成为她的退路，而不是她的敌人。如果她是自愿的……再说。但我不会只赌一个方向——陈磊那边同步加固代码权限，这是底线。</div>
+    </div>
+  </div>
+
+  <!-- P21 -->
+  <div class="panel">
+    <img src="p21.jpg" loading="lazy" alt="朱江和陈磊通话">
+    <div class="panel-text">
+      <div class="narration">【双画面分屏·平拍·固定】我拨通陈磊的电话。</div>
+      <div class="dialogue">「老陈，紧急任务。把核心代码仓库的权限收到你和我两个人。其他人全部降为只读。」</div>
+      <div class="dialogue">「……现在？」</div>
+      <div class="dialogue">「现在。另外帮我设一个蜜罐。具体需求一会儿当面说。」</div>
+    </div>
+  </div>
+
+  <!-- P22 -->
+  <div class="panel">
+    <img src="p22.jpg" loading="lazy" alt="陈磊执行">
+    <div class="panel-text">
+      <div class="narration">【中景·平拍·固定】陈磊什么都没多问。他就是这样的人——你说"紧急"，他就开始干。</div>
+      <div class="inner-voice">创业三年，最庆幸的事就是找对了CTO。技术好不说，关键时刻不废话。</div>
+    </div>
+  </div>
+
+  <!-- ═══ ACT 3: 博弈加速 ═══ -->
+  <div class="act-divider">
+    <div class="act-num">第 三 幕</div>
+    <div class="act-title">博弈加速</div>
+    <div class="act-line"></div>
+  </div>
+
+  <!-- P23 -->
+  <div class="panel">
+    <img src="p23.jpg" loading="lazy" alt="咖啡馆外景">
+    <div class="panel-text">
+      <div class="narration">【远景·平拍·固定】下午两点。公司附近的云端咖啡。阳光很好，店里放着轻音乐。</div>
+      <div class="inner-voice">我特意选了这里。公司外面，人少，安静。如果这场谈话要哭，至少不会有同事看到。</div>
+    </div>
+  </div>
+
+  <!-- P24 -->
+  <div class="panel">
+    <img src="p24.jpg" loading="lazy" alt="朱江和林薇对坐">
+    <div class="panel-text">
+      <div class="narration">【中景·平拍·固定】我穿了件深色休闲夹克，坐在林薇对面。她穿着白衬衫，妆化得很薄。</div>
+      <div class="dialogue">「最近怎么样？忙不忙？」</div>
+      <div class="inner-voice">先聊轻松的。不能上来就审问。</div>
+    </div>
+  </div>
+
+  <!-- P25 -->
+  <div class="panel">
+    <img src="p25.jpg" loading="lazy" alt="林薇崩溃落泪">
+    <div class="panel-text">
+      <div class="narration">【近景·微仰拍·固定】第二杯咖啡喝到一半，她突然放下杯子。手在抖。然后——崩了。</div>
+      <div class="inner-voice">三年了，我第一次看到林薇哭。这个在投资人面前永远冷静如冰的女人，眼泪像决堤一样。</div>
+    </div>
+  </div>
+
+  <!-- P26 -->
+  <div class="panel">
+    <img src="p26.jpg" loading="lazy" alt="林薇诉说">
+    <div class="panel-text">
+      <div class="dialogue">「周远……他用我爸的债务威胁我。我爸的公司因为给人担保，被追债。周远的基金买下了那笔债权。」</div>
+      <div class="dialogue">「他说只要我把推荐算法的核心参数给他，债务一笔勾销。」</div>
+      <div class="narration">【近景·平拍·微推镜头】她一边说一边擦眼泪，但怎么也擦不干净。</div>
+    </div>
+  </div>
+
+  <!-- P27 -->
+  <div class="panel">
+    <img src="p27.jpg" loading="lazy" alt="周远阴谋回忆">
+    <div class="panel-text">
+      <div class="narration">【回忆画面·冷色调·微焦】周远坐在高级轿车后座，翻看法律文件。表情是控制一切的从容。</div>
+      <div class="inner-voice">买下债权来控制人。这招阴狠。不是抢代码——是抢人。</div>
+    </div>
+  </div>
+
+  <!-- P28 -->
+  <div class="panel">
+    <img src="p28.jpg" loading="lazy" alt="你信我吗">
+    <div class="panel-text">
+      <div class="narration">【中景·双人·平拍·固定】我向前倾身，看着林薇的眼睛。</div>
+      <div class="dialogue">「你信我吗？」</div>
+      <div class="narration">她沉默了十几秒。咖啡馆的背景音乐切了一首歌。</div>
+      <div class="dialogue">「我不知道。但我不想再这样了。」</div>
+      <div class="inner-voice">够了。这句话比"信你"更有分量。</div>
+    </div>
+  </div>
+
+  <!-- P29 -->
+  <div class="panel">
+    <img src="p29.jpg" loading="lazy" alt="信任重建">
+    <div class="panel-text">
+      <div class="narration">【特写·桌面·浅景深】两杯咖啡之间。我的手和她的手隔着十厘米。不是握手，不是安慰——是一个无声的承诺。</div>
+      <div class="inner-voice">计划在我脑子里成型了。不是去告林薇，不是去报警。是把蜜罐变成蜜罐的蜜罐。让林薇继续给周远传数据——但传的是我们亲手调制的"毒药"。</div>
+    </div>
+  </div>
+
+  <!-- P30 - DECISION 3 -->
+  <div class="panel">
+    <img src="p30.jpg" loading="lazy" alt="朱江接到VC电话">
+    <div class="panel-text">
+      <div class="narration">【中景·侧拍·固定】刚走出咖啡馆，手机响了。Lead VC李总的号码。</div>
+      <div class="dialogue">「朱江，我刚接到消息，说你们公司有安全问题？你解释一下？」</div>
+      <div class="inner-voice">来了。周远不光买了债权——他还在给投资人下毒。这一手够快的。</div>
+    </div>
+    <div class="decision-block">
+      <div class="decision-label">决 策 点 ③</div>
+      <div class="decision-title">投资人被告密——如何应对？</div>
+      <div class="decision-choice">➤ 主动召集所有投资人开紧急会议。先发制人。</div>
+      <div class="decision-reason">被动解释等于心虚。主动公开等于掌控力。我不仅要灭火，还要把这场火烧成我的柴——让危机变成融资加码的理由。</div>
+    </div>
+  </div>
+
+  <!-- ═══ ACT 4: 暗流 ═══ -->
+  <div class="act-divider">
+    <div class="act-num">第 四 幕</div>
+    <div class="act-title">暗流</div>
+    <div class="act-line"></div>
+  </div>
+
+  <!-- P31 -->
+  <div class="panel">
+    <img src="p31.jpg" loading="lazy" alt="VC会议">
+    <div class="panel-text">
+      <div class="narration">【全景·平拍·固定】第二天下午。公司会议室。所有投资人都来了——线下三位，线上两位。</div>
+      <div class="humor">我穿西装穿得像要去打仗。某种意义上确实是。</div>
+    </div>
+  </div>
+
+  <!-- P32 -->
+  <div class="panel">
+    <img src="p32.jpg" loading="lazy" alt="朱江做presentation">
+    <div class="panel-text">
+      <div class="narration">【肩上镜头·平拍·固定】我的presentation分三段：泄密时间线、反制方案、实时战果。</div>
+      <div class="dialogue">「各位，我今天不是来解释问题的——我是来展示我们是如何解决问题的。」</div>
+      <div class="narration">屏幕切到竞品的DAU趋势图。那根红色的下坡线，是我们给周远的"假数据"正在发挥作用。</div>
+    </div>
+  </div>
+
+  <!-- P33 -->
+  <div class="panel">
+    <img src="p33.jpg" loading="lazy" alt="投资人佩服">
+    <div class="panel-text">
+      <div class="narration">【中景·反应镜头·固定】投资人的表情从质疑变成了佩服。有人点头，有人在记笔记。</div>
+      <div class="dialogue">「朱江，这种应对能力……值得追加。」</div>
+      <div class="inner-voice">我没有笑。因为这场仗还没打完——远远没有。</div>
+    </div>
+  </div>
+
+  <!-- P34 -->
+  <div class="panel">
+    <img src="p34.jpg" loading="lazy" alt="朱江收到加密消息">
+    <div class="panel-text">
+      <div class="narration">【中景·平拍·固定】会后。会议室只剩我一个人。夕阳透过落地窗照进来，我松了松领带，看了一眼手机。一条加密消息。</div>
+      <div class="inner-voice">来源追踪……这个IP……又是那个共享办公空间的？不对——这次不是林薇的工号。</div>
+    </div>
+  </div>
+
+  <!-- P35 -->
+  <div class="panel">
+    <img src="p35.jpg" loading="lazy" alt="收购意向书">
+    <div class="panel-text">
+      <div class="narration">【极近特写·手机屏幕·固定】解密后的文件标题映在屏幕上。</div>
+      <div class="inner-voice" style="color: #ff006e; font-weight: 700; font-size: 19px;">《深视科技收购意向书 —— 目标：星辰AI科技有限公司》</div>
+      <div class="inner-voice">周远不是要抄袭我们。</div>
+      <div class="inner-voice" style="color: #ff006e; font-weight: 700;">他要的是整个公司。</div>
+    </div>
+  </div>
+
+</div><!-- /panels -->
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="to-be-continued">未 完 待 续</div>
+  <div class="tease">代码的陷阱可以重写，但人心的陷阱……你得亲自踏进去才知道有多深。</div>
+  <div class="chapter-title">第三章 · 暗标</div>
+</div>
+
+<script>
+// Progress bar
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  progressBar.style.width = Math.min(pct, 100) + '%';
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { rootMargin: '0px 0px 100px 0px', threshold: 0.1 });
+
+document.querySelectorAll('.panel, .act-divider').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
