@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>逆向人生 · 第一章：代码气味</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;700&display=swap');
+  
+  * { margin:0; padding:0; box-sizing:border-box; }
+  
+  :root {
+    --bg: #0a0a0f;
+    --text: #e8e6e3;
+    --accent: #00ff88;
+    --accent2: #00ccff;
+    --danger: #ff3366;
+    --dim: #556677;
+    --panel-bg: #111118;
+    --decision-bg: #0d1a0d;
+    --decision-border: #00ff88;
+  }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    line-height: 1.8;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* === TITLE SCREEN === */
+  .title-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: radial-gradient(ellipse at center, #0a1a2a 0%, #0a0a0f 70%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .title-screen::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,255,136,0.03) 2px,
+      rgba(0,255,136,0.03) 4px
+    );
+    pointer-events: none;
+    animation: scanline 8s linear infinite;
+  }
+  
+  @keyframes scanline {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100px); }
+  }
+  
+  .title-screen h1 {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--accent);
+    text-shadow: 0 0 40px rgba(0,255,136,0.4), 0 0 80px rgba(0,255,136,0.2);
+    letter-spacing: 8px;
+    margin-bottom: 16px;
+    animation: glitch 3s infinite;
+  }
+  
+  @keyframes glitch {
+    0%, 92%, 100% { transform: translate(0); }
+    93% { transform: translate(-2px, 1px); }
+    94% { transform: translate(2px, -1px); }
+    95% { transform: translate(-1px, 2px); }
+  }
+  
+  .title-screen .subtitle {
+    font-size: 22px;
+    color: var(--accent2);
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+    opacity: 0.8;
+  }
+  
+  .title-screen .chapter-label {
+    font-size: 16px;
+    color: var(--dim);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  
+  .title-screen .chapter-name {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 60px;
+  }
+  
+  .scroll-hint {
+    color: var(--dim);
+    font-size: 14px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  
+  .scroll-hint::after {
+    content: '↓';
+    display: block;
+    font-size: 24px;
+    margin-top: 8px;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+  
+  /* === MAIN CONTENT === */
+  .story-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px 0;
+  }
+  
+  /* Section headers */
+  .act-header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+  }
+  
+  .act-header h2 {
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: 6px;
+    font-weight: 400;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .act-header h2::before,
+  .act-header h2::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+  
+  .act-header h2::before { right: calc(100% + 16px); }
+  .act-header h2::after { left: calc(100% + 16px); }
+  
+  /* Panel styling */
+  .panel {
+    margin-bottom: 0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .panel img {
+    width: 100%;
+    display: block;
+  }
+  
+  .panel-text {
+    padding: 24px 20px 32px;
+    font-size: 20px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+  
+  .panel-text em {
+    font-style: normal;
+    color: var(--text);
+    opacity: 0.95;
+  }
+  
+  /* Inner monologue style */
+  .inner-voice {
+    color: #aabbcc;
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+    margin: 8px 0;
+    font-style: italic;
+  }
+  
+  /* Highlight important text */
+  .highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  
+  .danger {
+    color: var(--danger);
+    font-weight: 700;
+  }
+  
+  /* === DECISION PANELS === */
+  .decision-panel {
+    margin: 20px 12px;
+    padding: 28px 20px;
+    background: var(--decision-bg);
+    border: 1px solid var(--decision-border);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .decision-panel::before {
+    content: '⚡ 决策点';
+    display: block;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+  
+  .decision-panel .question {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .decision-option {
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 18px;
+    line-height: 1.6;
+    transition: all 0.3s;
+  }
+  
+  .decision-option.chosen {
+    background: rgba(0,255,136,0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,255,136,0.1);
+  }
+  
+  .decision-option .label {
+    color: var(--dim);
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  
+  .decision-option.chosen .label {
+    color: var(--accent);
+  }
+  
+  .decision-option.chosen::after {
+    content: ' ← 我的选择';
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  
+  /* === DIVIDERS === */
+  .scene-break {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--dim);
+    font-size: 24px;
+    letter-spacing: 12px;
+  }
+  
+  /* === ENDING === */
+  .ending-card {
+    margin: 40px 12px;
+    padding: 60px 24px;
+    text-align: center;
+    background: linear-gradient(180deg, #0a1a0a 0%, #0a0a0f 100%);
+    border: 1px solid var(--accent);
+    border-radius: 16px;
+  }
+  
+  .ending-card .end-label {
+    font-size: 14px;
+    color: var(--dim);
+    letter-spacing: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .ending-card h3 {
+    font-size: 24px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+  
+  .ending-card .preview {
+    font-size: 18px;
+    color: var(--accent2);
+    line-height: 1.8;
+    opacity: 0.85;
+  }
+  
+  /* === CODE BLOCK STYLE === */
+  .code-flash {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    background: rgba(0,255,136,0.05);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  
+  /* === PROGRESS BAR === */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    z-index: 1000;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px var(--accent);
+  }
+  
+  /* === ANIMATIONS === */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  
+  .pulse { animation: pulse 2s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- TITLE SCREEN -->
+<div class="title-screen">
+  <div class="chapter-label">黑客×商战 · 第一章</div>
+  <h1>逆向人生</h1>
+  <div class="subtitle">代码气味</div>
+  <div class="chapter-name">「有人偷了我的代码。<br>更讽刺的是——<br>我是最后一个知道的人。」</div>
+  <div class="scroll-hint pulse">向下滑动开始阅读</div>
+</div>
+
+<div class="story-container">
+  
+  <!-- ===== 开场：深夜办公室 ===== -->
+  <div class="act-header"><h2>深夜办公室</h2></div>
+
+  <div class="panel">
+    <img src="p1.jpg" loading="eager" alt="深夜空旷办公室">
+    <div class="panel-text">
+      凌晨两点半。整栋楼就剩我和保安。<br>保安比我先下班。
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p2.jpg" loading="eager" alt="DAU数据下滑">
+    <div class="panel-text">
+      海外DAU连跌三天。我盯着曲线，曲线盯着我。<br><span class="highlight">谁先眨眼谁输。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p3.jpg" loading="eager" alt="手机震动">
+    <div class="panel-text">
+      陈磊：「老大你看这个」配了一个链接。<br>凌晨两点半发消息的CTO，<span class="danger">要么是bug，要么是噩耗。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p4.jpg" loading="eager" alt="FlashClip">
+    <div class="panel-text">
+      我点开看了三秒。然后关掉。<br>又打开。又看了三秒。<br>然后把手机扣在桌上。
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p5.jpg" loading="eager" alt="愤怒+难以置信">
+    <div class="panel-text">
+      界面布局一样。交互逻辑一样。<br>甚至那个我亲手设计的、<span class="highlight">"左滑生成右滑发布"</span>的手势——一模一样。<br><br>
+      这不是"借鉴"。<span class="danger">这是Ctrl+C Ctrl+V。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p6.jpg" loading="lazy" alt="窗边思考">
+    <div class="panel-text">
+      我深吸一口气。创业七年，抄袭见得多了。<br>但抄到这个程度——要么对方有个天才产品经理，要么……
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p7.jpg" loading="lazy" alt="黑客直觉觉醒">
+    <div class="panel-text">
+      要么他们有我的源码。<br><br>
+      大学那会儿我能花一个通宵逆向一个加密狗。<br>现在——<span class="highlight">我只需要一台电脑和一杯咖啡。</span>
+    </div>
+  </div>
+
+  <!-- ===== 第一幕：逆向分析 ===== -->
+  <div class="act-header"><h2>逆向分析</h2></div>
+
+  <div class="panel">
+    <img src="p8.jpg" loading="lazy" alt="开始逆向">
+    <div class="panel-text">
+      十年没碰逆向工具了。<br>手指放上键盘的那一瞬间——<span class="highlight">肌肉记忆比大脑先反应过来。</span>
+    </div>
+  </div>
+
+  <!-- DECISION 1 -->
+  <div class="panel">
+    <div class="decision-panel">
+      <div class="question">发现竞品几乎完全抄袭，我的第一反应是——</div>
+      <div class="decision-option">
+        <span class="label">A.</span>报警 + 请知识产权律师
+      </div>
+      <div class="decision-option chosen">
+        <span class="label">B.</span>先别声张。自己动手逆向分析竞品，搞清楚到底怎么回事
+      </div>
+      <div class="decision-option">
+        <span class="label">C.</span>叫陈磊带安全团队排查
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p10.jpg" loading="lazy" alt="APK反编译">
+    <div class="panel-text">
+      APK拉下来。<span class="code-flash">jadx</span>反编译。smali代码像瀑布一样往下滚——<br>这种感觉，像老司机重新坐上驾驶座。
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p11.jpg" loading="lazy" alt="发现异常注释">
+    <div class="panel-text">
+      等等。这段注释……<br><span class="code-flash">// TODO: 老王说这里要改 —— 0312</span><br><br>
+      "老王"？我们公司没人叫老王。但是——<span class="danger">我们的代码规范里，TODO注释的格式和这个一模一样。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p12.jpg" loading="lazy" alt="确认">
+    <div class="panel-text">
+      不是抄袭。<span class="danger">是偷。</span><br><br>
+      有人把我们的代码原封不动拿走了，只来得及改变量名，<span class="highlight">连注释都没删干净。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p13.jpg" loading="lazy" alt="复杂心情">
+    <div class="panel-text">
+      代码是从内部流出去的。<br>这意味着——<span class="danger">我的团队里有内鬼。</span><br>跟我朝夕相处的人，背后捅了我一刀。
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p14.jpg" loading="lazy" alt="晨光独坐">
+    <div class="panel-text">
+      凌晨四点。我又回到了那个熟悉的状态——<br>一个人，一台电脑，一个要被我拆开看的系统。<br><br>
+      只不过这次要拆的，<span class="highlight">是我自己的公司。</span>
+    </div>
+  </div>
+
+  <!-- ===== 第二幕：伪装日常 ===== -->
+  <div class="act-header"><h2>伪装日常</h2></div>
+
+  <div class="panel">
+    <img src="p15.jpg" loading="lazy" alt="白天伪装">
+    <div class="panel-text">
+      早上九点。我洗了脸，换了衣服，笑着跟每个人说早安。<br><br>
+      没有人知道我已经醒了整整24小时，也没有人知道——<span class="highlight">我在观察他们每一个人。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p16.jpg" loading="lazy" alt="晨会">
+    <div class="panel-text">
+      晨会照开。我汇报DAU下滑，"可能是算法需要调优"。<br>没提FlashClip。没提代码泄露。<br><br>
+      <span class="highlight">我要看看——谁的表情不自然。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p17.jpg" loading="lazy" alt="小李看手机">
+    <div class="panel-text">
+      后端的小李在看手机。这不稀奇，他一直看手机。<br>但今天他锁屏的速度……<span class="danger">快了零点五秒。</span><br><br>
+      也许是我多想了。<br>但黑客教过我一件事——<span class="highlight">异常就是线索，哪怕它只有零点五秒。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p18.jpg" loading="lazy" alt="走廊交谈">
+    <div class="panel-text">
+      "磊子，昨晚那个链接你怎么发现的？"<br>我语气很随意，就像聊天。<br><span class="highlight">但我的耳朵竖起来了。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p19.jpg" loading="lazy" alt="陈磊坦然">
+    <div class="panel-text">
+      "Reddit上有人发的。说这个App跟我们像双胞胎。"<br><br>
+      他的眼神没闪。<br>要么他清白，<span class="highlight">要么演技比我好。</span>
+    </div>
+  </div>
+
+  <!-- ===== 第三幕：设陷阱 ===== -->
+  <div class="act-header"><h2>设陷阱</h2></div>
+
+  <div class="panel">
+    <img src="p20.jpg" loading="lazy" alt="白板分析">
+    <div class="panel-text">
+      能接触到核心代码的人，不超过八个。<br>我在白板上画出每个人的代码权限范围。<br><br>
+      这是一道排列组合题——<span class="highlight">我大学最擅长的。</span>
+    </div>
+  </div>
+
+  <!-- DECISION 2 -->
+  <div class="panel">
+    <div class="decision-panel">
+      <div class="question">已确认是内鬼。八个嫌疑人。我的下一步——</div>
+      <div class="decision-option">
+        <span class="label">A.</span>开全员大会当面质问，以气势压人
+      </div>
+      <div class="decision-option chosen">
+        <span class="label">B.</span>悄悄在每个人的代码权限里埋不同的"水印陷阱"，等内鬼自投罗网
+      </div>
+      <div class="decision-option">
+        <span class="label">C.</span>直接查服务器access log和监控录像
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p22.jpg" loading="lazy" alt="水印计划">
+    <div class="panel-text">
+      八个人，八个不同的水印。<br>每个人的代码分支里，我会悄悄插入一段无害但独特的注释。<br><br>
+      <span class="highlight">谁的水印出现在FlashClip的下一次更新里——谁就是内鬼。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p23.jpg" loading="lazy" alt="深夜书房">
+    <div class="panel-text">
+      晚上十一点。老婆以为我在加班。<br>某种意义上——没错。<br><br>
+      只不过这份"加班"的内容，<span class="highlight">比公司任何一个项目都刺激。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p24.jpg" loading="lazy" alt="注入水印">
+    <div class="panel-text">
+      水印1号——在推荐算法的冷启动模块里，加了一行<br><span class="code-flash">// perf: entropy_seed=42</span><br><br>
+      小李负责这块。如果42出现在FlashClip里——<span class="danger">gotcha。</span>
+    </div>
+  </div>
+
+  <!-- Quick-cut panels 25-28 -->
+  <div class="panel">
+    <img src="p25.jpg" loading="lazy" alt="水印2">
+    <div class="panel-text">
+      水印2号：数据管道。老张的地盘。<br><span class="code-flash">// sync_v2_hotfix_0315</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p26.jpg" loading="lazy" alt="水印3">
+    <div class="panel-text">
+      水印3号：视频渲染。阿伟的领地。<br><span class="code-flash">// render_cache_flag=bravo</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p27.jpg" loading="lazy" alt="水印4">
+    <div class="panel-text">
+      水印4号：用户系统。小周管的。<br><span class="code-flash">// auth_compat_legacy_mode</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p28.jpg" loading="lazy" alt="陷阱就绪">
+    <div class="panel-text">
+      <span class="highlight">陷阱布好了。</span><br>现在，等。
+    </div>
+  </div>
+
+  <!-- ===== 第四幕：投资人危机 ===== -->
+  <div class="act-header"><h2>投资人危机</h2></div>
+
+  <div class="panel">
+    <img src="p29.jpg" loading="lazy" alt="出租车接电话">
+    <div class="panel-text">
+      赵薇薇的电话。VC合伙人。我们B轮的领投。<br><br>
+      接到她的电话从来不是好事——<span class="danger">因为好消息她发微信，坏消息她才打电话。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p30.jpg" loading="lazy" alt="电话紧张">
+    <div class="panel-text">
+      "朱江，市场上出了一个叫FlashClip的东西。你知道吗？"<br><br>
+      她的语气很平，<span class="danger">平得我背后发凉。</span><br>VC的平静等于暴风雨前的沉默。
+    </div>
+  </div>
+
+  <!-- DECISION 3 -->
+  <div class="panel">
+    <div class="decision-panel">
+      <div class="question">投资人问起FlashClip，我选择——</div>
+      <div class="decision-option">
+        <span class="label">A.</span>坦白说"我们发现有内鬼在调查"
+      </div>
+      <div class="decision-option chosen">
+        <span class="label">B.</span>"竞品只是皮相像，我们的核心壁垒——算法和数据飞轮——他们抄不走"
+      </div>
+      <div class="decision-option">
+        <span class="label">C.</span>"我正在处理，三天后给你详细报告"
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p32.jpg" loading="lazy" alt="挂电话后">
+    <div class="panel-text">
+      我跟她聊了十五分钟。核心壁垒、数据飞轮、算法迭代——每一句都是真的，只不过省略了"有人偷了我们代码"这个小细节。<br><br>
+      <span class="highlight">创业者最重要的技能不是融资，是在危机时让所有人觉得你很稳。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p33.jpg" loading="lazy" alt="匿名邮件">
+    <div class="panel-text">
+      挂了电话，邮箱里多了一封。<br>发件人——匿名。<br><br>
+      标题只有四个字：<span class="danger">「别查了。」</span>
+    </div>
+  </div>
+
+  <!-- ===== 第五幕：升级 ===== -->
+  <div class="act-header"><h2>对手比想象的更大</h2></div>
+
+  <div class="panel">
+    <img src="p34.jpg" loading="lazy" alt="颤抖但冷笑">
+    <div class="panel-text">
+      我盯着这四个字。笑了。<br><br>
+      你知道对一个黑客说"别查了"意味着什么吗？<br>意味着——<span class="highlight">你承认了有东西值得查。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p35.jpg" loading="lazy" alt="快步回办公室">
+    <div class="panel-text">
+      回公司。我没去自己办公室，<span class="highlight">直接进了服务器机房。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p36.jpg" loading="lazy" alt="服务器机房">
+    <div class="panel-text">
+      匿名邮件的邮件头信息告诉我——<span class="danger">它是从我们公司内网发出去的。</span><br><br>
+      不是从外面发来的。<br>内鬼不仅偷代码——他还在监视我。<span class="danger">他知道我在查。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p37.jpg" loading="lazy" alt="网络日志">
+    <div class="panel-text">
+      网络日志像一条河。大多数数据包是正常的——API调用、数据库查询、员工上网摸鱼。<br><br>
+      但有一条细流，<span class="danger">定时向一个境外IP发送加密数据包。每隔6小时一次。精确到秒。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p38.jpg" loading="lazy" alt="靠在机柜上思考">
+    <div class="panel-text">
+      六小时一次，定时精确到秒。<br>这不是人在手动操作——<span class="highlight">这是一个自动化程序。</span><br><br>
+      有人在我们的服务器上埋了一个后门。<br>持续、安静、精确地把数据往外抽。<br><span class="highlight">很专业。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p39.jpg" loading="lazy" alt="危险的兴奋">
+    <div class="panel-text">
+      <span class="highlight">但再专业——也怕碰上我这种人。</span>
+    </div>
+  </div>
+
+  <!-- ===== 结尾：悬念 ===== -->
+  <div class="act-header"><h2>猎物锁定</h2></div>
+
+  <div class="panel">
+    <img src="p40.jpg" loading="lazy" alt="追踪结果">
+    <div class="panel-text">
+      反向追踪跑了四十分钟。<br>数据包经过三层跳板——新加坡、法兰克福、香港。<br><br>
+      最终落点在——
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p41.jpg" loading="lazy" alt="深圳南山">
+    <div class="panel-text" style="text-align:center; font-size:28px; font-weight:900; color:var(--danger); padding:40px 20px;">
+      深圳。南山区。<br>距离我的办公室——<br>直线距离<span style="font-size:36px;">1.3公里</span>。
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p42.jpg" loading="lazy" alt="窗前远眺">
+    <div class="panel-text">
+      1.3公里。<br>我每天上班路过的那些写字楼里，有一栋楼，有一间办公室，有一个人——<br><span class="danger">正在用我的代码赚我的钱。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p43.jpg" loading="lazy" alt="发微信">
+    <div class="panel-text">
+      我给陈磊发了一条消息：<br><span class="highlight">"明天请假一天。别问为什么。"</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p44.jpg" loading="lazy" alt="收拾离开">
+    <div class="panel-text">
+      创业七年，我一直告诉自己——我是一个商人。<br><br>
+      <span class="highlight">今天我发现，我骗了自己七年。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="p45.jpg" loading="lazy" alt="走出大楼">
+    <div class="panel-text" style="text-align:center; font-size:22px; line-height:2;">
+      骨子里，我一直是那个<br>凌晨在宿舍里拆加密狗的少年。<br><br>
+      <span class="highlight" style="font-size:26px;">只不过这一次——<br>要拆的不是软件。<br>是人心。</span>
+    </div>
+  </div>
+
+  <!-- ENDING CARD -->
+  <div class="ending-card">
+    <div class="end-label">第一章完</div>
+    <h3>下一章预告</h3>
+    <div class="preview">
+      《蜜 罐》<br><br>
+      水印陷阱收网在即，<br>
+      但内鬼的反击<br>
+      比我想象的更快……
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Scroll-triggered animation
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+panels.forEach(panel => observer.observe(panel));
+
+// Progress bar
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / docHeight) * 100;
+  progressBar.style.width = progress + '%';
+});
+</script>
+
+</body>
+</html>
