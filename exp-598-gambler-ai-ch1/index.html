@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>底牌 · 赌神×AI创业 第一章</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0f;
+  color: #e8e0d4;
+  font-family: 'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 标题区 */
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at 50% 40%, #1a1520 0%, #0a0a0f 70%);
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 30%; left: 50%;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+  transform: translate(-50%,-50%);
+  animation: glow 4s ease-in-out infinite;
+}
+@keyframes glow {
+  0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%,-50%) scale(1.3); }
+}
+.title-screen h1 {
+  font-size: 48px;
+  font-weight: 900;
+  color: #d4af37;
+  text-shadow: 0 0 30px rgba(212,175,55,0.5);
+  letter-spacing: 12px;
+  position: relative;
+  z-index: 1;
+}
+.title-screen .subtitle {
+  font-size: 18px;
+  color: #888;
+  margin-top: 16px;
+  letter-spacing: 4px;
+  position: relative;
+  z-index: 1;
+}
+.title-screen .chapter {
+  font-size: 14px;
+  color: #555;
+  margin-top: 40px;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 1;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #444;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* 漫画面板 */
+.comic-strip {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 8px 60px;
+}
+.panel {
+  margin-bottom: 4px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+}
+/* 不同尺寸面板 */
+.panel.tall img { aspect-ratio: 9/16; object-fit: cover; }
+.panel.wide img { aspect-ratio: 3/2; object-fit: cover; }
+.panel.square img { aspect-ratio: 1/1; object-fit: cover; }
+
+/* 叙述文字 */
+.narration {
+  padding: 16px 20px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #c8c0b4;
+}
+.narration.inner-voice {
+  color: #a89060;
+  font-style: italic;
+  border-left: 3px solid #d4af37;
+  padding-left: 16px;
+  margin: 8px 20px;
+}
+.narration.dialogue {
+  color: #e0d8cc;
+  font-weight: 500;
+}
+.narration .speaker {
+  color: #d4af37;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* 决策点 */
+.decision-point {
+  background: linear-gradient(135deg, #1a1520, #0f1a15);
+  border: 2px solid #d4af37;
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin: 20px 8px;
+  box-shadow: 0 0 30px rgba(212,175,55,0.15);
+}
+.decision-point h3 {
+  color: #d4af37;
+  font-size: 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.decision-option {
+  padding: 12px 16px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #888;
+  background: rgba(255,255,255,0.03);
+}
+.decision-option.chosen {
+  color: #d4af37;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid #d4af37;
+}
+.decision-reason {
+  font-size: 14px;
+  color: #a89060;
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(168,144,96,0.08);
+  border-radius: 8px;
+  line-height: 1.7;
+}
+
+/* 场景分割线 */
+.scene-break {
+  text-align: center;
+  padding: 30px 0;
+  color: #333;
+  font-size: 20px;
+  letter-spacing: 8px;
+}
+
+/* 悬念结尾 */
+.cliffhanger {
+  background: linear-gradient(to bottom, #0a0a0f, #1a1015);
+  padding: 40px 20px;
+  text-align: center;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cliffhanger .hook {
+  font-size: 22px;
+  color: #d4af37;
+  line-height: 2;
+  margin-bottom: 20px;
+}
+.cliffhanger .tbc {
+  font-size: 14px;
+  color: #555;
+  letter-spacing: 6px;
+  margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<div class="title-screen">
+  <h1>底 牌</h1>
+  <div class="subtitle">赌神 × AI创业</div>
+  <div class="chapter">第一章 · V5原创</div>
+  <div class="scroll-hint">↓ 向下滑动开始</div>
+</div>
+
+<div class="comic-strip">
+
+<!-- 场景1-3: 邀请 -->
+<div class="panel tall" id="p01">
+  <img src="images/panel-01.jpg" loading="lazy" alt="办公室庆功宴">
+</div>
+<div class="narration">星辰AI的A轮庆功宴上，我端着可乐假装喝酒。办公室里烧烤味和代码味混在一起——这就是创业公司的味道。</div>
+
+<div class="panel wide" id="p02">
+  <img src="images/panel-02.jpg" loading="lazy" alt="黑色请帖">
+</div>
+<div class="narration dialogue"><span class="speaker">大橘：</span>（叼着一个黑色信封从工位跑过来，差点撞翻火锅）</div>
+
+<div class="panel square" id="p03">
+  <img src="images/panel-03.jpg" loading="lazy" alt="请帖特写">
+</div>
+<div class="narration">烫金字——「棋局」。没有地址，没有署名。只有一行小字：今晚十点，凭帖入场。</div>
+
+<div class="panel tall" id="p04">
+  <img src="images/panel-04.jpg" loading="lazy" alt="阿莉语音界面">
+</div>
+<div class="narration dialogue"><span class="speaker">阿莉：</span>"这玩意儿在暗网都没记录。要么是骗局，要么是你够不着的级别。"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"那就去看看我够不够得着。"</div>
+
+<div class="panel wide" id="p05">
+  <img src="images/panel-05.jpg" loading="lazy" alt="林婉清担忧">
+</div>
+<div class="narration dialogue"><span class="speaker">林婉清：</span>"江哥，这种地方去了就回不了头。"</div>
+<div class="narration inner-voice">她说得对。但我的黑客直觉告诉我——这正是我要找的东西。</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- 场景4-7: 入局 -->
+<div class="panel tall" id="p06">
+  <img src="images/panel-06.jpg" loading="lazy" alt="地下车库电梯">
+</div>
+<div class="narration">地下车库的电梯直通B5层。门开的瞬间，空气都换了一种味道——皮革、雪茄、还有钱的味道。</div>
+
+<div class="panel tall" id="p07">
+  <img src="images/panel-07.jpg" loading="lazy" alt="老K迎接">
+</div>
+<div class="narration dialogue"><span class="speaker">老K：</span>"欢迎啊小朱。今晚是新人之夜，放轻松。"</div>
+<div class="narration inner-voice">六十多岁的白发老头，笑得像弥勒佛。但他的眼睛没在笑。</div>
+
+<div class="panel tall" id="p08">
+  <img src="images/panel-08.jpg" loading="lazy" alt="全景牌桌">
+</div>
+<div class="narration">圆桌上已经坐了五个人。全是AI圈叫得出名字的CEO。坐在我正对面的那个——赵鹏飞，零度AI，估值五十亿。</div>
+
+<div class="panel square" id="p09">
+  <img src="images/panel-09.jpg" loading="lazy" alt="赵鹏飞特写">
+</div>
+<div class="narration inner-voice">他看我的眼神像看一只误入狼群的兔子。</div>
+
+<div class="panel wide" id="p10">
+  <img src="images/panel-10.jpg" loading="lazy" alt="老K宣布规则">
+</div>
+<div class="narration dialogue"><span class="speaker">老K：</span>"今晚的彩头不只是筹码——赢家获得'天使轮优先推荐权'。懂的人都懂。"</div>
+<div class="narration inner-voice">一张通往顶级LP圈子的门票。这比桌上那些筹码值钱一百倍。</div>
+
+<div class="panel square" id="p11">
+  <img src="images/panel-11.jpg" loading="lazy" alt="朱江看第一手烂牌">
+</div>
+<div class="narration">我摸到第一手牌——7♠ 2♣。</div>
+<div class="narration dialogue"><span class="speaker">阿莉：</span>"概率上你应该fold……但你不会听我的对吧？"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"你终于了解我了。"</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- 场景8-12: 第一轮试探 -->
+<div class="panel tall" id="p12">
+  <img src="images/panel-12.jpg" loading="lazy" alt="朱江观察全桌">
+</div>
+<div class="narration">前三手我全fold。不是怂——是在扫描。黑客思维启动：每个人都是一个系统，每个系统都有漏洞。</div>
+
+<div class="panel square" id="p13">
+  <img src="images/panel-13.jpg" loading="lazy" alt="赵鹏飞摸袖扣特写">
+</div>
+<div class="narration inner-voice">赵鹏飞每次加注前会摸一下袖扣。是习惯动作？还是……他在确认什么信号？</div>
+
+<div class="panel wide" id="p14">
+  <img src="images/panel-14.jpg" loading="lazy" alt="小胖bluff嘴角">
+</div>
+<div class="narration inner-voice">"小胖"每次bluff的时候嘴角会微微上翘。他自己可能都不知道。</div>
+
+<div class="panel square" id="p15">
+  <img src="images/panel-15.jpg" loading="lazy" alt="老K笑容特写">
+</div>
+<div class="narration inner-voice">老K永远在笑。但他的眼睛——从来不笑。这才是最危险的人。</div>
+
+<div class="panel tall" id="p16">
+  <img src="images/panel-16.jpg" loading="lazy" alt="大橘跳上牌桌">
+</div>
+<div class="narration">大橘不知道怎么溜进来的。它一跃跳上牌桌，屁股坐在了公共牌上。</div>
+<div class="narration dialogue"><span class="speaker">小胖：</span>"哈哈哈这猫是来当荷官的吗？"</div>
+<div class="narration inner-voice">所有人都笑了——除了赵鹏飞。这哥们表情管理真到位。</div>
+
+<div class="panel wide" id="p17">
+  <img src="images/panel-17.jpg" loading="lazy" alt="大橘踩筹码">
+</div>
+<div class="narration">大橘踩翻了赵鹏飞的一摞筹码，然后若无其事地舔了舔爪子。</div>
+<div class="narration dialogue"><span class="speaker">阿莉：</span>"你的猫刚给赵鹏飞造成了大约三万块的心理伤害。"</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- 场景13-18: 关键手牌 -->
+<div class="panel tall" id="p18">
+  <img src="images/panel-18.jpg" loading="lazy" alt="朱江看到对7">
+</div>
+<div class="narration">第四手。7♥ 7♦。不算好牌，但够用了。</div>
+
+<div class="panel square" id="p19">
+  <img src="images/panel-19.jpg" loading="lazy" alt="赵鹏飞袖扣反光">
+</div>
+<div class="narration inner-voice">赵鹏飞的袖扣——反光频率变了。不是灯光角度的问题。他在接收新信号。如果他在看我的牌……</div>
+
+<div class="panel tall" id="p20">
+  <img src="images/panel-20.jpg" loading="lazy" alt="朱江计算">
+</div>
+<div class="narration inner-voice">那我就反过来利用这一点。他知道我有对7，会觉得这牌不够强。我只需要让他相信我在装弱——他就会觉得我在bluff——然后他会加注——而我，等一张7。</div>
+
+<div class="panel wide" id="p21">
+  <img src="images/panel-21.jpg" loading="lazy" alt="朱江做假动作">
+</div>
+<div class="narration">我故意摸了一下鼻子。教科书级别的"紧张"信号。</div>
+<div class="narration dialogue"><span class="speaker">阿莉：</span>"你那个假动作有点过于教科书了。"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"对面如果真在偷信号，他只会看数据，不会看演技。"</div>
+
+<div class="panel tall" id="p22">
+  <img src="images/panel-22.jpg" loading="lazy" alt="翻牌第三张7">
+</div>
+<div class="narration">河牌翻开——7♣。三条。我的心脏猛跳了一下，但脸上纹丝不动。</div>
+
+<div class="panel square" id="p23">
+  <img src="images/panel-23.jpg" loading="lazy" alt="赵鹏飞推筹码">
+</div>
+<div class="narration dialogue"><span class="speaker">赵鹏飞：</span>"加注。五十万。"</div>
+<div class="narration inner-voice">他觉得我在bluff。完美。</div>
+
+<div class="panel tall" id="p24">
+  <img src="images/panel-24.jpg" loading="lazy" alt="朱江推全部筹码">
+</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"全押。"</div>
+<div class="narration">全场安静了三秒。</div>
+
+<!-- 决策点 -->
+<div class="decision-point">
+  <h3>⚡ 决策时刻</h3>
+  <p style="color:#888;font-size:15px;margin-bottom:16px;text-align:center;">赵鹏飞盯着我。全桌屏息。这一刻我有三条路——</p>
+
+  <div class="decision-option">
+    <strong>A) 沉默</strong><br>
+    让概率说话。赢了是纯实力碾压。理性，安全，无聊。
+  </div>
+
+  <div class="decision-option chosen">
+    <strong>B) 捅破天 ✦</strong><br>
+    "赵总，你的手表好像信号不太好。"——直接揭底。高风险高回报。
+  </div>
+
+  <div class="decision-option">
+    <strong>C) 假装弃牌</strong><br>
+    放弃赢牌，示弱给所有人看。为后面埋伏笔。
+  </div>
+
+  <div class="decision-reason">
+    我选B。不是冲动——是本能。黑客找到系统漏洞，不exploit就不是黑客。而且这句话不只是为了赢这把牌。是为了在这张桌子上，建立心理霸权。
+  </div>
+</div>
+
+<!-- 场景19-24: 炸裂 -->
+<div class="panel tall" id="p25">
+  <img src="images/panel-25.jpg" loading="lazy" alt="朱江开口">
+</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"赵总——"</div>
+<div class="narration">全桌的人看向我。</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"你的手表，好像信号不太好。"</div>
+
+<div class="panel square" id="p26">
+  <img src="images/panel-26.jpg" loading="lazy" alt="赵鹏飞变脸">
+</div>
+<div class="narration">赵鹏飞的脸从冷酷变成杀意。全程不超过零点五秒。</div>
+
+<div class="panel wide" id="p27">
+  <img src="images/panel-27.jpg" loading="lazy" alt="老K笑容消失">
+</div>
+<div class="narration inner-voice">老K的笑消失了半秒。我头一次看见他不笑。这可能比赢钱更值钱——我看到了这个人的真面目。</div>
+
+<div class="panel tall" id="p28">
+  <img src="images/panel-28.jpg" loading="lazy" alt="赵鹏飞跟注">
+</div>
+<div class="narration dialogue"><span class="speaker">赵鹏飞：</span>"跟。"</div>
+<div class="narration">一个字。像从牙缝里挤出来的。</div>
+
+<div class="panel tall" id="p29">
+  <img src="images/panel-29.jpg" loading="lazy" alt="翻牌三条7赢">
+</div>
+<div class="narration">翻牌——我的三条7，他的两对AK。我赢了。</div>
+
+<div class="panel square" id="p30">
+  <img src="images/panel-30.jpg" loading="lazy" alt="赵鹏飞冷笑">
+</div>
+<div class="narration dialogue"><span class="speaker">赵鹏飞：</span>"有意思。你知道在这张桌子上揭人底牌的后果吗？"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"我只是在夸你的手表而已。"</div>
+
+<div class="panel wide" id="p31">
+  <img src="images/panel-31.jpg" loading="lazy" alt="大橘叼筹码">
+</div>
+<div class="narration">大橘叼走了一摞五万的筹码，屁颠屁颠跑到角落去了。</div>
+<div class="narration dialogue"><span class="speaker">阿莉：</span>"恭喜。你赢了钱，还附赠一个想杀你的对手。"</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- 场景25-30: 暗流 -->
+<div class="panel tall" id="p32">
+  <img src="images/panel-32.jpg" loading="lazy" alt="老K送行">
+</div>
+<div class="narration">牌局结束。二百八十万入账。但这不是最重要的——最重要的是，这张桌子上的每个人都记住了我。</div>
+<div class="narration dialogue"><span class="speaker">老K：</span>"小朱啊，下次来之前……先想清楚你愿意输什么。"</div>
+<div class="narration inner-voice">这是威胁，还是提醒？或者两者都是。</div>
+
+<div class="panel wide" id="p33">
+  <img src="images/panel-33.jpg" loading="lazy" alt="林婉清消息">
+</div>
+<div class="narration">电梯里。手机震动——林婉清发来消息。</div>
+<div class="narration dialogue"><span class="speaker">林婉清：</span>"赵鹏飞的零度AI刚刚启动了一项针对星辰AI的专利诉讼。反应速度够快的。"</div>
+<div class="narration dialogue"><span class="speaker">阿莉：</span>"看来你不只是赢了一把牌。你点燃了一场战争。"</div>
+
+<!-- 场景30-35: 悬念收束 -->
+<div class="panel tall" id="p34">
+  <img src="images/panel-34.jpg" loading="lazy" alt="朱江看窗外夜景">
+</div>
+<div class="narration">回到办公室。大橘把筹码摊了一桌，像是在炫耀战利品。</div>
+<div class="narration">我看着窗外的城市灯光。这不是一场牌局。这是一场战争。</div>
+
+<div class="panel tall" id="p35">
+  <img src="images/panel-35.jpg" loading="lazy" alt="手机匿名短信">
+</div>
+<div class="narration">手机震动。匿名号码。短信只有四个字——</div>
+<div class="narration" style="text-align:center;font-size:28px;color:#d4af37;padding:20px;letter-spacing:8px;">「下一场，周五。」</div>
+<div class="narration">我笑了。</div>
+<div class="narration dialogue"><span class="speaker">林婉清：</span>"你笑什么？"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"他们以为我是来打牌的。"</div>
+
+</div><!-- comic-strip end -->
+
+<div class="cliffhanger">
+  <div class="hook">
+    赵鹏飞的专利诉讼，已经在路上。<br>
+    老K说："先想清楚你愿意输什么。"<br>
+    周五。下一场。<br>
+    <br>
+    ——而我，才刚开始。
+  </div>
+  <div class="tbc">第二章「加注」· 即将更新</div>
+</div>
+
+<script>
+// 懒加载 + 淡入动画
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel').forEach(p => obs.observe(p));
+</script>
+
+</body>
+</html>
