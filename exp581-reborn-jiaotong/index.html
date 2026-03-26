@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重生交大：创业系统激活 — 第一章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a0f;
+  color: #e8e8e8;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Loading screen */
+.loading-screen {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: #0a0a0f;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease;
+}
+.loading-screen.hidden { opacity: 0; pointer-events: none; }
+.loading-title {
+  font-size: 28px; font-weight: 700; color: #00f0ff;
+  text-shadow: 0 0 20px rgba(0,240,255,0.5);
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+.loading-bar {
+  width: 200px; height: 4px; background: #1a1a2e; border-radius: 2px; overflow: hidden;
+}
+.loading-fill {
+  width: 0%; height: 100%; background: linear-gradient(90deg, #00f0ff, #7b2fff);
+  transition: width 0.3s ease;
+}
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+/* Progress bar */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 100;
+  background: linear-gradient(90deg, #00f0ff, #7b2fff, #ff6b6b);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(0,240,255,0.5);
+}
+
+/* Chapter header */
+.chapter-header {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px 20px;
+  background: radial-gradient(ellipse at center, #0f1629 0%, #0a0a0f 70%);
+  position: relative;
+  overflow: hidden;
+}
+.chapter-header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="55" text-anchor="middle" font-size="60" fill="rgba(0,240,255,0.03)">⚡</text></svg>') repeat;
+  background-size: 80px;
+  animation: bgScroll 20s linear infinite;
+}
+@keyframes bgScroll { 0% { transform: translateY(0); } 100% { transform: translateY(-80px); } }
+
+.series-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(0,240,255,0.1);
+  border: 1px solid rgba(0,240,255,0.3);
+  border-radius: 20px;
+  font-size: 14px;
+  color: #00f0ff;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.chapter-title {
+  font-size: 32px; font-weight: 800;
+  background: linear-gradient(135deg, #00f0ff, #7b2fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.chapter-subtitle {
+  font-size: 20px; color: rgba(255,255,255,0.6);
+  text-align: center;
+  position: relative; z-index: 1;
+}
+
+/* Panel container */
+.panels { max-width: 100%; padding: 0; }
+
+.panel {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel img {
+  width: 100%;
+  display: block;
+}
+
+/* Text overlays between panels */
+.panel-text {
+  padding: 20px 24px;
+  position: relative;
+}
+
+.narration {
+  font-size: 18px; line-height: 1.8;
+  color: rgba(255,255,255,0.85);
+  padding: 16px 20px;
+  border-left: 3px solid rgba(0,240,255,0.4);
+  margin: 8px 0;
+  background: rgba(0,240,255,0.03);
+}
+
+.dialogue {
+  font-size: 19px; line-height: 1.7;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 12px;
+}
+.dialogue-zhu {
+  background: rgba(0,240,255,0.08);
+  border: 1px solid rgba(0,240,255,0.15);
+}
+.dialogue-other {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.dialogue .speaker {
+  font-size: 14px; font-weight: 600;
+  color: #00f0ff;
+  margin-bottom: 4px;
+}
+.dialogue-other .speaker { color: #ffa726; }
+
+.thought {
+  font-size: 17px; line-height: 1.7;
+  color: rgba(0,240,255,0.7);
+  font-style: italic;
+  padding: 12px 20px;
+  margin: 8px 0;
+  background: rgba(0,240,255,0.03);
+  border-radius: 8px;
+  border: 1px dashed rgba(0,240,255,0.15);
+}
+
+.system-msg {
+  font-size: 15px; line-height: 1.6;
+  color: #7b2fff;
+  padding: 12px 16px;
+  margin: 8px 0;
+  background: rgba(123,47,255,0.06);
+  border: 1px solid rgba(123,47,255,0.2);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+}
+.system-msg::before {
+  content: '📱 系统';
+  display: block;
+  font-size: 12px;
+  color: rgba(123,47,255,0.6);
+  margin-bottom: 4px;
+  font-family: 'PingFang SC', sans-serif;
+}
+
+.decision-box {
+  padding: 20px;
+  margin: 12px 0;
+  background: linear-gradient(135deg, rgba(0,240,255,0.08), rgba(123,47,255,0.08));
+  border: 1px solid rgba(0,240,255,0.3);
+  border-radius: 12px;
+  position: relative;
+}
+.decision-box .decision-title {
+  font-size: 16px; font-weight: 700;
+  color: #00f0ff;
+  margin-bottom: 10px;
+}
+.decision-box .choice {
+  font-size: 17px; line-height: 1.6;
+  color: #4cff88;
+  padding: 8px 0;
+}
+.decision-box .choice::before {
+  content: '✅ ';
+}
+.decision-box .reason {
+  font-size: 15px; line-height: 1.6;
+  color: rgba(255,255,255,0.5);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Scene divider */
+.scene-divider {
+  text-align: center;
+  padding: 40px 20px;
+  position: relative;
+}
+.scene-divider .scene-name {
+  font-size: 22px; font-weight: 700;
+  color: #00f0ff;
+  text-shadow: 0 0 15px rgba(0,240,255,0.4);
+}
+.scene-divider::before, .scene-divider::after {
+  content: '';
+  position: absolute;
+  left: 20%; right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,240,255,0.3), transparent);
+}
+.scene-divider::before { top: 15px; }
+.scene-divider::after { bottom: 15px; }
+
+/* Cliffhanger */
+.cliffhanger {
+  padding: 40px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,50,50,0.05), transparent);
+}
+.cliffhanger .hook {
+  font-size: 20px; font-weight: 600;
+  color: #ff6b6b;
+  line-height: 1.6;
+}
+.cliffhanger .tbc {
+  font-size: 24px; font-weight: 800;
+  margin-top: 30px;
+  color: rgba(0,240,255,0.8);
+  text-shadow: 0 0 20px rgba(0,240,255,0.3);
+}
+
+/* Footer */
+.chapter-footer {
+  padding: 60px 20px;
+  text-align: center;
+  background: radial-gradient(ellipse at center bottom, #0f1629 0%, #0a0a0f 70%);
+}
+.footer-meta {
+  font-size: 14px;
+  color: rgba(255,255,255,0.3);
+  line-height: 2;
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, -2px); }
+  80% { transform: translate(1px, 1px); }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-title">创业天命系统加载中…</div>
+  <div class="loading-bar"><div class="loading-fill" id="loadingFill"></div></div>
+</div>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+<!-- Chapter Header -->
+<div class="chapter-header">
+  <div class="series-tag">V5 · 虚拟朱江 · 重生系统文</div>
+  <h1 class="chapter-title">重生交大<br>创业系统激活</h1>
+  <p class="chapter-subtitle">第一章 — 回到梦开始的地方</p>
+</div>
+
+<div class="panels">
+
+<!-- ===== 场景1: 重生触发 ===== -->
+<div class="scene-divider"><span class="scene-name">◇ 重生触发 ◇</span></div>
+
+<!-- P1 -->
+<div class="panel" data-panel="1">
+  <img src="p1.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">又是凌晨三点半。第三轮融资……没了。</div>
+    <div class="thought">疲惫到极点，连愤怒的力气都没有了。</div>
+  </div>
+</div>
+
+<!-- P2 -->
+<div class="panel" data-panel="2">
+  <img src="p2.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">手机亮起——妈妈的消息：「儿子，早点睡，别太累了。」</div>
+    <div class="thought">妈，我真的尽力了……</div>
+  </div>
+</div>
+
+<!-- P3 -->
+<div class="panel" data-panel="3">
+  <img src="p3.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      不……不是现在……
+    </div>
+    <div class="narration">猛地站起来，胸口剧痛——身体开始倾倒。手指在桌面上划出抓痕。</div>
+  </div>
+</div>
+
+<!-- P4 -->
+<div class="panel" data-panel="4">
+  <img src="p4.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="system-msg">检测到宿主意识体……正在初始化。<br>创业天命系统V1.0加载中……39%……71%……99%……</div>
+  </div>
+</div>
+
+<!-- P5 -->
+<div class="panel" data-panel="5">
+  <img src="p5.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">刺眼的阳光。睁开眼——天花板上的吊扇，老式宿舍的上铺栏杆，一张泛黄的课程表。</div>
+    <div class="thought">这个天花板……不对。这是……交大宿舍？</div>
+  </div>
+</div>
+
+<!-- ===== 场景2: 确认重生 ===== -->
+<div class="scene-divider"><span class="scene-name">◇ 确认重生 ◇</span></div>
+
+<!-- P6 -->
+<div class="panel" data-panel="6">
+  <img src="p6.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">从下铺坐起来，环顾四周：老式铁架床、暖水瓶、搪瓷杯、贴在墙上的周杰伦海报。对面铺位一个圆脸胖子在打鼾。</div>
+    <div class="thought">2001年的宿舍……我回来了？真的回来了？！</div>
+    <div class="narration">双手颤抖地摸自己的脸——年轻、没有络腮胡、皮肤光滑。</div>
+  </div>
+</div>
+
+<!-- P7 -->
+<div class="panel" data-panel="7">
+  <img src="p7.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">桌上一个诺基亚3310，日期：2001年9月1日。旁边是上海交通大学的录取通知书。</div>
+    <div class="system-msg">宿主身份确认：朱江，19岁，上海交大计算机系2001级新生</div>
+    <div class="thought">我的天……整整25年。</div>
+  </div>
+</div>
+
+<!-- P8 -->
+<div class="panel" data-panel="8">
+  <img src="p8.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">冲到走廊尽头的镜子前。镜子里是19岁的自己——瘦、黑发浓密、眼神清澈。</div>
+    <div class="thought">这张脸……我都快忘了自己年轻时候长什么样了。</div>
+  </div>
+</div>
+
+<!-- P9 -->
+<div class="panel" data-panel="9">
+  <img src="p9.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="system-msg">
+      创业天命系统 V1.0<br>
+      宿主：朱江 ｜ 等级：Lv.1 菜鸟创业者<br>
+      创业值：0/100 ｜ 人脉：0 ｜ 资金：47.5元<br>
+      已解锁：[25年商业记忆] [代码基础]<br>
+      未解锁：[人脉雷达] [融资话术Lv.2] [产品直觉]……<br><br>
+      恭喜宿主获得重生机会。提醒：本系统不提供退货服务。
+    </div>
+  </div>
+</div>
+
+<!-- P10 -->
+<div class="panel" data-panel="10">
+  <img src="p10.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江（自言自语）</div>
+      47块5……上辈子我第一次创业赔了200万。这次——
+    </div>
+    <div class="system-msg">主线任务已激活——</div>
+    <div class="thought">眼神从感慨变成锐利。</div>
+  </div>
+</div>
+
+<!-- P11 -->
+<div class="panel" data-panel="11">
+  <img src="p11.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="system-msg">
+      🔥 主线任务 #1：72小时内赚到1000元<br>
+      奖励：创业值+50，解锁技能[口才Lv.1]<br>
+      失败惩罚：随机清除一项已有技能<br><br>
+      温馨提示：2001年大学生月生活费平均300元。1000元≈3个月伙食费。祝你好运，菜鸟。
+    </div>
+  </div>
+</div>
+
+<!-- P12 -->
+<div class="panel" data-panel="12">
+  <img src="p12.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      1000块？我上辈子一个月烧1000万。
+    </div>
+    <div class="system-msg">……（检测到宿主装逼倾向，已记录。）</div>
+  </div>
+</div>
+
+<!-- ===== 场景3: 开学日校园 ===== -->
+<div class="scene-divider"><span class="scene-name">◇ 开学日校园 ◇</span></div>
+
+<!-- P13 -->
+<div class="panel" data-panel="13">
+  <img src="p13.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">2001年9月的上海交大。空气里有热腾腾的豆浆味，和整个中国即将起飞的味道。</div>
+    <div class="thought">WTO今年加入……互联网寒冬快见底了……最好的时代，要开始了。</div>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="panel" data-panel="14">
+  <img src="p14.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-other">
+      <div class="speaker">老陈</div>
+      哥们你谁啊……几号床？
+    </div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      下铺，朱江。你呢？
+    </div>
+    <div class="dialogue dialogue-other">
+      <div class="speaker">老陈</div>
+      陈伟明。叫我老陈就行。你这人……怎么笑得这么瘆人？
+    </div>
+    <div class="system-msg">人物扫描中……陈伟明，编程天赋：S级（隐藏）。当前状态：懒+胖+未觉醒</div>
+    <div class="thought">S级？！这胖子？</div>
+  </div>
+</div>
+
+<!-- P15 -->
+<div class="panel" data-panel="15">
+  <img src="p15.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-other">
+      <div class="speaker">老陈</div>
+      听说咱们计算机系今年就业率全校倒数……你家里人没拦你？
+    </div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江（强忍笑意）</div>
+      没事，我觉得计算机……有前途。
+    </div>
+    <div class="thought">有前途？哥，20年后你们都叫它"宇宙第一专业"。</div>
+    <div class="system-msg">建议宿主减少内心戏，专注任务。剩余时间：71小时48分。</div>
+  </div>
+</div>
+
+<!-- P16 -->
+<div class="panel" data-panel="16">
+  <img src="p16.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">眼睛扫过每一个迎新摊位——25年的商业直觉自动运转。</div>
+    <div class="thought">学生会=资源入口。校园BBS=流量入口。打印店=现金流……</div>
+    <div class="system-msg">检测到宿主进入[商业分析]模式。提醒：你现在的身份是大一新生，不是投资人。请注意表情管理。</div>
+  </div>
+</div>
+
+<!-- P17 -->
+<div class="panel" data-panel="17">
+  <img src="p17.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-other">
+      <div class="speaker">辅导员刘姐</div>
+      朱江是吧？材料都交齐了吗？
+    </div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江（乖巧脸）</div>
+      交了交了，刘老师。
+    </div>
+    <div class="thought">上辈子被投资人怼了几百次，辅导员查个材料算什么。</div>
+    <div class="dialogue dialogue-other">
+      <div class="speaker">辅导员刘姐</div>
+      你这新生……眼神怎么比我还老成？
+    </div>
+  </div>
+</div>
+
+<!-- P18 -->
+<div class="panel" data-panel="18">
+  <img src="p18.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">经过一个旧书摊——一本关于互联网浪潮的影印资料。</div>
+    <div class="system-msg">可选支线任务：购买此书。奖励：创业值+5</div>
+    <div class="thought">这本书……上辈子我花了十年才读懂。十块钱。</div>
+  </div>
+</div>
+
+<!-- P19: Decision 1 -->
+<div class="panel" data-panel="19">
+  <img src="p19.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">翻开钱包——47.5元的全部家当。掏出十块钱。</div>
+    <div class="decision-box">
+      <div class="decision-title">【决策点 1】是否花10元买这本书？</div>
+      <div class="choice">买。知识是最高杠杆。</div>
+      <div class="reason">朱江是"知识=最高杠杆"的信仰者。47块少10块不影响真正的商业运作，但这本书是战略层面的东西。</div>
+    </div>
+    <div class="system-msg">创业值+5。提示：知识是最好的杠杆——说这话的人通常钱不够花。</div>
+  </div>
+</div>
+
+<!-- P20 -->
+<div class="panel" data-panel="20">
+  <img src="p20.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="thought">2001年……移动互联网还有6年才爆发。社交网络、电商、短视频、AI——全部还没开始。</div>
+    <div class="thought">这一次，我不会再等机会来找我。</div>
+    <div class="system-msg">剩余时间：68小时12分。资金：37.5元。建议：停止感慨，开始赚钱。</div>
+  </div>
+</div>
+
+<!-- ===== 场景4: 第一步棋 ===== -->
+<div class="scene-divider"><span class="scene-name">◇ 第一步棋 ◇</span></div>
+
+<!-- P21 -->
+<div class="panel" data-panel="21">
+  <img src="p21.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      老陈，你觉得咱们学校最缺什么？
+    </div>
+    <div class="dialogue dialogue-other">
+      <div class="speaker">老陈（头也不抬）</div>
+      缺妹子。
+    </div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      ……除了这个。
+    </div>
+    <div class="dialogue dialogue-other">
+      <div class="speaker">老陈</div>
+      那就缺热水。澡堂排队排到明年。
+    </div>
+    <div class="thought">热水……排队……信息不对称……有了。</div>
+  </div>
+</div>
+
+<!-- P22 -->
+<div class="panel" data-panel="22">
+  <img src="p22.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">在纸上快速画出商业模式图——</div>
+    <div class="narration">痛点：澡堂高峰期排队40分钟 → 方案：「澡堂实时排队预报」→ 每栋楼安排情报员 → 收费0.5元/次</div>
+    <div class="system-msg">商业计划评分：D+。没有技术壁垒，没有规模效应，没有护城河……但作为Lv.1菜鸟的第一步，勉强及格。</div>
+  </div>
+</div>
+
+<!-- P23: Decision 2 -->
+<div class="panel" data-panel="23">
+  <img src="p23.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">方案A：澡堂预报（零成本）；方案B：电话卡倒卖（需资金）。</div>
+    <div class="thought">经典的信息差生意。但我只有37.5块……</div>
+    <div class="decision-box">
+      <div class="decision-title">【决策点 2】选哪个方案？</div>
+      <div class="choice">两个都做——澡堂预报当引流工具，电话卡是变现产品。</div>
+      <div class="reason">典型的"流量+变现"组合。菩萨心肠=帮人解决排队问题；霹雳手段=同时把钱赚了。</div>
+    </div>
+    <div class="system-msg">商业计划评分升级：D+ → B-。流量+变现组合拳……看来25年没白活。</div>
+  </div>
+</div>
+
+<!-- P24 -->
+<div class="panel" data-panel="24">
+  <img src="p24.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">第二天一早。食堂里找到三个新生，一人5块钱零食费。</div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      每小时去看一眼各澡堂排队人数，发短信给我。一天5块。
+    </div>
+    <div class="dialogue dialogue-other">
+      <div class="speaker">新生</div>
+      这也能赚钱？
+    </div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      信息差，永远都能赚钱。
+    </div>
+    <div class="thought">2001年的大学生，5块钱就能雇。2026年的实习生，5千都不一定来。</div>
+  </div>
+</div>
+
+<!-- P25 -->
+<div class="panel" data-panel="25">
+  <img src="p25.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">在宿舍楼公告栏贴了一张手写海报——「不想排队洗澡？实时澡堂人数预报！免费！」附上手机号。</div>
+    <div class="system-msg">推广方式原始但有效。2001年获客成本：一张A4纸。</div>
+  </div>
+</div>
+
+<!-- P26 -->
+<div class="panel" data-panel="26">
+  <img src="p26.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">当天下午，诺基亚响个不停——30多个人发短信问排队情况。</div>
+    <div class="dialogue dialogue-other">
+      <div class="speaker">老陈</div>
+      你这……是在创业？
+    </div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      不，这叫……社会实践。
+    </div>
+    <div class="system-msg">日活用户：34。对于一个用诺基亚做的产品，已经超过了某些2026年的AI应用。</div>
+  </div>
+</div>
+
+<!-- P27: Decision 3 -->
+<div class="panel" data-panel="27">
+  <img src="p27.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">傍晚，校外电子市场。IC电话卡批发30元/张，校内卖50元。</div>
+    <div class="thought">300块……我只有22.5……</div>
+    <div class="decision-box">
+      <div class="decision-title">【决策点 3】资金不够怎么办？</div>
+      <div class="choice">跟批发商谈赊账——先拿货后付款。</div>
+      <div class="reason">"用别人的钱做自己的事"是融资思维的本能。菩萨心肠不想欠朋友人情，但会跟商业伙伴谈条件。</div>
+    </div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      学生也是客户。我能帮你打开交大市场——四千新生，每人一张卡。
+    </div>
+    <div class="system-msg">技能触发：[融资话术Lv.1]。恭喜，你成功忽悠了一个成年人。</div>
+  </div>
+</div>
+
+<!-- P28 -->
+<div class="panel" data-panel="28">
+  <img src="p28.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="dialogue dialogue-other">
+      <div class="speaker">老陈</div>
+      赊……你怎么做到的？
+    </div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江（躺在床上，双手枕后）</div>
+      老陈，创业第一课——永远不要用自己的钱。
+    </div>
+    <div class="system-msg">金句已记录。建议宿主将此刻的嘴脸截图保存，未来融资失败时可以回看打脸。</div>
+  </div>
+</div>
+
+<!-- P29 -->
+<div class="panel" data-panel="29">
+  <img src="p29.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">深夜。把白天34个用户全部发了一条短信——</div>
+    <div class="narration">「XX同学你好，顺便问一下你办电话卡了没？内部渠道，45元/张。有需要回复1。」</div>
+    <div class="system-msg">用户转化漏斗已建立。免费用户→付费用户，经典互联网套路。在2001年用短信实现，颇有远古之美。</div>
+    <div class="thought">流量→转化。这套路2026年值十个亿。2001年，值1000块。</div>
+  </div>
+</div>
+
+<!-- P30: Cliffhanger -->
+<div class="panel" data-panel="30">
+  <img src="p30.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="narration">手机亮起——第一条回复：「要一张！怎么拿？」 然后第二条、第三条……</div>
+    <div class="system-msg">🔔 任务进度更新：1000元目标<br>当前预计收入75元（5张×15元利润）<br>完成度：7.5%<br><br>按这个速度，72小时内完成概率——12%。建议：提速。</div>
+    <div class="dialogue dialogue-zhu">
+      <div class="speaker">朱江</div>
+      才刚开始。
+    </div>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="narration" style="border:none; background:rgba(255,50,50,0.05); color:#ff6b6b;">
+    手机又响了——不是客户。<br><br>
+    辅导员刘姐的短信：「朱江同学，明天上午来办公室一趟。有人举报你在宿舍楼贴违规广告。」
+  </div>
+  <div class="system-msg" style="margin-top:16px;">⚠️ 触发隐藏事件：[辅导员约谈]。生存概率重新计算中……</div>
+  <div class="thought" style="margin-top:12px;">呵。上辈子被SEC约谈都扛过来了，辅导员？</div>
+  <div class="decision-box" style="margin-top:20px;">
+    <div class="decision-title">【决策点 4】如何应对辅导员约谈？</div>
+    <div style="color:rgba(255,255,255,0.5); font-size:16px; padding:8px 0;">A: 老实认错撤海报<br>B: 带着商业计划去谈，说服辅导员这是"创新创业实践"</div>
+    <div class="reason">悬念保留——答案在第二章揭晓。</div>
+  </div>
+  <div class="tbc">▸ 未完待续 ◂</div>
+</div>
+
+</div>
+
+<div class="chapter-footer">
+  <div class="footer-meta">
+    《重生交大：创业系统激活》第一章<br>
+    Trinity V3 · EXP-581<br>
+    为朱江生成
+  </div>
+</div>
+
+<script>
+// Loading screen
+let loaded = 0;
+const totalImages = 30;
+const fill = document.getElementById('loadingFill');
+const screen = document.getElementById('loadingScreen');
+
+document.querySelectorAll('.panel img').forEach(img => {
+  const check = () => {
+    loaded++;
+    const pct = Math.min(100, Math.round(loaded / Math.min(totalImages, 5) * 100));
+    fill.style.width = pct + '%';
+    if (loaded >= 3) {
+      setTimeout(() => screen.classList.add('hidden'), 500);
+    }
+  };
+  if (img.complete) check();
+  else { img.addEventListener('load', check); img.addEventListener('error', check); }
+});
+setTimeout(() => screen.classList.add('hidden'), 5000); // Fallback
+
+// Progress bar
+const bar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+
+</body>
+</html>
