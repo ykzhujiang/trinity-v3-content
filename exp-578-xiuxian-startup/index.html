@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>灵气复苏：创业修仙 — 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a1a 0%,#1a0a2e 40%,#2a1040 70%,#0a0a1a 100%);position:relative;padding:40px 20px}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 30%,rgba(218,165,32,0.15) 0%,transparent 60%);pointer-events:none}
+.cover h1{font-size:2.4em;color:#daa520;text-shadow:0 0 30px rgba(218,165,32,0.5);text-align:center;margin-bottom:10px;letter-spacing:4px;animation:glow 3s ease-in-out infinite alternate}
+.cover .subtitle{font-size:1.3em;color:#b8860b;margin-bottom:30px;letter-spacing:8px}
+.cover .ch{font-size:1.1em;color:#888;margin-bottom:20px}
+.cover .scroll-hint{color:#666;font-size:0.85em;animation:bounce 2s infinite}
+@keyframes glow{from{text-shadow:0 0 20px rgba(218,165,32,0.3)}to{text-shadow:0 0 40px rgba(218,165,32,0.7),0 0 80px rgba(218,165,32,0.2)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.panel{margin:0 auto;max-width:440px;padding:0 12px;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-img{width:100%;border-radius:8px;margin-top:8px;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.panel-text{padding:14px 6px 30px;font-size:1.05em;line-height:1.85;color:#d0d0d0}
+.panel-text .decision{background:linear-gradient(135deg,#1a1a2e,#16213e);border-left:3px solid #daa520;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:0.95em;color:#daa520}
+.panel-text .decision .choice{color:#4ecdc4;font-weight:bold}
+.chapter-end{text-align:center;padding:60px 20px;color:#daa520;font-size:1.3em;letter-spacing:4px}
+.chapter-end .next{color:#666;font-size:0.8em;margin-top:20px}
+.panel-number{color:#333;font-size:0.7em;text-align:right;padding-right:8px}
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="ch">V5 · 虚拟朱江走进故事世界</div>
+<h1>灵气复苏：创业修仙</h1>
+<div class="subtitle">第 一 章</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<div id="panels"></div>
+
+<div class="chapter-end">
+<div>▶ 未完待续</div>
+<div class="next">第二章：《估值之眼》· 即将更新</div>
+</div>
+
+<script>
+const panels = [{"id": "p01", "text": "那天下午三点，我正在给团队讲Q3规划。和往常一样，PPT翻到第三页，老陈在前台打瞌睡，林薇在角落敲代码。"}, {"id": "p02", "text": "然后天花板裂了。"}, {"id": "p03", "text": "所有手机同时变砖。金色的雾气从裂缝里涌出来，空气里带着一股奇怪的甜味——像是……机会的味道？我承认，创业做久了，什么都往商业上想。"}, {"id": "p04", "text": "后来新闻叫它'灵气复苏'。全球同时发生，科技产品大面积失灵。但那一刻我只知道——我的服务器挂了。"}, {"id": "p05", "text": "三年的数据。两轮融资。八个月没休假换来的技术壁垒。全没了。"}, {"id": "p06", "text": "但我是创业者。创业者最擅长的事，是在废墟上重新开始。灵气是新赛道？那我就做第一个入局的。"}, {"id": "p07", "text": "别人恐慌的时候我在干嘛？写商业计划书。纯手写的那种——电脑都变砖了嘛。"}, {"id": "p08", "text": "练气期等于种子轮，筑基期是天使轮，金丹期对标A轮……我写着写着，感觉丹田——好吧我当时还不知道那叫丹田——有个地方开始发热。"}, {"id": "p09", "text": "我突破了。写商业计划书……突破的。办公室所有人看我的眼神，比看到灵气复苏还离谱。"}, {"id": "p10", "text": "林薇说的第一句话是：'……你认真的吗？写PPT也能修炼？'"}, {"id": "p11", "text": "'不是PPT，是商业计划书。有本质区别。'我极其认真地纠正她。"}, {"id": "p12", "text": "讨论被打断了。一楼传来尖叫。我们从窗户往下看——一只两米高的……东西，正朝办公楼走来。它像蜥蜴，但身上嵌着金属碎片和发光的结晶。"}, {"id": "p13", "text": "'跑啊！！楼梯！往楼梯跑！'小刘第一个崩溃，拉着同事往后门冲。一半人跟着跑了。"}, {"id": "p14", "text": "那一刻脑子里飞速闪过无数念头。跑？我可以跑。但创业者的本能告诉我：恐慌时跑的人最先死。\n\n📍 决策时刻：我选择——组织全员就地抵抗。"}, {"id": "p15", "text": "'听我说！！'我跳上翻倒的桌子，用路演时的那个音量。'外面那个东西是新物种，对吧？新物种意味着新赛道！我们是第一批有组织的团队！先发优势！你们跑出去是散兵游勇，留下来，我们是第一家灵气创业公司！'"}, {"id": "p16", "text": "我看到他们的眼神变了。创业者最核心的能力是什么？不是技术，不是资金——是在所有人都想跑的时候，让他们愿意留下来。"}, {"id": "p17", "text": "这时候老陈从前台站起来了。五十岁的保安老陈。他不是被吓醒的——他是被吵醒的。"}, {"id": "p18", "text": "老陈二话没说走到门口，看了一眼那个异兽。然后——出拳。那一拳带着红色的光。两米高的怪物飞出去十几米。"}, {"id": "p19", "text": "全公司的人嘴巴张到能塞鸡蛋。老陈回头看了我们一眼——"}, {"id": "p20", "text": "'那个……今天的签到表还没签，你们谁还没签的？'全公司静默三秒后爆笑。"}, {"id": "p21", "text": "我看向林薇。她看懂了我的表情。'你又要搞事。'不是疑问句。"}, {"id": "p22", "text": "我做了创业者最熟练的事——开会。不过这次的议题是：如何在灵气时代活下去。"}, {"id": "p23", "text": "我发现了一个关键规律——修炼速度和团队协作正相关。独自修炼一小时涨1点灵力，三人配合修炼涨5点。人多并且配合默契，效率指数级增长。这不就是……公司化运营吗？"}, {"id": "p24", "text": "林薇觉醒的是冰系灵根。她修炼的方式也很她——闭眼在脑子里写代码，冰系灵力就开始运转。她说灵力的流动'像数据流'。程序员就是程序员。"}, {"id": "p25", "text": "接下来几天，办公室变成了修炼场。最离谱的是——我发现每次做ROI分析的时候修炼效率最高。团队给我的修炼方式起了个名字：'Excel悟道法'。"}, {"id": "p26", "text": "晚上睡不着。看着窗外的城市，三天前还灯火通明，现在只剩灵气的金光。旧世界已经塌了。但每次世界重启，最先站起来的都是创业者。因为我们本来就习惯从零开始。"}, {"id": "p27", "text": "第四天，不速之客到了。隔壁大厂——灵曦科技。灵气复苏前他们是互联网巨头，复苏后立刻转型'灵气科技'。他们比我们有钱、有人、有资源。现在他们来了。"}, {"id": "p28", "text": "'朱总，灵气时代到了。你们小公司搞的那套团队修炼法很有意思，我们出价——整个团队打包过来，修炼资源我们包了。'陈副总推了推金丝眼镜。"}, {"id": "p29", "text": "[DECISION-2] 我内心飞速盘算。他们出价很诱人——大厂的修炼资源是我们的十倍。但创业者有个毛病：越是别人想买的东西，越说明它值钱。\n\n📍 决策时刻：我选择——谈判拖延，暗中壮大。"}, {"id": "p30", "text": "'陈总说得对，灵气时代需要合作。不如这样——我们先做个小项目联合试点？具体条款让团队对接？'我笑着握手。拖延的最高境界是让对方觉得自己赢了。"}, {"id": "p31", "text": "车一走我就变脸了。'林薇，我们有多少时间？''一个月。最多。他们反应过来我在拖，会直接挖人。'"}, {"id": "p32", "text": "当天晚上我做了一件事——设计'灵气期权'。创业公司留人靠什么？不是工资，是期权和愿景。灵气时代也一样。我把团队修炼的灵气增益量化成'灵气股份'——你贡献越多，分到的修炼加速越大。"}, {"id": "p33", "text": "老陈看了半天期权证书：'这个……能换钱不？''比钱好。''那行。'老陈这人就这点好——听不懂但信你。"}, {"id": "p34", "text": "训练开始了。我把公司组织架构变成了战斗阵型——不是什么五行八卦阵，是'敏捷开发站会阵'。每个人有明确分工，快速迭代，灵活配合。"}, {"id": "p35", "text": "实战来得比预想的快。一只飞行型异兽突袭。我做了最熟悉的事——'各部门注意，目标确认，按Sprint计划执行！'是的，我用的是站会术语。"}, {"id": "p36", "text": "老陈负责'打断'——物理意义上的。林薇负责'冻结'——也是物理意义上的。他们的配合比在公司搬服务器时还默契。"}, {"id": "p37", "text": "然后轮到我了。商道灵根的能力——'估值增幅'。我能暂时提升整个团队的灵力上限。翻译成人话就是：CEO的工作不是自己打怪，是让每个人都发挥120%。"}, {"id": "p38", "text": "'Q3 KPI——冲！！！'全队齐吼。（是的，战斗口号就是这个。）合击灵力汇成一道光柱，把异兽轰成了碎片。灵气碎片像金色雪花一样飘下来。"}, {"id": "p39", "text": "'赢了！'小刘喊。老陈蹲下来在签到表上打了个勾：'加班补贴怎么算？'所有人又笑崩了。"}, {"id": "p40", "text": "那晚大家吃冷外卖庆祝。没WiFi没电没手机，但所有人的眼睛都亮着。创业三年，这群人没一个在融资失败时放弃过。现在世界都塌了，他们还是在。这比任何灵根都珍贵。"}, {"id": "p41", "text": "深夜，我拿着战利品——异兽的灵气结晶。然后我发现了商道灵根的隐藏能力。"}, {"id": "p42", "text": "[DECISION-3] 我能看到'估值'。不是比喻——是真的能看到。每个东西上面都浮着一个数字，像AR标签。这块灵气结晶：灵力值847，市场价'极高'。老陈：战斗力12000，'超低估'。林薇的代码能力：'无法估值——超出模型范围'。\n\n📍 决策时刻：先自己搞明白这个能力再说。"}, {"id": "p43", "text": "但让我真正后背发凉的不是这个能力本身——而是当我用'估值之眼'扫描城市的时候，看到了远处有一个人。那个人身上的估值标签不是数字，而是三个字："}, {"id": "p44", "text": "'同类项。'"}, {"id": "p45", "text": "灵气复苏第五天。我以为自己是唯一的'商道灵根'——世界上唯一能用创业思维修炼的人。现在看来……重启的不只有世界，也不只有我。\n\n▶ 未完待续 — 第二章：《估值之眼》"}];
+
+const container = document.getElementById('panels');
+panels.forEach((p, i) => {
+  const div = document.createElement('div');
+  div.className = 'panel';
+  div.id = p.id;
+  
+  let textHtml = p.text.replace(/\n/g, '<br>');
+  
+  // Style decision points
+  if (textHtml.includes('📍 决策时刻')) {
+    const parts = textHtml.split('📍 决策时刻');
+    textHtml = parts[0] + '<div class="decision">📍 决策时刻' + parts[1] + '</div>';
+  }
+  
+  div.innerHTML = `
+    <img class="panel-img" src="${p.id}.jpg" alt="面板${i+1}" loading="${i < 4 ? 'eager' : 'lazy'}">
+    <div class="panel-text">${textHtml}</div>
+  `;
+  container.appendChild(div);
+});
+
+// Intersection observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
