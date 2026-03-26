@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>当路演日开始循环 — 第一章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0f;
+  --text: #e8e6e3;
+  --accent: #6c5ce7;
+  --accent2: #00cec9;
+  --danger: #ff4757;
+  --gold: #ffd32a;
+  --panel-bg: rgba(108, 92, 231, 0.08);
+  --system-glow: rgba(108, 92, 231, 0.3);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 1000; transition: width 0.3s;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* Header */
+.story-header {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  background: radial-gradient(ellipse at center, rgba(108,92,231,0.15) 0%, transparent 70%);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.story-header::before {
+  content: ''; position: absolute; inset: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(108,92,231,0.1)" stroke-width="0.5"/><circle cx="50" cy="50" r="30" fill="none" stroke="rgba(0,206,201,0.08)" stroke-width="0.3"/></svg>') center/cover;
+  animation: headerPulse 8s ease-in-out infinite;
+}
+@keyframes headerPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+.story-header h1 {
+  font-size: 2.2em; font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 12px; position: relative; z-index: 1;
+}
+.story-header .subtitle {
+  font-size: 1em; color: rgba(232,230,227,0.6);
+  margin-bottom: 8px; position: relative; z-index: 1;
+}
+.story-header .cycle-badge {
+  display: inline-block; padding: 6px 16px;
+  background: rgba(108,92,231,0.2); border: 1px solid var(--accent);
+  border-radius: 20px; font-size: 0.85em; color: var(--accent2);
+  position: relative; z-index: 1;
+  animation: badgePulse 2s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 5px var(--system-glow); }
+  50% { box-shadow: 0 0 20px var(--system-glow); }
+}
+.scroll-hint {
+  position: absolute; bottom: 30px;
+  color: rgba(232,230,227,0.4); font-size: 0.8em;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* Panel containers */
+.panel {
+  max-width: 440px; margin: 0 auto;
+  padding: 0 16px; margin-bottom: 60px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+.panel.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+.panel img {
+  width: 100%; border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  margin-bottom: 16px;
+}
+
+.panel .narration {
+  font-size: 1.05em; line-height: 1.9;
+  padding: 16px 0;
+  border-left: 3px solid rgba(108,92,231,0.3);
+  padding-left: 16px;
+}
+.panel .narration p { margin-bottom: 12px; }
+
+/* Dialogue */
+.dialogue {
+  background: rgba(108,92,231,0.06);
+  border-radius: 12px; padding: 14px 16px;
+  margin: 10px 0; font-size: 1em;
+  border-left: 3px solid var(--accent);
+}
+.dialogue .speaker {
+  font-size: 0.8em; color: var(--accent2);
+  font-weight: 600; margin-bottom: 4px;
+}
+
+/* System panels */
+.system-box {
+  background: linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,206,201,0.08));
+  border: 1px solid rgba(108,92,231,0.3);
+  border-radius: 12px; padding: 16px;
+  margin: 16px 0; font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 0.9em; line-height: 1.7;
+  box-shadow: 0 0 20px rgba(108,92,231,0.1);
+  animation: systemGlow 3s ease-in-out infinite;
+}
+@keyframes systemGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(108,92,231,0.1); }
+  50% { box-shadow: 0 0 30px rgba(108,92,231,0.2); }
+}
+.system-box .sys-title {
+  color: var(--accent2); font-weight: 700;
+  font-size: 1em; margin-bottom: 8px;
+  text-align: center;
+}
+.system-box .stat { margin: 4px 0; }
+.system-box .stat-label { color: var(--accent); }
+.system-box .stat-value { color: var(--gold); font-weight: 600; }
+.system-box .stat-bad { color: var(--danger); }
+.system-box .sys-msg {
+  color: rgba(232,230,227,0.7); font-style: italic;
+  margin-top: 10px; font-size: 0.85em;
+  border-top: 1px solid rgba(108,92,231,0.2);
+  padding-top: 10px;
+}
+
+/* Decision points */
+.decision-box {
+  background: linear-gradient(135deg, rgba(255,71,87,0.08), rgba(255,211,42,0.06));
+  border: 1px solid rgba(255,71,87,0.3);
+  border-radius: 12px; padding: 16px; margin: 16px 0;
+}
+.decision-box .decision-title {
+  color: var(--danger); font-weight: 700;
+  font-size: 0.9em; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.decision-box .option {
+  padding: 10px; margin: 8px 0;
+  border-radius: 8px; font-size: 0.95em;
+}
+.decision-box .option-a {
+  background: rgba(108,92,231,0.1);
+  border: 1px solid rgba(108,92,231,0.2);
+}
+.decision-box .option-b {
+  background: rgba(0,206,201,0.1);
+  border: 1px solid rgba(0,206,201,0.2);
+}
+.decision-box .choice {
+  margin-top: 12px; padding: 10px;
+  background: rgba(255,211,42,0.08);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95em;
+}
+
+/* Warning box */
+.warning-box {
+  background: rgba(255,71,87,0.1);
+  border: 1px solid rgba(255,71,87,0.4);
+  border-radius: 12px; padding: 16px; margin: 16px 0;
+  animation: warningPulse 1.5s ease-in-out infinite;
+}
+@keyframes warningPulse {
+  0%, 100% { border-color: rgba(255,71,87,0.4); }
+  50% { border-color: rgba(255,71,87,0.8); box-shadow: 0 0 20px rgba(255,71,87,0.2); }
+}
+.warning-box .warn-title {
+  color: var(--danger); font-weight: 700;
+  font-size: 1em; text-align: center; margin-bottom: 8px;
+}
+
+/* Score badge */
+.score-badge {
+  display: inline-block; padding: 4px 12px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 20px; font-weight: 700;
+  font-size: 0.85em; color: #fff;
+}
+.score-up { color: var(--accent2); font-weight: 700; }
+
+/* Act divider */
+.act-divider {
+  text-align: center; padding: 40px 16px;
+  max-width: 440px; margin: 0 auto;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+.act-divider.visible { opacity: 1; transform: translateY(0); }
+.act-divider .act-line {
+  width: 60px; height: 2px; margin: 0 auto 12px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.act-divider .act-name {
+  font-size: 0.9em; color: var(--accent);
+  font-weight: 600; letter-spacing: 2px;
+}
+
+/* Chapter end */
+.chapter-end {
+  text-align: center; padding: 60px 20px;
+  max-width: 440px; margin: 0 auto;
+}
+.chapter-end .end-line {
+  font-size: 1.4em; font-weight: 700;
+  color: var(--accent);
+}
+.chapter-end .next-chapter {
+  margin-top: 12px; font-size: 1em;
+  color: var(--accent2); font-style: italic;
+}
+
+/* Keyframe */
+.panel.keyframe img {
+  box-shadow: 0 0 30px rgba(108,92,231,0.3);
+}
+
+@media (min-width: 500px) {
+  .panel, .act-divider, .chapter-end { max-width: 460px; }
+  body { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HEADER -->
+<div class="story-header">
+  <h1>当路演日开始循环</h1>
+  <div class="subtitle">时间循环 × 创业路演 × 系统文</div>
+  <div class="cycle-badge">🔄 循环系统 v1.0 — 第一章</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- ACT 1 -->
+<div class="act-divider"><div class="act-line"></div><div class="act-name">第一幕 · 路演日清晨</div></div>
+
+<!-- Panel 1 -->
+<div class="panel">
+  <img src="images/p01-alarm-clock.jpg" loading="lazy" alt="闹钟6:30">
+  <div class="narration">
+    <p>2026年3月26日，清晨6:30。</p>
+    <p>闹钟响的那一刻，我就知道今天要么改变一切，要么失去一切。</p>
+    <p>星辰AI的账上还剩47万。按现在的烧钱速度，还能撑83天。</p>
+  </div>
+</div>
+
+<!-- Panel 2 -->
+<div class="panel">
+  <img src="images/p02-sitting-on-bed.jpg" loading="lazy" alt="坐在床边">
+  <div class="narration">
+    <p>红杉资本，A轮路演。林薇亲自约的。</p>
+    <p>上一次有投资人主动约我，还是三年前。那次我拿到了种子轮。</p>
+    <p>这次不一样。这次如果拿不到，星辰AI就死了。</p>
+  </div>
+</div>
+
+<!-- Panel 3 -->
+<div class="panel">
+  <img src="images/p03-mirror-tie.jpg" loading="lazy" alt="镜前系领带">
+  <div class="narration">
+    <p>我看着镜子里的自己——络腮胡修了三次还是不整齐，衬衫领口紧得像套了个圈。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">老陈（回忆）</div>
+    <p>"你穿西装像程序员cos商务人士。"</p>
+  </div>
+  <div class="narration">
+    <p>他说得对。但投资人不会投给一个穿帽衫的人。至少不会投第一次见面的。</p>
+  </div>
+</div>
+
+<!-- Panel 4 -->
+<div class="panel">
+  <img src="images/p04-morning-street.jpg" loading="lazy" alt="上海早晨">
+  <div class="narration">
+    <p>煎饼果子六块钱。我在心里默默换算了一下——这是公司现金流的0.0013%。</p>
+    <p>创业者的职业病：看什么都换算成burn rate。</p>
+  </div>
+</div>
+
+<!-- Panel 5 -->
+<div class="panel">
+  <img src="images/p05-meet-laochen.jpg" loading="lazy" alt="与老陈汇合">
+  <div class="dialogue">
+    <div class="speaker">老陈</div>
+    <p>"demo最终版。昨晚又改了三轮，API响应时间压到了200ms以内。"</p>
+  </div>
+  <div class="narration">
+    <p>老陈把U盘递给我，眼镜上还有昨晚熬夜留下的雾气。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"睡了几个小时？"</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">老陈</div>
+    <p>"算上地铁上眯的那二十分钟，大概三小时。"</p>
+  </div>
+  <div class="narration">
+    <p>我没说话。把U盘攥紧了。</p>
+    <p>这个U盘里装着的，是我们五个人两年的命。</p>
+  </div>
+</div>
+
+<!-- ACT 2 -->
+<div class="act-divider"><div class="act-line"></div><div class="act-name">第二幕 · 路演惨败</div></div>
+
+<!-- Panel 6 -->
+<div class="panel">
+  <img src="images/p06-sequoia-lobby.jpg" loading="lazy" alt="红杉大堂">
+  <div class="narration">
+    <p>红杉资本的办公室在陆家嘴，42层。</p>
+    <p>电梯往上的每一秒，我都在默念pitch的开场白。</p>
+    <p>"各位好，我是星辰AI创始人朱江——"<br>不对，太普通了。</p>
+    <p>"在座各位上一次被AI内容惊艳到，是什么时候？"<br>也不对，太装了。</p>
+  </div>
+</div>
+
+<!-- Panel 7 -->
+<div class="panel">
+  <img src="images/p07-linwei-sitting.jpg" loading="lazy" alt="林薇">
+  <div class="narration">
+    <p>林薇。红杉中国合伙人，AI赛道负责人。</p>
+    <p>她看人的眼神像在做CT扫描——30秒内就能判断你是不是在吹牛。</p>
+    <p>据说她去年否了200个项目，投了3个。3个都上了市。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">林薇</div>
+    <p>"开始吧。"</p>
+  </div>
+</div>
+
+<!-- Panel 8 -->
+<div class="panel">
+  <img src="images/p08-pitching.jpg" loading="lazy" alt="路演开始">
+  <div class="narration">
+    <p>前十分钟，一切按计划进行。</p>
+    <p>市场规模，技术壁垒，团队背景，竞品分析——每一页都练了不下二十遍。</p>
+    <p>林薇偶尔点头。她旁边的投资经理在做笔记。</p>
+    <p>我开始觉得，也许今天真的能成。</p>
+  </div>
+</div>
+
+<!-- Panel 9 -->
+<div class="panel">
+  <img src="images/p09-click-demo.jpg" loading="lazy" alt="按下遥控器">
+  <div class="narration">
+    <p>"现在，让我展示一下我们的核心产品——"</p>
+    <p>我按下了播放键。</p>
+  </div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel">
+  <img src="images/p10-demo-crash.jpg" loading="lazy" alt="Demo崩溃">
+  <div class="narration">
+    <p>转圈。</p>
+    <p>加载50%……50%……50%……</p>
+    <p>我的心跳从正常的72骤然飙到150。手心瞬间湿透。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"呃，网络可能有点问题，我——"</p>
+  </div>
+  <div class="narration">
+    <p>我看向老陈。老陈的脸已经白了。</p>
+  </div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel">
+  <img src="images/p11-linwei-pen-down.jpg" loading="lazy" alt="林薇放下笔">
+  <div class="narration">
+    <p>林薇放下了笔。</p>
+    <p>这个动作很轻。但在那一刻，我觉得整个会议室的温度降了十度。</p>
+    <p>放下笔 = 失去兴趣。每个创业者都知道这个信号。</p>
+  </div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel">
+  <img src="images/p12-scramble-fix.jpg" loading="lazy" alt="手忙脚乱">
+  <div class="narration">
+    <p>接下来的二十分钟是我创业生涯最漫长的二十分钟。</p>
+    <p>本地demo跑起来了——但比预期慢了三倍。生成一段30秒视频用了4分钟。</p>
+    <p>4分钟的沉默。</p>
+    <p>林薇看了两次手表。</p>
+  </div>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel">
+  <img src="images/p13-rejection.jpg" loading="lazy" alt="被拒">
+  <div class="dialogue">
+    <div class="speaker">林薇</div>
+    <p>"朱总，技术方向很有意思。但目前阶段……"</p>
+  </div>
+  <div class="narration">
+    <p>她的"但"字拖了半秒。</p>
+    <p>创业者听到的"但"和普通人听到的不一样。普通人的"但"是转折，创业者的"但"是死刑。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">林薇</div>
+    <p>"……我们可能需要看到更成熟的产品数据再做决定。"</p>
+  </div>
+  <div class="narration">
+    <p>翻译：不投了。</p>
+  </div>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel">
+  <img src="images/p14-leaving-building.jpg" loading="lazy" alt="走出大楼">
+  <div class="narration">
+    <p>我们沉默地走出大楼。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">老陈</div>
+    <p>"API那个bug是今早才出的，昨晚测的时候——"</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"不是你的问题。"</p>
+  </div>
+  <div class="narration">
+    <p>不是bug的问题。不是网络的问题。不是PPT的问题。</p>
+    <p>是我。是我不够好。</p>
+  </div>
+</div>
+
+<!-- ACT 3 -->
+<div class="act-divider"><div class="act-line"></div><div class="act-name">第三幕 · 系统激活</div></div>
+
+<!-- Panel 15 -->
+<div class="panel">
+  <img src="images/p15-enter-washroom.jpg" loading="lazy" alt="走进洗手间">
+  <div class="narration">
+    <p>我让老陈先走。</p>
+    <p>然后走进商场一楼的洗手间，锁上门。</p>
+    <p>两只手撑在洗手台上，看着镜子里那个穿皱了的西装的人。</p>
+    <p>47万。83天。</p>
+    <p>一次机会。用完了。</p>
+  </div>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel">
+  <img src="images/p16-water-on-hands.jpg" loading="lazy" alt="泼水洗脸">
+  <div class="narration">
+    <p>水很凉。我把脸埋进去，想让大脑重启。</p>
+    <p>然后——</p>
+    <p>世界停了。</p>
+  </div>
+</div>
+
+<!-- Panel 17 — System Activation Key Visual -->
+<div class="panel keyframe">
+  <img src="images/p17-system-activate.jpg" loading="lazy" alt="系统激活">
+  <div class="narration">
+    <p>一个半透明的面板凭空出现在我眼前。</p>
+  </div>
+  <div class="system-box">
+    <div class="sys-title">【循环系统 v1.0 已激活】</div>
+    <div class="stat">📊 <span class="stat-label">本次路演评分：</span><span class="stat-bad">12/100</span></div>
+    <div class="stat">🔄 <span class="stat-label">剩余循环次数：</span><span class="stat-value">7/7</span></div>
+    <div class="stat">💀 <span class="stat-label">触发条件：</span>致命失败事件</div>
+    <div class="stat">🔒 <span class="stat-label">投资人心理档案：</span>[循环2解锁]</div>
+    <div class="stat">⚡ <span class="stat-label">技能点：</span><span class="stat-value">0</span></div>
+    <div class="sys-msg">"检测到宿主遭遇A轮路演致命失败。系统已激活时间循环协议。每次循环将从当日06:30开始，至路演结束时终止。宿主记忆跨循环保留。物理世界完全重置。"</div>
+  </div>
+  <div class="narration">
+    <p>我盯着这个面板看了整整十秒。</p>
+    <p>然后用手穿过了它——手指直接穿透，面板纹丝不动。</p>
+  </div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel">
+  <img src="images/p18-eye-reflection.jpg" loading="lazy" alt="瞳孔倒影">
+  <div class="narration">
+    <p>12分。满分100，我拿了12分。</p>
+    <p>说实话，比我自己的预期还低。</p>
+    <p>但——7次循环。如果每次进步13分……</p>
+    <p>不对。我是创业者。我不做线性增长的假设。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"系统，这个路演评分的12分，能拆解成维度吗？"</p>
+  </div>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel">
+  <img src="images/p19-data-panel.jpg" loading="lazy" alt="数据面板">
+  <div class="system-box">
+    <div class="sys-title">路演评分拆解（12/100）</div>
+    <div class="stat">📊 <span class="stat-label">产品演示：</span><span class="stat-bad">5/25</span> (demo崩溃致命)</div>
+    <div class="stat">📊 <span class="stat-label">市场叙事：</span><span class="stat-value">8/25</span> (框架正确但缺乏冲击力)</div>
+    <div class="stat">📊 <span class="stat-label">团队信任度：</span><span class="stat-bad">3/25</span> (⚠️ 投资人对CTO稳定性有疑虑)</div>
+    <div class="stat">📊 <span class="stat-label">创始人气场：</span><span class="stat-bad">-4/25</span> (❌ 负分。紧张、语速过快、回避眼神)</div>
+  </div>
+  <div class="narration">
+    <p>我差点笑出来。创始人气场负四分。</p>
+    <p>但"团队信任度"那一栏让我愣住了——投资人对老陈有疑虑？老陈是最稳的人啊。</p>
+    <p>这里面有我不知道的东西。</p>
+  </div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="panel">
+  <div class="decision-box">
+    <div class="decision-title">⚡ 决策点 1</div>
+    <p style="margin-bottom:10px;font-size:0.9em;color:rgba(232,230,227,0.7);">系统提示：循环即将开始。请选择第二次循环策略：</p>
+    <div class="option option-a"><strong>A. 修补路线</strong> — 修复demo bug，打磨PPT，按原方案提升执行力</div>
+    <div class="option option-b"><strong>B. 推翻重来</strong> — 完全放弃PPT路演，改为现场live demo，从零设计路演方式</div>
+    <div class="choice">
+      <p>我想了五秒。</p>
+      <p>创业三年教会我一件事：当一个方案得了12分，你不该修补，你该推翻。</p>
+      <p>修补只能从12变成30。推翻才有可能到90。</p>
+      <p><strong>→ 我选B。</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel keyframe">
+  <img src="images/p20-world-shatter.jpg" loading="lazy" alt="世界碎裂">
+  <div class="narration">
+    <p>世界碎了。</p>
+    <p>不是比喻。我看着洗手间的瓷砖、灯光、镜子，像玻璃一样裂开，碎片中闪过今天所有的画面——煎饼果子、地铁、电梯、loading转圈、林薇放下的笔。</p>
+    <p>然后碎片重新拼合。</p>
+  </div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel keyframe">
+  <img src="images/p21-alarm-again.jpg" loading="lazy" alt="闹钟再响">
+  <div class="narration">
+    <p>2026年3月26日，清晨6:30。</p>
+    <p>同一个闹钟。同一个房间。同一缕晨光。</p>
+    <p>但我记得一切。</p>
+  </div>
+  <div class="system-box" style="text-align:center;">
+    <div class="stat">🔄 <span class="stat-label">循环</span> <span class="stat-value">2 / 7</span></div>
+  </div>
+  <div class="narration">
+    <p>这一次，我不穿西装了。</p>
+  </div>
+</div>
+
+<!-- ACT 4 -->
+<div class="act-divider"><div class="act-line"></div><div class="act-name">第四幕 · 反套路</div></div>
+
+<!-- Panel 22 -->
+<div class="panel">
+  <img src="images/p22-hoodie-choice.jpg" loading="lazy" alt="选择帽衫">
+  <div class="narration">
+    <p>上辈子——不对，上个循环——我穿西装得了负4分的"创始人气场"。</p>
+    <p>老陈说我穿西装像程序员cos商务人士。</p>
+    <p>好吧。那我就当个真实的程序员。</p>
+    <p>黑色帽衫，牛仔裤，白色运动鞋。这才是我。</p>
+  </div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel">
+  <img src="images/p23-meet-laochen-v2.jpg" loading="lazy" alt="第二次遇老陈">
+  <div class="dialogue">
+    <div class="speaker">老陈</div>
+    <p>"你不穿西装了？"</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"不穿了。林薇投的三个项目创始人，你去搜搜他们路演穿什么。"</p>
+  </div>
+  <div class="narration">
+    <p>老陈想了想："好像……都是休闲装。"</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"投资人投的不是你的衣服，是你的产品和你这个人。而我穿西装，不像我这个人。"</p>
+  </div>
+  <div class="narration">
+    <p>我没告诉他这个结论的来源。</p>
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="panel">
+  <div class="system-box">
+    <div class="sys-title">【新情报已解锁：投资经理微信朋友圈动态】</div>
+    <div class="sys-msg">投资经理刘洋昨晚发了一条朋友圈（已删除）："明天要见的这个AI团队，CTO是前大厂P9？查了一下离职原因有点意思……"</div>
+  </div>
+  <div class="decision-box">
+    <div class="decision-title">⚡ 决策点 2</div>
+    <p style="margin-bottom:10px;font-size:0.9em;color:rgba(232,230,227,0.7);">系统提示：是否使用技能点调查老陈的离职背景？</p>
+    <div class="option option-a"><strong>A. 调查</strong> — 消耗1技能点，了解投资人对老陈的真实顾虑</div>
+    <div class="option option-b"><strong>B. 不调查</strong> — 保留技能点，信任老陈</div>
+    <div class="choice">
+      <p>老陈是我最信任的人。但"团队信任度3/25"那个数据一直卡在我脑子里。</p>
+      <p>我需要知道投资人在担心什么——不是因为我不信任老陈，而是因为我得替老陈回应那些他自己不知道的质疑。</p>
+      <p><strong>→ 我选A。不是为了窥探，是为了保护。</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel">
+  <img src="images/p24-subway-intel.jpg" loading="lazy" alt="地铁中查看情报">
+  <div class="system-box">
+    <div class="sys-title">陈启明（CTO）投资人关注点</div>
+    <div class="stat">✅ <span class="stat-label">技术能力：</span><span class="stat-value">A级</span>（前大厂P9，多个专利）</div>
+    <div class="stat">⚠️ <span class="stat-label">稳定性风险：</span>前公司因"理念不合"离职 → 投资人解读为"不好管理"</div>
+    <div class="stat">⚠️ <span class="stat-label">股权结构：</span>CTO占股仅8% → 投资人担心核心技术人员锁定不足</div>
+    <div class="stat">❌ <span class="stat-label">公开发言：</span>0次行业演讲 → 投资人无法评估其行业影响力</div>
+  </div>
+  <div class="narration">
+    <p>我盯着"股权8%"那一行，心里咯噔了一下。</p>
+    <p>这不是老陈的问题，是我的问题。是我当初给少了。</p>
+  </div>
+</div>
+
+<!-- Panel 25 -->
+<div class="panel">
+  <img src="images/p25-meeting-v2.jpg" loading="lazy" alt="第二次路演">
+  <div class="narration">
+    <p>同一个会议室。同一个林薇。</p>
+    <p>但这一次，我没有打开PPT。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"林总，PPT我准备了但今天不用。我直接给您看产品。"</p>
+  </div>
+  <div class="narration">
+    <p>林薇挑了一下眉。</p>
+  </div>
+</div>
+
+<!-- Panel 26 -->
+<div class="panel">
+  <img src="images/p26-live-demo.jpg" loading="lazy" alt="现场Demo">
+  <div class="narration">
+    <p>这一次我做了两件不同的事：</p>
+    <p>第一，产品跑在本地。没有网络，没有API调用，没有loading转圈。</p>
+    <p>第二，我没有按脚本走。我让林薇自己选一个主题——"您随便说个短视频主题，我现场生成。"</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">林薇</div>
+    <p>"就做一个……上海弄堂里的猫。"</p>
+  </div>
+  <div class="narration">
+    <p>90秒后，一段完整的30秒视频出现在屏幕上。弄堂光影、猫的动作、配乐——全是AI生成的。</p>
+    <p>会议室安静了三秒。那三秒比上个循环的四分钟loading还要长。</p>
+  </div>
+</div>
+
+<!-- Panel 27 -->
+<div class="panel">
+  <img src="images/p27-linwei-writing.jpg" loading="lazy" alt="林薇记笔记">
+  <div class="narration">
+    <p>林薇没有放下笔。</p>
+    <p>她开始记笔记。</p>
+  </div>
+  <div class="system-box" style="text-align:center;">
+    <div class="stat">📊 <span class="stat-label">实时路演评分：</span><span class="score-up">41/100 ↑↑↑</span></div>
+  </div>
+  <div class="narration">
+    <p>从12到41。还不够，但方向对了。</p>
+  </div>
+</div>
+
+<!-- DECISION 3 -->
+<div class="panel">
+  <div class="decision-box">
+    <div class="decision-title">⚡ 决策点 3</div>
+    <p style="margin-bottom:10px;font-size:0.9em;color:rgba(232,230,227,0.7);">路演进行到团队介绍环节。我知道接下来林薇会问老陈的离职原因。</p>
+    <div class="option option-a"><strong>A. 主动出击</strong> — 在林薇提问前，自己主动说明老陈的离职原因和股权调整计划</div>
+    <div class="option option-b"><strong>B. 被动等待</strong> — 等林薇问了再回答，保持自然节奏</div>
+    <div class="choice">
+      <p>上个循环里，林薇问了这个问题。老陈支支吾吾说"理念不合"，团队信任度直接垮了。</p>
+      <p>创业者有一个直觉——最危险的问题，要自己先说。因为你先说的时候，你掌握叙事权。等别人问你，你就在被审判。</p>
+      <p><strong>→ 我选A。</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Panel 28 -->
+<div class="panel">
+  <img src="images/p28-talk-about-laochen.jpg" loading="lazy" alt="为老陈说话">
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"林总，在您问之前，我想主动说一件事。"</p>
+  </div>
+  <div class="narration">
+    <p>林薇停下笔，看着我。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"我们CTO陈启明，离开前公司不是因为不好管理。是因为他坚持用户数据最小化原则，和公司的商业化方向冲突。一个为了原则放弃P9待遇的技术人——这正是我需要的CTO。"</p>
+  </div>
+  <div class="narration">
+    <p>我停顿了一秒。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"另外，从下个月起，老陈的股份从8%调整到15%。他值这个价。"</p>
+  </div>
+  <div class="narration">
+    <p>老陈转头看我，眼睛瞪得很大。</p>
+    <p>他不知道我为什么突然说这个。但他知道我说的是真的。</p>
+  </div>
+</div>
+
+<!-- ACT 5 -->
+<div class="act-divider"><div class="act-line"></div><div class="act-name">第五幕 · 悬念</div></div>
+
+<!-- Panel 29 -->
+<div class="panel">
+  <img src="images/p29-leaving-v2.jpg" loading="lazy" alt="离开红杉">
+  <div class="narration">
+    <p>路演结束。这一次林薇没有说"但"。</p>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">林薇</div>
+    <p>"我需要再看一些数据。下周能再聊一次吗？"</p>
+  </div>
+  <div class="narration">
+    <p>这不是"不投"，也不是"投"。是"再看看"。</p>
+  </div>
+  <div class="system-box" style="text-align:center;">
+    <div class="stat">📊 <span class="stat-label">路演评分：</span><span class="score-up">58/100</span></div>
+    <div class="stat" style="font-size:0.8em;color:rgba(232,230,227,0.5);">比上次多了46分。但离通过线还差得远。</div>
+  </div>
+  <div class="dialogue">
+    <div class="speaker">我</div>
+    <p>"当然，随时。"</p>
+  </div>
+  <div class="narration">
+    <p>我们走出会议室。我在心里默默计算：还剩6次循环。</p>
+  </div>
+</div>
+
+<!-- Panel 30 -->
+<div class="panel">
+  <img src="images/p30-review-panel.jpg" loading="lazy" alt="复盘数据">
+  <div class="system-box">
+    <div class="sys-title">【循环2复盘报告】</div>
+    <div class="stat">📊 <span class="stat-label">路演评分：</span>12 → <span class="score-up">58 (+46)</span></div>
+    <div class="stat">🔑 <span class="stat-label">关键突破：</span>产品演示(+18)、创始人气场(+15)、团队信任度(+13)</div>
+    <div class="stat">⚠️ <span class="stat-label">未突破：</span><span class="stat-bad">市场叙事仍在8/25</span>——林薇对市场规模的判断与你不同</div>
+    <div class="stat">🔓 <span class="stat-label">新解锁：</span><span class="stat-value">投资人心理档案（完整版）</span> [循环3可用]</div>
+    <div class="stat">🔓 <span class="stat-label">新技能可学习：</span><span class="stat-value">"共情说服"</span> — 用投资人自己的经历来说服她</div>
+  </div>
+  <div class="narration">
+    <p>从12到58，进步不小。但58分还是不及格。</p>
+    <p>更重要的是——"市场叙事"那个维度，两次循环一分没涨。</p>
+    <p>这意味着我的市场故事本身就有问题。</p>
+  </div>
+</div>
+
+<!-- Panel 31 -->
+<div class="panel">
+  <img src="images/p31-shanghai-dusk.jpg" loading="lazy" alt="上海黄昏">
+  <div class="narration">
+    <p>6次机会。</p>
+    <p>58分离及格还差一大截。但我已经知道方向了。</p>
+    <p>第一次循环教会我：产品好坏比穿什么重要。</p>
+    <p>第二次循环教会我：主动暴露弱点比等人拆穿强。</p>
+    <p>这不就是创业吗？</p>
+    <p>每一次失败都是一次免费的用户测试。每一次pivot都是往产品市场匹配靠近一步。</p>
+    <p>只不过以前我没有"重来"的机会。现在有了。</p>
+    <p>我要把这个路演打到100分。</p>
+  </div>
+</div>
+
+<!-- Panel 32 — Cliffhanger -->
+<div class="panel keyframe">
+  <img src="images/p32-red-warning.jpg" loading="lazy" alt="红色警告">
+  <div class="narration">
+    <p>就在我准备触发下一次循环时，系统突然弹出一个从未见过的红色警告：</p>
+  </div>
+  <div class="warning-box">
+    <div class="warn-title">⚠️ 异常检测 ⚠️</div>
+    <div class="stat">检测到<strong>第二个循环体征信号</strong>。</div>
+    <div class="stat">距离：约200米。方向：<span class="stat-bad">红杉资本办公室内部</span>。</div>
+    <div class="stat">身份：<span class="stat-bad">[权限不足，循环4解锁]</span></div>
+  </div>
+  <div class="narration">
+    <p>……什么？</p>
+    <p>红杉资本里面，还有一个和我一样在循环的人？</p>
+  </div>
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end">
+  <div class="end-line">—— 第一章 · 完 ——</div>
+  <div class="next-chapter">下一章：《对手在暗处》</div>
+  <div style="margin-top:24px;">
+    <div class="cycle-badge">🔄 剩余循环：6/7</div>
+  </div>
+</div>
+
+<div style="height:80px;"></div>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel, .act-divider').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
