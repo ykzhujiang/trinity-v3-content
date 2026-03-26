@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>战神归来×AI创业 第三章：幽灵协议</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;font-size:18px;line-height:1.8;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+
+/* Cover */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:linear-gradient(180deg,#0a0a0a 0%,#0a1220 50%,#0a0a0a 100%)}
+.cover h1{font-size:28px;color:#e67e22;margin-bottom:12px;text-shadow:0 0 20px rgba(230,126,34,0.4)}
+.cover .subtitle{font-size:20px;color:#ccc;margin-bottom:8px}
+.cover .series{font-size:14px;color:#888;border:1px solid #444;padding:4px 14px;border-radius:20px;display:inline-block;margin-bottom:20px}
+.cover .intro{background:#111;border-left:3px solid #e67e22;padding:16px;margin:20px 0;text-align:left;font-size:16px;color:#999;border-radius:0 8px 8px 0;max-width:380px}
+.cover .intro strong{color:#e67e22}
+
+/* Panels */
+.panel{padding:0;margin:0}
+.panel img{width:100%;display:block}
+.panel-text{padding:20px 16px;background:#111}
+.panel-text.narration{border-left:3px solid #555}
+.panel-text.decision{border-left:3px solid #4CAF50;background:#0f1a0f}
+.panel-text.decision::before{content:"⚡ 决策时刻";display:block;color:#4CAF50;font-size:14px;font-weight:bold;margin-bottom:8px;letter-spacing:2px}
+.panel-text.tension{border-left:3px solid #c0392b;background:#1a0f0f}
+.panel-text.humor{border-left:3px solid #f39c12;background:#1a1700}
+.panel-text.insight{border-left:3px solid #3498db;background:#0f141a}
+.panel-text.action{border-left:3px solid #e74c3c;background:#1a0808}
+.panel-text.reunion{border-left:3px solid #e67e22;background:#1a1208}
+.panel-text.cliffhanger{border-left:3px solid #e74c3c;background:linear-gradient(135deg,#1a0808,#0a0a0a)}
+.panel-text p{margin-bottom:12px}
+.panel-text p:last-child{margin-bottom:0}
+.dialogue{color:#fff;font-weight:500}
+.inner{color:#8e8e93;font-style:italic}
+.name{color:#e67e22;font-weight:700;margin-right:4px}
+.viper-name{color:#c0392b;font-weight:700;margin-right:4px}
+.liu-name{color:#2ecc71;font-weight:700;margin-right:4px}
+.lin-name{color:#9b59b6;font-weight:700;margin-right:4px}
+
+/* Part dividers */
+.part-divider{text-align:center;padding:40px 20px;background:linear-gradient(180deg,#0a0a0a,#111,#0a0a0a)}
+.part-divider h2{font-size:22px;color:#e67e22;text-shadow:0 0 15px rgba(230,126,34,0.3)}
+.part-divider .part-desc{font-size:14px;color:#666;margin-top:8px}
+
+/* Decision box */
+.decision-box{background:#0d1a0d;border:1px solid #2d5a2d;border-radius:12px;margin:12px 16px;padding:16px;font-size:16px}
+.decision-box h3{color:#4CAF50;margin-bottom:12px;font-size:18px}
+.option{padding:10px 0;border-bottom:1px solid #1a3a1a}
+.option:last-child{border-bottom:none}
+.option-label{color:#4CAF50;font-weight:700;margin-right:6px}
+.option-chosen{background:#1a3a1a;border-radius:8px;padding:12px;margin-top:8px;border:1px solid #4CAF50}
+.option-chosen::before{content:"✅ 朱江的选择";display:block;color:#4CAF50;font-size:14px;font-weight:bold;margin-bottom:6px}
+
+/* End card */
+.end-card{text-align:center;padding:60px 20px;background:linear-gradient(180deg,#0a0a0a,#1a0808,#0a0a0a)}
+.end-card h2{font-size:24px;color:#e74c3c;margin-bottom:12px;text-shadow:0 0 20px rgba(231,76,60,0.4)}
+.end-card .tease{font-size:16px;color:#888;margin-top:16px;font-style:italic}
+
+/* Progress bar */
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#e67e22,#e74c3c);z-index:1000;transition:width 0.3s}
+
+/* Animations */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.panel{opacity:0;animation:fadeInUp 0.6s ease forwards}
+.panel.visible{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- COVER -->
+<div class="cover">
+<div class="series">战神归来×AI创业 · V5</div>
+<h1>第三章：幽灵协议</h1>
+<div class="subtitle">退役三年，以为代号已死——但国家不会忘记它的幽灵</div>
+<div class="intro">
+<strong>前情提要：</strong>路演被赵鹏飞暗中攻击，我用技术反击化危机为品牌直播。神秘来电者提示：查我的不是赵鹏飞，而是更大的人。B轮融资正式启动……
+</div>
+</div>
+
+<!-- PART 1: 暗线浮出 -->
+<div class="part-divider">
+<h2>壹 · 暗线浮出</h2>
+<div class="part-desc">深夜加密邮件 × 废弃仓库会面</div>
+</div>
+
+<!-- P01 -->
+<div class="panel" id="panel-1">
+<img src="images/p01.jpg" loading="lazy" alt="深夜书房">
+<div class="panel-text narration">
+<p class="dialogue">收件箱里多了一封没有发件人的邮件。加密方式——是部队用的。</p>
+<p class="inner">退役三年，我以为这些东西再也不会找上门。</p>
+</div>
+</div>
+
+<!-- P02 -->
+<div class="panel" id="panel-2">
+<img src="images/p02.jpg" loading="lazy" alt="屏幕消息">
+<div class="panel-text tension">
+<p class="inner">"蛇"。张思远。我当年小队里最疯的那个。三年没联系，突然冒出来……不会是好事。</p>
+</div>
+</div>
+
+<!-- P03 -->
+<div class="panel" id="panel-3">
+<img src="images/p03.jpg" loading="lazy" alt="废弃仓库">
+<div class="panel-text narration">
+<p class="dialogue">来之前我绕了三圈，换了两次出租车。确认没尾巴。</p>
+</div>
+</div>
+
+<!-- P04 -->
+<div class="panel" id="panel-4">
+<img src="images/p04.jpg" loading="lazy" alt="毒蛇现身">
+<div class="panel-text reunion">
+<p><span class="viper-name">毒蛇：</span><span class="dialogue">"幽灵。三年不见，胖了。当老板的日子不错啊。"</span></p>
+</div>
+</div>
+
+<!-- P05 -->
+<div class="panel" id="panel-5">
+<img src="images/p05.jpg" loading="lazy" alt="老战友对峙">
+<div class="panel-text narration">
+<p class="dialogue">你用部队的加密发消息。要么是你被监控了想引我注意，要么是——你在体制内。</p>
+<p><span class="viper-name">毒蛇（笑）：</span><span class="dialogue">"还是那么鬼精。后者。退役后进了华盾集团安保部。"</span></p>
+<p class="inner">华盾。军工转民用的灰色地带巨头。赵鹏飞的背后。</p>
+</div>
+</div>
+
+<!-- P06 -->
+<div class="panel" id="panel-6">
+<img src="images/p06.jpg" loading="lazy" alt="毒蛇警告">
+<div class="panel-text tension">
+<p><span class="viper-name">毒蛇：</span><span class="dialogue">"老弟，我不是来叙旧的。你的AI技术被盯上了。不是赵鹏飞那个级别——华盾高层直接关注。他们想收编你。"</span></p>
+</div>
+</div>
+
+<!-- P07 -->
+<div class="panel" id="panel-7">
+<img src="images/p07.jpg" loading="lazy" alt="朱江分析">
+<div class="panel-text insight">
+<p class="dialogue">收编？不是打压？</p>
+<p><span class="viper-name">毒蛇：</span><span class="dialogue">"打压赔本。收编赚钱。赵鹏飞路演上搞你那一出，不是要弄死你——是要先压你的估值，然后华盾低价控股。"</span></p>
+<p class="inner">所以赵鹏飞只是棋子。路演上的一切，只是开胃菜。</p>
+</div>
+</div>
+
+<!-- P08 -->
+<div class="panel" id="panel-8">
+<img src="images/p08.jpg" loading="lazy" alt="组织架构">
+<div class="panel-text tension">
+<p><span class="viper-name">毒蛇：</span><span class="dialogue">"看到红色标记的那个人了？华盾的副总裁，孙维国。前军情处的。跟我们不是一个系统，但级别高。他才是在查你的人。"</span></p>
+<p><span class="viper-name">毒蛇：</span><span class="dialogue">"对了老弟，你搞的那个AI，能帮我写周报不？我在华盾最烦的就是每周写安保报告。"</span></p>
+<p class="inner" style="color:#f39c12">……在军工巨头当卧底还在想周报的事。这就是张思远——永远分不清什么时候该严肃。</p>
+</div>
+</div>
+
+<!-- PART 2: 商业危机 -->
+<div class="part-divider">
+<h2>贰 · 商业危机</h2>
+<div class="part-desc">B轮尽调 × 隐藏的军方模块</div>
+</div>
+
+<!-- P09 -->
+<div class="panel" id="panel-9">
+<img src="images/p09.jpg" loading="lazy" alt="公司办公室">
+<div class="panel-text narration">
+<p class="dialogue">B轮进入正式尽调阶段。三家投资机构，每家都要看技术底层。</p>
+<p class="inner">但我们的核心模型里，有一个模块——不能被看到。</p>
+</div>
+</div>
+
+<!-- P10 -->
+<div class="panel" id="panel-10">
+<img src="images/p10.jpg" loading="lazy" alt="代码编辑器">
+<div class="panel-text insight">
+<p class="inner">这个模块脱胎于我在军方时参与的计算机视觉课题。退役时部队允许我保留民用部分，但——这个边界很模糊。</p>
+</div>
+</div>
+
+<!-- P11 -->
+<div class="panel" id="panel-11">
+<img src="images/p11.jpg" loading="lazy" alt="林婉清进入">
+<div class="panel-text narration">
+<p><span class="lin-name">林婉清：</span><span class="dialogue">"朱总，尽调文档我整理到第三层了。但有个问题——你核心引擎里有个模块，没有任何开发日志。Git记录显示它是'初始提交'就存在的，没有开发过程。"</span></p>
+<p><span class="lin-name">林婉清（抬头）：</span><span class="dialogue">"要么你在上线之前就写好了，要么……这段代码不是你写的。"</span></p>
+</div>
+</div>
+
+<!-- P12 -->
+<div class="panel" id="panel-12">
+<img src="images/p12.jpg" loading="lazy" alt="两人对坐">
+<div class="panel-text narration">
+<p class="dialogue">婉清，这个模块……是我之前的工作成果。合法的。但来源比较敏感，不方便在尽调中完全公开。</p>
+<p><span class="lin-name">林婉清：</span><span class="dialogue">"'之前的工作'？你是说……部队里的？"</span></p>
+<p><span class="lin-name">林婉清：</span><span class="dialogue">"朱总，你知道吗，你的代码要么是天才写的，要么是外星人写的。人类不会写出这种结构。"</span></p>
+<p class="inner" style="color:#f39c12">她太聪明了。这就是我选她当CTO的原因——也是现在最麻烦的原因。</p>
+</div>
+</div>
+
+<!-- P13 -->
+<div class="panel" id="panel-13">
+<img src="images/p13.jpg" loading="lazy" alt="窗前沉思">
+<div class="panel-text insight">
+<p class="inner">如果尽调团队深挖这个模块的来源，最好的情况：投资人看到军方背景觉得"哦，技术有底"。最坏的情况：军方出面说这是涉密技术，公司直接停摆。</p>
+</div>
+</div>
+
+<!-- P14 -->
+<div class="panel" id="panel-14">
+<img src="images/p14.jpg" loading="lazy" alt="陈老短信">
+<div class="panel-text narration">
+<p class="inner">陈老总是在最关键的时候出现。这个"刘铁柱"……陈老推荐的人不会简单。</p>
+</div>
+</div>
+
+<!-- DECISION POINT -->
+<!-- P15 -->
+<div class="panel" id="panel-15">
+<img src="images/p15.jpg" loading="lazy" alt="三个选项">
+<div class="panel-text decision">
+<p><strong>如何处理尽调中的军方代码？</strong></p>
+<div class="decision-box">
+<div class="option">
+<p><span class="option-label">A.</span> 删除军方模块，用新方案重写</p>
+<p class="inner">安全。但重写至少三个月。B轮的窗口期等不了。错过这一波，下一轮可能就是AI寒冬。</p>
+</div>
+<div class="option">
+<p><span class="option-label">B.</span> 坦白告诉投资人代码有军方背景，反而作为"军工级AI"卖点</p>
+<p class="inner">大胆。但也许只有有军方背景的投资人才能理解。陈老推荐的那个刘铁柱……</p>
+</div>
+<div class="option">
+<p><span class="option-label">C.</span> 混淆代码来源，让尽调看不出问题</p>
+<p class="inner">最快。三天搞定。但我从部队出来时对自己说过——不做假。一旦被发现，不只是信用破产，可能是牢灾。</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- P16 -->
+<div class="panel" id="panel-16">
+<img src="images/p16.jpg" loading="lazy" alt="做出决定">
+<div class="panel-text narration">
+<div class="option-chosen">
+<p class="dialogue">不做假是底线。用军方背景做卖点是攻势。但攻势需要精准——先让懂行的人看到价值，再对其他投资人讲故事。菩萨心肠，霹雳手段。</p>
+<p style="font-size:15px;color:#4CAF50;margin-top:8px"><strong>选择B：坦白+战略性利用。先通过刘铁柱验证军方背景的商业价值，再决定如何向其他投资人披露。</strong></p>
+</div>
+</div>
+</div>
+
+<!-- PART 3: 关键会面 -->
+<div class="part-divider">
+<h2>叁 · 关键会面</h2>
+<div class="part-desc">咖啡馆 × 退役将军 × 改变人生的条件</div>
+</div>
+
+<!-- P17 -->
+<div class="panel" id="panel-17">
+<img src="images/p17.jpg" loading="lazy" alt="咖啡馆会面">
+<div class="panel-text narration">
+<p class="inner">刘铁柱选了角落位置——背靠墙，面朝门。老军人的习惯。</p>
+</div>
+</div>
+
+<!-- P18 -->
+<div class="panel" id="panel-18">
+<img src="images/p18.jpg" loading="lazy" alt="审视对话">
+<div class="panel-text narration">
+<p><span class="liu-name">刘铁柱（声音低沉但温和）：</span><span class="dialogue">"陈老说你是'幽灵'小队出来的。我没查过具体——那些档案我没权限。但陈老推荐的人，我信。"</span></p>
+<p class="dialogue">刘老，我直说。我们的AI核心模型里有一个模块来自军方课题。退役时有民用授权，但边界模糊。B轮尽调可能会挖出来。</p>
+</div>
+</div>
+
+<!-- P19 -->
+<div class="panel" id="panel-19">
+<img src="images/p19.jpg" loading="lazy" alt="刘铁柱反应">
+<div class="panel-text insight">
+<p><span class="liu-name">刘铁柱（放下咖啡杯，沉默良久）：</span><span class="dialogue">"小朱，你知道你那个模块如果完善了意味着什么吗？"</span></p>
+<p><span class="liu-name">刘铁柱：</span><span class="dialogue">"这不是B轮多少钱的问题。这是国家级项目的级别。你的东西，在民用市场是领先三年。在军用方向——可能更多。"</span></p>
+<p class="inner">他不是在吓我。他眼里有一种……兴奋。退役将领看到好装备时的那种兴奋。</p>
+</div>
+</div>
+
+<!-- P20 -->
+<div class="panel" id="panel-20">
+<img src="images/p20.jpg" loading="lazy" alt="提出条件">
+<div class="panel-text tension">
+<p><span class="liu-name">刘铁柱（身体前倾，气场骤变）：</span><span class="dialogue">"我可以领投你的B轮。不只是钱的问题——我的基金背后有几家国有资本，他们能帮你处理军方模块的合规问题。"</span></p>
+<p><span class="liu-name">刘铁柱（眼神变锐利）：</span><span class="dialogue">"但有个条件——你必须见一个人。"</span></p>
+<p class="dialogue">谁？</p>
+<p><span class="liu-name">刘铁柱：</span><span class="dialogue">"你到时候就知道了。"</span></p>
+</div>
+</div>
+
+<!-- P21 -->
+<div class="panel" id="panel-21">
+<img src="images/p21.jpg" loading="lazy" alt="走出咖啡馆">
+<div class="panel-text humor">
+<p><span class="liu-name">刘铁柱（突然冒出东北口音）：</span><span class="dialogue">"小朱啊，我退休前在部队管了三十年装备。能让我眼前一亮的技术不多。你这个——我老花眼都亮了。"</span></p>
+<p class="dialogue" style="color:#f39c12">刘老，那您得保重眼睛，等我B轮完了请您做技术顾问。</p>
+</div>
+</div>
+
+<!-- P22 -->
+<div class="panel" id="panel-22">
+<img src="images/p22.jpg" loading="lazy" alt="独自走在街上">
+<div class="panel-text insight">
+<p class="inner">B轮有了领投。军方模块的合规有了出路。但"必须见一个人"——这句话比赵鹏飞的任何阴招都让我不安。在部队里，"你到时候就知道了"通常意味着——接下来的事情你想拒绝也拒绝不了。</p>
+</div>
+</div>
+
+<!-- PART 4: B轮推进+暗流 -->
+<div class="part-divider">
+<h2>肆 · 暗流涌动</h2>
+<div class="part-desc">B轮签约 × 华盾下场 × 两线作战</div>
+</div>
+
+<!-- P23 -->
+<div class="panel" id="panel-23">
+<img src="images/p23.jpg" loading="lazy" alt="B轮会议室">
+<div class="panel-text narration">
+<p class="inner">正式谈判。三方投资人都到了。</p>
+</div>
+</div>
+
+<!-- P24 -->
+<div class="panel" id="panel-24">
+<img src="images/p24.jpg" loading="lazy" alt="讲解技术路线">
+<div class="panel-text narration">
+<p class="dialogue">我们的核心优势不只是算法——是我们对计算机视觉底层架构的理解深度。这不是三五年能追上来的。</p>
+<p class="inner">我没有说谎。只是没有说出这个"理解深度"的来源。</p>
+</div>
+</div>
+
+<!-- P25 -->
+<div class="panel" id="panel-25">
+<img src="images/p25.jpg" loading="lazy" alt="两条消息">
+<div class="panel-text tension">
+<p class="inner">华盾那边动了。孙维国亲自要来上海……</p>
+<p class="inner">同时，合同里一个基金经理抄送了赵鹏飞。</p>
+<p class="inner" style="color:#e74c3c">两线作战。商业上赵鹏飞还在暗搅，军事上孙维国要来了。这盘棋比我想象的大得多。</p>
+</div>
+</div>
+
+<!-- P26 -->
+<div class="panel" id="panel-26">
+<img src="images/p26.jpg" loading="lazy" alt="签约握手">
+<div class="panel-text narration">
+<p><span class="lin-name">林婉清（小声）：</span><span class="dialogue">"恭喜，朱总。B轮3000万，估值翻了四倍。"</span></p>
+<p class="dialogue">谢谢。但这只是开始。</p>
+<p class="inner">钱到了。但最大的棋局才刚打开。</p>
+</div>
+</div>
+
+<!-- P27 -->
+<div class="panel" id="panel-27">
+<img src="images/p27.jpg" loading="lazy" alt="走廊密谈">
+<div class="panel-text tension">
+<p><span class="liu-name">刘铁柱（低声）：</span><span class="dialogue">"小朱，那个人——下周见。我会安排。"</span></p>
+<p class="dialogue">可以提前告诉我是谁吗？</p>
+<p><span class="liu-name">刘铁柱（微微摇头）：</span><span class="dialogue">"你见到就知道了。但我提醒你——见面之后，你的人生可能会走上一条完全不同的路。"</span></p>
+<p class="inner">每次有人对我说"你的人生会不同"的时候，都不是什么好事。上一次听到这句话，是入伍通知书。</p>
+</div>
+</div>
+
+<!-- PART 5: 章末悬念 -->
+<div class="part-divider">
+<h2>伍 · 幽灵不死</h2>
+<div class="part-desc">深夜 × 消失三年的通讯器 × 72小时</div>
+</div>
+
+<!-- P28 -->
+<div class="panel" id="panel-28">
+<img src="images/p28.jpg" loading="lazy" alt="沙发与大橘">
+<div class="panel-text humor">
+<p class="dialogue">从小兵到老板，从老板到……被军工集团盯上的人。大橘，你说人生怎么越走越刺激？</p>
+<p style="color:#f39c12;font-style:italic">大橘打了个哈欠。</p>
+<p class="dialogue" style="color:#f39c12">你说得对。先睡觉。</p>
+</div>
+</div>
+
+<!-- P29 -->
+<div class="panel" id="panel-29">
+<img src="images/p29.jpg" loading="lazy" alt="通讯器亮了">
+<div class="panel-text action">
+<p class="inner" style="color:#e74c3c;font-weight:bold">书桌抽屉深处——一个黑色小设备的屏幕亮了。军用通讯器。我以为退役时已经停用了。</p>
+<p style="color:#999">亮绿色光在暗色房间里格外刺眼。大橘被吓得跳下沙发。</p>
+</div>
+</div>
+
+<!-- P30 -->
+<div class="panel" id="panel-30">
+<img src="images/p30.jpg" loading="lazy" alt="国家需要你">
+<div class="panel-text cliffhanger">
+<p style="text-align:center;font-size:22px;color:#4CAF50;font-weight:bold;text-shadow:0 0 15px rgba(76,175,80,0.5);margin-bottom:16px">「幽灵，国家需要你。报到时间：72小时。」</p>
+<p class="inner">三年了。我以为这个代号已经死了。但国家不会忘记它的幽灵。</p>
+<p class="inner">72小时……B轮刚签完，孙维国要来上海，而国家召唤——时间线完全重合。这不是巧合。</p>
+<p style="text-align:center;margin-top:20px;font-size:16px;color:#888;font-style:italic">有些人退役了，但幽灵永远不会退役。</p>
+</div>
+</div>
+
+<!-- END CARD -->
+<div class="end-card">
+<h2>— TO BE CONTINUED —</h2>
+<p style="color:#e67e22;font-size:18px;margin-top:12px">第四章：72小时</p>
+<p class="tease">国家的召唤、华盾的阴谋、赵鹏飞的暗手——<br>当三条线在72小时内交汇，幽灵将面临退役以来最大的抉择。</p>
+<p style="color:#444;margin-top:30px;font-size:13px">战神归来×AI创业 · V5 · EXP-587</p>
+</div>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+const h=document.documentElement.scrollHeight-window.innerHeight;
+const p=Math.min(100,(window.scrollY/h)*100);
+document.getElementById('progressBar').style.width=p+'%';
+});
+
+// Intersection Observer for fade-in
+const obs=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.1});
+document.querySelectorAll('.panel').forEach(p=>obs.observe(p));
+</script>
+
+</body>
+</html>
