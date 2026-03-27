@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>末世商业帝国 · 第三章：猎人与猎物</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: 'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.chapter-header {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0f1a 0%, #1a0a0f 50%, #0a0a0f 100%);
+  overflow: hidden;
+}
+.chapter-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(0,200,150,0.08) 0%, transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(200,50,50,0.06) 0%, transparent 50%);
+  animation: headerPulse 6s ease-in-out infinite;
+}
+@keyframes headerPulse {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.chapter-header h1 {
+  font-size: 2.2em;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ff6644, #ffcc00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.3em;
+  position: relative;
+  z-index: 1;
+}
+.chapter-header .subtitle {
+  font-size: 1.1em;
+  color: rgba(255,255,255,0.5);
+  position: relative;
+  z-index: 1;
+}
+.chapter-header .ch-num {
+  font-size: 0.9em;
+  color: rgba(255,100,50,0.6);
+  letter-spacing: 0.3em;
+  margin-bottom: 1em;
+  position: relative;
+  z-index: 1;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.3);
+  font-size: 0.8em;
+  animation: bounce 2s infinite;
+  z-index: 1;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+.panel {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+.panel-text {
+  padding: 16px 20px;
+  font-size: 1em;
+  line-height: 1.8;
+}
+.panel-text .dialogue {
+  color: #fff;
+  font-weight: 600;
+  margin: 0.3em 0;
+}
+.panel-text .dialogue::before { content: '「'; color: #00cc88; }
+.panel-text .dialogue::after { content: '」'; color: #00cc88; }
+.panel-text .inner-voice {
+  color: rgba(100,200,255,0.85);
+  font-style: italic;
+  margin: 0.3em 0;
+  padding-left: 1em;
+  border-left: 2px solid rgba(100,200,255,0.3);
+}
+.panel-text .system-msg {
+  color: #00ff88;
+  font-size: 0.85em;
+  background: rgba(0,255,136,0.05);
+  border: 1px solid rgba(0,255,136,0.15);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0.5em 0;
+  font-family: monospace, 'PingFang SC';
+}
+.panel-text .narration {
+  color: rgba(220,220,220,0.9);
+  margin: 0.3em 0;
+}
+.section-title {
+  text-align: center;
+  padding: 60px 20px 30px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.section-title h2 {
+  font-size: 1.3em;
+  color: #00ccaa;
+  letter-spacing: 0.1em;
+  position: relative;
+  display: inline-block;
+}
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ccaa, transparent);
+}
+.decision-point {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255,200,0,0.08), rgba(255,100,0,0.05));
+  border: 1px solid rgba(255,200,0,0.3);
+  border-radius: 12px;
+}
+.decision-point .label {
+  color: #ffcc00;
+  font-weight: 700;
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5em;
+}
+.decision-point .question { color: #fff; margin-bottom: 0.5em; }
+.decision-point .options { font-size: 0.9em; color: rgba(255,255,255,0.7); }
+.decision-point .options .chosen {
+  color: #00ff88;
+  font-weight: 700;
+  background: rgba(0,255,136,0.08);
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 4px;
+}
+.decision-point .reasoning {
+  font-size: 0.85em;
+  color: rgba(200,200,200,0.6);
+  margin-top: 0.5em;
+  font-style: italic;
+}
+.threat-section .section-title h2 { color: #ff4444; }
+.threat-section .section-title h2::after { background: linear-gradient(90deg, transparent, #ff4444, transparent); }
+.ambush-section .section-title h2 { color: #ff8800; }
+.ambush-section .section-title h2::after { background: linear-gradient(90deg, transparent, #ff8800, transparent); }
+.end-card {
+  text-align: center;
+  padding: 60px 20px 40px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.end-card .end-mark {
+  font-size: 1.5em;
+  color: #ff6644;
+  margin-bottom: 1em;
+}
+.end-card .preview {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+}
+.end-card .preview strong { color: rgba(255,200,0,0.8); }
+.spacer { height: 20px; }
+.spacer-lg { height: 40px; }
+.upgrade-fx {
+  animation: upgradePulse 2s ease-in-out;
+}
+@keyframes upgradePulse {
+  0% { box-shadow: 0 0 0 rgba(0,200,255,0); }
+  50% { box-shadow: 0 0 40px rgba(0,200,255,0.3); }
+  100% { box-shadow: 0 0 0 rgba(0,200,255,0); }
+}
+.alert-panel {
+  border: 2px solid rgba(255,50,50,0.4);
+  border-radius: 8px;
+  animation: alertFlash 1.5s ease-in-out 2;
+}
+@keyframes alertFlash {
+  0%,100% { border-color: rgba(255,50,50,0.2); }
+  50% { border-color: rgba(255,50,50,0.6); }
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="ch-num">第 三 章</div>
+  <h1>猎人与猎物</h1>
+  <div class="subtitle">末世商业帝国</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- ===== Section 1: 侦查出发 · 紧张氛围 ===== -->
+<div class="section-title"><h2>侦查出发 · 紧张氛围</h2></div>
+
+<div class="panel">
+  <img src="images/panel-01.jpg" loading="lazy" alt="晨雾废墟">
+  <div class="panel-text">
+    <p class="narration">黎明。方队挑了两名身手最好的手下——大刘和阿坤，跟我站在分拣中心门口。四人背着简装，雾气把废墟染成灰白色。</p>
+    <p class="inner-voice">创业十几年，第一次觉得"市场调研"可能真的会要命。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-02.jpg" loading="lazy" alt="折叠刀">
+  <div class="panel-text">
+    <p class="narration">方队检查装备，递给我一把折叠刀。</p>
+    <p class="dialogue">会用吗？</p>
+    <p class="narration">我接过来，笨拙地翻开又合上。</p>
+    <p class="dialogue">上辈子最危险的工具是PPT激光笔。</p>
+    <p class="narration">方队面无表情。</p>
+    <p class="dialogue">……跟紧我。别出声。</p>
+    <p class="system-msg">📋 温馨提示：您的战斗力评估为D-。建议：保持在方队身后3米处。这叫——战略纵深。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-03.jpg" loading="lazy" alt="老赵担忧">
+  <div class="panel-text">
+    <p class="narration">老赵拉住我袖子。</p>
+    <p class="dialogue">朱总，要不……你别去了？</p>
+    <p class="narration">我拍拍他肩膀。</p>
+    <p class="dialogue">赵哥，CEO不能只在办公室看报表。实地考察是基本功。</p>
+    <p class="dialogue">你考察的是杀人放火的团伙啊！</p>
+    <p class="dialogue">……商业竞争对手。换个说法。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-04.jpg" loading="lazy" alt="菱形队列">
+  <div class="panel-text">
+    <p class="narration">四人穿过废墟街道向东移动。方队在前，两个手下侧翼，我在中间——标准军事菱形队列。系统地图浮现：路线标注、危险区域红色高亮、蛇哥据点位置闪烁。</p>
+    <p class="inner-voice">这队形……像极了创业路演走上台的感觉。前面是未知，两边是风险，我在中间假装淡定。</p>
+  </div>
+</div>
+
+<!-- ===== Section 2: 废墟中的发现 ===== -->
+<div class="section-title"><h2>废墟中的发现</h2></div>
+
+<div class="panel">
+  <img src="images/panel-05.jpg" loading="lazy" alt="被洗劫据点">
+  <div class="panel-text">
+    <p class="narration">抵达被洗劫据点。满地狼藉——翻倒的桌椅、散落的衣物、墙上的抓痕。</p>
+    <p class="narration">方队蹲下检查地面。</p>
+    <p class="dialogue">专业的。搜刮很彻底，没浪费一点时间。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-06.jpg" loading="lazy" alt="系统扫描">
+  <div class="panel-text">
+    <p class="narration">我蹲下来，系统自动扫描废墟，信息面板密密麻麻弹出——</p>
+    <p class="system-msg">🔍 物资搜刮效率：95%（极高）| 行动时间：&lt;20分钟 | 人数：12-15人 | 特征：有预先情报，非随机搜索</p>
+    <p class="inner-voice">95%搜刮效率……这不是打劫，这是"精益运营"。蛇哥不是土匪——他在运营一个抢劫公司。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-07.jpg" loading="lazy" alt="地图分析">
+  <div class="panel-text">
+    <p class="narration">我拿出小陈给的平板，系统叠加周边数据。</p>
+    <p class="dialogue">方队，你看——被洗劫的据点，全在东南方向，间隔2-3公里，时间间隔2-3天。</p>
+    <p class="narration">方队皱眉看着地图。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-08.jpg" loading="lazy" alt="推进路线">
+  <div class="panel-text">
+    <p class="narration">我用手指在地图上画了一条线。</p>
+    <p class="dialogue">从南到北，像收割机一样扫过来。每次抢完不回头，直接推进到下一个。</p>
+    <p class="narration">方队接话。</p>
+    <p class="dialogue">……补给线。他在边抢边建立补给线。</p>
+    <p class="dialogue">方队说对了。他不是在抢劫——他在打仗。抢劫的物资就是他的军粮。</p>
+    <p class="system-msg">📊 用户分析能力+10。您正在用竞品分析框架理解一个暴力团伙。不知道该夸您还是该担心您。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-09.jpg" loading="lazy" alt="发现敌人">
+  <div class="panel-text">
+    <p class="narration">突然阿坤低声——</p>
+    <p class="dialogue">队长！东面200米，有人！</p>
+    <p class="narration">四人立刻贴墙隐蔽。方队手势示意禁声。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-10.jpg" loading="lazy" alt="蛇哥小队">
+  <div class="panel-text">
+    <p class="narration">废墟街道尽头，三个人影在搜刮一辆废弃货车。其中一个光头——但不是蛇哥。是蛇哥的人。他们动作熟练，配合默契，十分钟清空了货车。</p>
+    <p class="system-msg">🎯 人员鉴定：蛇哥团伙外围搜刮小队 | 武装：棍棒+一把柴刀 | 战斗力：C级 | 情绪：放松（认为周边安全）</p>
+  </div>
+</div>
+
+<!-- ===== Section 3: 等级3解锁 · 关键转折 ===== -->
+<div class="section-title"><h2>等级3解锁 · 关键转折</h2></div>
+
+<div class="panel upgrade-fx">
+  <img src="images/panel-11.jpg" loading="lazy" alt="升级特效">
+  <div class="panel-text">
+    <p class="narration">观察蛇哥小队撤退方向时，脑中系统突然再次震动——金蓝光芒充满视野。</p>
+    <p class="system-msg">⚡ 经验值满！等级2→等级3升级中……</p>
+  </div>
+</div>
+
+<div class="decision-point">
+  <div class="label">⚡ 决策点 D-7：升级时机处理</div>
+  <div class="question">系统升级占据注意力，但现在正在敌人活动区域。</div>
+  <div class="options">
+    <div><span class="chosen">A. 让方队先带队撤退到安全区域再完成升级 ✓</span></div>
+    <div>B. 就地完成升级——系统升级可能只需要几秒</div>
+    <div>C. 让方队继续侦查，自己找掩体完成升级</div>
+  </div>
+  <div class="reasoning">CEO不能因为个人状态影响团队安全。先消灭火源，再处理个人事务。</div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-12.jpg" loading="lazy" alt="紧急撤退">
+  <div class="panel-text">
+    <p class="narration">我抓住方队手臂低声。</p>
+    <p class="dialogue">撤，我有……情况。</p>
+    <p class="narration">方队一看我表情，没多问，果断手势指挥撤退。四人快速穿过废墟向西移动。</p>
+    <p class="system-msg">📶 升级进度12%……38%……61%……请保持意识清醒……</p>
+    <p class="inner-voice">创业时至少系统更新不会在你跑路的时候强制进行。</p>
+  </div>
+</div>
+
+<div class="panel upgrade-fx">
+  <img src="images/panel-13.jpg" loading="lazy" alt="新能力解锁">
+  <div class="panel-text">
+    <p class="narration">撤到安全距离。我靠墙，系统升级完成——新面板展开。</p>
+    <p class="system-msg">🆙 等级3解锁！新能力：【资源流向预测】——可预测指定区域内未来72小时的资源流动方向（物资、人员、信息）</p>
+    <p class="inner-voice">等等……能预测资源流向？这不就是——供应链可视化？</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-14.jpg" loading="lazy" alt="热力图">
+  <div class="panel-text">
+    <p class="narration">我立刻对蛇哥团伙方向激活等级3。系统生成一张热力图——红色箭头代表蛇哥的物资流向，蓝色代表人员流向。所有箭头最终汇聚到同一个点：城东南一栋商业大厦。</p>
+    <p class="system-msg">📊 物资消耗速率：高 | 库存深度：&lt;5天 | 关键弱点：无稳定供给来源，完全依赖抢劫。一旦3天内无新目标，团伙将面临内部分裂。</p>
+    <p class="inner-voice">他的商业模式——是烧钱模式。没有造血能力，全靠"融资"（抢劫）。只要切断他的"融资渠道"……</p>
+    <p class="system-msg">💡 恭喜您发现了竞品的致命缺陷。这在商业上叫"现金流断裂风险"。</p>
+  </div>
+</div>
+
+<!-- ===== Section 4: 战略会议 · 商业帝国vs暴力帝国 ===== -->
+<div class="section-title"><h2>战略会议 · 护城河</h2></div>
+
+<div class="panel">
+  <img src="images/panel-15.jpg" loading="lazy" alt="战略会议">
+  <div class="panel-text">
+    <p class="narration">回到分拣中心。我立刻召集核心团队：方队、老赵、小陈、刘姐。白板上画出蛇哥的资源热力图。</p>
+    <p class="dialogue">各位，好消息和坏消息。坏消息：蛇哥团伙大概20人，武力是我们的三倍。好消息：他们的"商业模式"有个致命缺陷。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-16.jpg" loading="lazy" alt="方队和刘姐">
+  <div class="panel-text">
+    <p class="narration">方队盯着白板。</p>
+    <p class="dialogue">什么缺陷？</p>
+    <p class="narration">我指着热力图。</p>
+    <p class="dialogue">他靠抢劫为生。物资库存不到5天。只要连续3天抢不到新目标，团伙就会因为分赃不均而内斗。</p>
+    <p class="narration">刘姐插嘴。</p>
+    <p class="dialogue">跟做生意一样——发不出工资的老板留不住人。</p>
+    <p class="dialogue">刘姐一语中的。</p>
+    <p class="system-msg">📋 刘姐的商业直觉：A+。建议未来考虑给她一个VP头衔。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-17.jpg" loading="lazy" alt="三步战略">
+  <div class="panel-text">
+    <p class="narration">方队思考了一会儿。</p>
+    <p class="dialogue">所以你的意思是——不打他？</p>
+    <p class="dialogue">打不过就不打。咱们换个打法。</p>
+    <p class="narration">我在白板上画了三个圈——</p>
+    <p class="dialogue">第一步：扩张联盟。把蛇哥推进路线上还没被抢的据点全部拉进联盟，提前转移物资+加固防御。</p>
+    <p class="dialogue">第二步：信息封锁。用通讯网络给联盟据点实时预警蛇哥的行动方向，让他每次扑空。</p>
+    <p class="dialogue">第三步：等。等他3天抢不到东西，内部开始瓦解。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-18.jpg" loading="lazy" alt="方队被说服">
+  <div class="panel-text">
+    <p class="narration">方队的表情从怀疑变成了若有所思。</p>
+    <p class="dialogue">你……是想饿死他？</p>
+    <p class="dialogue">在商业上这叫"护城河战略"。你不用打败竞争对手——你只需要让他的客户都选择你。</p>
+    <p class="dialogue">客户？他抢劫的对象？</p>
+    <p class="dialogue">对。被抢的据点就是他的"客户"。我们把"客户"全抢过来，他就没得抢了。</p>
+    <p class="system-msg">📊 策略评级：A。风险评级：B+。备注：这个CEO真的把打仗当做生意在做。方队的表情说明他开始习惯了。</p>
+  </div>
+</div>
+
+<div class="decision-point">
+  <div class="label">⚡ 决策点 D-8：联盟扩张策略</div>
+  <div class="question">需要快速拉拢蛇哥推进路线上的据点。时间紧迫，用什么方式？</div>
+  <div class="options">
+    <div>A. 全部远程联络——速度快但信任度低</div>
+    <div>B. 朱江亲自带方队逐一面谈——信任度高但速度慢且危险</div>
+    <div><span class="chosen">C. 分两路：朱江+方队面谈2-3个大据点，小陈远程联络其余小据点 ✓</span></div>
+  </div>
+  <div class="reasoning">核心客户亲自谈，长尾客户线上触达。"大客户BD面谈，小客户线上成交"是标准打法。</div>
+</div>
+
+<!-- ===== Section 5: 闪电扩张 ===== -->
+<div class="section-title"><h2>48小时闪电扩张</h2></div>
+
+<div class="panel">
+  <img src="images/panel-19.jpg" loading="lazy" alt="闪电扩张蒙太奇">
+  <div class="panel-text">
+    <p class="narration">48小时闪电战。朱江+方队面谈了3个大据点：一个前物业公司（20人有工具），一个超市残部（15人有食物），一个大学生团体（8人有太阳能充电设备）。</p>
+    <p class="narration">每次谈判核心话术一样——"加入联盟有通讯+安保，不加入等蛇哥来抢。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-20.jpg" loading="lazy" alt="老孙犹豫">
+  <div class="panel-text">
+    <p class="narration">物业公司的头目老孙犹豫了。</p>
+    <p class="dialogue">你凭什么保证那个蛇什么哥会来抢我们？</p>
+    <p class="narration">我激活等级3预测——在平板上展示蛇哥未来72小时推进路线，红色箭头直指老孙据点。老孙的脸色变了。</p>
+    <p class="system-msg">💡 恐惧是最好的销售工具——但请注意，您提供的是真实信息，不是恐吓。这在商业伦理上叫"风险告知"。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-21.jpg" loading="lazy" alt="老孙加入">
+  <div class="panel-text">
+    <p class="narration">老孙伸出手。</p>
+    <p class="dialogue">加！怎么加？</p>
+    <p class="dialogue">很简单。通讯接入，情报共享，物资互助，遇袭联防。你们的物业工具队在联盟里是"基建部门"。</p>
+    <p class="narration">老孙眼睛一亮——有头衔这件事在末世也管用。</p>
+    <p class="system-msg">📈 联盟人数更新：33→76。据点等级：B→A-。您的"公司"正式进入B轮。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-22.jpg" loading="lazy" alt="联盟全局面板">
+  <div class="panel-text">
+    <p class="narration">小陈那边也传来好消息——远程联络成功接入4个小据点，联盟通讯覆盖扩到8公里。</p>
+    <p class="system-msg">🌐 联盟：7个据点 | 总人口：96 | 通讯覆盖：8公里 | 安保联防网已激活 | 蛇哥推进路线上3个目标已全部转入联盟防线</p>
+    <p class="inner-voice">两天时间，从33人到96人。这扩张速度——连投资人都要竖拇指。虽然这里的"投资回报"是活命。</p>
+  </div>
+</div>
+
+<!-- ===== Section 6: 蛇哥扑空 · 暴力帝国的裂痕 ===== -->
+<div class="threat-section">
+<div class="section-title"><h2>蛇哥扑空 · 暴力帝国的裂痕</h2></div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-23.jpg" loading="lazy" alt="蛇哥出击">
+  <div class="panel-text">
+    <p class="narration">蛇哥团伙出击。20个人气势汹汹扑向下一个目标——物业公司据点。联盟预警信号同步传遍所有据点。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-24.jpg" loading="lazy" alt="空据点">
+  <div class="panel-text">
+    <p class="narration">蛇哥团伙到达物业公司据点——空的。物资已经转移，人员已经撤到联防阵地。留下一面墙上用白漆写着四个大字：</p>
+    <p class="dialogue" style="font-size:1.3em;text-align:center;color:#00ff88;">加入联盟</p>
+    <p class="narration">蛇哥站在空据点中央，面无表情。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-25.jpg" loading="lazy" alt="肥鱼报告">
+  <div class="panel-text">
+    <p class="narration">蛇哥的副手肥鱼跑过来。</p>
+    <p class="dialogue">哥，又空了！这已经第二个了！他们怎么知道咱来？！</p>
+    <p class="narration">蛇哥低头看那四个字。他慢慢抬手摸了一下左臂蛇纹身——那是他思考时的习惯动作。声音低沉。</p>
+    <p class="dialogue">有人在跟我们下棋。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-26.jpg" loading="lazy" alt="蛇哥特写">
+  <div class="panel-text">
+    <p class="narration">蛇哥盯着"加入联盟"四个字。嘴角微微动了一下——不是笑，是一种捕食者嗅到猎物气味的表情。</p>
+    <p class="dialogue">查。这个"联盟"是谁搞的。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-27.jpg" loading="lazy" alt="情报分析">
+  <div class="panel-text">
+    <p class="narration">我在分拣中心收到方队的实时汇报——蛇哥连续两次扑空。</p>
+    <p class="system-msg">📊 蛇哥团伙物资消耗进入警戒线。预估库存&lt;3天。内部摩擦指数上升。</p>
+    <p class="narration">老赵兴奋。</p>
+    <p class="dialogue">成了！饿他！</p>
+    <p class="narration">我摇头。</p>
+    <p class="dialogue">没这么简单。蛇哥不是普通土匪——他会变招。</p>
+  </div>
+</div>
+
+<div class="panel alert-panel">
+  <img src="images/panel-28.jpg" loading="lazy" alt="红色警报">
+  <div class="panel-text">
+    <p class="narration">系统突然弹出警报——</p>
+    <p class="system-msg" style="color:#ff4444;border-color:rgba(255,50,50,0.3);background:rgba(255,50,50,0.05);">⚠️ 蛇哥团伙行动模式异变！停止向北推进，转为——向西移动。目标：联盟通讯节点。</p>
+    <p class="narration">我脸色一变。</p>
+    <p class="inner-voice">他不抢据点了——他要打我的基础设施。砍我的通讯网。这家伙……在打我的"服务器"。</p>
+  </div>
+</div>
+
+<div class="decision-point">
+  <div class="label">⚡ 决策点 D-9：通讯节点遭威胁</div>
+  <div class="question">蛇哥不再抢据点，转而攻击联盟通讯节点。失去通讯=联盟瓦解。</div>
+  <div class="options">
+    <div>A. 立即收缩——撤回所有外围通讯设备，放弃覆盖范围保核心</div>
+    <div>B. 让方队派兵保护每个通讯节点——分散兵力但保住网络</div>
+    <div><span class="chosen">C. 放弃外围1-2个节点引诱蛇哥深入，在预设位置设伏 ✓</span></div>
+  </div>
+  <div class="reasoning">不在对方优势领域正面对抗，把战场拉到自己的主场。信息优势=选择战场的权力。</div>
+</div>
+
+<!-- ===== Section 7: 设伏 ===== -->
+<div class="ambush-section">
+<div class="section-title"><h2>设伏 · 关门打狗</h2></div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-29.jpg" loading="lazy" alt="规划伏击">
+  <div class="panel-text">
+    <p class="narration">我在白板上画出蛇哥可能的攻击路线。方队第一次主动站到我旁边——两人一起规划。</p>
+    <p class="narration">方队用手指划出伏击点。</p>
+    <p class="dialogue">这里。这栋楼有三个出口，我们封两个留一个。</p>
+    <p class="dialogue">我在他必经之路放一个通讯节点——开着信号，当诱饵。系统能实时追踪他的位置，他一进伏击圈我们就——</p>
+    <p class="narration">方队接话。</p>
+    <p class="dialogue">——关门打狗。</p>
+    <p class="dialogue">方队，你这么说太粗暴了。我的说法是"漏斗转化"。</p>
+    <p class="system-msg">📋 方队对您的商业暗语忍耐度：正在下降。建议：减少商业术语使用。建议成功率：0%。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-30.jpg" loading="lazy" alt="夜晚伏击位">
+  <div class="panel-text">
+    <p class="narration">夜晚。伏击位置已经布置好。我蹲在暗处，方队和4名联盟战斗人员分布在三个点位。小陈在远程监控蛇哥团伙移动。</p>
+    <p class="system-msg">📡 蛇哥团伙8人出动（半数），正在接近诱饵节点……距离400米……300米……</p>
+    <p class="inner-voice">融资路演前心跳120。现在大概180。但奇怪的是——比路演还清醒。</p>
+    <p class="system-msg">💪 您的肾上腺素水平：优秀。备注：末世创业似乎比写字楼创业更适合您的体质。</p>
+  </div>
+</div>
+
+<!-- ===== Section 8: 伏击 · 信息vs暴力 ===== -->
+<div class="ambush-section">
+<div class="section-title"><h2>伏击 · 信息对决暴力</h2></div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-31.jpg" loading="lazy" alt="肥鱼小队接近">
+  <div class="panel-text">
+    <p class="narration">蛇哥的8人小队沿着废墟街道接近诱饵。领头的不是蛇哥本人——是肥鱼带队。他们拿着铁棍和刀，谨慎但不够。</p>
+    <p class="system-msg">🎯 目标已进入伏击圈。蛇哥本人未出现。对方指挥官：肥鱼，战斗力B-，智力C+。</p>
+    <p class="inner-voice">蛇哥没亲自来……他派了副手。这老狐狸。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-32.jpg" loading="lazy" alt="方队等信号">
+  <div class="panel-text">
+    <p class="narration">方队看向我等信号。我盯着系统定位——等肥鱼走到最深处。</p>
+    <p class="system-msg">⏱ 最佳时机……3……2……1……</p>
+    <p class="narration">我对方队点头。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-33.jpg" loading="lazy" alt="伏击发动">
+  <div class="panel-text">
+    <p class="narration">方队手势一挥——伏击发动！联盟人员从三个方向现身封锁退路。不是攻击——是包围。方队站在最高处，居高临下。</p>
+    <p class="dialogue" style="font-size:1.1em;">别动！你们被包围了！放下武器，给你们一条活路！</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-34.jpg" loading="lazy" alt="肥鱼冷静">
+  <div class="panel-text">
+    <p class="narration">肥鱼的人慌了——但肥鱼本人意外地冷静。他环顾四周，很快看清了局势：对方人数不比自己多（6对8），但占据地形优势且有组织。</p>
+    <p class="narration">肥鱼举起手示意手下不要妄动。</p>
+    <p class="dialogue">你们是那个"联盟"？</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-35.jpg" loading="lazy" alt="CEO谈判">
+  <div class="panel-text">
+    <p class="narration">我从暗处走出来，方队挡在前面。</p>
+    <p class="dialogue">我是联盟负责人。你们有两个选择——</p>
+    <p class="dialogue">第一，放下武器，我们给你们食物和水，送你们离开这个区域。第二，打。但你们8个人被包围了，而且——</p>
+    <p class="narration">我举起平板，屏幕上显示蛇哥大本营的位置和剩余物资数据。</p>
+    <p class="dialogue">——你们老大只剩不到两天的粮食了。就算你们打赢了，回去也没饭吃。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-36.jpg" loading="lazy" alt="肥鱼震惊">
+  <div class="panel-text">
+    <p class="narration">肥鱼瞪大眼——不是因为被包围，而是因为对方知道他们大本营的位置和物资情况。</p>
+    <p class="dialogue">你们……怎么知道的？</p>
+    <p class="narration">我微笑——不是威胁，是CEO面对客户质疑时的自信微笑。</p>
+    <p class="dialogue">因为我是做信息生意的。你们老大做抢劫，我做情报。你说哪个更持久？</p>
+    <p class="system-msg">🎯 谈判攻击力：S。肥鱼心理防线：崩溃中。补充：您刚才的微笑被系统评定为"极具商业说服力"。</p>
+  </div>
+</div>
+
+<!-- ===== Section 9: 悬念 ===== -->
+<div class="section-title"><h2>猎人与猎物</h2></div>
+
+<div class="panel">
+  <img src="images/panel-37.jpg" loading="lazy" alt="投降">
+  <div class="panel-text">
+    <p class="narration">肥鱼扔了武器。他的手下也跟着扔了。8个人蹲在地上。</p>
+    <p class="narration">方队不敢置信地看着我——20个人的掠夺团伙，一枪没开，瓦解了一半。</p>
+    <p class="dialogue" style="font-size:0.9em;">你这CEO……打仗比我们还狠。</p>
+    <p class="inner-voice">我只是把投资人谈判那套用在了这里。不过老赵说得对——这确实比PPT刺激。</p>
+    <p class="system-msg">🏆 恭喜完成"敌对势力分化收编"。经验+30。您正在解锁"末世并购"成就。距等级4：还差15点。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-38.jpg" loading="lazy" alt="悬念">
+  <div class="panel-text">
+    <p class="narration">深夜。分拣中心。肥鱼被隔离审讯，方队得到了关键情报——蛇哥还有12人，但更重要的是：蛇哥不是普通的黑产。他在大断裂前就在运营一个跨城物流网络。而且……他手里有一样东西。</p>
+    <p class="narration">我站在窗前，看着平板上系统显示的信息。</p>
+    <p class="system-msg" style="color:#ffcc00;border-color:rgba(255,200,0,0.3);background:rgba(255,200,0,0.05);">⚠️ 蛇哥持有物品鉴定：信息等级不足，等级3无法完全解析。已知关键词："通讯基站核心模块"。获取后可将通讯覆盖从10公里扩展到——50公里。</p>
+    <p class="inner-voice">50公里覆盖……那是半个城市。那东西在蛇哥手里——他不知道它的价值，但我知道。</p>
+    <p class="system-msg">📋 您的表情又变成了那种"发现了被严重低估的资产"的样子。温馨提醒：这次的"低估资产"在一个武装暴徒手里。祝好运。</p>
+  </div>
+</div>
+
+<div class="end-card">
+  <div class="end-mark">—— 第三章 · 完 ——</div>
+  <div class="preview">
+    <strong>第四章预告</strong><br><br>
+    蛇哥的通讯基站核心模块是商业帝国的关键。但如何从一个暴力集团手里"收购"它？<br><br>
+    当联盟内部也出现分歧——<strong>方队主张武力突袭</strong>，<strong>朱江坚持"不战而屈人之兵"</strong>——<br><br>
+    CEO和将军的路线之争，将决定联盟的命运。
+  </div>
+</div>
+
+<div class="spacer-lg"></div>
+
+<script>
+// Scroll-triggered fade-in
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+panels.forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
