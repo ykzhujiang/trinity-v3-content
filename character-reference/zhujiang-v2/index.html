@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>朱江角色形象选择 — V2</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0a0f; color:#e0e0e0; font-family:'PingFang SC','Microsoft YaHei',sans-serif; }
+.header { text-align:center; padding:40px 20px 20px; }
+.header h1 { font-size:28px; color:#fff; margin-bottom:10px; }
+.header p { font-size:16px; color:#888; line-height:1.6; }
+.styles-container { max-width:600px; margin:0 auto; padding:20px; }
+.style-card { margin-bottom:40px; background:#141420; border-radius:16px; overflow:hidden; border:2px solid #222; transition:border-color 0.3s; }
+.style-card:hover { border-color:#6366f1; }
+.style-label { padding:16px 20px; display:flex; align-items:center; justify-content:space-between; }
+.style-name { font-size:22px; font-weight:700; }
+.style-desc { font-size:14px; color:#888; }
+.style-num { font-size:48px; font-weight:900; color:#6366f1; opacity:0.3; }
+.style-img { width:100%; display:block; }
+.style-tags { padding:12px 20px 16px; display:flex; gap:8px; flex-wrap:wrap; }
+.tag { padding:4px 12px; border-radius:20px; font-size:12px; background:#1e1e30; color:#a5b4fc; }
+.footer { text-align:center; padding:40px 20px; color:#555; font-size:14px; }
+</style>
+</head>
+<body>
+<div class="header">
+<h1>🎨 朱江角色形象 — 5种风格</h1>
+<p>请选择最喜欢的一组风格，选定后将固化为所有V5内容的角色基准</p>
+</div>
+<div class="styles-container">
+
+<div class="style-card">
+<div class="style-label">
+<div><div class="style-name">风格A · 韩漫写实</div><div class="style-desc">Korean Webtoon Semi-Realistic</div></div>
+<div class="style-num">A</div>
+</div>
+<img class="style-img" src="style1-korean-webtoon.jpg" alt="韩漫写实风" loading="lazy">
+<div class="style-tags"><span class="tag">柔和线条</span><span class="tag">暖色调</span><span class="tag">半写实</span><span class="tag">清新</span></div>
+</div>
+
+<div class="style-card">
+<div class="style-label">
+<div><div class="style-name">风格B · 日漫热血</div><div class="style-desc">Japanese Shonen Anime (Jujutsu Kaisen Style)</div></div>
+<div class="style-num">B</div>
+</div>
+<img class="style-img" src="style2-japanese-shonen.jpg" alt="日漫热血风" loading="lazy">
+<div class="style-tags"><span class="tag">锐利线条</span><span class="tag">戏剧光影</span><span class="tag">热血感</span><span class="tag">张力强</span></div>
+</div>
+
+<div class="style-card">
+<div class="style-label">
+<div><div class="style-name">风格C · 经典赛璐璐</div><div class="style-desc">Classic Cel-Shaded (Cowboy Bebop Quality)</div></div>
+<div class="style-num">C</div>
+</div>
+<img class="style-img" src="style3-cel-shaded.jpg" alt="赛璐璐风" loading="lazy">
+<div class="style-tags"><span class="tag">干净轮廓</span><span class="tag">鲜艳配色</span><span class="tag">90s经典</span><span class="tag">复古</span></div>
+</div>
+
+<div class="style-card">
+<div class="style-label">
+<div><div class="style-name">风格D · 国漫水墨</div><div class="style-desc">Chinese Ink-Wash Manga</div></div>
+<div class="style-num">D</div>
+</div>
+<img class="style-img" src="style4-chinese-inkwash.jpg" alt="国漫水墨风" loading="lazy">
+<div class="style-tags"><span class="tag">水墨笔触</span><span class="tag">写意飘逸</span><span class="tag">中国风</span><span class="tag">雅致</span></div>
+</div>
+
+<div class="style-card">
+<div class="style-label">
+<div><div class="style-name">风格E · 现代数字</div><div class="style-desc">Modern Digital Manhwa</div></div>
+<div class="style-num">E</div>
+</div>
+<img class="style-img" src="style5-modern-digital.jpg" alt="现代数字风" loading="lazy">
+<div class="style-tags"><span class="tag">电影光效</span><span class="tag">鲜艳色彩</span><span class="tag">精细渲染</span><span class="tag">潮流</span></div>
+</div>
+
+</div>
+<div class="footer">
+<p>选定后回复风格编号（A/B/C/D/E），将固化为CCP v2.0唯一角色基准</p>
+</div>
+</body>
+</html>
