@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赌神觉醒 · 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story{max-width:430px;margin:0 auto;padding-bottom:80px}
+.panel{position:relative;width:100%;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;object-fit:cover}
+.panel .text-block{padding:16px 20px;background:linear-gradient(180deg,rgba(10,10,15,.95),rgba(10,10,15,.98));line-height:1.8;font-size:17px}
+.panel .text-block .inner-voice{color:#7eb8da;font-style:italic;display:block;margin:6px 0}
+.panel .text-block .dialogue{color:#f0d060;display:block;margin:6px 0}
+.panel .text-block .dialogue .speaker{color:#999;font-size:14px;margin-right:6px}
+.panel .text-block .narration{color:#bbb;display:block;margin:6px 0;font-size:15px}
+.panel .text-block .scene-info{color:#666;font-size:13px;display:block;margin-bottom:8px;border-left:2px solid #333;padding-left:8px}
+
+.decision-box{background:linear-gradient(135deg,rgba(30,60,100,.9),rgba(20,30,60,.95));border:1px solid rgba(100,160,255,.3);border-radius:12px;margin:20px 16px;padding:20px;animation:pulse-border 2s infinite}
+.decision-box h3{color:#7eb8da;font-size:16px;margin-bottom:12px}
+.decision-box .choice{padding:10px 14px;margin:6px 0;border-radius:8px;font-size:15px}
+.decision-box .choice.selected{background:rgba(100,200,120,.15);border:1px solid rgba(100,200,120,.4);color:#8fd4a0}
+.decision-box .choice.not-selected{background:rgba(60,60,60,.3);border:1px solid rgba(60,60,60,.3);color:#666}
+
+.system-panel{background:linear-gradient(135deg,rgba(0,40,80,.9),rgba(0,20,50,.95));border:1px solid rgba(0,150,255,.3);border-radius:8px;margin:8px 16px;padding:14px;font-family:'Courier New',monospace}
+.system-panel .label{color:#0af;font-size:12px;letter-spacing:2px;margin-bottom:6px}
+.system-panel .data{color:#0f0;font-size:14px;line-height:1.6}
+.system-panel .warning{color:#f80;font-size:14px}
+
+.chapter-title{text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,#0a0a0f 0%,rgba(10,10,15,.95) 100%)}
+.chapter-title h1{font-size:28px;color:#f0d060;letter-spacing:4px;margin-bottom:12px;text-shadow:0 0 20px rgba(240,208,96,.3)}
+.chapter-title h2{font-size:16px;color:#7eb8da;font-weight:normal;letter-spacing:2px}
+.chapter-title .subtitle{color:#666;font-size:13px;margin-top:8px}
+
+.cliffhanger{background:linear-gradient(180deg,rgba(10,10,15,.95),#000);padding:40px 20px;text-align:center}
+.cliffhanger .next{color:#f0d060;font-size:18px;letter-spacing:2px;animation:fade-pulse 2s infinite}
+
+@keyframes pulse-border{0%,100%{border-color:rgba(100,160,255,.3)}50%{border-color:rgba(100,160,255,.6)}}
+@keyframes fade-pulse{0%,100%{opacity:.6}50%{opacity:1}}
+</style>
+</head>
+<body>
+<div class="story">
+
+<div class="chapter-title panel">
+<h1>赌 神 觉 醒</h1>
+<h2>第一章 · 幽灵俱乐部</h2>
+<div class="subtitle">—— 虚拟朱江 · V5分镜剧本 ——</div>
+</div>
+
+<!-- 格1：凌晨3点办公室 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f01.jpg" loading="lazy" alt="凌晨办公室">
+<div class="text-block">
+<span class="scene-info">特写→中景 | 俯拍桌面→缓推脸部 | 凌晨3点办公室</span>
+<span class="inner-voice">29天。账上只够撑29天。</span>
+<span class="narration">电脑屏幕上的数字像一把钝刀，一刀一刀割着我的神经。"无限智能"——我给公司起的名字，现在听起来像个笑话。</span>
+</div>
+</div>
+
+<!-- 格2：神秘短信 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f02.jpg" loading="lazy" alt="神秘短信">
+<div class="text-block">
+<span class="scene-info">特写手机屏幕 | 平拍</span>
+<span class="narration">手机亮了。一条没有头像的短信。</span>
+<span class="inner-voice">想救你的公司？来幽灵俱乐部。——K</span>
+<span class="inner-voice">这不会是诈骗吧……但都这样了，还能更差？</span>
+</div>
+</div>
+
+<!-- 格3：老洋房门口 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f03.jpg" loading="lazy" alt="老洋房门口">
+<div class="text-block">
+<span class="scene-info">全景 | 低角度仰拍 | 夜晚上海老洋房</span>
+<span class="inner-voice">赌一把。反正最坏也就是继续007。</span>
+<span class="narration">我深吸一口气，推开了那扇漆黑的大门。</span>
+</div>
+</div>
+
+<!-- DECISION-1 -->
+<div class="decision-box panel">
+<h3>⚡ 决策点 #1：是否接受邀请？</h3>
+<div class="choice selected">✅ A：去幽灵俱乐部（冒险，赌一把）</div>
+<div class="choice not-selected">B：不去，继续想别的办法</div>
+<div style="color:#666;font-size:13px;margin-top:8px">→ 怕失去不怕冒险。这就是我。</div>
+</div>
+
+<!-- 格4：俱乐部内部 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f04.jpg" loading="lazy" alt="俱乐部内部">
+<div class="text-block">
+<span class="scene-info">大全景 | 背影→推进俱乐部内部</span>
+<span class="inner-voice">卧槽，这装修够我公司撑半年的。</span>
+<span class="narration">金色水晶灯、深色实木圆桌、穿定制西装的人低声交谈……每个人看起来都像是能随手签下一个亿的主。而我口袋里只有47832块。</span>
+</div>
+</div>
+
+<!-- 格5：K出场 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f05.jpg" loading="lazy" alt="K出场">
+<div class="text-block">
+<span class="scene-info">中景 | 侧面 | K从阴影中走出</span>
+<span class="dialogue"><span class="speaker">K：</span>"这里赌的不是钱。是你的未来。"</span>
+<span class="inner-voice">她这服务态度，像极了我们公司的AI客服——冷冰冰，但说的每句话都让你心跳加速。</span>
+</div>
+</div>
+
+<!-- 格6：战绩榜 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f06.jpg" loading="lazy" alt="战绩榜">
+<div class="text-block">
+<span class="scene-info">特写墙面 | 缓慢平移 | 战绩排行榜</span>
+<span class="inner-voice">这……是真的？</span>
+<span class="narration">排行榜上赫然列着几个如雷贯耳的名字。我揉了揉眼睛，确认自己没看错。</span>
+</div>
+</div>
+
+<!-- 格7：K说明规则 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f07.jpg" loading="lazy" alt="K说明规则">
+<div class="text-block">
+<span class="scene-info">中景 | 正面平拍K</span>
+<span class="dialogue"><span class="speaker">K：</span>"新人第一局免费。赢了，带走对手押注的资源。输了，你什么也没有，原样回去。"</span>
+<span class="narration">她说"什么也没有"的时候，表情比我公司账户余额还冷。</span>
+</div>
+</div>
+
+<!-- 格8：陈总登场 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f08.jpg" loading="lazy" alt="陈总登场">
+<div class="text-block">
+<span class="scene-info">中景对切 | 正反打 | 牌桌对坐</span>
+<span class="dialogue"><span class="speaker">陈总：</span>"小兄弟，做AI的？巧了，我正缺个AI供应商。"</span>
+<span class="narration">对面坐下一个笑眯眯的胖子，西装扣子快要撑爆了，但眼睛精得像两颗算盘珠。笑面虎——这三个字突然从我脑子里蹦出来。</span>
+</div>
+</div>
+
+<!-- 格9：烂牌 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f09.jpg" loading="lazy" alt="翻牌">
+<div class="text-block">
+<span class="scene-info">特写手部 | 俯拍 | 翻开手牌</span>
+<span class="inner-voice">完了，开局就这副德行。</span>
+<span class="narration">我翻开自己的牌，心沉了一下。这手牌烂得像我的融资PPT——毫无亮点。</span>
+</div>
+</div>
+
+<!-- 格10：系统面板觉醒！ -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f10.jpg" loading="lazy" alt="系统觉醒">
+<div class="text-block">
+<span class="scene-info">特写眼部→全景 | 急推 | 系统面板浮现</span>
+<span class="narration">突然——眼前一阵蓝光闪过，一个半透明的面板凭空出现在我视野里。</span>
+</div>
+</div>
+<div class="system-panel panel">
+<div class="label">◆ 系统面板 ◆</div>
+<div class="data">
+微表情分析启动中...<br>
+目标：陈总<br>
+→ 嘴角上扬0.3度，左眼瞳孔微缩<br>
+→ <strong style="color:#ff0">虚张声势概率：68%</strong>
+</div>
+</div>
+<div class="panel">
+<div class="text-block">
+<span class="inner-voice">这是什么鬼？不会加班加出幻觉了吧？</span>
+</div>
+</div>
+
+<!-- 格11：决定使用 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f11.jpg" loading="lazy" alt="不动声色">
+<div class="text-block">
+<span class="scene-info">中景 | 侧面 | 拿起筹码</span>
+<span class="inner-voice">管它是什么，先用起来。</span>
+<span class="narration">我强忍住震惊，面无表情地拿起筹码。做AI的人有个好处——对不可解释的现象接受度特别高。</span>
+</div>
+</div>
+
+<!-- 格12：陈总重注 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f12.jpg" loading="lazy" alt="陈总重注">
+<div class="text-block">
+<span class="scene-info">中景 | 平拍牌桌 | 陈总推筹码</span>
+<span class="dialogue"><span class="speaker">陈总：</span>"小兄弟，要不要跟？"</span>
+<span class="narration">他推出一大堆筹码，笑容不变。但我眼角的面板冷冰冰地显示着——</span>
+</div>
+</div>
+<div class="system-panel panel">
+<div class="label">◆ 实时分析 ◆</div>
+<div class="data">虚张声势概率：68% ▲<br>建议：跟注</div>
+</div>
+
+<!-- 格13：跟注 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f13.jpg" loading="lazy" alt="跟注">
+<div class="text-block">
+<span class="scene-info">特写手推筹码 | 侧面</span>
+<span class="dialogue"><span class="speaker">我：</span>"跟。"</span>
+<span class="narration">一个字。轻描淡写。好像我不是在赌公司的命，而是在便利店买了瓶水。</span>
+</div>
+</div>
+
+<!-- 格14：陈总表情裂缝 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f14.jpg" loading="lazy" alt="陈总破绽">
+<div class="text-block">
+<span class="scene-info">特写陈总脸 | 正面</span>
+<span class="narration">他的笑容僵了一瞬。就那么零点几秒——普通人根本察觉不到。</span>
+</div>
+</div>
+<div class="system-panel panel">
+<div class="label">◆ 微表情捕获 ◆</div>
+<div class="data">心率上升12%<br>→ 对手感到意外<br>→ 判定：对手手牌弱于预期</div>
+</div>
+
+<!-- 格15：心理战 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f15.jpg" loading="lazy" alt="心理博弈">
+<div class="text-block">
+<span class="scene-info">中景 | 平拍 | 双方牌面</span>
+<span class="inner-voice">他的牌也烂。这是一场纯心理战。</span>
+<span class="narration">第二轮部分亮牌。双方牌面都一般。这不是在比谁的牌大，是在比谁先眨眼。</span>
+</div>
+</div>
+
+<!-- 格16：陈总话术攻击 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f16.jpg" loading="lazy" alt="话术攻击">
+<div class="text-block">
+<span class="scene-info">中近景 | 陈总略仰拍（压迫感）</span>
+<span class="dialogue"><span class="speaker">陈总：</span>"AI创业不好做吧？听说你们公司快不行了？投资人都跑了？"</span>
+<span class="narration">他开始用信息差做武器了。身体前倾，声音不大，但每个字都像针一样扎进来。笑里藏刀——名不虚传。</span>
+</div>
+</div>
+
+<!-- 格17：以退为进 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f17.jpg" loading="lazy" alt="以退为进">
+<div class="text-block">
+<span class="scene-info">中景 | 平拍 | 端酒杯</span>
+<span class="dialogue"><span class="speaker">我：</span>"是啊陈总，所以来找您这种大佬学习学习嘛。"</span>
+<span class="inner-voice">你越说我惨，说明你越没底气。</span>
+<span class="narration">我笑着端起酒杯，故意露出"新手害怕"的表情。陈总，你以为你在试探我？其实你已经把底牌写在脸上了。</span>
+</div>
+</div>
+
+<!-- 格18：系统冷却！ -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f18.jpg" loading="lazy" alt="系统冷却">
+<div class="text-block">
+<span class="scene-info">特写系统面板 | 平拍虚化</span>
+</div>
+</div>
+<div class="system-panel panel">
+<div class="label">◆ 系统提示 ◆</div>
+<div class="warning">⚠ 系统冷却中 03:00<br>微表情分析暂时不可用</div>
+</div>
+<div class="panel">
+<div class="text-block">
+<span class="inner-voice">等等——面板没了？！就现在？！</span>
+<span class="narration">最关键的时刻，系统罢工了。这什么破系统，跟我们公司的产品一个德性。</span>
+</div>
+</div>
+
+<!-- 格19：发现手在抖 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f19.jpg" loading="lazy" alt="手指颤抖">
+<div class="text-block">
+<span class="scene-info">特写陈总手指 | 俯拍 | 指尖颤抖</span>
+<span class="narration">没有面板了。但我看到了另一个东西——陈总推筹码的指尖，在微微颤抖。</span>
+<span class="inner-voice">没有面板……但这手在抖。大学那会儿打牌，对手拿烂牌时也是这样。</span>
+<span class="narration">有些技能，不需要系统也能用。那是我在大学扑克桌上，用一千多局磨出来的直觉。</span>
+</div>
+</div>
+
+<!-- DECISION-2 -->
+<div class="decision-box panel">
+<h3>⚡ 决策点 #2：系统冷却中——跟还是弃？</h3>
+<div class="choice selected">✅ A：All in（相信直觉和经验）</div>
+<div class="choice not-selected">B：弃牌（保守止损）</div>
+<div class="choice not-selected">C：小额跟注试探</div>
+<div style="color:#666;font-size:13px;margin-top:8px">→ 看到破绽就打。黑客思维，没有犹豫。</div>
+</div>
+
+<!-- 格20：ALL IN -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f20.jpg" loading="lazy" alt="ALL IN">
+<div class="text-block">
+<span class="scene-info">中景→特写推筹码 | 低角度 | 全场安静</span>
+<span class="dialogue"><span class="speaker">我：</span>"All in。"</span>
+<span class="narration">我把所有筹码推出去。整个牌桌安静了。旁边几桌的人都转过头来看。空气像被抽空了一样。</span>
+</div>
+</div>
+
+<!-- 格21：陈总认输 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f21.jpg" loading="lazy" alt="陈总认输">
+<div class="text-block">
+<span class="scene-info">特写陈总脸 | 正面 | 笑容凝固</span>
+<span class="narration">三秒。史上最漫长的三秒。陈总脸上那个永远不变的笑容，第一次裂了。</span>
+<span class="dialogue"><span class="speaker">陈总：</span>"……我不跟了。"</span>
+<span class="narration">全场叹息声此起彼伏。</span>
+</div>
+</div>
+
+<!-- 格22：赢得资源 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f22.jpg" loading="lazy" alt="赢得胜利">
+<div class="text-block">
+<span class="scene-info">中景 | 侧面 | K递名片</span>
+<span class="dialogue"><span class="speaker">K：</span>"陈总押注的——某头部MCN独家AI合作权。现在是你的了。"</span>
+<span class="dialogue"><span class="speaker">陈总（起身）：</span>"小兄弟有意思。下次再来。"</span>
+<span class="inner-voice">我赢了？……我真的赢了。</span>
+<span class="narration">手里攥着名片，指尖微微发麻。29天的死期，今晚赢来了一线生机。</span>
+</div>
+</div>
+
+<!-- 格23：走出俱乐部 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f23.jpg" loading="lazy" alt="夜色上海">
+<div class="text-block">
+<span class="scene-info">全景 | 跟拍 | 夜色上海街头</span>
+<span class="narration">走出俱乐部，夜风灌进衬衫领口。上海的夜景灯火通明，和我今晚经历的一切形成了某种诡异的反差。</span>
+</div>
+</div>
+
+<!-- 格24：K的暗示 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f24.jpg" loading="lazy" alt="K的暗示">
+<div class="text-block">
+<span class="scene-info">中近景 | 侧面双人 | 路灯下</span>
+<span class="narration">K追了上来。路灯下，她的表情第一次有了裂缝——不再是那个冷面扑克脸，而是带着某种说不清的复杂。</span>
+<span class="dialogue"><span class="speaker">K：</span>"你的面板……我见过一个人也有。"</span>
+<span class="dialogue"><span class="speaker">我：</span>"谁？"</span>
+</div>
+</div>
+
+<!-- DECISION-3 -->
+<div class="decision-box panel">
+<h3>⚡ 决策点 #3：K透露信息——追问还是不问？</h3>
+<div class="choice selected">✅ A：追问到底</div>
+<div class="choice not-selected">B：算了，不想知道</div>
+<div style="color:#666;font-size:13px;margin-top:8px">→ 好奇心是我最大的驱动力。黑客基因，看到线索就要追。</div>
+</div>
+
+<!-- 格25：悬念结尾 -->
+<div class="panel">
+<img src="exp-667-god-of-gamble-ch1/f25.jpg" loading="lazy" alt="悬念">
+<div class="text-block">
+<span class="scene-info">特写K侧脸→黑屏 | 慢推</span>
+<span class="dialogue"><span class="speaker">K：</span>"你不需要知道他是谁。但你需要知道——"</span>
+<span class="dialogue"><span class="speaker">K：</span>"他是这里唯一一个输掉一切的人。"</span>
+</div>
+</div>
+<div class="system-panel panel">
+<div class="label">◆ 新任务解锁 ◆</div>
+<div class="data">
+任务：赢得三连胜<br>
+奖励：？？？？<br>
+<span style="color:#666;font-size:12px">系统提示：下一局对手等级 ★★★</span>
+</div>
+</div>
+<div class="panel">
+<div class="text-block">
+<span class="inner-voice">这系统，你是不是也加班没写完？连奖励都是问号。</span>
+<span class="narration">夜色吞没了K的背影。我站在原地，手里攥着名片，脑子里只有一个念头——</span>
+<span class="inner-voice" style="font-size:20px;color:#f0d060;text-align:center;display:block;margin:16px 0">这场游戏，才刚刚开始。</span>
+</div>
+</div>
+
+<div class="cliffhanger panel">
+<div class="next">—— 第一章 · 完 ——</div>
+<div style="color:#666;font-size:14px;margin-top:12px">第二章：三连胜的代价</div>
+</div>
+
+</div>
+
+<script>
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.panel').forEach(p=>observer.observe(p));
+</script>
+</body>
+</html>
