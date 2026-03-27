@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>代码暗战 · 第二章：社工渗透</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e8f0;font-family:'PingFang SC','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.header{text-align:center;padding:60px 20px 30px;background:linear-gradient(180deg,#0d1b2a 0%,#0a0a12 100%)}
+.header h1{font-size:28px;color:#00e5ff;text-shadow:0 0 20px rgba(0,229,255,0.3);letter-spacing:4px;margin-bottom:8px}
+.header .subtitle{font-size:16px;color:#7b8ca3;letter-spacing:2px}
+.header .chapter-info{margin-top:16px;padding:12px 20px;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);border-radius:8px;display:inline-block;font-size:13px;color:#5a9cb5}
+.comic-container{max-width:420px;margin:0 auto;padding:0 8px 60px}
+.panel{margin-bottom:4px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;position:relative;overflow:hidden}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.panel-text{padding:14px 16px;font-size:17px;line-height:1.7;background:rgba(13,27,42,0.95);border-left:3px solid #00e5ff}
+.panel-text .dialogue{color:#00e5ff;font-weight:600}
+.panel-text .narration{color:#c8d6e5;font-style:italic}
+.panel-text .inner{color:#ff6b9d;font-size:15px}
+.panel-text .xiaoyu{color:#ffd93d;font-size:15px}
+.decision-point{margin:20px 8px;padding:20px;background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(255,107,157,0.08));border:2px solid #00e5ff;border-radius:12px;animation:pulse 2s infinite}
+.decision-point h3{color:#00e5ff;font-size:18px;margin-bottom:12px;text-align:center}
+.decision-option{padding:10px 14px;margin:8px 0;background:rgba(0,0,0,0.3);border-radius:8px;font-size:15px;color:#7b8ca3}
+.decision-option.chosen{background:rgba(0,229,255,0.15);border:1px solid #00e5ff;color:#00e5ff;font-weight:600}
+.decision-option.chosen::before{content:'✦ '}
+.section-divider{text-align:center;padding:30px 0;font-size:14px;color:#3a4f63;letter-spacing:6px}
+.section-divider::before,.section-divider::after{content:'───';margin:0 12px}
+.ending{text-align:center;padding:40px 20px;background:linear-gradient(180deg,#0a0a12,#1a0a1a)}
+.ending h2{color:#ff6b9d;font-size:22px;margin-bottom:12px;text-shadow:0 0 15px rgba(255,107,157,0.3)}
+.ending p{color:#7b8ca3;font-size:15px;letter-spacing:1px}
+@keyframes pulse{0%,100%{box-shadow:0 0 5px rgba(0,229,255,0.2)}50%{box-shadow:0 0 20px rgba(0,229,255,0.4)}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>代码暗战</h1>
+  <div class="subtitle">第二章 · 社工渗透</div>
+  <div class="chapter-info">系列：V5原创长篇 ｜ 上回：幽灵上线 ｜ 44帧</div>
+</div>
+
+<div class="comic-container">
+
+<!-- ===== 开场：暗流涌动 ===== -->
+<div class="section-divider">暗 流 涌 动</div>
+
+<div class="panel"><img src="panel-01.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">上一章制造的假线索暂时骗过了天网的追踪，但我知道，时间有限。</span><br><span class="inner">（必须找到更直接的突破口……从内部）</span></div>
+
+<div class="panel"><img src="panel-02.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="xiaoyu">🐱 小鱼："天网核心数据部——三层权限隔离。外部渗透成功率2.3%。老板，不如去买彩票，概率差不多。"</span></div>
+
+<div class="panel"><img src="panel-03.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">站在窗前看着深圳的天际线，晨光从东面铺过来。我脑子里飞速转动着——天网下周在深圳有一场AI行业峰会，陈天明会亲自出席。</span><br><span class="inner">（如果能近距离接触……社工是唯一的路）</span></div>
+
+<div class="panel"><img src="panel-04.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">我在笔记本上打开峰会报名页面。参展商通道——正大光明地走进去。</span></div>
+
+<!-- DECISION-1 -->
+<div class="decision-point">
+  <h3>⚡ 决策点 D-4</h3>
+  <p style="color:#c8d6e5;font-size:14px;margin-bottom:10px">天网峰会需要邀请函。怎么进？</p>
+  <div class="decision-option">A：用黑客手段伪造邀请函（快但留数字痕迹）</div>
+  <div class="decision-option">B：找投资人朋友帮忙搞到正规邀请（慢但安全）</div>
+  <div class="decision-option chosen">C：直接让公司申请参展商身份——正大光明来，霹雳手段暗中用</div>
+</div>
+
+<div class="panel"><img src="panel-05.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="xiaoyu">🐱 小鱼："老板，你这叫灯下黑还是艺高人胆大？成功率47%——但你上次创业路演成功率也差不多，还真成了。"</span></div>
+
+<div class="panel"><img src="panel-06.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">峰会当天。我穿着深灰西装走进深圳国际会展中心，巨大的全息投影横幅写着"AI行业峰会2026"。</span><br><span class="inner">（像所有CEO一样走进去。没人知道我口袋里揣着另一个身份。）</span></div>
+
+<div class="panel"><img src="panel-07.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">端着咖啡扫视全场，黑客直觉系统自动激活——锁定目标。</span><br><span class="inner">（天网安全主管——李昊。社交媒体显示他最近被降职。有怨气的人，最容易成为突破口。）</span></div>
+
+<div class="panel"><img src="panel-08.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">李昊独自站在展台边，眼下有明显的黑眼圈，胸牌上"天网科技 安全部"几个字被他不自觉地用手遮了半边。</span></div>
+
+<!-- ===== 发展：峰会社工 ===== -->
+<div class="section-divider">峰 会 社 工</div>
+
+<div class="panel"><img src="panel-09.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="dialogue">"李总好，我是做AI安全的，听说贵司在零日漏洞防护方面做得不错？"</span><br><span class="narration">我端着酒杯主动搭话，语气随意得像在聊天气。</span></div>
+
+<div class="panel"><img src="panel-10.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="xiaoyu">🐱 小鱼（耳机提示）："他左手无名指有戒指印痕——刚离婚。情绪波动期，社工成功率+23%。"</span><br><span class="inner">（我选择忽略这条信息。不靠别人的伤口。）</span></div>
+
+<div class="panel"><img src="panel-11.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">人群忽然微微让开了一条路。陈天明带着两个保镖走过来，金丝眼镜在灯光下反着冷光。他朝全场露出标准的商业微笑——但那双眼睛在搜索什么。</span></div>
+
+<div class="panel"><img src="panel-12.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="dialogue">陈天明："朱总，久仰。听说你们公司在AI安全方面做得不错？"</span><br><span class="inner">（他主动来了。黑客直觉系统全红——⚠ 危险等级：极高。他在试探。）</span></div>
+
+<div class="panel"><img src="panel-13.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">两只手握在一起。他的手很凉，力道精准——既不示弱也不逼人。</span><br><span class="inner">（微表情分析：对方在试探。心率72——他很平静。这人比我想象的难对付。）</span></div>
+
+<div class="panel"><img src="panel-14.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="dialogue">"陈总谬赞了，小公司做点微创新而已。"</span><br><span class="narration">我笑得温和谦逊，双手插进口袋——掩盖微微发汗的手心。</span></div>
+
+<div class="panel"><img src="panel-15.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="dialogue">陈天明："现在做安全的人越来越多了。有些人啊……打着安全的旗号，做着不安全的事。"</span><br><span class="narration">他说得很轻，但每个字都像在试探水温。</span></div>
+
+<div class="panel"><img src="panel-16.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="inner">（他在暗示"幽灵"？还是随口一说？保持冷静，保持冷静……）</span><br><span class="narration">我保持着完美的微笑，但下颌不自觉地绷紧了一毫米。</span></div>
+
+<div class="panel"><img src="panel-17.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="dialogue">陈天明："朱总今晚有空吗？我在酒店安排了个小型晚宴，都是圈内朋友。"</span></div>
+
+<!-- DECISION-2 -->
+<div class="decision-point">
+  <h3>⚡ 决策点 D-5</h3>
+  <p style="color:#c8d6e5;font-size:14px;margin-bottom:10px">陈天明邀请参加峰会后的私人晚宴——明知可能是陷阱。</p>
+  <div class="decision-option">A：婉拒（安全但失去近距离情报机会）</div>
+  <div class="decision-option chosen">B：接受——好奇心和正义感压过了安全考量</div>
+</div>
+
+<div class="panel"><img src="panel-18.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">走在酒店走廊里，我松开了西装扣子。呼吸比平时快了半拍。</span><br><span class="inner">（知道是虎穴还要进——我这算勇敢还是蠢？）</span></div>
+
+<div class="panel"><img src="panel-19.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="xiaoyu">🐱 小鱼（飘在身边）："老板，保险受益人改好了没？我帮你查了，最近更新日期还是三年前。"</span><br><span class="narration">我没忍住笑了一下。这破AI什么时候变成保险推销员了。</span></div>
+
+<div class="panel"><img src="panel-20.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">转过走廊拐角——差点撞到一个人。短发女生，格子衬衫，双肩包，手里的文件散了一地。</span><br><span class="dialogue">"啊！对不起对不起！"</span></div>
+
+<!-- ===== 高潮：苏小棠登场 ===== -->
+<div class="section-divider">苏 小 棠 登 场</div>
+
+<div class="panel"><img src="panel-21.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">她低头帮我捡文件时，看到了我的参会胸牌——公司名。眼睛突然亮了。</span><br><span class="dialogue">苏小棠："你……你是那个做AI安全的？我在暗网安全论坛上看过你发的零日漏洞分析！"</span></div>
+
+<div class="panel"><img src="panel-22.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">她叫苏小棠，天网前安全研究员。三个月前辞职——因为她发现了天网的数据交易链条，但举报无门。</span><br><span class="dialogue">苏小棠："内部合规部门和他们是一伙的。我一个人根本没有办法……"</span><br><span class="narration">她说话的时候双手不停在绞着背包带子。社恐但拼命想说出来。</span></div>
+
+<div class="panel"><img src="panel-23.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">她从口袋里掏出一个黑色U盘，指甲大小，带着一个红色指示灯。</span><br><span class="dialogue">苏小棠："天网数据交易的部分日志。但加密了，我没有密钥。"</span><br><span class="xiaoyu">🐱 小鱼（扫描）："加密等级：AES-256。需要密钥解密。数据类型：交易日志。"</span></div>
+
+<div class="panel"><img src="panel-24.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">她紧张得手抖，U盘差点掉了。我下意识一伸手——两个人的手指碰在一起，U盘夹在中间。</span><br><span class="xiaoyu">🐱 小鱼："社恐指数：爆表。建议：说话慢一点，少用技术术语。"</span><br><span class="inner">（你一个AI有什么资格教我社交？）</span></div>
+
+<div class="panel"><img src="panel-25.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">苏小棠突然抓住我的袖子，回头看了看空荡的走廊。</span><br><span class="dialogue">苏小棠（压低声音）："有人在跟踪我。从我辞职那天起。"</span></div>
+
+<!-- DECISION-3 -->
+<div class="decision-point">
+  <h3>⚡ 决策点 D-6</h3>
+  <p style="color:#c8d6e5;font-size:14px;margin-bottom:10px">苏小棠递来关键U盘，但她说有人跟踪她。</p>
+  <div class="decision-option">A：拿U盘回去慢慢破解（安全但她可能有危险）</div>
+  <div class="decision-option">B：先帮她确认安全再合作（义气但延误时间）</div>
+  <div class="decision-option chosen">C：拿U盘同时邀请她加入——不能丢下可能有危险的盟友</div>
+</div>
+
+<div class="panel"><img src="panel-26.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">三个选项在脑海中闪过。但其实没什么好犹豫的——我做不到拿了东西就走，把一个可能有危险的人丢在身后。</span></div>
+
+<div class="panel"><img src="panel-27.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="dialogue">"跟我走。从现在起你是我公司的人。"</span><br><span class="narration">我把手放在她肩上。她抬头看我的时候，眼睛里有一种很久没见过的东西——希望。</span><br><span class="xiaoyu">🐱 小鱼："恭喜老板，创业公司又加人了。从一个AI到两个人类+一个AI。P/E ratio直接翻倍。"</span></div>
+
+<!-- ===== 晚宴暗战 ===== -->
+<div class="section-divider">晚 宴 暗 战</div>
+
+<div class="panel"><img src="panel-28.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">晚宴。水晶灯、白桌布、红酒杯。陈天明坐在主位侃侃而谈AI行业的未来。我坐在对面，一边切牛排一边偷偷把手机放在桌布下面。</span></div>
+
+<div class="panel"><img src="panel-29.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="xiaoyu">🐱 小鱼（手机屏幕上）："正在扫描陈天明手机……进度：43%。你吃慢点，我需要时间。"</span><br><span class="inner">（拜托，我切牛排的速度已经够慢了，再慢就显得奇怪了。）</span></div>
+
+<div class="panel"><img src="panel-30.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="dialogue">陈天明（举杯）："各位，AI是下一个时代的基础设施。但有些人——"</span><br><span class="narration">他的目光若有若无地扫过我，"——以安全为名，实际上在阻碍创新。"</span><br><span class="inner">（他在指桑骂槐。我微笑举杯回应。一触即发。）</span></div>
+
+<div class="panel"><img src="panel-31.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="xiaoyu">🐱 小鱼："发现加密通讯软件！安全证书匹配度：97.3%——与天网数据交易服务器用的同一证书！传输进度67%……"</span><br><span class="inner">（找到了。铁证。继续传……）</span></div>
+
+<div class="panel"><img src="panel-32.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">手机屏幕突然变红。</span><br><span class="xiaoyu">🐱 小鱼："⚠ 紧急！有人在反向扫描我们！传输进度97%——"</span><br><span class="inner">（——！）</span></div>
+
+<!-- ===== 被猎的猎人 ===== -->
+<div class="section-divider">被 猎 的 猎 人</div>
+
+<div class="panel"><img src="panel-33.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">我放下餐巾，保持微笑站起来。</span><br><span class="dialogue">"各位失陪，去洗手间。"</span><br><span class="narration">离开桌子的瞬间，我感觉到陈天明的目光像根针一样扎在后背上。</span></div>
+
+<div class="panel"><img src="panel-34.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">走出宴会厅的那一刻我几乎是在小跑。走廊从暖金色变成冷蓝色，像是从安全区一步踏进了战场。</span></div>
+
+<div class="panel"><img src="panel-35.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="xiaoyu">🐱 小鱼（全身毛炸开）："反向扫描技术签名分析完毕——匹配结果：与追踪'幽灵'的黑客……是同一个人！他就在这栋楼里！"</span></div>
+
+<div class="panel"><img src="panel-36.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">我背靠墙壁，感觉腿有点软。</span><br><span class="inner">（天网有一个顶尖黑客，专门猎杀"幽灵"。而他此刻——就在这栋楼里。和我呼吸着同一栋楼的空气。）</span></div>
+
+<div class="panel"><img src="panel-37.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">我转身看向宴会厅方向。透过玻璃门——陈天明隔着整个大厅对我举杯微笑。</span><br><span class="inner">（他知道。他一直知道。）</span></div>
+
+<div class="panel"><img src="panel-38.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">那个微笑像是在说：欢迎来到我的游戏。</span></div>
+
+<div class="panel"><img src="panel-39.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="xiaoyu">🐱 小鱼（一只爪指向出口，另一只爪指向宴会厅）："建议立即撤离。但是——U盘数据还没传完。人生嘛，总要做选择。"</span><br><span class="inner">（你倒挺会选时候当哲学家的。）</span></div>
+
+<div class="panel"><img src="panel-40.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">我直了直腰，理了理袖扣。深呼吸。</span><br><span class="inner">（怕？当然怕。但是——"幽灵"不是一个会逃跑的名字。）</span></div>
+
+<div class="panel"><img src="panel-41.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">我转身走回宴会厅方向。身后是冰冷的蓝色走廊，前方是温暖的金色灯光。数据流像披风一样跟在身后。</span><br><span class="inner">（猎人还是猎物？那得看谁先出招。）</span></div>
+
+<div class="panel"><img src="panel-42.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">走廊尽头的监控摄像头，红灯闪了一下。</span><br><span class="xiaoyu">🐱 小鱼："检测到面部识别扫描——目标：你。"</span></div>
+
+<!-- ===== 悬念结尾 ===== -->
+<div class="section-divider">猎 人 还 是 猎 物</div>
+
+<div class="panel"><img src="panel-43.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="narration">走廊分岔口。左边是温暖的金色宴会厅，右边是幽暗的蓝色长廊和闪烁的红色摄像头。</span><br><span class="inner">（两条路，每一条都通向未知。但我已经做了选择——）</span></div>
+
+<div class="panel"><img src="panel-44.jpg" loading="lazy" alt=""></div>
+<div class="panel-text"><span class="inner">（——这场游戏，才刚刚开始。）</span></div>
+
+</div><!-- /comic-container -->
+
+<div class="ending">
+  <h2>第二章 · 完</h2>
+  <p>第三章：暗网追踪 · 即将揭晓</p>
+  <p style="margin-top:20px;font-size:13px;color:#3a4f63">《代码暗战》V5原创长篇 ｜ EXP-609</p>
+</div>
+
+<script>
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.15});
+document.querySelectorAll('.panel').forEach(p=>observer.observe(p));
+</script>
+</body>
+</html>
