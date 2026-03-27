@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码之眼 · 第二章：试探</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a1a 0%,#0d1b2a 50%,#0a0a1a 100%);position:relative;overflow:hidden;padding:20px}
+.cover::before{content:'';position:absolute;width:200%;height:200%;background:repeating-linear-gradient(90deg,transparent,transparent 49.5%,rgba(0,180,255,0.03) 49.5%,rgba(0,180,255,0.03) 50.5%,transparent 50.5%);animation:scan 8s linear infinite}
+@keyframes scan{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.cover h1{font-size:clamp(32px,8vw,48px);color:#00b4ff;text-shadow:0 0 30px rgba(0,180,255,0.5),0 0 60px rgba(0,180,255,0.2);letter-spacing:8px;z-index:1;margin-bottom:12px}
+.cover .subtitle{font-size:clamp(18px,4vw,24px);color:#ff4444;letter-spacing:4px;z-index:1;opacity:0.9}
+.cover .chapter{font-size:14px;color:rgba(255,255,255,0.4);margin-top:20px;letter-spacing:2px;z-index:1}
+.cover .scroll-hint{position:absolute;bottom:30px;color:rgba(0,180,255,0.6);font-size:14px;animation:pulse 2s ease-in-out infinite;z-index:1}
+@keyframes pulse{0%,100%{opacity:0.4;transform:translateY(0)}50%{opacity:1;transform:translateY(-5px)}}
+.panel{width:100%;max-width:500px;margin:0 auto;padding:0 12px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:6px;display:block;margin:8px 0;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.panel .text{padding:12px 16px;font-size:18px;line-height:1.8;margin-bottom:16px}
+.panel .narration{color:#b0c4de;font-style:italic;border-left:3px solid rgba(0,180,255,0.4);padding-left:12px;margin:8px 0}
+.panel .dialogue{color:#ffffff;font-weight:500;margin:8px 0}
+.panel .dialogue .speaker{color:#00b4ff;font-size:14px;margin-bottom:2px}
+.panel .inner-thought{color:#ff9944;font-style:italic;opacity:0.9;margin:8px 0;padding-left:12px;border-left:3px solid rgba(255,153,68,0.4)}
+.panel .comedy{color:#66ff66;margin:8px 0;padding:8px 12px;background:rgba(102,255,102,0.05);border-radius:6px}
+.panel .decision{background:linear-gradient(135deg,rgba(255,68,68,0.1),rgba(0,180,255,0.1));border:1px solid rgba(255,68,68,0.3);border-radius:8px;padding:12px 16px;margin:12px 0}
+.panel .decision .label{color:#ff4444;font-size:13px;font-weight:700;letter-spacing:2px;margin-bottom:6px}
+.panel .decision .choice{color:#ffffff;font-size:16px}
+.section-break{text-align:center;padding:40px 0;color:rgba(0,180,255,0.3);font-size:24px;letter-spacing:16px}
+.cliffhanger{background:linear-gradient(180deg,transparent,rgba(255,68,68,0.05),transparent);padding:40px 20px;text-align:center;margin-top:20px}
+.cliffhanger .text{font-size:20px;color:#ff4444;line-height:2;letter-spacing:1px}
+.cliffhanger .tbc{font-size:14px;color:rgba(255,255,255,0.3);margin-top:24px;letter-spacing:8px}
+.recap{max-width:500px;margin:0 auto;padding:20px 24px;background:rgba(0,180,255,0.03);border-left:3px solid rgba(0,180,255,0.3);margin-bottom:20px}
+.recap h3{color:#00b4ff;font-size:14px;letter-spacing:2px;margin-bottom:8px}
+.recap p{color:rgba(255,255,255,0.5);font-size:14px;line-height:1.6}
+footer{text-align:center;padding:40px 20px;color:rgba(255,255,255,0.2);font-size:12px}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>代码之眼</h1>
+  <div class="subtitle">第二章 · 试探</div>
+  <div class="chapter">原创 · V5互动分镜剧本</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- 前情提要 -->
+<div class="recap">
+  <h3>📖 前情提要</h3>
+  <p>深夜服务器危机中，我的双眼突然能看见代码——浮在空气中的数据流、系统的脆弱节点。我靠这种能力拯救了服务器，却也发现了一个巨大的未知数据漩涡。那个漩涡的代号是"X"……</p>
+</div>
+
+<!-- ===== 场景一：便利店 ===== -->
+
+<div class="panel">
+  <img src="images/panel-01.jpg" loading="eager" alt="">
+  <div class="text">
+    <div class="narration">早上七点半，我拖着昨晚加班的疲惫身体走进楼下便利店。脑子还在想昨晚看到的数据漩涡。</div>
+    <div class="inner-thought">咖啡……我需要咖啡……还有一个三明治……</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-02.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">结账的时候，它又来了。没有任何征兆，眼前的收银机突然被一层淡蓝色的代码流覆盖——价格计算模块、库存接口、支付网关的调用链，全都清清楚楚。</div>
+    <div class="inner-thought">等等……这个金额不对。系统多收了0.3元。是个四舍五入的bug。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-03.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="dialogue"><span class="speaker">我</span>这个……你们系统好像有个bug，多收了三毛钱。</div>
+    <div class="narration">收银员大姐一脸茫然地看着我。</div>
+    <div class="dialogue"><span class="speaker">收银员</span>啊？不会吧，机器自动算的啊。</div>
+    <div class="inner-thought">代码有bug不修你能忍？……等等，我现在是顾客，不是运维。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-04.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我掏出手机给老陈发了条消息，忍不住吐槽。</div>
+    <div class="dialogue"><span class="speaker">老陈（微信）</span>你一个CEO为了三毛钱较真？朱总，格局。</div>
+    <div class="dialogue"><span class="speaker">我（微信）</span>这不是钱的问题！这是代码洁癖！</div>
+    <div class="comedy">老陈秒回了一个白眼emoji。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-05.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">走出便利店，早晨的阳光打在脸上。空气中隐约飘着淡蓝色的数据微粒——或者说，只有我能看到的数据微粒。</div>
+    <div class="inner-thought">昨晚的那个能力……看来不是一次性的。</div>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- ===== 场景二：地铁 ===== -->
+
+<div class="panel">
+  <img src="images/panel-06.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">早高峰的地铁，人挤人。我抓着吊环，努力让自己像个正常的上班族。但代码视觉不听话——周围每个人手机里的数据流，像烟雾一样飘在空中。</div>
+    <div class="inner-thought">外卖订单……股票亏了3.2%……拼多多砍一刀……我看到的都是些什么啊。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-07.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">对面一个四十多岁的大叔，西装革履，表情严肃。但他手机上浮出的数据流……</div>
+    <div class="comedy">「男人四十如何保持精力——十大养生秘诀」</div>
+    <div class="inner-thought">噗——大叔，你的严肃人设崩了啊。</div>
+    <div class="narration">我拼命忍笑，肩膀都在抖。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-08.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">不行，我必须关掉这个能力。闭眼——集中注意力——想象一个开关——"关"！</div>
+    <div class="inner-thought">关！给我关掉！</div>
+    <div class="narration">眼皮后面，淡蓝色的光芒顽强地渗出来。像打嗝一样，越想控制越停不下来。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-09.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">接下来的三站，我进入了一种荒诞的循环：</div>
+    <div class="comedy">闭眼→安静两秒→"噗"代码视觉弹回来→赶紧闭眼→又安静两秒→又弹回来……</div>
+    <div class="inner-thought">开！关！又开了！这什么破系统，连个优雅关闭都没有？！</div>
+    <div class="narration">旁边的阿姨已经在用关爱智障的眼神看我了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-10.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">终于到站了。我几乎是逃出地铁的。阳光洒在出站口的台阶上，代码微粒终于安分了一些，变成了背景噪音般的存在。</div>
+    <div class="inner-thought">我需要搞清楚这东西的开关在哪……不然迟早要社死。</div>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- ===== 场景三：咖啡厅 ===== -->
+
+<div class="panel">
+  <img src="images/panel-11.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">十点钟，我在公司附近的咖啡厅坐下。拿铁的温度刚好，阳光穿过落地窗，照在木桌上。终于可以安静一会儿了。</div>
+    <div class="inner-thought">正常人的正常早晨。没有代码。没有bug。只有咖啡。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-12.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">然后我看到了她。</div>
+    <div class="narration">角落里坐着一个穿黑色职业套装的女人，马尾扎得一丝不苟，正在笔记本电脑上快速打字。我之前见过她——上周的行业峰会上，她是马东的助理。</div>
+    <div class="inner-thought">该死——眼睛又亮了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-13.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">代码视觉瞬间全开。从她的笔记本和手机里涌出的数据流中，我看到了加密传输的文件——大部分是乱码，但几个红色高亮的关键词像警报一样跳出来：</div>
+    <div class="dialogue" style="color:#ff4444;font-weight:700;text-align:center;font-size:20px">「Project X」「全民数据」「AI监控」</div>
+    <div class="inner-thought">什么……？！</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-14.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我的双手死死抓住桌沿。代码视觉全功率运转，试图穿透那层加密。太阳穴的血管突突跳动，像CPU超频时的温度飙升。</div>
+    <div class="inner-thought">再深一点……我快看到了……绝密-X计划……这到底是什么？</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-15.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">一股热流从鼻腔涌出。鲜血滴在白色杯碟上，代码视觉像碎裂的玻璃一样四散消失。</div>
+    <div class="inner-thought">操……过载了。</div>
+    <div class="narration">咖啡厅的服务员小跑过来，手里拿着一叠纸巾。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-16.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="dialogue"><span class="speaker">服务员</span>先生，您还好吗？加班太多了吧？</div>
+    <div class="narration">我接过纸巾，挤出一个苦笑，竖起大拇指。嘴角还有血迹。</div>
+    <div class="dialogue"><span class="speaker">我</span>没事没事，鼻子有点敏感……</div>
+    <div class="narration">余光一扫——角落里那个位子已经空了。黑色职业套装的女人不知道什么时候离开了。</div>
+    <div class="inner-thought">她走了……但那些关键词还烙在我脑子里。</div>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- ===== 场景四：公司，老陈起疑 ===== -->
+
+<div class="panel">
+  <img src="images/panel-17.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">回到公司，老陈正埋头在双屏前写代码。听到我进来，他转过头，镜片后面闪着审视的目光。</div>
+    <div class="dialogue"><span class="speaker">老陈</span>哟，朱总来了。鼻子怎么红红的？</div>
+    <div class="dialogue"><span class="speaker">我</span>花粉过敏。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-18.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">老陈抱着胳膊靠在椅背上，用那种"我知道你在说谎"的表情盯着我。</div>
+    <div class="dialogue"><span class="speaker">老陈</span>朱江，说认真的。你最近灵感也太准了吧？昨晚服务器那个bug，你一眼就看到了根因。前天数据库那个隐藏漏洞，你也是"直觉"找到的。</div>
+    <div class="inner-thought">来了……</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-19.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我站起来，挺胸抬头，手指朝天，摆出一个充满说服力的姿势：</div>
+    <div class="dialogue"><span class="speaker">我</span>这叫直觉！乔布斯也有直觉！</div>
+    <div class="narration">老陈面无表情地看了我三秒。</div>
+    <div class="dialogue"><span class="speaker">老陈</span>乔布斯的直觉是做出iPhone，你的直觉是知道服务器几点挂。</div>
+    <div class="comedy">全场最佳反击。我无言以对。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-20.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我趴在桌上，头顶仿佛飘着一朵乌云。</div>
+    <div class="inner-thought">好吧……"直觉"这个借口确实不太好使。但我总不能说"哥们儿，我眼睛能看见代码"吧？</div>
+    <div class="narration">身后传来老陈敲键盘的声音，夹杂着一声低笑。</div>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- ===== 场景五：深夜独自调查 ===== -->
+
+<div class="panel">
+  <img src="images/panel-21.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">晚上十一点。办公室里只剩我一个人。脱掉卫衣搭在椅背上，白T恤上还沾着中午的咖啡渍。面前三块屏幕的蓝光是唯一的光源。</div>
+    <div class="inner-thought">「Project X」「全民数据」「AI监控」……咖啡厅里看到的那些碎片，我必须搞清楚。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-22.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我深呼吸，主动激活了代码视觉。这次没有失控——它像一个稳定运行的程序一样启动了。屏幕上的网络拓扑图活了过来，三维全息投影般悬浮在空气中。红色节点在北京、上海、深圳、成都闪烁，被密密麻麻的数据线连接。</div>
+    <div class="inner-thought">这是一张网……覆盖了全国主要城市。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-23.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我凑近屏幕，代码视觉聚焦到极限。每一个红色节点的代码指纹都清清楚楚——它们接入的是公共WiFi热点，商场、地铁站、写字楼。每一个节点都在悄悄收集经过的手机数据。</div>
+    <div class="inner-thought">公共WiFi节点……AI监控网络……这是一个覆盖全国的数据采集系统。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-24.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我推开椅子站起来。整间办公室被全息代码流淹没——墙壁、天花板、地板，到处都是蓝色和红色交织的数据河流。一座数字化的城市在我头顶展开，壮观得像深渊。</div>
+    <div class="inner-thought">美丽……但也恐怖。</div>
+    <div class="narration">我就站在这座数字深渊的中心，渺小得像一粒尘埃。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-25.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">全息影像渐渐暗下来，但那些红色警告标识还在一闪一闪。我双手插进头发里，拉扯着。</div>
+    <div class="inner-thought">这东西……比我想象的要大得多。不是某个公司的小动作，是一个系统性的工程。而马东的公司……可能是核心节点之一。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-26.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我走到窗边。二十三楼的视野，整个城市的灯火铺展在脚下。那些灯光——商场的、写字楼的、地铁站的——在我眼中不再只是灯光。它们是数据节点。这座城市是一张巨大的网。</div>
+    <div class="inner-thought">我是唯一能看到这张网的人。这让我觉得……很孤独。</div>
+  </div>
+</div>
+
+<div class="section-break" style="color:rgba(255,68,68,0.3)">⚡ ⚡ ⚡</div>
+
+<!-- ===== 场景六：决策与悬念 ===== -->
+
+<div class="panel">
+  <img src="images/panel-27.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我靠着墙坐在地上，手机里是老陈的联系人页面。拇指悬在拨号键上方，悬了很久。</div>
+    <div class="inner-thought">老陈……我该告诉你吗？告诉你，你的合伙人眼睛能看见代码？告诉你，有一个覆盖全国的AI监控系统？你会信吗？还是觉得我疯了？</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-28.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="decision">
+      <div class="label">⚡ 决策点 [DECISION-3]</div>
+      <div class="choice">发现Project X疑似大规模AI监控系统，幕后可能是马东的公司。我必须做出选择。</div>
+    </div>
+    <div class="narration">我按下了拨号键。</div>
+    <div class="inner-thought">我不能一个人扛这个。老陈是我最信任的人——如果连他都不能说，那我就真的是一个人了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-29.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">电话接通的那一秒，我张嘴想说"老陈，我有事跟你说"——</div>
+    <div class="narration">手机屏幕突然变成了<strong style="color:#ff4444">血红色</strong>。</div>
+    <div class="narration">一行白色的字，静静地浮在红色背景上：</div>
+    <div class="dialogue" style="color:#ff4444;font-weight:700;text-align:center;font-size:22px;letter-spacing:4px;padding:16px 0">「我知道你能看到。」</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-30.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="narration">我整个人僵住了。手机贴在耳边，老陈的声音从听筒里传来——</div>
+    <div class="dialogue"><span class="speaker">老陈</span>喂？朱江？你在吗？</div>
+    <div class="narration">但我说不出话。</div>
+    <div class="narration">办公室里所有的全息代码——原本是蓝色的——全部变成了<strong style="color:#ff4444">血红色</strong>。像一只无形的眼睛，正在黑暗中注视着我。</div>
+    <div class="inner-thought">有人……知道我的能力。</div>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <div class="text">
+    那条血红色的消息没有发送者。<br>
+    没有IP地址。没有来源。<br>
+    仿佛它是从网络本身的意志中生长出来的。<br><br>
+    <strong>「我知道你能看到。」</strong><br><br>
+    那么……它也能看到我吗？
+  </div>
+  <div class="tbc">第二章 · 试探 — 完<br>未 完 待 续</div>
+</div>
+
+<footer>
+  代码之眼 · V5互动分镜剧本 · EXP-600<br>
+  <a href="../exp596-code-vision-ch1/" style="color:rgba(0,180,255,0.4);text-decoration:none">← 第一章：觉醒</a>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
