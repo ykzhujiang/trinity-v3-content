@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>代码暗战 · 第四章 商战假面</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.chapter-title{position:relative;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#0a0a1a 0%,#1a1a2e 50%,#16213e 100%);overflow:hidden}
+.chapter-title h1{font-size:2.8rem;font-weight:900;color:#fff;text-shadow:0 0 40px rgba(0,162,255,0.5);letter-spacing:0.3em;animation:glow 3s ease-in-out infinite alternate}
+.chapter-title h2{font-size:1.4rem;color:#7fb3d8;margin-top:1rem;font-weight:300;letter-spacing:0.5em}
+.chapter-title .series{font-size:0.9rem;color:#5a7a9a;margin-top:2rem;letter-spacing:0.3em}
+@keyframes glow{0%{text-shadow:0 0 20px rgba(0,162,255,0.3)}100%{text-shadow:0 0 60px rgba(0,162,255,0.7),0 0 120px rgba(0,100,255,0.3)}}
+
+.act-divider{padding:3rem 1.5rem;text-align:center;position:relative}
+.act-divider h3{font-size:1.6rem;color:#7fb3d8;font-weight:700;letter-spacing:0.2em}
+.act-divider .act-sub{font-size:0.9rem;color:#5a7a9a;margin-top:0.5rem}
+.act-divider::before,.act-divider::after{content:'';position:absolute;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,#2a4a6a,transparent)}
+.act-divider::before{top:0}
+.act-divider::after{bottom:0}
+
+.panel{position:relative;width:100%;margin:0 auto;max-width:480px}
+.panel img{width:100%;display:block;border-radius:0}
+.panel-text{padding:1rem 1.5rem 2rem;font-size:1.15rem;line-height:1.9;color:#d0d0d0}
+.panel-text .narration{color:#8ab4d8;font-style:italic;display:block;margin:0.5rem 0;padding-left:1rem;border-left:3px solid #2a5a8a}
+.panel-text .dialogue{color:#fff;font-weight:500;margin:0.4rem 0}
+.panel-text .dialogue .speaker{color:#f0a040;font-weight:700;margin-right:0.3rem}
+.panel-text .hud{background:rgba(0,100,200,0.15);border:1px solid rgba(0,150,255,0.3);border-radius:8px;padding:0.6rem 1rem;margin:0.8rem 0;font-family:'Courier New',monospace;font-size:0.95rem;color:#6ac0ff}
+.panel-text .fish{color:#4db8ff;font-size:0.95rem;margin:0.5rem 0;padding:0.4rem 0.8rem;background:rgba(0,100,200,0.1);border-radius:12px;display:inline-block}
+.panel-text .fish::before{content:'🐟 '}
+.panel-text .thought{color:#b8a0d0;font-style:italic;margin:0.5rem 0}
+.panel-text .decision{background:linear-gradient(135deg,rgba(255,160,0,0.1),rgba(255,80,0,0.05));border:1px solid rgba(255,160,0,0.4);border-radius:10px;padding:1rem;margin:1rem 0}
+.panel-text .decision .decision-tag{color:#f0a040;font-weight:700;font-size:0.85rem;letter-spacing:0.1em;margin-bottom:0.5rem}
+
+.cliffhanger{padding:3rem 1.5rem;text-align:center;background:linear-gradient(180deg,#0a0a1a,#000);min-height:30vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cliffhanger .next{font-size:1.3rem;color:#7fb3d8;font-weight:300;letter-spacing:0.3em;margin-top:2rem;animation:glow 3s ease-in-out infinite alternate}
+
+img{content-visibility:auto}
+</style>
+</head>
+<body>
+
+<div class="chapter-title">
+  <div class="series">V5 · 原创长篇</div>
+  <h1>代码暗战</h1>
+  <h2>第四章 · 商战假面</h2>
+</div>
+
+<!-- ACT 1: 白天·创业者的正常生活 -->
+<div class="act-divider" style="background:linear-gradient(180deg,#1a1a2e,#1a2030)">
+  <h3>☀️ 白天 · 创业者的正常生活</h3>
+  <div class="act-sub">Panel 1-12 · 明亮场景</div>
+</div>
+
+<!-- P1 -->
+<div class="panel">
+  <img src="images/p01.jpg" loading="eager" alt="清晨办公室">
+  <div class="panel-text">
+    <span class="narration">创业公司有两个世界。白天这个——融资、拉客户、开周会。还有另一个...但那是晚上的事。</span>
+  </div>
+</div>
+
+<!-- P2 -->
+<div class="panel">
+  <img src="images/p02.jpg" loading="eager" alt="周会">
+  <div class="panel-text">
+    <span class="narration">表面在开周会。小鱼在后台盯着天网的每一次数据流动。</span>
+    <div class="hud">监测中: 天网无异常活动 | 安全等级: 橙色</div>
+    <span class="fish">老板，你Q2目标写的"月活增长50%"，建议改成"活着就是胜利"，更符合实际。</span>
+  </div>
+</div>
+
+<!-- P3 -->
+<div class="panel">
+  <img src="images/p03.jpg" loading="lazy" alt="周总来电">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">周总:</span>"朱总！上次聊的合作，今天方便见一面不？我在南山这边。"</p>
+    <span class="narration">周总是我们最大的企业客户。丢不起。</span>
+  </div>
+</div>
+
+<!-- P4 -->
+<div class="panel">
+  <img src="images/p04.jpg" loading="lazy" alt="客户拜访">
+</div>
+
+<!-- P5 -->
+<div class="panel">
+  <img src="images/p05.jpg" loading="lazy" alt="商战">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">周总:</span>"朱总，我直说啊——天网那边也在找我们合作。价格比你们低30%。你怎么看？"</p>
+    <div class="hud">周总心率略升，微表情显示: 他在试探，但倾向选你</div>
+    <div class="decision">
+      <div class="decision-tag">⚡ 决策-10 · 大胆</div>
+      <p class="dialogue"><span class="speaker">我:</span>"周总，我给你看个东西。"</p>
+      <p>掏出平板，展示数据对比——"这是天网的API调用日志分析。他们的系统每次推荐，都会悄悄采集你用户的浏览偏好。免费的东西，代价最大。"</p>
+    </div>
+    <span class="fish">老板给客户看对手黑料，商战教科书第一课: 不要脸。第二课: 脸皮够厚。</span>
+  </div>
+</div>
+
+<!-- P6 -->
+<div class="panel">
+  <img src="images/p06.jpg" loading="lazy" alt="周总表情">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">周总:</span>"你是说...天网在偷数据？"</p>
+    <p class="dialogue"><span class="speaker">我:</span>"我是说，您可以自己查。这是公开信息的分析。"</p>
+    <span class="thought">我没有说谎。但我知道的，比公开信息多得多。</span>
+  </div>
+</div>
+
+<!-- P7 -->
+<div class="panel">
+  <img src="images/p07.jpg" loading="lazy" alt="科技园步行道">
+</div>
+
+<!-- P8 -->
+<div class="panel">
+  <img src="images/p08.jpg" loading="lazy" alt="拿下客户">
+  <div class="panel-text">
+    <div class="hud">商战任务完成 | 客户留存率+1 | 警告: 你刚才的操作有23%概率被天网知道</div>
+    <span class="fish">恭喜老板拿下客户。坏消息: 你现在的敌人列表比客户列表还长。</span>
+  </div>
+</div>
+
+<!-- P9 -->
+<div class="panel">
+  <img src="images/p09.jpg" loading="lazy" alt="苏小棠等候">
+</div>
+
+<!-- P10 -->
+<div class="panel">
+  <img src="images/p10.jpg" loading="lazy" alt="新发现">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">苏小棠:</span>（小声）"有新发现。U盘里的日志——不只是数据交易。天网在和一个代号叫'暗影'的组织做技术交换。"</p>
+    <span class="thought">暗影。那个黑客猎手背后的组织？</span>
+  </div>
+</div>
+
+<!-- P11 -->
+<div class="panel">
+  <img src="images/p11.jpg" loading="lazy" alt="加密通讯记录">
+</div>
+
+<!-- P12 -->
+<div class="panel">
+  <img src="images/p12.jpg" loading="lazy" alt="暗影组织">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">苏小棠:</span>"这个组织...好像不是天网的人。他们和天网是交易关系——暗影提供'猎人'级黑客服务，天网提供数据访问权限。"</p>
+    <div class="hud">暗影组织画像: 境外雇佣黑客团伙 | 已知成员: 0 | 威胁等级: 极高</div>
+    <div class="decision">
+      <div class="decision-tag">🔒 决策-11 · 审慎</div>
+      <p class="dialogue"><span class="speaker">我:</span>"先不动。继续解密U盘。但从现在开始，我们的行动要假设暗影在看着。"</p>
+    </div>
+  </div>
+</div>
+
+<!-- ACT 2: 黄昏·商战暗流 -->
+<div class="act-divider" style="background:linear-gradient(180deg,#1a2030,#1a1525)">
+  <h3>🌅 黄昏 · 商战暗流</h3>
+  <div class="act-sub">Panel 13-22 · 暖→冷过渡</div>
+</div>
+
+<!-- P13 -->
+<div class="panel">
+  <img src="images/p13.jpg" loading="lazy" alt="陈天明邮件">
+  <div class="panel-text">
+    <span class="narration">"朱江先生，'星火计划'AI创新论坛邀请您作为演讲嘉宾。主题: 'AI安全的未来'。陈天明 敬邀。"</span>
+    <span class="thought">他邀请我讲"AI安全"。这是巧合还是试探？</span>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="panel">
+  <img src="images/p14.jpg" loading="lazy" alt="窗外黄昏">
+  <div class="panel-text">
+    <div class="hud">陈天明的邮件发送时间 = 你离开周总咖啡厅后47分钟。巧合概率: 8.3%</div>
+    <span class="thought">47分钟。他知道了。</span>
+  </div>
+</div>
+
+<!-- P15 -->
+<div class="panel">
+  <img src="images/p15.jpg" loading="lazy" alt="要去吗">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">苏小棠:</span>"要去吗？"</p>
+    <p class="dialogue"><span class="speaker">我:</span>"不去才更可疑。"</p>
+    <div class="decision">
+      <div class="decision-tag">⚡ 决策-12 · 大胆</div>
+      <p>参加论坛——但不是去演讲。是去当面观察陈天明。明知是试探，依然走进虎穴。</p>
+    </div>
+    <span class="fish">老板你的勇气值又爆表了。上一次爆表是在投资人面前说"我们还能再活两年"。</span>
+  </div>
+</div>
+
+<!-- P16 -->
+<div class="panel">
+  <img src="images/p16.jpg" loading="lazy" alt="论坛全景">
+</div>
+
+<!-- P17 -->
+<div class="panel">
+  <img src="images/p17.jpg" loading="lazy" alt="陈天明演讲">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">陈天明:</span>"AI安全不是限制创新，而是让创新值得信赖。"</p>
+    <span class="thought">台上这个人，正在用"安全"的旗号做最不安全的事。而且...他说得比我PPT好。创业真是地狱模式。</span>
+  </div>
+</div>
+
+<!-- P18 -->
+<div class="panel">
+  <img src="images/p18.jpg" loading="lazy" alt="初次见面">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">陈天明:</span>"朱总，第一次线下见面。久仰。"</p>
+    <p class="dialogue"><span class="speaker">我:</span>"陈总，你的演讲...很有说服力。"</p>
+    <div class="hud">心率: 72→78 | 陈天明瞳孔微扩: 他在读你 | 你也在读他 | 双向社工启动</div>
+  </div>
+</div>
+
+<!-- P19 -->
+<div class="panel">
+  <img src="images/p19.jpg" loading="lazy" alt="茶歇交锋">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">陈天明:</span>"听说朱总最近拿下了几个大客户？深圳圈子不大，消息传得快。"</p>
+    <p class="dialogue"><span class="speaker">我:</span>"创业嘛，能活着就不错。"</p>
+    <span class="thought">他在试探我。我在试探他。两个人都在笑，两个人心里都在算。</span>
+    <span class="fish">两位CEO微笑对视的场面，表面是商务交流，本质是人形防火墙互相渗透测试。</span>
+  </div>
+</div>
+
+<!-- P20 -->
+<div class="panel">
+  <img src="images/p20.jpg" loading="lazy" alt="咖啡杯特写">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">陈天明:</span>"对了，朱总对网络安全有研究吗？最近我们遇到了一些...有趣的入侵尝试。"</p>
+    <p class="dialogue"><span class="speaker">我:</span>"噢？什么样的入侵？"</p>
+    <p class="dialogue"><span class="speaker">陈天明:</span>"一个老朋友的风格。技术圈叫他...幽灵。"</p>
+    <span class="thought">他说了那个名字。在我面前。</span>
+  </div>
+</div>
+
+<!-- P21 -->
+<div class="panel">
+  <img src="images/p21.jpg" loading="lazy" alt="冰冷冷静">
+  <div class="panel-text">
+    <div class="hud">⚠️ 红色警报: 他在钓鱼 | 你的心率96 | 他在观察你的反应 | 建议: 好奇而非回避</div>
+  </div>
+</div>
+
+<!-- P22 -->
+<div class="panel">
+  <img src="images/p22.jpg" loading="lazy" alt="擦肩而过">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">我:</span>"幽灵？听起来像电影。你们报警了吗？"</p>
+    <p class="dialogue"><span class="speaker">陈天明:</span>（凝视两秒后笑了）"没那么严重。就是...怀旧罢了。"</p>
+    <p>他转身离开，路过我身边时低声——</p>
+    <p class="dialogue"><span class="speaker">陈天明:</span>"朱总，有机会来天网做客。"</p>
+    <span class="thought">他知道。他不确定。但他在缩小范围。</span>
+  </div>
+</div>
+
+<!-- ACT 3: 夜间·反击布局 -->
+<div class="act-divider" style="background:linear-gradient(180deg,#1a1525,#0a0a18)">
+  <h3>🌙 夜间 · 反击布局</h3>
+  <div class="act-sub">Panel 23-35 · 攻防高潮</div>
+</div>
+
+<!-- P23 -->
+<div class="panel">
+  <img src="images/p23.jpg" loading="lazy" alt="夜间工作">
+  <div class="panel-text">
+    <span class="narration">白天的戏演完了。现在是真正工作的时间。</span>
+  </div>
+</div>
+
+<!-- P24 -->
+<div class="panel">
+  <img src="images/p24.jpg" loading="lazy" alt="战术复盘">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">苏小棠:</span>"陈天明当面提'幽灵'，有两种可能: 他确定是你在试压，或者他不确定在钓鱼。"</p>
+    <p class="dialogue"><span class="speaker">我:</span>"第三种可能——他想让我知道他知道。心理战。"</p>
+  </div>
+</div>
+
+<!-- P25 -->
+<div class="panel">
+  <img src="images/p25.jpg" loading="lazy" alt="小鱼分析">
+  <div class="panel-text">
+    <div class="hud">综合判断: 陈天明知道有人在入侵(100%) | 知道是幽灵(90%) | 知道幽灵=朱江(45%)</div>
+    <span class="fish">要不要我注册一个微博账号叫"真正的幽灵"发一些低级黑客攻击？</span>
+    <p class="dialogue"><span class="speaker">苏小棠:</span>"...你这是帮忙还是添乱？"</p>
+    <span class="fish">在创业公司，这两者没有区别。</span>
+  </div>
+</div>
+
+<!-- P26 -->
+<div class="panel">
+  <img src="images/p26.jpg" loading="lazy" alt="蜜罐部署">
+  <div class="panel-text">
+    <span class="narration">不是入侵天网。是加固自己的防线。因为陈天明随时可能反击。</span>
+  </div>
+</div>
+
+<!-- P27 -->
+<div class="panel">
+  <img src="images/p27.jpg" loading="lazy" alt="凌晨对话">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">苏小棠:</span>（递来速溶咖啡）"你从什么时候开始...做这些的？"</p>
+    <p class="dialogue"><span class="speaker">我:</span>"大学。那时候叫好奇心。现在叫...使命感？"</p>
+  </div>
+</div>
+
+<!-- P28 -->
+<div class="panel">
+  <img src="images/p28.jpg" loading="lazy" alt="大卫与歌利亚">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">苏小棠:</span>"你不怕吗？天网市值千亿。你公司估值...几个亿？"</p>
+    <p class="dialogue"><span class="speaker">我:</span>"大卫打败歌利亚不是靠体格。是靠...选择战场。"</p>
+    <span class="fish">以及一块石头。老板你有石头吗？</span>
+    <p class="dialogue"><span class="speaker">我:</span>"我有你。"</p>
+    <span class="fish">......这是夸奖还是说我像石头？</span>
+    <span class="thought">她看着我的眼神...好像第一次认识我。也许吧。白天的朱江和夜晚的幽灵，确实是两个人。</span>
+  </div>
+</div>
+
+<!-- P29 -->
+<div class="panel">
+  <img src="images/p29.jpg" loading="lazy" alt="入侵警报">
+  <div class="panel-text">
+    <div class="hud" style="border-color:rgba(255,50,50,0.5);background:rgba(200,0,0,0.15);color:#ff6666">⛔ 入侵检测！蜜罐触发！有人正在渗透公司服务器！</div>
+  </div>
+</div>
+
+<!-- P30 -->
+<div class="panel">
+  <img src="images/p30.jpg" loading="lazy" alt="攻防可视化">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">我:</span>"不是天网的风格...这个攻击手法——直接、暴力、不在乎被发现。"</p>
+    <p class="dialogue"><span class="speaker">苏小棠:</span>"暗影！"</p>
+  </div>
+</div>
+
+<!-- P31 -->
+<div class="panel">
+  <img src="images/p31.jpg" loading="lazy" alt="猎手来了">
+  <div class="panel-text">
+    <div class="hud" style="border-color:rgba(255,50,50,0.5);background:rgba(200,0,0,0.15);color:#ff6666">攻击源: 多重代理 | 技术签名匹配: 猎手 | 目标: 不是数据——是在定位你的物理位置</div>
+    <span class="thought">他不是来偷东西的。是来找我的。</span>
+    <div class="decision">
+      <div class="decision-tag">⚡ 决策-13 · 大胆+有计算</div>
+      <p class="dialogue"><span class="speaker">我:</span>"小棠，帮我稳住防线。小鱼，准备反向追踪。"</p>
+      <p class="dialogue"><span class="speaker">苏小棠:</span>"你疯了？对方是专业猎人——"</p>
+      <p class="dialogue"><span class="speaker">我:</span>"猎人追猎物的时候，是他最暴露的时候。"</p>
+    </div>
+  </div>
+</div>
+
+<!-- P32 -->
+<div class="panel">
+  <img src="images/p32.jpg" loading="lazy" alt="攻防高潮">
+  <div class="panel-text">
+    <div class="hud">反向追踪进度: 47%... 62%... 78%...</div>
+  </div>
+</div>
+
+<!-- P33 -->
+<div class="panel">
+  <img src="images/p33.jpg" loading="lazy" alt="追踪中断">
+  <div class="panel-text">
+    <div class="hud">追踪中断——对方断开了！但我们抓到了一个碎片: 最后一跳节点在...香港</div>
+    <p class="dialogue"><span class="speaker">苏小棠:</span>"不算失败。至少我们知道了——暗影基地在香港。"</p>
+    <span class="fish">好消息: 查到了位置。坏消息: 香港房价比深圳还贵，出差预算可能不够。</span>
+  </div>
+</div>
+
+<!-- P34 -->
+<div class="panel">
+  <img src="images/p34.jpg" loading="lazy" alt="深夜窗前">
+  <div class="panel-text">
+    <span class="thought">香港。暗影。猎手。天网。陈天明。</span>
+    <span class="thought">这盘棋比我想的大得多。我不再是一个人在查一家公司的数据安全——我在掀开一整个地下网络。</span>
+    <div class="hud">任务升级: 从"调查天网"升级为"瓦解暗影网络" | 难度: 地狱级 | 预计所需: 全部筹码</div>
+  </div>
+</div>
+
+<!-- P35 -->
+<div class="panel">
+  <img src="images/p35.jpg" loading="lazy" alt="陈天明消息">
+  <div class="panel-text">
+    <p style="background:rgba(40,40,60,0.8);border-radius:12px;padding:1rem;margin:0.5rem 0;border:1px solid #333">
+      <span style="color:#888;font-size:0.85rem">陈天明 · 凌晨3:17</span><br>
+      <span style="color:#fff">"朱总，还没睡？我也是。创业者都是夜猫子。😊 对了——你们公司的服务器，网络安全做得不错。"</span>
+    </p>
+    <span class="thought">他知道。刚才的攻击...他知道。</span>
+    <span class="thought">或者更可怕的——那就不是暗影在攻击我。是陈天明在测试我的防御。</span>
+    <span class="thought">猎手和天网...不只是交易关系。</span>
+    <div class="hud" style="border-color:rgba(255,50,50,0.5);background:rgba(200,0,0,0.15);color:#ff6666">⛔ 威胁模型重估: 暗影可能是天网的下属部门 | 可信度: 67% | 你的双重身份暴露概率: 62%</div>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <p style="color:#555;font-size:0.9rem;letter-spacing:0.2em">TO BE CONTINUED</p>
+  <p class="next">第五章 · 香港 · 暗影</p>
+  <p style="color:#444;font-size:0.8rem;margin-top:3rem">代码暗战 © 2026</p>
+</div>
+
+</body>
+</html>
