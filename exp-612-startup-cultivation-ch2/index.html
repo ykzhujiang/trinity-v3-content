@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>创业修仙录 · 第二章 — 72小时抢单战</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e8e0d0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#0a0a12;display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s}
+.loader.hide{opacity:0;pointer-events:none}
+.loader-text{font-size:24px;color:#c8a44e;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.title-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;background:linear-gradient(180deg,#0a0a12 0%,#0d1a2e 50%,#0a0a12 100%);position:relative;overflow:hidden}
+.title-screen::before{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(200,164,78,.15),transparent 70%);top:20%;left:50%;transform:translateX(-50%);animation:glow 4s ease-in-out infinite}
+@keyframes glow{0%,100%{transform:translateX(-50%) scale(1);opacity:.6}50%{transform:translateX(-50%) scale(1.3);opacity:1}}
+.title-screen h1{font-size:36px;color:#c8a44e;text-shadow:0 0 30px rgba(200,164,78,.5);margin-bottom:12px;position:relative;z-index:1}
+.title-screen .subtitle{font-size:18px;color:#8a7a5a;margin-bottom:8px;position:relative;z-index:1}
+.title-screen .chapter{font-size:22px;color:#e8e0d0;margin-top:20px;position:relative;z-index:1}
+.title-screen .recap{font-size:14px;color:#777;margin-top:24px;max-width:340px;line-height:1.6;position:relative;z-index:1}
+.scroll-hint{margin-top:40px;color:#666;font-size:14px;animation:bounce 2s infinite;position:relative;z-index:1}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+.panel{width:100%;max-width:420px;margin:0 auto;padding:0 12px;opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-img-wrap{width:100%;border-radius:8px;overflow:hidden;margin:16px 0 8px;box-shadow:0 4px 20px rgba(0,0,0,.6)}
+.panel-img-wrap img{width:100%;height:auto;display:block}
+.panel-text{padding:8px 4px 24px;font-size:17px;line-height:1.75;color:#d4cbb8}
+.panel-text .dialogue{color:#c8a44e;font-weight:600;margin:4px 0}
+.panel-text .dialogue::before{content:'「'}
+.panel-text .dialogue::after{content:'」'}
+.panel-text .inner{color:#7eb8c9;font-style:italic;margin:4px 0}
+.panel-text .narration{color:#999;margin:4px 0;font-size:14px}
+.panel-text .system-msg{background:linear-gradient(135deg,rgba(200,164,78,.1),rgba(200,164,78,.05));border:1px solid rgba(200,164,78,.3);border-radius:8px;padding:12px;margin:8px 0;font-family:'Courier New',monospace;font-size:15px;color:#c8a44e;line-height:1.6}
+.panel-text .warning-msg{background:linear-gradient(135deg,rgba(220,60,60,.1),rgba(220,60,60,.05));border:1px solid rgba(220,60,60,.4);border-radius:8px;padding:12px;margin:8px 0;font-family:'Courier New',monospace;font-size:15px;color:#e06060;line-height:1.6}
+.decision-box{background:linear-gradient(135deg,rgba(200,164,78,.08),rgba(100,80,30,.08));border:2px solid rgba(200,164,78,.4);border-radius:12px;padding:16px;margin:12px 0;position:relative}
+.decision-box::before{content:'⚡ 决策点';position:absolute;top:-12px;left:16px;background:#0a0a12;padding:0 8px;color:#c8a44e;font-size:13px;font-weight:700}
+.decision-box .choice{padding:8px 0;border-bottom:1px solid rgba(200,164,78,.15);font-size:15px}
+.decision-box .choice:last-child{border:none}
+.decision-box .choice.chosen{color:#c8a44e;font-weight:600}
+.decision-box .choice.chosen::before{content:'✦ '}
+.decision-box .reason{font-size:14px;color:#8a7a5a;margin-top:8px;padding-top:8px;border-top:1px solid rgba(200,164,78,.2)}
+.scene-divider{text-align:center;padding:30px 0;color:#555;font-size:20px;letter-spacing:10px}
+.chapter-end{min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;background:linear-gradient(180deg,transparent,#1a0a0a 30%,#0a0a12)}
+.chapter-end h2{font-size:24px;color:#e06060;margin-bottom:12px;text-shadow:0 0 20px rgba(220,60,60,.4)}
+.chapter-end p{color:#8a7a5a;font-size:16px;line-height:1.8;max-width:360px}
+.chapter-end .next-hint{margin-top:30px;color:#555;font-size:14px}
+.sfx{color:#e06060;font-weight:700;font-size:15px}
+.level-up{text-align:center;padding:20px;margin:16px auto;max-width:380px;background:linear-gradient(135deg,rgba(200,164,78,.12),rgba(200,164,78,.04));border:2px solid rgba(200,164,78,.5);border-radius:12px;animation:levelglow 2s ease-in-out infinite}
+@keyframes levelglow{0%,100%{box-shadow:0 0 10px rgba(200,164,78,.2)}50%{box-shadow:0 0 30px rgba(200,164,78,.5)}}
+.level-up h3{color:#c8a44e;font-size:20px;margin-bottom:8px}
+.level-up p{color:#d4cbb8;font-size:15px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader"><span class="loader-text">商道修仙系统加载中…</span></div>
+
+<!-- 标题页 -->
+<div class="title-screen">
+<h1>创业修仙录</h1>
+<div class="subtitle">V5 · 虚拟朱江走进故事世界</div>
+<div class="chapter">第二章<br>72小时抢单战——深圳科技园不眠之夜</div>
+<div class="recap">
+前情提要：路演被拒，账上47万。天台触发"商道修仙系统"，大橘觉醒为灵兽。签下第一个客户周小鱼，突破炼气一层。发现赵鸿渊是"魔修"，决定正面抢单。匿名者R发来威胁短信。
+</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- ========== 第一幕：猎人出击 ========== -->
+<div class="scene-divider">· · · 猎 人 出 击 · · ·</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-01.jpg" loading="eager" alt="办公桌全景"></div>
+<div class="panel-text">
+<p class="narration">【俯拍 / 办公桌全景 / 深圳南山科技园·清晨】</p>
+<p>清晨六点，我已经在白板前画了两小时。</p>
+<p>赵鸿渊的目标客户名单——五家深圳中小型科技公司。我用红线把它们串成一张网，在每个公司名字旁边标注了他们最可能的痛点。</p>
+<p class="inner">要抢在魔修之前，把这些公司变成我的客户。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-02.jpg" loading="lazy" alt="系统任务"></div>
+<div class="panel-text">
+<p class="narration">【仰视 / 系统HUD弹窗】</p>
+<p>空气中凭空亮起一块半透明金色面板——系统发来新任务：</p>
+<div class="system-msg">
+【连环任务：商道抢攻】<br>
+72小时内签下3家鸿蒙资本的目标客户<br>
+奖励：突破筑基期<br>
+失败：修为倒退至凡人<br>
+<br>
+注：每签一家，鸿蒙资本"魔气"削弱一分
+</div>
+<p class="inner">筑基期……如果能突破，我的灵气感知范围和商业直觉次数都会翻倍。但失败的代价是回到凡人——等于系统白给。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-03.jpg" loading="lazy" alt="大橘趴键盘"></div>
+<div class="panel-text">
+<p class="narration">【中景特写 / 笔记本电脑】</p>
+<p>大橘趴在我的键盘上打呼噜。尾巴精准地盖住了屏幕的右半边——刚好遮住我正在分析的客户数据。</p>
+<p class="inner">……这猫是故意的。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-04.jpg" loading="lazy" alt="拎大橘"></div>
+<div class="panel-text">
+<p class="narration">【侧面 / 中景】</p>
+<p>我双手把大橘从键盘上拎起来。它四肢僵直悬在空中，给了我一个"你完了"的眼神。</p>
+<p class="dialogue">你知道灵兽每天需要十四个小时睡眠吗？你在剥夺我的基本猫权。</p>
+<p class="inner">灵兽……你昨天吃了三罐猫粮，凡猫都吃不了那么多。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-05.jpg" loading="lazy" alt="林晚晴出场"></div>
+<div class="panel-text">
+<p class="narration">【过肩镜头 / 林晚晴视角看向朱江】</p>
+<p>林晚晴出现在办公室门口。白衬衫扎进黑西装裤，干练得像是这间破公司里唯一靠谱的人。</p>
+<p class="dialogue">你怎么比我还早？白板上画的什么？</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-06.jpg" loading="lazy" alt="朱江回头"></div>
+<div class="panel-text">
+<p class="narration">【侧面 / 中景 / 朱江转身】</p>
+<p>我回头看她，斟酌了一下措辞。我不能告诉她"修仙系统"的事——说出来她一定觉得我疯了。</p>
+<p class="dialogue">发现了新机会。鸿蒙资本有几个目标客户，我想先下手。</p>
+<p>林晚晴挑了挑眉，没追问。她很聪明，知道什么时候不该多问。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-07.jpg" loading="lazy" alt="大橘蹭腿"></div>
+<div class="panel-text">
+<p class="narration">【低角度仰拍 / 大橘特写】</p>
+<p>大橘从我怀里挣脱，径直跑到林晚晴脚边蹭来蹭去。那个讨好的姿态，我都看不下去。</p>
+<p>然后它仰头冲我悄悄说——当然只有我听得见：</p>
+<p class="dialogue">你就不能学学我，主动一点？</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-08.jpg" loading="lazy" alt="喷咖啡"></div>
+<div class="panel-text">
+<p class="narration">【侧面特写 / 动态】</p>
+<p>我差点把嘴里的咖啡喷出来。</p>
+<p class="inner">……这死猫。在我面前聊天记录都不加密的吗？</p>
+<p>林晚晴疑惑地看了我一眼。我假装呛到了，拍着胸口咳了两下。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-09.jpg" loading="lazy" alt="咖啡杯"></div>
+<div class="panel-text">
+<p class="narration">【微距特写 / 咖啡杯倒影】</p>
+<p>咖啡杯里倒映着办公室的灯光，波纹还没散。</p>
+<p class="inner">72小时。3家客户。筑基。</p>
+<p class="inner">行，干了。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-10.jpg" loading="lazy" alt="擦嘴"></div>
+<div class="panel-text">
+<p class="narration">【中景 / 朱江擦嘴】</p>
+<p>我擦了擦嘴角的咖啡渍，露出一个无奈的笑。</p>
+<p>大橘还在林晚晴脚边打滚。我决定不理它。</p>
+<p>打开手机地图，定位第一个目标——南山区蛇口的「速达仓储」。</p>
+</div>
+</div>
+
+<!-- ========== 第二幕：第一场抢单 ========== -->
+<div class="scene-divider">· · · 抢 单 · · ·</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-11.jpg" loading="lazy" alt="仓储公司"></div>
+<div class="panel-text">
+<p class="narration">【远景 / 速达仓储入口 / 物流箱堆积如山】</p>
+<p>速达仓储。</p>
+<p>我站在门口，被眼前的景象震住了——物流箱堆成三层楼高的小山，叉车在缝隙间穿行，几个工人在拣货架上跑来跑去。</p>
+<p class="inner">这就是它的痛点——仓储调度效率。人工跑单的时代，用AI能把它翻几倍。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-12.jpg" loading="lazy" alt="马磊"></div>
+<div class="panel-text">
+<p class="narration">【中景 / 马磊出场】</p>
+<p>速达仓储CEO——马磊。</p>
+<p>东北大哥，圆脸微胖，穿着红格子衫。桌上堆着六七个红牛空罐，头发被自己抓得像鸡窝。</p>
+<p class="dialogue">你就是朱总？快坐快坐——别介意啊，昨晚通宵到现在，仓库又爆了三次单。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-13.jpg" loading="lazy" alt="灵气感知"></div>
+<div class="panel-text">
+<p class="narration">【第一视角 / 灵气感知启动】</p>
+<p>我悄悄启动「灵气感知」——马磊头顶的金色灵气亮得刺眼。</p>
+<p class="inner">灵气匹配度极高……说明他的需求和我的产品几乎完美对口。</p>
+<p>但我同时注意到办公室角落——一缕黑色灵气的残留。冰冷、带着侵蚀感。</p>
+<p class="inner">赵鸿渊的人已经来过了。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-14.jpg" loading="lazy" alt="读取信息"></div>
+<div class="panel-text">
+<p class="narration">【特写 / 眼部+数据流】</p>
+<p>我启动了今天第一次「商业直觉」，读取马磊近期收到的offer。</p>
+<p>数据像瀑布一样在我眼前展开——</p>
+<div class="system-msg">
+鸿蒙资本提案：免费使用一年<br>
+条件：独家绑定 + 数据共享协议<br>
+附加条款：签约后不得使用同类产品<br>
+⚠️ 魔修典型手法：先免费后绑定
+</div>
+<p class="inner">用户数据就是他们的"灵气来源"……免费只是诱饵。</p>
+</div>
+</div>
+
+<!-- DECISION-4 -->
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-15.jpg" loading="lazy" alt="白板demo"></div>
+<div class="panel-text">
+<p class="narration">【侧面双人构图 / 白板前】</p>
+
+<div class="decision-box">
+<div class="choice">A「算账派」— 帮马磊算清免费背后的隐性成本</div>
+<div class="choice chosen">B「眼见为实」— 现场接入真实数据做demo，让他亲眼看到效果差距</div>
+<div class="choice">C「揭底牌」— 直接揭露鸿蒙数据共享条款的风险</div>
+<div class="reason">好产品不需要贬低对手来赢。让数据说话。同时自然穿插数据所有权的话题。</div>
+</div>
+
+<p>我花了二十分钟接入马磊的仓储数据。算法跑出来的第一组结果，马磊的表情开始变了——从"客套"变成"真的假的"。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-16.jpg" loading="lazy" alt="马磊惊讶"></div>
+<div class="panel-text">
+<p class="narration">【侧面 / 同一场景继续】</p>
+<p>曲线在白板上画出一条漂亮的上升弧线。</p>
+<p class="dialogue">配送效率提升……百分之五十五？？</p>
+<p class="dialogue">比鸿蒙那个方案高二十个百分点？？</p>
+<p>马磊从椅子上弹了起来，凑到白板跟前，几乎贴上去用肉眼验证数字。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-17.jpg" loading="lazy" alt="拍桌签约"></div>
+<div class="panel-text">
+<p class="narration">【仰视 / 马磊拍桌】</p>
+<p class="sfx">咚——！</p>
+<p>马磊一巴掌拍在桌上，震得红牛罐跳了起来。</p>
+<p class="dialogue">兄弟，签！</p>
+<p>停了一秒，又加了一句：</p>
+<p class="dialogue">但是——我也要一年免费。</p>
+<p class="inner">……我就知道。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-18.jpg" loading="lazy" alt="大橘卡箱"></div>
+<div class="panel-text">
+<p class="narration">【特写 / 物流箱内】</p>
+<p>正谈到价格，身后传来一阵窸窸窣窣。</p>
+<p>大橘不知道什么时候钻进了物流箱迷宫——然后卡在了一个明显太小的纸箱里。只有圆滚滚的大脸和两只前爪露在外面，表情一本正经：</p>
+<p class="dialogue">……这是市场调研。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-19.jpg" loading="lazy" alt="马磊笑"></div>
+<div class="panel-text">
+<p class="narration">【全景 / 略俯拍】</p>
+<p>马磊笑得前仰后合，蹲下来看大橘：</p>
+<p class="dialogue">哈哈哈哈你们公司连质检猫都有？！</p>
+<p>我在后面捂脸。价格还没谈完呢……</p>
+<p>不过，看马磊笑成这样——好吧，大橘可能才是我们团队隐藏的商务总监。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-20.jpg" loading="lazy" alt="签约"></div>
+<div class="panel-text">
+<p class="narration">【中景侧面 / 握手+HUD叠加】</p>
+<p>最终以"半价六个月"成交。马磊痛快地签了合同。</p>
+<p>握手的瞬间，我感到一股暖流涌入——</p>
+<div class="system-msg">
+灵气 +25<br>
+当前：25/100<br>
+距筑基突破还需灵气 75
+</div>
+<p class="inner">第一步。还有两家。</p>
+</div>
+</div>
+
+<!-- ========== 第三幕：暗流 ========== -->
+<div class="scene-divider">· · · 暗 流 · · ·</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-21.jpg" loading="lazy" alt="芯视科技"></div>
+<div class="panel-text">
+<p class="narration">【远景 / 芯视科技办公室 / 极简风格】</p>
+<p>第二个目标：「芯视科技」。AI视觉检测公司。</p>
+<p>跟马磊的仓库比，这里像另一个世界——全白墙面，落地窗，每张桌子一尘不染。空气里飘着一股冷淡的秩序感。</p>
+<p class="inner">这种公司的决策者，不会被热情打动。得用逻辑。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-22.jpg" loading="lazy" alt="陈灵芝"></div>
+<div class="panel-text">
+<p class="narration">【中景肖像 / 陈灵芝出场】</p>
+<p>CEO陈灵芝。海归博士。齐肩直发，金属框眼镜，黑色高领。</p>
+<p>说话的时候几乎不动表情，像是把感情全锁在某个加密文件夹里了。</p>
+<p class="dialogue">朱总，给你十五分钟。超过不送。</p>
+<p class="inner">……严格到秒。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-23.jpg" loading="lazy" alt="谈判俯拍"></div>
+<div class="panel-text">
+<p class="narration">【俯拍 / 玻璃会议桌】</p>
+<p>我用「商业直觉」读取陈灵芝——她最担心的根本不是效率，而是<strong>数据安全</strong>。</p>
+<p class="inner">芯视科技的客户有军工背景。数据出去一个字节都是事故。</p>
+<p>所以我换了策略。不谈性能。直接切入数据安全。</p>
+<p class="dialogue">陈总，我给你看一个东西——我们的数据私有化部署方案。你的数据，一个比特都不出你的服务器。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-24.jpg" loading="lazy" alt="画架构图"></div>
+<div class="panel-text">
+<p class="narration">【特写 / 手部+架构图】</p>
+<p>我在纸上画出服务器节点架构——每个节点旁边都标了盾牌图标和锁。</p>
+<p>陈灵芝的手指开始松动。从交叉抱胸变成轻轻搭在桌沿上——这是我今天看到她最放松的姿势。</p>
+<p class="inner">有戏。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-25.jpg" loading="lazy" alt="大橘跳桌"></div>
+<div class="panel-text">
+<p class="narration">【慢镜头特写 / 大橘跃起】</p>
+<p>就在这个关键时刻——</p>
+<p>大橘从不知道什么角落窜出来，一跃跳上了陈灵芝那张一尘不染的纯白办公桌。</p>
+<p>橘色猫毛在空气中飘扬，像慢动作电影里的雪花，缓缓落在银色MacBook的键盘上。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-26.jpg" loading="lazy" alt="陈灵芝面无表情"></div>
+<div class="panel-text">
+<p class="narration">【侧面双人 / 喜剧对比】</p>
+<p>陈灵芝面无表情地盯着飘落的猫毛。</p>
+<p>我在她身后做出了一个"完了完了完了"的表情，双手举起表示我控制不了这只猫。</p>
+<p>大橘坐在MacBook上，一脸正经地宣布：</p>
+<p class="dialogue">安全检测。你的键盘间距不符合人体工学。</p>
+<p class="inner">……我大概率要被赶出去了。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-27.jpg" loading="lazy" alt="签约灵气+25"></div>
+<div class="panel-text">
+<p class="narration">【中景 / 握手+进度条】</p>
+<p>出乎意料——陈灵芝嘴角动了一下。那可能是她今天唯一的表情变化。</p>
+<p class="dialogue">你这只猫……倒是挺有意思。合同发我，回头看看。</p>
+<p>三天后，合同签了。</p>
+<div class="system-msg">
+灵气 +25<br>
+当前：50/100<br>
+距筑基突破还需灵气 50
+</div>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-28.jpg" loading="lazy" alt="R的消息"></div>
+<div class="panel-text">
+<p class="narration">【特写 / 手机屏幕 / 背景虚化】</p>
+<p>正准备攻克第三家，手机震动。</p>
+<p>又是R。</p>
+<div class="warning-msg">
+不错嘛幽灵，签了两家。<br>
+不过你有没有想过——<br>
+为什么赵鸿渊那么容易就让你签到？<br>
+——R
+</div>
+<p class="inner">我一愣。被动追踪程序显示这条消息来自——北京金融街附近。鸿蒙资本总部所在地。</p>
+</div>
+</div>
+
+<!-- DECISION-5 -->
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-29.jpg" loading="lazy" alt="商业直觉分析"></div>
+<div class="panel-text">
+<p class="narration">【中景 / 闭眼启动分析 / 红色蛛网数据】</p>
+
+<div class="decision-box">
+<div class="choice">A 忽略R的离间，继续抢单</div>
+<div class="choice chosen">B 暂停抢单，用商业直觉分析赵鸿渊的行为模式</div>
+<div class="reason">创业者最怕的不是明刀明枪的竞争，而是不知道对手在下什么棋。信息差是致命的。</div>
+</div>
+
+<p>我闭上眼，用掉了今天最后一次「商业直觉」——</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-30.jpg" loading="lazy" alt="影子计划"></div>
+<div class="panel-text">
+<p class="narration">【俯视 / 全息城市地图】</p>
+<p>分析结果令人不安。</p>
+<p>赵鸿渊确实在放水。他根本不在乎这些小客户——他在等我暴露核心算法。</p>
+<div class="warning-msg">
+⚠️ 邪道战术解析<br>
+「影子复制」计划<br>
+已部署3名技术间谍渗透目标客户内部<br>
+目的：获取朱江demo中展示的核心算法逻辑<br>
+危险等级：极高
+</div>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-31.jpg" loading="lazy" alt="朱江凝重"></div>
+<div class="panel-text">
+<p class="narration">【俯视特写 / 红光映脸】</p>
+<p>我每次给客户做demo——就等于把核心算法展示给他的眼线看。</p>
+<p class="inner">之前签下的马磊、陈灵芝……他们公司内部可能已经有赵鸿渊的人了。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-32.jpg" loading="lazy" alt="窗前沉思"></div>
+<div class="panel-text">
+<p class="narration">【全景侧面 / 窗前双人 / 夜景】</p>
+<p>大橘跳上我的肩膀，罕见地没有开玩笑。</p>
+<p class="dialogue">他在你身上装了「商业跟踪器」——你每次demo，就等于给他直播核心技术。</p>
+<p>窗外深圳的灯火璀璨。但我现在看到的不是繁华——是暗处的眼睛。</p>
+<p class="inner">第三家客户……不能再用常规方法了。</p>
+</div>
+</div>
+
+<!-- ========== 第四幕：筑基 ========== -->
+<div class="scene-divider">· · · 筑 基 · · ·</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-33.jpg" loading="lazy" alt="深夜加班"></div>
+<div class="panel-text">
+<p class="narration">【中景 / 深夜办公室 / 只有屏幕光】</p>
+<p>深夜两点。办公室里只剩我和屏幕的光。</p>
+<p>知道了赵鸿渊的陷阱，但任务deadline逼近。还需要签第三家。</p>
+<p>我改变了策略——不再做现场demo。</p>
+<p class="inner">给第三家客户一个"黑盒方案"：他们上传数据到我的加密沙箱，算法在沙箱内运行，结果输出但代码不可见。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-34.jpg" loading="lazy" alt="刘远航"></div>
+<div class="panel-text">
+<p class="narration">【中景 / 视频通话画面 / 温室背景】</p>
+<p>第三家是做智慧农业的「绿脉科技」。CEO刘远航——晒得黝黑的前农学博士。视频那头背景是一片温室大棚。</p>
+<p class="dialogue">朱总，我不懂什么算法不算法。你告诉我——我的菜能多卖多少钱？</p>
+<p class="inner">接地气。好，我喜欢。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-35.jpg" loading="lazy" alt="沙箱架构"></div>
+<div class="panel-text">
+<p class="narration">【过肩 / 屏幕架构图】</p>
+<p>我给他看了加密沙箱的运作方式——数据进去，结果出来，黑盒中间谁也看不到。</p>
+<p class="dialogue">刘总，你的数据在我的盒子里跑一圈，出来的只有结果。算法本身你看不到——但没关系，你也不需要看。你只需要看你的产量数字。</p>
+<p class="dialogue">……行，听着挺靠谱。签了。</p>
+</div>
+</div>
+
+<!-- DECISION-6 -->
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-36.jpg" loading="lazy" alt="分屏通话"></div>
+<div class="panel-text">
+<p class="narration">【分屏构图 / 左暗办公室·右绿温室】</p>
+<p>但刘远航提了个要求——</p>
+<p class="dialogue">我有个合作伙伴，是个大型农业集团。你能给我个演示账号，我带他们看看？</p>
+
+<div class="decision-box">
+<div class="choice">A 拒绝给账号，只给黑盒接口</div>
+<div class="choice chosen">B 给限时体验账号：72小时自动失效+代码混淆+水印追踪</div>
+<div class="reason">创业就是在风险和机会之间走钢丝。完全零风险意味着零增长。但我不是裸奔——水印追踪就是我的保险。</div>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-37.jpg" loading="lazy" alt="天台独坐"></div>
+<div class="panel-text">
+<p class="narration">【远景 / 天台边缘 / 城市天际线】</p>
+<p>签约成功。三家全部拿下。</p>
+<div class="system-msg">
+灵气 +30<br>
+当前：95/100<br>
+距筑基还需灵气 5<br>
+⚠️ 最后5点需要「商道顿悟」触发
+</div>
+<p>95分够了，但差最后5点。系统说需要"商道顿悟"——不是签单能获得的，是思维层面的突破。</p>
+<p>我坐在天台边缘，吹着深圳凌晨的风，想了很久。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-38.jpg" loading="lazy" alt="大橘送猫粮"></div>
+<div class="panel-text">
+<p class="narration">【中景 / 天台 / 夜空】</p>
+<p>大橘叼着一袋猫粮慢悠悠走上天台，坐在我旁边。</p>
+<p class="dialogue">三千年前我跟过一个修仙的老头，他悟道也是在屋顶上。</p>
+<p>我转头看它。</p>
+<p class="dialogue">不过他最后走火入魔了。</p>
+<p class="inner">……你这是在鼓励我？</p>
+<p class="dialogue">我是在告诉你别想太久。猫粮快吃完了。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-39.jpg" loading="lazy" alt="顿悟"></div>
+<div class="panel-text">
+<p class="narration">【特写 / 金光从内部亮起】</p>
+<p>我突然想通了。</p>
+<p>这三天我一直在想"怎么打败赵鸿渊"——但这是<strong>竞争思维</strong>。在他画好的赛道上跟他跑，赢了也不过是在他的规则里苟活。</p>
+<p class="inner">真正的商道不是"打败对手"。</p>
+<p class="inner">是<strong>创造增量</strong>。</p>
+<p class="inner">赵鸿渊在存量市场里争夺。我应该去——创造一个他看不到的新市场。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-40.jpg" loading="lazy" alt="突破金光"></div>
+<div class="panel-text">
+<p class="narration">【仰拍全身 / 金色能量爆发】</p>
+<p>灵气瞬间溢满——</p>
+
+<div class="level-up">
+<h3>⚡ 突破！筑基期！</h3>
+<p>
+灵气：100/100 → 重置 0/500<br>
+新能力解锁：「市场预见」<br>
+可以看到6个月内的市场趋势变化（每周1次）<br>
+<br>
+⚠️ 副作用：突破瞬间所有电子设备重启
+</p>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-41.jpg" loading="lazy" alt="全公司蓝屏"></div>
+<div class="panel-text">
+<p class="narration">【广角 / 办公室电脑蓝屏】</p>
+<p class="sfx">滋——啪——</p>
+<p>公司所有电脑同时蓝屏重启。</p>
+<p>走廊里传来此起彼伏的惊叫声。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-42.jpg" loading="lazy" alt="群消息"></div>
+<div class="panel-text">
+<p class="narration">【特写 / 手机群聊消息】</p>
+<p>手机群聊瞬间炸了——</p>
+<p class="dialogue">林晚晴：谁动了服务器？！</p>
+<p class="dialogue">周小鱼：我们的配送系统刚才断了三秒？？？</p>
+<p class="dialogue">马磊：老弟，你们不会跑路了吧？？</p>
+<p class="dialogue">陈灵芝：请解释。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-43.jpg" loading="lazy" alt="大橘走开"></div>
+<div class="panel-text">
+<p class="narration">【中景 / 天台 / 大橘背影】</p>
+<p>大橘叼着猫粮袋若无其事地走开，尾巴一甩一甩。</p>
+<p>身后残余的金色能量还在空中噼啪作响。</p>
+<p class="dialogue">跟我没关系。</p>
+<p class="inner">……你明明就是灵兽，突破的副作用有一半是你的。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-44.jpg" loading="lazy" alt="红色警告"></div>
+<div class="panel-text">
+<p class="narration">【远景 / 天台 / 红色HUD+暗紫触手】</p>
+<p>但突破的喜悦没持续多久。</p>
+<p>系统突然发出刺耳的警报——眼前的全息面板从金色变成血红色。</p>
+<div class="warning-msg">
+⚠️ 邪道入侵检测<br>
+来源：鸿蒙资本·影子复制计划<br>
+危险等级：极高<br>
+<br>
+检测到「心魔种子」已植入目标客户内部<br>
+如不在14天内清除<br>
+宿主修为将被反噬
+</div>
+<p>身后的深圳天际线上，鸿蒙大厦的黑色灵气像触手一样向四周蔓延。</p>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-img-wrap"><img src="panel-45.jpg" loading="lazy" alt="R的第三条消息"></div>
+<div class="panel-text">
+<p class="narration">【极致特写 / 手机+猫瞳】</p>
+<p>同时——手机再次震动。</p>
+<div class="warning-msg">
+恭喜筑基。<br>
+但你知道赵鸿渊为什么要做影子复制吗？<br>
+因为你的算法不是你自己写的。<br>
+查查你大学室友张卫。<br>
+——R
+</div>
+<p>大橘看了一眼手机，瞳孔骤然收缩成一条缝。</p>
+<p class="dialogue">张卫？那个名字……我在三千年前的修仙记录里似乎见过。</p>
+</div>
+</div>
+
+<!-- 章末 -->
+<div class="chapter-end">
+<h2>第二章 · 完</h2>
+<p>筑基成功。但真正的危机才刚刚开始。</p>
+<p style="margin-top:16px;color:#e06060">心魔种子已植入。14天倒计时。</p>
+<p style="margin-top:8px;color:#e06060">而我的算法——真的是我自己写的吗？</p>
+<p style="margin-top:8px;color:#999">张卫。我大学室友。三年没联系了。</p>
+<div class="next-hint">第三章 · 心魔与真相 · 即将更新</div>
+</div>
+
+<script>
+// Loader
+window.addEventListener('load',()=>{
+  setTimeout(()=>{document.getElementById('loader').classList.add('hide')},800);
+});
+
+// Scroll reveal
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
