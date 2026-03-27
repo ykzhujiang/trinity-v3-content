@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>末世商业帝国 · 第一章：断裂第七天</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0f 0%,#1a1020 50%,#0d1520 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(0,180,120,0.06) 0%,transparent 50%),radial-gradient(circle at 70% 60%,rgba(0,120,255,0.04) 0%,transparent 50%);animation:pulse 8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.5}50%{opacity:1}}
+.cover h1{font-size:2.2em;font-weight:900;background:linear-gradient(135deg,#00ff88,#00bbff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;z-index:1;line-height:1.3}
+.cover .sub{font-size:1.1em;color:#889;margin-top:12px;z-index:1;letter-spacing:2px}
+.cover .ch{font-size:0.9em;color:#667;margin-top:24px;z-index:1;border:1px solid #334;padding:6px 20px;border-radius:20px}
+.scroll-hint{position:absolute;bottom:30px;color:#556;font-size:0.85em;animation:bounce 2s infinite;z-index:1}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.panel{width:100%;max-width:500px;margin:0 auto;padding:0 12px;opacity:0;transform:translateY(30px);transition:opacity 0.6s,transform 0.6s}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-img{width:100%;border-radius:8px;display:block;margin:0 auto;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.panel-text{padding:16px 8px 40px;font-size:1.05em;line-height:1.8;color:#ccc}
+.panel-text .dialogue{color:#fff;font-weight:600;font-size:1.1em;margin:8px 0;padding-left:12px;border-left:3px solid #00ff88}
+.panel-text .thought{color:#88aacc;font-style:italic;margin:8px 0;padding-left:12px;border-left:3px solid #3388cc}
+.panel-text .system{background:linear-gradient(135deg,rgba(0,255,136,0.08),rgba(0,180,255,0.08));border:1px solid rgba(0,255,136,0.2);border-radius:8px;padding:10px 14px;margin:10px 0;font-family:'Courier New',monospace;font-size:0.95em;color:#00ddaa}
+.panel-text .narration{color:#aaa;margin:6px 0}
+.decision{background:linear-gradient(135deg,rgba(255,200,0,0.1),rgba(255,150,0,0.05));border:2px solid rgba(255,180,0,0.4);border-radius:12px;padding:16px;margin:20px auto;max-width:500px}
+.decision h3{color:#ffcc00;font-size:1.15em;margin-bottom:10px;text-align:center}
+.decision .choice{padding:8px 12px;margin:6px 0;border-radius:8px;font-size:0.95em;color:#dda}
+.decision .chosen{background:rgba(0,255,136,0.15);border:1px solid rgba(0,255,136,0.4);color:#00ff88;font-weight:600}
+.decision .not-chosen{color:#665;text-decoration:line-through}
+.section-break{text-align:center;padding:40px 0;color:#334;font-size:1.5em;letter-spacing:8px}
+.ending{max-width:500px;margin:40px auto;padding:20px;text-align:center;background:linear-gradient(135deg,rgba(255,100,0,0.1),rgba(255,50,0,0.05));border:1px solid rgba(255,100,0,0.3);border-radius:12px}
+.ending h2{color:#ff6644;font-size:1.3em;margin-bottom:12px}
+.ending p{color:#aa8877;font-size:0.95em;line-height:1.7}
+.footer{text-align:center;padding:60px 20px;color:#334;font-size:0.8em}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>末世商业帝国</h1>
+  <div class="sub">第一章 · 断裂第七天</div>
+  <div class="ch">V5 · 朱江走进故事世界</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- Panel 1: 醒来 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-01.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">头好痛。</p>
+    <p class="thought">我是在哪……？天花板怎么裂了……</p>
+    <p class="narration">灰尘和碎石落在脸上，把我从昏迷中刺醒。办公室的日光灯全灭了，只有窗户裂缝里透进来一束浑浊的光。</p>
+  </div>
+</div>
+
+<!-- Panel 2 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-02.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我撑着地面坐起来，脑袋嗡嗡作响。</p>
+    <p class="thought">我记得……我在加班。然后屏幕突然全黑了，接着就是巨响——</p>
+    <p class="narration">显示器歪歪斜斜挂在桌边，电脑完全死机。整个办公室像被巨人踩过一样。</p>
+  </div>
+</div>
+
+<!-- Panel 3 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-03.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我走到落地窗前——然后整个人僵住了。</p>
+    <p class="narration">城市还在。但不是我认识的那个城市了。至少五个方向冒着黑烟。远处有建筑在燃烧。街道上横七竖八停满了车，有些翻了过来。</p>
+    <p class="thought">这是……战争？地震？到底发生了什么？</p>
+  </div>
+</div>
+
+<!-- Panel 4 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-04.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">手机。我摸出手机——黑屏。长按电源键，没反应。什么信号都没有。</p>
+    <p class="thought">完全死了。不是没电，是……彻底坏了。</p>
+  </div>
+</div>
+
+<!-- Panel 5: 系统激活 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-05.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">就在这时——</p>
+    <p class="narration">眼前突然浮现出一个半透明的光屏。不是手机屏幕，是直接出现在视野里的。</p>
+    <div class="system">【商业系统 v0.1 已激活】<br>宿主识别：朱江<br>当前等级：Lv0<br>状态：初始化完成</div>
+    <p class="thought">……我脑子坏了吗？这是什么？我是不是被砸到头了？</p>
+    <p class="narration">我使劲眨了几下眼。光屏还在。甚至跟着我的视线移动。</p>
+    <p class="thought">不对，这也太清晰了。幻觉不会有这么高的分辨率吧？</p>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- Panel 6 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-06.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我决定先下楼。不管脑子里这个"系统"是什么鬼，活下去比想清楚更重要。</p>
+    <p class="narration">楼下超市已经被砸开了。玻璃碎了一地，货架被推倒，几个人正在里面翻找食物。</p>
+    <p class="thought">秩序……已经崩了。</p>
+  </div>
+</div>
+
+<!-- Panel 7: 遇到老赵 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-07.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">路过一个路障时，我看到一个中年大叔蹲在路边。壮实，方脸，穿蓝色工装，一脸疲惫。</p>
+    <p class="narration">然后——那个该死的系统面板又出现了。这次浮在这个大叔头顶。</p>
+    <div class="system">【鉴定结果】<br>姓名：赵铁柱<br>核心技能：物流调度 S级<br>当前状态：饥饿（48小时未进食）<br>隐藏价值：极高<br>备注：一个人能扛200斤不喘气</div>
+    <p class="thought">等等……物流调度S级？一个快递大叔？</p>
+  </div>
+</div>
+
+<!-- Panel 8 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-08.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="thought">这系统到底怎么评的级？S级物流调度放在末世前，那是京东级别的供应链总监啊。</p>
+    <p class="thought">而这个人，在末世第七天，饿着肚子蹲在路边。</p>
+    <p class="thought">价值被严重低估了。就像……上个时代的比特币。</p>
+  </div>
+</div>
+
+<!-- Panel 9 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-09.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">再往前走，路边垃圾堆里有一堆被人丢弃的电子元件。旧服务器、硬盘、电路板——别人当废铜烂铁扔的。</p>
+    <div class="system">【物资鉴定】<br>物资价值：极高<br>用途：可修复为局域网节点<br>当前市场认知：垃圾</div>
+    <p class="thought">在末世，值钱的东西和以前完全不一样了。黄金不能吃，但一台能联网的服务器，可能比一吨黄金有用。</p>
+  </div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-10.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我蹲下来仔细翻看那堆"垃圾"。身后传来一个粗犷的声音。</p>
+    <p class="dialogue">「小伙子，你翻这些破烂干啥？能吃吗？」</p>
+    <p class="narration">是那个蓝色工装大叔。他好奇地走了过来。</p>
+    <p class="thought">来了。我的第一笔"投资"，就从这个饿了两天的物流天才开始。</p>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- DECISION 1 -->
+<div class="decision">
+  <h3>⚡ 决策点 1：最后的物资</h3>
+  <p style="color:#aa9;font-size:0.9em;margin-bottom:10px">我手上只剩一瓶水和两块压缩饼干。面前是一个饿了两天的人——系统告诉我他是S级物流人才。</p>
+  <div class="choice chosen">✅ A. 把食物给老赵，换取信任和协作 —— 这个人值得投资</div>
+  <div class="choice not-chosen">B. 留着食物自己用，末世第一法则是自保</div>
+  <p style="color:#668;font-size:0.8em;margin-top:10px;text-align:center">「做生意的第一课：用短期资源换长期杠杆。」</p>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-11.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="thought">别的创业者在会议室做PPT，我在末世街头掏出最后一瓶水做天使投资。这创业故事以后怎么写商业计划书？</p>
+    <p class="thought">"投资逻辑：标的物饿了两天，估值极低，但基本面是S级。"</p>
+  </div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-12.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我把水和压缩饼干递过去。</p>
+    <p class="dialogue">「赵哥，先吃点。」</p>
+    <p class="narration">老赵愣了一下，接过去，手在发抖。他没有立刻吃，而是先看了看我。</p>
+    <p class="dialogue">「你……为啥？」</p>
+  </div>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-13.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="dialogue">「赵哥，我知道你以前管快递站，对吧？」</p>
+    <p class="narration">他嘴里塞着压缩饼干，愣住了。</p>
+    <p class="dialogue">「你……你咋知道的？」</p>
+    <p class="dialogue">「我需要一个能调度物资的人。现在这个世界，会搬东西的人比会写代码的人值钱一万倍。」</p>
+  </div>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-14.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">老赵的眼眶红了。不是因为饼干太干，是因为——在末世第七天，终于有人说他"有用"。</p>
+    <p class="dialogue">「小兄弟……你说吧，干啥都行。」</p>
+  </div>
+</div>
+
+<!-- Panel 15 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-15.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">两人坐在路障上，我跟他简单说了计划：先找个据点，囤物资，建联络网。</p>
+    <p class="dialogue">「赵哥，你以前一天调度多少单快递？」</p>
+    <p class="dialogue">「高峰期？三千多单。」</p>
+    <p class="thought">三千单。在末世，三千单物资调度足够养活一个小镇。</p>
+  </div>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-16.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">老赵指着自己，一脸不可思议。</p>
+    <p class="dialogue">「你说我……物流天才？我就是个送快递的啊！」</p>
+    <p class="thought">你以为你是送快递的。系统告诉我，你是末世最稀缺的战略资源之一。</p>
+  </div>
+</div>
+
+<!-- Panel 17: 升级 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-17.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="system">【交易完成】<br>交易类型：人才招募（以物换信任）<br>经验 +10<br>等级提升：Lv0 → Lv1<br>解锁新能力：基础鉴定<br><br>恭喜宿主完成第一笔交易！<br>温馨提示：您的"天使投资"成本为一瓶水和两块饼干。<br>历史上最便宜的S级人才收购案。</div>
+    <p class="thought">这系统……还会阴阳怪气？</p>
+  </div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-18.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">升级的瞬间，视野突然清晰了。</p>
+    <p class="narration">街道上每个人头顶都冒出了信息面板。每堆物资、每个建筑都有鉴定标签。整个世界变成了一个巨型商业沙盘。</p>
+    <p class="thought">这感觉……就像开了上帝视角的《模拟城市》。不对，是《模拟末世》。</p>
+  </div>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-19.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我和老赵捡起那堆"垃圾"服务器零件上路了。</p>
+    <p class="dialogue">「小朱，咱这是去哪？」</p>
+    <p class="dialogue">「找个地方安营扎寨。赵哥，你以前跑这片区域的快递吗？」</p>
+    <p class="dialogue">「跑了八年了，闭着眼都知道哪条路通哪。」</p>
+    <p class="thought">八年地图记忆。在GPS全挂的末世，这比任何导航软件都好使。</p>
+  </div>
+</div>
+
+<!-- Panel 20: 发现据点 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-20.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">老赵带我绕了两条巷子，来到一个大型快递分拣中心门口。</p>
+    <p class="dialogue">「就是这儿。以前我管的站就在里面。」</p>
+    <div class="system">【据点鉴定】<br>类型：快递分拣中心<br>据点潜力：A级<br>优势：备用发电机 | 仓库空间大 | 位置隐蔽<br>劣势：无水源<br>建议：立即占领，先发优势明显</div>
+    <p class="thought">A级据点。别人还在抢超市里的方便面，我已经找到了商业帝国的第一块地基。</p>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- Panel 21 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-21.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">推开半掩的铁门，分拣中心里一片狼藉。传送带停在半途中，包裹散落一地。灰尘很厚，但建筑结构完好。</p>
+    <p class="dialogue">「赵哥，你看看发电机还能不能用。」</p>
+    <p class="dialogue">「嘿！这我熟！」</p>
+  </div>
+</div>
+
+<!-- Panel 22: 发现小陈 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-22.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我在仓库角落发现了一个蜷缩的人影。</p>
+    <p class="narration">瘦瘦的年轻人，黑框眼镜，格子衬衫，抱着个笔记本电脑包像抱着全世界最后的宝贝。他看到我，整个人往后缩。</p>
+    <div class="system">【鉴定结果】<br>姓名：陈可<br>核心技能：残余网络操作 A级<br>当前状态：极度焦虑<br>隐藏价值：高<br>备注：关机都舍不得的那种程序员</div>
+    <p class="thought">又一个被低估的人才。</p>
+  </div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-23.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我伸出手。</p>
+    <p class="dialogue">「起来吧兄弟。你是程序员？」</p>
+    <p class="narration">他推了推眼镜，惊恐地看着我和身后的老赵。</p>
+    <p class="dialogue">「你……你们不是来抢电脑的吧？」</p>
+    <p class="dialogue">「放心，我是来招你的。」</p>
+  </div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-24.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我把捡来的服务器零件摆在小陈面前。</p>
+    <p class="narration">他的眼睛瞬间亮了。那种程序员看到新硬件时的本能反应——就像猫看到逗猫棒。</p>
+    <p class="dialogue">「这……这是能用的！这块主板还能跑！」</p>
+    <p class="thought">成了。钓鱼要用对鱼饵。程序员的鱼饵就是能跑的硬件。</p>
+  </div>
+</div>
+
+<!-- Panel 25 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-25.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">老赵在后面鼓捣发电机。壮实的胳膊拉动启动绳，一下、两下、三下——</p>
+    <p class="dialogue">「嘿——」</p>
+    <p class="narration">火花飞溅。</p>
+    <p class="dialogue">「这发电机跟我以前用的一模一样！」</p>
+  </div>
+</div>
+
+<!-- Panel 26: 来电了 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-26.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">灯亮了。</p>
+    <p class="narration">只是几盏应急灯，但在黑暗了七天的末世里，那种光芒像是奇迹。</p>
+    <p class="narration">三个人都下意识地挡了一下眼睛。然后——不约而同地笑了。</p>
+    <p class="thought">末世创业第一步：有电。别笑，很多公司连这步都做不到。</p>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- Panel 27: 遇到刘姐 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-27.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">但没水、没食物。我们需要跟附近有物资的人交易。</p>
+    <p class="narration">老赵说附近三条街外有个超市还在运营——被一个叫刘姐的女人控制着。</p>
+    <p class="dialogue">「那个刘姐不好说话。」</p>
+    <p class="narration">我们到了超市门口。购物车和货架搭的路障，两个拿着棍子的"保安"。中间站着一个短发女人，眼神锐利得像鹰。</p>
+  </div>
+</div>
+
+<!-- Panel 28 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-28.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <div class="system">【鉴定结果】<br>姓名：刘敏<br>核心技能：资源管理 A级<br>谈判风格：强硬<br>当前掌控：矿泉水×200瓶 | 食品×3天供应量<br>备注：别试着忽悠她，她能一眼看穿</div>
+    <p class="dialogue">「我不做慈善。想要水和食物？」</p>
+    <p class="narration">刘姐竖起三根手指。</p>
+    <p class="dialogue">「拿你们的发电机来换。」</p>
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision">
+  <h3>⚡ 决策点 2：刘姐的交易</h3>
+  <p style="color:#aa9;font-size:0.9em;margin-bottom:10px">刘姐控制着唯一的物资据点。她要我们的发电机。发电机是我们的电力来源——交出去就回到黑暗时代。</p>
+  <div class="choice not-chosen">A. 答应交换发电机 —— 短期有食物和水，但失去电力优势</div>
+  <div class="choice chosen">✅ B. 提出合作方案：帮她建立联络网，换取物资 —— 长线博弈</div>
+  <div class="choice not-chosen">C. 拒绝，自己去找水源 —— 独立路线</div>
+  <p style="color:#668;font-size:0.8em;margin-top:10px;text-align:center">「不做零和博弈。做平台，让每个人都觉得自己在赢。」</p>
+</div>
+
+<!-- Panel 29 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-29.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="dialogue">「刘姐，发电机我不换。但我有个更好的提议。」</p>
+    <p class="narration">我在一块破纸板上画了个简单的网络图：中间是她的超市，周围是其他可能存在的据点，用线连起来。</p>
+    <p class="dialogue">「你现在控制一个超市。但你不知道周围还有多少据点、多少人、谁有什么资源。我能帮你建一个联络网——让你成为信息中心。」</p>
+  </div>
+</div>
+
+<!-- Panel 30 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-30.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">刘姐的表情从"你在逗我"变成了"继续说"。</p>
+    <p class="dialogue">「信息中心？什么意思？」</p>
+    <p class="dialogue">「意思是，谁有什么、谁缺什么、谁在哪——这些信息全部经过你。在末世，控制信息的人，比控制食物的人更强。」</p>
+    <p class="narration">她沉默了十秒。</p>
+    <p class="dialogue">「……先给三天的量。信不信你的，三天后看结果。」</p>
+    <p class="thought">商业谈判第一课：不要跟人抢蛋糕，告诉她你能把蛋糕做大。</p>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- Panel 31 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-31.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">回到分拣中心。小陈像变了个人一样——把服务器零件摆了一桌，双手在键盘上飞速敲击。</p>
+    <p class="dialogue">「朱哥，你让我干这个我可太开心了。末世七天我第一次这么开心。」</p>
+    <p class="thought">程序员，只要有代码可以写，在哪里都能活得像在天堂。</p>
+  </div>
+</div>
+
+<!-- Panel 32 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-32.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">屏幕上，一个粗糙的网络拓扑图正在成形。绿色的节点一个接一个亮起来。</p>
+    <p class="dialogue">「信号出去了！覆盖半径大概五百米。」</p>
+    <p class="dialogue">「小陈，这种感觉怎么样？」</p>
+    <p class="dialogue">「怎么说呢……就像生产环境的bug终于复现了。那种狂喜。」</p>
+    <p class="thought">……程序员的快乐，常人真的不懂。</p>
+  </div>
+</div>
+
+<!-- Panel 33 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-33.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">老赵在外面已经开始干活了。不知道从哪找来两个流浪的人，指挥他们搬运物资箱。</p>
+    <p class="dialogue">「这个放A区！那个放B区！食品和工具分开！」</p>
+    <p class="narration">S级物流调度——三千单快递练出来的条件反射。在末世立刻转化成了据点管理天赋。</p>
+    <p class="thought">投资回报率：一瓶水换来的S级员工，已经开始自动运转了。</p>
+  </div>
+</div>
+
+<!-- Panel 34 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-34.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我站在分拣中心中间，环顾四周。老赵在调度，小陈在联网。系统面板自动更新：</p>
+    <div class="system">【据点状态更新】<br>据点等级：D → C<br>人口：3<br>物资储备：3天<br>特殊设施：局域网（覆盖500米）<br>综合评价：微型商业体雏形<br><br>系统评语：从零到有，用时6小时。<br>建议：不要飘，你还很菜。</div>
+    <p class="thought">……这系统是不是对我有意见？</p>
+  </div>
+</div>
+
+<!-- Panel 35 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-35.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">夜幕降临。</p>
+    <p class="narration">从外面看，整个城市一片漆黑。只有我们的分拣中心透出微弱的暖光。</p>
+    <p class="narration">三个陌生人，在末世第七天的夜里，围着一盏应急灯吃压缩饼干。</p>
+    <p class="thought">这是我创业以来，团队最小的时候。但不知道为什么，信心是最足的。</p>
+    <p class="thought">也许是因为——在末世里，所有人都回到了同一条起跑线。</p>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- Panel 36: 信号 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-36.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">深夜。我刚躺下准备休息——</p>
+    <p class="dialogue">「朱哥！！朱哥！！」</p>
+    <p class="narration">小陈抱着笔记本电脑冲过来，眼镜都歪了。</p>
+    <p class="dialogue">「局域网收到信号了！有人发了求救信息！」</p>
+  </div>
+</div>
+
+<!-- Panel 37 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-37.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">屏幕上，一行粗糙的文字在闪烁：</p>
+    <div class="system" style="border-color:rgba(255,200,0,0.4);color:#ffcc00">「我们有30人，有医生，但断粮了。谁能来交易？」<br>—— 信号来源：5公里外 | 信号强度：弱</div>
+    <p class="narration">老赵也凑过来了，三个人围着这块小屏幕。</p>
+  </div>
+</div>
+
+<!-- DECISION 3 -->
+<div class="decision">
+  <h3>⚡ 决策点 3：夜晚的信号</h3>
+  <p style="color:#aa9;font-size:0.9em;margin-bottom:10px">5公里外，30个人，有医生。断粮求救。但——深夜、未知、可能是陷阱。</p>
+  <div class="choice not-chosen">A. 立刻去救援/交易 —— 扩大联盟，但暴露位置</div>
+  <div class="choice not-chosen">B. 先派老赵侦查 —— 稳妥但对方可能等不了</div>
+  <div class="choice chosen">✅ C. 回复信息但不暴露位置，先远程谈判 —— 用信息差做杠杆</div>
+  <p style="color:#668;font-size:0.8em;margin-top:10px;text-align:center">「菩萨心肠，霹雳手段。想帮，但先确保安全。」</p>
+</div>
+
+<!-- Panel 38 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-38.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="dialogue">「小陈，能回复但不暴露我们的位置吗？」</p>
+    <p class="dialogue">「可以。我用中继节点跳转，他们最多定位到一公里范围。」</p>
+    <p class="dialogue">「那就回复。就说我们有物资，可以谈。让他们先发个视频证明情况。」</p>
+  </div>
+</div>
+
+<!-- Panel 39: 视频 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-39.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">几分钟后，对方发来一段视频。画面很模糊——一个地下停车场，三十多个人挤在一起。确实有妇女和老人。</p>
+    <p class="narration">但我注意到了角落里——</p>
+    <p class="narration">有几个人的姿态不对。站得太直、太警觉。而且……他们手边有东西。</p>
+    <div class="system" style="border-color:rgba(255,50,0,0.5);color:#ff4422">⚠️ 【威胁分析】<br>检测到3名个体具有军事训练背景<br>威胁等级：中<br>行为模式：隐蔽观察、控制出入口<br>判断：该据点可能存在武装控制</div>
+    <p class="thought">这帮人……不是普通的难民。</p>
+  </div>
+</div>
+
+<!-- Panel 40: 悬念结尾 -->
+<div class="panel">
+  <img class="panel-img" src="images/panel-40.jpg" alt="" loading="lazy">
+  <div class="panel-text">
+    <p class="narration">我关掉屏幕。</p>
+    <p class="narration">灯光打在半张脸上，另外半张藏在黑暗里。</p>
+    <p class="dialogue">「这帮人，不简单。」</p>
+    <p class="narration">老赵和小陈紧张地看着我。</p>
+    <div class="system">【系统提示】<br>检测到高价值交易机会<br>风险等级：B<br>建议：谨慎接触<br><br>补充：宿主，您目前等级Lv1，对面可能有枪。<br>请做好心理准备。</div>
+    <p class="thought">末世创业第一天。我用一瓶水和两块饼干，换来了一个S级物流专家、一个A级程序员、一个A级资源管理者的合作。</p>
+    <p class="thought">现在，一个更大的机会摆在面前。</p>
+    <p class="thought">但这次的代价，可能不只是一瓶水。</p>
+  </div>
+</div>
+
+<!-- 结尾 -->
+<div class="ending">
+  <h2>—— 第一章 完 ——</h2>
+  <p>朱江如何用商业思维破解"半真半假"的求救信号？<br>30人据点——是盟友还是威胁？<br>商业系统 Lv2 即将解锁……</p>
+  <p style="margin-top:16px;color:#ff8866;font-weight:600">▸ 第二章：《信息差就是生死差》即将更新</p>
+</div>
+
+<div class="footer">
+  末世商业帝国 · Trinity V5 · EXP-604<br>
+  向死而生
+</div>
+
+<script>
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+document.querySelectorAll('.panel,.decision,.ending').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
