@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>数据之眼 · 第一章 数据河流</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.cover {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0a0a1a 0%, #0d1b2a 50%, #1b2838 100%);
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0,255,200,0.05) 0%, transparent 60%);
+  animation: pulse 4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:0.3;transform:scale(1)} 50%{opacity:0.8;transform:scale(1.05)} }
+.cover h1 {
+  font-size: 2.4em;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00ffc8, #00a8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 40px rgba(0,255,200,0.3);
+  z-index: 1;
+  letter-spacing: 0.15em;
+}
+.cover .subtitle {
+  font-size: 1.1em;
+  color: rgba(0,255,200,0.6);
+  margin-top: 12px;
+  z-index: 1;
+  letter-spacing: 0.3em;
+}
+.cover .chapter {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.3);
+  margin-top: 30px;
+  z-index: 1;
+}
+.cover .scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  color: rgba(0,255,200,0.4);
+  font-size: 0.8em;
+  animation: bounce 2s infinite;
+  z-index: 1;
+}
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+.scene-divider {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, transparent, rgba(0,255,200,0.03), transparent);
+}
+.scene-divider h2 {
+  font-size: 1.3em;
+  color: #00ffc8;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+.scene-divider .scene-desc {
+  font-size: 0.85em;
+  color: rgba(255,255,255,0.3);
+  margin-top: 8px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 0 2px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+.panel-text {
+  padding: 16px 20px 28px;
+  font-size: 18px;
+  line-height: 1.9;
+}
+.panel-text .shot-info {
+  font-size: 0.7em;
+  color: rgba(0,255,200,0.3);
+  margin-bottom: 6px;
+  letter-spacing: 0.1em;
+}
+.panel-text .dialogue {
+  color: #fff;
+  font-weight: 600;
+  margin: 6px 0;
+}
+.panel-text .dialogue::before { content: '「'; color: #00ffc8; }
+.panel-text .dialogue::after { content: '」'; color: #00ffc8; }
+.panel-text .thought {
+  color: rgba(200,220,255,0.7);
+  font-style: italic;
+  margin: 6px 0;
+}
+.panel-text .thought::before { content: '（'; }
+.panel-text .thought::after { content: '）'; }
+.panel-text .narration {
+  color: rgba(255,255,255,0.6);
+}
+.panel-text .sfx {
+  color: #ff6b6b;
+  font-weight: 700;
+  font-size: 1.1em;
+  text-align: center;
+  margin: 8px 0;
+}
+.panel-text .humor {
+  color: #ffd93d;
+  font-size: 0.9em;
+  margin: 4px 0;
+}
+
+.decision-box {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0,255,200,0.05), rgba(0,168,255,0.05));
+  border: 1px solid rgba(0,255,200,0.2);
+  border-radius: 12px;
+}
+.decision-box h3 {
+  color: #00ffc8;
+  font-size: 1em;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.decision-option {
+  padding: 10px 14px;
+  margin: 8px 0;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255,255,255,0.1);
+  font-size: 0.9em;
+}
+.decision-option.chosen {
+  border-left-color: #00ffc8;
+  background: rgba(0,255,200,0.05);
+}
+.decision-option .label { color: rgba(255,255,255,0.4); font-size: 0.8em; }
+.decision-reason {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(0,168,255,0.05);
+  border-radius: 8px;
+  font-size: 0.85em;
+  color: rgba(200,220,255,0.7);
+}
+.decision-reason::before {
+  content: '💭 我的选择：';
+  color: #00a8ff;
+  font-weight: 600;
+}
+
+.cliffhanger {
+  padding: 60px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0a1a, #0d1b2a);
+}
+.cliffhanger h2 {
+  color: #00ffc8;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  letter-spacing: 0.2em;
+}
+.cliffhanger .hook {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.95em;
+  margin: 10px 0;
+  line-height: 1.8;
+}
+.cliffhanger .hook em {
+  color: #ff6b6b;
+  font-style: normal;
+  font-weight: 600;
+}
+.cliffhanger .tbc {
+  margin-top: 40px;
+  font-size: 0.8em;
+  color: rgba(0,255,200,0.3);
+  letter-spacing: 0.5em;
+}
+
+.footer {
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 0.75em;
+  color: rgba(255,255,255,0.15);
+}
+
+/* Data flow animation on certain panels */
+.data-glow {
+  position: relative;
+}
+.data-glow::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,255,200,0.08) 100%);
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>数据之眼</h1>
+  <div class="subtitle">第一章 · 数据河流</div>
+  <div class="chapter">都市异能 × 创业 × 黑客</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- ===== 场景1: 凌晨三点半的bug ===== -->
+<div class="scene-divider">
+  <h2>凌晨三点半的代码</h2>
+  <div class="scene-desc">觉醒</div>
+</div>
+
+<div class="panel" id="p1">
+  <img src="images/f01.jpg" loading="eager" alt="深夜空旷办公室">
+  <div class="panel-text">
+    <div class="shot-info">俯拍 · 全景</div>
+    <div class="narration">凌晨三点半，整层楼只剩我一个人。</div>
+    <div class="thought">这个并发死锁的bug已经困了我整整三天。如果明天之前修不好，下周的A轮交割就得延期。</div>
+  </div>
+</div>
+
+<div class="panel" id="p2">
+  <img src="images/f02.jpg" loading="eager" alt="揉太阳穴看代码">
+  <div class="panel-text">
+    <div class="shot-info">中景 · 略仰视</div>
+    <div class="narration">三块屏幕上密密麻麻全是日志。第四杯咖啡已经冷了，外卖盒里的饭早就凝固了。</div>
+    <div class="thought">这段日志不对劲……为什么线程在这里死锁？</div>
+  </div>
+</div>
+
+<div class="panel" id="p3">
+  <img src="images/f03.jpg" loading="eager" alt="血丝眼睛特写">
+  <div class="panel-text">
+    <div class="shot-info">特写 · 侧面45度</div>
+    <div class="narration">手指悬在键盘上方，我的眼睛已经干涩到快睁不开了。屏幕上的蓝光像刀一样扎进瞳孔。</div>
+  </div>
+</div>
+
+<div class="panel" id="p4">
+  <img src="images/f04.jpg" loading="lazy" alt="视线扭曲">
+  <div class="panel-text">
+    <div class="shot-info">主观视角</div>
+    <div class="sfx">嗡————</div>
+    <div class="narration">突然，剧烈的头痛像电击一样从后脑炸开。</div>
+    <div class="narration">眼前的世界开始扭曲。屏幕上的代码文字……在融化？</div>
+  </div>
+</div>
+
+<div class="panel data-glow" id="p5">
+  <img src="images/f05.jpg" loading="lazy" alt="数据光河涌出">
+  <div class="panel-text">
+    <div class="shot-info">全景 · 壮观</div>
+    <div class="narration">我猛地站起来——</div>
+    <div class="narration">眼前的景象让我以为自己疯了。</div>
+    <div class="narration">蓝绿色的半透明光流从服务器机柜里涌出来，像发光的河流，流过桌面，流上天花板。每台设备——路由器、手机、笔记本——都在发出不同颜色的微光。</div>
+    <div class="thought">我……看到了什么？</div>
+  </div>
+</div>
+
+<div class="panel" id="p6">
+  <img src="images/f06.jpg" loading="lazy" alt="震惊的瞳孔">
+  <div class="panel-text">
+    <div class="shot-info">面部特写</div>
+    <div class="narration">我的瞳孔里倒映着流动的蓝绿色光线。</div>
+    <div class="thought">不是幻觉。我揉了三次眼睛了。那些光……还在流。</div>
+  </div>
+</div>
+
+<div class="panel data-glow" id="p7">
+  <img src="images/f07.jpg" loading="lazy" alt="环顾发光的设备">
+  <div class="panel-text">
+    <div class="shot-info">中景 · 旋转视角</div>
+    <div class="narration">我环顾四周。路由器发橙色光流，手机是粉色，笔记本发蓝色。不同设备，不同颜色，不同流速。</div>
+    <div class="thought">这些……是数据？我在用肉眼看见数据的流动？</div>
+  </div>
+</div>
+
+<div class="panel" id="p8">
+  <img src="images/f08.jpg" loading="lazy" alt="林小鱼的电脑摸鱼数据">
+  <div class="panel-text">
+    <div class="shot-info">特写 · 搞笑</div>
+    <div class="narration">目光扫过林小鱼的工位——她的笔记本发出的数据流里，混着一大股格外活跃的粉紫色数据包。</div>
+    <div class="thought">等等……这数据包的形状，怎么看着像弹幕网站的流量？</div>
+    <div class="humor">🐟 林小鱼同学，上班摸鱼看视频，铁证如山啊。</div>
+  </div>
+</div>
+
+<div class="panel" id="p9">
+  <img src="images/f09.jpg" loading="lazy" alt="鼻血滴落键盘">
+  <div class="panel-text">
+    <div class="shot-info">近景 · 戏剧性</div>
+    <div class="sfx">滴——</div>
+    <div class="narration">一滴鲜红的血落在白色键盘上。</div>
+    <div class="narration">我伸手摸了摸鼻子——满手是血。头痛再次炸开，比刚才凶猛十倍。</div>
+  </div>
+</div>
+
+<div class="panel" id="p10">
+  <img src="images/f10.jpg" loading="lazy" alt="趴倒在键盘上">
+  <div class="panel-text">
+    <div class="shot-info">高角度俯拍 · 渐暗</div>
+    <div class="narration">视线迅速暗下去。我最后的意识是自己的脸砸在了键盘上，然后——</div>
+    <div class="narration">什么都没有了。</div>
+  </div>
+</div>
+
+<!-- ===== 场景2: 发现能力边界 ===== -->
+<div class="scene-divider">
+  <h2>萤火虫与秘密</h2>
+  <div class="scene-desc">测试</div>
+</div>
+
+<div class="panel" id="p11">
+  <img src="images/f11.jpg" loading="lazy" alt="深圳街头早晨">
+  <div class="panel-text">
+    <div class="shot-info">全景 · 暖色调</div>
+    <div class="narration">第二天早上，我顶着黑眼圈走在深圳的街头。阳光很好，让人恍惚昨晚的一切都是梦。</div>
+    <div class="thought">肯定是太累了产生的幻觉。对，就是这样。</div>
+    <div class="narration">然后我看了一眼路人的口袋。</div>
+  </div>
+</div>
+
+<div class="panel data-glow" id="p12">
+  <img src="images/f12.jpg" loading="lazy" alt="路人手机数据流如萤火虫">
+  <div class="panel-text">
+    <div class="shot-info">主观视角</div>
+    <div class="narration">每个路人的手机都在发出微弱的蓝绿色光流，像萤火虫一样飘浮在他们周围。有人的光流很强——正在刷短视频；有人的几乎看不见——手机待机。</div>
+    <div class="thought">……不是幻觉。</div>
+  </div>
+</div>
+
+<div class="panel" id="p13">
+  <img src="images/f13.jpg" loading="lazy" alt="拿手机测试">
+  <div class="panel-text">
+    <div class="shot-info">中景 · 侧面</div>
+    <div class="narration">到了公司，我把自己关在工位上，拿手机反复测试。打开视频APP——光流变强；关掉——变弱。发消息——一个小数据包嗖地飞出去。</div>
+    <div class="thought">真的能看见数据。这是什么超能力？</div>
+  </div>
+</div>
+
+<div class="panel" id="p14">
+  <img src="images/f14.jpg" loading="lazy" alt="测试笔记">
+  <div class="panel-text">
+    <div class="shot-info">特写 · 笔记本</div>
+    <div class="narration">我在笔记本上飞快记录：</div>
+    <div class="narration">「十米内清晰，十五米模糊，二十米消失。持续使用五分钟头开始痛。加密数据只能看到有东西在流，看不清内容。」</div>
+    <div class="thought">有范围限制，有时间限制，有加密盲区。不是万能的。</div>
+  </div>
+</div>
+
+<div class="panel" id="p15">
+  <img src="images/f15.jpg" loading="lazy" alt="走向赵磊">
+  <div class="panel-text">
+    <div class="shot-info">全景 · 办公室</div>
+    <div class="narration">测试完自己，该测试别人了。我起身走向赵磊的工位——这家伙正戴着棒球帽，翘着腿打电话，一脸轻松。</div>
+  </div>
+</div>
+
+<div class="panel" id="p16">
+  <img src="images/f16.jpg" loading="lazy" alt="赵磊脱发APP">
+  <div class="panel-text">
+    <div class="shot-info">主观视角特写 · 搞笑</div>
+    <div class="narration">赵磊的手机数据流里，一个APP的数据包特别显眼——持续传输，频率极高。</div>
+    <div class="narration">我仔细一看数据包的特征……</div>
+    <div class="humor">🫢 生发护理类应用？难怪赵磊最近天天戴棒球帽。</div>
+  </div>
+</div>
+
+<div class="panel" id="p17">
+  <img src="images/f17.jpg" loading="lazy" alt="忍笑表情">
+  <div class="panel-text">
+    <div class="shot-info">面部特写</div>
+    <div class="narration">我差点没忍住笑出声。嘴角拼命往下压，但眼角的笑意已经藏不住了。</div>
+    <div class="thought">赵磊啊赵磊，你的秘密在我眼里全是透明的。</div>
+  </div>
+</div>
+
+<div class="panel" id="p18">
+  <img src="images/f18.jpg" loading="lazy" alt="赵磊回头我装正经">
+  <div class="panel-text">
+    <div class="shot-info">中景 · 喜感</div>
+    <div class="dialogue">赵磊：你站我后面干嘛？</div>
+    <div class="narration">赵磊突然回头，我赶紧低头假装在看手机。</div>
+    <div class="dialogue">我：哦没事，路过，路过。</div>
+    <div class="thought">表演太烂了。不过赵磊这人粗线条，应该没注意到。</div>
+  </div>
+</div>
+
+<!-- ===== 场景3: 投资人会议 ===== -->
+<div class="scene-divider">
+  <h2>审计的真相</h2>
+  <div class="scene-desc">第一个决策点</div>
+</div>
+
+<div class="panel" id="p19">
+  <img src="images/f19.jpg" loading="lazy" alt="会议室对坐">
+  <div class="panel-text">
+    <div class="shot-info">全景 · 会议室</div>
+    <div class="narration">下午两点，A轮领投方的尽调团队来了。三个人，西装革履，笑容职业。</div>
+    <div class="narration">我、林小鱼、赵磊在会议桌这边坐好。一切看起来都是例行公事。</div>
+  </div>
+</div>
+
+<div class="panel" id="p20">
+  <img src="images/f20.jpg" loading="lazy" alt="投资人代表">
+  <div class="panel-text">
+    <div class="shot-info">中景 · 投资人</div>
+    <div class="dialogue">孙代表：朱总，上次聊得很愉快。今天就是走个流程，做个技术审计，看看核心模块的架构。</div>
+    <div class="narration">说话的是领头的——四十岁出头，金边眼镜，发型一丝不苟，笑得温和得体。红色领带打得很标准。</div>
+  </div>
+</div>
+
+<div class="panel" id="p21">
+  <img src="images/f21.jpg" loading="lazy" alt="银色USB">
+  <div class="panel-text">
+    <div class="shot-info">近景 · 戏剧张力</div>
+    <div class="narration">他从公文包里拿出一个银色的USB闪存盘，递了过来。</div>
+    <div class="dialogue">孙代表：这里面有我们的审计脚本，插到服务器上跑一下就行。很快的。</div>
+    <div class="thought">正常操作。很多投资机构尽调都这样。</div>
+  </div>
+</div>
+
+<div class="panel" id="p22">
+  <img src="images/f22.jpg" loading="lazy" alt="USB插入服务器">
+  <div class="panel-text">
+    <div class="shot-info">极特写 · 慢动作</div>
+    <div class="narration">赵磊接过USB，走到会议室角落的测试服务器前，插了进去。</div>
+    <div class="sfx">咔嗒。</div>
+  </div>
+</div>
+
+<div class="panel data-glow" id="p23">
+  <img src="images/f23.jpg" loading="lazy" alt="USB疯狂外传数据">
+  <div class="panel-text">
+    <div class="shot-info">主观视角 · 超能力</div>
+    <div class="narration">我的数据之眼自动启动了——</div>
+    <div class="narration">然后我看到了让我血液凝固的一幕。</div>
+    <div class="narration">那个USB正在疯狂向外发射数据流。但方向不对——不是流向会议室里的分析终端，而是穿过墙壁，射向窗外。</div>
+    <div class="thought">这不是本地审计。这是在往外网传数据。传的是我们的核心代码。</div>
+  </div>
+</div>
+
+<div class="panel" id="p24">
+  <img src="images/f24.jpg" loading="lazy" alt="瞳孔收缩">
+  <div class="panel-text">
+    <div class="shot-info">面部特写</div>
+    <div class="narration">我的表情没变。三年创业练出来的扑克脸这时候派上了用场。</div>
+    <div class="narration">但我的瞳孔收缩了。</div>
+    <div class="thought">冷静。你有三十秒做决定。</div>
+  </div>
+</div>
+
+<div class="panel" id="p25">
+  <img src="images/f25.jpg" loading="lazy" alt="投资人微笑">
+  <div class="panel-text">
+    <div class="shot-info">中景 · 反差</div>
+    <div class="narration">对面，那个金边眼镜男还在温和地微笑着，优雅地翻看文件。窗外阳光灿烂。</div>
+    <div class="thought">这个笑容，是掩护。</div>
+  </div>
+</div>
+
+<div class="panel" id="p26">
+  <img src="images/f26.jpg" loading="lazy" alt="决策分屏">
+  <div class="panel-text">
+    <div class="shot-info">创意分屏</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点一</h3>
+  <div class="decision-option">
+    <div class="label">选项 A</div>
+    当场站起来，揭穿对方：你们的USB在偷传代码。正面冲突，撕破脸。
+  </div>
+  <div class="decision-option chosen">
+    <div class="label">选项 B ✓</div>
+    不动声色，在桌下用手机暗中切断USB的外网传输。保住表面关系，暗中反击。
+  </div>
+  <div class="decision-reason">
+    正面翻脸不是我的风格。黑客的基因告诉我——能用技术解决的问题，别用嘴。先断了他的通道，再查他的底。
+  </div>
+</div>
+
+<div class="panel" id="p27">
+  <img src="images/f27.jpg" loading="lazy" alt="桌下操作手机">
+  <div class="panel-text">
+    <div class="shot-info">中景偏近 · 暗中操作</div>
+    <div class="narration">我脸上挂着礼貌的微笑，一只手放在桌面上做出倾听的姿态。另一只手在桌下打开了手机。</div>
+    <div class="narration">我提前在服务器上埋过一个安全后门——不是用来攻击的，是给自己留的紧急制动器。</div>
+    <div class="thought">三年前写的代码，今天救了命。</div>
+  </div>
+</div>
+
+<div class="panel" id="p28">
+  <img src="images/f28.jpg" loading="lazy" alt="防火墙拦截界面">
+  <div class="panel-text">
+    <div class="shot-info">手机屏幕特写</div>
+    <div class="narration">防火墙拦截成功。数据传输进度卡在百分之二十三。</div>
+    <div class="thought">你拷了不到四分之一，而且全是外层架构代码。核心算法你一行都没拿到。</div>
+    <div class="narration">我把手机揣回口袋，继续微笑。</div>
+    <div class="dialogue">我：审计脚本跑完了吗？需要我们配合什么？</div>
+  </div>
+</div>
+
+<!-- ===== 场景4: 追查数据流向 ===== -->
+<div class="scene-divider">
+  <h2>深数集团</h2>
+  <div class="scene-desc">悬疑升级</div>
+</div>
+
+<div class="panel" id="p29">
+  <img src="images/f29.jpg" loading="lazy" alt="夜晚分析数据">
+  <div class="panel-text">
+    <div class="shot-info">全景 · 夜晚办公室</div>
+    <div class="narration">投资人走后，我把门关上，拉林小鱼一起追查。</div>
+    <div class="dialogue">我：小鱼，帮我查一下这个USB今天传出去的数据最终去了哪。</div>
+    <div class="dialogue">林小鱼：你怎么知道它传了数据？</div>
+    <div class="dialogue">我：……直觉。</div>
+  </div>
+</div>
+
+<div class="panel" id="p30">
+  <img src="images/f30.jpg" loading="lazy" alt="深数集团logo">
+  <div class="panel-text">
+    <div class="shot-info">屏幕特写</div>
+    <div class="narration">数据流追踪结果出来了。所有异常数据，最终汇聚到同一个地方——</div>
+    <div class="narration" style="color:#ff6b6b;font-weight:700;font-size:1.1em;text-align:center;">深数集团。</div>
+  </div>
+</div>
+
+<div class="panel" id="p31">
+  <img src="images/f31.jpg" loading="lazy" alt="林小鱼推眼镜">
+  <div class="panel-text">
+    <div class="shot-info">近景 · 林小鱼</div>
+    <div class="dialogue">林小鱼：深数集团？那个孙总？他不是号称「行业良心」吗？去年还给开源社区捐了两百万。</div>
+    <div class="narration">她推了推银色圆框眼镜，表情从震惊变成了冷笑。</div>
+    <div class="dialogue">林小鱼：良心，呵。</div>
+  </div>
+</div>
+
+<div class="panel" id="p32">
+  <img src="images/f32.jpg" loading="lazy" alt="朱江苦笑">
+  <div class="panel-text">
+    <div class="shot-info">中景 · 靠椅背</div>
+    <div class="narration">我靠在椅背上，双手交叉在脑后，苦笑了一下。</div>
+    <div class="thought">行业龙头，资源碾压，如果他们真的在系统性地偷创业公司的代码……那我们可能只是猎物之一。</div>
+  </div>
+</div>
+
+<div class="panel" id="p33">
+  <img src="images/f33.jpg" loading="lazy" alt="调查时间线">
+  <div class="panel-text">
+    <div class="shot-info">信息图 · 刑侦板</div>
+    <div class="narration">林小鱼花了两个小时，扒出了更多：</div>
+    <div class="narration">深数集团过去半年收购了三家创业公司。每一家的流程都一样——先以投资名义接触，做「技术审计」，拷走核心代码，然后压价收购。</div>
+    <div class="narration">不卖？他们直接用偷到的代码做个竞品，把你挤死。</div>
+  </div>
+</div>
+
+<div class="panel" id="p34">
+  <img src="images/f34.jpg" loading="lazy" alt="握拳">
+  <div class="panel-text">
+    <div class="shot-info">近景 · 手部+表情</div>
+    <div class="narration">我握紧了拳头，指节发白。</div>
+    <div class="thought">三家公司，三个创始人，不知道多少个通宵、多少次借钱、多少次差点放弃才做出来的东西——就这么被偷走了。</div>
+  </div>
+</div>
+
+<div class="panel" id="p35">
+  <img src="images/f35.jpg" loading="lazy" alt="白板画时间线">
+  <div class="panel-text">
+    <div class="shot-info">中景 · 白板前</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点二</h3>
+  <div class="decision-option">
+    <div class="label">选项 A</div>
+    公开揭发深数集团，引爆行业关注。但我们太小，可能被他们的公关机器碾压。
+  </div>
+  <div class="decision-option chosen">
+    <div class="label">选项 B（变体）✓</div>
+    暗中收集三天证据，同时通过行业群私下预警其他创业公司。
+  </div>
+  <div class="decision-reason">
+    数据不够充分就公开，那叫鲁莽不叫勇敢。先收集三天铁证——这是黑客的习惯，数据充分才出手。但其他公司不能等三天，先匿名预警，能救一个是一个。
+  </div>
+</div>
+
+<div class="panel" id="p36">
+  <img src="images/f36.jpg" loading="lazy" alt="匿名发预警">
+  <div class="panel-text">
+    <div class="shot-info">手部特写</div>
+    <div class="narration">我在三个行业群里匿名发了同一条消息：</div>
+    <div class="narration" style="color:#ffd93d;">「如果有投资方让你们做'技术审计'，千万留个心眼。查一下USB有没有在往外传数据。别问我怎么知道的。」</div>
+  </div>
+</div>
+
+<div class="panel" id="p37">
+  <img src="images/f37.jpg" loading="lazy" alt="天台望深数集团">
+  <div class="panel-text">
+    <div class="shot-info">全景 · 夜景</div>
+    <div class="narration">深圳的夜景永远不缺灯火。我站在天台上，看着远处深数集团大楼的灯光。</div>
+    <div class="thought">孙总，你的「行业良心」人设，还能演多久？</div>
+  </div>
+</div>
+
+<div class="panel data-glow" id="p38">
+  <img src="images/f38.jpg" loading="lazy" alt="蜂巢数据大楼">
+  <div class="panel-text">
+    <div class="shot-info">主观视角 · 超能力</div>
+    <div class="narration">我启动了数据之眼。</div>
+    <div class="narration">远处的深数集团大楼在我的视野中变成了一个巨大的发光蜂巢。无数蓝绿色数据流从每一扇窗户涌进涌出，像一个活的有机体在呼吸。</div>
+    <div class="thought">这么大的数据量……他们到底在做什么？</div>
+  </div>
+</div>
+
+<!-- ===== 场景5: 能力失控+悬念 ===== -->
+<div class="scene-divider">
+  <h2>信息过载</h2>
+  <div class="scene-desc">失控</div>
+</div>
+
+<div class="panel" id="p39">
+  <img src="images/f39.jpg" loading="lazy" alt="大楼外假装打电话">
+  <div class="panel-text">
+    <div class="shot-info">全景 · 白天CBD</div>
+    <div class="narration">第三天。我站在深数集团大楼对面，假装打电话。</div>
+    <div class="thought">今天是收集证据的最后一天。从外面扫一遍他们的数据流向，就能画出完整的拓扑图。</div>
+  </div>
+</div>
+
+<div class="panel data-glow" id="p40">
+  <img src="images/f40.jpg" loading="lazy" alt="数据瀑布爆发">
+  <div class="panel-text">
+    <div class="shot-info">主观视角 · 超能力全开</div>
+    <div class="narration">我启动数据之眼，对准整栋大楼——</div>
+    <div class="sfx">轰——！</div>
+    <div class="narration">海量数据流像瀑布一样从每一扇窗户涌出，蓝绿色光芒充满了整个视野。数据量是我之前见过的一百倍。</div>
+    <div class="thought">太多了……太多了！</div>
+  </div>
+</div>
+
+<div class="panel" id="p41">
+  <img src="images/f41.jpg" loading="lazy" alt="痛苦扭曲">
+  <div class="panel-text">
+    <div class="shot-info">面部特写 · 痛苦</div>
+    <div class="narration">剧烈的头痛瞬间炸开。比第一晚还要凶猛十倍。</div>
+    <div class="narration">我感觉自己的大脑像一个32G内存的电脑，被强行灌入了1T的数据。</div>
+  </div>
+</div>
+
+<div class="panel data-glow" id="p42">
+  <img src="images/f42.jpg" loading="lazy" alt="神秘红色数据流">
+  <div class="panel-text">
+    <div class="shot-info">模糊主观视角 · 神秘</div>
+    <div class="narration">在蓝绿色的数据洪流中，我隐约看到了一个不一样的东西——</div>
+    <div class="narration">一股深红色的数据流，像血脉一样跳动着脉搏。它穿过蓝绿色的海洋，方向和所有其他数据流都不同，指向一个完全未知的地址。</div>
+    <div class="thought">那是……什么？</div>
+  </div>
+</div>
+
+<div class="panel" id="p43">
+  <img src="images/f43.jpg" loading="lazy" alt="扶路灯流鼻血">
+  <div class="panel-text">
+    <div class="shot-info">近景 · 危急</div>
+    <div class="narration">鼻血涌出来了。我踉跄着扶住路边的路灯杆，白T恤胸口染上了红色。</div>
+    <div class="narration">路人投来奇怪的目光。有人问我要不要叫救护车。</div>
+    <div class="dialogue">我：没事……没事，低血糖。</div>
+  </div>
+</div>
+
+<div class="panel" id="p44">
+  <img src="images/f44.jpg" loading="lazy" alt="擦血看向大楼">
+  <div class="panel-text">
+    <div class="shot-info">特写 · 逆光</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点三</h3>
+  <div class="decision-option">
+    <div class="label">选项 A</div>
+    追查那股神秘的红色数据流。可能发现更大的秘密，但会分散精力，公司还在被深数集团威胁。
+  </div>
+  <div class="decision-option chosen">
+    <div class="label">选项 B ✓</div>
+    先专注眼前的商业间谍案。那个红色数据流——以后再说。
+  </div>
+  <div class="decision-reason">
+    创业者的第一本能是「先活下去」。公司正在被人捅刀子，我不能分心去追一个不知道是什么的东西。但那个红色……总有一天我会回来找到答案的。
+  </div>
+</div>
+
+<div class="panel" id="p44b">
+  <div class="panel-text">
+    <div class="narration">我用手背擦去鼻血，望向深数集团大楼。</div>
+    <div class="thought">孙总，你的好日子不多了。</div>
+    <div class="thought">至于那个红色的东西……等我先活过这一关。</div>
+  </div>
+</div>
+
+<div class="panel data-glow" id="p45">
+  <img src="images/f45.jpg" loading="lazy" alt="章末天际线">
+  <div class="panel-text">
+    <div class="shot-info">全景 · 章末</div>
+    <div class="narration">夜幕降临。深圳的天际线燃烧着最后一缕橙红色的晚霞。</div>
+    <div class="narration">远处那栋大楼依然灯火通明。</div>
+    <div class="narration">而在我的眼中——</div>
+    <div class="narration">数据的河流，从未停止流动。</div>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <h2>未完待续</h2>
+  <div class="hook">深数集团的商业间谍网，到底有多大？</div>
+  <div class="hook">那股<em>深红色的神秘数据流</em>，通向何处？</div>
+  <div class="hook">我的数据之眼——为什么是我？还会<em>继续变强</em>吗？</div>
+  <div class="tbc">第二章 · 即将揭晓</div>
+</div>
+
+<div class="footer">
+  数据之眼 · 第一章 数据河流<br>
+  向死而生 · 数澜科技出品
+</div>
+
+<script>
+// Intersection Observer for scroll reveal
+const panels = document.querySelectorAll('.panel');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+panels.forEach(p => obs.observe(p));
+</script>
+</body>
+</html>
