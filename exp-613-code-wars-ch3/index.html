@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码暗战 · 第三章 预测之眼</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:18px;line-height:1.8;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a12 0%,#0f1a2e 50%,#1a0a2e 100%);text-align:center;padding:20px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="80" fill="%23ffffff08">Σ</text></svg>') center/cover no-repeat;opacity:0.3}
+.cover h1{font-size:2.2em;background:linear-gradient(135deg,#00d4ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;position:relative}
+.cover .subtitle{font-size:1.1em;color:#8892a8;margin-bottom:30px;position:relative}
+.cover .chapter{font-size:0.9em;color:#a855f7;letter-spacing:4px;position:relative}
+.story{max-width:420px;margin:0 auto;padding:0 0 60px}
+.panel{margin:0;padding:0;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.panel-text{padding:16px 20px;background:#0d0d1a;border-left:3px solid #1a3a5c}
+.panel-text.decision{border-left-color:#a855f7;background:linear-gradient(90deg,#1a0a2e,#0d0d1a)}
+.panel-text.xiaoyu{border-left-color:#00d4ff;background:linear-gradient(90deg,#0a1a2e,#0d0d1a)}
+.panel-text.thought{border-left-color:#f59e0b;background:linear-gradient(90deg,#1a150a,#0d0d1a);font-style:italic}
+.panel-text p{margin-bottom:8px}
+.panel-text p:last-child{margin-bottom:0}
+.speaker{font-weight:bold;margin-right:4px}
+.speaker.zj{color:#00d4ff}
+.speaker.xy{color:#00ff88}
+.speaker.sxt{color:#f472b6}
+.speaker.wjsh{color:#fbbf24}
+.decision-box{background:linear-gradient(135deg,#1a0a2e,#0a1a2e);border:1px solid #a855f7;border-radius:12px;margin:20px 16px;padding:20px;text-align:center}
+.decision-box h3{color:#a855f7;font-size:1.1em;margin-bottom:12px}
+.decision-box .choice{background:#a855f733;border:1px solid #a855f7;border-radius:8px;padding:10px 16px;margin:8px 0;color:#e0e0e0;font-size:0.95em}
+.decision-box .choice.selected{background:#a855f766;border-color:#d4a8ff;box-shadow:0 0 20px #a855f744}
+.decision-box .choice.selected::before{content:'✦ ';color:#d4a8ff}
+.act-divider{text-align:center;padding:40px 20px;color:#4a5568;font-size:0.85em;letter-spacing:6px}
+.act-divider span{display:block;width:60px;height:1px;background:linear-gradient(90deg,transparent,#4a5568,transparent);margin:12px auto}
+.hud{font-family:'Courier New',monospace;color:#00d4ff;font-size:0.85em;background:#00d4ff11;padding:2px 6px;border-radius:3px}
+.warning{color:#ef4444;font-weight:bold}
+.sigma{color:#a855f7;font-weight:bold}
+.end-card{text-align:center;padding:60px 20px;background:linear-gradient(180deg,#0d0d1a,#1a0a2e)}
+.end-card h2{font-size:1.8em;background:linear-gradient(135deg,#a855f7,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+.end-card p{color:#8892a8;font-size:0.9em}
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#00d4ff,#a855f7);z-index:100;transition:width 0.1s}
+</style>
+</head>
+<body>
+<div class="scroll-progress" id="progress"></div>
+
+<div class="cover">
+<div class="chapter">第三章</div>
+<h1>预测之眼</h1>
+<div class="subtitle">代码暗战 · V5原创长篇</div>
+</div>
+
+<div class="story">
+
+<!-- ACT 1: 逃离猎场 -->
+<div class="act-divider">第一幕 逃离猎场<span></span></div>
+
+<div class="panel">
+<img src="panel-01.jpg" loading="lazy" alt="走廊监控锁定">
+<div class="panel-text">
+<p>面部识别已锁定。走廊监控的红灯疯狂闪烁，我大概还有90秒。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-02.jpg" loading="lazy" alt="小鱼紧急通讯">
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"老板，酒店安防系统我已经摸清了，消防通道在你左手边18米。但——你的面部数据已经被上传到天网本地服务器了。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-03.jpg" loading="lazy" alt="苏小棠拉住我">
+<div class="panel-text">
+<p><span class="speaker sxt">苏小棠</span>突然从旁边拉住我的袖子："跟我走，我知道这栋楼的后厨通道，以前天网团建来过这个酒店。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-04.jpg" loading="lazy" alt="穿过后厨">
+<div class="panel-text xiaoyu">
+<p>我们穿过后厨，经过一群正在切三文鱼的厨师。</p>
+<p><span class="speaker xy">小鱼：</span>"老板，你现在的逃跑路线和你上次从投资人办公室出来一样曲折，区别是上次是比喻意义上的。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-05.jpg" loading="lazy" alt="地下车库">
+<div class="panel-text">
+<p>从地下车库出去时，苏小棠的手在发抖。我递给她一瓶水。</p>
+<p><span class="speaker zj">我：</span>"第一次被追？"</p>
+<p>她摇头："第三次。前两次我是一个人。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-06.jpg" loading="lazy" alt="车内面部投毒方案">
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"面部投毒方案已规划。我准备生成10万张和你长得差不多的AI人脸。放心，都比你帅一点，不会引起怀疑。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-07.jpg" loading="lazy" alt="决策点D-7">
+<div class="decision-box">
+<h3>决策点 D-7</h3>
+<p style="color:#8892a8;font-size:0.9em;margin-bottom:12px">天网已有我的面部数据。48小时内就能确认"幽灵"=朱江。</p>
+<div class="choice">A：先下手为强——删除面部数据</div>
+<div class="choice selected">B：投毒策略——注入10万张噪音人脸</div>
+<div class="choice">C：赌时间差——48小时内拿到证据</div>
+</div>
+<div class="panel-text thought">
+<p>最优雅的防御不是删除痕迹，而是让痕迹变成噪音。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-08.jpg" loading="lazy" alt="车窗夜景">
+<div class="panel-text">
+<p>深圳的霓虹灯在车窗外流淌。我靠在后座闭上眼睛。今晚的酒店不能回了。</p>
+</div>
+</div>
+
+<!-- ACT 2: U盘的秘密 -->
+<div class="act-divider">第二幕 U盘的秘密<span></span></div>
+
+<div class="panel">
+<img src="panel-09.jpg" loading="lazy" alt="城中村安全屋">
+<div class="panel-text">
+<p>苏小棠的安全屋——城中村的一间小公寓。满墙二次元海报和打印的网络安全报告，桌上三台笔记本同时亮着。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-10.jpg" loading="lazy" alt="朱江打量房间">
+<div class="panel-text thought">
+<p>这是我见过最赛博朋克的房间——不是因为科技感，是因为混乱程度。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-11.jpg" loading="lazy" alt="U盘解密">
+<div class="panel-text">
+<p>开始破解U盘。三层加密：高级加密标准、自定义混淆、硬件绑定密钥。我和苏小棠并排坐下，四只手在两台键盘上翻飞。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-12.jpg" loading="lazy" alt="苏小棠嗑瓜子">
+<div class="panel-text">
+<p>苏小棠的程序员习惯：一边逆向工程一边无意识地嗑瓜子。桌上的瓜子壳堆得比键盘还高。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-13.jpg" loading="lazy" alt="瓜子壳更高了">
+<div class="panel-text">
+<p>四个小时过去了，瓜子壳又高了一层。我忍不住侧头看了一眼——她完全没注意到。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-14.jpg" loading="lazy" alt="处女座梗">
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"这个加密方案的作者有洁癖——命名规范完美、注释详尽、还用了代码美化工具。我猜是个处女座。"</p>
+<p><span class="speaker sxt">苏小棠：</span>"……是我前同事赵凯，确实是处女座。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-15.jpg" loading="lazy" alt="第三层锁定">
+<div class="panel-text">
+<p>前两层破了。第三层——硬件绑定，需要赵凯的原始工作电脑。死路。</p>
+<p>但已解密的部分，已经够震撼了。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-16.jpg" loading="lazy" alt="数据交易日志">
+<div class="panel-text">
+<p>天网数据交易日志。规模比我想象的大得多——不是简单卖用户数据。</p>
+<p>天网在做的事是：<strong>训练一个"预测控制AI"</strong>。用3亿用户的行为数据，预测用户下一步会做什么——然后引导他们的行为。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-17.jpg" loading="lazy" alt="天眼架构">
+<div class="panel-text">
+<p>一个叫<span class="hud">天眼</span>的模块。预测准确率：87.3%。每个月提升0.5%。</p>
+<p>18个月后，它能预测每个用户90%以上的行为。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-18.jpg" loading="lazy" alt="小鱼震惊">
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"老板……这不是数据贩卖。这是<strong>行为控制</strong>。他们在训练的东西，用通俗的话说——读心术。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-19.jpg" loading="lazy" alt="小鱼学历碾压">
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"老板，我不是卡了，我是在消化。这个模型的参数量比我大一万倍。我终于理解了什么叫学历碾压。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-20.jpg" loading="lazy" alt="苏小棠揭露控制模块">
+<div class="panel-text">
+<p><span class="speaker sxt">苏小棠</span>的声音在发抖，但不是因为恐惧。</p>
+<p>"我当初发现这个的时候，以为是产品优化。后来我看到了控制模块——它不只是预测，它会主动推送内容来<strong>改变</strong>用户原本会做的决定。"</p>
+</div>
+</div>
+
+<!-- ACT 3: 暗网拍卖 -->
+<div class="act-divider">第三幕 暗网拍卖<span></span></div>
+
+<div class="panel">
+<img src="panel-21.jpg" loading="lazy" alt="决策点D-8">
+<div class="decision-box">
+<h3>决策点 D-8</h3>
+<p style="color:#8892a8;font-size:0.9em;margin-bottom:12px">苏小棠的前导师王教授拿了天网的研究经费——他知道天眼的存在。</p>
+<div class="choice">A：联系王教授，说服他公开站出来</div>
+<div class="choice">B：不信任——拿了钱就是利益相关方</div>
+<div class="choice selected">C：先调查王教授到底知道多少</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-22.jpg" loading="lazy" alt="黑客第一课">
+<div class="panel-text thought">
+<p>黑客的第一课是信息不足时不做决定。</p>
+</div>
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"这句话如果用在你之前的融资决策上……算了我不说了。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-23.jpg" loading="lazy" alt="暗网拍卖发现">
+<div class="panel-text">
+<p>小鱼监控暗网时发现异常——一个叫<span class="hud">天眼碎片</span>的拍卖。有人在暗网出售预测控制AI的部分训练数据和模型权重。</p>
+<p>起拍价500万泰达币。已有12个买家出价。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-24.jpg" loading="lazy" alt="朱江准备潜入">
+<div class="panel-text">
+<p>我决定潜入暗网拍卖会——不是买东西，而是追踪卖家身份。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-25.jpg" loading="lazy" alt="暗网身份">
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"你现在是'数据经纪人幽灵经纪人888'。我给你编了一份暗网履历——27次成功交易、零差评。"</p>
+<p><span class="speaker zj">我：</span>"你是不是把我的创业经历改了改就用了？"</p>
+<p><span class="speaker xy">小鱼：</span>"主要是把'融资'改成了'洗钱'，核心竞争力差不多。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-26.jpg" loading="lazy" alt="VPN跳转">
+<div class="panel-text">
+<p>虚拟专网套三层、加密通信、IP跳转7个国家。潜入暗网拍卖会。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-27.jpg" loading="lazy" alt="买家分析">
+<div class="panel-text">
+<p>拍卖过程中，小鱼分析出买家通讯模式——其中一个买家的加密签名和陈天明手机上的APP完全一致。</p>
+<p><strong>陈天明自己在暗网买回自己公司泄露的数据。</strong></p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-28.jpg" loading="lazy" alt="为什么">
+<div class="panel-text thought">
+<p>陈天明自己买回自己公司泄露的数据？为什么？</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-29.jpg" loading="lazy" alt="追踪到内鬼">
+<div class="panel-text">
+<p>顺着卖家的数字指纹追踪——追到了天网深圳研发中心的一个内网IP。</p>
+<p class="warning">内鬼。天网内部有人在偷数据出来卖。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-30.jpg" loading="lazy" alt="思考内鬼">
+<div class="panel-text thought">
+<p>天网的内鬼可能是我的潜在盟友，也可能是更危险的敌人。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-31.jpg" loading="lazy" alt="决策点D-9">
+<div class="decision-box">
+<h3>决策点 D-9</h3>
+<p style="color:#8892a8;font-size:0.9em;margin-bottom:12px">天网内鬼在暗网卖公司核心数据。此人是盟友还是更大的威胁？</p>
+<div class="choice">A：接触内鬼，试图策反</div>
+<div class="choice">B：匿名举报给陈天明，趁乱渔利</div>
+<div class="choice selected">C：继续监控，等待时机</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-32.jpg" loading="lazy" alt="耐心的猎人">
+<div class="panel-text thought">
+<p>你不一定要成为棋手，有时候看清整盘棋比下一步棋更重要。</p>
+</div>
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"终于选了一次低风险选项！我要截屏保存，作为证据证明你偶尔也会理性。"</p>
+</div>
+</div>
+
+<!-- ACT 4: 王教授的真相 -->
+<div class="act-divider">第四幕 王教授的真相<span></span></div>
+
+<div class="panel">
+<img src="panel-33.jpg" loading="lazy" alt="咖啡馆会面">
+<div class="panel-text">
+<p>苏小棠在大学附近的咖啡馆约见王教授。我通过耳机远程监听。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-34.jpg" loading="lazy" alt="王教授紧张">
+<div class="panel-text">
+<p><span class="speaker wjsh">王教授：</span>"小棠，你不该来找我的。你辞职后天网就在监控和你有联系的人。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-35.jpg" loading="lazy" alt="天眼不是陈天明的">
+<div class="panel-text">
+<p><span class="speaker wjsh">王教授</span>压低声音。</p>
+<p>"天眼不是陈天明的发明。核心算法来自5年前一篇被撤稿的论文——作者是一个叫<span class="sigma">Sigma</span>的匿名研究者。陈天明花了三年才重建了70%的模型。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-36.jpg" loading="lazy" alt="Sigma在暗网活动">
+<div class="panel-text">
+<p>"而<span class="sigma">Sigma</span>……三个月前开始在暗网活动。天网的数据泄露——是Sigma在<strong>取回自己的东西</strong>。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-37.jpg" loading="lazy" alt="代码风格匹配">
+<div class="panel-text xiaoyu">
+<p><span class="speaker xy">小鱼：</span>"老板，追踪幽灵的那个天网黑客的代码风格……和Sigma论文中的代码风格——</p>
+<p class="warning">匹配度89%。</p>
+<p>猎杀我的人，不是天网的员工。"</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-38.jpg" loading="lazy" alt="背脊发凉">
+<div class="panel-text thought">
+<p>猎杀我的人，不是天网的员工——是<span class="sigma">Sigma</span>本人。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-39.jpg" loading="lazy" alt="三方博弈">
+<div class="panel-text thought">
+<p>棋盘上不是两个人了。是三个：我、陈天明、和一个叫<span class="sigma">Sigma</span>的幽灵之上的幽灵。</p>
+</div>
+</div>
+
+<!-- ACT 5: 悬念结尾 -->
+<div class="act-divider">终幕 三方博弈<span></span></div>
+
+<div class="panel">
+<img src="panel-40.jpg" loading="lazy" alt="窗边夜景">
+<div class="panel-text">
+<p>我站在安全屋的窗边，看着深圳的夜景。远处的高楼像一块块发光的棋盘。</p>
+<p>陈天明想控制3亿用户的行为。Sigma想取回自己的技术。而我——只是想阻止这一切。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-41.jpg" loading="lazy" alt="三方势力图">
+<div class="panel-text">
+<p>三方博弈。每一方都有自己的目的，每一方都可能成为另外两方的敌人。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-42.jpg" loading="lazy" alt="赵凯失联">
+<div class="panel-text">
+<p><span class="speaker xy">小鱼：</span>"苏小棠发来截图——她前同事赵凯，就是那个处女座加密专家——今天没去上班。社交媒体全部删除。最后一条朋友圈就两个字：'对不起'。"</p>
+<p>我猛地站起来。赵凯可能就是Sigma在天网内部的合作者。他跑了，说明事态在加速。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="panel-43.jpg" loading="lazy" alt="Sigma的消息">
+<div class="panel-text">
+<p>手机屏幕亮了。一条加密消息。发送者：<span class="sigma">Sigma</span>。</p>
+<p style="text-align:center;font-size:1.3em;color:#a855f7;margin:16px 0"><strong>"幽灵，我们该谈谈了。"</strong></p>
+</div>
+</div>
+
+</div>
+
+<div class="end-card">
+<h2>第三章完</h2>
+<p>未完待续</p>
+<p style="margin-top:20px;color:#4a5568">代码暗战 · 预测之眼</p>
+</div>
+
+<script>
+// Scroll progress
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  const p=h>0?(window.scrollY/h)*100:0;
+  document.getElementById('progress').style.width=p+'%';
+});
+// Lazy reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.1});
+document.querySelectorAll('.panel').forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
