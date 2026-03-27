@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>末世商业帝国 · 第二章：信号与刀锋</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: 'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.chapter-header {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0f1a 0%, #1a0a0f 50%, #0a0a0f 100%);
+  overflow: hidden;
+}
+.chapter-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(0,200,150,0.08) 0%, transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(200,50,50,0.06) 0%, transparent 50%);
+  animation: headerPulse 6s ease-in-out infinite;
+}
+@keyframes headerPulse {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.chapter-header h1 {
+  font-size: 2.2em;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00ff88, #00ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.3em;
+  position: relative;
+  z-index: 1;
+}
+.chapter-header .subtitle {
+  font-size: 1.1em;
+  color: rgba(255,255,255,0.5);
+  position: relative;
+  z-index: 1;
+}
+.chapter-header .ch-num {
+  font-size: 0.9em;
+  color: rgba(0,200,150,0.6);
+  letter-spacing: 0.3em;
+  margin-bottom: 1em;
+  position: relative;
+  z-index: 1;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.3);
+  font-size: 0.8em;
+  animation: bounce 2s infinite;
+  z-index: 1;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Panel system */
+.panel {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+.panel-text {
+  padding: 16px 20px;
+  font-size: 1em;
+  line-height: 1.8;
+}
+.panel-text .dialogue {
+  color: #fff;
+  font-weight: 600;
+  margin: 0.3em 0;
+}
+.panel-text .dialogue::before { content: '「'; color: #00cc88; }
+.panel-text .dialogue::after { content: '」'; color: #00cc88; }
+.panel-text .inner-voice {
+  color: rgba(100,200,255,0.85);
+  font-style: italic;
+  margin: 0.3em 0;
+  padding-left: 1em;
+  border-left: 2px solid rgba(100,200,255,0.3);
+}
+.panel-text .system-msg {
+  color: #00ff88;
+  font-size: 0.85em;
+  background: rgba(0,255,136,0.05);
+  border: 1px solid rgba(0,255,136,0.15);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0.5em 0;
+  font-family: monospace, 'PingFang SC';
+}
+.panel-text .narration {
+  color: rgba(220,220,220,0.9);
+  margin: 0.3em 0;
+}
+
+/* Section dividers */
+.section-title {
+  text-align: center;
+  padding: 60px 20px 30px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.section-title h2 {
+  font-size: 1.3em;
+  color: #00ccaa;
+  letter-spacing: 0.1em;
+  position: relative;
+  display: inline-block;
+}
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ccaa, transparent);
+}
+
+/* Decision points */
+.decision-point {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255,200,0,0.08), rgba(255,100,0,0.05));
+  border: 1px solid rgba(255,200,0,0.3);
+  border-radius: 12px;
+}
+.decision-point .label {
+  color: #ffcc00;
+  font-weight: 700;
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5em;
+}
+.decision-point .question { color: #fff; margin-bottom: 0.5em; }
+.decision-point .options { font-size: 0.9em; color: rgba(255,255,255,0.7); }
+.decision-point .options .chosen {
+  color: #00ff88;
+  font-weight: 700;
+  background: rgba(0,255,136,0.08);
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 4px;
+}
+.decision-point .reasoning {
+  font-size: 0.85em;
+  color: rgba(200,200,200,0.6);
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+/* Threat section */
+.threat-section .section-title h2 { color: #ff4444; }
+.threat-section .section-title h2::after { background: linear-gradient(90deg, transparent, #ff4444, transparent); }
+
+/* End card */
+.end-card {
+  text-align: center;
+  padding: 60px 20px 40px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.end-card .end-mark {
+  font-size: 1.5em;
+  color: #00ccaa;
+  margin-bottom: 1em;
+}
+.end-card .preview {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+}
+.end-card .preview strong { color: rgba(255,200,0,0.8); }
+
+/* Spacers */
+.spacer { height: 20px; }
+.spacer-lg { height: 40px; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="ch-num">第 二 章</div>
+  <h1>信号与刀锋</h1>
+  <div class="subtitle">末世商业帝国</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- ===== Section 1: 深夜准备 ===== -->
+<div class="section-title"><h2>深夜准备</h2></div>
+
+<div class="panel">
+  <img src="images/panel-01.jpg" loading="lazy" alt="深夜仓库">
+  <div class="panel-text">
+    <p class="narration">深夜的分拣中心只有应急灯的青白色光。我靠墙盯着小陈的屏幕，系统鉴定信息悬浮在视频截图上。</p>
+    <p class="inner-voice">上辈子融资谈判前起码喝杯咖啡。现在自来水都是奢侈品。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-02.jpg" loading="lazy" alt="老赵">
+  <div class="panel-text">
+    <p class="narration">老赵蹲角落嚼最后一块压缩饼干，咯嘣声回荡在空旷仓库里。</p>
+    <p class="dialogue">朱总，那帮人到底救不救？饼干只剩这一块了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-03.jpg" loading="lazy" alt="小陈紧张">
+  <div class="panel-text">
+    <p class="narration">小陈推了推眼镜，手指悬在键盘上。</p>
+    <p class="dialogue">他们三个军人……万一是陷阱？</p>
+    <p class="system-msg">📋 提示：您的CTO正在恐慌中。建议：给他一块饼干。安抚成本：0.33块。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-04.jpg" loading="lazy" alt="朱江起身">
+  <div class="panel-text">
+    <p class="narration">我站起来拍了拍灰，走向屏幕。</p>
+    <p class="dialogue">做生意第一课——信息差就是利润。咱们知道他们有军人，他们不知道咱们知道。这叫什么？</p>
+    <p class="dialogue">……啥？</p>
+    <p class="dialogue">这叫尽职调查已完成，对方还没开始。</p>
+  </div>
+</div>
+
+<!-- ===== Section 2: 远程谈判 ===== -->
+<div class="section-title"><h2>远程谈判 · 信息博弈</h2></div>
+
+<div class="panel">
+  <img src="images/panel-05.jpg" loading="lazy" alt="聊天界面">
+  <div class="panel-text">
+    <p class="narration">局域网聊天界面弹出消息——方队的风格像战报一样简洁。</p>
+    <p class="dialogue">方卫国。前武警。30人。12老弱。需食物药品。可提供安保。完毕。</p>
+    <p class="inner-voice">一条消息都像战报。比投资人的商业计划书简洁一万倍。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-06.jpg" loading="lazy" alt="系统分析">
+  <div class="panel-text">
+    <p class="narration">我打字的同时，真正注意力在系统——它正在分析消息语言模式。</p>
+    <p class="system-msg">🔍 诚实度82% | 隐藏信息：未提及武器储备数量 | 情绪特征：焦虑但克制</p>
+    <p class="inner-voice">82%诚实。比融资时投资人给我的数据靠谱。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-07.jpg" loading="lazy" alt="信号定位">
+  <div class="panel-text">
+    <p class="narration">我让小陈定位信号源。他飞速敲键盘。</p>
+    <p class="dialogue">城南CBD地下停车场，误差200米。</p>
+    <p class="system-msg">📡 信号特征：单基站低功率。非伪装。结论：技术能力有限，求救为真。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-08.jpg" loading="lazy" alt="朱江回复">
+  <div class="panel-text">
+    <p class="narration">我回复。</p>
+    <p class="dialogue">我方可提供通讯网络+物资调度能力。条件：互通情报，共建周边10公里联络网。</p>
+    <p class="inner-voice">创业谈判铁律——永远不说「我要什么」，先说「我能给你什么」。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-09.jpg" loading="lazy" alt="三分钟沉默">
+  <div class="panel-text">
+    <p class="narration">方队沉默了整整三分钟。然后回了一个字。</p>
+    <p class="dialogue">详。</p>
+    <p class="system-msg">🧠 对方进入评估模式。三分钟沉默=内部讨论。「详」字=感兴趣但不信任。谈判窗口已打开。</p>
+    <p class="inner-voice">三分钟。投资人收到BP后三天不回才正常。军人效率真高。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-10.jpg" loading="lazy" alt="能力展示">
+  <div class="panel-text">
+    <p class="narration">我开始系统性地展示能力。让小陈演示局域网——发送了一张标注了方队据点周边500米内物资分布的地图。</p>
+    <p class="inner-voice">没有PPT，那就用实力演示。这叫product demo。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-11.jpg" loading="lazy" alt="方队追问">
+  <div class="panel-text">
+    <p class="narration">方队的回复变长了。</p>
+    <p class="dialogue">地图精确度？信息来源？你们几个人？</p>
+    <p class="system-msg">⚠️ 警告：对方正在评估您的军事威胁等级。建议：展示价值但隐藏人数弱点。</p>
+    <p class="inner-voice">问「你们几个人」——这不是关心，是在评估打不打得过我。好，军人思维。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-12.jpg" loading="lazy" alt="免费样品">
+  <div class="panel-text">
+    <p class="dialogue">精确度90%以上。人数目前不方便透露。但我可以告诉你一件事——你们东北方向800米处有一个废弃药店，二楼仓库没被搜过。里面有退烧药和抗生素，够你们撑半个月。这是见面礼。</p>
+    <p class="narration">老赵瞪大眼。</p>
+    <p class="dialogue">朱总！咱自己还没去拿呢你就告诉他们了？！</p>
+    <p class="dialogue">赵哥，免费样品是最好的销售手段。</p>
+    <p class="system-msg">💹 交易技巧+5。请继续保持这种慷慨……的算计。</p>
+  </div>
+</div>
+
+<!-- ===== Section 3: 系统升级 ===== -->
+<div class="section-title"><h2>系统升级 · Lv2解锁</h2></div>
+
+<div class="panel">
+  <img src="images/panel-13.jpg" loading="lazy" alt="系统升级">
+  <div class="panel-text">
+    <p class="narration">方队派人去了药店——果然找到了药品。半小时后回复：合作细节，面谈。</p>
+    <p class="narration">系统突然全屏震动！金色光芒包围了我的视野。</p>
+  </div>
+</div>
+
+<div class="decision-point">
+  <div class="label">⚡ 决策点 1：面谈地点选择</div>
+  <div class="question">方队要求面谈。地点怎么选？</div>
+  <div class="options">
+    A. 去方队据点（展示诚意但暴露人数弱势）<br>
+    B. 约在第三方中立地点（互不暴露，双方都冒险出门）<br>
+    C. 邀请方队来我方据点（展示实力但暴露基地位置）
+  </div>
+  <div class="options"><span class="chosen">→ 选择B：中立地点</span></div>
+  <div class="reasoning">有诚意但不冒险。商业谈判在中立场地进行是常识——菩萨心肠，霹雳手段。</div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-14.jpg" loading="lazy" alt="Lv2解锁">
+  <div class="panel-text">
+    <p class="system-msg">🎉 恭喜！Lv1→Lv2。新能力解锁：【需求预判】——可预判目标人物未来24小时内最迫切的需求。</p>
+    <p class="inner-voice">等等……能预判需求？这不就是用户画像+需求分析？这系统是把产品经理技能树点了个满级啊。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-15.jpg" loading="lazy" alt="需求预判">
+  <div class="panel-text">
+    <p class="narration">我看向老赵，Lv2能力自动激活。</p>
+    <p class="system-msg">👤 老赵24h需求：①安全感（对外出恐惧）②一顿热饭 ③「有人罩着」的归属感</p>
+    <p class="narration">看向小陈。</p>
+    <p class="system-msg">👤 小陈24h需求：①确认「有用」（害怕被抛弃）②技术认可 ③安静的工作环境</p>
+    <p class="inner-voice">原来管理团队最需要的不是画饼，是看到每个人真正想要什么。这个技能……比任何管理课都值钱。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-16.jpg" loading="lazy" alt="出发准备">
+  <div class="panel-text">
+    <p class="dialogue">明天中午，我们去中立点面谈。赵哥你跟我去，小陈留守看着局域网。</p>
+    <p class="dialogue">就咱俩？</p>
+    <p class="dialogue">带着咱们的「商品」——一台便携信号延伸器。让他亲眼看到我们的技术值多少。</p>
+    <p class="system-msg">📦 谈判建议：带样品，不带PPT。您终于学会了。</p>
+  </div>
+</div>
+
+<!-- ===== Section 4: 面谈 ===== -->
+<div class="section-title"><h2>面谈 · 棋逢对手</h2></div>
+
+<div class="panel">
+  <img src="images/panel-17.jpg" loading="lazy" alt="面谈大厅">
+  <div class="panel-text">
+    <p class="narration">中立点：一栋半毁写字楼的大堂。阳光从破碎玻璃顶倾泻而下。我和老赵从南面进入，方队带着两个手下从北面走来。双方相距20米对视。</p>
+    <p class="inner-voice">末世第一场「商业会议」。没有会议室，没有咖啡，只有碎玻璃反射的阳光。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-18.jpg" loading="lazy" alt="方队压迫感">
+  <div class="panel-text">
+    <p class="narration">方队走近。真人比视频更有压迫感——比我高一头，伤疤在阳光下格外明显。他打量我三秒。</p>
+    <p class="dialogue">你就是那个搞通讯的？看着不像技术人员。</p>
+    <p class="dialogue">因为我不是技术人员。我是CEO。</p>
+    <p class="narration">方队微微挑眉——末世里听到CEO这个词显然很意外。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-19.jpg" loading="lazy" alt="需求分析">
+  <div class="panel-text">
+    <p class="narration">系统自动对方队激活Lv2需求预判。</p>
+    <p class="system-msg">🎖️ 方卫国24h需求：①稳定的信息网络（迫切）②外交渠道——与其他据点建立非武力联系 ③医疗物资持续来源</p>
+    <p class="inner-voice">他最需要的不是食物——是信息网络和外交渠道。一个军人最缺的是「不用打仗就能解决问题」的能力。这恰好是我最擅长的。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-20.jpg" loading="lazy" alt="实力演示">
+  <div class="panel-text">
+    <p class="narration">我让老赵拿出信号延伸器，当场演示：接通局域网，秒显方队据点周边2公里地图+物资标注。</p>
+    <p class="narration">方队的两个手下互相看了一眼——眼神从警惕变成了震惊。方队表情没变，但他的手微微攥了一下。</p>
+    <p class="inner-voice">他懂这意味着什么。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-21.jpg" loading="lazy" alt="谈判交锋">
+  <div class="panel-text">
+    <p class="dialogue">合作条件？</p>
+    <p class="dialogue">三条。一、情报共享。二、你提供安保护送，我提供物资调度和通讯网络。三、遇到第三方势力，联合决策，不能单独行动。</p>
+    <p class="narration">方队盯着我看了五秒。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-22.jpg" loading="lazy" alt="朱江自信微笑">
+  <div class="panel-text">
+    <p class="dialogue">第三条——如果我不同意呢？</p>
+    <p class="dialogue">那你继续用嗓子喊联络，用腿跑侦查。在信息时代打仗靠通讯——就算末世了，这条规律也没变。</p>
+    <p class="system-msg">⚔️ 话术攻击力：A。对方心理防线：动摇中。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-23.jpg" loading="lazy" alt="握手成交">
+  <div class="panel-text">
+    <p class="narration">方队沉默。然后做了一件出乎所有人预料的事——他伸出手。</p>
+    <p class="dialogue">成交。但我加一条：你的人进我的防区，必须提前报备。</p>
+    <p class="dialogue">合理。我也加一条：你的人用我的通讯网，不能监听我方频道。</p>
+    <p class="narration">两种完全不同的power——武力与信息——达成了平衡。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-24.jpg" loading="lazy" alt="林医生登场">
+  <div class="panel-text">
+    <p class="narration">谈判结束。林医生从方队身后走出来。黑眼圈深到像画了烟熏妆，但检查老赵擦伤的手法稳得惊人。</p>
+    <p class="system-msg">🏥 林晓棠 | 核心技能：急救S级+药理A级 | 当前状态：极度疲劳 | 特殊标注：她是30人活下来的核心原因</p>
+    <p class="inner-voice">又一个被低估的人才。这末世到处都是「低估值资产」。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-25.jpg" loading="lazy" alt="林医生需求">
+  <div class="panel-text">
+    <p class="narration">林医生给老赵处理完伤口，抬头看我一眼，没说话。</p>
+    <p class="system-msg">👤 林晓棠24h需求：①药品补给（急迫）②8小时以上睡眠 ③「有人能帮我分担」的信念</p>
+    <p class="inner-voice">第三条需求……她需要的不是药，是希望。</p>
+    <p class="system-msg">💡 建议将林医生纳入核心团队规划。ROI极高。</p>
+  </div>
+</div>
+
+<!-- ===== Section 5: 据点联盟 ===== -->
+<div class="section-title"><h2>据点联盟 · 第一次扩张</h2></div>
+
+<div class="panel">
+  <img src="images/panel-26.jpg" loading="lazy" alt="据点升级">
+  <div class="panel-text">
+    <p class="narration">回到分拣中心。小陈趁我们谈判时把局域网扩展到了800米。系统据点面板更新。</p>
+    <p class="system-msg">🏗️ 据点等级C→B | 联盟人口：33 | 物资：7天 | 通讯：2.3km | 安保：D→B</p>
+    <p class="inner-voice">从3个人到33个人，一下午。某些创业公司融资后扩张也没这么快。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-27.jpg" loading="lazy" alt="刘姐来了">
+  <div class="panel-text">
+    <p class="narration">刘姐闻讯赶来，眼珠子转了三圈。</p>
+    <p class="dialogue">你们跟那帮当兵的搭上了？！</p>
+    <p class="dialogue">刘姐，现在联盟有安保、有通讯、有医疗——就差一个稳定的物资零售网络。你有兴趣做末世第一家「连锁超市」吗？</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-28.jpg" loading="lazy" alt="刘姐谈判">
+  <div class="panel-text">
+    <p class="narration">刘姐伸出手指头。</p>
+    <p class="dialogue">物资定价我说了算。</p>
+    <p class="dialogue">供需定价，市场决定。我给你独家渠道，你给联盟成员优惠价。</p>
+    <p class="dialogue">……你这CEO当得真像那么回事。行！</p>
+    <p class="system-msg">🤝 恭喜完成「供应链合作协议」。经验+15。距Lv3还差25点。</p>
+  </div>
+</div>
+
+<div class="decision-point">
+  <div class="label">⚡ 决策点 2：资源分配优先级</div>
+  <div class="question">联盟初建，资源有限。首批物资该优先投入哪里？</div>
+  <div class="options">
+    A. 扩张通讯网络（覆盖更远，发现更多据点和资源）<br>
+    B. 加固防御工事（方队建议，优先安全）<br>
+    C. 建设医疗站（林医生缺药品和设备）
+  </div>
+  <div class="options"><span class="chosen">→ 选择A：扩张通讯网络</span></div>
+  <div class="reasoning">信息就是护城河。创业者本能——扩张优于防御。信息覆盖越广，发现机会越多，被偷袭的概率反而越低。最好的防守是让所有人都知道你有价值、不能轻易动。</div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-29.jpg" loading="lazy" alt="网络扩张">
+  <div class="panel-text">
+    <p class="narration">三天后。小陈+方队的通讯兵联手把网络覆盖扩到5公里。地图上亮起了更多信号点。</p>
+    <p class="system-msg">📡 检测到8个新信号源。建议：逐一建立联系。您正在建造一个——末世互联网。</p>
+    <p class="inner-voice">所有的商业帝国，都从基础设施开始。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-30.jpg" loading="lazy" alt="白板战略">
+  <div class="panel-text">
+    <p class="narration">我在破旧的白板上画着据点分布图。像极了当年创业时画商业模式的样子。</p>
+    <p class="dialogue">你画的这个……像蜘蛛网。</p>
+    <p class="dialogue">在商业上这叫「平台网络效应」。每多一个节点，整个网络的价值就翻一倍。</p>
+    <p class="dialogue">说人话。</p>
+    <p class="dialogue">……就是拉群。人越多群越有用。</p>
+    <p class="dialogue">明白了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-31.jpg" loading="lazy" alt="吃泡面">
+  <div class="panel-text">
+    <p class="narration">夜晚。分拣中心第一次有了热饭的味道。四个人蹲在地上吃泡面，热气蒸腾。</p>
+    <p class="dialogue">我活了四十年，没想到末世的泡面最香。</p>
+    <p class="narration">小陈推眼镜，难得笑了。</p>
+    <p class="system-msg">❤️ 团队士气+20。温馨提示：泡面的投资回报率在末世约为10000%。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-32.jpg" loading="lazy" alt="屋顶月光">
+  <div class="panel-text">
+    <p class="narration">我站在分拣中心屋顶。月光下城市废墟的轮廓像一只沉睡的巨兽。局域网信号灯在黑暗中一闪一闪——像心跳。</p>
+    <p class="inner-voice">大断裂第十天。从一个人，到四个人，到三十三个人。从一间破仓库，到一个联盟网络。在末世做CEO，感觉比在会议室做PPT真实一万倍。</p>
+    <p class="system-msg">📊 您的商业帝国估值：末世标准下约0.0001%的城市重建贡献值。加油，您离独角兽还差……很远。</p>
+  </div>
+</div>
+
+<!-- ===== Section 6: 威胁 ===== -->
+<div class="threat-section">
+<div class="section-title"><h2>⚠ 威胁 · 蛇哥登场</h2></div>
+
+<div class="panel">
+  <img src="images/panel-33.jpg" loading="lazy" alt="方队报告">
+  <div class="panel-text">
+    <p class="narration">第二天清晨。方队表情凝重地走进来。</p>
+    <p class="dialogue">朱总，有情况。我的人在东面3公里发现一个被洗劫的据点。所有物资被抢空。地上有——</p>
+    <p class="narration">他停顿了一下。</p>
+    <p class="dialogue">——伤亡者。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-34.jpg" loading="lazy" alt="威胁评估">
+  <div class="panel-text">
+    <p class="narration">我的表情沉了下来。</p>
+    <p class="system-msg">🚨 周边威胁评估更新：检测到有组织掠夺行为。模式：专业化，有计划。预估掠夺团伙规模：15-20人。威胁等级：B→A。</p>
+    <p class="inner-voice">末世不只有「做生意」。还有人选择——抢。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-35.jpg" loading="lazy" alt="蛇哥远景">
+  <div class="panel-text">
+    <p class="narration">城市东面废墟。一个身影站在被洗劫据点的楼顶，俯瞰着废墟。光头，皮夹克，左臂蛇纹身在晨光中若隐若现。身后站着十几个拿着各种武器的人。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-36.jpg" loading="lazy" alt="蛇哥侧面">
+  <div class="panel-text">
+    <p class="narration">一个手下跑上来汇报。蛇哥没回头，盯着远处——分拣中心的方向。嘴角微微上扬。</p>
+    <p class="dialogue">那边……最近信号挺多。</p>
+  </div>
+</div>
+
+<div class="decision-point" style="border-color: rgba(255,50,50,0.3); background: linear-gradient(135deg, rgba(255,50,0,0.08), rgba(200,0,0,0.05));">
+  <div class="label" style="color:#ff4444;">⚡ 决策点 3：危险信号的应对</div>
+  <div class="question">掠夺团伙的存在已经确认。联盟还很脆弱。如何应对？</div>
+  <div class="options">
+    A. 立即加固防御，缩减对外联络，低调存活<br>
+    B. 加速扩张——拉更多据点入联盟，用数量对抗暴力<br>
+    C. 主动侦查——知己知彼，在对方来袭前制定策略
+  </div>
+  <div class="options"><span class="chosen" style="color:#ff8844;">→ 选择C：主动侦查</span></div>
+  <div class="reasoning">信息优势 > 数量 > 防御。「知道敌人是谁」比「躲起来」更安全。被动防御只会消耗资源，主动侦查获取信息才能制定有效策略。菩萨心肠，霹雳手段——该出手时绝不犹豫。</div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-37.jpg" loading="lazy" alt="作战部署">
+  <div class="panel-text">
+    <p class="narration">我召集核心团队。白板上画出两个圈——左边是联盟网络，右边打了个大问号。</p>
+    <p class="dialogue">我们现在有两个选择：等他们来找我们，或者我们先找到他们。我选后者。</p>
+    <p class="narration">方队第一次露出认同的表情。</p>
+    <p class="dialogue">这个CEO……有点军人思维。</p>
+    <p class="system-msg">🤝 检测到方队好感度+15。您正在解锁「跨界合作」成就。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/panel-38.jpg" loading="lazy" alt="悬念结尾">
+  <div class="panel-text">
+    <p class="narration">我看着白板上那个大问号。</p>
+    <p class="system-msg">🔴 未知势力 | 威胁等级：A | 预估实力：武力远超联盟 | 建议：绝对不要正面冲突。</p>
+    <p class="inner-voice">打不过。但打不过不代表赢不了。商场上最精彩的胜利，从来不是靠拳头。</p>
+    <p class="system-msg">🧠 您的表情像极了连续创业者第三次面对巨头竞争时的样子——很慌，但已经习惯了。</p>
+  </div>
+</div>
+</div>
+
+<!-- End card -->
+<div class="end-card">
+  <div class="end-mark">—— 第二章 · 完 ——</div>
+  <div class="preview">
+    <strong>下章预告</strong><br><br>
+    蛇哥的势力远比想象的庞大。<br>
+    我如何用「商业帝国」的逻辑对抗「暴力帝国」？<br>
+    当信息网络遇上枪和刀，<br>
+    商业系统Lv3即将解锁的新能力——<br>
+    <strong>会是翻盘的关键吗？</strong>
+  </div>
+</div>
+
+<div class="spacer-lg"></div>
+
+<script>
+// Intersection Observer for scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel, .decision-point, .section-title, .end-card').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
