@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重生2010：互联网之王 · 第一章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d4;
+  font-family: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Title */
+.title-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #1a1207 0%, #0a0a0a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.title-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(255,183,77,0.15) 0%, transparent 70%);
+}
+.title-section h1 {
+  font-size: 36px;
+  font-weight: 900;
+  color: #ffb74d;
+  text-shadow: 0 0 40px rgba(255,183,77,0.5);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.title-section .subtitle {
+  font-size: 18px;
+  color: #a09080;
+  position: relative;
+  z-index: 1;
+}
+.title-section .chapter {
+  font-size: 22px;
+  color: #ffcc80;
+  margin-top: 24px;
+  position: relative;
+  z-index: 1;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #666;
+  font-size: 14px;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Panels */
+.panel {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+.panel-text {
+  padding: 16px 20px;
+  font-size: 17px;
+  line-height: 1.9;
+  color: #d4c8b8;
+}
+.panel-text .dialogue {
+  font-weight: 600;
+  color: #fff;
+  margin: 6px 0;
+}
+.panel-text .inner {
+  color: #ffcc80;
+  font-style: italic;
+  margin: 6px 0;
+}
+.panel-text .narration {
+  color: #a09080;
+  font-size: 15px;
+  margin: 6px 0;
+}
+.panel-text .scene-tag {
+  display: inline-block;
+  background: rgba(255,183,77,0.2);
+  color: #ffb74d;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+/* Decision panels */
+.decision-panel {
+  background: linear-gradient(135deg, #1a1207 0%, #0d0d0d 100%);
+  border: 1px solid rgba(255,183,77,0.3);
+  border-radius: 12px;
+  margin: 20px auto;
+  padding: 24px 20px;
+  max-width: 460px;
+}
+.decision-panel h3 {
+  color: #ffb74d;
+  font-size: 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.decision-option {
+  padding: 12px 16px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #a09080;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.decision-option.chosen {
+  background: rgba(255,183,77,0.15);
+  border: 1px solid rgba(255,183,77,0.4);
+  color: #ffcc80;
+  font-weight: 600;
+}
+.decision-option.chosen::after {
+  content: ' ✓';
+  color: #ffb74d;
+}
+.decision-reason {
+  font-size: 13px;
+  color: #806040;
+  margin-top: 8px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Scene dividers */
+.scene-divider {
+  text-align: center;
+  padding: 40px 20px;
+  color: #4a3a2a;
+  font-size: 14px;
+  letter-spacing: 8px;
+}
+
+/* Cliffhanger */
+.cliffhanger {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(0deg, #1a1207 0%, #0a0a0a 100%);
+}
+.cliffhanger h2 {
+  font-size: 24px;
+  color: #ffb74d;
+  margin-bottom: 16px;
+}
+.cliffhanger p {
+  font-size: 17px;
+  color: #a09080;
+  max-width: 340px;
+  line-height: 1.9;
+}
+.cliffhanger .tbc {
+  margin-top: 30px;
+  font-size: 20px;
+  color: #ffcc80;
+  letter-spacing: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- Title -->
+<div class="title-section">
+  <h1>重生2010</h1>
+  <div class="subtitle">互联网之王</div>
+  <div class="chapter">第一章 · 诺基亚还是王者的年代</div>
+  <div class="scroll-hint">↓ 向下滑动开始</div>
+</div>
+
+<!-- Scene 1: 重生醒来 -->
+<div class="scene-divider">— 场景一 · 醒来 —</div>
+
+<div class="panel">
+  <img src="frame01.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">办公桌</span>
+    <p class="narration">3/4侧面 · 中景 · 出租屋简陋办公桌</p>
+    <p>我猛地抬起头，脖子酸得要命。面前的桌上……一台诺基亚N97？</p>
+    <p class="inner">等等。我的MacBook呢？我的iPhone呢？</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame02.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">特写 · 手机屏幕</span>
+    <p>屏幕上的日期清清楚楚——<strong>2010年3月15日</strong>。</p>
+    <p class="inner">2010？不可能……我刚才还在调GPT-5的接口……</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame03.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">3/4侧面 · 中景</span>
+    <p>笔记本上打开的是人人网。那个我大学时天天刷的人人网。</p>
+    <p>我用颤抖的手摸了摸自己的脸——没有眼袋，没有42岁的疲惫。</p>
+    <p class="inner">我……重生了？</p>
+  </div>
+</div>
+
+<!-- Scene 2: 确认重生 -->
+<div class="scene-divider">— 场景二 · 确认 —</div>
+
+<div class="panel">
+  <img src="frame04.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">背影 · 全景 · 2010年街道</span>
+    <p>我冲出出租屋，满街都是山寨机广告。DVD出租店。网吧门口坐着一排抽烟的少年。</p>
+    <p class="inner">这个味道……这就是2010年的空气。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame05.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">特写 · 报刊亭</span>
+    <p>路过报刊亭，一张报纸的标题让我停下了脚步：</p>
+    <p class="dialogue">"苹果将于6月发布iPhone 4——乔布斯：这将改变一切"</p>
+    <p class="inner">改变一切？老乔，你说得太对了。但你不知道，16年后AI才是真正改变一切的东西。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame06.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">3/4侧面 · 中景</span>
+    <p>我站在报刊亭前，嘴角忍不住上扬。</p>
+    <p class="inner">iPhone 4还有3个月发布。微信要到明年才出现。抖音？那是6年后的事。而我，知道接下来16年所有的答案。</p>
+    <p class="inner">这次，我要重走一遍。但这次，我不会再犯同样的错。</p>
+  </div>
+</div>
+
+<!-- Scene 3: 室友 -->
+<div class="scene-divider">— 场景三 · 室友 —</div>
+
+<div class="panel">
+  <img src="frame07.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">侧面 · 全景 · 出租屋</span>
+    <p>回到出租屋，李明辉还在埋头敲代码。那台散发着诡异嗡鸣的台式机，显示器比我脑袋还大。</p>
+    <p class="narration">李明辉——我的大学室友，未来的CTO。只不过现在他还不知道自己的命运。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame08.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">过肩镜头 · 看屏幕</span>
+    <p>我探过头去看他的代码，差点没忍住——</p>
+    <p class="dialogue">"这架构……算了，2010年也没有微服务。"</p>
+    <p class="inner">得了，这年头连Maven都不一定普及，跟他说什么Kubernetes。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame09.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">正面中景 · 李明辉</span>
+    <p class="dialogue">李明辉推了推黑框眼镜："微服务？你今天说话怎么像外星人？你是不是通宵通傻了？"</p>
+    <p>我赶紧闭嘴。在这个年代，说多了会被送去做精神检测的。</p>
+  </div>
+</div>
+
+<!-- Decision 1 -->
+<div class="panel">
+  <img src="frame10.jpg" loading="lazy" alt="">
+</div>
+<div class="decision-panel visible">
+  <h3>【抉择一】第一步，做什么？</h3>
+  <div class="decision-option">B. 先炒股赚第一桶金——稳妥，但不是我的风格</div>
+  <div class="decision-option">C. 找大公司先上班攒资源——太慢了</div>
+  <div class="decision-option chosen">A. 全力做移动互联网APP</div>
+  <div class="decision-reason">我是创业者。All-in，是刻在骨子里的。</div>
+</div>
+
+<!-- Scene 4: 找投资 -->
+<div class="scene-divider">— 场景四 · 融资 —</div>
+
+<div class="panel">
+  <img src="frame11.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">侧面 · 宽景 · 茶馆</span>
+    <p>我花了三天写了一份BP——移动社交平台。在2010年，这个概念超前了整整两年。</p>
+    <p>约到了一个投资人，张薇。圈内传说最毒辣的眼光，最薄的耐心。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame12.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">特写 · 张薇</span>
+    <p class="dialogue">张薇翘着二郎腿，挑了挑眉："手机上做社交？QQ不就行了吗？你搞这个有什么意义？"</p>
+    <p class="inner">姐，两年后你投的这个赛道就值十个亿了。但我不能说。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame13.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">3/4侧面 · 特写 · 朱江</span>
+    <p>我张嘴差点说出来："其实未来会有一个叫微——"</p>
+    <p>话到嘴边硬生生咽了回去，手捂住了自己的嘴。</p>
+    <p class="inner">我差点把"微信"两个字说出来了！冷静！冷静！</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame14.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">双人中景 · 侧面</span>
+    <p class="dialogue">"DAU至少能到500万！MAU过亿不是梦！LTV比CAC高3倍！"</p>
+    <p>我说得激情澎湃。</p>
+    <p class="dialogue">张薇一脸空白："……你在说什么火星语？"</p>
+    <p class="inner">糟了，2010年还没有这些缩写。我看起来像个精神病人。</p>
+  </div>
+</div>
+
+<!-- Decision 2 -->
+<div class="panel">
+  <img src="frame15.jpg" loading="lazy" alt="">
+</div>
+<div class="decision-panel visible">
+  <h3>【抉择二】如何说服投资人？</h3>
+  <div class="decision-option">A. 用数据和逻辑——但2010年没有相关数据</div>
+  <div class="decision-option">C. 画饼吹牛逼——不是我的风格</div>
+  <div class="decision-option chosen">B. 用产品和demo打动她</div>
+  <div class="decision-reason">菩萨心肠霹雳手段——产品说话，不靠嘴炮。</div>
+</div>
+
+<!-- Scene 5: 诺基亚王老板 -->
+<div class="scene-divider">— 场景五 · 诺基亚王者 —</div>
+
+<div class="panel">
+  <img src="frame16.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">全景 · 诺基亚专卖店</span>
+    <p>路过中关村，诺基亚代理商王老板拦住了我。金链子在日光灯下闪闪发亮。</p>
+    <p class="dialogue">"朱江！你小子做手机软件？诺基亚Symbian才是王者！苹果那破玩意在中国谁买？"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame17.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">仰角 · 特写 · 王老板</span>
+    <p>王老板举着Nokia N97，像举着传国玉玺一样神圣。</p>
+    <p class="dialogue">"这个！才是未来！全键盘！塞班系统！苹果连个键盘都没有，怎么跟我打？"</p>
+    <p class="inner">哥们，你手里那玩意三年后只能当板砖用了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="frame18.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">3/4侧面 · 特写 · 朱江</span>
+    <p>我咬着嘴唇，脸上的肌肉控制不住地抽搐。</p>
+    <p class="inner">三年后诺基亚被微软收购……五年后连名字都消失了……十年后王老板会在朋友圈卖面膜……</p>
+    <p>我快要憋出内伤了。</p>
+  </div>
+</div>
+
+<!-- Decision 3 -->
+<div class="decision-panel visible">
+  <h3>【抉择三】如何对待王老板？</h3>
+  <div class="decision-option">A. 嘲讽他让他好看——没意思</div>
+  <div class="decision-option">C. 试图劝说他转型——他不会听的</div>
+  <div class="decision-option chosen">B. 不争论，默默做自己的事，三年后用结果说话</div>
+  <div class="decision-reason">尊重每一个时代的强者——哪怕他是错的。不花时间争论，用结果说话。</div>
+</div>
+
+<div class="panel">
+  <img src="frame19.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">背影 · 全景 · 夕阳街道</span>
+    <p>我转身走出诺基亚店，夕阳把影子拉得很长。</p>
+    <p class="inner">不争论。三年后，结果会替我说话。</p>
+  </div>
+</div>
+
+<!-- Scene 6: 悬念结尾 -->
+<div class="scene-divider">— 深夜 · 出发 —</div>
+
+<div class="panel">
+  <img src="frame20.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="scene-tag">俯角 · 宽景 · 出租屋夜景</span>
+    <p>深夜。出租屋里只有键盘声和显示器的微光。</p>
+    <p>我和李明辉并肩坐在两台破电脑前，开始写第一行代码。</p>
+    <p>窗外是2010年的中国——满街诺基亚广告，网吧里全是CF和魔兽世界。</p>
+    <p style="margin-top:16px;">手机震了一下，推送了一条新闻：</p>
+    <p class="dialogue" style="font-size:19px; color:#ffb74d;">"谷歌正式退出中国市场"</p>
+    <p style="margin-top:12px;">我看着这条新闻，嘴角微微上扬。</p>
+    <p class="inner" style="font-size:19px; margin-top:16px;">我知道16年后的所有答案。<br>但知道答案，和走到答案之间，隔着千军万马。</p>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <h2>第一章 · 完</h2>
+  <p>谷歌退出中国——<br>朱江看着这条新闻在想什么？<br>他已经开始盘算下一步大棋了……</p>
+  <div class="tbc">▸ 未完待续</div>
+</div>
+
+<script>
+// Intersection Observer for scroll animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.panel').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
