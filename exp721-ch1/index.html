@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗线 · 第一章 — 深渊之下</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.chapter-title{text-align:center;padding:60px 20px 30px;background:linear-gradient(180deg,#0d1117,#0a0a12)}
+.chapter-title h1{font-size:28px;color:#4af;text-shadow:0 0 20px rgba(68,170,255,.4);letter-spacing:4px;margin-bottom:8px}
+.chapter-title .subtitle{font-size:16px;color:#667;letter-spacing:2px}
+.panel{width:100%;max-width:420px;margin:0 auto;opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:2px}
+.text-block{padding:16px 20px;font-size:17px;line-height:1.8;color:#ccd;max-width:420px;margin:0 auto}
+.narration{color:#8899aa;font-style:italic;font-size:15px;padding:8px 20px 16px;line-height:1.7;max-width:420px;margin:0 auto}
+.inner-voice{color:#4af;font-size:16px;padding:6px 20px 16px;line-height:1.7;border-left:3px solid rgba(68,170,255,.3);margin:0 auto;max-width:400px}
+.dialogue{color:#eee;font-size:17px;padding:8px 20px;line-height:1.7;max-width:420px;margin:0 auto}
+.dialogue .speaker{color:#4af;font-weight:bold;margin-right:6px}
+.section-divider{text-align:center;padding:30px 0;color:#334;font-size:24px;letter-spacing:12px}
+.decision-box{margin:12px auto 20px;padding:16px;border:1px solid rgba(68,170,255,.3);border-radius:8px;background:rgba(68,170,255,.05);max-width:400px}
+.decision-box .label{color:#4af;font-size:13px;letter-spacing:2px;margin-bottom:8px}
+.decision-box .options{font-size:15px;color:#99a;line-height:1.8}
+.decision-box .chosen{color:#4f8;font-weight:bold}
+.cliffhanger{text-align:center;padding:40px 20px 80px;color:#556;font-size:15px;line-height:2;letter-spacing:1px}
+.cliffhanger .hook{color:#4af;font-size:18px;margin-top:16px;text-shadow:0 0 12px rgba(68,170,255,.3)}
+</style>
+</head>
+<body>
+
+<div class="chapter-title">
+  <h1>暗 线</h1>
+  <div class="subtitle">第一章 · 深渊之下</div>
+</div>
+
+<!-- ===== 开场：深夜办公室 ===== -->
+
+<div class="panel">
+  <img src="images/frame-01-night-office.jpg" loading="lazy" alt="">
+  <div class="narration">凌晨两点十七分。深渊智能，十二楼。</div>
+  <div class="text-block">整层楼只有我这一个工位还亮着。三块屏幕的蓝光把我的影子投在身后的白墙上，像个被代码困住的幽灵。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-02-phone-msg.jpg" loading="lazy" alt="">
+  <div class="dialogue"><span class="speaker">林薇：</span>"还不回去？明天还要见投资人。"</div>
+  <div class="inner-voice">我发了个"好的"表情包。这女人比我妈还操心。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-03-anomaly-spotted.jpg" loading="lazy" alt="">
+  <div class="text-block">正准备收工，习惯性扫了一眼服务器监控面板——</div>
+  <div class="inner-voice">手停住了。这个数字不对。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-04-monitor-closeup.jpg" loading="lazy" alt="">
+  <div class="text-block">出站流量。凌晨3:17，持续47秒，峰值异常。</div>
+  <div class="inner-voice">我们的模型训练在凌晨两点就结束了。这47秒……是谁在往外发数据？</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-05-frown-digging.jpg" loading="lazy" alt="">
+  <div class="text-block">我皱着眉坐回去，开始挖日志。睡意瞬间消失。</div>
+</div>
+
+<div class="section-divider">· · ·</div>
+
+<!-- ===== 升级：发现后门 ===== -->
+
+<div class="panel">
+  <img src="images/frame-06-terminal-code.jpg" loading="lazy" alt="">
+  <div class="text-block">终端里代码飞速滚动。我的表情从疑惑变成……震惊。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-07-backdoor-code.jpg" loading="lazy" alt="">
+  <div class="text-block">一段精心伪装的数据外传模块。藏在日志清理脚本里——就是说，每次系统自动清理日志的时候，这段代码会悄悄把我们最核心的模型权重打包、外传。</div>
+  <div class="inner-voice">手法不算粗糙。正常审计很难发现。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-08-leaning-back.jpg" loading="lazy" alt="">
+  <div class="text-block">我靠回椅背，深吸一口气。手不自觉地摸了摸下巴的胡茬。</div>
+  <div class="inner-voice">有人……在偷我们的模型权重。我花了三年命做出来的东西。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-09-git-history.jpg" loading="lazy" alt="">
+  <div class="text-block">追溯提交记录。提交者——"devops-bot"。一个自动化公共账户。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-10-bitter-smile.jpg" loading="lazy" alt="">
+  <div class="text-block">我嘴角微微一动。</div>
+  <div class="inner-voice">用devops-bot做掩护……活不算粗糙。但在我面前，还是太嫩了。</div>
+  <div class="narration">大学那几年逆向工程不是白学的。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-11-counter-script.jpg" loading="lazy" alt="">
+  <div class="text-block">我写了一段反追踪脚本。手指在键盘上飞舞，像弹钢琴。</div>
+  <div class="inner-voice">来吧，看看你把东西传到哪儿去了。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-12-titan-reveal.jpg" loading="lazy" alt="">
+  <div class="text-block">IP层层跳转——AWS中转节点、三个代理——最终落地……</div>
+  <div class="inner-voice">泰坦科技的CDN边缘节点。</div>
+  <div class="text-block">泰坦科技。行业老二。去年想收购我们，被我一口回绝。</div>
+</div>
+
+<div class="section-divider">· · ·</div>
+
+<!-- ===== 转折：确认内鬼 ===== -->
+
+<div class="panel">
+  <img src="images/frame-13-frozen.jpg" loading="lazy" alt="">
+  <div class="text-block">我的表情凝固了。</div>
+  <div class="inner-voice">不是外部攻击。代码是从内部提交的。这意味着——</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-14-internal-mole.jpg" loading="lazy" alt="">
+  <div class="inner-voice">我们公司里，有一个内鬼。</div>
+  <div class="text-block">五十个人。五十个我面试过、一起加班过、一起吃过外卖的人。其中一个，在出卖我们。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-15-vpn-logs.jpg" loading="lazy" alt="">
+  <div class="text-block">我调出"devops-bot"的登录日志——全部从公司内网VPN接入。</div>
+  <div class="inner-voice">坐实了。就在这栋楼里。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-16-empty-office.jpg" loading="lazy" alt="">
+  <div class="text-block">我站起来环顾空荡荡的办公室。每张空着的工位，此刻看起来都像一个嫌疑人。</div>
+</div>
+
+<!-- DECISION POINT 1 -->
+<div class="panel">
+  <img src="images/frame-17-deleting-traces.jpg" loading="lazy" alt="">
+  <div class="decision-box">
+    <div class="label">▸ 决策点 1</div>
+    <div class="options">
+      A. 立即告诉林薇——她是我最信任的合伙人<br>
+      B. 独自秘密调查——不打草惊蛇<br>
+      C. 直接找最大嫌疑人摊牌——最大胆
+    </div>
+    <div class="chosen">→ 我选B。谁都不告诉。</div>
+  </div>
+  <div class="inner-voice">现在最大的优势是——我知道了，而他还不知道我知道。这个信息差，是我唯一的武器。</div>
+  <div class="text-block">我冷静地删除了所有查询痕迹，恢复现场。像什么都没发生过。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-18-lights-off.jpg" loading="lazy" alt="">
+  <div class="text-block">起身，关灯。假装正常下班。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-19-hallway-guard.jpg" loading="lazy" alt="">
+  <div class="dialogue"><span class="speaker">我：</span>"王叔，又值夜班啊？辛苦辛苦。"</div>
+  <div class="dialogue"><span class="speaker">保安王叔：</span>"朱总你才辛苦！天天这么晚。回去早点休息啊！"</div>
+  <div class="narration">笑容跟平时一模一样。温暖、随和、没心没肺的样子。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-20-elevator-cold.jpg" loading="lazy" alt="">
+  <div class="text-block">电梯门关上的那一刻，我的笑容消失了。</div>
+  <div class="inner-voice">金属门上映出我自己的脸。眼神冰冷。</div>
+  <div class="inner-voice">找到你了。就在这五十个人里。我会一个一个排查。</div>
+</div>
+
+<div class="section-divider">· · ·</div>
+
+<!-- ===== 钩子：第二天 ===== -->
+
+<div class="panel">
+  <img src="images/frame-21-sunny-office.jpg" loading="lazy" alt="">
+  <div class="narration">第二天。阳光灿烂。</div>
+  <div class="text-block">我端着咖啡走进办公室，跟每个人打招呼，笑得阳光灿烂。没有人知道昨晚发生了什么。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-22-chenhao-report.jpg" loading="lazy" alt="">
+  <div class="dialogue"><span class="speaker">陈浩：</span>"江哥！泰坦那边又放话说要跟我们'战略合作'，你看怎么回？"</div>
+  <div class="narration">他笑着递过来一份报告。西装笔挺，笑容迷人。我们的商务VP，全公司最能说会道的人。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-23-steady-hand.jpg" loading="lazy" alt="">
+  <div class="text-block">我接过报告的手非常稳。</div>
+  <div class="inner-voice">有意思。泰坦科技。贼喊捉贼。</div>
+</div>
+
+<!-- DECISION POINT 2 -->
+<div class="panel">
+  <img src="images/frame-24-smile-response.jpg" loading="lazy" alt="">
+  <div class="decision-box">
+    <div class="label">▸ 决策点 2</div>
+    <div class="options">
+      A. 拒绝——安全，但失去情报<br>
+      B. 假意接触——将计就计，反向渗透
+    </div>
+    <div class="chosen">→ 我选B。</div>
+  </div>
+  <div class="dialogue"><span class="speaker">我：</span>"战略合作？好事啊，约个会聊聊呗。"</div>
+  <div class="narration">陈浩微微一愣。大概没想到我答应得这么爽快。</div>
+  <div class="inner-voice">来吧。既然你把手伸进来了，别怪我把你整条胳膊都拽出来。</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-25-monitor-reveal.jpg" loading="lazy" alt="">
+  <div class="text-block">我转身走进自己的办公室，随手带上门。</div>
+  <div class="narration">办公桌上，笔记本电脑屏幕亮着。一个自制的监控程序正在安静运行——五十个人的网络行为，实时记录。</div>
+  <div class="inner-voice">游戏，开始了。</div>
+</div>
+
+<div class="cliffhanger">
+  内鬼是谁？<br>
+  泰坦想要的，仅仅是模型权重吗？<br>
+  更关键的是——泰坦的背后，还有谁？<br>
+  <div class="hook">▸ 第二章：蜜罐 · 即将更新</div>
+</div>
+
+<script>
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.15});
+panels.forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
