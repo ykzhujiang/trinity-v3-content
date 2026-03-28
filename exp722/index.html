@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>概率之眼 · 第一章：绝境入局</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e0d0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story{max-width:450px;margin:0 auto;padding:0 0 60px}
+.panel{position:relative;width:100%;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.text-block{padding:16px 20px;line-height:1.9;font-size:17px}
+.text-block.narration{color:#c8b88a;font-style:italic;background:linear-gradient(180deg,rgba(10,10,15,.95),rgba(15,12,8,.98))}
+.text-block.dialogue{color:#f0e8d8;background:rgba(10,10,15,.97);border-left:3px solid #c8a84e;padding-left:24px}
+.text-block.thought{color:#7aafcf;background:rgba(8,15,25,.97);border-left:3px solid #4a8ab5;padding-left:24px;font-style:italic}
+.text-block.decision{background:linear-gradient(135deg,rgba(40,20,10,.98),rgba(25,15,8,.98));border:1px solid #c8a84e;border-radius:8px;margin:8px 12px;padding:20px;text-align:center}
+.text-block.decision .label{color:#c8a84e;font-size:13px;font-weight:bold;letter-spacing:3px;margin-bottom:8px}
+.text-block.decision .choice{color:#f0e8d8;font-size:19px;font-weight:bold}
+.text-block.humor{color:#e8d090;background:rgba(25,20,10,.97)}
+.chapter-title{text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,#0a0a0f 0%,rgba(30,20,10,.9) 50%,#0a0a0f 100%)}
+.chapter-title h1{font-size:28px;color:#c8a84e;font-weight:300;letter-spacing:6px;margin-bottom:12px}
+.chapter-title h2{font-size:16px;color:#8a7a5a;font-weight:300;letter-spacing:2px}
+.chapter-end{text-align:center;padding:40px 20px 80px}
+.chapter-end .hook{font-size:20px;color:#c8a84e;font-weight:bold;letter-spacing:2px;animation:pulse 2s ease-in-out infinite}
+.chapter-end .next{font-size:14px;color:#5a5a6a;margin-top:16px;letter-spacing:1px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.prob{font-family:'Courier New',monospace;color:#4aafef;font-weight:bold;text-shadow:0 0 8px rgba(74,175,239,.4)}
+.glitch{color:#ef4a4a;font-family:'Courier New',monospace;font-weight:bold;animation:glitchAnim 0.3s infinite}
+@keyframes glitchAnim{0%{opacity:1;transform:translate(0)}25%{opacity:.8;transform:translate(-2px,1px)}50%{opacity:1;transform:translate(1px,-1px)}75%{opacity:.7;transform:translate(-1px,0)}100%{opacity:1;transform:translate(0)}}
+.separator{height:1px;background:linear-gradient(90deg,transparent,#c8a84e33,transparent);margin:8px 0}
+</style>
+</head>
+<body>
+<div class="story">
+
+<div class="chapter-title panel">
+<h1>概率之眼</h1>
+<h2>第一章 · 绝境入局</h2>
+</div>
+
+<!-- F01: Office despair -->
+<div class="panel"><img src="f01.jpg" loading="eager" alt=""></div>
+<div class="text-block narration panel">账户余额：347,891元。旁边跳着"本月工资发放提醒"。我盯着屏幕，觉得这些数字比任何恐怖片都吓人。</div>
+<div class="text-block thought panel">七天。这些钱只够再撑七天。之后呢？十二个跟着我拼命的兄弟，连最后一个月工资都发不出。</div>
+
+<!-- F02: Investor flashback -->
+<div class="panel"><img src="f02.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">一个月前，某顶级基金合伙人的私人饭局。我穿了唯一一套像样的西装。</div>
+<div class="text-block dialogue panel">"朱总啊，AI赛道太卷了，我们内部评估后决定……退出这轮。"</div>
+<div class="text-block thought panel">我记得自己端着红酒杯的手在发抖。不是因为愤怒——是因为那瓶拉菲比我账上余额还贵。</div>
+
+<!-- F03: Zhang Wei's call -->
+<div class="panel"><img src="f03.jpg" loading="lazy" alt=""></div>
+<div class="text-block dialogue panel">"江哥！有个路子，一晚上就能翻盘。"张伟的声音像打了三倍浓缩。</div>
+<div class="text-block humor panel">"你说的不是传销吧？"我看着窗外的万家灯火，那些灯每一盏背后的人，大概都不用担心发不出工资。</div>
+<div class="text-block dialogue panel">"赌局。地下的。高端的那种。江哥你脑子好使，算概率跟喝水似的，去了就是捡钱。"</div>
+
+<!-- F04: Underground parking -->
+<div class="panel"><img src="f04.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">跟着张伟走进一个地下停车场。尽头是一扇锈迹斑斑的铁门。</div>
+<div class="text-block humor panel">"你确定这不是器官交易？"我认真地问，"因为我的肝可能不太值钱，这几个月喝的比较多。"</div>
+<div class="text-block dialogue panel">张伟白了我一眼："你能不能正经点？进去以后别丢我脸。"</div>
+
+<!-- F05: Casino reveal -->
+<div class="panel"><img src="f05.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">铁门打开的一瞬间，我以为自己穿越了。</div>
+<div class="text-block narration panel">水晶吊灯、意大利真皮沙发、穿黑色制服的荷官在每张台子后面安静地洗牌。空气里弥漫着雪茄和某种昂贵香水的味道。</div>
+<div class="text-block thought panel">这地方的装修费够我给团队发三年工资。</div>
+
+<!-- F06: Decision Point 1 -->
+<div class="panel"><img src="f06.jpg" loading="lazy" alt=""></div>
+<div class="text-block dialogue panel">张伟拉着我在入口处站定："你要参加什么级别的？万元桌比较稳，百万桌……才有可能救你公司。"</div>
+<div class="text-block decision panel">
+<div class="label">▸ 抉 择 ◂</div>
+<div class="choice">百万桌。要么不做，要么全力以赴。</div>
+</div>
+<div class="text-block thought panel">我这辈子就没选过"稳妥"这个选项。创业如此，今晚也如此。</div>
+
+<!-- F07: Sitting down -->
+<div class="panel"><img src="f07.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">百万桌。绿色毛毡台面、精致的筹码塔。我拉开椅子坐下，假装自己经常来的样子。</div>
+<div class="text-block thought panel">心跳一百四。面部表情管理：启动。</div>
+
+<!-- F08: Old K introduction -->
+<div class="panel"><img src="f08.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">对面坐着一个男人。秃顶、两鬓花白、圆框墨镜、嘴里叼着一根没点燃的雪茄。周身散发着"我很有钱而且我不在乎"的气场。</div>
+<div class="text-block thought panel">所有人都叫他"老K"。这个名字在德州扑克里是个不错的双关。</div>
+
+<!-- F09: Old K taunts -->
+<div class="panel"><img src="f09.jpg" loading="lazy" alt=""></div>
+<div class="text-block dialogue panel">"新面孔？"老K用雪茄指着我，声音像砂纸磨过橡木，"让我猜猜——创业失败的？"</div>
+<div class="text-block dialogue panel">"还没失败呢。"我微笑，尽量让这个笑容看起来自信而非绝望。</div>
+<div class="text-block thought panel">区别在于：创业失败是过去时。而我现在正在失败的路上，进行时。</div>
+
+<!-- F10: First hand -->
+<div class="panel"><img src="f10.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">第一手牌发下来。我微微掀起一角——</div>
+
+<!-- F11: Probability eye activates -->
+<div class="panel"><img src="f11.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">然后它启动了。</div>
+<div class="text-block thought panel">那种感觉很难形容。像是脑子里突然打开了一个调试窗口——数字开始在视野里飘浮。<span class="prob">胜率：43.7%</span>。每张可能出现的公共牌，每种组合的概率，像代码一样在我脑中流动。</div>
+<div class="text-block thought panel">我管这个叫"概率之眼"。从小就有。写代码那些年，它变得越来越精确。</div>
+
+<!-- F12: Following bet -->
+<div class="panel"><img src="f12.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">跟注。不多不少，刚好表达"我在认真玩但我不着急"。</div>
+
+<!-- F13: Flop -->
+<div class="panel"><img src="f13.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">翻牌：A♠ K♦ 7♣。</div>
+
+<!-- F14: Probability surge -->
+<div class="panel"><img src="f14.jpg" loading="lazy" alt=""></div>
+<div class="text-block thought panel">脑中数字疯狂跳动。<span class="prob">胜率飙升：68.2%</span>。血压上来了，但我脸上纹丝不动。手指在桌下不自觉地敲键盘——这是写代码时的习惯。</div>
+
+<!-- F15: Old K raises 500K -->
+<div class="panel"><img src="f15.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">老K推了一座筹码山到桌中央。五十万。</div>
+<div class="text-block dialogue panel">"加注。"他连看都没看牌，眼镜后面的眼睛大概正在研究我。</div>
+<div class="text-block narration panel">全桌六个人的目光刷地转向我。</div>
+
+<!-- F16: Decision Point 2 -->
+<div class="panel"><img src="f16.jpg" loading="lazy" alt=""></div>
+<div class="text-block thought panel">脑中的数字说：<span class="prob">68%</span>。三分之二的概率赢。</div>
+<div class="text-block decision panel">
+<div class="label">▸ 抉 择 ◂</div>
+<div class="choice">All in。概率超过60%就干——这是我创业时定下的规矩。</div>
+</div>
+
+<!-- F17: All-in push -->
+<div class="panel"><img src="f17.jpg" loading="lazy" alt=""></div>
+<div class="text-block dialogue panel">"全下。"</div>
+<div class="text-block narration panel">我把所有筹码推向桌面中央。动作平稳，呼吸均匀——至少外表是这样。</div>
+<div class="text-block thought panel">内心独白：如果输了，我不仅付不起工资，连回家打车的钱都没有。</div>
+
+<!-- F18: Turn card -->
+<div class="panel"><img src="f18.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">老K挑了下眉毛——跟注。转牌翻开：Q♥。</div>
+<div class="text-block thought panel"><span class="prob">72.4%</span>。概率还在涨。呼吸放慢。这手牌，稳了？</div>
+
+<!-- F19: River card — victory -->
+<div class="panel"><img src="f19.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">河牌。荷官的手指捏住最后一张牌的边缘，翻开——</div>
+<div class="text-block narration panel">10♠。同花顺。</div>
+<div class="text-block narration panel">全桌安静了三秒。</div>
+
+<!-- F20: Collecting chips -->
+<div class="panel"><img src="f20.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">我开始收筹码，一枚一枚码好，像在整理代码仓库一样有条不紊。</div>
+<div class="text-block humor panel">这手同花顺的概率是0.31%。嗯……跟创业公司拿到A轮融资的概率差不多。我都赶上了。</div>
+
+<!-- F21: Old K removes glasses -->
+<div class="panel"><img src="f21.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">老K缓缓摘下墨镜。我第一次看到他的眼睛。</div>
+<div class="text-block narration panel">锐利。像鹰。像那种在高空盘旋了很久，终于发现猎物的鹰。</div>
+<div class="text-block dialogue panel">"有意思。"他把墨镜放在桌上，声音里多了一种我听不懂的东西，"来，玩点真的。"</div>
+
+<!-- F22: Su Qing enters -->
+<div class="panel"><img src="f22.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">他打了个响指。原来的荷官默默退下，换上来一个女人。</div>
+<div class="text-block narration panel">短发齐耳，瓜子脸，表情冷淡得像冬天的湖面。黑色制服，白色领结，手里的新牌组像是她身体的延伸。</div>
+<div class="text-block thought panel">苏晴。我后来才知道她的名字。但此刻，她只是"那个让空气变冷的女人"。</div>
+
+<!-- F23: Su Qing's signal -->
+<div class="panel"><img src="f23.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">她开始洗牌。手法行云流水，快到几乎看不清。</div>
+<div class="text-block narration panel">但在整理牌堆的时候——她的食指在桌面上划了两下。很轻，很快。如果不是我常年写代码训练出的视觉捕捉力，根本不会注意。</div>
+<div class="text-block thought panel">那是……信号？给谁的？给我？</div>
+<div class="text-block thought panel">我选择不回应。但我记住了。我的概率之眼告诉我：这个女人身上的变量，比整副牌还复杂。</div>
+
+<!-- F24: Black card -->
+<div class="panel"><img src="f24.jpg" loading="lazy" alt=""></div>
+<div class="text-block dialogue panel">"下一局，赌注翻十倍。"老K从西装内袋掏出一张黑色的卡片，在手指间翻转。</div>
+<div class="text-block dialogue panel">"而且——"他把卡片拍在桌上，"输了，不只是钱的事。"</div>
+
+<!-- F25: Probability eye fails -->
+<div class="panel"><img src="f25.jpg" loading="lazy" alt=""></div>
+<div class="text-block narration panel">我盯着那张黑色卡片。脑中的概率之眼自动启动，试图分析——</div>
+<div class="text-block thought panel"><span class="glitch">[错误：数据不足]</span><br><span class="glitch">[无法计算]</span><br><span class="glitch">[未知变量超出模型范围]</span></div>
+<div class="text-block narration panel">第一次。我的概率之眼——失灵了。</div>
+
+<div class="separator"></div>
+
+<div class="chapter-end panel">
+<div class="hook">▸ 第二章 · 升级赌注 ◂</div>
+<div class="next">黑色卡片背后藏着什么？苏晴的信号意味着什么？<br>当概率不再可计算，我该怎么赌？</div>
+</div>
+
+</div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
