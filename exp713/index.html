@@ -420,3 +420,14 @@ body{background:#0a0a0f;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans G
 </div>
 </body>
 </html>
+<script>
+// Force lazy images to load after initial paint
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
+      img.loading = 'eager';
+      if (!img.complete) { var src = img.src; img.src = ''; img.src = src; }
+    });
+  }, 1000);
+});
+</script>
