@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>代码回溯 · 第一章：回到未来</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e0d4;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story{max-width:420px;margin:0 auto;padding:0 0 60px}
+.cover{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a1628 0%,#1a0f0a 100%);overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 30% 40%,rgba(59,130,246,0.15),transparent 60%),radial-gradient(circle at 70% 60%,rgba(251,191,36,0.1),transparent 50%)}
+.cover h1{font-size:2.8em;font-weight:900;letter-spacing:0.15em;color:#f5e6c8;text-shadow:0 0 40px rgba(251,191,36,0.3);z-index:1;animation:fadeIn 1.5s ease}
+.cover .subtitle{font-size:1.1em;color:#a89880;margin-top:12px;letter-spacing:0.3em;z-index:1;animation:fadeIn 2s ease}
+.cover .scroll-hint{position:absolute;bottom:30px;color:#6b5b4a;font-size:0.8em;animation:pulse 2s infinite;z-index:1}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+
+.panel{margin:0 0 2px;position:relative;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:none}
+.panel img{width:100%;display:block;border-radius:0}
+.panel-text{padding:16px 20px;background:linear-gradient(180deg,rgba(20,15,10,0.95),rgba(10,10,15,0.98));line-height:1.9;font-size:17px}
+.panel-text .narration{color:#c8b89a;font-style:italic}
+.panel-text .dialogue{color:#f0e6d0;font-weight:500}
+.panel-text .dialogue::before{content:'"';color:#d4a853}
+.panel-text .dialogue::after{content:'"';color:#d4a853}
+.panel-text .inner{color:#7aa2d4;font-style:italic;font-size:0.92em}
+.panel-text .inner::before{content:'（';color:#5a80b0}
+.panel-text .inner::after{content:'）';color:#5a80b0}
+.panel-text .scene{color:#8a7a6a;font-size:0.85em;margin-bottom:6px;letter-spacing:0.05em}
+.panel-text .speaker{color:#d4a853;font-weight:700;margin-right:4px}
+
+.decision-box{margin:8px 0;padding:20px;background:linear-gradient(135deg,rgba(251,191,36,0.08),rgba(59,130,246,0.05));border-left:3px solid #d4a853;border-radius:0 8px 8px 0}
+.decision-box .title{color:#d4a853;font-weight:700;font-size:1.05em;margin-bottom:10px}
+.decision-box .options{margin:8px 0}
+.decision-box .option{color:#a89880;margin:4px 0;font-size:0.92em}
+.decision-box .chosen{color:#f0e6d0;font-weight:600;background:rgba(251,191,36,0.1);padding:6px 10px;border-radius:4px;margin:8px 0}
+.decision-box .reason{color:#7aa2d4;font-size:0.88em;font-style:italic;margin-top:6px}
+
+.act-divider{padding:40px 20px;text-align:center;position:relative}
+.act-divider h2{font-size:1.3em;color:#d4a853;letter-spacing:0.2em;font-weight:300}
+.act-divider::before,.act-divider::after{content:'';display:block;height:1px;width:60px;background:linear-gradient(90deg,transparent,#d4a853,transparent);margin:12px auto}
+
+.cliffhanger{padding:30px 20px;text-align:center;background:linear-gradient(180deg,rgba(10,10,15,0.98),rgba(20,10,5,0.95));margin-top:20px}
+.cliffhanger p{font-size:1.15em;color:#f0e6d0;line-height:2;font-weight:500}
+.cliffhanger .tbc{margin-top:24px;font-size:1.4em;color:#d4a853;letter-spacing:0.3em;font-weight:700;animation:pulse 3s infinite}
+</style>
+</head>
+<body>
+<div class="story">
+
+<div class="cover">
+<h1>代码回溯</h1>
+<div class="subtitle">第一章 · 回到未来</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- === ACT 1: 重生觉醒 === -->
+<div class="act-divider"><h2>壹 · 触电重生</h2></div>
+
+<div class="panel">
+<img src="f01.jpg" loading="lazy" alt="2026年数据中心">
+<div class="panel-text">
+<div class="scene">【远景 · 2026年 · 神经元科技数据中心】</div>
+<div class="narration">2026年的夏天，神经元科技刚完成B轮融资，估值3亿美金。我觉得自己站在了世界之巅。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f02.jpg" loading="lazy" alt="触电事故">
+<div class="panel-text">
+<div class="scene">【中景·仰角 · 服务器机房 · 电弧闪烁】</div>
+<div class="narration">然后，一切在一道白光中结束——不对，是开始。</div>
+<div class="inner">三亿美金的CEO，死法居然是摸了一下机架的裸露线头。说出去都没人信。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f03.jpg" loading="lazy" alt="时空穿越">
+<div class="panel-text">
+<div class="scene">【抽象过渡 · 时间流逝】</div>
+<div class="narration">意识在黑暗中坠落。无数数字和代码从身边飞过——2026、2025、2020……像快进倒带的人生。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f04.jpg" loading="lazy" alt="醒来">
+<div class="panel-text">
+<div class="scene">【特写·仰角 · 老旧出租屋 · 清晨阳光】</div>
+<div class="narration">我猛地睁开眼。</div>
+<div class="narration">发霉的天花板。碎花床单。一台21寸CRT电视。</div>
+<div class="inner">这他妈什么情况……我不是在机房吗？</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f05.jpg" loading="lazy" alt="翻盖手机">
+<div class="panel-text">
+<div class="scene">【特写 · 手持翻盖手机 · 屏幕显示日期】</div>
+<div class="narration">我抓起床头的手机。翻盖的。诺基亚。屏幕上赫然写着——</div>
+<div class="narration">2012年1月15日。</div>
+<div class="inner">我的iPhone 15呢？我的Apple Watch呢？这破诺基亚……等等。2012年？？？</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f06.jpg" loading="lazy" alt="照镜子">
+<div class="panel-text">
+<div class="scene">【中景 · 狭小卫生间 · 破镜子】</div>
+<div class="narration">冲进卫生间，镜子里是一张年轻了14岁的脸。没有皱纹，没有黑眼圈，下巴光溜溜的。</div>
+<div class="inner">我的络腮胡呢？哦对……那是35岁以后才蓄的。这张嫩脸……29岁的我。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f07.jpg" loading="lazy" alt="2012年街头">
+<div class="panel-text">
+<div class="scene">【全景 · 2012年城市街头 · 早晨】</div>
+<div class="narration">走出公寓的那一刻，2012年的空气扑面而来。路边的桑塔纳出租车，举着翻盖手机自拍的路人，报刊亭上写着"iPhone 4S震撼上市"。</div>
+<div class="inner">这个世界还不知道移动互联网将会改变一切。而我，全都知道。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f08.jpg" loading="lazy" alt="电子产品店">
+<div class="panel-text">
+<div class="scene">【中景 · 街边电子商城 · 橱窗展示】</div>
+<div class="narration">路过一家电子城，橱窗里摆着iPad 2和运行Windows 7的笔记本。</div>
+<div class="inner">这些东西……在2026年全是电子垃圾。但在2012年，每一台都是宝贝。这感觉就像……穿越到了远古时代看石器。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f09.jpg" loading="lazy" alt="网吧">
+<div class="panel-text">
+<div class="scene">【全景 · 2012年网吧 · 蓝色灯光 · 烟雾缭绕】</div>
+<div class="narration">我走进一家网吧。3块钱一小时。键盘油腻得发光，空气里混着泡面和烟味。</div>
+<div class="inner">这是我的主场。2012年的互联网——在我眼里，就像是一张完全透明的地图。每条路通向哪里，我都记得。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f10.jpg" loading="lazy" alt="浏览2012互联网">
+<div class="panel-text">
+<div class="scene">【过肩镜头 · 电脑屏幕 · 网页界面】</div>
+<div class="narration">打开2012年的淘宝首页。满屏山寨货和辣眼睛的排版。</div>
+<div class="inner">黄金时代啊。现在的问题是——我该怎么用这14年的信息差？</div>
+</div>
+</div>
+
+<!-- === ACT 2: 找到陈磊 === -->
+<div class="act-divider"><h2>贰 · 兄弟，干不干？</h2></div>
+
+<!-- DECISION 1 -->
+<div class="panel">
+<img src="f11.jpg" loading="lazy" alt="内心抉择">
+<div class="panel-text">
+<div class="scene">【特写·3/4侧面 · 分裂光影】</div>
+<div class="narration">脑子里两个声音在打架。</div>
+<div class="inner">一边说：去买比特币！2012年才5美金一个，2021年涨到69000！现在买一万块能换200个……</div>
+<div class="inner">另一边说：比特币又不会跑，但如果我不去找陈磊，那个胖子可能一辈子窝在外企写CRUD。</div>
+</div>
+</div>
+
+<div class="decision-box">
+<div class="title">⚡ 决策点 1：重生后的第一步</div>
+<div class="options">
+<div class="option">A: 立刻去买比特币——稳赚不赔的财富密码</div>
+<div class="option">B: 先找到陈磊——确认兄弟还在</div>
+</div>
+<div class="chosen">→ 我选B。比特币又不会跑，兄弟可能会。</div>
+<div class="reason">团队永远比钱重要。这是上辈子交了三亿美金学费才悟出来的道理。</div>
+</div>
+
+<div class="panel">
+<img src="f12.jpg" loading="lazy" alt="穿越街头找人">
+<div class="panel-text">
+<div class="scene">【中远景·略低角度 · 商业街 · 人流穿梭】</div>
+<div class="narration">我穿过半个城市去找陈磊。脚步快得像赶投资人会议——虽然现在的我连个投资人的微信都没有。</div>
+<div class="inner">等等，2012年还没微信。或者说有了？……好像刚出几个月。算了，这不重要。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f13.jpg" loading="lazy" alt="外企大楼">
+<div class="panel-text">
+<div class="scene">【仰角全景 · 外企写字楼 · 中午】</div>
+<div class="narration">陈磊当时在一家外企当码农。这栋楼我来过一百次——上辈子也是从这里把他拐走创业的。</div>
+<div class="inner">只不过上辈子花了三个月才说动他。这次……我没那个耐心了。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f14.jpg" loading="lazy" alt="陈磊偷看NBA">
+<div class="panel-text">
+<div class="scene">【俯角中景 · 办公隔间 · 日光灯】</div>
+<div class="narration">果然。陈磊的工位上，一个屏幕写代码，另一个屏幕偷偷放NBA直播。手里还端着一碗泡面。</div>
+<div class="inner">十四年了，这胖子一点没变。连偷看球赛的姿势都一模一样。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f15.jpg" loading="lazy" alt="吓到陈磊">
+<div class="panel-text">
+<div class="scene">【中景双人 · 隔间 · 喜剧时刻】</div>
+<div class="dialogue"><span class="speaker">我：</span>热火赢了，勒布朗三双。别看了。</div>
+<div class="narration">陈磊吓得泡面差点扣自己脸上，猛地转过头。</div>
+<div class="dialogue"><span class="speaker">陈磊：</span>卧槽朱江？！你怎么……等等，比赛还没打完你怎么知道结果的？</div>
+<div class="dialogue"><span class="speaker">我：</span>呃……我猜的。走，请你吃饭。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f16.jpg" loading="lazy" alt="重逢特写">
+<div class="panel-text">
+<div class="scene">【近景双人 · 情感特写】</div>
+<div class="narration">陈磊的脸。胖嘟嘟的，架着那副永远往下滑的黑框眼镜，嘴角挂着泡面。</div>
+<div class="inner">上辈子，这个胖子陪我从0做到3亿估值，从来没说过一句放弃。后来公司爆发式增长，他却因为过劳住了院……这辈子，我不会再让这种事发生。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f17.jpg" loading="lazy" alt="大排档谈事">
+<div class="panel-text">
+<div class="scene">【全景 · 大排档 · 黄昏暖光 · 啤酒烧烤】</div>
+<div class="dialogue"><span class="speaker">我：</span>磊子，移动互联网马上要爆发了。我有一个想法，三年内能做到上亿用户。</div>
+<div class="dialogue"><span class="speaker">陈磊：</span>……你从哪来的自信？上次你说要做的那个社交app，最后连logo都没设计出来。</div>
+<div class="dialogue"><span class="speaker">我：</span>这次不一样。</div>
+<div class="dialogue"><span class="speaker">陈磊：</span>你每次都说不一样。</div>
+<div class="inner">他说得对。但这次是真的不一样——因为我是从未来回来的。当然这话不能说。</div>
+</div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="panel">
+<img src="f18.jpg" loading="lazy" alt="甩存折">
+<div class="panel-text">
+<div class="scene">【低角度特写 · 手拍桌面 · 存折 · 啤酒瓶晃动】</div>
+<div class="narration">我把存折"啪"地拍在桌上。12万。我全部身家。</div>
+<div class="dialogue"><span class="speaker">我：</span>十二万。全在这。你信不信无所谓，干不干？</div>
+</div>
+</div>
+
+<div class="decision-box">
+<div class="title">⚡ 决策点 2：如何说服陈磊</div>
+<div class="options">
+<div class="option">A: 给陈磊讲一个"预言"证明自己（暴露重生风险）</div>
+<div class="option">B: 只讲方向和逻辑，靠商业说服力</div>
+<div class="option">C: 直接甩出12万——"你信不信无所谓，干不干？"</div>
+</div>
+<div class="chosen">→ 我选C。想这么多干嘛，先干了再说。</div>
+<div class="reason">能用钱和行动解决的事，就别浪费时间在嘴上。这是我的风格。</div>
+</div>
+
+<div class="panel">
+<img src="f19.jpg" loading="lazy" alt="陈磊震惊">
+<div class="panel-text">
+<div class="scene">【特写 · 陈磊面部反应】</div>
+<div class="narration">陈磊手里的羊肉串定在半空。嘴巴张着，一口啤酒忘了咽。</div>
+<div class="dialogue"><span class="speaker">陈磊：</span>……你疯了吧？你就这么点钱。</div>
+<div class="dialogue"><span class="speaker">我：</span>所以你到底干不干？</div>
+<div class="narration">他看了我三秒。然后把啤酒一口干了。</div>
+<div class="dialogue"><span class="speaker">陈磊：</span>你这人从来不干没把握的事。行，我干。</div>
+<div class="inner">兄弟就是兄弟。上辈子如此，这辈子也如此。</div>
+</div>
+</div>
+
+<!-- === ACT 3: 黑客试水 === -->
+<div class="act-divider"><h2>叁 · 降维打击</h2></div>
+
+<div class="panel">
+<img src="f20.jpg" loading="lazy" alt="深夜网吧黑客">
+<div class="panel-text">
+<div class="scene">【中景 · 深夜网吧 · 只剩我一人】</div>
+<div class="narration">凌晨两点。网吧里只剩我和一个趴在键盘上睡着的大学生。</div>
+<div class="narration">我打开了那家公司的官网。2013年才被公开的那个安全漏洞——此刻就安静地躺在他们的系统里，像一扇没上锁的保险柜。</div>
+<div class="inner">2026年的安全攻防知识 vs 2012年的系统防护……这不叫黑客。这叫欺负小朋友。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f21.jpg" loading="lazy" alt="代码屏幕">
+<div class="panel-text">
+<div class="scene">【过肩特写 · 屏幕代码 · 终端窗口】</div>
+<div class="narration">十五分钟。只用了十五分钟就找到了入口。在2026年，这种级别的漏洞连实习生都不会犯。但在2012年，这是价值千万的信息。</div>
+<div class="inner">问题来了——我怎么处理这个漏洞？</div>
+</div>
+</div>
+
+<!-- DECISION 3 -->
+<div class="panel">
+<img src="f22.jpg" loading="lazy" alt="道德抉择">
+<div class="panel-text">
+<div class="scene">【3/4侧面 · 屏幕光照亮半边脸 · 沉思】</div>
+<div class="narration">屏幕的光映在我脸上。三个选择在脑子里转。</div>
+<div class="inner">黑帽能赚快钱。但上辈子做了十四年白帽，不是为了重来一次就堕落的。</div>
+</div>
+</div>
+
+<div class="decision-box">
+<div class="title">⚡ 决策点 3：发现安全漏洞后</div>
+<div class="options">
+<div class="option">A: 白帽报告——换取信任和人脉</div>
+<div class="option">B: 匿名发布——在黑客圈建立声誉</div>
+<div class="option">C: 留着——作为将来的谈判筹码</div>
+</div>
+<div class="chosen">→ 我选A。正大光明地走白帽路线。</div>
+<div class="reason">有些底线，不管穿越几次都不能丢。何况——白帽路线才是真正的长期主义。</div>
+</div>
+
+<div class="panel">
+<img src="f23.jpg" loading="lazy" alt="写漏洞报告">
+<div class="panel-text">
+<div class="scene">【侧面中景 · 网吧 · 天际微明】</div>
+<div class="narration">我花了四个小时写了一份极其详细的漏洞报告。不只是告诉他们哪里有洞，还写了完整的修复方案和架构建议。</div>
+<div class="inner">这份报告放在2026年值一篇顶会论文。放在2012年？足够让一家公司的CTO欠我一个人情。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f24.jpg" loading="lazy" alt="见CTO拿酬谢">
+<div class="panel-text">
+<div class="scene">【中景双人 · 公司会议室 · 握手】</div>
+<div class="narration">三天后，那家公司的CTO亲自约我见面。五万酬谢金，加一张他的名片。</div>
+<div class="dialogue"><span class="speaker">CTO：</span>小兄弟，你这水平不应该在网吧里混。随时来找我。</div>
+<div class="inner">不急。这张名片比五万块值钱十倍。人脉这个东西，2012年和2026年都一样——关键时刻能救命。</div>
+</div>
+</div>
+
+<!-- === ACT 4: 创业启动 + 悬念 === -->
+<div class="act-divider"><h2>肆 · 暗流</h2></div>
+
+<!-- DECISION 4 -->
+<div class="panel">
+<img src="f25.jpg" loading="lazy" alt="小破出租屋办公">
+<div class="panel-text">
+<div class="scene">【全景 · 出租屋改造的"办公室" · 白板+折叠椅】</div>
+<div class="narration">我们的"公司"——一间月租800块的出租屋。白板是从废品站淘的，桌子是门板加砖头。</div>
+<div class="dialogue"><span class="speaker">我：</span>磊子，计划是这样的。我做产品，你同时接几单安全咨询——先把现金流撑起来。</div>
+</div>
+</div>
+
+<div class="decision-box">
+<div class="title">⚡ 决策点 4：拿到第一桶金后的策略</div>
+<div class="options">
+<div class="option">A: 立刻全力做产品（快但缺资源）</div>
+<div class="option">B: 先做安全咨询积累资金（慢但稳）</div>
+</div>
+<div class="chosen">→ 两条腿走路：我全力做产品，陈磊同步接安全咨询养活我们俩。</div>
+<div class="reason">创业最怕的不是失败，是还没开始就断粮。MVP思维：最小资源，最快验证。</div>
+</div>
+
+<div class="panel">
+<img src="f26.jpg" loading="lazy" alt="陈磊打电话">
+<div class="panel-text">
+<div class="scene">【中景 · 出租屋 · 陈磊电话咨询】</div>
+<div class="dialogue"><span class="speaker">陈磊：</span>您好，这里是……呃……极光安全工作室。对，就我们两个人。但是水平您放心……</div>
+<div class="narration">我在另一边忍着笑。这胖子接商务电话紧张得声音都在抖。</div>
+<div class="inner">上辈子他也是这么过来的。但后来他成了全公司最能扛的技术VP。每个大佬都有菜鸟的时候。</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f27.jpg" loading="lazy" alt="蒙太奇进展">
+<div class="panel-text">
+<div class="scene">【蒙太奇 · 时间流逝 · 暖色调】</div>
+<div class="narration">接下来的日子像快进键。白天写代码，晚上讨论方案。吃了一个月的泡面和路边炒饭。陈磊接了三单安全咨询，进账八万——够我们活半年。而我的产品原型，终于有了雏形。</div>
+</div>
+</div>
+
+<!-- CLIFFHANGER -->
+<div class="panel">
+<img src="f28.jpg" loading="lazy" alt="发现论坛帖子">
+<div class="panel-text">
+<div class="scene">【低角度特写 · 深夜 · 笔记本屏幕光 · 震惊表情】</div>
+<div class="narration">一切都在按计划进行。直到那个深夜。</div>
+<div class="narration">我习惯性地刷技术论坛，突然看到一个匿名帖子——</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f29.jpg" loading="lazy" alt="论坛帖子特写">
+<div class="panel-text">
+<div class="scene">【极端特写 · 屏幕内容 · 诡异蓝光】</div>
+<div class="narration">那个帖子分析了一家公司未来三年的发展路径。每一个拐点、每一次融资、每一个关键决策——</div>
+<div class="narration">全部准确。</div>
+<div class="narration">不是"分析得有道理"的那种准确。是"只有从未来回来的人才知道"的那种准确。</div>
+<div class="inner">不可能。绝对不可能。除非……</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="f30.jpg" loading="lazy" alt="手机掉落">
+<div class="panel-text">
+<div class="scene">【慢动作 · 诺基亚掉落 · 人物虚化站起】</div>
+<div class="narration">翻盖手机从手中滑落。在空中翻转了两圈，"啪"地摔在地上。</div>
+<div class="narration">我盯着屏幕。手指冰凉。</div>
+<div class="inner">我不是唯一一个重生的人。</div>
+</div>
+</div>
+
+<div class="cliffhanger">
+<p>在这个已经被改变的2012年——</p>
+<p>还有谁，也来自未来？</p>
+<div class="tbc">未完待续</div>
+</div>
+
+</div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
