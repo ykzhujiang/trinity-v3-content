@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>商道江湖 · 第一章：初入江湖</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e0d0;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a1a 0%,#1a1520 50%,#2a1a10 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(200,160,80,0.15) 0%,transparent 60%)}
+.cover h1{font-size:2.8em;background:linear-gradient(135deg,#d4a44a,#f0d080,#d4a44a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;letter-spacing:0.15em;animation:fadeIn 2s ease}
+.cover h2{font-size:1.3em;color:#a08060;margin-top:0.5em;letter-spacing:0.3em;animation:fadeIn 2s 0.5s both}
+.cover .scroll-hint{position:absolute;bottom:3em;color:#806040;font-size:0.9em;animation:bounce 2s infinite}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.panel-container{max-width:480px;margin:0 auto;padding:0 0 4em}
+.panel{position:relative;margin:0;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block}
+.panel .desc{padding:1em 1.2em;font-size:1.1em;line-height:1.8;background:linear-gradient(180deg,rgba(20,15,10,0.95),rgba(10,10,15,0.98))}
+.panel .desc .dialogue{color:#f0d080;font-weight:600;display:block;margin:0.3em 0}
+.panel .desc .inner{color:#80b0e0;font-style:italic;display:block;margin:0.3em 0}
+.panel .desc .narrate{color:#c0b8a0;display:block;margin:0.3em 0}
+.panel .desc .wuxia{color:#e08040;font-weight:600;display:block;margin:0.3em 0;padding-left:0.5em;border-left:3px solid #d4a44a}
+.decision{background:linear-gradient(135deg,rgba(40,20,10,0.95),rgba(20,10,30,0.95));border:1px solid #d4a44a33;margin:0.5em 1em;padding:1em;border-radius:8px}
+.decision h3{color:#d4a44a;font-size:1em;margin-bottom:0.5em}
+.decision .choice{padding:0.4em 0;color:#a08060;font-size:0.95em}
+.decision .choice.chosen{color:#f0d080;font-weight:700}
+.decision .choice.chosen::before{content:'⚔️ '}
+.scene-divider{text-align:center;padding:2em 0;color:#604020;font-size:1.5em;letter-spacing:1em}
+.cliffhanger{background:linear-gradient(180deg,rgba(10,10,20,0.98),rgba(30,15,5,0.98));padding:2em 1.5em;text-align:center}
+.cliffhanger .big{font-size:1.4em;color:#f0d080;font-weight:700;margin-bottom:0.5em}
+.cliffhanger .sub{color:#a08060;font-size:1em;line-height:1.8}
+.end-card{text-align:center;padding:3em 1em;color:#604020}
+.end-card .next{color:#d4a44a;font-size:1.2em;margin-top:1em}
+.tag{display:inline-block;font-size:0.75em;padding:2px 8px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.tag-reality{background:#1a3050;color:#80b8e0}
+.tag-wuxia{background:#3a2010;color:#e0a040}
+.tag-decision{background:#401020;color:#e06080}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>商道江湖</h1>
+  <h2>第一章 · 初入江湖</h2>
+  <div class="scroll-hint">▼ 向下滑动开始阅读</div>
+</div>
+
+<div class="panel-container">
+
+<!-- F01: 开场 - 城市天际线 -->
+<div class="panel">
+  <img src="images/f01.jpg" loading="lazy" alt="城市天际线">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">清晨的陆家嘴，玻璃幕墙折射出刺眼的金光。</span>
+    <span class="inner">我站在华山资本大楼前，心跳开始加速。这是我第一次见投资人——三个月的创业，终于走到了这一步。</span>
+  </div>
+</div>
+
+<!-- F02: 武侠视角 - 建筑变宗门 -->
+<div class="panel">
+  <img src="images/f02.jpg" loading="lazy" alt="华山派宗门">
+  <div class="desc">
+    <span class="tag tag-wuxia">江湖</span>
+    <span class="wuxia">抬头看——华山资本。呵，华山派。</span>
+    <span class="inner">这大楼在我眼里，瞬间变成了巍峨的山门，云雾缭绕，松涛阵阵。走进去，就是踏入江湖。</span>
+  </div>
+</div>
+
+<!-- F03: 走进大堂 -->
+<div class="panel">
+  <img src="images/f03.jpg" loading="lazy" alt="走进大堂">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">大理石地面映出我的影子。前台小姐姐微笑着示意我上三楼。</span>
+    <span class="inner">深吸一口气。我的demo昨晚调到凌晨三点，功能跑通了。应该没问题。应该。</span>
+  </div>
+</div>
+
+<!-- F04: 发现林可 -->
+<div class="panel">
+  <img src="images/f04.jpg" loading="lazy" alt="发现林可">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">电梯口，一个女人。长发，红唇，一身黑色套装，气场两米八。</span>
+    <span class="inner">我认得她。林可，DataEdge的CEO，我们最大的竞品。她怎么也在这？</span>
+  </div>
+</div>
+
+<!-- F05: 武侠视角 - 林可=峨眉掌门 -->
+<div class="panel">
+  <img src="images/f05.jpg" loading="lazy" alt="峨眉掌门">
+  <div class="desc">
+    <span class="tag tag-wuxia">江湖</span>
+    <span class="wuxia">好家伙，峨眉派掌门。起手式就带杀气。</span>
+    <span class="inner">那甩头的弧度，那微微上扬的嘴角——分明是峨眉剑法起手式，剑还没出鞘，杀意已经满溢。</span>
+  </div>
+</div>
+
+<!-- F06: DECISION-1 内心特写 -->
+<div class="panel">
+  <img src="images/f06.jpg" loading="lazy" alt="决策时刻">
+  <div class="desc">
+    <span class="tag tag-decision">决策点</span>
+    <span class="inner">她也看到我了。这一刻，我有两个选择——</span>
+    <div class="decision">
+      <h3>⚔️ 决策一：初遇对手</h3>
+      <div class="choice">A. 装没看见，保持神秘</div>
+      <div class="choice chosen">B. 大方打招呼，展示风度</div>
+    </div>
+    <span class="inner">怂什么？江湖人行事，光明正大。</span>
+  </div>
+</div>
+
+<!-- F07: 主动打招呼握手 -->
+<div class="panel">
+  <img src="images/f07.jpg" loading="lazy" alt="主动握手">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="dialogue">"林总，久仰。朱江，NexusAI。"</span>
+    <span class="narrate">我主动伸出手。她顿了一秒——显然没料到竞品CEO会主动示好。</span>
+  </div>
+</div>
+
+<!-- F08: 林可甩头回应 -->
+<div class="panel">
+  <img src="images/f08.jpg" loading="lazy" alt="林可甩头">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="dialogue">"嗯，知道你。"</span>
+    <span class="narrate">她握了一下就松开，甩了下头发，径直走向会议室。</span>
+    <span class="inner">好嘛，三个字打发我。这女人，够狠。</span>
+  </div>
+</div>
+
+<!-- F09: 武侠视角 - 甩头=剑气 -->
+<div class="panel">
+  <img src="images/f09.jpg" loading="lazy" alt="峨眉剑气">
+  <div class="desc">
+    <span class="tag tag-wuxia">江湖</span>
+    <span class="wuxia">那一甩头，分明是峨眉剑法第三式——"落英飘剑"。剑气扫过，我的衣角都在抖。</span>
+    <span class="inner">强。比我预想的还强。但也没强到让我想跑。</span>
+  </div>
+</div>
+
+<!-- F10: 马哥出场 -->
+<div class="panel">
+  <img src="images/f10.jpg" loading="lazy" alt="马哥出场">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">会议室门开了。一个秃顶的中年男人坐在长桌尽头，笑眯眯的，像个弥勒佛。</span>
+    <span class="dialogue">"来来来，坐坐坐。我是马东来，叫我马哥就行。"</span>
+    <span class="inner">声音慢条斯理，像在泡功夫茶。</span>
+  </div>
+</div>
+
+<!-- F11: 武侠视角 - 马哥=武当长老 -->
+<div class="panel">
+  <img src="images/f11.jpg" loading="lazy" alt="武当长老">
+  <div class="desc">
+    <span class="tag tag-wuxia">江湖</span>
+    <span class="wuxia">武当派长老。看似人畜无害，实则深不可测。那缓慢抽出太极剑的动作——他在试探我的底线。</span>
+    <span class="inner">投资人说"坐坐坐"，翻译成江湖话就是——"让我看看你有几斤几两"。</span>
+  </div>
+</div>
+
+<!-- F12: 三人对峙 -->
+<div class="panel">
+  <img src="images/f12.jpg" loading="lazy" alt="三人对峙">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">我坐左边，林可坐右边，马哥坐中间。落地窗外是整个浦东天际线。</span>
+    <span class="inner">气氛微妙。我和林可之间的空气，能拧出水来。而马哥在中间笑得像看戏一样。</span>
+  </div>
+</div>
+
+<!-- F13: 马哥提出PK -->
+<div class="panel">
+  <img src="images/f13.jpg" loading="lazy" alt="马哥提议">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="dialogue">"这样吧——你们俩，各十分钟，当面展示。我想看看实力对比。"</span>
+    <span class="inner">我心里"咯噔"一下。当面PK？这是……</span>
+  </div>
+</div>
+
+<!-- F14: 武侠视角 - 擂台赛 -->
+<div class="panel">
+  <img src="images/f14.jpg" loading="lazy" alt="擂台赛">
+  <div class="desc">
+    <span class="tag tag-wuxia">江湖</span>
+    <span class="wuxia">擂台赛！这老头要我和峨眉的人当场比武！</span>
+    <span class="inner">火把在四周燃烧，人群在下方注视。这不是普通的路演——这是华山论剑的资格赛。</span>
+  </div>
+</div>
+
+<!-- F15: DECISION-2 接受挑战 -->
+<div class="panel">
+  <img src="images/f15.jpg" loading="lazy" alt="接受挑战">
+  <div class="desc">
+    <span class="tag tag-decision">决策点</span>
+    <div class="decision">
+      <h3>⚔️ 决策二：擂台赛</h3>
+      <div class="choice">A. 拒绝，要求单独展示（保护商业机密）</div>
+      <div class="choice chosen">B. 接受挑战，正面刚</div>
+    </div>
+    <span class="inner">擂台赛？正合我意。</span>
+    <span class="dialogue">"没问题，马哥。女士优先——林总先请。"</span>
+    <span class="inner">林可看了我一眼，眼里第一次有了一丝正视。</span>
+  </div>
+</div>
+
+<!-- F16: 展示demo -->
+<div class="panel">
+  <img src="images/f16.jpg" loading="lazy" alt="展示demo">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">轮到我了。打开笔记本，连上投影。</span>
+    <span class="inner">好，深呼吸。三个月的心血，就看这十分钟。</span>
+    <span class="dialogue">"我们做的是AI驱动的供应链优化……"</span>
+  </div>
+</div>
+
+<!-- F17: 笔记本死机！！ -->
+<div class="panel">
+  <img src="images/f17.jpg" loading="lazy" alt="笔记本死机">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">讲到第三页——屏幕闪了一下，蓝了。</span>
+    <span class="inner">不。不不不不不。你不能在这个时候死。你不能——</span>
+  </div>
+</div>
+
+<!-- F18: 林可看好戏 -->
+<div class="panel">
+  <img src="images/f18.jpg" loading="lazy" alt="林可看好戏">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">余光看到林可嘴角上扬了两毫米。两毫米，但在我眼里像两公里。</span>
+    <span class="inner">她在笑。她在等着看我出丑。</span>
+  </div>
+</div>
+
+<!-- F19: 武侠视角 - 走火入魔 -->
+<div class="panel">
+  <img src="images/f19.jpg" loading="lazy" alt="走火入魔">
+  <div class="desc">
+    <span class="tag tag-wuxia">江湖</span>
+    <span class="wuxia">内力不稳！走火入魔！</span>
+    <span class="inner">真气在体内乱窜，经脉似乎要炸开。擂台下的观众开始窃窃私语。峨眉派的人已经在准备庆功了。</span>
+  </div>
+</div>
+
+<!-- F20: DECISION-3 掏出手机 -->
+<div class="panel">
+  <img src="images/f20.jpg" loading="lazy" alt="掏出手机">
+  <div class="desc">
+    <span class="tag tag-decision">决策点</span>
+    <div class="decision">
+      <h3>⚔️ 决策三：笔记本死机，如何挽救？</h3>
+      <div class="choice">A. 用白板手画，把bug变feature讲</div>
+      <div class="choice chosen">B. 掏手机，现场live coding修bug</div>
+    </div>
+    <span class="inner">不。我是黑客。我不怕bug，bug应该怕我。</span>
+  </div>
+</div>
+
+<!-- F21: 手机上live coding -->
+<div class="panel">
+  <img src="images/f21.jpg" loading="lazy" alt="live coding">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">我掏出手机，连上投影，手指在屏幕上飞舞。</span>
+    <span class="dialogue">"各位稍等十五秒。"</span>
+    <span class="inner">终端打开，SSH连进服务器，三行命令，重启服务。十二秒。</span>
+  </div>
+</div>
+
+<!-- F22: 武侠视角 - 拔剑 -->
+<div class="panel">
+  <img src="images/f22.jpg" loading="lazy" alt="当场亮剑">
+  <div class="desc">
+    <span class="tag tag-wuxia">江湖</span>
+    <span class="wuxia">当场亮剑！走火入魔之际，他竟然——强行逆转真气，拔剑反击！</span>
+    <span class="inner">剑出鞘的瞬间，所有人都安静了。这不是蛮力——这是对内力的绝对掌控。</span>
+  </div>
+</div>
+
+<!-- F23: Demo重新运行！ -->
+<div class="panel">
+  <img src="images/f23.jpg" loading="lazy" alt="Demo复活">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">屏幕亮了。数据流动，图表渲染，demo完美运行。</span>
+    <span class="dialogue">"抱歉，刚才是服务器的一个小问题。现在我们继续。"</span>
+    <span class="inner">马哥身体前倾了。林可的笑容凝固了。好，这才对。</span>
+  </div>
+</div>
+
+<!-- F24: 林可展示 -->
+<div class="panel">
+  <img src="images/f24.jpg" loading="lazy" alt="林可展示">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">林可的展示很强。PPT精美，数据扎实，客户案例一个接一个。</span>
+    <span class="inner">得承认，她有实力。DataEdge比我先跑了两年，客户积累不是盖的。但她的产品……我看到了三个技术债。她自己可能都不知道。</span>
+  </div>
+</div>
+
+<!-- F25: 武侠视角 - 峨眉剑舞 -->
+<div class="panel">
+  <img src="images/f25.jpg" loading="lazy" alt="峨眉剑舞">
+  <div class="desc">
+    <span class="tag tag-wuxia">江湖</span>
+    <span class="wuxia">峨眉剑法，招式华丽，剑花如雨。但——花架子多了些。有三个破绽，她自己看不见。</span>
+    <span class="inner">破阵术告诉我，她的第七式和第十二式之间有0.3秒的空档。这个漏洞，将来会要她命。</span>
+  </div>
+</div>
+
+<!-- F26: PK结束 对峙 -->
+<div class="panel">
+  <img src="images/f26.jpg" loading="lazy" alt="PK结束">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">展示结束。我和林可隔着会议桌对视。空气中有火药味，但也有一种奇怪的惺惺相惜。</span>
+    <span class="inner">她是对手，但她是值得尊重的对手。</span>
+  </div>
+</div>
+
+<!-- F27: 马哥沉思 -->
+<div class="panel">
+  <img src="images/f27.jpg" loading="lazy" alt="马哥沉思">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="dialogue">"嗯……不错，不错。你们都很有意思。"</span>
+    <span class="narrate">马哥摸着下巴，笑容变得意味深长。</span>
+    <span class="dialogue">"让我想想。这个决定不能草率。"</span>
+    <span class="inner">他在笑。但那笑容后面藏着什么？</span>
+  </div>
+</div>
+
+<!-- F28: DECISION-4 林可递名片 -->
+<div class="panel">
+  <img src="images/f28.jpg" loading="lazy" alt="林可递名片">
+  <div class="desc">
+    <span class="tag tag-decision">决策点</span>
+    <span class="narrate">散会。走廊上，林可叫住我。</span>
+    <span class="dialogue">"朱总，你的live coding挺有意思。不如……我们合作？"</span>
+    <div class="decision">
+      <h3>⚔️ 决策四：峨眉派抛出橄榄枝</h3>
+      <div class="choice">A. 拒绝——"我不跟对手合作"</div>
+      <div class="choice chosen">B. 接名片，礼貌回应但不承诺</div>
+    </div>
+    <span class="inner">有意思。峨眉掌门主动递橄榄枝？我不把路堵死——但也不会傻乎乎地跳进去。</span>
+    <span class="dialogue">"可以聊聊。回头联系。"</span>
+  </div>
+</div>
+
+<!-- F29: 深夜回到小办公室 -->
+<div class="panel">
+  <img src="images/f29.jpg" loading="lazy" alt="深夜办公室">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">晚上十一点，我的小破办公室。桌上是泡面和红牛。</span>
+    <span class="inner">今天的表现……还行吧。至少没丢人。那个live coding的场面，应该给马哥留了印象。</span>
+    <span class="narrate">我习惯性地刷了下邮箱——</span>
+  </div>
+</div>
+
+<div class="scene-divider">· · ·</div>
+
+<!-- F30: 悬念！ -->
+<div class="panel">
+  <img src="images/f30.jpg" loading="lazy" alt="震惊发现">
+  <div class="desc">
+    <span class="tag tag-reality">现实</span>
+    <span class="narrate">马哥的邮件。打开——</span>
+    <span class="inner">这不是TS。这是……一份名单？</span>
+    <span class="inner">AI赛道所有创业公司的实力排名。NexusAI在上面，第十七位。DataEdge第三。但让我后背发凉的不是排名——</span>
+    <span class="inner">是我们公司名字旁边，那个我从没见过的符号。</span>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <div class="big">马哥不只是投资人。</div>
+  <div class="sub">这个江湖，比我想的大得多。</div>
+</div>
+
+<div class="end-card">
+  <div style="color:#604020;font-size:0.85em">《商道江湖》第一章 · 完</div>
+  <div class="next">第二章：华山论剑 · 敬请期待</div>
+  <div style="margin-top:2em;color:#40302080;font-size:0.7em">EXP-720 | Trinity V3</div>
+</div>
+
+</div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
