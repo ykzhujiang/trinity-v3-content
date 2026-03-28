@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>我有一个属性面板 · 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;color:#e0e0e0;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story{max-width:430px;margin:0 auto;padding:0}
+/* Title */
+.title-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0d1117,#1a1a2e,#162447);text-align:center;padding:40px 20px}
+.title-screen h1{font-size:28px;color:#00ff88;text-shadow:0 0 20px rgba(0,255,136,0.4),0 0 40px rgba(0,255,136,0.2);margin-bottom:12px;letter-spacing:6px;font-family:"Courier New",monospace}
+.title-screen .sub{font-size:16px;color:#80c0ff;margin-bottom:20px}
+.title-screen .desc{font-size:14px;color:#6a8a9a;line-height:2}
+.title-screen .pixel-border{width:200px;height:4px;background:repeating-linear-gradient(90deg,#00ff88 0,#00ff88 8px,transparent 8px,transparent 12px);margin:20px auto}
+/* Panel */
+.panel{position:relative;width:100%;margin-bottom:0;opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;height:auto}
+/* Text */
+.text-block{padding:16px 20px;background:#1a1a2e;font-size:18px;line-height:1.9;letter-spacing:0.3px}
+.text-block .narration{color:#c8d0d8;margin:4px 0}
+.text-block .dialogue{color:#f0d060;font-size:18px;margin:6px 0;padding-left:4px;border-left:3px solid #f0d060}
+.text-block .inner{color:#80c0ff;font-style:italic;margin:6px 0;font-size:17px}
+.text-block .system{color:#00ff88;font-size:16px;margin:8px 0;padding:10px 14px;border:1px solid rgba(0,255,136,0.3);border-radius:8px;background:rgba(0,255,136,0.05);font-family:"Courier New",monospace}
+.text-block .humor{color:#ff6b9d;font-size:15px;margin:4px 0 4px 12px}
+/* Stat panel CSS */
+.stat-panel{background:linear-gradient(135deg,#0d1520,#1a2535);border:2px solid #00ff88;border-radius:12px;margin:12px 16px;padding:16px;font-family:"Courier New",monospace;box-shadow:0 0 20px rgba(0,255,136,0.15)}
+.stat-panel h3{text-align:center;color:#00ff88;font-size:16px;margin-bottom:12px;text-shadow:0 0 8px rgba(0,255,136,0.3)}
+.stat-row{display:flex;align-items:center;margin:6px 0;font-size:14px}
+.stat-row .name{width:70px;color:#8ab4d4;font-size:13px}
+.stat-row .bar{flex:1;height:14px;background:#0a1520;border-radius:7px;overflow:hidden;margin:0 8px}
+.stat-row .bar .fill{height:100%;border-radius:7px}
+.stat-row .val{width:40px;text-align:right;color:#00ff88;font-weight:bold;font-size:14px}
+.fill-green{background:linear-gradient(90deg,#00ff88,#00cc6a)}
+.fill-red{background:linear-gradient(90deg,#ff4444,#cc0000)}
+.fill-gold{background:linear-gradient(90deg,#ffd700,#ffaa00)}
+.fill-pink{background:linear-gradient(90deg,#ff69b4,#ff1493)}
+.fill-purple{background:linear-gradient(90deg,#9a6aff,#6a3aff)}
+/* Divider */
+.divider{height:2px;background:repeating-linear-gradient(90deg,#00ff88 0,#00ff88 6px,transparent 6px,transparent 10px);margin:8px 0;opacity:0.4}
+/* Chapter end */
+.chapter-end{padding:40px 20px;text-align:center;background:linear-gradient(180deg,#1a1a2e,#0d1117)}
+.chapter-end h2{color:#00ff88;font-size:22px;margin-bottom:12px;text-shadow:0 0 15px rgba(0,255,136,0.3)}
+.chapter-end p{color:#6a8a9a;font-size:15px;line-height:1.8}
+.chapter-end .blink{animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+</style>
+</head>
+<body>
+<div class="story">
+
+<!-- 标题屏 -->
+<div class="title-screen">
+<div class="pixel-border"></div>
+<h1>我有一个属性面板</h1>
+<div class="sub">第一章 · 系统觉醒</div>
+<div class="pixel-border"></div>
+<div class="desc">
+某天早上醒来<br>
+眼前多了一个……游戏属性面板？<br>
+<br>
+力量5 · 智力12 · 魅力3<br>
+<span style="color:#ffd700;font-size:18px">运气 99</span>
+</div>
+</div>
+
+<!-- P01: 上班族日常 -->
+<div class="panel"><img src="p01.jpg" loading="lazy" alt="挤地铁上班"></div>
+<div class="text-block">
+<div class="narration">楚阳，26岁，某互联网公司基层员工。</div>
+<div class="narration">每天的生活三件套：挤地铁、改需求、被领导骂。</div>
+<div class="inner">这辈子大概就这样了吧……</div>
+</div>
+
+<!-- P02: 醒来看到面板 -->
+<div class="panel"><img src="p02.jpg" loading="lazy" alt="属性面板出现"></div>
+<div class="text-block">
+<div class="system">▶ 系统初始化完成<br>▶ 宿主：楚阳<br>▶ 属性面板已激活</div>
+<div class="narration">那天早上，闹钟还没响，楚阳就被一道绿光晃醒了。</div>
+<div class="inner">什么玩意儿……我是不是还没睡醒？</div>
+</div>
+
+<!-- P03: 自己的属性 -->
+<div class="panel"><img src="p03.jpg" loading="lazy" alt="楚阳的属性"></div>
+<div class="stat-panel">
+<h3>◈ 楚阳 · 属性面板 ◈</h3>
+<div class="stat-row"><span class="name">力量</span><div class="bar"><div class="fill fill-red" style="width:5%"></div></div><span class="val">5</span></div>
+<div class="stat-row"><span class="name">智力</span><div class="bar"><div class="fill fill-green" style="width:12%"></div></div><span class="val">12</span></div>
+<div class="stat-row"><span class="name">魅力</span><div class="bar"><div class="fill fill-red" style="width:3%"></div></div><span class="val">3</span></div>
+<div class="stat-row"><span class="name">运气</span><div class="bar"><div class="fill fill-gold" style="width:99%"></div></div><span class="val">99</span></div>
+</div>
+<div class="text-block">
+<div class="inner">力量5……行吧，我确实搬不动桶装水。</div>
+<div class="inner">魅力3……难怪追了三年的女神不理我。</div>
+<div class="inner">但是——运气99？？？这什么bug？</div>
+</div>
+
+<!-- P04: 健身猛男 -->
+<div class="panel"><img src="p04.jpg" loading="lazy" alt="健身猛男的属性"></div>
+<div class="stat-panel">
+<h3>◈ 健身房刘教练 ◈</h3>
+<div class="stat-row"><span class="name">力量</span><div class="bar"><div class="fill fill-green" style="width:95%"></div></div><span class="val">95</span></div>
+<div class="stat-row"><span class="name">智力</span><div class="bar"><div class="fill fill-red" style="width:1%"></div></div><span class="val">1</span></div>
+</div>
+<div class="text-block">
+<div class="narration">出门路过小区健身房，一个肌肉猛男正在举铁。</div>
+<div class="narration">楚阳下意识看了一眼——</div>
+<div class="inner">力量95！果然是猛男！</div>
+<div class="inner">智力……1？</div>
+<div class="humor">（不是，一个活人智力怎么能只有1？他是怎么办的健身卡？）</div>
+</div>
+
+<!-- P05: 领导 -->
+<div class="panel"><img src="p05.jpg" loading="lazy" alt="领导的属性"></div>
+<div class="stat-panel">
+<h3>◈ 张总监 ◈</h3>
+<div class="stat-row"><span class="name">吹牛</span><div class="bar"><div class="fill fill-gold" style="width:99%"></div></div><span class="val">99</span></div>
+<div class="stat-row"><span class="name">实力</span><div class="bar"><div class="fill fill-red" style="width:3%"></div></div><span class="val">3</span></div>
+<div class="stat-row"><span class="name">领导力</span><div class="bar"><div class="fill fill-red" style="width:2%"></div></div><span class="val">2</span></div>
+<div class="stat-row"><span class="name">甩锅</span><div class="bar"><div class="fill fill-purple" style="width:97%"></div></div><span class="val">97</span></div>
+</div>
+<div class="text-block">
+<div class="narration">到公司，张总监正在开晨会。</div>
+<div class="dialogue">"这个季度我们要做到行业第一！我当年在腾讯的时候——"</div>
+<div class="inner">吹牛99，实力3……好家伙，原来你小子全靠嘴啊。</div>
+<div class="inner">甩锅97——难怪每次出事都是我们背锅。</div>
+<div class="humor">（楚阳面无表情地点头，内心已经笑出了猪叫）</div>
+</div>
+
+<!-- P06: 暗恋女同事 -->
+<div class="panel"><img src="p06.jpg" loading="lazy" alt="林雨晴的属性"></div>
+<div class="stat-panel">
+<h3>◈ 林雨晴 ◈</h3>
+<div class="stat-row"><span class="name">颜值</span><div class="bar"><div class="fill fill-pink" style="width:92%"></div></div><span class="val">92</span></div>
+<div class="stat-row"><span class="name">温柔</span><div class="bar"><div class="fill fill-pink" style="width:88%"></div></div><span class="val">88</span></div>
+<div class="stat-row"><span class="name">好感度</span><div class="bar"><div class="fill fill-pink" style="width:85%"></div></div><span class="val" style="color:#ff69b4">85♥</span></div>
+</div>
+<div class="text-block">
+<div class="narration">下午，暗恋了三年的林雨晴端着咖啡路过。</div>
+<div class="dialogue">"楚阳，加班辛苦了，给你带了杯拿铁。"</div>
+<div class="narration">楚阳接过咖啡，余光不自觉地看向她的面板——</div>
+</div>
+
+<!-- P07: 看到好感度 -->
+<div class="panel"><img src="p07.jpg" loading="lazy" alt="楚阳看到好感度"></div>
+<div class="text-block">
+<div class="inner">好感度……85？？？</div>
+<div class="inner">对我的好感度？？？85？？？</div>
+<div class="inner">天哪天哪天哪天哪天哪——</div>
+<div class="humor">（楚阳的脸以肉眼可见的速度变成了番茄色）</div>
+<div class="dialogue">"那、那个……谢谢你，雨晴。"</div>
+<div class="inner">好的，我决定了，这辈子就跟运气99过了。</div>
+</div>
+
+<!-- P08: 食堂大妈 -->
+<div class="panel"><img src="p08.jpg" loading="lazy" alt="食堂大妈的属性"></div>
+<div class="stat-panel">
+<h3>◈ 食堂王阿姨 ◈</h3>
+<div class="stat-row"><span class="name">厨艺</span><div class="bar"><div class="fill fill-green" style="width:65%"></div></div><span class="val">65</span></div>
+<div class="stat-row"><span class="name">卫生</span><div class="bar"><div class="fill fill-red" style="width:3%"></div></div><span class="val" style="color:#ff4444">3 🪳</span></div>
+<div class="stat-row"><span class="name">抠门</span><div class="bar"><div class="fill fill-purple" style="width:98%"></div></div><span class="val">98</span></div>
+</div>
+<div class="text-block">
+<div class="narration">中午去食堂打饭。</div>
+<div class="narration">王阿姨笑眯眯地给他盛了一大勺——</div>
+<div class="inner">卫生3？还有个蟑螂图标？？</div>
+<div class="inner">这辈子再也不在食堂吃了。</div>
+</div>
+
+<!-- P09: 拒绝吃饭 -->
+<div class="panel"><img src="p09.jpg" loading="lazy" alt="楚阳恐惧"></div>
+<div class="text-block">
+<div class="narration">楚阳默默放下筷子，端起饭盒走了。</div>
+<div class="narration">身后王阿姨的声音追过来——</div>
+<div class="dialogue">"小楚，不吃了？今天红烧肉做得特别好！"</div>
+<div class="inner">不了不了不了，卫生3的红烧肉我不配。</div>
+<div class="humor">（旁边的同事吃得正香，楚阳不敢告诉他们真相）</div>
+</div>
+
+<!-- P10: 客户骗子 -->
+<div class="panel"><img src="p10.jpg" loading="lazy" alt="骗子客户"></div>
+<div class="stat-panel">
+<h3>◈ 陈总 · 甲方客户 ◈</h3>
+<div class="stat-row"><span class="name">诚信</span><div class="bar"><div class="fill fill-red" style="width:0%"></div></div><span class="val" style="color:#ff4444">0</span></div>
+<div class="stat-row"><span class="name">演技</span><div class="bar"><div class="fill fill-gold" style="width:98%"></div></div><span class="val">98</span></div>
+<div class="stat-row"><span class="name">欠款</span><div class="bar"><div class="fill fill-red" style="width:88%"></div></div><span class="val">∞</span></div>
+</div>
+<div class="text-block">
+<div class="narration">下午，甲方陈总来开会，握手时笑得特别真诚。</div>
+<div class="dialogue">"放心放心，这个项目结完尾款绝对不会拖。"</div>
+<div class="inner">诚信0……演技98……好家伙。</div>
+<div class="inner">你这张嘴说的每一个字我都不信。</div>
+</div>
+
+<!-- P11: 偷偷告诉同事 -->
+<div class="panel"><img src="p11.jpg" loading="lazy" alt="楚阳和同事"></div>
+<div class="text-block">
+<div class="narration">会后，楚阳拉住项目经理小李——</div>
+<div class="dialogue">"李哥，这个客户不靠谱，咱们提前要30%预付款。"</div>
+<div class="dialogue">"你怎么知道？"</div>
+<div class="dialogue">"直觉。"</div>
+<div class="inner">诚信0+演技98，这种组合我从来没见过这么极端的。</div>
+<div class="humor">（后来证明楚阳是对的，陈总第二个月就跑路了）</div>
+</div>
+
+<!-- P12: 街头百态 -->
+<div class="panel"><img src="p12.jpg" loading="lazy" alt="街头属性面板"></div>
+<div class="text-block">
+<div class="narration">下班路上，满大街的属性面板在眼前飘。</div>
+<div class="inner">外卖小哥：速度99，方向感2——难怪他绕了三条街才送到。</div>
+<div class="inner">街边算命大爷：忽悠95，灵力0——果然是假的。</div>
+<div class="inner">遛狗的大姐：狗的忠诚度比她老公对她的好感度还高。</div>
+<div class="humor">（这个世界的真相原来这么搞笑）</div>
+</div>
+
+<!-- P13: 买彩票 -->
+<div class="panel"><img src="p13.jpg" loading="lazy" alt="买彩票"></div>
+<div class="text-block">
+<div class="narration">路过彩票站，楚阳停下了脚步。</div>
+<div class="inner">运气99……</div>
+<div class="inner">不试一试，是不是对不起这个面板？</div>
+<div class="narration">他掏出10块钱，随手买了一张刮刮乐。</div>
+</div>
+
+<!-- P14: 中了！ -->
+<div class="panel"><img src="p14.jpg" loading="lazy" alt="中大奖"></div>
+<div class="text-block">
+<div class="system">▶ 检测到宿主触发 [运气] 事件<br>▶ 中奖金额：500万<br>▶ 运气值 -1（当前：98）</div>
+<div class="inner">五……五百万？？？？</div>
+<div class="narration">楚阳的手开始发抖，嘴角开始不受控制地上扬。</div>
+<div class="inner">运气99果然不是盖的啊！！！</div>
+</div>
+
+<!-- P15: 狂喜 -->
+<div class="panel"><img src="p15.jpg" loading="lazy" alt="楚阳狂喜"></div>
+<div class="text-block">
+<div class="narration">楚阳在小区里狂奔了两圈，差点把保安吓报警。</div>
+<div class="inner">五百万！！我自由了！！</div>
+<div class="inner">张总监的吹牛99再也管不了我了！！</div>
+<div class="inner">食堂王阿姨的卫生3也与我无关了！！</div>
+<div class="humor">（冷静，冷静，先别裸辞，万一面板明天就消失了呢）</div>
+</div>
+
+<!-- P16: 回家看猫 -->
+<div class="panel"><img src="p16.jpg" loading="lazy" alt="回家看大橘"></div>
+<div class="text-block">
+<div class="narration">到家，大橘正趴在沙发上，用一种高深莫测的眼神看着他。</div>
+<div class="dialogue">"大橘！我中了500万！"</div>
+<div class="narration">大橘："喵。" （翻了个身继续睡）</div>
+<div class="inner">等等……让我看看你的面板——</div>
+</div>
+
+<!-- P17: 猫的属性 -->
+<div class="panel"><img src="p17.jpg" loading="lazy" alt="大橘的属性"></div>
+<div class="stat-panel">
+<h3>◈ 大橘 · 家养橘猫 ◈</h3>
+<div class="stat-row"><span class="name">智力</span><div class="bar"><div class="fill fill-gold" style="width:99%"></div></div><span class="val" style="color:#ffd700">99</span></div>
+<div class="stat-row"><span class="name">忠诚</span><div class="bar"><div class="fill fill-red" style="width:0%"></div></div><span class="val" style="color:#ff4444">-50</span></div>
+<div class="stat-row"><span class="name">野心</span><div class="bar"><div class="fill fill-purple" style="width:100%"></div></div><span class="val">MAX</span></div>
+</div>
+<div class="text-block">
+<div class="system">▶ 隐藏属性已解锁<br>▶ 当前目标：世界征服（进度 2%）</div>
+<div class="inner">…………</div>
+<div class="inner">智力99？？？忠诚-50？？？</div>
+<div class="inner">野心MAX？？？世界征服进度2%？？？</div>
+</div>
+
+<!-- P18: 震惊 -->
+<div class="panel"><img src="p18.jpg" loading="lazy" alt="楚阳震惊"></div>
+<div class="text-block">
+<div class="narration">楚阳缓缓后退两步。</div>
+<div class="narration">大橘抬起头，舔了舔爪子，眼神里闪过一丝……不屑？</div>
+<div class="inner">所以这三年……不是我在养猫，是猫在观察我？</div>
+<div class="inner">忠诚度-50是什么概念？它是不是在密谋把我卖了？</div>
+<div class="humor">（大橘：愚蠢的人类，你终于发现了。）</div>
+</div>
+
+<!-- P19: 夜晚沉思 -->
+<div class="panel"><img src="p19.jpg" loading="lazy" alt="夜晚沉思"></div>
+<div class="text-block">
+<div class="narration">夜深了，楚阳坐在窗边，看着城市灯火。</div>
+<div class="narration">大橘蹲在旁边的猫爬架上，尾巴有节奏地摆动。</div>
+<div class="inner">属性面板……运气99……五百万……</div>
+<div class="inner">还有一只智力99想要征服世界的猫。</div>
+<div class="inner">从今天开始，我的人生好像变得有点不一样了。</div>
+</div>
+
+<!-- P20: 悬念结尾 -->
+<div class="panel"><img src="p20.jpg" loading="lazy" alt="新功能解锁"></div>
+<div class="text-block">
+<div class="system">▶ 恭喜宿主完成 [第一天] 成就<br>▶ 新功能解锁：[隐藏属性] 查看权限<br>▶ 新功能解锁：[好感度追踪] 实时模式<br>▶ ??? 功能将在第二天解锁</div>
+<div class="narration">楚阳看着面板上闪烁的新通知，嘴角不自觉地勾了起来。</div>
+<div class="inner">明天……应该会更有意思吧。</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 章末 -->
+<div class="chapter-end">
+<h2>第一章 · 完</h2>
+<p style="color:#80c0ff;font-size:16px;margin-bottom:16px">属性面板已激活 · 世界的真相正在揭开</p>
+<p class="blink" style="color:#00ff88;font-size:14px">[ 第二章 · 好感度追踪模式 · 即将解锁 ]</p>
+<div style="margin-top:30px">
+<p style="font-size:13px;color:#4a5a6a">大橘的世界征服计划进度：2% → 2.1%</p>
+<p style="font-size:13px;color:#4a5a6a">楚阳的运气值：99 → 98</p>
+</div>
+</div>
+
+</div>
+
+<script>
+// Lazy reveal on scroll
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
