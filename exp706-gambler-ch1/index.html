@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>赌神觉醒 · 第一章 — 牌桌上的程序员</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f0a05;color:#e8dcc8;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story{max-width:430px;margin:0 auto;padding:0}
+/* Title */
+.title-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0f0a05 0%,#1a1008 30%,#2a1a0a 60%,#0f0a05 100%);text-align:center;padding:40px 24px}
+.title-screen h1{font-size:30px;color:#ffd700;text-shadow:0 0 30px rgba(255,215,0,0.4),0 2px 4px rgba(0,0,0,0.5);letter-spacing:8px;margin-bottom:8px}
+.title-screen .chapter{font-size:16px;color:#c8a060;margin-bottom:24px;letter-spacing:2px}
+.title-screen .tagline{font-size:14px;color:#8a7050;line-height:2.2}
+.gold-line{width:180px;height:2px;background:linear-gradient(90deg,transparent,#ffd700,transparent);margin:16px auto}
+/* Panel */
+.panel{position:relative;width:100%;margin-bottom:0;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;height:auto}
+/* Text */
+.text-block{padding:18px 22px;background:linear-gradient(180deg,rgba(15,10,5,0.95),rgba(15,10,5,1));font-size:18px;line-height:1.9}
+.text-block .narration{color:#c8c0b0;margin:5px 0}
+.text-block .dialogue{color:#ffd700;font-size:18px;margin:8px 0;padding-left:12px;border-left:3px solid #ffd700}
+.text-block .dialogue .speaker{font-size:13px;color:#a08040;display:block;margin-bottom:2px}
+.text-block .inner{color:#80b8e0;font-style:italic;margin:6px 0;font-size:17px}
+.text-block .calc{color:#00ff88;font-size:15px;margin:6px 0;padding:8px 12px;border:1px solid rgba(0,255,136,0.2);border-radius:6px;background:rgba(0,255,136,0.03);font-family:"Courier New",monospace}
+.text-block .humor{color:#ff8c6b;font-size:15px;margin:4px 0 4px 10px}
+.text-block .tension{color:#ff4444;font-size:16px;font-weight:bold;margin:8px 0}
+/* Decision */
+.decision{background:linear-gradient(135deg,rgba(30,20,8,0.98),rgba(20,15,5,0.98));border:2px solid #ffd700;border-radius:14px;margin:16px 10px;padding:22px 18px;box-shadow:0 0 30px rgba(255,215,0,0.1)}
+.decision h3{color:#ffd700;font-size:18px;margin-bottom:14px;text-align:center;letter-spacing:2px}
+.decision .option{padding:12px 14px;margin:8px 0;border-radius:10px;border:1px solid #3a2a10;background:rgba(40,30,15,0.6);font-size:15px;line-height:1.7;color:#c8b890}
+.decision .option.chosen{border-color:#ffd700;background:rgba(255,215,0,0.08);box-shadow:0 0 15px rgba(255,215,0,0.15)}
+.decision .option .label{font-weight:bold;color:#ffd700;font-size:14px}
+.decision .soul{margin-top:14px;padding:12px;background:rgba(80,120,180,0.1);border-radius:8px;border:1px solid rgba(80,120,180,0.3)}
+.decision .soul h4{color:#80b8e0;font-size:13px;margin-bottom:6px}
+.decision .soul p{color:#a0b8d0;font-size:14px;line-height:1.7}
+/* Scene divider */
+.scene-div{padding:12px 0;text-align:center}
+.scene-div span{display:inline-block;width:6px;height:6px;background:#ffd700;border-radius:50%;margin:0 8px;opacity:0.5}
+/* Chapter end */
+.chapter-end{padding:50px 24px;text-align:center;background:linear-gradient(180deg,#0f0a05,#1a0800)}
+.chapter-end h2{color:#ffd700;font-size:24px;letter-spacing:4px;text-shadow:0 0 20px rgba(255,215,0,0.3);margin-bottom:16px}
+.chapter-end .hook{color:#ff6b6b;font-size:17px;line-height:1.8;margin-bottom:20px;font-style:italic}
+.chapter-end .next{color:#c8a060;font-size:14px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+</style>
+</head>
+<body>
+<div class="story">
+
+<!-- Title -->
+<div class="title-screen">
+<div class="gold-line"></div>
+<h1>赌神觉醒</h1>
+<div class="chapter">第一章 · 牌桌上的程序员</div>
+<div class="gold-line"></div>
+<div class="tagline">
+当一个程序员坐上赌桌<br>
+他看到的不是牌<br>
+是概率、是模式、是——<br>
+<span style="color:#ffd700">破解系统的后门</span>
+</div>
+</div>
+
+<!-- P01: 办公室 -->
+<div class="panel"><img src="p01.jpg" loading="lazy" alt="办公室"></div>
+<div class="text-block">
+<div class="narration">创业第三年，公司账上还剩47万。</div>
+<div class="narration">按现在的烧钱速度，最多撑三个月。</div>
+<div class="inner">我盯着屏幕上的财务报表，数字红得像是在报警。</div>
+</div>
+
+<!-- P02: 特写手 -->
+<div class="panel"><img src="p02.jpg" loading="lazy" alt="财务报表"></div>
+<div class="text-block">
+<div class="inner">三年前我辞了大厂的工作，拿着所有积蓄出来创业。</div>
+<div class="inner">现在回头看，那个决定到底是勇敢还是蠢？</div>
+<div class="humor">（大概两者都有吧）</div>
+</div>
+
+<!-- P03: 窗边剪影 -->
+<div class="panel"><img src="p03.jpg" loading="lazy" alt="窗边沉思"></div>
+<div class="text-block">
+<div class="inner">站在窗边看着这座城市，想起三年前意气风发的自己。</div>
+<div class="inner">那时候觉得技术能改变世界。</div>
+<div class="inner">现在发现，技术连房租都快改变不了了。</div>
+</div>
+
+<div class="scene-div"><span></span><span></span><span></span></div>
+
+<!-- P04: 电话 -->
+<div class="panel"><img src="p04.jpg" loading="lazy" alt="老陈来电"></div>
+<div class="text-block">
+<div class="narration">手机响了。老陈——我大学室友，现在在金融圈混。</div>
+<div class="dialogue"><span class="speaker">老陈</span>"今晚有个局，来不来？赢了够你烧半年。"</div>
+<div class="inner">我本能地想拒绝。但"半年"两个字像钩子一样勾住了我。</div>
+<div class="dialogue"><span class="speaker">我</span>"什么局？"</div>
+<div class="dialogue"><span class="speaker">老陈</span>"德州。私人的。放心，都是正经生意人。"</div>
+<div class="inner">"正经生意人"这个词从老陈嘴里说出来，可信度约等于零。</div>
+<div class="humor">（但我的账户余额也约等于零了）</div>
+</div>
+
+<!-- P05: 赌场外景 -->
+<div class="panel"><img src="p05.jpg" loading="lazy" alt="私人会所"></div>
+<div class="text-block">
+<div class="narration">晚上九点，东三环某高端私人会所。</div>
+<div class="inner">门口停着的车加起来能买我整个公司。</div>
+<div class="inner">嗯，大概能买三个。</div>
+</div>
+
+<!-- P06: 走进赌场 -->
+<div class="panel"><img src="p06.jpg" loading="lazy" alt="走进会所"></div>
+<div class="text-block">
+<div class="narration">推开门的瞬间，暖光和雪茄味扑面而来。</div>
+<div class="inner">满屋子西装革履，就我一个穿Polo衫的。</div>
+<div class="inner">我感觉自己像个bug混进了生产环境。</div>
+<div class="humor">（还是那种随时会被catch的RuntimeException）</div>
+</div>
+
+<!-- P07: 老陈迎接 -->
+<div class="panel"><img src="p07.jpg" loading="lazy" alt="老陈迎接"></div>
+<div class="text-block">
+<div class="dialogue"><span class="speaker">老陈</span>"来了来了！这是我跟你们说的那个技术天才。"</div>
+<div class="inner">技术天才？老陈你能不能靠谱一次？</div>
+<div class="dialogue"><span class="speaker">我</span>"别这么介绍我，压力很大。"</div>
+<div class="dialogue"><span class="speaker">老陈</span>"放轻松，就当玩儿。"</div>
+<div class="inner">带着47万身家来"玩儿"，我心态能好才怪。</div>
+</div>
+
+<div class="scene-div"><span></span><span></span><span></span></div>
+
+<!-- P08: 牌桌全景 -->
+<div class="panel"><img src="p08.jpg" loading="lazy" alt="牌桌全景"></div>
+<div class="text-block">
+<div class="narration">八角桌，绿色桌布，六个位置。</div>
+<div class="narration">头顶一盏暖光灯把桌面照得亮堂，周围反而暗沉沉的。</div>
+<div class="inner">像个舞台。每个人都是演员。</div>
+<div class="inner">而我连台词都没背。</div>
+</div>
+
+<!-- P09: 看底牌 -->
+<div class="panel"><img src="p09.jpg" loading="lazy" alt="看底牌"></div>
+<div class="text-block">
+<div class="narration">第一手牌发下来。我掀起一角——</div>
+<div class="narration">A♠ 10♠。同花连牌。</div>
+<div class="inner">不算顶级，但翻牌后潜力巨大。</div>
+<div class="calc">胜率估算：约22%（6人桌）→ 若翻牌命中同花/顺子听牌 → 隐含赔率可观</div>
+<div class="inner">等等……我在干什么？我的大脑居然在自动计算概率？</div>
+</div>
+
+<!-- P10: 计算眼神 -->
+<div class="panel"><img src="p10.jpg" loading="lazy" alt="计算模式"></div>
+<div class="text-block">
+<div class="inner">不对……这种感觉我认识。</div>
+<div class="inner">这和我debug的时候一模一样——</div>
+<div class="inner">观察输入，分析模式，预测输出。</div>
+<div class="calc">程序员的大脑 = 天然的概率计算器</div>
+<div class="inner">原来赌桌就是一个分布式系统，每个人的下注就是他们的API返回值。</div>
+</div>
+
+<!-- P11: 对峙鲨鱼 -->
+<div class="panel"><img src="p11.jpg" loading="lazy" alt="鲨鱼对峙"></div>
+<div class="text-block">
+<div class="narration">对面坐着的是今晚的主角——大家叫他"周总"。</div>
+<div class="inner">秃头，金表，目光如刀。</div>
+<div class="inner">光看气场就知道这不是善茬。</div>
+<div class="narration">周总直接加注——是底池的三倍。</div>
+<div class="narration">其他四个人安静地弃牌。</div>
+<div class="inner">行，就剩我和这条鲨鱼了。</div>
+</div>
+
+<!-- DECISION-1 -->
+<div class="decision">
+<h3>◆ 决策点 ◆</h3>
+<div class="option"><span class="label">A · 跟注试探</span><br>谨慎观察。先收集数据，看看这条鲨鱼的下注模式。</div>
+<div class="option"><span class="label">B · 反加注挑衅</span><br>用气势打破节奏。让他知道新来的不是软柿子。</div>
+<div class="option"><span class="label">C · 弃牌等待</span><br>保守策略。等拿到坚果牌再出手。</div>
+<div class="option chosen"><span class="label">▶ 我选了A</span><br>先收集数据再行动——这是程序员的本能。你不会在没搞懂系统架构的时候就开始改代码。</div>
+<div class="soul"><h4>🧠 内心独白</h4><p>第一手就莽？那是赌徒。我不是赌徒，我是工程师。工程师的第一步永远是——侦查。</p></div>
+</div>
+
+<!-- P12: 冷静观察 -->
+<div class="panel"><img src="p12.jpg" loading="lazy" alt="冷静观察"></div>
+<div class="text-block">
+<div class="narration">我平静地推出筹码。"跟。"</div>
+<div class="inner">不是因为牌好。而是因为我需要看他的数据——下注频率、加注幅度、决策延迟。</div>
+<div class="calc">样本量=1，不够。至少需要3手牌才能建模。</div>
+</div>
+
+<!-- P13: 发现微表情 -->
+<div class="panel"><img src="p13.jpg" loading="lazy" alt="鲨鱼的tell"></div>
+<div class="text-block">
+<div class="narration">三手牌过后，我发现了一个细节——</div>
+<div class="inner">周总每次加注的时候，右手无名指会轻轻敲桌面。一下、两下。</div>
+<div class="inner">但他持有强牌时，手指不动。</div>
+<div class="calc">假说验证：敲桌面=虚张声势（2/2命中率）。不敲=真货。</div>
+</div>
+
+<!-- P14: 发现后门 -->
+<div class="panel"><img src="p14.jpg" loading="lazy" alt="发现后门"></div>
+<div class="text-block">
+<div class="inner">嘴角不自觉地翘了起来。</div>
+<div class="inner">这种感觉……就像找到了程序的后门。</div>
+<div class="inner">你以为自己的系统固若金汤，但你的无名指出卖了你，周总。</div>
+<div class="humor">（搞安全的都知道：最大的漏洞永远是人）</div>
+</div>
+
+<div class="scene-div"><span></span><span></span><span></span></div>
+
+<!-- P15: 关键手牌 -->
+<div class="panel"><img src="p15.jpg" loading="lazy" alt="一对K"></div>
+<div class="text-block">
+<div class="narration">第七手。我掀开底牌——</div>
+<div class="narration">K♥ K♦。口袋对K。</div>
+<div class="inner">心跳加速。但脸上一点表情都没有。</div>
+<div class="inner">三年创业练出来的最大技能不是写代码，是面对投资人时的扑克脸。</div>
+</div>
+
+<!-- P16: 翻牌K-7-2 -->
+<div class="panel"><img src="p16.jpg" loading="lazy" alt="翻牌"></div>
+<div class="text-block">
+<div class="narration">翻牌：K♠ 7♣ 2♦。</div>
+<div class="calc">三条K。当前赢率：&gt;95%</div>
+<div class="inner">呼吸平稳。手心微微出汗。但外表——纹丝不动。</div>
+<div class="narration">周总直接下注，是底池的一半。</div>
+<div class="inner">他的无名指——没有敲桌面。</div>
+<div class="inner">有意思。他觉得自己牌很好。</div>
+<div class="calc">推测：周总持有两对或一对K以下的对子。三条K碾压他。</div>
+</div>
+
+<!-- DECISION-2 -->
+<div class="decision">
+<h3>◆ 决策点 ◆</h3>
+<div class="option"><span class="label">A · 慢打（Slow Play）</span><br>假装弱势，只跟不加。引诱鲨鱼继续加注，直到他all in。</div>
+<div class="option"><span class="label">B · 直接下重注</span><br>数学告诉我稳赢。不玩心理战，直接拿走这个底池。</div>
+<div class="option"><span class="label">C · 跟注控制</span><br>虽然大概率赢，但不确定对方底牌。稳妥跟注，不加注。</div>
+<div class="option chosen"><span class="label">▶ 我选了A</span><br>信息不对称是最大的武器。他不知道我有三条K——那就让他继续往坑里跳。</div>
+<div class="soul"><h4>🧠 内心独白</h4><p>创业教会我的道理：当你握着王牌的时候，不要急着亮底牌。等待，等对手自己走进你的圈套。菩萨心肠，霹雳手段。</p></div>
+</div>
+
+<!-- P17: 对决 -->
+<div class="panel"><img src="p17.jpg" loading="lazy" alt="终极对决"></div>
+<div class="text-block">
+<div class="narration">转牌。河牌。我只跟注，一次都没加。</div>
+<div class="narration">周总越来越自信，筹码越推越大。</div>
+<div class="inner">他以为我在苦苦支撑。</div>
+<div class="inner">实际上我在等他一个字——</div>
+<div class="narration">果然。</div>
+<div class="dialogue"><span class="speaker">周总</span>"All in。"</div>
+<div class="inner">鱼上钩了。</div>
+</div>
+
+<!-- P18: 翻牌 -->
+<div class="panel"><img src="p18.jpg" loading="lazy" alt="翻开三条K"></div>
+<div class="text-block">
+<div class="narration">我平静地把筹码推到中间。</div>
+<div class="dialogue"><span class="speaker">我</span>"跟。"</div>
+<div class="narration">翻开底牌。两张K，加上桌面的K。三条。</div>
+<div class="narration">整桌安静了。</div>
+</div>
+
+<!-- P19: 鲨鱼反应 -->
+<div class="panel"><img src="p19.jpg" loading="lazy" alt="鲨鱼铁青"></div>
+<div class="text-block">
+<div class="narration">周总的脸色从自信变成铁青，大概用了0.3秒。</div>
+<div class="dialogue"><span class="speaker">我</span>"周总，这不是运气。"</div>
+<div class="inner">我看着他的眼睛，微微一笑。</div>
+<div class="dialogue"><span class="speaker">我</span>"这是——概率。"</div>
+</div>
+
+<!-- P20: 赢了 -->
+<div class="panel"><img src="p20.jpg" loading="lazy" alt="赢下筹码"></div>
+<div class="text-block">
+<div class="narration">筹码哗啦啦地推到我面前。</div>
+<div class="inner">赢了多少？我不敢算。</div>
+<div class="inner">但应该够公司多活半年了。</div>
+<div class="humor">（老陈在后面偷偷比了个大拇指，笑得像中了彩票的二舅）</div>
+</div>
+
+<div class="scene-div"><span></span><span></span><span></span></div>
+
+<!-- P21: 荷官警告 -->
+<div class="panel"><img src="p21.jpg" loading="lazy" alt="荷官低语"></div>
+<div class="text-block">
+<div class="narration">起身要走的时候，荷官——那个全场唯一不笑的人——从身边经过。</div>
+<div class="narration">她的嘴唇微微动了一下。声音很轻，轻到只有我能听见：</div>
+<div class="dialogue"><span class="speaker">林小姐</span>"你赢了钱。但你还不知道这个局的规则。"</div>
+<div class="inner">什么？</div>
+<div class="narration">我转头想问，她已经面无表情地回到了牌桌后面。</div>
+<div class="inner">一股凉意从后背升起来。</div>
+</div>
+
+<!-- P22: 不安 -->
+<div class="panel"><img src="p22.jpg" loading="lazy" alt="不安"></div>
+<div class="text-block">
+<div class="inner">"这个局的规则"？</div>
+<div class="inner">德州扑克的规则我都知道啊……</div>
+<div class="inner">还是说，她说的不是牌桌上的规则？</div>
+<div class="tension">这个"局"——到底有多大？</div>
+</div>
+
+<!-- P23: 门口对话 -->
+<div class="panel"><img src="p23.jpg" loading="lazy" alt="老陈的严肃"></div>
+<div class="text-block">
+<div class="narration">出了会所，冷风吹来。</div>
+<div class="narration">老陈一把拉住我的胳膊，脸上的嬉皮笑脸全没了。</div>
+<div class="dialogue"><span class="speaker">老陈</span>"兄弟，有件事我忘了告诉你——"</div>
+<div class="dialogue"><span class="speaker">我</span>"什么？"</div>
+<div class="dialogue"><span class="speaker">老陈</span>"鲨鱼的真实身份……他不是什么商人。"</div>
+</div>
+
+<!-- DECISION-3 -->
+<div class="decision">
+<h3>◆ 决策点 ◆</h3>
+<div class="option"><span class="label">A · 追问到底</span><br>"你到底拉我进了什么局？"——必须搞清楚。</div>
+<div class="option"><span class="label">B · 先不问</span><br>赢了钱，公司能活。其他的以后再说。</div>
+<div class="option"><span class="label">C · 回去找荷官</span><br>比起老陈的半句话，那个荷官似乎知道更多。</div>
+<div class="option chosen"><span class="label">▶ 我选了A</span><br>我是程序员。信息缺失比bug更让我难受。你给我打开一半的窗口就别想让我关上。</div>
+<div class="soul"><h4>🧠 内心独白</h4><p>黑客的基因在血液里——我不能容忍不知道系统全貌。看到一个入口就必须探到底。哪怕那扇门后面是深渊。</p></div>
+</div>
+
+<!-- P24: 眼神 -->
+<div class="panel"><img src="p24.jpg" loading="lazy" alt="深渊凝视"></div>
+<div class="text-block">
+<div class="dialogue"><span class="speaker">我</span>"说清楚。他是谁。"</div>
+<div class="narration">老陈深吸一口气，看了看四周，压低了声音——</div>
+<div class="dialogue"><span class="speaker">老陈</span>"他是……"</div>
+</div>
+
+<!-- P25: 城市剪影 -->
+<div class="panel"><img src="p25.jpg" loading="lazy" alt="城市夜景"></div>
+<div class="text-block">
+<div class="inner">那天晚上我站在路边，看着这座城市的灯火。</div>
+<div class="inner">口袋里多了一笔够公司活半年的钱。</div>
+<div class="inner">但心里多了一个——不知道答案的问题。</div>
+<div class="inner">我赢了牌桌上的牌。</div>
+<div class="tension">但牌桌之外的那个"局"……我连规则都还没搞清楚。</div>
+</div>
+
+<!-- 章末 -->
+<div class="chapter-end">
+<h2>第一章 · 完</h2>
+<div class="gold-line"></div>
+<div class="hook">
+"鲨鱼"周总不是商人。<br>
+荷官林小姐口中的"规则"。<br>
+我赢的不是钱——是入场券。<br>
+<br>
+入的是什么场？
+</div>
+<div class="gold-line"></div>
+<div class="next">[ 第二章 · 暗流 · 即将揭晓 ]</div>
+<div style="margin-top:30px;font-size:13px;color:#5a4a30">
+<p>本场战绩：+48万</p>
+<p>公司续命：3个月 → 9个月</p>
+<p>危险指数：未知 ▓▓▓░░░░░░░</p>
+</div>
+</div>
+
+</div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
