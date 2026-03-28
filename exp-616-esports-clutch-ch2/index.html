@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>绝杀 · 第二章：战狼来袭</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --text: #e8e6e3;
+  --accent: #ff4444;
+  --accent2: #4488ff;
+  --gold: #ffd700;
+  --panel-bg: rgba(15,15,25,0.95);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Title */
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+  text-align: center;
+  padding: 2rem;
+}
+.title-screen h1 {
+  font-size: 2.8rem;
+  color: var(--accent);
+  text-shadow: 0 0 30px rgba(255,68,68,0.5);
+  margin-bottom: 0.5rem;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+.title-screen .subtitle {
+  font-size: 1.4rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.title-screen .chapter-info {
+  font-size: 1rem;
+  color: #888;
+}
+@keyframes pulse-glow {
+  0%,100% { text-shadow: 0 0 20px rgba(255,68,68,0.3); }
+  50% { text-shadow: 0 0 40px rgba(255,68,68,0.7), 0 0 80px rgba(255,68,68,0.3); }
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  margin-top: 3rem;
+  animation: bounce 2s ease-in-out infinite;
+  color: #666;
+  font-size: 0.9rem;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* Panel */
+.panel {
+  max-width: 100%;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image frames */
+.frame-img {
+  width: 100%;
+  display: block;
+}
+
+/* Text blocks */
+.narration {
+  padding: 1.2rem 1.5rem;
+  background: var(--panel-bg);
+  border-left: 3px solid var(--accent2);
+  margin: 0;
+  font-size: 18px;
+}
+.narration.thought {
+  border-left-color: var(--gold);
+  font-style: italic;
+  color: #ccc;
+}
+.narration.dialogue {
+  border-left-color: var(--accent);
+}
+.narration .speaker {
+  color: var(--accent);
+  font-weight: bold;
+  font-style: normal;
+}
+.narration .speaker.dafei { color: #ffcc00; }
+.narration .speaker.liutie { color: #ff6600; }
+.narration .speaker.linwei { color: #ff88cc; }
+.narration .speaker.chen { color: #888; }
+.narration .speaker.galaxy { color: #88ccff; }
+
+/* Decision points */
+.decision-box {
+  background: linear-gradient(135deg, #1a1a3a, #2a1a2a);
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem;
+}
+.decision-box h3 {
+  color: var(--gold);
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
+.decision-box .choice {
+  padding: 0.5rem 0;
+  color: #aaa;
+}
+.decision-box .chosen {
+  color: var(--accent);
+  font-weight: bold;
+}
+.decision-box .reasoning {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255,215,0,0.2);
+  color: #999;
+  font-size: 0.95rem;
+}
+
+/* Section dividers */
+.section-divider {
+  text-align: center;
+  padding: 2rem 0;
+  color: #444;
+  font-size: 1.5rem;
+  letter-spacing: 0.5rem;
+}
+
+/* Chapter end */
+.chapter-end {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(180deg, var(--bg) 0%, #1a0a0a 100%);
+}
+.chapter-end h2 {
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.chapter-end .hook {
+  font-size: 1.2rem;
+  color: var(--gold);
+  max-width: 80%;
+}
+.chapter-end .tbc {
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #555;
+  letter-spacing: 0.3rem;
+}
+
+/* Lazy loading placeholder */
+img[loading="lazy"] {
+  background: #111;
+  min-height: 200px;
+}
+</style>
+</head>
+<body>
+
+<!-- Title -->
+<div class="title-screen">
+  <h1>绝 杀</h1>
+  <div class="subtitle">第二章：战狼来袭</div>
+  <div class="chapter-info">EXP-616 · V5原创长篇 · 电竞重生</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- ============ 开场：备战+侦察 f1-f8 ============ -->
+<div class="section-divider">· · ·</div>
+
+<div class="panel">
+  <img class="frame-img" src="f01.jpg" loading="lazy" alt="f01">
+</div>
+<div class="panel">
+  <div class="narration thought">做创业有一条铁律——进任何市场之前，先摸清对手。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f02.jpg" loading="lazy" alt="f02">
+</div>
+<div class="panel">
+  <div class="narration">"战狼网络会所"——霓虹灯在雨痕斑驳的墙面上投下粉蓝色的光。城东老街区最大的网吧，也是这片区域的"地盘"。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f03.jpg" loading="lazy" alt="f03">
+</div>
+<div class="panel">
+  <div class="narration">我拉着大飞混进去，装作普通上网的学生。中间那个位置——五台机器围成一圈，烟雾缭绕，键盘声像机关枪扫射。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f04.jpg" loading="lazy" alt="f04">
+</div>
+<div class="panel">
+  <div class="narration">领头的家伙一眼就能认出来——平头、银链子、右手食指上一枚银戒指。每个击杀后都会下意识转一下戒指。<br><br><span class="speaker liutie">刘铁，人称"狼王"。</span></div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f05.jpg" loading="lazy" alt="f05">
+</div>
+<div class="panel">
+  <div class="narration thought">强，但是野。没有体系，靠个人能力硬扛。这种打法在2005年是主流，但我知道——十年后，它会被彻底淘汰。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f06.jpg" loading="lazy" alt="f06">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker dafei">大飞（小声）：</span>"靠，这么嚣张？让我上去教训——"<br><br>我一把按住他的肩膀，眼睛没离开屏幕。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f07.jpg" loading="lazy" alt="f07">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker">我：</span>"创业第二课——永远不要在对手的主场暴露实力。"<br><br><span class="speaker dafei">大飞：</span>"那来这儿干嘛？"<br><br><span class="speaker">我：</span>"看他们的弱点。"</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f08.jpg" loading="lazy" alt="f08">
+</div>
+<div class="panel">
+  <div class="narration thought">角落里还有一个人引起了我的注意——战狼的替补，一个人默默练着训练模式。技术不差，但明显被冷落了。<br><br>记住他。也许以后用得上。</div>
+</div>
+
+<!-- DECISION-4 -->
+<div class="panel">
+  <div class="decision-box">
+    <h3>⚡ 决策点 #4</h3>
+    <p>侦察时发现战狼有个替补选手技术很好但被冷落。要不要挖人？</p>
+    <div class="choice">A. 挖人——扩充战队实力</div>
+    <div class="choice chosen">✦ B. 不挖，专注训练现有阵容</div>
+    <div class="reasoning">创业早期核心团队稳定性 > 规模。先让两个人默契到极致，再考虑扩张。<br>但这个人……我记住了。</div>
+  </div>
+</div>
+
+<!-- ============ 中段：训练+意外危机 f9-f28 ============ -->
+<div class="section-divider">— 训练 —</div>
+
+<div class="panel">
+  <img class="frame-img" src="f09.jpg" loading="lazy" alt="f09">
+</div>
+<div class="panel">
+  <div class="narration">回到宿舍，我打开那台借来的ThinkPad T43，在记事本里画战术图。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f10.jpg" loading="lazy" alt="f10">
+</div>
+<div class="panel">
+  <div class="narration thought">这套战术体系，在未来叫做"闪电推进"。2015年才被职业队发明，2018年才成为主流。<br><br>而现在是2005年。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f11.jpg" loading="lazy" alt="f11">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker dafei">大飞：</span>"你这画的什么鬼？"<br><br>他从上铺探出头，嘴里嗦着泡面。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f12.jpg" loading="lazy" alt="f12">
+</div>
+<div class="panel">
+  <div class="narration">啪嗒——<br><br>一滴泡面汤精准命中我的战术图。<br><br><span class="speaker dafei">大飞：</span>"呃……那个不是我。"<br><br>我深吸一口气。创业的第一课其实是——<b>忍。</b></div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f13.jpg" loading="lazy" alt="f13">
+</div>
+<div class="panel">
+  <div class="narration">深夜的网吧只剩我们两个活人和三个睡着的。<br><br>我站在大飞身后，盯着屏幕，一遍遍纠正他的烟雾弹轨迹。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f14.jpg" loading="lazy" alt="f14">
+</div>
+<div class="panel">
+  <div class="narration">11点……1点……3点。泡面杯从一个变成六个。大飞的烟雾弹从天上飞到了地板上，又从地板飞到了自己脸上。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f15.jpg" loading="lazy" alt="f15">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker dafei">大飞：</span>"这根本不科学！谁会往天上扔烟雾弹？！"<br><br>他一拍桌子，棒棒糖断了。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f16.jpg" loading="lazy" alt="f16">
+</div>
+<div class="panel">
+  <div class="narration">我从口袋里掏出一根新的棒棒糖，放在他面前。眼睛没有离开屏幕。<br><br><span class="speaker">我：</span>"相信我。三个月后你会感谢我。"<br><br>大飞盯着棒棒糖，又看看我，撕开了包装。</div>
+</div>
+
+<div class="section-divider">— 危机 —</div>
+
+<div class="panel">
+  <img class="frame-img" src="f17.jpg" loading="lazy" alt="f17">
+</div>
+<div class="panel">
+  <div class="narration">陈校长。<br><br>秃顶，啤酒肚，灰色夹克。办公桌上放着一份监控记录——朱江，大飞，凌晨三点，网吧。连续七天。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f18.jpg" loading="lazy" alt="f18">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker chen">陈校长：</span>"你们知不知道，去年有三个学生因为沉迷网络游戏被退学？！"<br><br>大飞在我旁边抖得像筛子。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f19.jpg" loading="lazy" alt="f19">
+</div>
+<div class="panel">
+  <div class="narration thought">我很平静。<br><br>不是因为我不怕，是因为我知道——创业者面对"监管"，永远不要硬刚，也不要投降。<br><br>要找一个对方无法拒绝的条件。</div>
+</div>
+
+<!-- DECISION-5 -->
+<div class="panel">
+  <div class="decision-box">
+    <h3>⚡ 决策点 #5</h3>
+    <p>面对陈校长的威胁（记过处分），怎么应对？</p>
+    <div class="choice">A. 低头认错，暗中继续</div>
+    <div class="choice">B. 正面说服陈校长电竞是未来</div>
+    <div class="choice chosen">✦ C. 折中方案</div>
+    <div class="reasoning">如果这个月月考成绩不下降，就允许继续"计算机竞技研究"。<br>面对监管——不硬刚，不投降，找一个让对方无法拒绝的条件。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f20.jpg" loading="lazy" alt="f20">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker">我：</span>"陈老师，我有个提议。如果这个月月考，我和大飞的成绩不下降——甚至提高——您能不能给我们一个机会？"<br><br><span class="speaker chen">陈校长：</span>"……你是说，你保证成绩？"<br><br><span class="speaker">我：</span>"我保证。"</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f21.jpg" loading="lazy" alt="f21">
+</div>
+<div class="panel">
+  <div class="narration">老陈的表情从暴怒变成了将信将疑。<br><br>他不知道的是——我记得接下来几乎所有考试的重点。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f22.jpg" loading="lazy" alt="f22">
+</div>
+<div class="panel">
+  <div class="narration">自习室。高等数学、线性代数、大学物理。<br><br>对别人来说是新知识。对我来说是"复习"——二十年前学过一遍的东西。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f23.jpg" loading="lazy" alt="f23">
+</div>
+<div class="panel">
+  <div class="narration thought">闭上眼睛，公式像弹幕一样在脑海里飘过。<br><br>泰勒展开、拉普拉斯变换、傅里叶级数……二十年了，这些东西居然还在。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f24.jpg" loading="lazy" alt="f24">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker dafei">大飞：</span>"你……你闭着眼就能写完整张卷子？！"<br><br>棒棒糖掉了。第二根了今天。<br><br><span class="speaker">我（淡定）：</span>"我只是……复习过。"<br><br>大飞的表情说明他信了，也没信。</div>
+</div>
+
+<div class="section-divider">— 约战日 —</div>
+
+<div class="panel">
+  <img class="frame-img" src="f25.jpg" loading="lazy" alt="f25">
+</div>
+<div class="panel">
+  <div class="narration">约战日。地点：城南新开的"竞技网咖"——老板提供场地，赚的是人气。<br><br>消息传得比我想象的快。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f26.jpg" loading="lazy" alt="f26">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker linwei">林薇：</span>"听说有两支大学战队要打比赛？这可是新闻！"<br><br>她扛着DV就来了，短发在人群中挤来挤去。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f27.jpg" loading="lazy" alt="f27">
+</div>
+<div class="panel">
+  <div class="narration">网咖里人满为患。两排电脑面对面摆好，中间挂着手写横幅。有人带了瓜子，有人带了可乐。像极了后来电竞赛事的雏形。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f28.jpg" loading="lazy" alt="f28">
+</div>
+<div class="panel">
+  <div class="narration">我和大飞推门进去。<br><br>大飞掰了掰手指关节，嘴里叼着新买的草莓味棒棒糖。<br><br>我扫了一眼全场。所有人的目光都集中过来了。</div>
+</div>
+
+<!-- ============ 高潮：战狼对决 f29-f42 ============ -->
+<div class="section-divider">— 开战 —</div>
+
+<div class="panel">
+  <img class="frame-img" src="f29.jpg" loading="lazy" alt="f29">
+</div>
+<div class="panel">
+  <div class="narration">刘铁走过来了。比我高半头，银链子随步伐晃动。<br><br><span class="speaker liutie">刘铁：</span>"两个人也敢叫战队？"</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f30.jpg" loading="lazy" alt="f30">
+</div>
+<div class="panel">
+  <div class="narration">他的眼神带着明显的轻蔑。<br><br>大飞要怼回去，我又一次按住了他。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f31.jpg" loading="lazy" alt="f31">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker">我（平静）：</span>"等会儿赛场上见。"<br><br>菩萨心肠，霹雳手段。说话的时候用前者，打比赛的时候用后者。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f32.jpg" loading="lazy" alt="f32">
+</div>
+<div class="panel">
+  <div class="narration">2v5。<br><br>对面五台电脑坐满了人，我们这边三台空着。围观群众开始窃窃私语。<br><br>我戴上耳机，世界安静了。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f33.jpg" loading="lazy" alt="f33">
+</div>
+<div class="panel">
+  <div class="narration thought">我在踩点的时候已经摸透了战狼的套路。刘铁喜欢开局A大门rush，他的副手习惯绕后。所有人都靠反应速度硬拼。<br><br>但他们不知道，我用的是十年后的战术体系。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f34.jpg" loading="lazy" alt="f34">
+</div>
+<div class="panel">
+  <div class="narration">第一局。<br><br>全场惊叹——我的预判精准得像开了透视。每一次战狼的进攻路线，我都提前两秒做出布防。<br><br>但战狼也不是吃素的。他们调整了策略，第一局我们险胜。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f35.jpg" loading="lazy" alt="f35">
+</div>
+<div class="panel">
+  <div class="narration">14:12。<br><br>赢了，但我皱起了眉头。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f36.jpg" loading="lazy" alt="f36">
+</div>
+<div class="panel">
+  <div class="narration thought">不够。赢了但不够漂亮。刘铁在适应，他的学习速度比我预想的快。<br><br>第二局，需要换一种打法。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f37.jpg" loading="lazy" alt="f37">
+</div>
+<div class="panel">
+  <div class="narration">第二局。战狼调整了战术——专门针对大飞的狙击位。<br><br>刘铁的银戒指在键盘上敲得咔咔响。他在学我。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f38.jpg" loading="lazy" alt="f38">
+</div>
+<div class="panel">
+  <div class="narration">我笑了。<br><br>这正是我等的。<br><br><span class="speaker">我（对大飞耳语）：</span>"换我上。"<br><br>大飞瞪大眼睛——他知道我的操作远不如他。但他看到我的表情，没有反对。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f39.jpg" loading="lazy" alt="f39">
+</div>
+<div class="panel">
+  <div class="narration thought">创业的本质是什么？<br><br>是让对手以为你只有一张牌，然后亮出第二张。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f40.jpg" loading="lazy" alt="f40">
+</div>
+<div class="panel">
+  <div class="narration">1v2残局。手里只剩一颗闪光弹和一把手枪。<br><br>稳妥的做法是拖时间等大飞复活。<br><br>但我记得一个东西——一个2005年还没有被发现的地图视角bug。</div>
+</div>
+
+<!-- DECISION-6 -->
+<div class="panel">
+  <div class="decision-box">
+    <h3>⚡ 决策点 #6</h3>
+    <p>1v2残局。稳妥拖时间，还是利用一个来自"未来记忆"的地图bug冒险翻盘？</p>
+    <div class="choice">A. 稳妥拖时间</div>
+    <div class="choice chosen">✦ B. 冒险利用bug</div>
+    <div class="reasoning">菩萨心肠是对人，霹雳手段是做事。关键时刻——赌。<br>而且这一枪不只是为了赢，是为了让所有人记住。<br>创业者的showmanship。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f41.jpg" loading="lazy" alt="f41">
+</div>
+<div class="panel">
+  <div class="narration">闪光弹出手。<br><br>不是扔向敌人——而是弹墙反弹。角度经过精确计算，弹墙后精准致盲两名敌人。<br><br>然后我利用那个视角死角位移到了一个不可能的位置——</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f42.jpg" loading="lazy" alt="f42">
+</div>
+<div class="panel">
+  <div class="narration">砰。砰。<br><br>两枪爆头。<br><br>全场沉默了三秒钟。<br><br>然后——炸了。</div>
+</div>
+
+<!-- ============ 悬念结尾 f43-f50 ============ -->
+<div class="section-divider">— 尾声 —</div>
+
+<div class="panel">
+  <img class="frame-img" src="f43.jpg" loading="lazy" alt="f43">
+</div>
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker dafei">大飞：</span>"卧槽！！你怎么做到的？！"<br><br>他跳起来的高度快赶上棒棒糖飞出去的高度了。<br><br>林薇的DV在抖。连刘铁都站了起来——脸上不是愤怒，是震撼。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f44.jpg" loading="lazy" alt="f44">
+</div>
+<div class="panel">
+  <div class="narration thought">但我注意到了另一件事。<br><br>窗外停了一辆黑色桑塔纳。从比赛开始就在那里。有人在透过窗户看我们。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f45.jpg" loading="lazy" alt="f45">
+</div>
+<div class="panel">
+  <div class="narration">比分扳平。<br><br>大飞被围观群众举起来了，棒棒糖扔向天花板。网咖老板在角落偷笑——今天的人气值回票价了。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f46.jpg" loading="lazy" alt="f46">
+</div>
+<div class="panel">
+  <div class="narration">决胜局。加时赛。<br><br>大飞的手指在键盘上飞舞，最后一刻——</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f47.jpg" loading="lazy" alt="f47">
+</div>
+<div class="panel">
+  <div class="narration">绝杀。<br><br>我和大飞对拳。两个疲惫但兴奋到发抖的年轻人。<br><br>全场欢呼。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f48.jpg" loading="lazy" alt="f48">
+</div>
+<div class="panel">
+  <div class="narration">赛后。刘铁走过来。<br><br>没有握手。<br><br><span class="speaker liutie">刘铁：</span>"下次，我不会输。"<br><br>然后转身走了。银链子在背影里晃动。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f49.jpg" loading="lazy" alt="f49">
+</div>
+<div class="panel">
+  <div class="narration thought">他身后，那个被冷落的替补回头多看了我一眼。<br><br>眼神里有一种东西——不是崇拜，更像是……被理解的渴望。</div>
+</div>
+
+<div class="panel">
+  <img class="frame-img" src="f50.jpg" loading="lazy" alt="f50">
+</div>
+<div class="panel">
+  <div class="narration">我走出网咖。夜风带着网吧特有的烟味和泡面味。<br><br>那辆黑色桑塔纳还在。车窗缓缓降下来。</div>
+</div>
+
+<div class="panel">
+  <div class="narration dialogue"><span class="speaker galaxy">金丝眼镜男（韩国口音的普通话）：</span>"这位同学，有兴趣聊聊吗？我是Galaxy Gaming的中国区负责人。"</div>
+</div>
+
+<div class="panel">
+  <div class="narration thought">我的瞳孔微缩。<br><br>Galaxy。上辈子，它后来成了全球最大的电竞俱乐部。<br><br>而在2005年，他们还只是一家想进入中国市场的小公司。<br><br>我比任何人都清楚——这张牌，值多少。</div>
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end">
+  <h2>⬇ TO BE CONTINUED</h2>
+  <div class="hook">第三章：是接受Galaxy的橄榄枝，还是坚持独立建队？</div>
+  <div class="tbc">《绝杀》· 未完待续</div>
+</div>
+
+<script>
+// Scroll-triggered fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
