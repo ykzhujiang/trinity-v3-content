@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重启2008 — 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e8e8f0;font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;line-height:1.8;overflow-x:hidden}
+.chapter-header{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(180deg,#0a0a12 0%,#1a1028 50%,#0a0a12 100%);overflow:hidden}
+.chapter-header::before{content:'';position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(255,180,50,0.15) 0%,transparent 70%);top:20%;left:50%;transform:translateX(-50%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.5;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.2)}}
+.chapter-header h1{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#ffb832,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5rem;position:relative;z-index:1}
+.chapter-header .subtitle{font-size:1.1rem;color:#888;position:relative;z-index:1}
+.chapter-header .year{font-size:5rem;font-weight:900;color:rgba(255,184,50,0.08);position:absolute;top:15%;z-index:0}
+.frame{position:relative;width:100%;max-width:500px;margin:0 auto;padding:0 16px;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.frame.visible{opacity:1;transform:translateY(0)}
+.frame-img{width:100%;border-radius:12px;display:block;box-shadow:0 8px 32px rgba(0,0,0,0.6)}
+.frame-text{padding:20px 8px 48px;font-size:1.05rem;color:#ccc;line-height:2}
+.frame-text .narration{color:#e8e8f0;font-size:1.1rem}
+.frame-text .inner{color:#ffb832;font-style:italic;font-size:1rem}
+.frame-text .dialogue{color:#88ccff;font-size:1.05rem}
+.frame-text .aside{color:#999;font-size:0.95rem}
+.decision-box{background:linear-gradient(135deg,rgba(255,184,50,0.1),rgba(255,107,53,0.05));border-left:3px solid #ffb832;border-radius:8px;padding:16px 20px;margin:8px 0 16px;font-size:0.95rem;color:#ddd}
+.decision-box .label{color:#ffb832;font-weight:700;font-size:0.85rem;letter-spacing:2px;margin-bottom:6px}
+.decision-box .choice{color:#ff6b35;font-weight:600}
+.chapter-end{text-align:center;padding:60px 20px 40px}
+.chapter-end h2{font-size:1.6rem;color:#ffb832;margin-bottom:12px}
+.chapter-end .preview{color:#888;font-size:0.95rem;line-height:1.8;max-width:320px;margin:0 auto;padding:16px 0;border-top:1px solid rgba(255,184,50,0.2)}
+.divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,#ffb832,transparent);margin:0 auto 40px}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="year">2008</div>
+  <h1>重启2008</h1>
+  <div class="subtitle">第一章 · 觉醒</div>
+</div>
+
+<!-- Frame 1 -->
+<div class="frame">
+  <img class="frame-img" src="images/f01-wakeup-pov.jpg" alt="醒来" loading="eager">
+  <div class="frame-text">
+    <p class="inner">我的头像被卡车碾过一样。</p>
+    <p class="narration">最后的记忆是2026年3月28日凌晨三点半，公司服务器集群全面宕机，我在机房里改了一夜代码……然后就是一片空白。</p>
+  </div>
+</div>
+
+<!-- Frame 2 -->
+<div class="frame">
+  <img class="frame-img" src="images/f02-hands.jpg" alt="看手" loading="eager">
+  <div class="frame-text">
+    <p class="narration">这双手……年轻了。没有去年搬服务器磨出的茧。指甲干净得不像话。</p>
+    <p class="narration">我猛地坐起来——墙上的日历写着：<strong style="color:#ffb832">2008年9月12日</strong>。</p>
+  </div>
+</div>
+
+<!-- Frame 3 -->
+<div class="frame">
+  <img class="frame-img" src="images/f03-phone.jpg" alt="手机" loading="eager">
+  <div class="frame-text">
+    <p class="narration">诺基亚。N73。这台手机我大四买的，后来摔碎过三次都舍不得扔。</p>
+    <p class="inner">屏幕上的日期像一把锤子敲在我太阳穴——2008年9月12日。雷曼兄弟还有三天倒闭。</p>
+  </div>
+</div>
+
+<!-- Frame 4 -->
+<div class="frame">
+  <img class="frame-img" src="images/f04-strength.jpg" alt="桌角碎了" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">我想拍一下桌子让自己清醒。</p>
+    <p class="narration">然后桌角就没了。</p>
+    <p class="inner">好消息：我重生了。<br>坏消息：我好像重生成了什么不太正常的东西。</p>
+  </div>
+</div>
+
+<!-- Frame 5 -->
+<div class="frame">
+  <img class="frame-img" src="images/f05-mirror.jpg" alt="镜子" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">镜子里的人二十五岁。十八年前的我。</p>
+    <p class="inner">不对——对我来说这是十八年后的事。现在是"原点"。而我知道接下来每一年会发生什么。</p>
+  </div>
+</div>
+
+<!-- Frame 6 -->
+<div class="frame">
+  <img class="frame-img" src="images/f06-montage.jpg" alt="未来记忆" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">十八年的商业记忆像ZIP文件一样在我脑子里解压。</p>
+    <p class="narration">移动互联网、O2O大战、共享经济泡沫、短视频崛起、AI大模型……</p>
+    <p class="inner">我知道每一个风口什么时候来、什么时候走、谁赢谁死。<br>问题是——我要怎么用？</p>
+  </div>
+</div>
+
+<!-- Frame 7 — DECISION 1 -->
+<div class="frame">
+  <img class="frame-img" src="images/f07-decision.jpg" alt="思维导图" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">我有两条路。</p>
+    <p class="narration"><strong>一</strong>，直接用未来知识赚快钱——炒股、买房、买比特币。本金小但能滚雪球。安全，但慢，而且……无聊。</p>
+    <p class="narration"><strong>二</strong>，直接切入移动互联网创业。现在iPhone才上市一年，安卓刚发布，整个中国移动互联网还是一片荒地。我知道这片荒地三年后值万亿。</p>
+    <div class="decision-box">
+      <div class="label">⚡ 决策点 1</div>
+      <p class="choice">选择：直接创业。</p>
+      <p>上辈子好不容易活成了创业者，重生了反而去当股民？"无聊"是对我最大的惩罚。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Frame 8 -->
+<div class="frame">
+  <img class="frame-img" src="images/f08-paper.jpg" alt="创业圈定" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">我把"炒股"划掉了。</p>
+    <p class="inner">创业，移动互联网。现在入场，我是第一批。<br>但我需要钱、需要人、需要一个……理由。一个不暴露我"来自未来"的理由。</p>
+  </div>
+</div>
+
+<!-- Frame 9 -->
+<div class="frame">
+  <img class="frame-img" src="images/f09-street.jpg" alt="2008街景" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">空气里有种2026年闻不到的味道——煤球、油条、和一种莫名的乐观。</p>
+    <p class="narration">2008年的中国，GDP增速还在两位数。所有人都觉得明天会更好。</p>
+    <p class="inner">他们不知道三天后雷曼兄弟会倒。<br>但我知道。</p>
+  </div>
+</div>
+
+<!-- Frame 10 -->
+<div class="frame">
+  <img class="frame-img" src="images/f10-cafe.jpg" alt="网吧" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">振华的网吧还在！这间网吧2010年拆迁了，他拿到一笔补偿款全买了房——后来证明这是他这辈子最英明的投资决策。</p>
+    <p class="dialogue">"哥！你不是说今天去投资公司碰运气吗？怎么先来我这儿？"</p>
+  </div>
+</div>
+
+<!-- Frame 11 -->
+<div class="frame">
+  <img class="frame-img" src="images/f11-friends.jpg" alt="老友" loading="lazy">
+  <div class="frame-text">
+    <p class="dialogue">"先来你这蹭个网。"</p>
+    <p class="narration">我拉过一把椅子坐下。</p>
+    <p class="dialogue">"振华，你觉得手机以后能上网吗？"</p>
+    <p class="dialogue">"能啊，我那诺基亚就能上QQ。"</p>
+    <p class="dialogue">"不是那种，我是说——手机变成电脑，所有人拿手机买东西、看视频、叫外卖、打车。"</p>
+    <p class="narration">振华看我的眼神像在看一个刚从精神病院翻墙出来的人。</p>
+    <p class="dialogue">"叫外卖？你打个电话不就行了？"</p>
+  </div>
+</div>
+
+<!-- Frame 12 -->
+<div class="frame">
+  <img class="frame-img" src="images/f12-lift.jpg" alt="搬显示器" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">有人喊换机器，我顺手帮忙搬了下显示器。21寸CRT，大概二十多公斤。搬完才意识到——我用的是一只手。</p>
+    <p class="inner">记住。控制力量。你不是金刚，你是一个2008年的普通大学毕业生。不要引起注意。</p>
+  </div>
+</div>
+
+<!-- Frame 13 -->
+<div class="frame">
+  <img class="frame-img" src="images/f13-search.jpg" alt="百度搜索" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">百度搜"移动互联网创业"——结果不到两页。2008年，这四个字还不是风口，而是笑话。</p>
+    <p class="inner">完美。蓝海中的蓝海。</p>
+    <p class="narration">我打开一个记事本，开始写商业计划书。iPhone App Store刚上线两个月，中国区app不到一千个。</p>
+    <p class="inner">我需要做的第一件事——找到一个2008年能理解"移动互联网"的投资人。</p>
+  </div>
+</div>
+
+<!-- Frame 14 -->
+<div class="frame">
+  <img class="frame-img" src="images/f14-building.jpg" alt="写字楼" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">下午两点，浦东一家创投公司。</p>
+    <p class="inner">我上辈子第一次创业就是在这里被拒的。那次我准备了三个月，对着镜子练了五十遍路演，最后被一句"看不懂"打发了。<br><br>这次——我准备了十八年。</p>
+  </div>
+</div>
+
+<!-- Frame 15 -->
+<div class="frame">
+  <img class="frame-img" src="images/f15-reception.jpg" alt="周薇" loading="lazy">
+  <div class="frame-text">
+    <p class="dialogue">"你好，我约了马总下午的时间。"</p>
+    <p class="dialogue">"哦你就是那个……移动互联网？"</p>
+    <p class="narration">她翻了翻登记本，嘴角有一丝不易察觉的笑——不是嘲讽，更像是好奇。</p>
+    <p class="dialogue">"马总在开会，你先等一下。"</p>
+    <p class="inner">周薇。她后来是这家基金最年轻的合伙人。现在还在当前台。</p>
+  </div>
+</div>
+
+<!-- Frame 16 -->
+<div class="frame">
+  <img class="frame-img" src="images/f16-pitch.jpg" alt="路演" loading="lazy">
+  <div class="frame-text">
+    <p class="dialogue">"马总，三年之内，智能手机会替代电脑成为最大的互联网入口。中国会有十亿人用手机上网、购物、社交——"</p>
+    <p class="narration">马总打了个哈欠。</p>
+    <p class="dialogue">"小朱啊，你知道现在诺基亚市场占有率多少吗？四成。谁会花五千块买一台不能换电池的手机？"</p>
+  </div>
+</div>
+
+<!-- Frame 17 — DECISION 2 -->
+<div class="frame">
+  <img class="frame-img" src="images/f17-face.jpg" alt="决策" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">我有两个选择。</p>
+    <p class="narration"><strong>一</strong>，客客气气离开，换下一家。上辈子我就是这么做的——客气、谦卑、被拒绝一百次。</p>
+    <p class="narration"><strong>二</strong>，亮底牌。不是暴露未来的底牌，而是用一个马总无法忽视的预言——三天后雷曼兄弟倒闭——来证明我的判断力。</p>
+    <div class="decision-box">
+      <div class="label">⚡ 决策点 2</div>
+      <p class="choice">选择：亮底牌。</p>
+      <p>上辈子客气谦卑被拒了一百次。这一次——用预言说话。黑客式反击。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Frame 18 -->
+<div class="frame">
+  <img class="frame-img" src="images/f18-confrontation.jpg" alt="摊牌" loading="lazy">
+  <div class="frame-text">
+    <p class="dialogue">"马总，"</p>
+    <p class="narration">我站起来，把商业计划书推到他面前。</p>
+    <p class="dialogue">"我跟您做个赌注。今天是9月12号。三天之内，美国第四大投行雷曼兄弟会宣布破产。全球金融市场会崩盘。A股会跌破两千点。"</p>
+    <p class="narration">会议室突然安静了。马总的牙签掉在桌上。</p>
+    <p class="dialogue">"如果我说错了，我以后再也不来烦您。如果我说对了——您给我半小时，认真听我讲完。"</p>
+  </div>
+</div>
+
+<!-- Frame 19 -->
+<div class="frame">
+  <img class="frame-img" src="images/f19-walkaway.jpg" alt="从容离开" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">我走出会议室的时候，听到马总在背后嘟囔了一句：</p>
+    <p class="dialogue">"又一个疯子。"</p>
+    <p class="narration">我笑了。</p>
+    <p class="inner">上辈子有人这么说过马云。也有人这么说过乔布斯。<br>被叫疯子——是创业者的入门礼。</p>
+  </div>
+</div>
+
+<!-- Frame 20 -->
+<div class="frame">
+  <img class="frame-img" src="images/f20-sunset.jpg" alt="夕阳天桥" loading="lazy">
+  <div class="frame-text">
+    <p class="narration">手机响了。一个陌生号码。</p>
+    <p class="dialogue">"你好，是朱江先生吗？我是刚才公司前台的周薇。马总让我告诉你——不必等三天了。他说今晚美股开盘就知道了。如果你说的是真的……明天上午九点，他清空整个日程等你。"</p>
+    <p class="narration">我挂了电话，看着浦东的天际线。</p>
+    <p class="inner">2008年的上海中心还没开工。但我知道它会建到632米。<br>就像我知道——这只是开始。</p>
+  </div>
+</div>
+
+<div class="chapter-end">
+  <div class="divider"></div>
+  <h2>第一章 · 完</h2>
+  <div class="preview">
+    <strong style="color:#ffb832">第二章预告</strong><br>
+    三天后——雷曼兄弟破产之夜<br>
+    朱江的第一笔天使投资
+  </div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.frame').forEach(f => observer.observe(f));
+</script>
+</body>
+</html>
