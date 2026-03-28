@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重生·暗影战神 — 第一章：改写</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e8e8e8;font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.container{max-width:450px;margin:0 auto;padding:0}
+
+/* Title screen */
+.title-screen{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0a 0%,#1a1a2e 50%,#0a0a0a 100%);position:relative;overflow:hidden}
+.title-screen::before{content:'';position:absolute;top:50%;left:50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,50,50,0.08) 0%,transparent 50%);transform:translate(-50%,-50%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
+.title-main{font-size:36px;font-weight:900;letter-spacing:6px;background:linear-gradient(135deg,#ff4444,#ff8800,#ff4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;margin-bottom:12px;animation:fadeIn 1.5s ease}
+.title-sub{font-size:18px;color:#888;letter-spacing:3px;animation:fadeIn 2s ease}
+.title-chapter{font-size:22px;color:#ff6b35;margin-top:24px;letter-spacing:2px;animation:fadeIn 2.5s ease}
+.scroll-hint{position:absolute;bottom:40px;font-size:14px;color:#555;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* Panels */
+.panel{position:relative;width:100%;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;object-fit:cover}
+.panel-text{padding:20px 24px;font-size:18px;line-height:1.8;position:relative}
+
+/* Text styles */
+.narration{color:#ccc;font-style:italic;border-left:3px solid #ff6b35;padding-left:16px;margin:16px 0}
+.inner-voice{color:#88ccff;font-size:16px;line-height:1.7;padding:12px 16px;background:rgba(136,204,255,0.06);border-radius:8px;margin:12px 0}
+.dialogue{color:#fff;font-size:19px;font-weight:500;padding:12px 0}
+.dialogue .speaker{color:#ff6b35;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.humor{color:#ffcc00;font-size:16px;background:rgba(255,204,0,0.08);padding:10px 16px;border-radius:8px;margin:12px 0}
+
+/* Decision point */
+.decision{background:linear-gradient(135deg,rgba(255,107,53,0.1),rgba(255,68,68,0.05));border:1px solid rgba(255,107,53,0.3);border-radius:12px;padding:20px;margin:20px 16px}
+.decision-tag{display:inline-block;background:#ff6b35;color:#000;font-size:12px;font-weight:900;padding:4px 10px;border-radius:4px;margin-bottom:12px;letter-spacing:1px}
+.decision-q{color:#ff6b35;font-size:17px;font-weight:600;margin-bottom:16px}
+.decision-options{margin-bottom:16px}
+.decision-opt{padding:10px 14px;margin:6px 0;border-radius:8px;font-size:15px;color:#aaa;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)}
+.decision-opt.chosen{color:#ff6b35;border-color:#ff6b35;background:rgba(255,107,53,0.1)}
+.decision-opt.chosen::before{content:'▸ ';color:#ff6b35}
+.decision-reason{font-size:14px;color:#888;line-height:1.6;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;margin-top:8px}
+
+/* Chapter end */
+.chapter-end{text-align:center;padding:60px 24px;background:linear-gradient(180deg,#0a0a0a,#1a1a2e)}
+.chapter-end .end-mark{font-size:28px;color:#ff6b35;font-weight:900;letter-spacing:4px;margin-bottom:16px}
+.chapter-end .next-hint{font-size:16px;color:#666;animation:pulse 3s infinite}
+
+/* Separator */
+.sep{height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,53,0.3),transparent);margin:0 24px}
+
+/* Color shift for flashback vs present */
+.flashback img{filter:saturate(0.4) contrast(1.1)}
+.present img{filter:saturate(1.1) contrast(1.05) brightness(1.02)}
+</style>
+</head>
+<body>
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <div class="title-main">重生·暗影战神</div>
+  <div class="title-sub">SHADOW WARRIOR REBORN</div>
+  <div class="title-chapter">第一章 · 改写</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<div class="container">
+
+<!-- FRAME 01 - Car crash flashback -->
+<div class="panel flashback">
+  <img src="images/frame01-crash.jpg" loading="eager" alt="">
+  <div class="panel-text">
+    <div class="inner-voice">"陈默……你还是动手了。"</div>
+    <p class="narration">意识像碎裂的挡风玻璃一样分崩离析。十四年的画面如走马灯般闪过——那些代码、那些会议、那些握手……最终都汇成方向盘旁无力垂下的手。</p>
+  </div>
+</div>
+
+<!-- FRAME 02 - Peak moment -->
+<div class="panel flashback">
+  <img src="images/frame02-peak.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="inner-voice">"我曾以为，这就是终点。"</div>
+    <p class="narration">纳斯达克的大屏幕上，公司股价一路飙红。身后团队欢呼的声浪淹没了华尔街的喧嚣。百亿市值。我以为我赢了。</p>
+  </div>
+</div>
+
+<!-- FRAME 03 - Betrayal -->
+<div class="panel flashback">
+  <img src="images/frame03-betrayal.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="inner-voice">"他笑得那么温和，就像十四年前第一次见面一样。"</div>
+    <p class="narration">昏暗的会议室里，陈默推了推他那副标志性的黑框眼镜，嘴角的弧度恰到好处。他身后坐着三个西装革履的陌生人——后来我才知道，那是他准备了两年的棋局。</p>
+  </div>
+</div>
+
+<!-- FRAME 04 - Death -->
+<div class="panel flashback">
+  <img src="images/frame04-death.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="inner-voice">"如果……能重来一次……"</div>
+    <p class="narration">大卡车的远光灯刺穿雨幕，像末日的审判之光。意识消散前的最后一个念头，不是恐惧，是不甘。</p>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- FRAME 05 - Rebirth -->
+<div class="panel present">
+  <img src="images/frame05-rebirth.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>"嗯？！"</div>
+    <div class="inner-voice">"这个天花板……这个吊扇……这是……部队宿舍？！"</div>
+    <p class="narration">斑驳的天花板。缓缓旋转的吊扇。窗帘缝隙里射入的晨光带着灰尘的微粒。这些画面太熟悉了——但它们属于十四年前。</p>
+  </div>
+</div>
+
+<!-- FRAME 06 - Check body -->
+<div class="panel present">
+  <img src="images/frame06-body.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="inner-voice">"这双手……年轻了。"</div>
+    <p class="narration">我猛地坐起来，双手摊在面前。没有岁月的粗糙，没有键盘磨出的老茧——但是左肩那道旧伤的酸痛感，清晰得像昨天才留下的。</p>
+    <div class="inner-voice">"肩膀上的旧伤——还在。战斗记忆……还在身体里。"</div>
+  </div>
+</div>
+
+<!-- FRAME 07 - Jump down -->
+<div class="panel present">
+  <img src="images/frame07-jump.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">我从上铺翻身跳下——落地的瞬间，身体本能地半蹲缓冲，单手触地，无声无息。</p>
+    <div class="inner-voice">"身体反应速度……完美。前世十年的实战经验，全部保留在了27岁的身体里。特种兵的肌肉记忆，一帧都没丢。"</div>
+  </div>
+</div>
+
+<!-- FRAME 08 - Phone date -->
+<div class="panel present">
+  <img src="images/frame08-phone.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">床头柜上，一部老款诺基亚。我颤抖着按下开机键。屏幕亮起——</p>
+    <div class="dialogue" style="font-size:24px;color:#ff6b35;text-align:center;padding:16px 0">2010年9月1日</div>
+    <div class="inner-voice">"2010年……移动互联网的黄金前夜。iPhone 4刚发布三个月，微信还没出生，抖音还在胚胎里。而我——知道接下来十四年的每一张底牌。一切还没开始。一切都来得及！"</div>
+  </div>
+</div>
+
+<!-- FRAME 09 - Window determination -->
+<div class="panel present">
+  <img src="images/frame09-window.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>（低声）"这一世……所有错过的人，所有犯过的错……我全部要改写。"</div>
+    <p class="narration">晨光打在侧脸上，拳头握紧到指节发白。窗外的军营操场上，新兵们正在晨跑。而我的战场，在更远的地方。</p>
+  </div>
+</div>
+
+<!-- FRAME 10 - Decision Point 1 -->
+<div class="panel present">
+  <img src="images/frame10-decision.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">连长</span>"小朱啊，上面有意让你留队带新兵。你是暗影出来的，带兵的本事谁都服。考虑下？"</div>
+  </div>
+  <div class="decision">
+    <div class="decision-tag">⚡ 决策点 1</div>
+    <div class="decision-q">留队还是退伍？</div>
+    <div class="decision-options">
+      <div class="decision-opt chosen">婉拒，申请退伍回上海</div>
+      <div class="decision-opt">接受，留在部队继续晋升</div>
+    </div>
+    <div class="dialogue"><span class="speaker">我</span>"谢谢连长栽培。但我想回去……做一件改变世界的事。"</div>
+    <div class="decision-reason">我的使命不在军营。战斗技能是底牌，不是人生目标。前世就是在这个节点退伍创业——这次，我要更快、更准、更狠。</div>
+  </div>
+</div>
+
+<!-- FRAME 11 - Shanghai -->
+<div class="panel present">
+  <img src="images/frame11-shanghai.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="inner-voice">"2010年的上海。"</div>
+    <p class="narration">火车站出口，人潮涌动。我背着军用帆布包，穿着洗得发白的军绿T恤和迷彩裤，像一滴水融入了这座野心勃勃的城市。</p>
+    <div class="inner-voice">"微信还没出生，抖音还在胚胎，AI是论文里的数学游戏。而我，知道接下来十四年的每一个风口、每一次洗牌、每一个赢家和输家。"</div>
+  </div>
+</div>
+
+<!-- FRAME 12 - Street observation -->
+<div class="panel present">
+  <img src="images/frame12-street.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">南京路步行街上，满眼是诺基亚的广告牌和"3G来了"的横幅。路人们手里攥着翻盖手机，不知道一场革命即将吞噬他们手里的一切。</p>
+    <div class="inner-voice">"第一个风口——移动互联网。App Store生态即将爆发。六个月，我有六个月的领先优势。"</div>
+  </div>
+</div>
+
+<!-- FRAME 13 - Meet Chen Mo -->
+<div class="panel present">
+  <img src="images/frame13-chenmo.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">陈默</span>"朱江？！真是你啊！退伍了？你比在学校那会儿壮了好多！"</div>
+    <p class="narration">大学门口的小餐馆前，一个瘦高白净、戴黑框眼镜的男人差点和我撞在一起。他的脸——在我的记忆里，最后一次出现是在那间昏暗的会议室。</p>
+    <div class="inner-voice">"我的表情在0.5秒内完成了切换：杀意→微笑。十年特种兵训练最有用的技能，不是格斗，是表情管理。"</div>
+  </div>
+</div>
+
+<!-- FRAME 14 - Noodle catch-up -->
+<div class="panel present">
+  <img src="images/frame14-noodles.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">陈默</span>"我在准备考研呢，计算机方向。你呢，有什么打算？"</div>
+    <p class="narration">小餐馆里，两碗阳春面冒着热气。陈默兴奋地手舞足蹈说着近况。我微笑着夹面，像十四年前一样。</p>
+    <div class="humor">（内心吐槽）"你考研考了两次没考上，然后跑来找我说'一起创业吧'……等等，我是不是可以提前截胡？"</div>
+  </div>
+</div>
+
+<!-- FRAME 15 - Strategic planning -->
+<div class="panel present">
+  <img src="images/frame15-strategy.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>（笑）"打算？先找个地方落脚，然后……搞点事情。你那个计算机，学得怎么样了？"</div>
+    <div class="inner-voice">"将计就计。让他以为一切如前世一样自然。等到关键时刻——釜底抽薪。菩萨心肠，霹雳手段。"</div>
+  </div>
+</div>
+
+<!-- FRAME 16 - Decision Point 2 -->
+<div class="panel present">
+  <img src="images/frame16-chenmo-decision.jpg" loading="lazy" alt="">
+  <div class="decision">
+    <div class="decision-tag">⚡ 决策点 2</div>
+    <div class="decision-q">如何对待陈默？</div>
+    <div class="decision-options">
+      <div class="decision-opt chosen">暂时拉拢，让他留在视线范围内</div>
+      <div class="decision-opt">远离，从此切断一切商业交集</div>
+    </div>
+    <div class="inner-voice">"知己知彼。让他觉得一切和前世一样，我才能看清他背后的人到底是谁。远离反而会打草惊蛇。养蛇，才能顺藤摸瓜。"</div>
+  </div>
+</div>
+
+<!-- FRAME 17 - Farewell -->
+<div class="panel present">
+  <img src="images/frame17-farewell.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">陈默挥手走远，背影消失在人群里。我站在餐馆门口，脸上的笑容在他转身的一瞬间完全消失。</p>
+    <div class="inner-voice">"棋局开始了。"</div>
+  </div>
+</div>
+
+<!-- FRAME 18 - Finding housing -->
+<div class="panel present">
+  <img src="images/frame18-housing.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">一栋老旧居民楼，外墙贴满了"房屋出租"的小广告，纸张边角在风中翻卷。</p>
+    <div class="inner-voice">"先安顿。退伍费加积蓄一共八万块。前世我花了三年才攒到第一桶金。这一世——三个月。"</div>
+  </div>
+</div>
+
+<!-- FRAME 19 - Coding in rental -->
+<div class="panel present">
+  <img src="images/frame19-coding.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">十几平的出租屋，一张床、一张旧桌子、一台大屁股显示器的二手电脑。我坐下来，指尖落在键盘上——</p>
+    <div class="dialogue"><span class="speaker">我</span>"先做一个移动端工具APP。前世这个方向2011年爆发，我有六个月领先优势。"</div>
+  </div>
+</div>
+
+<!-- FRAME 20 - Code close-up -->
+<div class="panel present">
+  <img src="images/frame20-code.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="inner-voice">"黑客基因觉醒。上一世在交大就是靠逆向工程出名的，这些代码对现在的我来说……就像回到老本行。"</div>
+    <div class="humor">当然了，2010年写个APP的技术难度，对一个从2024年穿越回来的人来说，就像让特种兵去打幼儿园的枪战游戏。</div>
+  </div>
+</div>
+
+<!-- FRAME 21 - Coffee shop -->
+<div class="panel present">
+  <img src="images/frame21-cafe.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">写了七天代码，需要换个环境。一家文艺小咖啡馆，暖光，原木桌椅。我穿着军绿T恤和迷彩裤推门进去，在一群文艺青年中间格格不入得像个兵马俑。</p>
+  </div>
+</div>
+
+<!-- FRAME 22 - Lin Xiaoyu appears -->
+<div class="panel present">
+  <img src="images/frame22-linxiaoyu.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">林小鱼</span>"你好，请问喝点什么？"</div>
+    <p class="narration">马尾辫，圆脸，咖啡馆围裙。阳光从她身后洒进来，给她整个人镀上了一层温暖的金边。</p>
+  </div>
+</div>
+
+<!-- FRAME 23 - Emotional impact -->
+<div class="panel present">
+  <img src="images/frame23-eyes.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="inner-voice">"林小鱼。"</div>
+    <p class="narration">我的瞳孔微微放大。心脏漏跳了一拍。</p>
+    <div class="inner-voice">"前世……我忙着创业，错过了她。等我回头找她时，她已经嫁人了。她说'你永远把事业放在第一位'。<br><br>她说得对。"</div>
+  </div>
+</div>
+
+<!-- FRAME 24 - Restraint -->
+<div class="panel present">
+  <img src="images/frame24-restraint.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>"美式，谢谢。"<span style="color:#888">（停顿）</span>"……你笑起来很好看。"</div>
+    <p class="narration">她笑着记下，转身离开。我看着她的背影，小声对自己说——</p>
+    <div class="humor">"朱江你冷静点……你现在是27岁单身退伍军人，不是41岁离过婚的中年危机大叔……虽然本质上你确实是。"</div>
+  </div>
+</div>
+
+<!-- FRAME 25 - Decision Point 3 -->
+<div class="panel present">
+  <img src="images/frame25-linxiaoyu-decision.jpg" loading="lazy" alt="">
+  <div class="decision">
+    <div class="decision-tag">⚡ 决策点 3</div>
+    <div class="decision-q">是否主动追求林小鱼？</div>
+    <div class="decision-options">
+      <div class="decision-opt chosen">慢慢来，先把事业起步，用实力和时间自然走近她</div>
+      <div class="decision-opt">立刻展开追求，不想再错过</div>
+    </div>
+    <div class="inner-voice">"上一世的教训不是'没追她'，而是'事业和人都想要，最后只抓住了事业'。这一世……我要两个都拿到。但顺序是：先证明自己配得上这份感情。"</div>
+    <div class="decision-reason">我骨子里重视"配得感"。空手追人不如满手归来。前世的遗憾不是行动太慢——而是一旦忙起来就忘了生活。</div>
+  </div>
+</div>
+
+<!-- FRAME 26 - Late night coding -->
+<div class="panel present">
+  <img src="images/frame26-nightcode.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">深夜。台灯是唯一的光源，方便面碗和红牛罐散落在桌上。屏幕的蓝光映在我脸上，手指在键盘上飞舞。</p>
+    <div class="inner-voice">"从零开始的第七天。APP核心功能完成了60%。前世这个产品做了四个月，现在七天。开挂的感觉——还不赖。"</div>
+  </div>
+</div>
+
+<!-- FRAME 27 - Dark alley -->
+<div class="panel present">
+  <img src="images/frame27-alley.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">深夜回家路上，一条僻静小巷里传来女孩的惊叫声。三个混混堵住了一个姑娘。我停在巷口。</p>
+    <div class="inner-voice">"三个人。一个有刀——别在后腰。一个喝醉了。一个是放哨的。解决时间：六秒。"</div>
+    <div class="humor">"等等，我现在是'普通退伍军人'人设。六秒太快了——起码要装成苦战十秒。"</div>
+  </div>
+</div>
+
+<!-- FRAME 28 - Fight -->
+<div class="panel present">
+  <img src="images/frame28-fight.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">一个箭步冲入。侧身躲过第一个人的拳头——膝盖顶入第二个人腹部——手刀砍腕夺刀——推倒第三个。</p>
+    <p class="narration">动作干净利落，但我故意"留力"。看起来像普通退伍兵的搏斗，而不是特种兵的致命招式。</p>
+  </div>
+</div>
+
+<!-- FRAME 29 - After rescue -->
+<div class="panel present">
+  <img src="images/frame29-rescue.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>"没事了。以后这条路别一个人走。"</div>
+    <p class="narration">三个混混在地上呻吟。我蹲在姑娘面前，尽量让自己看起来不那么吓人。</p>
+    <div class="humor">站起来甩了甩手腕：（内心）"演技不错，控制力也不错——至少没有像前世在索马里那样直接扭断骨头。进步了。"</div>
+  </div>
+</div>
+
+<!-- FRAME 30 - Walking alone -->
+<div class="panel present">
+  <img src="images/frame30-walk.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">深夜的上海街道。路灯把我的影子拉得很长。远处是陆家嘴尚未完工的天际线——那些日后改变中国的摩天楼，此刻还只是钢筋混凝土的骨架。</p>
+    <div class="inner-voice">"APP下周上线。陈默约了下周见面——他说要介绍一个'贵人'给我认识。"</div>
+    <div class="inner-voice">"前世，这个'贵人'……就是最终背后操盘、让陈默对我下手的人。"</div>
+    <div class="dialogue"><span class="speaker">我</span>（低声）"来吧。这一次，猎人和猎物……换个位置。"</div>
+  </div>
+</div>
+
+<!-- FRAME 31 - Cliffhanger -->
+<div class="panel present">
+  <img src="images/frame31-cliffhanger.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p class="narration">手机震动。一条短信，发件人：未知号码。</p>
+    <div class="dialogue" style="text-align:center;font-size:22px;color:#ff4444;padding:20px 0;letter-spacing:2px">"朱江，好久不见。——你的老朋友"</div>
+    <div class="inner-voice" style="text-align:center;font-size:18px">"这条短信……前世从来没有出现过。<br><br>有人……也知道未来？"</div>
+  </div>
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end">
+  <div class="end-mark">【第一章 · 完】</div>
+  <div class="next-hint">第二章：暗棋 · 即将开启</div>
+</div>
+
+</div>
+
+<script>
+// Intersection Observer for scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
