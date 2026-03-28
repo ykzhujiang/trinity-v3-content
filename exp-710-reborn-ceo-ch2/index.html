@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>重生2010：互联网之王 · 第二章「风口」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e0d0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.chapter-header{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0f 0%,#1a1520 50%,#0a0a0f 100%);padding:40px 20px;text-align:center}
+.chapter-header h1{font-size:28px;color:#f0c040;margin-bottom:12px;letter-spacing:4px;text-shadow:0 0 30px rgba(240,192,64,0.3)}
+.chapter-header h2{font-size:20px;color:#c0a060;margin-bottom:24px;font-weight:normal}
+.chapter-header .recap{font-size:15px;color:#8a7a6a;max-width:340px;line-height:1.8;border-left:2px solid #f0c040;padding-left:16px;text-align:left}
+.panel{position:relative;width:100%;max-width:500px;margin:0 auto;opacity:0;transform:translateY(40px);transition:all 0.8s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:4px}
+.panel-text{padding:20px 24px 48px;font-size:18px;line-height:2;color:#d8d0c0}
+.panel-text .dialogue{color:#f0c040;font-weight:600;margin:8px 0}
+.panel-text .thought{color:#a8c8e8;font-style:italic;margin:8px 0;border-left:3px solid #a8c8e8;padding-left:12px}
+.panel-text .narration{color:#9a8a7a;font-size:16px;margin:8px 0}
+.panel-text .humor{color:#e8a060;font-size:16px;margin:4px 0}
+.scene-break{text-align:center;padding:40px 20px;font-size:14px;color:#6a5a4a;letter-spacing:8px}
+.scene-break::before,.scene-break::after{content:'';display:inline-block;width:40px;height:1px;background:#3a2a1a;vertical-align:middle;margin:0 12px}
+.decision-box{max-width:460px;margin:0 auto 32px;padding:24px;background:linear-gradient(135deg,#1a1520,#201828);border:1px solid #f0c04040;border-radius:12px}
+.decision-box h3{color:#f0c040;font-size:17px;margin-bottom:16px;text-align:center}
+.decision-opt{padding:12px 16px;margin:8px 0;border-radius:8px;font-size:16px;line-height:1.6;color:#b0a090;background:#0a0a0f40;border:1px solid #2a2030}
+.decision-opt.chosen{border-color:#f0c040;color:#f0c040;background:#f0c04010}
+.decision-opt .tag{font-size:13px;color:#8a7a6a;display:block;margin-top:4px}
+.cliffhanger{max-width:460px;margin:40px auto;padding:32px 24px;text-align:center;background:linear-gradient(180deg,transparent,#1a0a0a40);border-top:1px solid #f0c04030}
+.cliffhanger p{font-size:17px;color:#c0a060;line-height:2;margin:8px 0}
+.cliffhanger .final{font-size:20px;color:#f0c040;font-weight:600;margin-top:20px}
+.news-flash{max-width:400px;margin:24px auto;padding:16px;background:#1a1520;border:1px solid #f0c04040;border-radius:8px;text-align:center}
+.news-flash .label{font-size:13px;color:#e8a060;letter-spacing:4px;margin-bottom:8px}
+.news-flash .content{font-size:16px;color:#d8d0c0;line-height:1.8}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.chapter-header h1,.chapter-header h2,.chapter-header .recap{animation:fadeInUp 1s ease forwards;animation-delay:var(--d,0s);opacity:0}
+.chapter-header h2{--d:0.3s}
+.chapter-header .recap{--d:0.6s}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <h1>第二章</h1>
+  <h2>「风口」</h2>
+  <div class="recap">前情提要：我重生到了2010年3月。确认重生后all-in移动互联网，用demo打动了投资人张薇，拒绝了嘲讽诺基亚王老板。和室友李明辉在出租屋开始写代码。谷歌退出中国那天，我嘴角微扬。</div>
+</div>
+
+<div class="scene-break">场景一 · 三个月的苦功</div>
+
+<!-- P1 -->
+<div class="panel">
+  <img src="frame01.jpg" loading="lazy" alt="深夜出租屋写代码">
+  <div class="panel-text">
+    <p class="thought">日历翻到了四月，我们的APP还在改第17版。知道答案和做出答案之间，隔着一万碗泡面。</p>
+    <p class="narration">出租屋的桌上堆满了方便面桶和红牛罐。两台破电脑屏幕发出蓝光。明辉已经趴在键盘上睡着了，我络腮胡上还沾着泡面汤。</p>
+  </div>
+</div>
+
+<!-- P2 -->
+<div class="panel">
+  <img src="frame02.jpg" loading="lazy" alt="APP原型界面">
+  <div class="panel-text">
+    <p class="thought">2010年的手机内存只有256MB，我每个功能都要抠到字节级。上辈子我写代码从不看内存，这辈子我恨不得每个变量都优化三遍。</p>
+    <p class="narration">屏幕上是v0.17版本——一个移动社交+内容分享平台。界面简陋但功能完整。</p>
+  </div>
+</div>
+
+<!-- P3 -->
+<div class="panel">
+  <img src="frame03.jpg" loading="lazy" alt="清晨眺望北京">
+  <div class="panel-text">
+    <p class="thought">再等两个月。等那个改变世界的长方形出来，我的戏才真正开始。</p>
+    <p class="narration">清晨的阳光透进出租屋。墙上日历的6月7日被红笔圈了起来——iPhone 4发布日。</p>
+  </div>
+</div>
+
+<div class="scene-break">场景二 · 第一个用户</div>
+
+<!-- P4 -->
+<div class="panel">
+  <img src="frame04.jpg" loading="lazy" alt="校园推广">
+  <div class="panel-text">
+    <p class="thought">我上辈子做过千万美金的产品，这辈子在大学食堂举牌拉用户。人生，是个圈。</p>
+    <p class="narration">大学食堂门口，我举着手写纸牌"下载APP送奶茶"。旁边一排奶茶。明辉蹲在后面调试手机。来往学生没人理。</p>
+  </div>
+</div>
+
+<!-- P5 -->
+<div class="panel">
+  <img src="frame05.jpg" loading="lazy" alt="遇见第一个用户小赵">
+  <div class="panel-text">
+    <p class="dialogue">"这什么APP啊？"</p>
+    <p>一个扎马尾的女生停下脚步，好奇地凑过来。双肩包上挂着人人网的钥匙扣。</p>
+    <p class="dialogue">"比人人网好玩的东西。你试试？"</p>
+    <p class="dialogue">"比人人网好玩？口气挺大的。"</p>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>💡 决策点四：如何说服第一个用户？</h3>
+  <div class="decision-opt">A. 靠话术忽悠——"这是下一个微博"</div>
+  <div class="decision-opt">B. 靠利益诱导——"下载送两杯奶茶"</div>
+  <div class="decision-opt chosen">✅ C. 靠产品体验说话——让她自己玩5分钟<span class="tag">菩萨心肠霹雳手段——产品即说服力</span></div>
+</div>
+
+<!-- P6 -->
+<div class="panel">
+  <img src="frame06.jpg" loading="lazy" alt="第一条用户发帖">
+  <div class="panel-text">
+    <p class="narration">她在APP里发了第一条内容："这个APP有点意思！奶茶也挺好喝的。😄"<br>下面显示"1个赞"——是明辉点的。</p>
+    <p class="thought">一个用户。上辈子我的第一个产品用了三个月才有1000个用户。这辈子，一杯奶茶搞定第一个。有些路确实更短了。</p>
+  </div>
+</div>
+
+<div class="scene-break">场景三 · Demo Day</div>
+
+<!-- P7 -->
+<div class="panel">
+  <img src="frame07.jpg" loading="lazy" alt="Demo Day现场">
+  <div class="panel-text">
+    <p class="narration">简陋的咖啡馆二楼，20多把椅子排成弧形。一面白墙当投影幕。这是2010年北京创业圈的Demo Day——寒酸但充满野心。</p>
+    <p class="thought">台下有个人让我心里咯噔了一下——不是张薇，是她旁边那个穿黑衣服的男人。我不认识他，但他的眼神让我想起上辈子遇到过的那种人——来抢赛道的。</p>
+  </div>
+</div>
+
+<!-- P8 -->
+<div class="panel">
+  <img src="frame08.jpg" loading="lazy" alt="Demo演示">
+  <div class="panel-text">
+    <p class="dialogue">"我们做的不是另一个人人网，是移动端的内容发现。用户走在路上，就能看到身边的人在分享什么、讨论什么。"</p>
+    <p class="dialogue">张薇举手："数据呢？用户多少？"</p>
+    <p class="dialogue">"327个。"</p>
+    <p class="narration">全场安静。</p>
+    <p class="humor">327个用户。其中200个是大学生，50个是我和明辉的测试账号，77个不知道从哪来的。我上辈子PPT里写"百万级用户"的时候从没脸红过，这辈子说327反而觉得踏实。</p>
+  </div>
+</div>
+
+<!-- P9 -->
+<div class="panel">
+  <img src="frame09.jpg" loading="lazy" alt="遇见竞争对手陈浩">
+  <div class="panel-text">
+    <p class="dialogue">"有意思。我叫陈浩，刚从硅谷回来。我也在做移动社交。"</p>
+    <p class="thought">来了。我不认识这张脸，但我认识这种人——上辈子，把我从第一家公司挤出去的，就是这种人。</p>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>💡 决策点五：如何应对竞争对手？</h3>
+  <div class="decision-opt chosen">✅ A. 保持风度，不露底牌——"很高兴认识你，改天聊"<span class="tag">不零和+战略定力</span></div>
+  <div class="decision-opt">B. 正面刺探——"你的产品到什么阶段了？"</div>
+  <div class="decision-opt">C. 忽视他，不值得在意</div>
+</div>
+
+<!-- P10 -->
+<div class="panel">
+  <img src="frame10.jpg" loading="lazy" alt="奥迪vs自行车">
+  <div class="panel-text">
+    <p class="dialogue">明辉："那人谁啊？看着挺牛的。"</p>
+    <p class="dialogue">"一个以后会让我们很头疼的人。走吧，回去写代码。"</p>
+    <p class="dialogue">明辉看着陈浩上了黑色奥迪A6："他开奥迪，我们骑自行车……差距有多大？"</p>
+    <p class="dialogue">"三年。三年后他会来求我们合并。"</p>
+  </div>
+</div>
+
+<div class="scene-break">场景四 · iPhone 4 之夜</div>
+
+<!-- P11 -->
+<div class="panel">
+  <img src="frame11.jpg" loading="lazy" alt="深夜看发布会">
+  <div class="panel-text">
+    <p class="thought">2010年6月7日，乔布斯那个穿黑色高领毛衣的男人，即将拿出改变世界的东西。全世界不知道接下来会发生什么——除了我。</p>
+    <p class="narration">凌晨两点，出租屋只有屏幕的光。明辉强撑着不让自己睡着。桌上一排空红牛。</p>
+  </div>
+</div>
+
+<!-- P12 -->
+<div class="panel">
+  <img src="frame12.jpg" loading="lazy" alt="屏幕映在脸上">
+  <div class="panel-text">
+    <p class="thought">Retina显示屏。A4芯片。陀螺仪。这些参数我16年后倒背如流，但亲眼再看一遍发布会——还是起鸡皮疙瘩。这个长方形，即将养活千万开发者，包括我。</p>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>💡 决策点六：iPhone 4发布后立刻做什么？</h3>
+  <div class="decision-opt chosen">✅ A. 连夜改版本适配iPhone 4——抢首发红利<span class="tag">黑客精神+速度就是一切</span></div>
+  <div class="decision-opt">B. 等SDK稳定了再改——稳妥</div>
+  <div class="decision-opt">C. 先观望市场反应</div>
+</div>
+
+<!-- P13 -->
+<div class="panel">
+  <img src="frame13.jpg" loading="lazy" alt="凌晨四点的冲刺">
+  <div class="panel-text">
+    <p class="dialogue">"起来！干活！"</p>
+    <p class="dialogue">明辉："现在？？发布会才刚结束啊！"</p>
+    <p class="dialogue">"全中国有100个团队在做同样的事。我们只有速度这一个优势。3天，必须3天。"</p>
+    <p class="humor">明辉看了看手机——"凌晨4点17分……上辈子你是不是当过特种兵？"<br>我差点笑出来——"差不多。"</p>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="panel">
+  <img src="frame14.jpg" loading="lazy" alt="三天三夜蒙太奇">
+  <div class="panel-text">
+    <p class="thought">三天。72小时。418次编译。37个Bug。最后一个Bug是明辉写的，他死不承认。我们吵了十分钟，然后一起在地板上睡着了。</p>
+  </div>
+</div>
+
+<div class="scene-break">场景五 · 上架与意外</div>
+
+<!-- P15 -->
+<div class="panel">
+  <img src="frame15.jpg" loading="lazy" alt="等待审核">
+  <div class="panel-text">
+    <p class="thought">这一刻比上辈子等公司上市敲钟还紧张。因为我知道这个APP如果通过审核，意味着什么——我重生后的第一个真正的产品，将出现在全世界的iPhone上。</p>
+  </div>
+</div>
+
+<!-- P16 -->
+<div class="panel">
+  <img src="frame16.jpg" loading="lazy" alt="通过审核">
+  <div class="panel-text">
+    <p class="dialogue">"上了！！！"</p>
+    <p class="dialogue">明辉："啊啊啊啊！我们的APP在App Store上了！！！"</p>
+    <p class="thought">上辈子第一个产品上线，我发了朋友圈。这辈子……2010年没有朋友圈。我给我妈发了条短信："妈，儿子的软件上线了。"</p>
+    <p class="humor">明辉："快看下载量！" 我刷新——"……3个。"<br>"……其中两个是我们自己下的吧？"<br>"嗯。第三个可能是审核员没删。"</p>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>💡 决策点七：下载量为零的时刻怎么办？</h3>
+  <div class="decision-opt chosen">✅ A. 不慌，按计划推广——上辈子见过太多这样的开始<span class="tag">创业者韧性+长期主义</span></div>
+  <div class="decision-opt">B. 改产品，一定是产品有问题</div>
+  <div class="decision-opt">C. 花钱买量</div>
+</div>
+
+<!-- P17 -->
+<div class="panel">
+  <img src="frame17.jpg" loading="lazy" alt="发现竞争对手">
+  <div class="panel-text">
+    <p class="narration">App Store社交分类第23名——一个叫"WeLink"的APP。描述写着"基于地理位置的移动社交"。开发者：陈浩。</p>
+    <p class="thought">意料之中。但比我预想的快了两周。陈浩不只是说说而已——他的产品已经上架了，而且排名比我们高。</p>
+    <p class="dialogue" style="color:#e86040">好戏开始了。</p>
+  </div>
+</div>
+
+<div class="scene-break">场景六 · 反击与悬念</div>
+
+<!-- P18 -->
+<div class="panel">
+  <img src="frame18.jpg" loading="lazy" alt="张薇办公室谈判">
+  <div class="panel-text">
+    <p class="dialogue">张薇："说实话，陈浩的团队更强。三个硅谷回来的工程师，融了300万美金。你呢？两个人，还住在出租屋里。"</p>
+    <p class="dialogue">"他做的是2010年的产品。我做的是2015年的产品——只是暂时用2010年的壳装着。"</p>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>💡 决策点八：张薇的对赌条件</h3>
+  <p style="font-size:15px;color:#9a8a7a;margin-bottom:16px;line-height:1.8">张薇："我可以追投200万。但条件是——你必须在三个月内DAU过万。做不到，钱收回来。"</p>
+  <div class="decision-opt chosen">✅ A. 接受——三个月过万，不是问题<span class="tag">知道风口要来+all-in精神</span></div>
+  <div class="decision-opt">B. 拒绝——不想被数据绑架</div>
+  <div class="decision-opt">C. 还价——六个月</div>
+</div>
+
+<div class="decision-box">
+  <h3>💡 决策点九：如何赢过陈浩？</h3>
+  <div class="decision-opt chosen">✅ A. 做差异化——他做社交，我做社交+内容（降维打击）<span class="tag">不零和+看到更大的图景：社交只是入口，内容才是护城河</span></div>
+  <div class="decision-opt">B. 正面硬刚——抢同一批用户</div>
+  <div class="decision-opt">C. 找他合作/合并</div>
+</div>
+
+<!-- P19 -->
+<div class="panel">
+  <img src="frame19.jpg" loading="lazy" alt="深夜战略规划">
+  <div class="panel-text">
+    <p class="thought">上辈子的教训：跟对手比功能，永远是消耗战。真正的赢法是——换一个赛道，让他追都追不上。</p>
+    <p class="thought">2010年没人理解"内容推荐"四个字，但五年后，一个叫张一鸣的人会证明我是对的。</p>
+    <p class="narration">白板上画了两条线——陈浩的"社交"是直线，我的"社交+内容"先平后飞。</p>
+  </div>
+</div>
+
+<!-- P20 -->
+<div class="panel">
+  <img src="frame20.jpg" loading="lazy" alt="黎明窗边">
+  <div class="panel-text">
+    <p class="thought">47个用户。陈浩有3000个。张薇要三个月过万。明辉累得已经连续两天睡在地板上。钱只够再撑四个月。</p>
+    <p class="thought" style="color:#f0c040;font-style:normal;border-color:#f0c040">但我笑了。因为我知道一件陈浩不知道的事——他押错了方向。而时间，站在我这边。</p>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <p>❓ 朱江的"内容+社交"策略能否跑赢陈浩的"纯社交"？</p>
+  <p>❓ 三个月DAU过万的对赌——如何完成？</p>
+  <div class="news-flash">
+    <div class="label">📱 新闻推送</div>
+    <div class="content">"雷军宣布创办小米科技。"</div>
+  </div>
+  <p class="thought" style="color:#a8c8e8;font-style:italic;font-size:16px">又一个改变游戏规则的人入场了。</p>
+  <p class="final">第三章 · 即将开启</p>
+</div>
+
+<div style="height:80px"></div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
