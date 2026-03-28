@@ -19,19 +19,19 @@ body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,"PingFang SC","N
 /* Frame panels */
 .frame{position:relative;width:100%;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
 .frame.visible{opacity:1;transform:translateY(0)}
-.frame img{width:100%;display:block;object-fit:cover}
+.frame img{width:100%;max-width:100%;display:block;object-fit:cover;margin:0;padding:0}
 .frame .text-block{padding:20px 18px;background:linear-gradient(180deg,rgba(10,10,20,0.95),rgba(10,10,20,1));line-height:1.9;font-size:1.05rem;color:#ccd}
 .frame .text-block .dialogue{color:#4adfff;font-weight:500}
 .frame .text-block .narration{color:#bbc;font-style:italic}
 .frame .text-block .inner{color:#c9a0ff;font-style:italic}
 
 /* Decision boxes */
-.decision{margin:4px 0;padding:24px 18px;background:linear-gradient(135deg,rgba(75,0,130,0.3),rgba(0,50,100,0.3));border-left:3px solid #7b68ee;animation:pulse-border 2s ease-in-out infinite}
-.decision h3{color:#7b68ee;font-size:1rem;margin-bottom:12px;letter-spacing:2px}
-.decision .option{padding:10px 14px;margin:8px 0;background:rgba(255,255,255,0.05);border-radius:8px;font-size:0.95rem;color:#99a}
-.decision .option.chosen{background:rgba(75,100,238,0.2);border:1px solid #4a64ee;color:#aabbff}
-.decision .reason{margin-top:12px;padding:10px;font-size:0.85rem;color:#8a7abf;border-top:1px solid rgba(123,104,238,0.3)}
-@keyframes pulse-border{0%,100%{border-left-color:#7b68ee}50%{border-left-color:#4a9eff}}
+.decision{margin:4px 0;padding:24px 18px;background:linear-gradient(135deg,rgba(120,80,0,0.3),rgba(100,60,0,0.3));border-left:3px solid #f0a030;animation:pulse-border 2s ease-in-out infinite}
+.decision h3{color:#f0a030;font-size:1rem;margin-bottom:12px;letter-spacing:2px}
+.decision .option{padding:10px 14px;margin:8px 0;background:rgba(255,255,255,0.05);border-radius:8px;font-size:0.95rem;color:#bba}
+.decision .option.chosen{background:rgba(240,160,48,0.2);border:1px solid #f0a030;color:#ffd080}
+.decision .reason{margin-top:12px;padding:10px;font-size:0.85rem;color:#c0a060;border-top:1px solid rgba(240,160,48,0.3)}
+@keyframes pulse-border{0%,100%{border-left-color:#f0a030}50%{border-left-color:#ffc040}}
 
 /* Cliffhanger */
 .cliffhanger{padding:40px 18px;background:linear-gradient(180deg,#0a0a1a,#0a0520);text-align:center}
