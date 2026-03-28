@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>时间循环·融资死局 — 第一章</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #0a0a0f;
+    color: #e8e0d4;
+    font-family: 'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+    font-size: 20px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* Title screen */
+  .title-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #0a0a1a 0%, #1a1428 50%, #0a0a0f 100%);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .title-screen::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(100,140,255,0.08) 0%, transparent 60%);
+  }
+  .title-screen h1 {
+    font-size: 36px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #8bb4ff 0%, #c4a0ff 50%, #ff9ec4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    letter-spacing: 4px;
+    position: relative;
+    animation: titleGlow 3s ease-in-out infinite;
+  }
+  @keyframes titleGlow {
+    0%,100% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+  }
+  .title-screen .subtitle {
+    font-size: 16px;
+    color: rgba(200,180,255,0.6);
+    letter-spacing: 8px;
+    margin-bottom: 8px;
+  }
+  .title-screen .chapter {
+    font-size: 22px;
+    color: rgba(255,200,150,0.8);
+    margin-top: 20px;
+    letter-spacing: 2px;
+  }
+  .title-screen .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.3);
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+
+  /* Loop dividers */
+  .loop-divider {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(180deg, transparent 0%, rgba(100,140,255,0.05) 50%, transparent 100%);
+    position: relative;
+  }
+  .loop-divider .loop-num {
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(100,140,255,0.15);
+    letter-spacing: 8px;
+  }
+  .loop-divider .loop-label {
+    font-size: 18px;
+    color: rgba(200,180,255,0.5);
+    letter-spacing: 6px;
+    margin-top: -10px;
+  }
+  .loop-divider .glitch-line {
+    width: 60%;
+    height: 1px;
+    margin: 20px auto 0;
+    background: linear-gradient(90deg, transparent, rgba(100,200,255,0.4), transparent);
+  }
+
+  /* Panels */
+  .panel {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 0 12px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .panel img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+    margin: 8px 0;
+  }
+  .panel .text {
+    padding: 12px 4px 24px;
+    font-size: 19px;
+    line-height: 1.85;
+    color: #d8d0c4;
+  }
+  .panel .text .inner-thought {
+    color: rgba(160,190,255,0.85);
+    font-style: italic;
+    border-left: 3px solid rgba(100,140,255,0.3);
+    padding-left: 12px;
+    margin: 8px 0;
+  }
+  .panel .text .dialogue {
+    color: #f0e6d0;
+    font-weight: 500;
+  }
+  .panel .text .humor {
+    color: #ffd080;
+  }
+
+  /* Decision points */
+  .decision-box {
+    max-width: 440px;
+    margin: 20px auto;
+    padding: 20px 16px;
+    background: linear-gradient(135deg, rgba(40,30,60,0.9), rgba(20,15,40,0.95));
+    border: 1px solid rgba(180,140,255,0.3);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .decision-box::before {
+    content: '⟐ 决策点';
+    position: absolute;
+    top: 0; left: 0;
+    background: linear-gradient(90deg, rgba(180,140,255,0.3), transparent);
+    padding: 4px 16px;
+    font-size: 13px;
+    color: rgba(200,180,255,0.7);
+    letter-spacing: 2px;
+    border-radius: 12px 0 8px 0;
+  }
+  .decision-box .decision-title {
+    margin-top: 28px;
+    font-size: 17px;
+    color: rgba(200,180,255,0.6);
+    margin-bottom: 12px;
+  }
+  .decision-option {
+    padding: 10px 14px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-size: 17px;
+    line-height: 1.6;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .decision-option.chosen {
+    background: linear-gradient(90deg, rgba(100,200,150,0.1), rgba(100,200,150,0.05));
+    border-color: rgba(100,200,150,0.3);
+    position: relative;
+  }
+  .decision-option.chosen::after {
+    content: '✦ 我的选择';
+    position: absolute;
+    top: -8px; right: 12px;
+    font-size: 12px;
+    color: rgba(100,200,150,0.8);
+    background: #0a0a0f;
+    padding: 0 8px;
+  }
+  .decision-option.not-chosen {
+    opacity: 0.4;
+  }
+  .decision-reason {
+    margin-top: 12px;
+    padding: 10px 14px;
+    font-size: 16px;
+    color: rgba(160,190,255,0.7);
+    font-style: italic;
+    border-left: 3px solid rgba(100,140,255,0.2);
+  }
+
+  /* Cliffhanger */
+  .cliffhanger {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(180deg, #0a0a0f, #0a1020, #0a0a0f);
+  }
+  .cliffhanger .hook-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(100,200,150,0.8);
+    letter-spacing: 2px;
+    animation: hookPulse 3s ease-in-out infinite;
+  }
+  @keyframes hookPulse {
+    0%,100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+  .cliffhanger .tbc {
+    margin-top: 24px;
+    font-size: 16px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 6px;
+  }
+
+  /* White flash transition */
+  .time-reset {
+    padding: 40px 0;
+    text-align: center;
+    position: relative;
+  }
+  .time-reset .flash {
+    width: 100%;
+    height: 60px;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 70%);
+    animation: flashPulse 2s ease-in-out infinite;
+  }
+  @keyframes flashPulse {
+    0%,100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Title -->
+<div class="title-screen">
+  <div class="subtitle">时间循环</div>
+  <h1>融资死局</h1>
+  <div class="chapter">第一章 · 无限路演日</div>
+  <div class="scroll-hint">↓ 向下滑动开始 ↓</div>
+</div>
+
+<!-- ====== LOOP 1 ====== -->
+<div class="loop-divider">
+  <div class="loop-num">LOOP 01</div>
+  <div class="loop-label">第一次循环</div>
+  <div class="glitch-line"></div>
+</div>
+
+<!-- F01 -->
+<div class="panel">
+  <img src="f01.jpg" loading="eager" alt="闹钟7:00">
+  <div class="text">
+    <div class="inner-thought">闹钟响了。七点整。</div>
+    我的手条件反射般拍过去，闹铃声戛然而止。床头柜上散了一堆融资计划书——昨晚改到凌晨三点的"梦境科技A轮融资方案V27"。
+  </div>
+</div>
+
+<!-- F02 -->
+<div class="panel">
+  <img src="f02.jpg" loading="eager" alt="起床">
+  <div class="text">
+    坐在床边揉了揉眼，脑袋像灌了水泥。今天是路演日，如果搞砸了，梦境科技账上只够撑两个月。
+    <div class="inner-thought">两个月。六十天。算上泡面，也许能撑到七十天。</div>
+  </div>
+</div>
+
+<!-- F03 -->
+<div class="panel">
+  <img src="f03.jpg" loading="eager" alt="洗脸">
+  <div class="text">
+    洗把脸，镜子里的我看起来像个连续加班一周的程序员——哦等等，我本来就是。
+    <div class="inner-thought">镜子里这张脸，今天要靠它打动一个据说从不笑的投资人。</div>
+  </div>
+</div>
+
+<!-- F04 -->
+<div class="panel">
+  <img src="f04.jpg" loading="eager" alt="准备PPT">
+  <div class="text">
+    最后过一遍PPT。每张都背得滚瓜烂熟——"AI短剧将重新定义内容消费"，"千人千面的故事引擎"，"用户留存率89%"。
+    <div class="inner-thought">数据完美。逻辑无懈可击。如果投资人是机器人的话，这轮融资已经到账了。</div>
+  </div>
+</div>
+
+<!-- F05 -->
+<div class="panel">
+  <img src="f05.jpg" loading="eager" alt="到达写字楼">
+  <div class="text">
+    陆家嘴，鼎丰大厦。玻璃幕墙映着上海的天际线。我整了整深蓝西装的领口——没打领带，第三颗扣子开着，这是我的小叛逆。
+    <div class="inner-thought">创业者嘛，西装是尊重，不打领带是态度。</div>
+  </div>
+</div>
+
+<!-- F06 -->
+<div class="panel">
+  <img src="f06.jpg" loading="eager" alt="路演现场">
+  <div class="text">
+    会议室。投影屏亮起。对面坐着三个人。
+    <br><br>
+    中间那位——<span class="dialogue">陆薇薇</span>，鼎丰资本合伙人。短发，黑色职业套装，表情像是刚从冰箱里拿出来的。
+    <div class="inner-thought">据说她上一次笑，是三年前某个项目上市当天。此后再无记录。</div>
+  </div>
+</div>
+
+<!-- F07 -->
+<div class="panel">
+  <img src="f07.jpg" loading="eager" alt="讲解中">
+  <div class="text">
+    我进入了状态。手势精准，声音稳定，每一页PPT的切换都卡在节奏点上。
+    <br><br>
+    <span class="dialogue">"梦境科技的AI引擎，可以为每个用户生成专属的短剧故事——"</span>
+    <div class="inner-thought">说得好。完美。就像在CodeReview里写了一段零警告的代码。</div>
+  </div>
+</div>
+
+<!-- F08 -->
+<div class="panel">
+  <img src="f08.jpg" loading="eager" alt="陆薇薇面无表情">
+  <div class="text">
+    陆薇薇全程抱着胳膊，面部肌肉零活动。就好像我面前坐着一尊高定西装的冰雕。
+    <br><br>
+    她旁边两个同事偶尔低头看手机。
+    <div class="inner-thought">这感觉就像……在一个空旷的剧场里，给三块石头做TED演讲。</div>
+  </div>
+</div>
+
+<!-- F09 -->
+<div class="panel">
+  <img src="f09.jpg" loading="eager" alt="回家崩溃">
+  <div class="text">
+    被拒了。意料之中，又在意料之外。
+    <br><br>
+    我坐在沙发上，双手捂着脸。电脑屏幕上亮着那封措辞礼貌到刺眼的拒绝邮件：<span class="dialogue">"经过审慎评估，目前暂不适合我们的投资方向……"</span>
+    <div class="humor">翻译成人话：你的PPT讲得不错，但我们不感兴趣。</div>
+    <div class="inner-thought">今天的表现，0分。投资人的表情，像在审阅一个我自己都不想看的代码Review。</div>
+  </div>
+</div>
+
+<!-- F10 -->
+<div class="panel">
+  <img src="f10.jpg" loading="eager" alt="23:59">
+  <div class="text">
+    十一点五十九分。
+    <br><br>
+    我躺在床上盯着天花板，脑子里还在复盘每一个细节。哪里出了问题？数据没问题，逻辑没问题，PPT没问题——
+    <br><br>
+    视线模糊了。房间开始泛白。
+    <div class="inner-thought">好困。明天再想吧……</div>
+  </div>
+</div>
+
+<!-- TIME RESET -->
+<div class="time-reset">
+  <div class="flash"></div>
+</div>
+
+<!-- ====== LOOP 2 ====== -->
+<div class="loop-divider">
+  <div class="loop-num">LOOP 02</div>
+  <div class="loop-label">第二次循环</div>
+  <div class="glitch-line"></div>
+</div>
+
+<!-- F11 -->
+<div class="panel">
+  <img src="f11.jpg" loading="eager" alt="闹钟又响了">
+  <div class="text">
+    闹钟响了。七点整。
+    <br><br>
+    我的手伸过去——然后停住了。
+    <div class="inner-thought">等等。这个闹铃声。这个角度。床头柜上的融资计划书。<br>V27。<br>不是V28。<br>不是V28。</div>
+  </div>
+</div>
+
+<!-- F12 -->
+<div class="panel">
+  <img src="f12.jpg" loading="eager" alt="震惊到兴奋">
+  <div class="text">
+    手机日期：3月15日。
+    <br><br>
+    昨天也是3月15日。
+    <br><br>
+    我的脸从困惑变成……
+  </div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box">
+  <div class="decision-title">[DECISION-1] 发现自己在时间循环中</div>
+  <div class="decision-option not-chosen">
+    <strong>A</strong>：恐慌——"这是什么鬼？我疯了？"<br>
+    <span style="font-size:15px;color:rgba(255,255,255,0.4)">→ 花大量时间验证、打电话确认、怀疑人生</span>
+  </div>
+  <div class="decision-option chosen">
+    <strong>B</strong>：兴奋——"免费重来？这不就是无限存档点？"<br>
+    <span style="font-size:15px;color:rgba(100,200,150,0.6)">→ 立刻利用这个机会</span>
+  </div>
+  <div class="decision-reason">
+    创业者最不怕的就是从头再来。<br>
+    黑客遇到bug的第一反应不是恐慌，是利用。
+  </div>
+</div>
+
+<!-- F13 -->
+<div class="panel">
+  <img src="f13.jpg" loading="lazy" alt="兴奋大笑">
+  <div class="text">
+    我从床上跳起来，在客厅里张开双臂大笑。
+    <br><br>
+    <span class="dialogue">"哈哈哈哈！无限存档点！SL大法！"</span>
+    <div class="inner-thought">别的创业者花钱买教训，我直接开了免费重来的外挂。陆薇薇，今天我要把你这道题做对。</div>
+  </div>
+</div>
+
+<!-- F14 -->
+<div class="panel">
+  <img src="f14.jpg" loading="lazy" alt="合上电脑">
+  <div class="text">
+    同一间会议室。同样的三个人。我讲到第八页PPT的时候——
+    <br><br>
+    陆薇薇的眼神开始飘了。和昨天一模一样。
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box">
+  <div class="decision-title">[DECISION-2] PPT讲到一半，效果不行</div>
+  <div class="decision-option not-chosen">
+    <strong>A</strong>：硬着头皮讲完——"专业就是把烂牌打完"
+  </div>
+  <div class="decision-option chosen">
+    <strong>B</strong>：合上电脑即兴发挥——"反正明天重来，不如测试一下"
+  </div>
+  <div class="decision-reason">
+    代码跑不通就别硬调，重构。<br>
+    菩萨心肠，霹雳手段。
+  </div>
+</div>
+
+<!-- F15 -->
+<div class="panel">
+  <img src="f15.jpg" loading="lazy" alt="双手插兜">
+  <div class="text">
+    我"啪"一声合上笔记本，站起来，双手插兜，微微一笑。
+    <br><br>
+    <span class="dialogue">"PPT太无聊了，陆总。咱们聊点真的？"</span>
+    <br><br>
+    老刘在旁边差点从椅子上掉下来。
+    <div class="inner-thought">老刘的表情堪称今日最佳——嘴张成了一个标准的O型。</div>
+  </div>
+</div>
+
+<!-- F16 -->
+<div class="panel">
+  <img src="f16.jpg" loading="lazy" alt="老刘打哈欠">
+  <div class="text">
+    然后我开始即兴演讲。
+    <br><br>
+    讲AI如何改变世界。讲得激情澎湃，讲得热血沸腾。
+    <br><br>
+    讲到"AI将改变每一个人的命运"的时候，老刘打了个哈欠。
+    <div class="humor">对面三个投资人同时看了眼手表。完美同步，建议组团表演。</div>
+  </div>
+</div>
+
+<!-- F17 -->
+<div class="panel">
+  <img src="f17.jpg" loading="lazy" alt="三人看手表">
+  <div class="text">
+    <div class="inner-thought">好的。即兴演讲也不行。比PPT还差。<br><br>不过没关系，这就是测试。A方案失败，B方案失败，记录下来，明天再试C方案。</div>
+    今天又被拒了。但这次我一点都不沮丧。
+  </div>
+</div>
+
+<!-- F18 -->
+<div class="panel">
+  <img src="f18.jpg" loading="lazy" alt="分析式凝视">
+  <div class="text">
+    不过——
+    <br><br>
+    我注意到一个细节。
+    <br><br>
+    在我讲到某句话的时候，陆薇薇的表情变了。非常非常微小的变化。一般人根本不会注意到。
+    <div class="inner-thought">但我是写过人脸识别算法的人。我对微表情的敏感度，大概相当于一台分辨率还不错的摄像头。</div>
+  </div>
+</div>
+
+<!-- F19 -->
+<div class="panel">
+  <img src="f19.jpg" loading="lazy" alt="陆薇薇微表情">
+  <div class="text">
+    她的眼睛——闪了一下。
+    <br><br>
+    极其短暂。大概零点三秒。
+    <br><br>
+    <div class="inner-thought">这堵防火墙……有端口。<br>只要我扫得够仔细。</div>
+  </div>
+</div>
+
+<!-- F20 -->
+<div class="panel">
+  <img src="f20.jpg" loading="lazy" alt="深夜分析">
+  <div class="text">
+    当晚。我坐在电脑前，把今天的每一秒都在脑子里回放。
+    <br><br>
+    我说了什么的时候，她眼睛闪了？
+    <br><br>
+    <div class="inner-thought">想不起来了。太快了。<br>没关系。明天我会盯得更仔细。<br>明天，一定会再来一次。</div>
+  </div>
+</div>
+
+<!-- TIME RESET -->
+<div class="time-reset">
+  <div class="flash"></div>
+</div>
+
+<!-- ====== LOOP 3 ====== -->
+<div class="loop-divider">
+  <div class="loop-num">LOOP 03</div>
+  <div class="loop-label">第三次循环</div>
+  <div class="glitch-line"></div>
+</div>
+
+<!-- F21 -->
+<div class="panel">
+  <img src="f21.jpg" loading="lazy" alt="第三次闹钟">
+  <div class="text">
+    七点。闹钟。
+    <br><br>
+    这次我平静地拿起闹钟，关掉，放好。
+    <div class="inner-thought">第三轮。这次不是试错，是精准打击。</div>
+  </div>
+</div>
+
+<!-- F22 -->
+<div class="panel">
+  <img src="f22.jpg" loading="lazy" alt="写满笔记的桌面">
+  <div class="text">
+    我花了一个小时在纸上画投资人行为图谱。
+    <br><br>
+    循环1：陆薇薇在第8页开始走神，第12页完全放空。<br>
+    循环2：即兴演讲让她更早走神，但某句话触发了0.3秒的眼部反应。
+    <br><br>
+    <div class="inner-thought">如果这是一段代码，我要找的是那个触发break条件的变量。它藏在某句话里。</div>
+  </div>
+</div>
+
+<!-- F23 -->
+<div class="panel">
+  <img src="f23.jpg" loading="lazy" alt="真诚路演">
+  <div class="text">
+    同一间会议室。第三次。
+    <br><br>
+    这次我没讲PPT，也没即兴发挥。我坐下来，双手撑在桌上，看着陆薇薇的方向——
+    <br><br>
+    <span class="dialogue">"陆总，我不讲数据了。我讲一个用户的故事。"</span>
+    <br><br>
+    老刘在旁边紧张得直搓手。
+  </div>
+</div>
+
+<!-- F24 -->
+<div class="panel">
+  <img src="f24.jpg" loading="lazy" alt="真诚讲述">
+  <div class="text">
+    <span class="dialogue">"去年冬天，我们做了一个测试。把AI短剧推送给了一个贵州山区的养老院。有个78岁的老太太，儿子在深圳打工三年没回家。"</span>
+    <br><br>
+    <span class="dialogue">"我们的AI给她生成了一个故事——一个在大城市工作的儿子，每天都在想妈妈，终于决定回家过年。"</span>
+    <br><br>
+    <span class="dialogue">"她看完以后，哭了。然后给儿子打了个电话。那是三年来的第一个电话。"</span>
+  </div>
+</div>
+
+<!-- F25 -->
+<div class="panel">
+  <img src="f25.jpg" loading="lazy" alt="陆薇薇的笔停了">
+  <div class="text">
+    陆薇薇的笔停了。
+    <br><br>
+    就是这个瞬间。
+    <br><br>
+    <div class="inner-thought">笔尖悬在半空，手指微微收紧。<br>上一次循环那0.3秒的眼部闪动，这次变成了整整一秒的手部停顿。<br><br>我找到端口了。</div>
+  </div>
+</div>
+
+<!-- F26 -->
+<div class="panel">
+  <img src="f26.jpg" loading="lazy" alt="朱江捕捉到线索">
+  <div class="text">
+    我的眼睛飞速扫过她的手，又移回她的脸。
+    <br><br>
+    <div class="inner-thought">变量名：sincerity。<br>类型：boolean → 不，不是boolean。是float。有程度的。<br>上一次循环我触发了0.3的阈值，这次触发了更高的值。但还没到break的条件。</div>
+    但今天还是被拒了。
+    <br><br>
+    不过拒绝邮件的措辞……变了。从"暂不适合"变成了"希望保持联系"。
+  </div>
+</div>
+
+<!-- F27 -->
+<div class="panel">
+  <img src="f27.jpg" loading="lazy" alt="离开会议室">
+  <div class="text">
+    走出会议室的时候，我没有崩溃，没有兴奋。只是在想。
+    <br><br>
+    老刘小声问：<span class="dialogue">"怎么样？"</span>
+    <br><br>
+    <span class="dialogue">"还差一点。"</span>我说，<span class="dialogue">"但我知道方向了。"</span>
+    <br><br>
+    <div class="inner-thought">如果明天还能重来，我就能破局。<br>如果。</div>
+  </div>
+</div>
+
+<!-- F28 -->
+<div class="panel">
+  <img src="f28.jpg" loading="lazy" alt="屏幕上的代码">
+  <div class="text">
+    深夜。我打开电脑准备整理今天的复盘笔记。
+    <br><br>
+    屏幕上弹出一个窗口。
+    <br><br>
+    不是我打开的。
+    <br><br>
+    绿色代码在黑色背景上闪烁——
+  </div>
+</div>
+
+<!-- F29 -->
+<div class="panel">
+  <img src="f29.jpg" loading="lazy" alt="while(true)代码">
+  <div class="text">
+    <div style="font-family:monospace;font-size:18px;color:#4ade80;background:rgba(0,0,0,0.8);padding:16px;border-radius:8px;text-align:center;letter-spacing:1px;line-height:2;">
+      while(true) {<br>
+      &nbsp;&nbsp;if(sincerity > threshold)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+      }
+    </div>
+    <br>
+    我的瞳孔里映着绿色的代码光。
+    <br><br>
+    <div class="inner-thought">sincerity > threshold。<br>真诚度超过阈值才能break。<br><br>谁写的这段代码？<br>谁知道我在循环里？<br>谁——在看着我？</div>
+  </div>
+</div>
+
+<!-- DECISION 3 -->
+<div class="decision-box">
+  <div class="decision-title">[DECISION-3] 发现电脑上的神秘代码</div>
+  <div class="decision-option not-chosen">
+    <strong>A</strong>：先不管来源，利用线索破局——"先把融资搞定再说"
+  </div>
+  <div class="decision-option chosen">
+    <strong>B</strong>：追查代码来源——"谁动了我的系统？"
+  </div>
+  <div class="decision-reason">
+    黑客天性——谁动了我的系统，这才是最重要的问题。<br>
+    融资可以明天再试，但这个线索，可能不会再出现。
+  </div>
+</div>
+
+<!-- F30 -->
+<div class="panel">
+  <img src="f30.jpg" loading="lazy" alt="上海夜景">
+  <div class="text">
+    窗外是上海的夜。千万盏灯，千万个故事。
+    <br><br>
+    而在这些灯火中，只有一扇窗户里的人，正在经历一个不属于这个时间线的夜晚。
+    <br><br>
+    <div class="inner-thought">有人也在循环里。<br>而他，知道我在。</div>
+  </div>
+</div>
+
+<!-- CLIFFHANGER -->
+<div class="cliffhanger">
+  <div class="hook-text">有人也在循环里。</div>
+  <div style="margin-top:16px;font-size:18px;color:rgba(255,200,150,0.6);">
+    循环的代码是谁写的？<br>
+    sincerity的threshold到底是多少？<br>
+    还有谁……也困在这一天？
+  </div>
+  <div class="tbc">— 第一章 · 完 —</div>
+  <div style="margin-top:16px;font-size:14px;color:rgba(255,255,255,0.2);">第二章：Debug投资人</div>
+</div>
+
+<div style="height:60px;"></div>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel, .decision-box, .loop-divider, .cliffhanger').forEach(el => {
+  observer.observe(el);
+});
+
+// Fallback: force lazy images after 1s
+setTimeout(() => {
+  document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+    if (!img.complete) img.loading = 'eager';
+  });
+}, 1000);
+</script>
+</body>
+</html>
