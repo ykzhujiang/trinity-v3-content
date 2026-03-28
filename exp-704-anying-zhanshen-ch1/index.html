@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗影战神 · 第一章：断粮</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,"PingFang SC","Noto Sans SC",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.container{max-width:430px;margin:0 auto;padding:0}
+
+/* Title */
+.title-section{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:linear-gradient(180deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%)}
+.title-section h1{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#00d4ff,#7b68ee,#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px;margin-bottom:12px;animation:glow 3s ease-in-out infinite}
+.title-section .subtitle{font-size:1.1rem;color:#8899aa;letter-spacing:8px;margin-bottom:30px}
+.title-section .chapter{font-size:1.5rem;color:#4a9eff;font-weight:300;letter-spacing:2px}
+@keyframes glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+
+/* Frame panels */
+.frame{position:relative;width:100%;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.frame.visible{opacity:1;transform:translateY(0)}
+.frame img{width:100%;display:block;object-fit:cover}
+.frame .text-block{padding:20px 18px;background:linear-gradient(180deg,rgba(10,10,20,0.95),rgba(10,10,20,1));line-height:1.9;font-size:1.05rem;color:#ccd}
+.frame .text-block .dialogue{color:#4adfff;font-weight:500}
+.frame .text-block .narration{color:#bbc;font-style:italic}
+.frame .text-block .inner{color:#c9a0ff;font-style:italic}
+
+/* Decision boxes */
+.decision{margin:4px 0;padding:24px 18px;background:linear-gradient(135deg,rgba(75,0,130,0.3),rgba(0,50,100,0.3));border-left:3px solid #7b68ee;animation:pulse-border 2s ease-in-out infinite}
+.decision h3{color:#7b68ee;font-size:1rem;margin-bottom:12px;letter-spacing:2px}
+.decision .option{padding:10px 14px;margin:8px 0;background:rgba(255,255,255,0.05);border-radius:8px;font-size:0.95rem;color:#99a}
+.decision .option.chosen{background:rgba(75,100,238,0.2);border:1px solid #4a64ee;color:#aabbff}
+.decision .reason{margin-top:12px;padding:10px;font-size:0.85rem;color:#8a7abf;border-top:1px solid rgba(123,104,238,0.3)}
+@keyframes pulse-border{0%,100%{border-left-color:#7b68ee}50%{border-left-color:#4a9eff}}
+
+/* Cliffhanger */
+.cliffhanger{padding:40px 18px;background:linear-gradient(180deg,#0a0a1a,#0a0520);text-align:center}
+.cliffhanger .hook{font-size:1.1rem;line-height:2;color:#8899bb;max-width:360px;margin:0 auto}
+.cliffhanger .hook strong{color:#ff6b9d}
+.cliffhanger .tbc{margin-top:30px;font-size:1.4rem;color:#4a9eff;letter-spacing:6px;animation:glow 3s ease-in-out infinite}
+
+/* Scroll hint */
+.scroll-hint{text-align:center;padding:20px;color:#445;font-size:0.8rem;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Title Screen -->
+<div class="title-section">
+  <h1>暗影战神</h1>
+  <div class="subtitle">V5 · 朱江的故事</div>
+  <div class="chapter">第一章：断粮</div>
+  <div class="scroll-hint" style="position:absolute;bottom:40px">↓ 向下滑动开始 ↓</div>
+</div>
+
+<!-- Frame 1 -->
+<div class="frame">
+  <img src="images/frame01.jpg" loading="eager" alt="">
+  <div class="text-block">
+    <span class="narration">公司账上还剩47万。按现在的烧钱速度，撑不过下个月。</span>
+  </div>
+</div>
+
+<!-- Frame 2 -->
+<div class="frame">
+  <img src="images/frame02.jpg" loading="eager" alt="">
+  <div class="text-block">
+    <span class="narration">我盯着现金流报表，脑子里只有一个念头——今天的外卖，是点15块的还是12块的。</span>
+  </div>
+</div>
+
+<!-- Frame 3 -->
+<div class="frame">
+  <img src="images/frame03.jpg" loading="eager" alt="">
+  <div class="text-block">
+    <span class="dialogue">"老板，赵东来的秘书打电话来了。说赵总今天下午要过来'聊聊'。"</span><br>
+    <span class="narration">林雪推了推眼镜，表情写满了"又来了"。</span>
+  </div>
+</div>
+
+<!-- Frame 4 -->
+<div class="frame">
+  <img src="images/frame04.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">赵东来。深圳资本圈有名的秃鹫——专门盯着快死的公司，低价吞并。</span>
+  </div>
+</div>
+
+<!-- Frame 5 -->
+<div class="frame">
+  <img src="images/frame05.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="dialogue">"朱总啊，咱们都是聪明人。"</span><br>
+    <span class="narration">赵东来翘着腿，笑得像弥勒佛。</span><br>
+    <span class="dialogue">"五百万，整体收购，你和你的团队我都留。多好的事。"</span>
+  </div>
+</div>
+
+<!-- Frame 6 -->
+<div class="frame">
+  <img src="images/frame06.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">小王端着他的"待客水果盘"出现在门口。我看了一眼——苹果切成了不规则多边形，橘子还带着叶子。这小子，刀工永远是个谜。</span>
+  </div>
+</div>
+
+<!-- Frame 7 -->
+<div class="frame">
+  <img src="images/frame07.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="dialogue">"赵总，星辰AI不卖。"</span><br>
+    <span class="narration">我听到自己的声音很平静。</span>
+  </div>
+</div>
+
+<!-- Frame 8 -->
+<div class="frame">
+  <img src="images/frame08.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="dialogue">"朱总，你知道你的竞品'天机科技'背后是谁的钱吗？"</span><br>
+    <span class="narration">他的语气变了。</span><br>
+    <span class="dialogue">"三天。三天之内，我让你连域名都续不上。"</span>
+  </div>
+</div>
+
+<!-- Decision 1 -->
+<div class="decision">
+  <h3>◆ 决策点 ◆</h3>
+  <div style="color:#99a;margin-bottom:10px;font-size:0.9rem">赵东来威胁后，我的反应是——</div>
+  <div class="option">A. 冷笑："赵总，你威胁人的时候，应该先确认对方怕不怕。"</div>
+  <div class="option chosen">B. 微笑："赵总慢走，不送。"然后默默开始准备反击。 ✦</div>
+  <div class="reason">→ 菩萨心肠霹雳手段。表面温和，实际已在布局。</div>
+</div>
+
+<!-- Frame 9 -->
+<div class="frame">
+  <img src="images/frame09.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">我站起来，笑着说：</span><br>
+    <span class="dialogue">"赵总慢走，小王送客。"</span><br>
+    <span class="narration">赵东来愣了一秒——他大概没见过快破产的人笑得这么真诚。</span>
+  </div>
+</div>
+
+<!-- Frame 10 -->
+<div class="frame">
+  <img src="images/frame10.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">团队都走了。我一个人坐在黑暗里，盯着天花板发了十分钟呆。</span><br>
+    <span class="narration">然后——打开了一个加密的终端界面。</span>
+  </div>
+</div>
+
+<!-- Frame 11 -->
+<div class="frame">
+  <img src="images/frame11.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">这个终端，三年没打开过了。密码是"暗影"行动组的代号——我的手指在键盘上停了两秒。</span>
+  </div>
+</div>
+
+<!-- Frame 12 -->
+<div class="frame">
+  <img src="images/frame12.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="inner">三年前我离开暗影的时候跟自己说过，这辈子不再碰这些东西了。</span><br>
+    <span class="narration">但赵东来——你不该碰我的团队。</span>
+  </div>
+</div>
+
+<!-- Decision 2 -->
+<div class="decision">
+  <h3>◆ 决策点 ◆</h3>
+  <div style="color:#99a;margin-bottom:10px;font-size:0.9rem">打开终端后，我的第一步是——</div>
+  <div class="option">A. 先查赵东来的商业底细——知己知彼。</div>
+  <div class="option chosen">B. 先加固公司服务器——防御优先。 ✦</div>
+  <div class="reason">→ 菩萨心肠（保护团队）+ 黑客本能（预判攻击）。先确保自己人安全。</div>
+</div>
+
+<!-- Frame 13 -->
+<div class="frame">
+  <img src="images/frame13.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">我开始检查公司服务器的安全日志。</span><br>
+    <span class="narration">结果——我看到了不该看到的东西。</span>
+  </div>
+</div>
+
+<!-- Frame 14 -->
+<div class="frame">
+  <img src="images/frame14.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">有人已经在攻击了。不是普通的DDoS，是定向渗透——他们在试图窃取我们的AI核心模型。</span><br>
+    <span class="inner">而且……这手法，不像民间的。</span>
+  </div>
+</div>
+
+<!-- Frame 15 -->
+<div class="frame">
+  <img src="images/frame15.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">窗外的深圳亮得像白天。这座城市每天都有公司在死去。</span><br>
+    <span class="inner">但今晚——至少今晚，不会是我的。</span>
+  </div>
+</div>
+
+<!-- Frame 16 -->
+<div class="frame">
+  <img src="images/frame16.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">三年没打仗了，手有点生。但就像骑自行车——你永远不会忘。</span><br>
+    <span class="narration">我开始反向追踪攻击源头。</span>
+  </div>
+</div>
+
+<!-- Frame 17 -->
+<div class="frame">
+  <img src="images/frame17.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">追踪到第三跳的时候，我愣住了。</span><br>
+    <span class="inner">这个IP段……我认识。是暗影数据库里标记过的——"天网"残余节点。</span>
+  </div>
+</div>
+
+<!-- Frame 18 -->
+<div class="frame">
+  <img src="images/frame18.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="inner">"天网"——三年前我们暗影行动组最后一次任务的目标。我们以为已经彻底摧毁了。</span>
+  </div>
+</div>
+
+<!-- Decision 3 -->
+<div class="decision">
+  <h3>◆ 决策点 ◆</h3>
+  <div style="color:#99a;margin-bottom:10px;font-size:0.9rem">发现天网残余后，我的选择是——</div>
+  <div class="option">A. 立刻联系暗影老战友。这不是一个人能搞定的。</div>
+  <div class="option chosen">B. 先不惊动任何人，独自深入调查。万一暗影内部有内鬼呢？ ✦</div>
+  <div class="reason">→ 黑客本能（先确认信息可靠性）+ 菩萨心肠（不想让战友涉险）。独自先查。</div>
+</div>
+
+<!-- Frame 19 -->
+<div class="frame">
+  <img src="images/frame19.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration">保险柜最底层，军用加密笔记本和暗影行动组的离线数据。</span><br>
+    <span class="inner">我跟自己说过不会再用——跟戒酒的人说不会再喝一样可笑。</span>
+  </div>
+</div>
+
+<!-- Frame 20 -->
+<div class="frame">
+  <img src="images/frame20.jpg" loading="lazy" alt="">
+  <div class="text-block">
+    <span class="narration" style="color:#4adfff;font-style:normal;font-weight:700;font-size:1.2rem;letter-spacing:2px">暗影系统重启。代号：江——在线。</span>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="hook">
+    赵东来以为他在对付一个快破产的创业者。<br><br>
+    他不知道的是——他刚刚叫醒了一个本来打算安安静静退休的<strong>怪物</strong>。<br><br>
+    而更让我不安的是：天网，到底是谁在背后重建？<br><br>
+    为什么目标是我的AI模型？<br><br>
+    三年前那场任务，到底有多少我不知道的<strong>真相</strong>？
+  </div>
+  <div class="tbc">▸ 第二章 · 即将到来 ◂</div>
+</div>
+
+</div>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.frame, .decision, .cliffhanger').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
