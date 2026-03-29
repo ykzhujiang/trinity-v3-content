@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗算·硅局 第四章「Horizon陷阱」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.header{text-align:center;padding:40px 20px 20px;background:linear-gradient(180deg,#0d1520 0%,#0a0a12 100%)}
+.header h1{font-size:28px;color:#8ab4f8;letter-spacing:4px;text-shadow:0 0 20px rgba(138,180,248,0.3)}
+.header .subtitle{font-size:16px;color:#6b7b8d;margin-top:8px;letter-spacing:2px}
+.header .chapter-info{font-size:13px;color:#4a5568;margin-top:12px}
+.panel{width:100%;max-width:500px;margin:0 auto;padding:0 12px}
+.frame{margin-bottom:2px;position:relative;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.frame.visible{opacity:1;transform:translateY(0)}
+.frame img{width:100%;display:block;border-radius:2px}
+.narration{padding:16px 20px;font-size:17px;line-height:1.8;color:#c8d0da;position:relative}
+.narration.inner-voice{color:#8ab4f8;font-style:italic;border-left:3px solid #8ab4f8;padding-left:20px;margin:8px 20px;font-size:16px;line-height:1.7}
+.narration.dialogue{color:#e8e8e8;font-size:17px}
+.narration .speaker{color:#f0a050;font-weight:bold;margin-right:4px}
+.narration .humor{color:#ffd700;font-size:15px;margin-top:4px;display:block}
+.decision{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border:1px solid #8ab4f844;border-radius:8px;margin:16px 12px;padding:20px}
+.decision .label{color:#f0a050;font-size:14px;font-weight:bold;letter-spacing:2px;margin-bottom:8px}
+.decision .question{color:#e0e0e0;font-size:16px;line-height:1.6;margin-bottom:12px}
+.decision .choice{padding:8px 12px;margin:4px 0;border-radius:4px;font-size:14px;color:#8b9bb4;line-height:1.5}
+.decision .choice.selected{background:#8ab4f822;border:1px solid #8ab4f8;color:#8ab4f8}
+.section-break{text-align:center;padding:24px;color:#4a5568;font-size:20px;letter-spacing:8px}
+.cliffhanger{background:linear-gradient(180deg,#0a0a12 0%,#1a0a0a 50%,#0a0a12 100%);padding:30px 20px;text-align:center;margin-top:20px}
+.cliffhanger p{color:#ff6b6b;font-size:18px;line-height:2;letter-spacing:1px}
+.nav{text-align:center;padding:30px 20px 60px}
+.nav a{color:#8ab4f8;text-decoration:none;font-size:14px;padding:8px 16px;border:1px solid #8ab4f844;border-radius:4px;margin:0 8px}
+.nav a:hover{background:#8ab4f822}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>暗算·硅局</h1>
+<div class="subtitle">第四章「Horizon陷阱」</div>
+<div class="chapter-info">V5 · 第一人称 · 谍战×科技创业</div>
+</div>
+
+<div class="panel">
+
+<!-- f01: 酒店清晨 -->
+<div class="frame"><img src="f01.jpg" loading="lazy" alt="酒店房间清晨"></div>
+<div class="narration">清晨六点，我已经在笔记本前坐了两个小时。昨晚那封匿名邮件的元数据，像一团被故意缠绕的线头——三层代理跳转，发件人显然不想被找到。</div>
+
+<!-- f02: 邮件分析 -->
+<div class="frame"><img src="f02.jpg" loading="lazy" alt="邮件元数据分析"></div>
+<div class="narration">但再老练的人也会留下痕迹。最后一跳的时间戳出卖了他——UTC+8。</div>
+<div class="narration inner-voice">发件人在国内。是天衡内部的人在警告我远离Horizon……还是第三方？</div>
+
+<!-- f03: 思考 -->
+<div class="frame"><img src="f03.jpg" loading="lazy" alt="朱江思考"></div>
+<div class="narration">我靠在椅背上，盯着天花板。这条线索的方向太敏感了。如果匿名人是天衡内部的异见者，告诉沈若棋就等于暴露线人。如果是第三方势力……那水比我想的更深。</div>
+
+<!-- f04: 手机消息 -->
+<div class="frame"><img src="f04.jpg" loading="lazy" alt="沈若棋加密消息"></div>
+<div class="narration">手机震动。沈若棋的加密频道。</div>
+<div class="narration dialogue"><span class="speaker">沈若棋：</span>"Horizon参观照常，但注意你的3点钟方向。"</div>
+
+<!-- f05: 吐槽 -->
+<div class="frame"><img src="f05.jpg" loading="lazy" alt="朱江无语表情"></div>
+<div class="narration inner-voice">3点钟方向？你是特工电影看多了吗？能不能说人话？</div>
+<div class="narration"><span class="humor">我翻了个白眼，但还是下意识记住了——右侧。</span></div>
+
+<!-- f06: DECISION-7 -->
+<div class="frame"><img src="f06.jpg" loading="lazy" alt="决策时刻"></div>
+<div class="decision">
+<div class="label">⟐ 决策点 D-7</div>
+<div class="question">参观Horizon前只剩30分钟。匿名邮件的线索——发件人在国内——要不要告诉沈若棋？</div>
+<div class="choice">A：告诉沈若棋，借天衡资源协查 → 降低独立性但效率更高</div>
+<div class="choice selected">✦ B：隐瞒，自己追查 → 维持信息不对称优势</div>
+</div>
+<div class="narration inner-voice">不。掌握独家信息就是掌握主动权。在确认之前，这条线索只属于我。</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- f07: Horizon外观 -->
+<div class="frame"><img src="f07.jpg" loading="lazy" alt="Horizon大楼外观"></div>
+<div class="narration">「地平线」实验室的总部，玻璃幕墙在晨光中泛着冷光。Victor亲自在门口迎接，笑容像CEO年报上的标准照。</div>
+
+<!-- f08: 实验室 -->
+<div class="frame"><img src="f08.jpg" loading="lazy" alt="高科技实验室内部"></div>
+<div class="narration">服务器机架排列如城市街区，蓝色LED指示灯在黑暗中闪烁，像一万只不眠的眼睛。Victor一边走一边介绍，语气里带着造物主的骄傲。</div>
+<div class="narration dialogue"><span class="speaker">Victor：</span>"下一代AI推理芯片。全球独一份。每秒处理的数据量，比整个华尔街的交易系统加起来还多。"</div>
+
+<!-- f09: 芯片展示 -->
+<div class="frame"><img src="f09.jpg" loading="lazy" alt="AI芯片展示"></div>
+<div class="narration">玻璃罩下的芯片小巧得像指甲盖，却闪着让人不安的蓝光。我凑近细看——不是在看芯片，是在看数据接口的物理布局。</div>
+
+<!-- f10: 数据异常 -->
+<div class="frame"><img src="f10.jpg" loading="lazy" alt="朱江发现异常"></div>
+<div class="narration inner-voice">不对。</div>
+<div class="narration">墙上的数据流向可视化大屏出卖了他们。芯片不只是在做测试——数据在向外部服务器实时传输，频率远超正常测试需要。这不是在测芯片性能，这是在……传东西。</div>
+
+<!-- f11: 数据异常细节 -->
+<div class="frame"><img src="f11.jpg" loading="lazy" alt="数据流向异常"></div>
+<div class="narration inner-voice">外部传输频率：异常。目标服务器：未知。他们在往外送什么数据？</div>
+
+<!-- f12: Victor接电话 -->
+<div class="frame"><img src="f12.jpg" loading="lazy" alt="Victor接电话"></div>
+<div class="narration">Victor的手机响了。他歉意地举了举手，转身去接电话。</div>
+<div class="narration inner-voice">机会。</div>
+
+<!-- f13: 手表扫描 -->
+<div class="frame"><img src="f13.jpg" loading="lazy" alt="智能手表扫描数据"></div>
+<div class="narration">我不动声色地将手表对准最近的服务器终端。天衡改装的扫描模块启动，蓝色光线肉眼不可见——但数据包正在被截获。</div>
+
+<!-- f14: 扫描进度 -->
+<div class="frame"><img src="f14.jpg" loading="lazy" alt="数据截获进度"></div>
+<div class="narration inner-voice">87%……92%……来吧来吧……</div>
+
+<!-- f15: Victor回来 -->
+<div class="frame"><img src="f15.jpg" loading="lazy" alt="Victor回来"></div>
+<div class="narration">Victor挂断电话转身。我已经退回到芯片展示柜前，一脸「我就看看这芯片真漂亮」的无辜表情。</div>
+<div class="narration dialogue"><span class="speaker">Victor：</span>"抱歉，董事会的电话。走，我带你去看核心计算区。"</div>
+<div class="narration inner-voice">心跳150。表面波澜不惊。数据包已经在我手表里了。</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- f16: 走廊 -->
+<div class="frame"><img src="f16.jpg" loading="lazy" alt="走廊"></div>
+<div class="narration">参观结束后我借口去洗手间。说实话是真的需要——刚才的扫描把我的肾上腺素催到了极限。</div>
+
+<!-- f17: 老K出现 -->
+<div class="frame"><img src="f17.jpg" loading="lazy" alt="老K靠墙等待"></div>
+<div class="narration">推开门的瞬间，我的脚步僵住了。</div>
+<div class="narration">大理石洗手台旁，一个人靠墙站着，双臂交叉。平头，左脸有一道疤——上次在酒吧见过的那个男人。老K。</div>
+
+<!-- f18: 对峙 -->
+<div class="frame"><img src="f18.jpg" loading="lazy" alt="洗手间对峙"></div>
+<div class="narration dialogue"><span class="speaker">老K：</span>"朱先生，我们又见面了。"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"你跟踪我？"</div>
+<div class="narration dialogue"><span class="speaker">老K：</span>"我比你先到。我在等你来。"</div>
+<div class="narration inner-voice">镜子里映出我们两个人。他比上次更放松，像一个知道答案的人在等别人提问。</div>
+
+<!-- f19: 老K揭示 -->
+<div class="frame"><img src="f19.jpg" loading="lazy" alt="老K微笑"></div>
+<div class="narration dialogue"><span class="speaker">老K：</span>"Horizon不是芯片项目。"</div>
+<div class="narration">他说得很轻，但每个字都像钉子。</div>
+<div class="narration dialogue"><span class="speaker">老K：</span>"你扫描到的数据包——对，我知道你扫了——解密后是人脸。"</div>
+
+<!-- f20: 芯片植入疤痕 -->
+<div class="frame"><img src="f20.jpg" loading="lazy" alt="手臂芯片疤痕"></div>
+<div class="narration">他慢慢卷起左袖，露出前臂内侧。一道精密的手术疤痕，周围的静脉呈现出不自然的淡蓝色。</div>
+<div class="narration dialogue"><span class="speaker">老K：</span>"他们在测试AI控制活体的接口。猎杀名单不是比喻——<strong>是字面意思</strong>。"</div>
+
+<!-- f21: 朱江震惊 -->
+<div class="frame"><img src="f21.jpg" loading="lazy" alt="朱江震惊后退"></div>
+<div class="narration">我不自觉地退了一步，手抓住洗手台边缘。AI控制活体？这已经不是商业间谍的范畴了——这是……</div>
+<div class="narration inner-voice">等等。冷静。他为什么要告诉我？他到底是谁？</div>
+
+<!-- f22: DECISION-8 -->
+<div class="frame"><img src="f22.jpg" loading="lazy" alt="三方博弈决策"></div>
+<div class="decision">
+<div class="label">⟐ 决策点 D-8</div>
+<div class="question">老K要求我帮他拿到Horizon的完整名单数据库（在Victor办公室的离线服务器上）。作为交换，他会给我Victor和天衡之间的秘密交易记录——这意味着天衡可能也不干净。</div>
+<div class="choice">A：接受交易 → 获取天衡黑料=自保筹码，但要冒险潜入</div>
+<div class="choice">B：拒绝，报告天衡 → 安全但可能被封锁信息</div>
+<div class="choice selected">✦ C：假装接受，暗中设陷阱反查老K真实身份</div>
+</div>
+<div class="narration inner-voice">三方博弈：Nexus、天衡、老K。每一方都在给我一个版本的「真相」。那我就不站任何一边——先入侵，再决策。</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"……可以。但我需要时间准备。明天晚上。"</div>
+<div class="narration">老K点了点头，像是早就知道我会答应。他不知道的是，我答应的不是帮他——而是利用这次行动反向追踪他的来源。</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- f23: 夜晚酒店 -->
+<div class="frame"><img src="f23.jpg" loading="lazy" alt="深夜酒店房间"></div>
+<div class="narration">深夜。房间里只有台灯和屏幕的光。我把手表通过数据线连上笔记本，开始解密在Horizon扫描到的数据包。</div>
+
+<!-- f24: 解密开始 -->
+<div class="frame"><img src="f24.jpg" loading="lazy" alt="数据解密中"></div>
+<div class="narration inner-voice">AES-256加密。正常来说需要几天。但天衡给的解密工具不是正常工具。</div>
+
+<!-- f25: 人脸数据 -->
+<div class="frame"><img src="f25.jpg" loading="lazy" alt="3D人脸扫描数据"></div>
+<div class="narration">老K没骗我。数据包解密后，屏幕上旋转着一个又一个3D人脸线框模型——高精度扫描，2847个样本。每一张脸都被精确建模到毛孔级别。</div>
+<div class="narration inner-voice">这些人是谁？他们知道自己被扫描了吗？</div>
+
+<!-- f26: 代码签名 -->
+<div class="frame"><img src="f26.jpg" loading="lazy" alt="熟悉的代码签名"></div>
+<div class="narration">我继续深挖加密层。第三层协议的签名让我停下了手——</div>
+<div class="narration inner-voice">这个加密算法……这个写法……</div>
+<div class="narration">屏幕上高亮的那段代码，用的是一种非常独特的逆向加密架构。全世界不超过五个人会这么写。</div>
+<div class="narration"><strong>因为这个架构是我发明的。</strong></div>
+
+<!-- f27: 手抖 -->
+<div class="frame"><img src="f27.jpg" loading="lazy" alt="颤抖的双手"></div>
+<div class="narration">我的手开始抖。不是害怕——是一种从骨髓深处涌上来的、无法控制的震颤。</div>
+<div class="narration inner-voice">这不可能。这个算法我只在那一个项目里用过。大学时代的逆向工程课题。十五年前。我以为我删掉了所有代码。</div>
+
+<!-- f28: 闪回 -->
+<div class="frame"><img src="f28.jpg" loading="lazy" alt="大学时代的朱江"></div>
+<div class="narration">记忆像退潮一样涌回来——大学计算机实验室，深夜，能量饮料的空罐子堆成小山。二十岁的我，对着那个逆向工程课题兴奋得发抖，觉得自己写出了世界上最优雅的加密算法。</div>
+
+<!-- f29: 双重曝光 -->
+<div class="frame"><img src="f29.jpg" loading="lazy" alt="过去与现在重叠"></div>
+<div class="narration inner-voice">十五年前的代码，出现在一个跨国科技巨头的人脸控制项目里。我以为删掉的东西，一直都在。</div>
+
+<!-- f30: 蓝光中 -->
+<div class="frame"><img src="f30.jpg" loading="lazy" alt="屏幕蓝光中的朱江"></div>
+<div class="narration">我盯着屏幕，大脑在高速运转。这意味着什么？意味着从一开始——从天衡找到我、从Victor邀请我参观、从老K接近我——</div>
+<div class="narration inner-voice">都不是巧合。</div>
+
+<!-- f31: 手机亮 -->
+<div class="frame"><img src="f31.jpg" loading="lazy" alt="手机突然亮起"></div>
+<div class="narration">突然，黑暗中，床头柜上的手机亮了。不是沈若棋的加密频道，是我的私人号码。</div>
+
+<!-- f32: 未知号码 -->
+<div class="frame"><img src="f32.jpg" loading="lazy" alt="未知号码消息"></div>
+<div class="narration">屏幕上一行字：</div>
+<div class="narration dialogue" style="text-align:center;font-size:20px;color:#ff6b6b;letter-spacing:2px">"牧羊人，你的旧代码还好用吗？"</div>
+<div class="narration" style="text-align:center;color:#6b7b8d">发件人：未知号码</div>
+
+<!-- f33: 反应 -->
+<div class="frame"><img src="f33.jpg" loading="lazy" alt="朱江面部特写"></div>
+<div class="narration">「牧羊人」——这是我大学时代写那个逆向工程项目时用的网名。十五年来没有任何人叫过这个名字。</div>
+<div class="narration inner-voice">他们知道。他们一直都知道。</div>
+
+<!-- f34: 关电脑 -->
+<div class="frame"><img src="f34.jpg" loading="lazy" alt="缓缓合上笔记本"></div>
+<div class="narration">我缓缓合上笔记本。蓝色的光收窄成一条线，然后消失。房间陷入完全的黑暗。</div>
+
+<!-- f35: 最终画面 -->
+<div class="frame"><img src="f35.jpg" loading="lazy" alt="月光下的剪影"></div>
+<div class="narration" style="text-align:center;font-size:20px;color:#8ab4f8;padding:20px;letter-spacing:2px;line-height:2">我不是被招募的。<br>我是被收网的。</div>
+
+</div><!-- end panel -->
+
+<div class="cliffhanger">
+<p>我的旧代码为什么会在Horizon项目里？</p>
+<p>天衡招募我，是利用我的能力——</p>
+<p>还是因为我本身就在「猎杀名单」上？</p>
+<p style="margin-top:16px;color:#8ab4f8;font-size:14px">十五年前的逆向工程项目，到底触发了什么？</p>
+</div>
+
+<div class="nav">
+<a href="../exp-745-silicon-hunt-ch3/index.html">← 第三章</a>
+<a href="#" style="opacity:0.3;pointer-events:none">第五章 →</a>
+</div>
+
+<script>
+const frames=document.querySelectorAll('.frame');
+const obs=new IntersectionObserver(e=>{e.forEach(f=>{if(f.isIntersecting){f.target.classList.add('visible');obs.unobserve(f.target)}})},{threshold:0.1});
+frames.forEach(f=>obs.observe(f));
+</script>
+</body>
+</html>
