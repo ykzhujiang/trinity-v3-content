@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>黑客觉醒·数据之眼 — 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.title-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a12 0%,#0d1a2a 50%,#0a0a12 100%);padding:20px;text-align:center;position:relative;overflow:hidden}
+.title-screen::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(90deg,transparent,transparent 2px,rgba(0,200,255,0.03) 2px,rgba(0,200,255,0.03) 4px);animation:dataScan 3s linear infinite}
+@keyframes dataScan{0%{transform:translateY(0)}100%{transform:translateY(-20px)}}
+.title-screen h1{font-size:2.2rem;color:#00d4ff;text-shadow:0 0 30px rgba(0,212,255,0.5);margin-bottom:10px;letter-spacing:4px}
+.title-screen h2{font-size:1.1rem;color:#ff4444;opacity:0.8;margin-bottom:30px;font-weight:normal}
+.title-screen .subtitle{font-size:1rem;color:rgba(255,255,255,0.6);line-height:1.8}
+.chapter-tag{display:inline-block;background:linear-gradient(135deg,#00d4ff,#0066ff);color:#fff;padding:6px 20px;border-radius:20px;font-size:0.85rem;margin-bottom:20px}
+.scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,0.4);font-size:0.8rem;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.comic-strip{max-width:500px;margin:0 auto;padding:0 0 60px 0}
+.panel{position:relative;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.narration{padding:16px 20px;font-size:1.1rem;line-height:1.9;color:#d0d0d0;background:linear-gradient(180deg,rgba(10,10,18,0.95),rgba(10,10,18,0.98));position:relative}
+.narration.decision{background:linear-gradient(135deg,rgba(255,68,68,0.1),rgba(10,10,18,0.95));border-left:3px solid #ff4444;padding-left:17px}
+.narration .tag{display:inline-block;font-size:0.7rem;padding:2px 8px;border-radius:10px;margin-bottom:6px;font-weight:bold}
+.tag-scene{background:rgba(0,212,255,0.15);color:#00d4ff}
+.tag-decision{background:rgba(255,68,68,0.2);color:#ff4444}
+.tag-internal{background:rgba(255,200,0,0.15);color:#ffc800}
+.narration em{color:#00d4ff;font-style:normal}
+.narration strong{color:#ff6b6b}
+.decision-box{background:rgba(255,68,68,0.05);border:1px solid rgba(255,68,68,0.2);border-radius:8px;padding:12px;margin:8px 0;font-size:0.95rem}
+.decision-box .choice{margin:4px 0;padding-left:12px;position:relative}
+.decision-box .choice::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:#555}
+.decision-box .chosen{color:#00d4ff;font-weight:bold}
+.decision-box .chosen::before{background:#00d4ff;box-shadow:0 0 6px #00d4ff}
+.cliffhanger{padding:30px 20px;text-align:center;font-size:1.3rem;color:#ff4444;line-height:2;background:linear-gradient(180deg,rgba(10,10,18,0.9),rgba(255,68,68,0.05),rgba(10,10,18,0.95))}
+.cliffhanger .next{font-size:0.85rem;color:rgba(255,255,255,0.3);margin-top:20px}
+
+.scene-divider{height:40px;display:flex;align-items:center;justify-content:center;color:rgba(0,212,255,0.3);font-size:0.75rem;letter-spacing:6px;position:relative}
+.scene-divider::before,.scene-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.2),transparent)}
+</style>
+</head>
+<body>
+
+<div class="title-screen">
+  <div class="chapter-tag">第一章</div>
+  <h1>数据之眼</h1>
+  <h2>黑客觉醒</h2>
+  <div class="subtitle">
+    凌晨三点半，我盯着融资BP的第十七版。<br>
+    然后，世界变了。
+  </div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<div class="comic-strip">
+
+<!-- Scene 1: 深夜加班 -->
+<div class="scene-divider">深 夜 加 班</div>
+
+<div class="panel"><img src="images/frame-01.jpg" loading="lazy" alt="深夜办公室"></div>
+<div class="narration"><span class="tag tag-scene">场景：创业公司办公室 · 凌晨3:30</span><br>又是一个加班到崩溃的夜晚。办公室只剩我一个人，桌上堆满了外卖盒和空的红牛罐。融资BP已经改到第十七版了，投资人的要求比我的发际线退得还快。</div>
+
+<div class="panel"><img src="images/frame-02.jpg" loading="lazy" alt="疲惫的脸"></div>
+<div class="narration"><span class="tag tag-internal">内心</span><br>"这个BP改了第17版了......"<br>我揉着太阳穴，眼睛酸得快要冒烟。屏幕上的数字已经看不清了——不知道是太困还是太绝望。</div>
+
+<div class="panel"><img src="images/frame-03.jpg" loading="lazy" alt="望向窗外"></div>
+<div class="narration">站起来走到窗边，看着楼下的万家灯火。别人都睡了，只有我这个AI创业狗还在自欺欺人。玻璃上映出一个狼狈的影子——那真的是我吗？</div>
+
+<div class="panel"><img src="images/frame-04.jpg" loading="lazy" alt="突然头痛"></div>
+<div class="narration">就在我准备关机回家的时候——<br><br><strong>一阵剧烈的头痛从太阳穴炸开！</strong><br><br>"头...头好痛！"我抱住脑袋，跪倒在桌边。像是有什么东西要从脑子里破壳而出。</div>
+
+<div class="panel"><img src="images/frame-05.jpg" loading="lazy" alt="瞳孔特写"></div>
+<div class="narration"><span class="tag tag-internal">觉醒</span><br>我猛地睁开眼——<br><br>瞳孔里，映出了无数<em>彩色的光线</em>。</div>
+
+<!-- Scene 2: 数据之眼觉醒 -->
+<div class="scene-divider">觉 醒</div>
+
+<div class="panel"><img src="images/frame-06.jpg" loading="lazy" alt="数据流视角"></div>
+<div class="narration">整个办公室......变了。<br><br>不，办公室还是那个办公室。但空气中多了无数<em>发光的丝线</em>——蓝色的、绿色的、金色的——像光纤一样穿梭在每一个角落。手机发出蓝色的光流，WiFi路由器喷射着绿色的丝网，服务器之间跳动着金色的加密数据。<br><br>我以为自己猝死了。</div>
+
+<div class="panel"><img src="images/frame-07.jpg" loading="lazy" alt="震惊站起"></div>
+<div class="narration">"我...我死了？这是什么？"<br><br>我猛地站起来，椅子被撞翻在地。伸出双手——那些光丝居然<em>穿透了我的手掌</em>。不痛，但能感觉到微微的温热。</div>
+
+<div class="panel"><img src="images/frame-08.jpg" loading="lazy" alt="触碰数据流"></div>
+<div class="narration">程序员的本能战胜了恐惧。我小心翼翼地伸出手指，去触碰一条飘过的蓝色光丝——</div>
+
+<div class="panel"><img src="images/frame-09.jpg" loading="lazy" alt="全息文字"></div>
+<div class="narration">"这是...隔壁公司的通话记录？"<br><br>手指碰到光丝的瞬间，一串<em>全息文字</em>从光丝里弹了出来。是一段通话内容，甚至能看到通话双方的号码。<br><br>我的手在抖。不是害怕——是兴奋。</div>
+
+<div class="panel"><img src="images/frame-10.jpg" loading="lazy" alt="金色加密线"></div>
+<div class="narration">在所有光丝中，有一条<em>金色的加密数据流</em>格外显眼——比其他的都粗，脉冲跳动的频率更快。上面还挂着一个个锁形的加密节点。<br><br>这条金线......通向哪里？</div>
+
+<!-- Scene 3: 发现竞争对手阴谋 -->
+<div class="scene-divider">阴 谋</div>
+
+<div class="panel"><img src="images/frame-11.jpg" loading="lazy" alt="拉开金色数据"></div>
+<div class="narration">我用双手抓住金色光丝，像拉一条绳子一样把它拽过来——<br><br>全息邮件内容在空气中展开。<br><br><em>"......建议将估值压到......"</em><br><br>我看到了发件人的名字：<strong>陈锐</strong>。我的竞争对手。收件人：我正在谈的投资人。</div>
+
+<div class="panel"><img src="images/frame-12.jpg" loading="lazy" alt="愤怒表情"></div>
+<div class="narration">"陈锐那个混蛋......在背后捅刀子？"<br><br>血一下子涌上了头。金色的全息光映在我脸上，我能感觉到自己咬紧了牙关。原来融资迟迟谈不下来，不是BP不行——是有人在下面使绊子。</div>
+
+<div class="panel"><img src="images/frame-13.jpg" loading="lazy" alt="踱步思考"></div>
+<div class="narration">我在办公室里走来走去，数据流跟着我旋转。<br><br>现在我可以看到一切。陈锐的邮件、通话、甚至服务器上的商业机密——我只要伸手就能拿到。<br><br>但是......</div>
+
+<div class="panel"><img src="images/frame-14.jpg" loading="lazy" alt="内心挣扎"></div>
+<div class="narration decision"><span class="tag tag-decision">决策点 1</span><br>
+<div class="decision-box">
+<div class="choice">A: 深挖对手所有商业秘密，以其人之道还治其人之身</div>
+<div class="choice">B: 只取防守所需的信息，然后正面对决</div>
+<div class="choice">C: 假装没看到，按原计划推进</div>
+</div>
+我盯着空气中的全息邮件，拳头攥了又松，松了又攥。<br><br>是，我<em>可以</em>看到他所有的秘密。但这样做，跟他有什么区别？</div>
+
+<div class="panel"><img src="images/frame-15.jpg" loading="lazy" alt="坚定决心"></div>
+<div class="narration decision"><span class="tag tag-decision">选择 B</span><br><div class="decision-box"><div class="choice chosen">只取我需要的。防守，不偷袭。</div></div>我理了理衣领，深吸一口气。<br><br>菩萨心肠，霹雳手段——但底线不能丢。我只需要知道他干了什么，然后正面打败他。</div>
+
+<!-- Scene 4: 阿坤登场 -->
+<div class="scene-divider">阿 坤</div>
+
+<div class="panel"><img src="images/frame-16.jpg" loading="lazy" alt="门口来人"></div>
+<div class="narration">正想得入神，办公室的门突然被推开——走廊的灯光涌进来，门口站着一个高瘦的身影。</div>
+
+<div class="panel"><img src="images/frame-17.jpg" loading="lazy" alt="阿坤看呆"></div>
+<div class="narration">"老板......你是不是该去医院看看？"<br><br>是阿坤，我的技术合伙人，回来拿落在公司的笔记本。他看到的画面是——他的老板，凌晨四点，一个人在空无一人的办公室里对着空气抓来抓去。</div>
+
+<div class="panel"><img src="images/frame-18.jpg" loading="lazy" alt="激动解释"></div>
+<div class="narration">"阿坤！你不懂！我能看到数据！真的数据！在空气里飘！"<br><br>我激动地抓住阿坤的肩膀，语无伦次地解释。阿坤的表情从困惑变成恐惧——他大概在想要不要偷偷打120。</div>
+
+<div class="panel"><img src="images/frame-19.jpg" loading="lazy" alt="阿坤吐槽"></div>
+<div class="narration">阿坤推了推眼镜，用他标志性的死鱼眼看着我：<br><br>"所以你是说......你进化了？从程序员变成了<em>人肉Wireshark</em>？"<br><br>我：...好吧，不得不说这个比喻还挺精准。</div>
+
+<div class="panel"><img src="images/frame-20.jpg" loading="lazy" alt="演示能力"></div>
+<div class="narration">"看！这是你手机上的外卖订单！"<br><br>我抓住一条绿色的WiFi光丝，阿坤手机的通知内容以全息形式展开在空中。<br><br>阿坤的下巴差点掉到地上："你...你怎么知道我刚点了螺蛳粉？！"</div>
+
+<div class="panel"><img src="images/frame-21.jpg" loading="lazy" alt="阿坤护手机"></div>
+<div class="narration">阿坤像护崽一样把手机死死捂在胸口：<br><br>"等等...你是不是还能看到我的浏览记录？那个...我可以解释......"<br><br>他的耳朵尖都红了。我决定暂时放过他。</div>
+
+<div class="panel"><img src="images/frame-22.jpg" loading="lazy" alt="正经讨论"></div>
+<div class="narration"><span class="tag tag-scene">气氛转换</span><br>笑归笑，该办正事了。我把发现的阴谋告诉了阿坤——金色全息邮件展开在我们之间。<br><br>阿坤推了推眼镜，进入了程序员分析模式："这证据......法律上没法用啊。你说是超能力看到的？法官会让你去精神科的。"</div>
+
+<!-- Scene 5: 追踪与策略 -->
+<div class="scene-divider">追 踪</div>
+
+<div class="panel"><img src="images/frame-23.jpg" loading="lazy" alt="集中控制"></div>
+<div class="narration">我闭上眼，试着控制这个能力。<br><br>慢慢地，周围的数据流开始<em>自动分类</em>——蓝色的通话、绿色的WiFi、金色的加密数据，各自归位。像是我的大脑在学习一种新的语言。</div>
+
+<div class="panel"><img src="images/frame-24.jpg" loading="lazy" alt="追踪城市"></div>
+<div class="narration">我顺着那条金色加密数据流往外追踪——它穿过办公室的窗户，飞向城市的夜空。在高楼大厦之间穿梭，脉冲跳动，像一条金色的高速公路。</div>
+
+<div class="panel"><img src="images/frame-25.jpg" loading="lazy" alt="黑客笑容"></div>
+<div class="narration">"你以为加密就安全了？我看得到源头在哪。"<br><br>我把手按在玻璃上，嘴角忍不住上扬。这种感觉......就像大学时候搞逆向工程——不是为了破坏，是为了<em>理解系统</em>。</div>
+
+<div class="panel"><img src="images/frame-26.jpg" loading="lazy" alt="全息地图"></div>
+<div class="narration">一张<em>全息城市地图</em>在空气中展开，金色的路径清晰标出了数据流的终点——一栋写字楼里的服务器机房。红色标记锁定了精确位置。</div>
+
+<div class="panel"><img src="images/frame-27.jpg" loading="lazy" alt="阿坤分析"></div>
+<div class="narration">阿坤凑过来，用笔指着全息地图上的路径：<br><br>"这个IP段是阿里云华东区的......如果我们能拿到服务器访问日志......"<br><br>眼镜后面的眼睛闪着精光——程序员遇到技术挑战时的表情，我太熟悉了。</div>
+
+<div class="panel"><img src="images/frame-28.jpg" loading="lazy" alt="灵光一现"></div>
+<div class="narration decision"><span class="tag tag-decision">决策点 2</span><br>
+<div class="decision-box">
+<div class="choice">A: 用数据之眼找到实际证据的物理位置，然后"合法地"获取</div>
+<div class="choice">B: 直接在投资人面前演示竞争对手的问题</div>
+<div class="choice">C: 放弃对抗，用数据能力开发碾压级产品</div>
+</div>
+我和阿坤几乎同时想到了——<br><br>"我用数据之眼找到物理证据的位置——"<br>"——然后我们合法取证！"<br><br><div class="decision-box"><div class="choice chosen">选择 A：黑客思维——不是直接用超能力，而是用超能力找到合法路径。</div></div>就像大学时搞逆向工程。不是为了破坏，是为了理解系统——然后找到正确的入口。</div>
+
+<!-- Scene 6: 危机降临 -->
+<div class="scene-divider">暗 影</div>
+
+<div class="panel"><img src="images/frame-29.jpg" loading="lazy" alt="暗红数据流"></div>
+<div class="narration">就在我们击掌庆祝的时候——<br><br>一条<strong>暗红色的数据流</strong>突然出现在视野边缘。<br><br>它和其他光丝完全不同。更粗，更暗，脉冲跳动的节奏像......<em>心跳</em>。它像一条蛇一样缠绕在我们的服务器上。</div>
+
+<div class="panel"><img src="images/frame-30.jpg" loading="lazy" alt="恐惧发现"></div>
+<div class="narration">"这条......不是我们的数据。"<br><br>我的笑容凝固了。冷汗瞬间从后背冒出来。<br><br><strong>有人在监控我们。</strong><br><br>不是陈锐。这条暗红色的数据流的加密等级远超商业级别。这是......什么级别的存在？</div>
+
+<div class="panel"><img src="images/frame-31.jpg" loading="lazy" alt="孤独对峙"></div>
+<div class="narration">阿坤去洗手间了，办公室里只剩我一个人。<br><br>暗红色的数据流缠绕在每一台设备上，像寄生虫一样悄无声息。其他所有光丝都在自觉地避开它——就像猎物在远离捕食者。<br><br>我的拳头攥得发白。</div>
+
+<div class="panel"><img src="images/frame-32.jpg" loading="lazy" alt="伸手触碰"></div>
+<div class="narration decision"><span class="tag tag-decision">决策点 3</span><br>
+<div class="decision-box">
+<div class="choice">A: 立即切断网络，进入防御模式</div>
+<div class="choice">B: 假装不知道，反向追踪暗红数据流的源头</div>
+<div class="choice">C: 联系阿坤做技术反制</div>
+</div>
+"老板别碰那个——"阿坤从门口喊道。<br><br>但我的手已经伸了出去。<br><br><div class="decision-box"><div class="choice chosen">选择 B：反向追踪。有未知，就要去探索。</div></div>"我必须知道是谁。"</div>
+
+<div class="panel"><img src="images/frame-33.jpg" loading="lazy" alt="数据爆炸"></div>
+<div class="narration">手指碰到暗红光丝的瞬间——<br><br>不像蓝色和金色那样温和。这次是一场<strong>爆炸</strong>。碎片化的图像、代码、监控摄像头画面——像碎玻璃一样向我砸来。军事级加密，但在我的数据之眼面前，裂缝无处不在。</div>
+
+<!-- Scene 7: 震撼结尾 -->
+<div class="scene-divider">源 头</div>
+
+<div class="panel"><img src="images/frame-34.jpg" loading="lazy" alt="穿越加密层"></div>
+<div class="narration">我咬着牙追踪下去。暗红色的数据流穿过一层又一层加密壁垒——每一层在我眼前碎裂、瓦解。最终，在最深处，一个服务器机架慢慢浮现出来。<br><br>不是某家公司的数据中心。是......一个大学实验室。</div>
+
+<div class="panel"><img src="images/frame-35.jpg" loading="lazy" alt="实验室服务器"></div>
+<div class="narration">服务器很旧了。上面贴着一张褪色的标签——<br><br><em>「交大·神经接口实验室 2006」</em><br><br>灰尘覆盖了一切，除了那根网线。网线是新的，干干净净，像是最近才接上的。<br><br>这台服务器已经运行了二十年。</div>
+
+<div class="panel"><img src="images/frame-36.jpg" loading="lazy" alt="震惊表情"></div>
+<div class="narration">"等等......这个IP......"<br><br>我的大脑一片空白。这个IP地址，这个项目名——我认识。不是"见过"，是<strong>参与过</strong>。</div>
+
+<div class="panel"><img src="images/frame-37.jpg" loading="lazy" alt="后退踉跄"></div>
+<div class="narration">我踉跄着后退了一步，差点摔倒，抓住桌沿才稳住。<br><br>全息数据继续展开——一份项目参与者名单。上面有一个被红色标记高亮的名字，旁边还有一张二十岁出头的学生证件照。<br><br>那是年轻的我。<br><br>"我认识。这是......二十年前的......"</div>
+
+<div class="panel"><img src="images/frame-38.jpg" loading="lazy" alt="黎明剪影"></div>
+<div class="cliffhanger">
+那个我以为早已结束的项目<br>
+一直在看着我。<br><br>
+窗外，天亮了。<br>
+但更大的风暴，才刚刚开始。<br><br>
+<div class="next">—— 第一章 · 完 ——<br>第二章：回溯</div>
+</div>
+
+</div><!-- end comic-strip -->
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
