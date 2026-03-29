@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>时间回环·关键一天 — 第一章「第一次循环」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e0d4;font-family:'PingFang SC','Noto Sans SC',sans-serif;overflow-x:hidden}
+.panel{width:100%;max-width:480px;margin:0 auto;position:relative;opacity:0;transform:translateY(40px);transition:opacity .6s ease,transform .6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:4px}
+.text-block{padding:12px 20px;font-size:19px;line-height:1.8;color:#d4c8b8}
+.text-block .dialogue{color:#f0d060;font-weight:600;font-size:20px;margin:6px 0}
+.text-block .thought{color:#88bbee;font-style:italic;font-size:18px;margin:6px 0}
+.text-block .narration{color:#c8baa8;font-size:18px}
+.text-block .sfx{color:#ff6b4a;font-weight:700;font-size:22px;text-align:center;margin:10px 0}
+.decision-box{background:linear-gradient(135deg,#1a1520,#201828);border:2px solid #8866cc;border-radius:12px;margin:16px 20px;padding:16px 20px}
+.decision-box .label{color:#aa88ee;font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:8px}
+.decision-box .choice{color:#e8d8f8;font-size:19px;line-height:1.7}
+.section-break{text-align:center;padding:30px 0;font-size:14px;color:#555;letter-spacing:6px}
+.chapter-title{text-align:center;padding:60px 20px 30px;animation:fadeIn 1.5s ease}
+.chapter-title h1{font-size:28px;color:#f0d060;margin-bottom:8px;font-weight:300;letter-spacing:4px}
+.chapter-title h2{font-size:20px;color:#aa88cc;font-weight:400}
+.chapter-end{text-align:center;padding:40px 20px 80px}
+.chapter-end h2{font-size:24px;color:#f0d060;margin-bottom:12px}
+.chapter-end p{color:#aa88cc;font-size:18px;font-style:italic}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.full-bleed{margin:8px 0}
+.half-size{width:70%;margin:8px auto;display:block}
+</style>
+</head>
+<body>
+
+<div class="chapter-title">
+<h1>时间回环·关键一天</h1>
+<h2>第一章「第一次循环」</h2>
+</div>
+
+<!-- Scene 1: Morning Wake -->
+<div class="panel"><img src="images/frame-01.jpg" loading="lazy" alt="闹钟6:30"></div>
+<div class="panel"><div class="text-block"><p class="narration">六点半。上海的晨光穿过百叶窗，在床单上画出一道道金线。</p><p class="narration">闹钟嗡嗡地叫着，像一个不肯放弃的推销员。</p></div></div>
+
+<div class="panel"><img src="images/frame-02.jpg" loading="lazy" alt="醒来"></div>
+<div class="panel"><div class="text-block"><p class="narration">我从床上坐起来，伸了个懒腰。今天，是改变一切的一天。</p><p class="thought">「与李总的融资谈判……十点。」</p></div></div>
+
+<div class="panel"><img src="images/frame-03.jpg" loading="lazy" alt="手机提醒"></div>
+<div class="panel"><div class="text-block"><p class="narration">手机屏幕上那行字格外刺眼——<strong>今天 10:00 与李总融资谈判</strong>。</p><p class="thought">「成了，公司就活了。黄了……不敢想。」</p></div></div>
+
+<!-- Scene 2: Getting Ready (humor) -->
+<div class="panel"><img src="images/frame-04.jpg" loading="lazy" alt="刷牙练pitch"></div>
+<div class="panel"><div class="text-block"><p class="narration">刷牙的时候，我忍不住对着镜子开始排练。</p><p class="dialogue">「我们的日活已经突破……噗——」</p><p class="narration">满嘴泡沫喷到了镜子上。行吧，还是先把牙刷完。</p></div></div>
+
+<div class="panel"><img src="images/frame-05.jpg" loading="lazy" alt="穿西装"></div>
+<div class="panel"><div class="text-block"><p class="narration">灰色西装，白衬衫。我在镜子前整了整领子。</p><p class="thought">「像个能融到钱的人了。大概。」</p></div></div>
+
+<!-- Scene 3: Coffee Shop -->
+<div class="panel"><img src="images/frame-06.jpg" loading="lazy" alt="咖啡店"></div>
+<div class="panel"><div class="text-block"><p class="dialogue">「您的冰美式~」</p><p class="thought">「我点的是拿铁啊……算了，不纠结这个。」</p><p class="narration">接过杯子，没多想。大事要紧。</p></div></div>
+
+<!-- Scene 4: Heading to Office -->
+<div class="panel"><img src="images/frame-07.jpg" loading="lazy" alt="走向公司"></div>
+<div class="panel"><div class="text-block"><p class="narration">上海的早晨永远是这副模样——行色匆匆的人群，玻璃幕墙上折射的朝阳。</p><p class="narration">我端着那杯「冰美式」，走向我们的写字楼。</p></div></div>
+
+<!-- Scene 5: Office - Xiao Chen -->
+<div class="panel"><img src="images/frame-08.jpg" loading="lazy" alt="小陈调试"></div>
+<div class="panel"><div class="text-block"><p class="narration">推开办公室门，小陈已经在了。满头大汗，三台显示器上全是红色报错。</p><p class="thought">「这小子又通宵了……」</p></div></div>
+
+<div class="panel"><img src="images/frame-09.jpg" loading="lazy" alt="安慰小陈"></div>
+<div class="panel"><div class="text-block"><p class="narration">我走过去，拍了拍他的肩膀。</p><p class="dialogue">「放心，我们的技术没问题。」</p><p class="narration">他抬头看我，眼里带着红血丝和一点希望。</p></div></div>
+
+<div class="section-break">· · ·</div>
+
+<!-- Scene 6: Before the Meeting -->
+<div class="panel"><img src="images/frame-10.jpg" loading="lazy" alt="会议室门前"></div>
+<div class="panel"><div class="text-block"><p class="narration">九点五十五。玻璃门后面，李总的身影已经到了。</p><p class="narration">我深吸一口气，手按在门把上。</p><p class="thought">「这扇门后面，是公司的未来。」</p></div></div>
+
+<div class="panel"><img src="images/frame-11.jpg" loading="lazy" alt="小陈的问题"></div>
+<div class="panel"><div class="text-block"><p class="narration">小陈凑过来，压低声音——</p><p class="dialogue">「老大，先讲技术还是先讲市场？」</p></div></div>
+
+<!-- DECISION 1 -->
+<div class="panel">
+<div class="decision-box">
+<div class="label">⚡ 决策点 · 壹</div>
+<div class="choice">我想了一秒。数字不会骗人，先用市场数据建立信任，再亮技术底牌。<br><br>
+<strong>「先讲市场。用数据说话。」</strong></div>
+</div>
+</div>
+
+<div class="panel"><img src="images/frame-12.jpg" loading="lazy" alt="决策"></div>
+<div class="panel"><div class="text-block"><p class="thought">「先讲市场数据，用数字建立信任。李总是老江湖，不吃虚的。」</p></div></div>
+
+<!-- Scene 7: The Negotiation -->
+<div class="panel"><img src="images/frame-13.jpg" loading="lazy" alt="谈判现场"></div>
+<div class="panel"><div class="text-block"><p class="narration">会议室里，灯光明亮得有些刺眼。李总坐在对面，他的秘书周姐在旁边记录。</p><p class="narration">我打开PPT，开始讲。</p></div></div>
+
+<div class="panel"><img src="images/frame-14.jpg" loading="lazy" alt="李总提问"></div>
+<div class="panel"><div class="text-block"><p class="narration">讲到第六页的时候，李总身体前倾，推了推他的无框眼镜。</p><p class="dialogue">「你们跟XX科技的竞品相比，核心壁垒在哪？」</p><p class="narration">这个问题我准备了三天。</p></div></div>
+
+<div class="panel"><img src="images/frame-15.jpg" loading="lazy" alt="自信回答"></div>
+<div class="panel"><div class="text-block"><p class="narration">我站起来，手按在桌面上，一条一条掰碎了讲。数据、壁垒、护城河。</p><p class="narration">李总微微点头。好兆头。</p></div></div>
+
+<div class="panel"><img src="images/frame-16.jpg" loading="lazy" alt="Demo崩溃"></div>
+<div class="panel"><div class="text-block"><p class="sfx">💥 CRASH</p><p class="narration">然后——Demo崩了。</p><p class="narration">屏幕上弹出一个巨大的红色错误弹窗，像一巴掌打在我脸上。</p></div></div>
+
+<div class="panel"><img src="images/frame-17.jpg" loading="lazy" alt="小陈抢修"></div>
+<div class="panel"><div class="text-block"><p class="narration">小陈疯狂敲键盘，额头上的汗啪嗒啪嗒掉在触控板上。</p><p class="thought">「稳住……拜托……」</p></div></div>
+
+<div class="panel"><img src="images/frame-18.jpg" loading="lazy" alt="李总表情"></div>
+<div class="panel"><div class="text-block"><p class="narration">我余光瞟到李总的表情——一个微妙的变化。眉毛抬了半公分，嘴唇抿紧。</p><p class="thought">「完了。」</p></div></div>
+
+<div class="panel"><img src="images/frame-19.jpg" loading="lazy" alt="谈判结束"></div>
+<div class="panel"><div class="text-block"><p class="narration">李总站起来，扣好他的POLO衫最上面那颗扣子——一个结束会议的标志性动作。</p><p class="dialogue">「小朱，不错。我们回去讨论一下。」</p><p class="narration">"回去讨论"。四个字，创业者最不想听到的四个字。</p></div></div>
+
+<div class="section-break">· · ·</div>
+
+<!-- Scene 8: After the Meeting -->
+<div class="panel"><img src="images/frame-20.jpg" loading="lazy" alt="小陈自责"></div>
+<div class="panel"><div class="text-block"><p class="narration">会议室只剩我们两个人。夕阳从落地窗照进来，把小陈低着的头染成金色。</p><p class="dialogue">「老大……对不起。是我的错……」</p></div></div>
+
+<!-- DECISION 2 -->
+<div class="panel">
+<div class="decision-box">
+<div class="label">⚡ 决策点 · 贰</div>
+<div class="choice">看着小陈自责的样子，我心里清楚——demo崩不是他一个人的锅。系统架构有问题，那是我当初拍板决定的方案。<br><br>
+<strong>「别自责。Demo崩是系统设计的问题，不是你操作的问题。回去，我们一起重构。」</strong></div>
+</div>
+</div>
+
+<div class="panel"><img src="images/frame-21.jpg" loading="lazy" alt="安抚"></div>
+<div class="panel"><div class="text-block"><p class="narration">我对他笑了笑，语气平静但坚定。</p><p class="narration">创业这条路上，推卸责任比demo崩溃更致命。</p></div></div>
+
+<div class="section-break">· · ·</div>
+
+<!-- Scene 9: Night - The Accident -->
+<div class="panel"><img src="images/frame-22.jpg" loading="lazy" alt="夜晚独行"></div>
+<div class="panel"><div class="text-block"><p class="narration">晚上十一点。加班结束，独自走在回家的路上。</p><p class="narration">霓虹灯倒映在积水里，像是城市在流泪。</p><p class="thought">「明天……还能怎么办呢。」</p></div></div>
+
+<div class="panel"><img src="images/frame-23.jpg" loading="lazy" alt="过马路"></div>
+<div class="panel"><div class="text-block"><p class="narration">十字路口。绿灯亮了。我迈步走上斑马线——</p></div></div>
+
+<div class="panel"><img src="images/frame-24.jpg" loading="lazy" alt="车灯"></div>
+<div class="panel"><div class="text-block"><p class="narration">一道刺眼的白光从左侧涌来。</p><p class="narration">我的瞳孔里映出了——货车。</p><p class="narration">时间慢了下来。</p><p class="narration">一秒。</p><p class="narration">像一年那么长。</p></div></div>
+
+<div class="panel"><img src="images/frame-25.jpg" loading="lazy" alt="撞击"></div>
+<div class="panel"><div class="text-block"><p class="sfx">——</p></div></div>
+
+<div class="section-break">◆ ◆ ◆</div>
+
+<!-- Scene 10: The Loop Begins -->
+<div class="panel"><img src="images/frame-26.jpg" loading="lazy" alt="又是6:30"></div>
+<div class="panel"><div class="text-block"><p class="narration">嗡嗡嗡。</p><p class="narration">闹钟。六点半。同样的晨光。同样的百叶窗。</p></div></div>
+
+<div class="panel"><img src="images/frame-27.jpg" loading="lazy" alt="惊醒"></div>
+<div class="panel"><div class="text-block"><p class="narration">我猛地坐起来，浑身冷汗。心跳快得像要炸开。</p><p class="dialogue">「……什么情况？」</p><p class="narration">我盯着自己的手。完好无损。没有血。没有痛。</p></div></div>
+
+<div class="panel"><img src="images/frame-28.jpg" loading="lazy" alt="看手机"></div>
+<div class="panel"><div class="text-block"><p class="narration">手机。手在抖。屏幕上——</p><p class="narration"><strong>今天 10:00 与李总融资谈判。</strong></p><p class="thought">「不对……这是昨天。这是昨天的提醒。」</p></div></div>
+
+<!-- Scene 11: Verification -->
+<div class="panel"><img src="images/frame-29.jpg" loading="lazy" alt="咖啡店验证"></div>
+<div class="panel"><div class="text-block"><p class="dialogue">「您的冰美式~」</p><p class="thought">「……又是冰美式。我点的是拿铁。跟昨天一模一样。」</p><p class="narration">我的手开始发抖。这不是巧合。</p></div></div>
+
+<div class="panel"><img src="images/frame-30.jpg" loading="lazy" alt="小孩摔倒"></div>
+<div class="panel"><div class="text-block"><p class="narration">路上那个小孩——在同一个地方，摔了同一跤，哇的一声哭了出来。</p><p class="narration">我站在原地，如遭雷击。</p><p class="thought">「这一天……在重复。」</p></div></div>
+
+<div class="panel"><img src="images/frame-31.jpg" loading="lazy" alt="恍然大悟"></div>
+<div class="panel"><div class="text-block"><p class="narration">一切都对上了。每一个细节。每一个人。每一秒。</p><p class="narration">我死了，然后回到了今天早上。</p><p class="narration">时间在循环。</p></div></div>
+
+<!-- DECISION 3 -->
+<div class="panel">
+<div class="decision-box">
+<div class="label">⚡ 决策点 · 叁</div>
+<div class="choice">恐慌只持续了三十秒。然后，某种更强烈的东西取代了它——<br><br>
+我是搞AI的。我的大脑天然会把一切当成系统来分析。<br><br>
+循环 = 无限次试错。<br>
+融资谈判 = 一个可以反复debug的程序。<br><br>
+<strong>「既然时间在重复……这次谈判，我可以换个打法。」</strong></div>
+</div>
+</div>
+
+<div class="panel"><img src="images/frame-32.jpg" loading="lazy" alt="狡黠微笑"></div>
+<div class="panel"><div class="text-block"><p class="narration">嘴角不自觉地翘了起来。</p><p class="narration">恐惧消散了。取而代之的，是一种危险的兴奋。</p><p class="thought">「李总，这次……你准备好了吗？」</p></div></div>
+
+<div class="panel"><img src="images/frame-33.jpg" loading="lazy" alt="自信走向办公楼"></div>
+<div class="panel"><div class="text-block"><p class="narration">朝阳打在背上，影子被拉得很长。</p><p class="narration">我迈开步子，走向那栋玻璃大楼。这一次，脚步比昨天坚定了十倍。</p></div></div>
+
+<!-- Cliffhanger -->
+<div class="panel"><img src="images/frame-34.jpg" loading="lazy" alt="神秘人影"></div>
+<div class="panel"><div class="text-block"><p class="narration">但我没有注意到——</p><p class="narration">在人群中，远处的街角，有一个身影一直站在那里。</p><p class="narration">一动不动。</p><p class="narration">看着我。</p></div></div>
+
+<div class="panel"><img src="images/frame-35.jpg" loading="lazy" alt="章末"></div>
+
+<div class="chapter-end">
+<h2>第一章 · 完</h2>
+<p>他为什么在看我？<br>循环的真相，远不止一场谈判那么简单……</p>
+<p style="margin-top:30px;color:#555;font-size:14px">第二章「开挂的一天」· 即将更新</p>
+</div>
+
+<script>
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.15});
+document.querySelectorAll('.panel').forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
