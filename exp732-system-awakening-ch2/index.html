@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>系统觉醒·第二章 — 七日冲刺</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.header{text-align:center;padding:60px 20px 30px;background:linear-gradient(180deg,#0d1b2a 0%,#0a0a12 100%)}
+.header h1{font-size:28px;color:#4af;text-shadow:0 0 20px rgba(68,170,255,0.5);margin-bottom:8px}
+.header .sub{font-size:16px;color:#888;margin-bottom:4px}
+.header .recap{font-size:13px;color:#666;max-width:360px;margin:12px auto 0;line-height:1.6;text-align:left;background:rgba(68,170,255,0.05);border:1px solid rgba(68,170,255,0.15);border-radius:12px;padding:16px}
+.header .recap strong{color:#4af}
+.comic{max-width:420px;margin:0 auto;padding:0 8px 80px}
+.panel{margin-bottom:4px;position:relative;opacity:0;transform:translateY(30px);transition:opacity 0.6s,transform 0.6s}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:4px}
+.panel .text{padding:12px 16px;font-size:17px;line-height:1.7;color:#ccc}
+.panel .dialogue{background:rgba(68,170,255,0.08);border-left:3px solid #4af;padding:10px 16px;margin:4px 0;font-size:16px;line-height:1.6;border-radius:0 8px 8px 0}
+.panel .dialogue .speaker{color:#4af;font-weight:bold;font-size:14px;margin-bottom:2px}
+.panel .narration{color:#999;font-style:italic;padding:8px 16px;font-size:15px;line-height:1.6}
+.panel .thought{background:rgba(170,68,255,0.08);border-left:3px solid #a4f;padding:10px 16px;margin:4px 0;font-size:15px;line-height:1.6;border-radius:0 8px 8px 0;color:#c8a0ff}
+.decision{background:linear-gradient(135deg,rgba(68,170,255,0.1),rgba(170,68,255,0.1));border:1px solid rgba(68,170,255,0.3);border-radius:16px;padding:20px 16px;margin:16px 0;text-align:center}
+.decision h3{color:#4af;font-size:18px;margin-bottom:12px}
+.decision .options{display:flex;flex-direction:column;gap:8px}
+.decision .opt{padding:12px;border-radius:10px;font-size:15px;line-height:1.4}
+.decision .opt.chosen{background:rgba(68,170,255,0.15);border:2px solid #4af;color:#4af}
+.decision .opt.rejected{background:rgba(255,68,68,0.05);border:1px solid rgba(255,68,68,0.2);color:#666;text-decoration:line-through}
+.decision .reason{margin-top:12px;font-size:14px;color:#a4f;line-height:1.5;text-align:left;padding:8px 12px;background:rgba(170,68,255,0.05);border-radius:8px}
+.act-title{text-align:center;padding:30px 0 10px;font-size:14px;color:#4af;letter-spacing:4px;text-transform:uppercase;opacity:0.6}
+.cliffhanger{background:linear-gradient(180deg,#0a0a12,#1a0a0a);padding:40px 20px;text-align:center;margin-top:20px}
+.cliffhanger h2{color:#f44;font-size:22px;text-shadow:0 0 20px rgba(255,68,68,0.5);margin-bottom:16px}
+.cliffhanger p{color:#888;font-size:15px;line-height:1.6;max-width:360px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>系统觉醒·第二章</h1>
+  <div class="sub">七日冲刺</div>
+  <div class="recap">
+    <strong>前情提要：</strong>我被投资人撤资、合伙人陈锋叛变，一夜负债千万。「创业系统」觉醒后，我用鉴定技能发现林薇的好奇心值99，成功引起她的兴趣。她给了我一周时间——证明我的技术能打败陈锋。现在，只剩我和老周，经验值98/100，差两点就能解锁陈锋背后势力的秘密。
+  </div>
+</div>
+
+<div class="comic">
+
+<!-- ACT 1: D-7 凌晨 -->
+<div class="act-title">D-7 · 凌晨四点</div>
+
+<div class="panel"><img src="images/f01.jpg" loading="eager" alt="f01">
+<div class="narration">凌晨四点，创业公司——只剩我和老周。</div></div>
+
+<div class="panel"><img src="images/f02.jpg" loading="eager" alt="f02">
+<div class="dialogue"><div class="speaker">老周</div>你几点了？</div></div>
+
+<div class="panel"><img src="images/f03.jpg" loading="eager" alt="f03">
+<div class="dialogue"><div class="speaker">我</div>四点。起来写代码。</div></div>
+
+<div class="panel"><img src="images/f04.jpg" loading="eager" alt="f04">
+<div class="dialogue"><div class="speaker">老周</div>你是魔鬼吗？！</div></div>
+
+<div class="panel"><img src="images/f05.jpg" loading="eager" alt="f05">
+<div class="narration">系统面板在眼前展开——经验值：98/100。</div></div>
+
+<div class="panel"><img src="images/f06.jpg" loading="eager" alt="f06">
+<div class="text">系统提示：「每完成一个开发里程碑 +10经验值」</div></div>
+
+<div class="panel"><img src="images/f07.jpg" loading="eager" alt="f07">
+<div class="thought">只差2点。这盘棋，得加速了。</div></div>
+
+<div class="panel"><img src="images/f08.jpg" loading="eager" alt="f08">
+<div class="narration">两台电脑，一堆泡面，两个男人。这就是我的全部家当。</div></div>
+
+<!-- ACT 2: 系统升级 + DECISION-1 -->
+<div class="act-title">系统升级 · 技能树</div>
+
+<div class="panel"><img src="images/f09.jpg" loading="lazy" alt="f09">
+<div class="text">技能树解锁！高亮节点：「代码加速 Lv1」——打字速度+30%，Debug直觉增强。解锁条件：连续编程8小时。</div></div>
+
+<div class="panel"><img src="images/f10.jpg" loading="lazy" alt="f10">
+<div class="thought">连续编程8小时？这对我来说叫"正常上班"。</div></div>
+
+<div class="panel"><img src="images/f11.jpg" loading="lazy" alt="f11">
+<div class="narration">弹药充足——老周桌上一整箱速溶咖啡。</div></div>
+
+<div class="panel"><img src="images/f12.jpg" loading="lazy" alt="f12">
+<div class="decision">
+  <h3>⚡ 决策点一：选择你的武器</h3>
+  <div class="options">
+    <div class="opt rejected">A. 正面竞争——做更好的同类产品</div>
+    <div class="opt chosen">✓ B. 侧翼突袭——做完全不同赛道的产品</div>
+  </div>
+  <div class="reason">两个人打十个人？那是傻子。黑客不硬碰硬——找系统漏洞，打不对称战争。陈锋带走了团队和代码，正面打毫无胜算。</div>
+</div></div>
+
+<div class="panel"><img src="images/f13.jpg" loading="lazy" alt="f13">
+<div class="thought">黑客思维：不是比谁更强，是找到对手系统里的漏洞。</div></div>
+
+<div class="panel"><img src="images/f14.jpg" loading="lazy" alt="f14">
+<div class="text">「侧翼突袭 ✓ — 战略评分S级。系统奖励：灵感碎片×1」</div></div>
+
+<div class="panel"><img src="images/f15.jpg" loading="lazy" alt="f15">
+<div class="dialogue"><div class="speaker">老周</div>你选了什么？</div>
+<div class="dialogue"><div class="speaker">我</div>选了不跟陈锋在同一条路上打。</div></div>
+
+<div class="panel"><img src="images/f16.jpg" loading="lazy" alt="f16">
+<div class="narration">方向定了。接下来——需要人。</div></div>
+
+<!-- ACT 3: 招人 + DECISION-2 -->
+<div class="act-title">鉴定实战 · 招人</div>
+
+<div class="panel"><img src="images/f17.jpg" loading="lazy" alt="f17">
+<div class="text">招聘群里一条留言引人注目：前端开发，3年经验，已离职。昵称：小美。</div></div>
+
+<div class="panel"><img src="images/f18.jpg" loading="lazy" alt="f18">
+<div class="text">鉴定激活——技术能力：92 | 团队协作：45 | 对上一份工作的愤怒值：97。前雇主：陈锋新公司。离职原因：不认同技术路线。</div></div>
+
+<div class="panel"><img src="images/f19.jpg" loading="lazy" alt="f19">
+<div class="thought">陈锋裁了一个技术92分的人？这是老天爷在帮我。</div></div>
+
+<div class="panel"><img src="images/f20.jpg" loading="lazy" alt="f20">
+<div class="dialogue"><div class="speaker">老周</div>愤怒值97？！这姑娘是被炒了还是被炸了？</div></div>
+
+<div class="panel"><img src="images/f21.jpg" loading="lazy" alt="f21">
+<div class="decision">
+  <h3>⚡ 决策点二：如何说服小美加入？</h3>
+  <div class="options">
+    <div class="opt rejected">A. 利用愤怒——"我是陈锋前合伙人，一起复仇"</div>
+    <div class="opt chosen">✓ B. 正道——只展示产品理念，让技术说话</div>
+  </div>
+  <div class="reason">利用别人的愤怒，不长久。鉴定显示小美隐藏属性「理想主义：88」——她要的不是复仇，是一个值得相信的方向。用梦想吸引人。</div>
+</div></div>
+
+<div class="panel"><img src="images/f22.jpg" loading="lazy" alt="f22">
+<div class="thought">利用别人的愤怒，不长久。要用梦想吸引人。</div></div>
+
+<div class="panel"><img src="images/f23.jpg" loading="lazy" alt="f23">
+<div class="text">隐藏属性揭示——小美·理想主义：88。她要的不是复仇。</div></div>
+
+<div class="panel"><img src="images/f24.jpg" loading="lazy" alt="f24">
+<div class="narration">咖啡店里，我打开笔记本展示技术架构。小美的表情从怀疑变成专注。</div></div>
+
+<div class="panel"><img src="images/f25.jpg" loading="lazy" alt="f25">
+<div class="thought">她的眼神变了——从戒备到好奇。那是"被技术点燃"的表情。我见过，在镜子里。</div></div>
+
+<div class="panel"><img src="images/f26.jpg" loading="lazy" alt="f26">
+<div class="dialogue"><div class="speaker">老周</div>欢迎新同事！来来来，吃泡面！</div>
+<div class="dialogue"><div class="speaker">小美</div>你们就靠这个活？</div>
+<div class="dialogue"><div class="speaker">老周</div>这是战略储备！</div>
+<div class="narration">三个人的车库团队，成了。</div></div>
+
+<!-- ACT 4: 极限开发 + DECISION-3 -->
+<div class="act-title">极限开发 · D-5 至 D-3</div>
+
+<div class="panel"><img src="images/f27.jpg" loading="lazy" alt="f27">
+<div class="narration">倒计时开始。我写后端，小美写前端，老周在中间跑来跑去。桌上全是泡面碗和咖啡杯。</div></div>
+
+<div class="panel"><img src="images/f28.jpg" loading="lazy" alt="f28">
+<div class="text">「代码加速 Lv1」解锁！——蓝绿色光芒包裹双手。打字+30%，Bug位置高亮。</div></div>
+
+<div class="panel"><img src="images/f29.jpg" loading="lazy" alt="f29">
+<div class="narration">手指飞速敲击键盘，淡淡蓝绿光效闪动。代码在屏幕上飞速滚动。</div></div>
+
+<div class="panel"><img src="images/f30.jpg" loading="lazy" alt="f30">
+<div class="dialogue"><div class="speaker">老周</div>你今天开挂了？打字速度快了一倍啊！</div>
+<div class="thought">确实开挂了。</div></div>
+
+<div class="panel"><img src="images/f31.jpg" loading="lazy" alt="f31">
+<div class="thought">系统直觉让Bug无所遁形——半透明蓝色光芒标出每一个异常。这种感觉，像透视。</div></div>
+
+<div class="panel"><img src="images/f32.jpg" loading="lazy" alt="f32">
+<div class="text">D-5 → D-4 → D-3。三天三夜极限开发。经验值：108…118…128。眼圈越来越黑，代码越跑越快。</div></div>
+
+<div class="panel"><img src="images/f33.jpg" loading="lazy" alt="f33">
+<div class="text" style="color:#ffd700;text-align:center;font-size:20px">🎯 经验值 100 达成！</div>
+<div class="text">「是否消耗100经验值解锁隐藏线索——陈锋背后势力？」</div></div>
+
+<div class="panel"><img src="images/f34.jpg" loading="lazy" alt="f34">
+<div class="decision">
+  <h3>⚡ 决策点三：花不花经验值？</h3>
+  <div class="options">
+    <div class="opt chosen">✓ A. 花掉100经验值 → 查看陈锋背后势力</div>
+    <div class="opt rejected">B. 保留经验值 → 解锁更强技能</div>
+  </div>
+  <div class="reason">信息是黑客的命。知道敌人是谁，比自己更强更重要。知己知彼，百战不殆——这不是鸡汤，这是生存策略。</div>
+</div></div>
+
+<div class="panel"><img src="images/f35.jpg" loading="lazy" alt="f35">
+<div class="thought">信息是黑客的命。知道敌人是谁，比自己更强更重要。</div></div>
+
+<div class="panel"><img src="images/f36.jpg" loading="lazy" alt="f36">
+<div class="text" style="color:#f44;border:1px solid rgba(255,68,68,0.3);border-radius:12px;padding:16px;background:rgba(255,0,0,0.05)">⚠️ 线索解锁<br><br><strong>陈锋背后投资人：方正达集团</strong><br>真实目标：不是你的市场——<strong style="color:#ff6">是你的AI模型专利。</strong></div></div>
+
+<div class="panel"><img src="images/f37.jpg" loading="lazy" alt="f37">
+<div class="thought">他们要的不是公司……是我的技术。撤资、叛变——都是为了逼我交出核心算法。一切都说通了。</div></div>
+
+<!-- ACT 5: 林薇来访 -->
+<div class="act-title">D-2 · 林薇来访</div>
+
+<div class="panel"><img src="images/f38.jpg" loading="lazy" alt="f38">
+<div class="dialogue"><div class="speaker">林薇</div>这就是你要打败陈锋的团队？</div>
+<div class="narration">她推门看到的场景：老周趴在桌上睡着了，小美头发散了一半，我的领带歪得像三岁小孩系的。</div></div>
+
+<div class="panel"><img src="images/f39.jpg" loading="lazy" alt="f39">
+<div class="narration">我打开demo。屏幕光照亮了她的脸——质疑→好奇→微微震惊。那一瞬间，我知道，有戏。</div></div>
+
+<div class="panel"><img src="images/f40.jpg" loading="lazy" alt="f40">
+<div class="text">鉴定结果——对demo兴趣值：94 | 对我的评价变化：有趣但不靠谱 → 可能靠谱。</div></div>
+
+<div class="panel"><img src="images/f41.jpg" loading="lazy" alt="f41">
+<div class="dialogue"><div class="speaker">林薇</div>明天正式演示。如果跑通了，我说服合伙人跟投。</div>
+<div class="narration">最后一天。</div></div>
+
+<!-- ACT 6: D-1 危机 + DECISION-4 -->
+<div class="act-title" style="color:#f44">D-1 · 深夜危机</div>
+
+<div class="panel"><img src="images/f42.jpg" loading="lazy" alt="f42">
+<div class="dialogue"><div class="speaker">老周</div>挂了挂了全挂了！！</div>
+<div class="narration">所有屏幕同时闪红。最后冲刺的深夜，服务器突然断了。</div></div>
+
+<div class="panel"><img src="images/f43.jpg" loading="lazy" alt="f43">
+<div class="text" style="color:#f44">服务器遭受DDoS攻击 | 连接中断 | 数据异常</div></div>
+
+<div class="panel"><img src="images/f44.jpg" loading="lazy" alt="f44">
+<div class="text" style="color:#f44;border:1px solid rgba(255,68,68,0.3);border-radius:12px;padding:12px;background:rgba(255,0,0,0.05)">⚠️ 系统检测到外部攻击<br>来源追踪：<strong>方正达集团关联IP</strong></div>
+<div class="thought">他们急了。说明demo真的威胁到了他们。</div></div>
+
+<div class="panel"><img src="images/f45.jpg" loading="lazy" alt="f45">
+<div class="decision">
+  <h3 style="color:#f44">⚡ 决策点四：如何应对攻击？</h3>
+  <div class="options">
+    <div class="opt rejected">A. 连夜迁移到备用节点（稳妥但可能来不及）</div>
+    <div class="opt chosen">✓ B. 反向追踪攻击源，抓证据反将一军（高风险黑客打法）</div>
+  </div>
+  <div class="reason">他们先动手的。黑客不只是防守——最好的防守是进攻。用系统辅助+逆向工程功底，连夜追踪。这是我最擅长的战场。</div>
+</div></div>
+
+<div class="panel"><img src="images/f46.jpg" loading="lazy" alt="f46">
+<div class="thought">你们先动手的。黑客不只是防守——最好的防守是进攻。</div></div>
+
+<div class="panel"><img src="images/f47.jpg" loading="lazy" alt="f47">
+<div class="narration">反向追踪开始。屏幕上是数据流、IP链、防火墙拓扑。蓝绿色光芒包裹我的双手。旁边，小美在备份数据，老周趴在桌上睡着了，口水滴在键盘上。</div></div>
+
+<div class="panel"><img src="images/f48.jpg" loading="lazy" alt="f48">
+<div class="text" style="color:#f44;font-size:19px;text-align:center;padding:20px">攻击代码里有一段熟悉的签名——<br><strong>是我写的代码。</strong></div>
+<div class="thought">陈锋不只带走了人。他偷走了我的核心算法。</div></div>
+
+<div class="panel"><img src="images/f49.jpg" loading="lazy" alt="f49">
+<div class="text" style="border:1px solid rgba(68,170,255,0.3);border-radius:12px;padding:16px;background:rgba(68,170,255,0.05)">
+📋 新支线任务解锁：<strong style="color:#4af">追回被盗知识产权</strong><br>奖励：？？？<br><br>
+⏰ 距离演示：<strong style="color:#f44">6小时</strong><br>
+🔴 攻击状态：<strong style="color:#f44">进行中</strong>
+</div></div>
+
+<div class="panel"><img src="images/f50.jpg" loading="lazy" alt="f50"></div>
+
+<div class="cliffhanger">
+  <h2>我现在同时在打仗、做产品、找Bug、追贼。</h2>
+  <p>这就是创业。</p>
+  <p style="margin-top:20px;color:#4af;font-size:18px">第三章《Demo Day》<br>即将开始……</p>
+</div>
+
+</div>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:0.1,rootMargin:'50px'});
+document.querySelectorAll('.panel').forEach(p=>io.observe(p));
+</script>
+</body>
+</html>
