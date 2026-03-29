@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重生·交大往事 Ch1「宿舍里的未来人」</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.scroll-container {
+  max-width: 430px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+.title-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #1a1005 0%, #0a0a0a 100%);
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(200,150,50,0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: titleGlow 4s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%,-50%) scale(1.2); }
+}
+.title-main {
+  font-size: 36px;
+  font-weight: 900;
+  color: #c8963c;
+  letter-spacing: 8px;
+  margin-bottom: 16px;
+  position: relative;
+  text-shadow: 0 0 30px rgba(200,150,60,0.3);
+}
+.title-sub {
+  font-size: 18px;
+  color: #a09080;
+  letter-spacing: 4px;
+  margin-bottom: 30px;
+}
+.title-chapter {
+  font-size: 14px;
+  color: #706050;
+  letter-spacing: 2px;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  animation: bounce 2s infinite;
+  color: #504030;
+  font-size: 13px;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+.panel {
+  position: relative;
+  margin-bottom: 0;
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 20px 24px;
+  background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, #0a0a0a 100%);
+  position: relative;
+}
+.panel-text p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #d0c8c0;
+  margin-bottom: 12px;
+}
+.panel-text p:last-child { margin-bottom: 0; }
+.narration {
+  font-size: 15px;
+  color: #a09888;
+  font-style: italic;
+  border-left: 3px solid #c8963c;
+  padding-left: 12px;
+  margin: 12px 0;
+}
+.inner-voice {
+  font-size: 16px;
+  color: #c8963c;
+  font-style: italic;
+  margin: 8px 0;
+}
+.dialogue {
+  font-size: 17px;
+  color: #e8e0d8;
+  margin: 8px 0;
+}
+.dialogue .speaker {
+  color: #c8963c;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.decision-box {
+  border: 2px solid #c8963c;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 16px 24px;
+  background: rgba(200,150,60,0.08);
+}
+.decision-box .decision-label {
+  font-size: 13px;
+  color: #c8963c;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.decision-box .choice {
+  font-size: 15px;
+  color: #d0c8c0;
+  margin: 6px 0;
+}
+.decision-box .chosen {
+  color: #c8963c;
+  font-weight: 700;
+}
+.decision-box .reason {
+  font-size: 14px;
+  color: #a09888;
+  margin-top: 8px;
+  font-style: italic;
+}
+.scene-break {
+  text-align: center;
+  padding: 30px 0;
+  color: #504030;
+  font-size: 20px;
+  letter-spacing: 10px;
+}
+.cliffhanger {
+  padding: 40px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a1005 100%);
+}
+.cliffhanger .tbc {
+  font-size: 20px;
+  color: #c8963c;
+  letter-spacing: 6px;
+  margin-top: 20px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div class="scroll-container">
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <div class="title-main">重生·交大往事</div>
+  <div class="title-sub">第一章</div>
+  <div class="title-chapter">「宿舍里的未来人」</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- f01: Late night office 2026 -->
+<div class="panel">
+  <img src="f01.jpg" loading="lazy" alt="深夜办公室">
+  <div class="panel-text">
+    <p class="narration">2026年，深夜11:47。</p>
+    <p class="inner-voice">又是一个加班到快吐的夜晚。屏幕上的代码已经看了三个小时，一行都没改。</p>
+  </div>
+</div>
+
+<!-- f02: Head pain -->
+<div class="panel">
+  <img src="f02.jpg" loading="lazy" alt="剧烈头痛">
+  <div class="panel-text">
+    <p>突然，一阵剧烈的头痛袭来——像有人用电钻在我太阳穴上开洞。</p>
+    <p class="inner-voice">我的眼前开始发黑……</p>
+  </div>
+</div>
+
+<!-- f03: Blackout transition -->
+<div class="panel">
+  <img src="f03.jpg" loading="lazy" alt="意识模糊">
+  <div class="panel-text">
+    <p class="narration">意识坠入了无尽的黑暗。</p>
+  </div>
+</div>
+
+<!-- f04: Wake up in dorm - Nokia alarm -->
+<div class="panel">
+  <img src="f04.jpg" loading="lazy" alt="宿舍醒来">
+  <div class="panel-text">
+    <p>「滴滴滴——滴滴滴——」</p>
+    <p>一个刺耳的闹钟声把我吵醒。我伸手去摸手机，摸到的不是iPhone，是一个……翻盖的？</p>
+    <p class="inner-voice">等等。我在哪？</p>
+  </div>
+</div>
+
+<!-- f05: Calendar - Sept 1, 2003 -->
+<div class="panel">
+  <img src="f05.jpg" loading="lazy" alt="日历2003年">
+  <div class="panel-text">
+    <p>墙上的挂历上写着——</p>
+    <p style="font-size: 22px; color: #c8963c; text-align: center; font-weight: 900; margin: 16px 0;">2003年9月1日</p>
+  </div>
+</div>
+
+<!-- f06: Mirror - young face -->
+<div class="panel">
+  <img src="f06.jpg" loading="lazy" alt="镜子中年轻的脸">
+  <div class="panel-text">
+    <p>我冲进卫生间，对着镜子——</p>
+    <p>没有胡子。脸瘦了一圈。皮肤……好得不像话。</p>
+    <p class="inner-voice">这是20岁的我。</p>
+  </div>
+</div>
+
+<!-- f07: Dorm overview -->
+<div class="panel">
+  <img src="f07.jpg" loading="lazy" alt="2003年大学宿舍">
+  <div class="panel-text">
+    <p class="narration">上海交通大学，四人宿舍。上下铺铁架床，17寸CRT显示器，桌上堆着谭浩强的《C程序设计》。</p>
+    <p>对面下铺，老陈打鼾打得地动山摇。</p>
+  </div>
+</div>
+
+<!-- f08: "WTF" moment -->
+<div class="panel">
+  <img src="f08.jpg" loading="lazy" alt="震惊">
+  <div class="panel-text">
+    <p class="inner-voice">我操……我重生了？？？</p>
+    <p>脑子里2026年的记忆清清楚楚：每一个风口，每一个巨头的崛起轨迹，每一项关键技术的演进路线。</p>
+    <p class="inner-voice">全都记得。一个字都没丢。</p>
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box">
+  <div class="decision-label">▎ 决策点 1</div>
+  <p style="font-size:16px; color:#e8e0d8; margin-bottom:12px;">重生后第一件事做什么？</p>
+  <div class="choice">A：冲到校园网吧查股票——腾讯明年上市前还能抄底</div>
+  <div class="choice chosen">✦ B：打开电脑试试自己记得的技术还在不在——先确认核心能力</div>
+  <div class="reason">黑客基因驱动——先确认系统状态，再规划行动。我是"先拆开看结构"的人。</div>
+</div>
+
+<!-- f09: Sit at P4 computer -->
+<div class="panel">
+  <img src="f09.jpg" loading="lazy" alt="坐在电脑前">
+  <div class="panel-text">
+    <p>我悄悄爬下床，坐到书桌前。奔腾4的主机发出低沉的嗡嗡声，17寸CRT闪了几下亮起来。</p>
+    <p class="inner-voice">好。先确认一件事——脑子里的东西，还能不能用？</p>
+  </div>
+</div>
+
+<!-- f10: Decision visual -->
+<div class="panel">
+  <img src="f10.jpg" loading="lazy" alt="选择B">
+  <div class="panel-text">
+    <p class="inner-voice">炒股？那是投机。我要做的事，比炒股大一万倍。</p>
+    <p class="inner-voice">先确认系统状态，再规划行动。</p>
+  </div>
+</div>
+
+<!-- f11: Coding blazing fast -->
+<div class="panel">
+  <img src="f11.jpg" loading="lazy" alt="飞速写代码">
+  <div class="panel-text">
+    <p>打开VC++ 6.0，手指落在键盘上——</p>
+    <p>然后我就停不下来了。</p>
+    <p>2003年的IDE、2003年的编译器，但脑子里的架构思维是2026级别的。数据结构、算法、系统设计……全在。</p>
+  </div>
+</div>
+
+<!-- f12: Code on screen -->
+<div class="panel">
+  <img src="f12.jpg" loading="lazy" alt="屏幕上的代码">
+  <div class="panel-text">
+    <p class="narration">一个小时。室友们要写一周的数据结构作业，我一个小时写完了。</p>
+    <p class="inner-voice">不止写完了——我用了2026年的设计模式重构了它。这代码放到2003年，简直是外星科技。</p>
+  </div>
+</div>
+
+<!-- f13: Lao Chen wakes up shocked -->
+<div class="panel">
+  <img src="f13.jpg" loading="lazy" alt="老陈震惊">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">老陈：</span>「嗯？你小子……什么时候起的？」</p>
+    <p>他揉着眼睛凑过来，推了推黑框眼镜看了一眼屏幕——</p>
+    <p class="dialogue"><span class="speaker">老陈：</span>「卧槽？！你什么时候这么猛了？这代码……你写的？」</p>
+    <p>我耸耸肩：「昨晚突然开窍了。」</p>
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- f14: Campus walk -->
+<div class="panel">
+  <img src="f14.jpg" loading="lazy" alt="校园漫步">
+  <div class="panel-text">
+    <p class="narration">九月的交大校园，梧桐叶开始泛黄。</p>
+    <p>我走在林荫道上，身边是骑自行车的同学、扛着暖水瓶的女生、还有BBS公告栏前看新生通知的人群。</p>
+  </div>
+</div>
+
+<!-- f15: Small shop 2003 -->
+<div class="panel">
+  <img src="f15.jpg" loading="lazy" alt="2003年小卖部">
+  <div class="panel-text">
+    <p>路过小卖部。货架上是健力宝、冰红茶、旺仔牛奶。手机充值卡还要到柜台买。</p>
+    <p class="inner-voice">2003年。QQ刚过亿用户，淘宝刚刚成立，百度刚上市不久。</p>
+  </div>
+</div>
+
+<!-- f16: BBS + inner monologue -->
+<div class="panel">
+  <img src="f16.jpg" loading="lazy" alt="BBS公告栏前">
+  <div class="panel-text">
+    <p>我站在BBS公告栏前，看着上面贴的"新学期选课通知"和"二手自行车转让"。</p>
+    <p class="inner-voice">这些人不知道。三年后iPhone会改变一切。五年后移动互联网会创造千亿市值。十年后AI会开始改变世界。</p>
+  </div>
+</div>
+
+<!-- f17: Face close-up - loneliness -->
+<div class="panel">
+  <img src="f17.jpg" loading="lazy" alt="内心独白">
+  <div class="panel-text">
+    <p class="inner-voice">而我全都知道。</p>
+    <p class="inner-voice">这种孤独感，比加班到凌晨还要让人窒息。</p>
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- f18: Library - drawing tech tree -->
+<div class="panel">
+  <img src="f18.jpg" loading="lazy" alt="图书馆画科技树">
+  <div class="panel-text">
+    <p class="narration">下午。交大图书馆。</p>
+    <p>我找了个角落坐下，掏出草稿纸，开始画未来二十年的科技树。</p>
+  </div>
+</div>
+
+<!-- f19: Tech tree on paper -->
+<div class="panel">
+  <img src="f19.jpg" loading="lazy" alt="科技树草稿">
+  <div class="panel-text">
+    <p>2003→社交网络→移动互联网→O2O→共享经济→AI→大模型……</p>
+    <p>每个节点我都标了时间线。每个风口我都记得谁赢了、谁死了、为什么死的。</p>
+    <p class="inner-voice">面前有三条路。</p>
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box">
+  <div class="decision-label">▎ 决策点 2</div>
+  <p style="font-size:16px; color:#e8e0d8; margin-bottom:12px;">战略选择——走哪条路？</p>
+  <div class="choice">A：稳健路线——先拿学位，2005年做移动端</div>
+  <div class="choice">B：激进路线——现在退学创业，抢做社交网络</div>
+  <div class="choice chosen">✦ C：黑客路线——先做安全/破解工具，积累技术团队和口碑</div>
+  <div class="reason">最符合我的真实经历——大学时代本来就是搞逆向工程的。选C是"先证明实力"策略。菩萨心肠，霹雳手段。</div>
+</div>
+
+<!-- f20: Decision - choosing C -->
+<div class="panel">
+  <img src="f20.jpg" loading="lazy" alt="选择C路线">
+  <div class="panel-text">
+    <p class="inner-voice">C路线。这才是真正的我。</p>
+    <p class="inner-voice">不靠预知炒股，不靠抄袭未来——靠实力打出一片天。然后在正确的时间做正确的事。</p>
+  </div>
+</div>
+
+<!-- f21: Pitching to roommates -->
+<div class="panel">
+  <img src="f21.jpg" loading="lazy" alt="拉室友入伙">
+  <div class="panel-text">
+    <p class="narration">晚上。宿舍。</p>
+    <p>我把老陈和赵磊叫到一起。</p>
+  </div>
+</div>
+
+<!-- f22: The pitch -->
+<div class="panel">
+  <img src="f22.jpg" loading="lazy" alt="提出想法">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">我：</span>「我有个想法。咱们做一个工具，帮人解决电脑上的各种问题——杀毒、优化、破解。免费的。先积累十万用户。」</p>
+  </div>
+</div>
+
+<!-- f23: Lao Chen skeptical -->
+<div class="panel">
+  <img src="f23.jpg" loading="lazy" alt="老陈怀疑">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">老陈：</span>「你疯了吧？免费怎么赚钱？咱还得交学费呢。」</p>
+  </div>
+</div>
+
+<!-- f24: Mysterious smile -->
+<div class="panel">
+  <img src="f24.jpg" loading="lazy" alt="神秘微笑">
+  <div class="panel-text">
+    <p>我笑了。</p>
+    <p class="dialogue"><span class="speaker">我：</span>「等我们有了十万用户，你就知道了。」</p>
+    <p class="inner-voice">2003年，全中国还没几个人懂"流量变现"这个词。</p>
+  </div>
+</div>
+
+<!-- f25: Late night coding trio -->
+<div class="panel">
+  <img src="f25.jpg" loading="lazy" alt="深夜三人开发">
+  <div class="panel-text">
+    <p class="narration">当晚。宿舍熄灯后。</p>
+    <p>三个人挤在一台CRT前面。我写核心代码，老陈帮忙debug，赵磊负责写宣传文案。</p>
+    <p>泡面的香味弥漫在空气中。窗外是上海的夜空。</p>
+  </div>
+</div>
+
+<!-- f26: Zhao Lei's terrible slogan -->
+<div class="panel">
+  <img src="f26.jpg" loading="lazy" alt="赵磊的口号">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">赵磊：</span>「来来来，我想了个口号——'杀毒如杀猪，一刀一个准'！怎么样？」</p>
+    <p>我和老陈对视一眼。</p>
+    <p class="dialogue"><span class="speaker">老陈：</span>「……你确定你是学中文的？」</p>
+    <p class="dialogue"><span class="speaker">赵磊：</span>「怎么了！很有力量感啊！」</p>
+  </div>
+</div>
+
+<!-- f27: Pretending to be bad at coding -->
+<div class="panel">
+  <img src="f27.jpg" loading="lazy" alt="装菜的痛苦">
+  <div class="panel-text">
+    <p>最难的部分来了——我得装作不会写代码。</p>
+    <p>故意在一个循环里多写一个分号。然后等着老陈发现。</p>
+    <p class="inner-voice">最难的不是写代码。是装作不会写代码。</p>
+  </div>
+</div>
+
+<!-- f28: Lao Chen debugging proudly -->
+<div class="panel">
+  <img src="f28.jpg" loading="lazy" alt="老陈debug">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">老陈：</span>「哎！你这有个多余的分号！我一眼就看出来了！」</p>
+    <p>他推了推眼镜，一脸得意。</p>
+    <p class="inner-voice">对不起老陈。这个bug是我故意留的。以后你会知道我为什么要这么做。</p>
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- f29: BBS post - 500 downloads -->
+<div class="panel">
+  <img src="f29.jpg" loading="lazy" alt="BBS帖子">
+  <div class="panel-text">
+    <p class="narration">三天后。工具第一版上传到交大BBS。</p>
+    <p>帖子标题：「【原创工具】一键杀毒优化大师 v0.1——免费下载」</p>
+    <p>一夜之间，500次下载。回帖全是"顶"和"收藏了"。</p>
+    <p class="inner-voice">开始了。</p>
+  </div>
+</div>
+
+<!-- f30: Called to office -->
+<div class="panel">
+  <img src="f30.jpg" loading="lazy" alt="被叫去办公室">
+  <div class="panel-text">
+    <p class="narration">第二天。</p>
+    <p>我被计算机系辅导员叫去了办公室。</p>
+  </div>
+</div>
+
+<!-- f31: Counselor warning -->
+<div class="panel">
+  <img src="f31.jpg" loading="lazy" alt="辅导员警告">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">辅导员：</span>「你们做的这个东西涉及破解软件，知不知道？学校正在考虑处分你们。」</p>
+    <p>他敲着桌子，表情严肃。</p>
+  </div>
+</div>
+
+<!-- f32: Zhu Jiang stays calm -->
+<div class="panel">
+  <img src="f32.jpg" loading="lazy" alt="保持冷静">
+  <div class="panel-text">
+    <p>我坐在对面，表情平静得不像一个大三学生。</p>
+    <p class="inner-voice">别慌。2003年的互联网法律基本是空白。而且……</p>
+    <p class="inner-voice">我知道这件事最后会怎么收场。</p>
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- f33: Prof Liu's office -->
+<div class="panel">
+  <img src="f33.jpg" loading="lazy" alt="刘教授办公室">
+  <div class="panel-text">
+    <p class="narration">两天后。计算机系，刘教授办公室。</p>
+    <p>辅导员没有直接处分我们——而是把我的代码交给了系里最严厉的刘教授审查。</p>
+  </div>
+</div>
+
+<!-- f34: Prof examining code -->
+<div class="panel">
+  <img src="f34.jpg" loading="lazy" alt="教授看代码">
+  <div class="panel-text">
+    <p>刘教授盯着屏幕上的代码，推了推金丝眼镜。</p>
+    <p>他的表情从凝重……慢慢变成了震惊。</p>
+  </div>
+</div>
+
+<!-- f35: Dramatic tension -->
+<div class="panel">
+  <img src="f35.jpg" loading="lazy" alt="对视">
+  <div class="panel-text">
+    <p>他缓缓转过椅子，看向我。</p>
+    <p>办公室里安静得只听见墙上老式挂钟的滴答声。</p>
+    <p>窗外一片秋叶飘落。</p>
+  </div>
+</div>
+
+<!-- f36: CLIFFHANGER -->
+<div class="panel">
+  <img src="f36.jpg" loading="lazy" alt="悬念">
+  <div class="panel-text">
+    <p class="dialogue"><span class="speaker">刘教授：</span>「这个架构……不像本科生写的。」</p>
+    <p>他摘下眼镜，眼神锐利得像一把手术刀。</p>
+    <p class="dialogue" style="font-size: 20px; color: #c8963c; font-weight: 900; text-align: center; margin: 20px 0;">「你到底是谁？」</p>
+  </div>
+</div>
+
+<!-- End -->
+<div class="cliffhanger">
+  <div class="tbc">第一章 · 完</div>
+  <p style="color: #706050; margin-top: 16px; font-size: 14px;">下一章：「教授的考验」</p>
+</div>
+
+</div>
+
+<script>
+// Smooth scroll reveal (progressive enhancement only - panels default visible)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1, rootMargin: '200px' });
+
+document.querySelectorAll('.panel').forEach(panel => observer.observe(panel));
+</script>
+</body>
+</html>
