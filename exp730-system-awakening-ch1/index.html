@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>系统觉醒·第一章 — 全民公敌朱江</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a12;
+  color: #e8e8e8;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #0a0a12 0%, #0f1a2e 50%, #0a0a12 100%);
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0,200,180,0.15) 0%, transparent 70%);
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:0.5;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.3)} }
+.title-screen h1 {
+  font-size: 32px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00c8b4, #00e5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 40px rgba(0,200,180,0.3);
+}
+.title-screen .subtitle {
+  font-size: 16px;
+  color: #7a8a9a;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.title-screen .genre-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.genre-tags span {
+  background: rgba(0,200,180,0.12);
+  border: 1px solid rgba(0,200,180,0.3);
+  color: #00c8b4;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+.scroll-hint {
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
+  color: #4a5a6a;
+  font-size: 14px;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+/* Panels */
+.panel {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+.panel-text {
+  padding: 16px 20px;
+  background: #0e0e18;
+}
+.panel-text .narrator {
+  color: #9aa8b8;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+.panel-text .dialogue {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.7;
+  padding-left: 16px;
+  border-left: 3px solid #00c8b4;
+  margin: 10px 0;
+}
+.panel-text .dialogue .speaker {
+  color: #00c8b4;
+  font-size: 14px;
+  font-weight: 400;
+  display: block;
+  margin-bottom: 2px;
+}
+.panel-text .inner-voice {
+  color: #7aafcf;
+  font-style: italic;
+  font-size: 16px;
+  padding-left: 16px;
+  border-left: 3px solid #2a5a8a;
+  margin: 10px 0;
+}
+.panel-text .system-msg {
+  background: rgba(0,200,180,0.08);
+  border: 1px solid rgba(0,200,180,0.25);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 10px 0;
+  color: #00e5c8;
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.panel-text .system-msg::before {
+  content: '🔔 系统';
+  display: block;
+  font-size: 12px;
+  color: #00c8b4;
+  margin-bottom: 4px;
+  font-family: 'PingFang SC', sans-serif;
+}
+
+/* Decision points */
+.decision-box {
+  background: linear-gradient(135deg, rgba(0,200,180,0.08), rgba(0,100,200,0.08));
+  border: 2px solid rgba(0,200,180,0.4);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 20px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.decision-box h3 {
+  color: #00e5ff;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.decision-box .option {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-size: 15px;
+  color: #b0c0d0;
+}
+.decision-box .option.chosen {
+  border-color: #00c8b4;
+  background: rgba(0,200,180,0.1);
+  color: #fff;
+}
+.decision-box .option.chosen::before {
+  content: '✦ ';
+  color: #00c8b4;
+}
+.decision-box .reason {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #7a9ab0;
+  font-style: italic;
+}
+
+/* Section dividers */
+.section-divider {
+  text-align: center;
+  padding: 30px 20px;
+  color: #3a4a5a;
+  font-size: 14px;
+  letter-spacing: 6px;
+}
+.section-divider span {
+  display: inline-block;
+  padding: 0 20px;
+  position: relative;
+}
+.section-divider span::before,
+.section-divider span::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #3a4a5a);
+}
+.section-divider span::before { right: 100%; }
+.section-divider span::after { left: 100%; background: linear-gradient(90deg, #3a4a5a, transparent); }
+
+/* Cliffhanger */
+.cliffhanger {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #0e0e18, #0a0a12);
+}
+.cliffhanger .tbc {
+  font-size: 20px;
+  color: #00c8b4;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-top: 20px;
+}
+
+/* Attribute panel styling */
+.attr-panel {
+  background: rgba(0,200,180,0.06);
+  border: 1px solid rgba(0,200,180,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 10px 0;
+}
+.attr-panel .attr-title {
+  color: #00c8b4;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.attr-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 14px;
+}
+.attr-row .label { color: #8a9aaa; }
+.attr-row .bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  margin: 0 10px;
+  overflow: hidden;
+}
+.attr-row .bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #00c8b4, #00e5ff);
+}
+.attr-row .val { color: #00e5c8; font-weight: 600; min-width: 30px; text-align: right; }
+
+/* Scan result */
+.scan-result {
+  background: rgba(0,200,180,0.06);
+  border: 1px solid rgba(0,200,180,0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 10px 0;
+}
+.scan-result h4 {
+  color: #00e5ff;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+.scan-result .stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 3px 0;
+  color: #a0b0c0;
+}
+.scan-result .stat .val { color: #00e5c8; font-weight: 600; }
+.scan-result .stat .val.danger { color: #ff4466; }
+.scan-result .stat .val.high { color: #00e5c8; }
+</style>
+</head>
+<body>
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <h1>系统觉醒</h1>
+  <div class="subtitle">第一章 · 全民公敌朱江</div>
+  <div class="genre-tags">
+    <span>系统文</span>
+    <span>都市创业</span>
+    <span>逆袭</span>
+    <span>V5·第一人称</span>
+  </div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- F01: 庆功 — 办公室夜景 -->
+<div class="panel">
+  <img src="f01.jpg" loading="lazy" alt="庆功">
+  <div class="panel-text">
+    <div class="narrator">融资倒计时一天。办公室的灯没关，窗外是深圳南山的夜景。</div>
+    <div class="dialogue"><span class="speaker">我</span>明天这个时候，咱们账上就多两千万了。来，提前庆祝一下。</div>
+  </div>
+</div>
+
+<!-- F02 -->
+<div class="panel">
+  <img src="f02.jpg" loading="lazy" alt="老周吃面">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">老周</span>（嗦面不抬头）你先别立flag，我这泡面还没吃完呢。上次你说"稳了"的那个客户，后来怎么着了？</div>
+    <div class="dialogue"><span class="speaker">我</span>那次不一样！这次合同都签了好吧。</div>
+  </div>
+</div>
+
+<!-- F03 -->
+<div class="panel">
+  <img src="f03.jpg" loading="lazy" alt="电话铃响">
+  <div class="panel-text">
+    <div class="narrator">手机突然震了。屏幕上跳出来的名字让我一愣——投资人张总。这个点打电话？</div>
+    <div class="inner-voice">不会是提前打钱了吧？</div>
+  </div>
+</div>
+
+<!-- F04 -->
+<div class="panel">
+  <img src="f04.jpg" loading="lazy" alt="噩耗">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">张总（电话）</span>朱江啊……抱歉，我们内部重新评估了一下，这轮投资……我们决定不跟了。</div>
+    <div class="narrator">手里的香槟杯差点滑下去。</div>
+    <div class="dialogue"><span class="speaker">我</span>张总，合同都签了——</div>
+    <div class="dialogue"><span class="speaker">张总</span>合同有三十天冷静期条款，你回去再看看。真的抱歉。</div>
+  </div>
+</div>
+
+<!-- F05 -->
+<div class="panel">
+  <img src="f05.jpg" loading="lazy" alt="陈锋摊牌">
+  <div class="panel-text">
+    <div class="narrator">电话还没挂断，办公室的门被推开了。陈锋站在门口，西装笔挺，身后跟着我们团队的五个核心开发。</div>
+    <div class="dialogue"><span class="speaker">陈锋</span>朱江，我也有件事要跟你说。</div>
+  </div>
+</div>
+
+<!-- F06 -->
+<div class="panel">
+  <img src="f06.jpg" loading="lazy" alt="陈锋特写">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">陈锋</span>我出去单干了。这几个兄弟跟我走。公司的代码我不会带——但人才，留不住的。</div>
+    <div class="inner-voice">我看着他的眼睛，突然觉得从来没认识过这个人。合伙三年，原来他一直在等这一天。</div>
+  </div>
+</div>
+
+<!-- F07 -->
+<div class="panel">
+  <img src="f07.jpg" loading="lazy" alt="团队离开">
+  <div class="panel-text">
+    <div class="narrator">五个人，一个接一个，从我面前走过去。有人低着头，有人看了我一眼又迅速移开目光。</div>
+    <div class="dialogue"><span class="speaker">老周</span>（泡面筷子停在半空）……朱哥？</div>
+  </div>
+</div>
+
+<!-- F08 -->
+<div class="panel">
+  <img src="f08.jpg" loading="lazy" alt="空荡办公室">
+  <div class="panel-text">
+    <div class="narrator">十分钟前还在庆功的办公室，现在空了一大半。桌上的香槟还在冒泡。</div>
+    <div class="inner-voice">两千万没了。团队散了。就剩我和老周，还有半杯泡面汤。</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>至 暗 时 刻</span></div>
+
+<!-- F09 -->
+<div class="panel">
+  <img src="f09.jpg" loading="lazy" alt="天台">
+  <div class="panel-text">
+    <div class="narrator">凌晨三点。我一个人坐在公司天台上。城市的灯光在脚下铺开，像一张巨大的电路板。</div>
+    <div class="inner-voice">欠供应商四百万。员工工资还有两个月的。房租三个月没交。加起来……快一千万了。</div>
+  </div>
+</div>
+
+<!-- F10 -->
+<div class="panel">
+  <img src="f10.jpg" loading="lazy" alt="回忆陈锋">
+  <div class="panel-text">
+    <div class="inner-voice">陈锋那个表情我忘不了。他走的时候甚至在笑。三年前我们一起在车库里写代码的时候，他可不是这个样子。</div>
+  </div>
+</div>
+
+<!-- F11 -->
+<div class="panel">
+  <img src="f11.jpg" loading="lazy" alt="老周上天台">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">老周</span>（气喘吁吁爬上来）你在这干嘛呢？吓死我了，我还以为你要——</div>
+    <div class="dialogue"><span class="speaker">我</span>想什么呢。我就是上来吹吹风。</div>
+    <div class="dialogue"><span class="speaker">老周</span>那你好歹穿件外套啊，三月份的风能把人吹透。</div>
+  </div>
+</div>
+
+<!-- F12 -->
+<div class="panel">
+  <img src="f12.jpg" loading="lazy" alt="天台对话">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>老周，你怎么不跟陈锋走？他那边待遇肯定比我这强。</div>
+    <div class="dialogue"><span class="speaker">老周</span>（坐下来，掏出一包辣条）第一，他的代码架构是屎。第二，他从来不请我吃夜宵。第三……算了不说了，说多了矫情。</div>
+    <div class="inner-voice">我鼻子一酸，赶紧抬头看天。</div>
+  </div>
+</div>
+
+<!-- F13 -->
+<div class="panel">
+  <img src="f13.jpg" loading="lazy" alt="绝望低头">
+  <div class="panel-text">
+    <div class="inner-voice">但说实话，我已经想不出任何翻盘的办法了。所有投资人的电话我脑子里过了一遍——没有一个会在这个时候接我的盘。</div>
+    <div class="dialogue"><span class="speaker">我</span>（自言自语）……是不是该认输了。</div>
+  </div>
+</div>
+
+<!-- F14: DECISION-1 系统觉醒 -->
+<div class="panel">
+  <img src="f14.jpg" loading="lazy" alt="系统觉醒">
+  <div class="panel-text">
+    <div class="narrator">就在这一秒——</div>
+    <div class="narrator">眼前突然闪过一道光。不是幻觉，是一个半透明的、散发着蓝绿色光芒的界面，直接叠加在我的视野里。</div>
+    <div class="system-msg">叮——「创业系统」已激活。<br>宿主检测完毕：朱江，28岁，负债1047万。<br>是否接受新手引导？</div>
+  </div>
+</div>
+
+<!-- F15 -->
+<div class="panel">
+  <img src="f15.jpg" loading="lazy" alt="系统界面">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>……什么玩意儿？</div>
+    <div class="dialogue"><span class="speaker">老周</span>（嚼辣条）嗯？你说啥？</div>
+    <div class="dialogue"><span class="speaker">我</span>你……看不到吗？我眼前有个……</div>
+    <div class="dialogue"><span class="speaker">老周</span>看到啥？星星吗？低血糖了吧你，吃根辣条。</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点 1：是否接受系统引导？</h3>
+  <div class="option">A. 关闭它——我可能是压力太大出幻觉了</div>
+  <div class="option chosen">B. 接受——不管真假，先看看这是什么东西</div>
+  <div class="reason">「如果有一个从没见过的系统摆在面前，我第一反应肯定是拆开看看。这是黑客的本能。」</div>
+</div>
+
+<!-- F16 -->
+<div class="panel">
+  <img src="f16.jpg" loading="lazy" alt="点击接受">
+  <div class="panel-text">
+    <div class="narrator">我在半空中点了一下"接受"。指尖触碰到那个光屏的瞬间——一阵信息流涌进大脑。</div>
+    <div class="system-msg">新手引导启动中……<br>正在加载宿主属性面板……</div>
+  </div>
+</div>
+
+<!-- F17 -->
+<div class="panel">
+  <img src="f17.jpg" loading="lazy" alt="属性面板">
+  <div class="panel-text">
+    <div class="narrator">一个RPG游戏一样的属性面板在眼前展开。</div>
+    <div class="attr-panel">
+      <div class="attr-title">📊 宿主属性面板 — 朱江</div>
+      <div class="attr-row"><span class="label">商业嗅觉</span><div class="bar"><div class="bar-fill" style="width:78%"></div></div><span class="val">78</span></div>
+      <div class="attr-row"><span class="label">技术能力</span><div class="bar"><div class="bar-fill" style="width:85%"></div></div><span class="val">85</span></div>
+      <div class="attr-row"><span class="label">领导力</span><div class="bar"><div class="bar-fill" style="width:62%"></div></div><span class="val">62</span></div>
+      <div class="attr-row"><span class="label">口才</span><div class="bar"><div class="bar-fill" style="width:71%"></div></div><span class="val">71</span></div>
+      <div class="attr-row"><span class="label">运气</span><div class="bar"><div class="bar-fill" style="width:23%"></div></div><span class="val">23</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- F18 -->
+<div class="panel">
+  <img src="f18.jpg" loading="lazy" alt="吐槽运气值">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>……运气23？？满分多少？</div>
+    <div class="system-msg">满分100。宿主运气值位于全国创业者后5%。</div>
+    <div class="dialogue"><span class="speaker">我</span>难怪投资人临时跑路，合伙人当面背刺。运气23，合理。太合理了。</div>
+    <div class="dialogue"><span class="speaker">老周</span>你到底在跟谁说话？？</div>
+  </div>
+</div>
+
+<!-- F19 -->
+<div class="panel">
+  <img src="f19.jpg" loading="lazy" alt="系统解释">
+  <div class="panel-text">
+    <div class="system-msg">属性说明：运气值可通过完成任务提升。当前已解锁功能：<br>✅ 属性面板（被动）<br>🔒 鉴定技能（完成新手任务解锁）<br>🔒 技能商店（等级不足）<br>🔒 ??? </div>
+    <div class="inner-voice">这东西……不管是幻觉还是什么，它给出的数据倒是挺准的。技术85，我承认。领导力62……也没说错。</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>新 手 任 务</span></div>
+
+<!-- F20 -->
+<div class="panel">
+  <img src="f20.jpg" loading="lazy" alt="任务弹出">
+  <div class="panel-text">
+    <div class="system-msg">📋 新手任务发布——<br>「24小时内找到一个愿意投资的人」<br>奖励：鉴定技能Lv1 + 50经验值<br>失败惩罚：运气值-5</div>
+    <div class="dialogue"><span class="speaker">我</span>运气已经23了还要扣5？你是认真的？</div>
+    <div class="system-msg">系统不开玩笑。⏰ 倒计时已开始。</div>
+  </div>
+</div>
+
+<!-- F21 -->
+<div class="panel">
+  <img src="f21.jpg" loading="lazy" alt="想方案">
+  <div class="panel-text">
+    <div class="inner-voice">24小时找到投资人。在现在这个局面下。陈锋刚带走核心团队、张总刚撤资的消息可能已经传开了。我在投资圈的信誉基本清零。</div>
+    <div class="inner-voice">唯一一个可能——林薇。之前她主动联系过我，但我当时嫌她条件苛刻，拒了。</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点 2：去找谁？</h3>
+  <div class="option">A. 找大学同学借钱先续命——安全但没前途</div>
+  <div class="option chosen">B. 去找之前拒绝过的投资人林薇——难度极高但奖励大</div>
+  <div class="reason">「菩萨心肠霹雳手段。要死也要死在最大的那个目标上，不能缩着打。」</div>
+</div>
+
+<!-- F22 -->
+<div class="panel">
+  <img src="f22.jpg" loading="lazy" alt="清晨出发">
+  <div class="panel-text">
+    <div class="narrator">清晨七点。我换上唯一一套正装，打了个车直奔林薇的投资公司。</div>
+    <div class="dialogue"><span class="speaker">老周</span>（发微信）你疯了？你之前拒过人家，现在又去求人家？</div>
+    <div class="dialogue"><span class="speaker">我</span>（回复）不是求。是合作。态度要对。</div>
+  </div>
+</div>
+
+<!-- F23 -->
+<div class="panel">
+  <img src="f23.jpg" loading="lazy" alt="投资公司大厅">
+  <div class="panel-text">
+    <div class="narrator">林薇的公司在华润大厦38层。前台告诉我：林总今天行程排满了。</div>
+    <div class="dialogue"><span class="speaker">我</span>能不能帮我转达一句话？就说——"那个拒过你的朱江，现在欠一千万，来找你了。"</div>
+    <div class="narrator">前台小姐姐一脸震惊地看着我。</div>
+  </div>
+</div>
+
+<!-- F24 -->
+<div class="panel">
+  <img src="f24.jpg" loading="lazy" alt="被允许进入">
+  <div class="panel-text">
+    <div class="narrator">三分钟后，前台电话响了。</div>
+    <div class="dialogue"><span class="speaker">前台</span>林总说……让你进去。</div>
+    <div class="inner-voice">我心里松了一口气，但脸上不能表现出来。打仗最忌让对方看到你慌。</div>
+  </div>
+</div>
+
+<!-- F25 -->
+<div class="panel">
+  <img src="f25.jpg" loading="lazy" alt="系统任务提示">
+  <div class="panel-text">
+    <div class="system-msg">⏰ 新手任务倒计时：21小时34分<br>当前进度：已接触目标投资人</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>正 面 交 锋</span></div>
+
+<!-- F26 -->
+<div class="panel">
+  <img src="f26.jpg" loading="lazy" alt="林薇办公室">
+  <div class="panel-text">
+    <div class="narrator">林薇的办公室很大，落地窗外能看到大半个深圳湾。她坐在桌后，高马尾一丝不苟，目光冷静得像在审讯犯人。</div>
+    <div class="dialogue"><span class="speaker">林薇</span>坐。</div>
+  </div>
+</div>
+
+<!-- F27 -->
+<div class="panel">
+  <img src="f27.jpg" loading="lazy" alt="林薇开口">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">林薇</span>听说你的投资人跑了，合伙人带队叛变，现在欠一千万。朱江，你来找我是觉得我好欺负，还是觉得我傻？</div>
+    <div class="dialogue"><span class="speaker">我</span>都不是。我觉得你聪明。聪明人才看得出——这是抄底的最佳时机。</div>
+  </div>
+</div>
+
+<!-- F28 -->
+<div class="panel">
+  <img src="f28.jpg" loading="lazy" alt="林薇表情变化">
+  <div class="panel-text">
+    <div class="narrator">林薇的眉毛微微动了一下。这个表情变化很细，但我捕捉到了。</div>
+    <div class="dialogue"><span class="speaker">林薇</span>你继续说。</div>
+  </div>
+</div>
+
+<!-- F29 -->
+<div class="panel">
+  <img src="f29.jpg" loading="lazy" alt="我pitch">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>陈锋带走的是人，不是技术。我们的核心算法专利在我名下。他就算挖光团队，三个月内他复制不出来。但三个月后——如果我拿不到钱，这些专利就真的废了。</div>
+    <div class="inner-voice">这是实话。也是赌注。</div>
+  </div>
+</div>
+
+<!-- F30 -->
+<div class="panel">
+  <img src="f30.jpg" loading="lazy" alt="老周门外">
+  <div class="panel-text">
+    <div class="narrator">门外，老周举着手机对着玻璃门，屏幕上打着几个大字给我看——</div>
+    <div class="dialogue"><span class="speaker">老周（手机屏幕）</span>加油！我在外面给你烧香！🙏</div>
+    <div class="inner-voice">我差点笑场。这家伙……</div>
+  </div>
+</div>
+
+<!-- F31 -->
+<div class="panel">
+  <img src="f31.jpg" loading="lazy" alt="林薇质疑">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">林薇</span>专利值多少钱我清楚。但问题是——你的团队没了，谁来执行？一个CTO和你两个人，做AI产品？</div>
+    <div class="dialogue"><span class="speaker">我</span>（心跳加速）……</div>
+    <div class="inner-voice">她说到点上了。这个问题我其实没想好怎么回答。</div>
+  </div>
+</div>
+
+<!-- F32: DECISION-3 鉴定觉醒 -->
+<div class="panel">
+  <img src="f32.jpg" loading="lazy" alt="鉴定技能">
+  <div class="panel-text">
+    <div class="system-msg">🎉 新手任务进度更新：已建立有效对话<br>提前奖励解锁：鉴定技能 Lv1（试用版·限3次）<br>对准任何人可查看隐藏属性。</div>
+    <div class="inner-voice">等等——现在？！</div>
+  </div>
+</div>
+
+<!-- F33 -->
+<div class="panel">
+  <img src="f33.jpg" loading="lazy" alt="鉴定林薇">
+  <div class="panel-text">
+    <div class="narrator">我下意识地看向林薇——一个半透明的信息框自动弹出来了。</div>
+    <div class="scan-result">
+      <h4>🔍 鉴定结果：林薇</h4>
+      <div class="stat"><span>好奇心</span><span class="val high">99</span></div>
+      <div class="stat"><span>风险偏好</span><span class="val high">88</span></div>
+      <div class="stat"><span>决策速度</span><span class="val high">91</span></div>
+      <div class="stat"><span>对朱江的评价</span><span class="val">有趣，但不靠谱</span></div>
+    </div>
+    <div class="inner-voice">好奇心99？！这意味着——她现在虽然嘴上在质疑我，但内心其实极度好奇我能说出什么花来。</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点 3：如何利用鉴定信息？</h3>
+  <div class="option">A. 直接告诉林薇你有"特殊能力"——暴露系统秘密</div>
+  <div class="option chosen">B. 利用"好奇心99"这个弱点，在话术中埋钩子</div>
+  <div class="reason">「系统这么诡异的东西，我自己都没搞明白，怎么能随便暴露？但信息可以用。知道对方的弱点，打法就不一样了。」</div>
+</div>
+
+<!-- F34 -->
+<div class="panel">
+  <img src="f34.jpg" loading="lazy" alt="我调整策略">
+  <div class="panel-text">
+    <div class="inner-voice">好奇心99。那我就给她一个无法忽视的"为什么"。</div>
+    <div class="dialogue"><span class="speaker">我</span>林总，你刚才问我两个人怎么做产品。我换个角度——你有没有想过，为什么陈锋走了这么急？</div>
+    <div class="dialogue"><span class="speaker">林薇</span>（皱眉）什么意思？</div>
+  </div>
+</div>
+
+<!-- F35 -->
+<div class="panel">
+  <img src="f35.jpg" loading="lazy" alt="林薇被勾住">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>如果他真的有把握复制我们的技术，他大可以慢慢来，没必要连夜挖人。他这么急——说明他知道，如果再等三个月，我们的下一版产品出来，他就永远追不上了。</div>
+    <div class="narrator">林薇往前倾了一点点——这个动作不大，但我看到了。</div>
+    <div class="dialogue"><span class="speaker">林薇</span>下一版产品……具体是什么？</div>
+  </div>
+</div>
+
+<!-- F36 -->
+<div class="panel">
+  <img src="f36.jpg" loading="lazy" alt="我展示数据">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>这是我们内部的测试数据。（打开手机递过去）这组数据有一个点，你应该会觉得很奇怪。</div>
+    <div class="inner-voice">我故意在数据里留了一个"不合理"的点——一个转化率异常高的数字。这不是造假，是我们确实做到了，但没有上下文的话，任何人看了都会好奇"为什么"。</div>
+  </div>
+</div>
+
+<!-- F37 -->
+<div class="panel">
+  <img src="f37.jpg" loading="lazy" alt="林薇盯数据">
+  <div class="panel-text">
+    <div class="narrator">林薇接过手机，扫了一遍数据。然后她停住了。</div>
+    <div class="dialogue"><span class="speaker">林薇</span>等等。这个数据——83%的留存率？你们用户才5万就到83%？这不可能。</div>
+    <div class="dialogue"><span class="speaker">我</span>所以你想知道为什么，对吧？</div>
+    <div class="inner-voice">鱼上钩了。好奇心99，果然。</div>
+  </div>
+</div>
+
+<!-- F38 -->
+<div class="panel">
+  <img src="f38.jpg" loading="lazy" alt="林薇认真了">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">林薇</span>（放下手机，直视我）你重新讲一遍。从头讲。这次不要跳步骤。</div>
+    <div class="narrator">她的语气变了。从审讯变成了——认真。</div>
+    <div class="inner-voice">系统辅助 + 真实数据 + 针对性话术。这不是作弊，这是信息差优势。</div>
+  </div>
+</div>
+
+<!-- F39 -->
+<div class="panel">
+  <img src="f39.jpg" loading="lazy" alt="完整pitch">
+  <div class="panel-text">
+    <div class="narrator">接下来的四十分钟，我把整个产品逻辑从头到尾讲了一遍。技术架构、用户增长曲线、竞争壁垒、为什么陈锋复制不了。林薇一边听一边在本子上记，写了满满三页。</div>
+    <div class="system-msg">⏰ 新手任务倒计时：18小时02分</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>条 件</span></div>
+
+<!-- F40 -->
+<div class="panel">
+  <img src="f40.jpg" loading="lazy" alt="林薇提条件">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">林薇</span>我可以投。</div>
+    <div class="narrator">我心跳漏了一拍。</div>
+    <div class="dialogue"><span class="speaker">林薇</span>但我有一个条件。</div>
+  </div>
+</div>
+
+<!-- F41 -->
+<div class="panel">
+  <img src="f41.jpg" loading="lazy" alt="条件">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">林薇</span>一周之内，你必须拿出一个能跑的原型，证明你的团队——哪怕只剩两个人——也能做出比陈锋那边更好的东西。如果你做不到，这笔钱我一分不投。</div>
+    <div class="inner-voice">一周。两个人。做出超过十几人团队的成果。这个条件……狠。但不是不可能。</div>
+  </div>
+</div>
+
+<!-- F42 -->
+<div class="panel">
+  <img src="f42.jpg" loading="lazy" alt="系统新任务">
+  <div class="panel-text">
+    <div class="system-msg">📋 主线任务发布——<br>「在7天内开发出超越陈锋团队的产品原型」<br>奖励：经验值+200 / 技能点+3 / 解锁技能商店<br>⚠️ 失败惩罚：系统永久关闭</div>
+    <div class="inner-voice">系统永久关闭？你在威胁我？</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点 4：接受还是拒绝？</h3>
+  <div class="option">A. 拒绝——太冒险了，用自己的方式慢慢来</div>
+  <div class="option chosen">B. 接受——正面刚，永不放弃</div>
+  <div class="reason">「怕什么？最坏的结果就是系统关闭——反正在它出现之前我也活得好好的。但如果成功……来吧。」</div>
+</div>
+
+<!-- F43 -->
+<div class="panel">
+  <img src="f43.jpg" loading="lazy" alt="我站起来">
+  <div class="panel-text">
+    <div class="dialogue"><span class="speaker">我</span>（站起来，伸出手）成交。一周后见。</div>
+    <div class="narrator">林薇看着我的手，犹豫了半秒，握了上来。她的手很凉，但握力很重。</div>
+    <div class="dialogue"><span class="speaker">林薇</span>别让我失望。</div>
+  </div>
+</div>
+
+<!-- F44 -->
+<div class="panel">
+  <img src="f44.jpg" loading="lazy" alt="走出大楼">
+  <div class="panel-text">
+    <div class="narrator">走出华润大厦。阳光刺得我眯起眼。老周在路边蹲着吃煎饼。</div>
+    <div class="dialogue"><span class="speaker">老周</span>怎么样？</div>
+    <div class="dialogue"><span class="speaker">我</span>给你一周时间，咱俩做个原型出来。</div>
+    <div class="dialogue"><span class="speaker">老周</span>（煎饼差点呛到）一周？！你知道原来团队开发周期是多少吗？？</div>
+    <div class="dialogue"><span class="speaker">我</span>三个月。</div>
+    <div class="dialogue"><span class="speaker">老周</span>你——</div>
+    <div class="dialogue"><span class="speaker">我</span>（笑）我有个新工具。到办公室我给你看。</div>
+  </div>
+</div>
+
+<!-- F45: 悬念结尾 -->
+<div class="panel">
+  <img src="f45.jpg" loading="lazy" alt="悬念">
+  <div class="panel-text">
+    <div class="system-msg">检测到隐藏线索——陈锋的新公司背后另有势力。<br>解锁需要：100经验值。当前余额：98。差2点！<br><br>💡 提示：完成任意支线任务可获取经验值。</div>
+    <div class="inner-voice">98点。就差2点。陈锋背后还有人？这个信息……我必须知道。但现在最重要的是——七天，做出原型。</div>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <div style="color:#5a6a7a;font-size:14px;margin-bottom:12px;">第一章 · 完</div>
+  <div style="color:#a0b0c0;font-size:16px;line-height:1.8;">
+    七天。两个人。一千万的债。<br>
+    一个来路不明的系统。<br>
+    一个背后有人的前合伙人。<br>
+    一个好奇心99的投资人。<br><br>
+    我的创业游戏，才刚开始。
+  </div>
+  <div class="tbc">— TO BE CONTINUED —</div>
+  <div style="color:#3a4a5a;font-size:13px;margin-top:20px;">下一章预告：《七日冲刺》—— 用两个人打败十五个人的代码战争</div>
+</div>
+
+</body>
+</html>
