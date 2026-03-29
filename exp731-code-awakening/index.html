@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码觉醒 · 第一章：绿色代码雨</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e0e0e0;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Loading screen */
+.loading-screen {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: #0a0a0a;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease;
+}
+.loading-screen.hidden { opacity: 0; pointer-events: none; }
+.loading-title {
+  font-size: 28px; font-weight: 900; color: #00ff41;
+  text-shadow: 0 0 20px rgba(0,255,65,0.5);
+  margin-bottom: 20px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+.loading-bar {
+  width: 200px; height: 3px; background: #1a1a1a; border-radius: 2px; overflow: hidden;
+}
+.loading-bar-fill {
+  width: 0%; height: 100%; background: #00ff41; transition: width 0.3s;
+}
+@keyframes pulse { 0%,100% { opacity: 0.7; } 50% { opacity: 1; } }
+
+/* Comic container */
+.comic-container {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Panel styles */
+.panel {
+  position: relative;
+  width: 100%;
+  margin-bottom: 4px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+
+/* Text overlays between panels */
+.narration {
+  padding: 16px 20px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #c8c8c8;
+  background: linear-gradient(180deg, rgba(10,10,10,0.95), rgba(15,15,15,0.95));
+  border-left: 3px solid #00ff41;
+  margin: 8px 12px;
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.narration.visible { opacity: 1; transform: translateY(0); }
+.narration.inner-voice {
+  border-left-color: #00ff41;
+  color: #88ff88;
+  font-style: italic;
+}
+.narration.dialogue {
+  border-left-color: #ffd700;
+  background: linear-gradient(180deg, rgba(20,18,10,0.95), rgba(15,15,10,0.95));
+}
+.narration .speaker {
+  font-weight: 700;
+  color: #ffd700;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* Decision point */
+.decision-point {
+  margin: 16px 12px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0,255,65,0.08), rgba(0,100,30,0.08));
+  border: 1px solid rgba(0,255,65,0.3);
+  border-radius: 8px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.decision-point.visible { opacity: 1; transform: translateY(0); }
+.decision-tag {
+  display: inline-block;
+  background: #00ff41; color: #000;
+  font-size: 12px; font-weight: 900;
+  padding: 3px 10px; border-radius: 3px;
+  margin-bottom: 10px;
+}
+.decision-question {
+  font-size: 18px; font-weight: 700; color: #fff;
+  margin-bottom: 12px;
+}
+.decision-choice {
+  font-size: 16px; color: #00ff41;
+  padding: 8px 0;
+  border-top: 1px solid rgba(0,255,65,0.15);
+}
+.decision-reason {
+  font-size: 14px; color: #888; margin-top: 4px;
+}
+
+/* Section divider */
+.section-divider {
+  text-align: center;
+  padding: 24px 0;
+  font-size: 14px;
+  color: #00ff41;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.section-divider::before, .section-divider::after {
+  content: ''; display: inline-block;
+  width: 40px; height: 1px;
+  background: #00ff41; vertical-align: middle;
+  margin: 0 12px;
+}
+
+/* Chapter header */
+.chapter-header {
+  padding: 60px 20px 40px;
+  text-align: center;
+}
+.chapter-header h1 {
+  font-size: 32px;
+  font-weight: 900;
+  color: #00ff41;
+  text-shadow: 0 0 30px rgba(0,255,65,0.4);
+  margin-bottom: 8px;
+}
+.chapter-header .subtitle {
+  font-size: 16px; color: #666;
+  letter-spacing: 2px;
+}
+.chapter-header .genre-tag {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px; color: #00ff41;
+  border: 1px solid #00ff41;
+  padding: 4px 12px; border-radius: 20px;
+}
+
+/* End card */
+.end-card {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #0a0a0a, #0d1a0d);
+}
+.end-card h2 {
+  font-size: 28px; color: #00ff41; font-weight: 900;
+  text-shadow: 0 0 20px rgba(0,255,65,0.4);
+  margin-bottom: 12px;
+}
+.end-card .next-chapter {
+  font-size: 16px; color: #666;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Code rain background effect */
+.code-rain {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none; z-index: -1; opacity: 0.03;
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-title">代码觉醒</div>
+  <div style="color:#444;font-size:14px;margin-bottom:16px;">第一章：绿色代码雨</div>
+  <div class="loading-bar"><div class="loading-bar-fill" id="loadingBar"></div></div>
+</div>
+
+<div class="code-rain" id="codeRain"></div>
+
+<div class="comic-container">
+
+  <div class="chapter-header">
+    <h1>代码觉醒</h1>
+    <div class="subtitle">第一章 · 绿色代码雨</div>
+    <div class="genre-tag">都市异能 × 黑客 × AI创业</div>
+  </div>
+
+  <!-- Section 1: 量子风暴前夜 -->
+  <div class="section-divider">壹 · 量子风暴前夜</div>
+
+  <div class="panel"><img src="images/f01-late-night-coding.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">又是一个加班到凌晨的夜晚。显示器的蓝光打在我脸上，咖啡早就凉了第三杯。创业第三年，A轮融资刚到账，可技术瓶颈让我整个人像是被困在一个死循环里。</div>
+
+  <div class="panel"><img src="images/f02-xiaochen-roast.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">小陈（CTO / 我的损友兼搭档）</span>"老板，你这代码跟你的胡子一样粗犷——看着像是有章法，其实全是野蛮生长。"</div>
+  <div class="narration inner-voice">我懒得回怼他。小陈这人，技术一流，毒舌也是一流。但没有他，这公司活不过第一年。</div>
+
+  <div class="panel"><img src="images/f03-news-broadcast.jpg" loading="lazy" alt=""></div>
+  <div class="narration">电视里正在循环播放同一条新闻——全球量子计算实验即将取得历史性突破。科技界像过年一样沸腾。我却只关心我们的推荐算法为什么老是给用户推垃圾内容。</div>
+
+  <div class="panel"><img src="images/f04-office-vibe.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">说起来，我这办公室倒是很有"创业公司风"——乱得像被龙卷风扫过，但每一片狼藉都承载着一个未完成的梦。</div>
+
+  <div class="panel"><img src="images/f05-phone-notification.jpg" loading="lazy" alt=""></div>
+  <div class="narration">手机疯狂弹通知。量子风暴倒计时48小时。全球科学家紧急会议。跟我有什么关系？我只想把这个该死的bug修完回家睡觉。</div>
+
+  <!-- Section 2: 风暴降临 -->
+  <div class="section-divider">贰 · 风暴降临</div>
+
+  <div class="panel"><img src="images/f06-screens-flicker.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">然后，一切都变了。</div>
+  <div class="narration">所有屏幕同时闪烁、扭曲、死机。不是普通的蓝屏——是那种像被什么力量从内部撕裂的画面。</div>
+
+  <div class="panel"><img src="images/f07-city-blackout.jpg" loading="lazy" alt=""></div>
+  <div class="narration">我冲到窗边。整座城市的灯光正在一块一块地熄灭，像多米诺骨牌一样倒下去。远处的天空中，闪电以一种不自然的绿色劈开夜幕。</div>
+  <div class="narration inner-voice">这不是普通的停电。这是……量子风暴。</div>
+
+  <div class="panel"><img src="images/f08-phones-brick.jpg" loading="lazy" alt=""></div>
+  <div class="narration">手机变砖了。所有手机都变砖了。小陈的、我的、办公室里每一台——屏幕冻住，然后熄灭。就好像这个世界的数字心脏，突然停止了跳动。</div>
+
+  <div class="panel"><img src="images/f09-first-green-code.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">但在黑暗中，我看到了一些不该看到的东西。绿色的……光？不，不是光。是代码。半透明的、流动的代码，像瀑布一样从天花板倾泻而下，缠绕在每一台电子设备上。</div>
+
+  <div class="panel"><img src="images/f10-rubbing-eyes.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">我使劲揉了揉眼睛。还在。那些绿色的代码流还在。一定是熬夜太多了。一定是。</div>
+
+  <!-- Section 3: 代码视觉觉醒 -->
+  <div class="section-divider">叁 · 觉醒</div>
+
+  <div class="panel"><img src="images/f11-morning-discovery.jpg" loading="lazy" alt=""></div>
+  <div class="narration">第二天早上，供电恢复了。我几乎是跑着进的办公室，希望昨晚的一切只是幻觉。但我一推开门——</div>
+  <div class="narration inner-voice">绿色代码流从每一台设备里涌出来，比昨晚更清晰、更密集。路由器像喷泉，手机像溪流，服务器像尼亚加拉瀑布。</div>
+
+  <div class="panel"><img src="images/f12-seeing-data-streams.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">更恐怖的是——我能读懂。同事小王的手机正在给他女朋友发消息："今晚吃火锅不？"聊天记录以绿色全息影像的形式漂浮在空气中。</div>
+
+  <div class="panel"><img src="images/f13-router-data.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">公司的路由器简直是一棵数据圣诞树。上百条数据流从它身上分叉出去——每一条都是一个设备的网络通信。我甚至能分辨出哪条是小陈在偷偷刷B站。</div>
+
+  <div class="panel"><img src="images/f14-decision1-temptation.jpg" loading="lazy" alt=""></div>
+  <div class="narration">然后我看到了隔壁公司服务器里的东西。他们的机密文件——产品规划、用户数据、融资协议——全部以绿色全息的形式漂浮在空气中，任我浏览。</div>
+
+  <div class="decision-point">
+    <div class="decision-tag">决策点 ①</div>
+    <div class="decision-question">偷看隔壁公司的机密？</div>
+    <div class="decision-choice">→ 我选择：移开目光</div>
+    <div class="decision-reason">我是创业者，不是小偷。这双眼睛是我的，用它来做什么由我决定。黑客精神的第一条不是"能看就看"——是"有选择地看"。</div>
+  </div>
+
+  <div class="panel"><img src="images/f15-decision1-choice.jpg" loading="lazy" alt=""></div>
+  <div class="panel"><img src="images/f16-decision1-resolve.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">桌上的铭牌写着"朱江 CEO"。这三个字比任何超能力都重。我选择当一个有底线的人。</div>
+
+  <!-- Section 4: 能力试探 -->
+  <div class="section-divider">肆 · 试探</div>
+
+  <div class="panel"><img src="images/f17-testing-power.jpg" loading="lazy" alt=""></div>
+  <div class="narration">既然不能用来偷窥，那能不能用来干正事？我小心翼翼地伸出手，尝试"触碰"自家服务器上的代码流——</div>
+
+  <div class="panel"><img src="images/f18-code-fixing-magic.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">卧槽。代码块在我意念的驱动下自动重组、优化、编译。那个困扰我两周的bug，在我"看"了三秒之后，自己解开了。不是修复——是代码自己找到了最优解。</div>
+
+  <div class="panel"><img src="images/f19-xiaochen-shocked.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">小陈</span>"老板你今天debug速度怎么跟吃了摇头丸似的？！这commit记录——你一个小时提交了平时一周的量？"</div>
+
+  <div class="panel"><img src="images/f20-efficiency-graph.jpg" loading="lazy" alt=""></div>
+  <div class="narration">生产力面板上，那条线像火箭发射一样直冲天际。效率提升1000%。小陈以为是数据库出bug了，反复刷新了五遍。</div>
+
+  <div class="panel"><img src="images/f21-playing-it-cool.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">我</span>"可能是我昨晚吃的外卖开窍了吧。"</div>
+  <div class="narration dialogue"><span class="speaker">小陈</span>"你脑子被咖啡因烧坏了吧？正常人不会突然变成人形编译器的！"</div>
+
+  <div class="panel"><img src="images/f22-secret-smile.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">走在走廊里，我忍不住嘴角上扬。这个能力……也许能改变一切。改变我的公司，改变整个行业。前提是——没人发现。</div>
+
+  <!-- Section 5: 不速之客 -->
+  <div class="section-divider">伍 · 不速之客</div>
+
+  <div class="panel"><img src="images/f23-linwei-entrance.jpg" loading="lazy" alt=""></div>
+  <div class="narration">三天后，一个自称"林薇"的投资人主动找上了门。</div>
+  <div class="narration inner-voice">她走进来的时候，整个办公室的空气都冷了三度。干练的短发、笔挺的深蓝色西装、像是从商业杂志封面上走下来的人。</div>
+
+  <div class="panel"><img src="images/f24-meeting-room.jpg" loading="lazy" alt=""></div>
+  <div class="narration">会议室里，她递过来的投资方案让我差点把茶喷出来。</div>
+
+  <div class="panel"><img src="images/f25-too-good-offer.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">五千万。零董事会席位要求。无对赌条件。这份合同好到不真实——好到让我后背发凉。天上掉馅饼的时候，你得想想谁挖的坑。</div>
+
+  <div class="panel"><img src="images/f26-scanning-phone.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">然后我的代码视觉不小心扫到了她的手机。加密通讯里浮出几个关键词——"方舟"……"目标已接触"……"觉醒者确认"。</div>
+  <div class="narration inner-voice">她不是投资人。她在找我。或者说，在找像我一样的人。</div>
+
+  <div class="panel"><img src="images/f27-decision2.jpg" loading="lazy" alt=""></div>
+  <div class="decision-point">
+    <div class="decision-tag">决策点 ②</div>
+    <div class="decision-question">揭穿她的身份，还是装作不知道？</div>
+    <div class="decision-choice">→ 我选择：假装不知道，暗中调查</div>
+    <div class="decision-reason">霹雳手段需要信息优势。在我搞清楚"方舟"是什么之前，暴露自己知道的信息=失去唯一的主动权。先收她的钱，再摸她的底。</div>
+  </div>
+
+  <div class="panel"><img src="images/f28-decision2-choice.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">我</span>"林总，这个方案很有诚意。我们合作愉快。"</div>
+  <div class="narration inner-voice">握手的时候我笑得很真诚。背后的手指交叉——这是黑客的本能：在对手以为赢了的时候，悄悄埋下后门。</div>
+
+  <!-- Section 6: 暗网信号 -->
+  <div class="section-divider">陆 · 暗网来信</div>
+
+  <div class="panel"><img src="images/f29-3am-office.jpg" loading="lazy" alt=""></div>
+  <div class="narration">凌晨三点半。创业者的黄金时间——因为只有这时候微信群才会消停。</div>
+
+  <div class="panel"><img src="images/f30-shadow-message.jpg" loading="lazy" alt=""></div>
+  <div class="narration">笔记本突然弹出一条暗网消息。没有来源IP，没有可追踪的数字指纹。</div>
+  <div class="narration inner-voice">"你不是唯一一个能看到代码的人。小心方舟。——影子"</div>
+  <div class="narration inner-voice">又是"方舟"。这已经是第二次听到这个名字了。</div>
+
+  <div class="panel"><img src="images/f31-tracing-signal.jpg" loading="lazy" alt=""></div>
+  <div class="narration">我启动代码视觉，全力追踪这条消息的源头。绿色数据流在空气中展开一张复杂的网络地图——节点跳转、代理伪装、多层加密……</div>
+  <div class="narration inner-voice">这个"影子"的反追踪技术，远超普通黑客。甚至远超我大学时代最巅峰的水平。</div>
+
+  <div class="panel"><img src="images/f32-signal-lost.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">信号消失了。追踪失败。但这反而让我更好奇了——能把代码藏到这种程度的人，是不是也和我一样"觉醒"了？</div>
+
+  <!-- Section 7: 第一次实战 -->
+  <div class="section-divider">柒 · 实战</div>
+
+  <div class="panel"><img src="images/f33-attack-alert.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">小陈</span>"老板！！！服务器被打穿了！APT攻击！客户数据在泄漏！防火墙全线崩溃！"</div>
+  <div class="narration">我一脚踹开办公室门冲进去。所有屏幕都在闪红光。这不是普通的网络攻击——这是国家级别的高级持续性威胁。</div>
+
+  <div class="panel"><img src="images/f34-decision3.jpg" loading="lazy" alt=""></div>
+  <div class="decision-point">
+    <div class="decision-tag">决策点 ③</div>
+    <div class="decision-question">用超能力反击，还是装普通人叫网安公司？</div>
+    <div class="decision-choice">→ 我选择：用能力反击</div>
+    <div class="decision-reason">三万用户的数据正在被窃取。叫网安公司至少要两小时。两小时后什么都来不及了。暴露就暴露吧——客户信任比我的秘密重要。</div>
+  </div>
+
+  <div class="panel"><img src="images/f35-activating-power.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">我深吸一口气，松开了一直压制着的力量。绿色代码能量从我体内爆发出来，像冲击波一样席卷整个服务器机房。</div>
+
+  <div class="panel"><img src="images/f36-counter-attack.jpg" loading="lazy" alt=""></div>
+  <div class="narration">我站在绿色代码风暴的中心，双手像指挥交响乐一样操纵数据流。攻击者的红色代码被逐一拦截、反弹、追踪。全息防火墙重新构建。</div>
+  <div class="narration inner-voice">这感觉……像是用整个互联网在下围棋。而我看得到每一步。</div>
+
+  <div class="panel"><img src="images/f37-three-seconds.jpg" loading="lazy" alt=""></div>
+  <div class="narration">三秒。从发动反击到攻击完全阻断。服务器恢复绿色。数据完整性：100%。</div>
+
+  <div class="panel"><img src="images/f38-xiaochen-wtf.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">小陈</span>"你……你刚才……那是什么？！你的手！空气里的绿光！我看到了！我——"</div>
+  <div class="narration dialogue"><span class="speaker">我</span>"小陈，冷静。这件事很长，但你是我最信任的人。坐下来，我跟你慢慢说。"</div>
+
+  <!-- Section 8: 追踪者 -->
+  <div class="section-divider">捌 · 追踪者</div>
+
+  <div class="panel"><img src="images/f39-being-watched.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">我不知道的是，反击的那三秒，就像在数字世界里放了一颗信号弹。某些不该注意到我的人，注意到了。</div>
+
+  <div class="panel"><img src="images/f40-linwei-changes.jpg" loading="lazy" alt=""></div>
+  <div class="narration">第二天晚上，林薇约我吃饭。她说是聊融资细节。但我一坐下就发现——她变了。投资人的温和笑容消失了，取而代之的是一种审视犯人的冷峻目光。</div>
+
+  <div class="panel"><img src="images/f41-scanning-device.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">更要命的是——我的代码视觉发现她胸针里藏着一个微型设备，正在向我头部发射扫描波。脑电波扫描。这绝对不是任何投资人会随身携带的装备。</div>
+
+  <div class="panel"><img src="images/f42-poker-face.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">但我没有慌。端起茶杯，轻轻抿了一口。让她扫。我倒要看看"方舟"到底是什么来头。</div>
+
+  <!-- Section 9: 绝境抉择 -->
+  <div class="section-divider">玖 · 摊牌</div>
+
+  <div class="panel"><img src="images/f43-linwei-reveals.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">林薇</span>"朱江。别装了。"</div>
+  <div class="narration">她把一个证件拍在桌上。网安特勤局。林薇。特工。</div>
+
+  <div class="panel"><img src="images/f44-ark-proposal.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">林薇</span>"量子风暴在全球制造了不到一百名觉醒者。你是其中之一。方舟计划的目标，是集结所有觉醒者，保护国家网络安全。"</div>
+  <div class="narration">全息平板上显示着一个觉醒者网络——散布在世界各地的节点，有些亮着，有些灰了。灰了的那些……是什么意思？</div>
+
+  <div class="panel"><img src="images/f45-decision4.jpg" loading="lazy" alt=""></div>
+  <div class="decision-point">
+    <div class="decision-tag">决策点 ④</div>
+    <div class="decision-question">拒绝保自由？还是假装同意摸底牌？</div>
+    <div class="decision-choice">→ 我选择：假装同意，获取内部信息</div>
+    <div class="decision-reason">黑客精神第一条：永远不要在信息不对称的情况下做决定。方舟有多少觉醒者？那些"灰了的节点"怎么回事？影子的警告是什么意思？只有进去才能知道。</div>
+  </div>
+
+  <div class="panel"><img src="images/f46-decision4-choice.jpg" loading="lazy" alt=""></div>
+  <div class="narration dialogue"><span class="speaker">我</span>"林特工，我接受你的邀请。为国效力，义不容辞。"</div>
+  <div class="narration inner-voice">我伸出手。笑容诚恳。但脑子里已经在规划渗透方舟的路线图了。你请我入局？很好。那就让你看看，真正的黑客进了你家系统之后，会发生什么。</div>
+
+  <!-- Section 10: 悬念钩子 -->
+  <div class="section-divider">拾 · 笼</div>
+
+  <div class="panel"><img src="images/f47-ark-base.jpg" loading="lazy" alt=""></div>
+  <div class="narration">"合作"第一天。方舟基地位于地下两百米。金属走廊、全息显示屏、荷枪实弹的守卫——这里的科技水平至少领先市面十年。</div>
+  <div class="narration inner-voice">穿上他们发的灰色制服，我感觉自己像一只被请进笼子的鸟。区别在于——这只鸟带着看穿一切的眼睛。</div>
+
+  <div class="panel"><img src="images/f48-scanning-base.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">我假装四处参观，实际上代码视觉已经全力运转。隐藏的监控系统、加密数据库、权限分级体系——我像扫描二维码一样把方舟的数字结构扫了个遍。</div>
+
+  <div class="panel"><img src="images/f49-encrypted-room.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice">然后我在走廊尽头发现了一扇门。不，不只是一扇门——在我的代码视觉里，它被前所未有的层层加密包裹着。整个方舟基地的加密加起来，都没有这扇门的十分之一。</div>
+  <div class="narration inner-voice">他们到底在里面藏了什么？</div>
+
+  <div class="panel"><img src="images/f50-prisoner-message.jpg" loading="lazy" alt=""></div>
+  <div class="narration">我拼尽全力透过加密层看进去。模糊的影像逐渐清晰——一个白色牢房。一个瘦弱的身影蜷缩在角落。</div>
+  <div class="narration">而在他身后的墙壁上，用指甲刻着五个字：</div>
+  <div class="narration" style="text-align:center;font-size:22px;font-weight:900;color:#ff3333;border-left-color:#ff3333;letter-spacing:4px;">方舟不是救世，是收割</div>
+
+  <div class="panel"><img src="images/f51-final-cliffhanger.jpg" loading="lazy" alt=""></div>
+  <div class="narration inner-voice" style="font-size:19px;text-align:center;border-left:none;background:none;padding:30px 20px;">我以为自己走进了一个机会。<br><br>但也许……走进了一个笼子。</div>
+
+  <div class="panel"><img src="images/f52-end-card.jpg" loading="lazy" alt=""></div>
+
+  <div class="end-card">
+    <h2>第一章 · 完</h2>
+    <div class="next-chapter">第二章：笼中之鸟 —— 即将来临</div>
+  </div>
+
+</div>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel, .narration, .decision-point').forEach(el => {
+  observer.observe(el);
+});
+
+// Loading screen
+let loaded = 0;
+const images = document.querySelectorAll('.panel img');
+const total = images.length;
+const bar = document.getElementById('loadingBar');
+const screen = document.getElementById('loadingScreen');
+
+function checkLoaded() {
+  loaded++;
+  bar.style.width = Math.min(100, (loaded / Math.min(5, total)) * 100) + '%';
+  if (loaded >= Math.min(5, total)) {
+    setTimeout(() => screen.classList.add('hidden'), 300);
+  }
+}
+
+images.forEach((img, i) => {
+  if (i < 5) {
+    img.loading = 'eager';
+    if (img.complete) checkLoaded();
+    else { img.onload = checkLoaded; img.onerror = checkLoaded; }
+  }
+});
+setTimeout(() => screen.classList.add('hidden'), 4000);
+
+// Subtle code rain background
+const rain = document.getElementById('codeRain');
+const chars = '01アイウエオカキクケコ量子代码觉醒方舟';
+for (let i = 0; i < 15; i++) {
+  const col = document.createElement('div');
+  col.style.cssText = `position:absolute;top:-100px;left:${Math.random()*100}%;font-size:12px;color:#00ff41;writing-mode:vertical-rl;animation:fall ${8+Math.random()*12}s linear infinite;animation-delay:${Math.random()*5}s;`;
+  let t = '';
+  for (let j = 0; j < 20; j++) t += chars[Math.floor(Math.random()*chars.length)];
+  col.textContent = t;
+  rain.appendChild(col);
+}
+const style = document.createElement('style');
+style.textContent = '@keyframes fall{0%{transform:translateY(-100px)}100%{transform:translateY(110vh)}}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>
