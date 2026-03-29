@@ -64,8 +64,9 @@ body {
   max-width: 480px; margin: 0 auto; padding: 0 8px 60px;
 }
 .panel {
+  /* Fixed: default visible, animation is progressive enhancement */
   margin-bottom: 4px; position: relative;
-  opacity: 0; transform: translateY(30px);
+  opacity: 1; transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .panel.visible { opacity:1; transform:translateY(0); }

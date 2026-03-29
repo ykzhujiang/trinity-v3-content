@@ -78,12 +78,13 @@ body {
 
 /* Panel system */
 .panel {
+  /* Fixed: default visible, animation is progressive enhancement */
   position: relative;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .panel.visible {

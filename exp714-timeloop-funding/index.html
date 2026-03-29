@@ -101,11 +101,12 @@
 
   /* Panels */
   .panel {
+  /* Fixed: default visible, animation is progressive enhancement */
     max-width: 440px;
     margin: 0 auto;
     padding: 0 12px;
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .panel.visible {

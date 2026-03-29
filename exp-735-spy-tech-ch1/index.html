@@ -80,10 +80,11 @@ body {
 
 /* Panel styles */
 .panel {
+  /* Fixed: default visible, animation is progressive enhancement */
   position: relative;
   margin-bottom: 0;
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .panel.visible {
