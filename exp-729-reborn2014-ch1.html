@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重启2014 · 第一章「我知道你们所有人的结局」</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0f;
+  color: #e8e4df;
+  font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.chapter-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #0a0a0f 0%, #1a1520 50%, #0a0a0f 100%);
+  position: relative;
+}
+.chapter-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(100,60,180,0.15) 0%, transparent 70%);
+}
+.chapter-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #c8b8e8;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp 1.2s ease forwards 0.3s;
+  position: relative;
+  z-index: 1;
+}
+.chapter-header .subtitle {
+  font-size: 18px;
+  color: #8a7fa8;
+  letter-spacing: 6px;
+  opacity: 0;
+  animation: fadeUp 1.2s ease forwards 0.8s;
+  position: relative;
+  z-index: 1;
+}
+.chapter-header .chapter-num {
+  font-size: 14px;
+  color: #5a5270;
+  letter-spacing: 8px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.1s;
+  position: relative;
+  z-index: 1;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.scene-divider {
+  text-align: center;
+  padding: 60px 20px;
+  position: relative;
+}
+.scene-divider .line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #6a5a8a, transparent);
+  margin: 0 auto 16px;
+}
+.scene-divider .label {
+  font-size: 13px;
+  color: #5a5270;
+  letter-spacing: 4px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 12px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+.panel .text {
+  padding: 20px 8px 48px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #d0ccc6;
+}
+.panel .text .dialogue {
+  color: #c8b8e8;
+  font-weight: 500;
+  margin: 8px 0;
+  padding-left: 12px;
+  border-left: 2px solid #6a5a8a;
+}
+.panel .text .inner {
+  color: #8aacb8;
+  font-style: italic;
+  margin: 8px 0;
+  padding-left: 12px;
+  border-left: 2px solid #4a7a8a;
+}
+.panel .text .narration {
+  color: #a09a90;
+  margin: 8px 0;
+}
+.panel .text .scene-info {
+  font-size: 13px;
+  color: #5a5270;
+  margin-bottom: 8px;
+}
+
+.decision-box {
+  max-width: 500px;
+  margin: 16px auto 48px;
+  padding: 24px 20px;
+  background: linear-gradient(135deg, rgba(100,60,180,0.12), rgba(60,100,180,0.08));
+  border: 1px solid rgba(100,80,160,0.3);
+  border-radius: 12px;
+}
+.decision-box .tag {
+  font-size: 12px;
+  color: #c8b8e8;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+.decision-box .question {
+  font-size: 17px;
+  color: #e0d8f0;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.decision-box .option {
+  padding: 10px 14px;
+  margin: 6px 0;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #8a8090;
+  background: rgba(40,30,60,0.4);
+}
+.decision-box .option.chosen {
+  background: rgba(100,70,160,0.25);
+  border: 1px solid rgba(140,100,200,0.4);
+  color: #d0c0f0;
+}
+.decision-box .reason {
+  font-size: 14px;
+  color: #7a90a0;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(100,80,160,0.2);
+  line-height: 1.6;
+}
+
+.cliffhanger {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #0a0a0f, #120a18);
+}
+.cliffhanger .next {
+  font-size: 14px;
+  color: #5a5270;
+  letter-spacing: 4px;
+  margin-top: 32px;
+}
+.cliffhanger .next-title {
+  font-size: 22px;
+  color: #c8b8e8;
+  margin-top: 12px;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 500px) {
+  .panel { padding: 0 8px; }
+  .panel .text { font-size: 17px; padding: 16px 6px 40px; }
+  .chapter-header h1 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-num">第 一 章</div>
+  <h1>我知道你们所有人的结局</h1>
+  <div class="subtitle">重 启 2 0 1 4</div>
+</div>
+
+<!-- SCENE 1: 2026 Office Night -->
+<div class="scene-divider"><div class="line"></div><div class="label">2 0 2 6 年 · 深 夜</div></div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f01-office-night.jpg" loading="eager" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 3/4侧面 · 空旷办公室】</div>
+    <div class="narration">公司最后一晚。所有同事的工位都空了，只剩下我。</div>
+    <div class="narration">天花板上的应急灯亮着惨白的光，像停尸房。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f02-phone-screen.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【特写 · 俯视 · 手机屏幕】</div>
+    <div class="narration">银行余额：¥3,847.22。</div>
+    <div class="inner">上辈子高考数学营口第一，这辈子连公司都算不明白。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f03-blackout.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 侧面 · 办公桌前】</div>
+    <div class="narration">手机从指缝滑落。我趴在桌上，意识像被拔了插头。</div>
+    <div class="narration">黑暗。</div>
+  </div>
+</div>
+
+<!-- SCENE 2: Rebirth -->
+<div class="scene-divider"><div class="line"></div><div class="label">？ · ？ · ？</div></div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f04-wakeup.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【俯视 · 狭窄卧室 · 清晨】</div>
+    <div class="narration">一阵刺耳的铃声把我从黑暗里拽出来。</div>
+    <div class="narration">不是智能手机的铃声。是那种……翻盖机的。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f05-calendar.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【特写 · 翻盖手机屏幕 · 3/4面部】</div>
+    <div class="narration">屏幕上的日期——</div>
+    <div class="narration" style="font-size:22px;color:#c8b8e8;text-align:center;margin:12px 0;">2014年3月</div>
+    <div class="inner">什么？</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f06-mirror.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【过肩 · 浴室镜前 · 暖光】</div>
+    <div class="narration">镜子里的人……是我。但是31岁的我。</div>
+    <div class="narration">没有黑眼圈。没有白头发。眼睛里还有光。</div>
+    <div class="inner">……又来？</div>
+    <div class="narration">我摸了摸自己的脸，嘴角浮起一个说不清是哭还是笑的弧度。</div>
+  </div>
+</div>
+
+<!-- SCENE 3: Confirming -->
+<div class="scene-divider"><div class="line"></div><div class="label">确 认</div></div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f07-street-2014.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【远景 · 背影 · 2014年中国城市街头】</div>
+    <div class="narration">走出出租屋，满街都是穿越感。</div>
+    <div class="narration">诺基亚的广告牌。没拆的报刊亭。没有共享单车。路人手里拿着直板机。</div>
+    <div class="inner">这不是做梦。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f08-newspaper.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【近景 · 报刊亭 · 手部特写】</div>
+    <div class="narration">报刊亭还卖着纸质报纸。我随手拿起一份——</div>
+    <div class="narration">日期确认。2014年春天。移动互联网的黄金年代。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f09-computer-search.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 3/4侧面 · 出租屋电脑前】</div>
+    <div class="narration">回到出租屋，打开那台老掉牙的台式机。百度搜索：字节跳动。</div>
+    <div class="narration">结果只有几条新闻。估值……才几亿美金。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f10-smirk.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【特写 · 3/4面部 · 电脑屏幕光】</div>
+    <div class="narration">我靠在椅背上，嘴角慢慢翘起来。</div>
+    <div class="inner">这一次，我知道所有人的结局。</div>
+    <div class="inner">而他们不知道我的。</div>
+  </div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box">
+  <div class="tag">⟡ 决 策 点 ⟡</div>
+  <div class="question">重生后的第一笔钱（50万），怎么用？</div>
+  <div class="option">A：先炒比特币，快速积累原始资本</div>
+  <div class="option chosen">✦ B：直接找老马，用50万启动AI数据标注公司</div>
+  <div class="reason">我不是来投机的。上辈子没做成的事，这辈子从第一天就开始。这一次，不绕路。</div>
+</div>
+
+<!-- SCENE 4: Finding Old Ma -->
+<div class="scene-divider"><div class="line"></div><div class="label">找 老 马</div></div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f11-thinking-window.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 3/4背影 · 窗前】</div>
+    <div class="narration">站在窗前看着城市天际线，脑子里在排时间表。</div>
+    <div class="inner">第一步：人。上辈子最信任的搭档——老马。现在还在大厂写代码。</div>
+    <div class="inner">我得在他被别人挖走之前，先把他拉过来。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f12-bbq-stall.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【俯视中景 · 路边烧烤摊 · 夜晚】</div>
+    <div class="narration">晚上约老马吃烧烤。他还是老样子——圆脸、黑框眼镜、格子衫，像个行走的程序员表情包。</div>
+    <div class="dialogue">"说吧，约我出来干嘛？上次你请我吃饭还是三年前面试完。"</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f13-oldma-skeptical.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【特写 · 老马面部 · 3/4角度】</div>
+    <div class="dialogue">"数据标注？你认真的？这能赚钱？"</div>
+    <div class="narration">老马看我的眼神——就像看一个传销受害者。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f14-beer-gulp.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 对面视角 · 烧烤摊】</div>
+    <div class="dialogue">"你信我，三年后这个行业值千亿。"</div>
+    <div class="dialogue">"你这个'三年后'说得好像你真知道似的。"</div>
+    <div class="narration">我差点说漏嘴，赶紧灌了一大口啤酒。</div>
+    <div class="dialogue">"……直觉。"</div>
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box">
+  <div class="tag">⟡ 决 策 点 ⟡</div>
+  <div class="question">老马犹豫不决。怎么说服他？</div>
+  <div class="option">A：画大饼——讲AI未来的宏大愿景</div>
+  <div class="option chosen">✦ B：用感情——"老马，这辈子，我不想一个人干"</div>
+  <div class="reason">理性说服不了一个理性的人。但真诚可以。因为我说的是真话——上辈子最后悔的事，就是没早点找他。</div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f15-oldma-thinking.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 老马 · 若有所思】</div>
+    <div class="narration">老马低头看着啤酒瓶，手指无意识地搓着瓶身。</div>
+    <div class="narration">我知道他在算。他永远在算。但这一次——</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f16-emotional-appeal.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 过肩 · 朱江说话】</div>
+    <div class="dialogue">"老马，我不跟你画饼。"</div>
+    <div class="dialogue">"我就一句话——这辈子，我不想一个人干了。"</div>
+    <div class="narration">我自己都没想到，声音有点哑。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f17-handshake.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 侧面 · 握手】</div>
+    <div class="narration">老马沉默了半分钟。然后伸出手。</div>
+    <div class="dialogue">"行。但有个条件——工资不能低于我现在的一半。"</div>
+    <div class="dialogue">"没问题。50万能撑三个月。"</div>
+    <div class="dialogue">"三个月之后呢？"</div>
+    <div class="dialogue">"三个月后，我们就不需要工资了。"</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f18-walk-home.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【远景 · 低角度背影 · 夜晚街道】</div>
+    <div class="narration">吃完烧烤，两个人走在回去的路上。路灯把影子拉得很长。</div>
+    <div class="dialogue">"老朱，你这种盲目自信，上辈子一定被社会毒打过。"</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f19-oldma-truth.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【特写 · 3/4侧面 · 路灯轮廓光】</div>
+    <div class="narration">我脚步顿了一下。</div>
+    <div class="narration">路灯在身后打出轮廓光，把我的表情藏进阴影里。</div>
+    <div class="dialogue">"……你说得对。"</div>
+    <div class="inner">你永远不知道你这句话有多准。</div>
+  </div>
+</div>
+
+<!-- SCENE 5: First Client -->
+<div class="scene-divider"><div class="line"></div><div class="label">第 一 单</div></div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f20-rental-office.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 角落视角 · 出租屋改办公室】</div>
+    <div class="narration">两个人挤在一间出租屋里创业。老马负责搭系统，我负责找客户。</div>
+    <div class="narration">白板上画满了架构图。桌上是泡面和红牛。</div>
+    <div class="inner">跟上辈子唯一的区别是——这次我知道该先找谁。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f21-research.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【过肩特写 · 笔记本屏幕 · 聚焦】</div>
+    <div class="narration">我在网上搜索刚拿到融资的语音识别创业公司。</div>
+    <div class="inner">上辈子，他们三年后会被BAT收购。现在——他们缺方言语料，缺得要命。</div>
+    <div class="inner">而他们自己还不知道。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f22-meeting-cto.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 3/4角度 · 创业公司会议室】</div>
+    <div class="narration">见面当天，对方CTO是个穿连帽衫的瘦高个，说话像机关枪。</div>
+    <div class="dialogue">"你怎么知道我们需要方言语料？我们招标都还没发。"</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f23-cto-surprised.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【特写 · CTO面部 · 惊讶】</div>
+    <div class="narration">他往后一靠，表情从防备变成了惊讶。</div>
+    <div class="narration">我说的每一句话，都像是从他脑子里抄出来的。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f24-inner-monologue.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 朱江 · 表面平静】</div>
+    <div class="dialogue">"行业经验。"</div>
+    <div class="narration">我面不改色。</div>
+    <div class="inner">（因为你们公司三年后会被BAT收购，我上辈子还用过你们的产品。你面前这个"行业新人"，其实比你多活了12年。）</div>
+  </div>
+</div>
+
+<!-- SCENE 6: Crisis -->
+<div class="scene-divider"><div class="line"></div><div class="label">意 外</div></div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f25-exit-building.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 从大厅内看向外 · 逆光】</div>
+    <div class="narration">签约基本敲定。我心情不错，推门出来——</div>
+    <div class="narration">阳光刺眼。春天的风吹过来，带着这个年代特有的灰尘味。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f26-rival-spotted.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 侧面 · 急停】</div>
+    <div class="narration">然后我看到了他。</div>
+    <div class="narration">我的脚钉在了地上。</div>
+    <div class="narration">客户公司门口——一个不该出现在这里的人，正站在那里。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="exp-729-reborn2014/f27-rival-face.jpg" loading="lazy" alt="">
+  <div class="text">
+    <div class="scene-info">【中景 · 3/4角度 · 阳光长影】</div>
+    <div class="narration">棱角分明的脸。窄眼睛。一件不属于这个年代的深色大衣。</div>
+    <div class="narration">他也看到了我。</div>
+    <div class="narration">他的表情——和我一模一样。</div>
+    <div class="narration" style="font-size:20px;text-align:center;margin-top:20px;color:#c8b8e8;">震惊。</div>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="panel" style="opacity:1;transform:none;">
+    <div class="text" style="text-align:center;">
+      <div class="inner" style="font-size:20px;border:none;padding:0;text-align:center;">不可能……</div>
+      <div class="inner" style="font-size:22px;border:none;padding:0;text-align:center;margin-top:16px;color:#c8b8e8;">除了我，还有人记得未来？</div>
+    </div>
+  </div>
+  <div class="next">下 一 章</div>
+  <div class="next-title">「他知道的，比我更多」</div>
+</div>
+
+<div style="height:80px;background:#120a18;"></div>
+
+<script>
+// Scroll reveal
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+panels.forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
