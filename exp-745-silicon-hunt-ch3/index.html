@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗算·硅局 Ch3「午宴博弈」</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.scroll-container {
+  max-width: 430px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+.title-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #1a0f05 0%, #0a0a0a 100%);
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(218,165,32,0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: titleGlow 4s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%,-50%) scale(1.2); }
+}
+.title-main {
+  font-size: 36px;
+  font-weight: 900;
+  color: #daa520;
+  letter-spacing: 8px;
+  margin-bottom: 16px;
+  position: relative;
+  text-shadow: 0 0 30px rgba(218,165,32,0.3);
+}
+.title-sub {
+  font-size: 18px;
+  color: #a09080;
+  letter-spacing: 4px;
+  margin-bottom: 30px;
+}
+.title-chapter {
+  font-size: 14px;
+  color: #706050;
+  letter-spacing: 2px;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  animation: bounce 2s infinite;
+  color: #504030;
+  font-size: 13px;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+.panel {
+  position: relative;
+  margin-bottom: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 20px 24px;
+  background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, #0a0a0a 100%);
+  position: relative;
+}
+.panel-text .scene-tag {
+  display: inline-block;
+  font-size: 11px;
+  color: #daa520;
+  background: rgba(218,165,32,0.1);
+  border: 1px solid rgba(218,165,32,0.3);
+  padding: 2px 10px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.panel-text .dialogue {
+  font-size: 20px;
+  line-height: 1.7;
+  color: #e8e0d8;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.panel-text .inner-voice {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #b8a898;
+  font-style: italic;
+  padding-left: 16px;
+  border-left: 2px solid rgba(218,165,32,0.3);
+  margin-bottom: 8px;
+}
+.panel-text .narrator {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #908070;
+  margin-bottom: 8px;
+}
+.decision-marker {
+  background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(139,69,19,0.1) 100%);
+  border: 1px solid rgba(218,165,32,0.3);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 10px 0;
+}
+.decision-marker .label {
+  font-size: 12px;
+  color: #daa520;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.decision-marker .choice {
+  font-size: 18px;
+  color: #e8d8c8;
+  font-weight: 600;
+}
+.act-divider {
+  text-align: center;
+  padding: 50px 20px;
+  color: #504030;
+  font-size: 13px;
+  letter-spacing: 6px;
+  position: relative;
+}
+.act-divider::before, .act-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #504030, transparent);
+}
+.act-divider::before { left: 20%; }
+.act-divider::after { right: 20%; }
+.cliffhanger {
+  padding: 60px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a0f05 50%, #0a0a0a 100%);
+}
+.cliffhanger .hook {
+  font-size: 20px;
+  color: #daa520;
+  line-height: 1.8;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.cliffhanger .tbc {
+  font-size: 14px;
+  color: #504030;
+  letter-spacing: 4px;
+}
+.recap {
+  padding: 30px 24px;
+  background: rgba(218,165,32,0.05);
+  border-top: 1px solid rgba(218,165,32,0.15);
+  border-bottom: 1px solid rgba(218,165,32,0.15);
+  margin-bottom: 0;
+}
+.recap .recap-title {
+  font-size: 12px;
+  color: #daa520;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.recap .recap-text {
+  font-size: 15px;
+  color: #908070;
+  line-height: 1.7;
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-container">
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <div class="title-chapter">第三章</div>
+  <div class="title-main">暗算·硅局</div>
+  <div class="title-sub">午宴博弈</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- Previously -->
+<div class="recap">
+  <div class="recap-title">前情提要</div>
+  <div class="recap-text">我混入了Nexus AI峰会，选择独自观察，发现VIP区军事级加密。Victor主动邀请我参加VIP午餐会。我自己解密了蓝牙数据，发现"Phase-2: Beijing Pilot"——一个AI金融操控系统。深夜，李昊闯入我的房间，留下一个Nexus VPN账号……</div>
+</div>
+
+<!-- ACT 1: 暗流 -->
+<div class="act-divider">清 晨 · 暗 流</div>
+
+<!-- Frame 01 -->
+<div class="panel">
+  <img src="f01.jpg" loading="lazy" alt="发现摄像头">
+  <div class="panel-text">
+    <span class="scene-tag">清晨 · 酒店房间</span>
+    <div class="inner-voice">做黑客养成的习惯——每天起床第一件事，扫描房间。</div>
+    <div class="narrator">衣柜门框内侧，一个针尖大小的红点。微型摄像头。</div>
+  </div>
+</div>
+
+<!-- Frame 02 -->
+<div class="panel">
+  <img src="f02.jpg" loading="lazy" alt="数据备份">
+  <div class="panel-text">
+    <div class="inner-voice">做黑客教会我一件事——数据只存一份等于没存。</div>
+    <div class="narrator">天衡手机加密区、个人U盘、匿名云端分片。三重备份，三条逃生路线。</div>
+  </div>
+</div>
+
+<!-- Frame 03 -->
+<div class="panel">
+  <img src="f03.jpg" loading="lazy" alt="给沈若棋发消息">
+  <div class="panel-text">
+    <div class="narrator">简报发给沈若棋："李昊可能已暴露。Phase-2已运行。今天我主动提技术合作试探Victor。"</div>
+  </div>
+</div>
+
+<!-- Frame 04 -->
+<div class="panel">
+  <img src="f04.jpg" loading="lazy" alt="沈若棋回复">
+  <div class="panel-text">
+    <div class="narrator">沈若棋回："收到。如果感觉不对，立刻撤。"</div>
+  </div>
+</div>
+
+<!-- Frame 05 -->
+<div class="panel">
+  <img src="f05.jpg" loading="lazy" alt="苦笑">
+  <div class="panel-text">
+    <div class="inner-voice">你是第一个关心创业者心理健康的国安。</div>
+    <div class="narrator">窗外的上海天际线在晨光中泛着金色。又一个需要演戏的日子。</div>
+  </div>
+</div>
+
+<!-- Frame 06 -->
+<div class="panel">
+  <img src="f06.jpg" loading="lazy" alt="走向电梯">
+  <div class="panel-text">
+    <div class="narrator">换上那套深灰西装配黑色高领。镜子里的自己看起来像个真正的创业者——意气风发、胸有成竹。</div>
+    <div class="inner-voice">只有我知道西装里藏着一颗怦怦直跳的心。</div>
+  </div>
+</div>
+
+<!-- ACT 2: 午餐入场 -->
+<div class="act-divider">午 餐 入 场</div>
+
+<!-- Frame 07 -->
+<div class="panel">
+  <img src="f07.jpg" loading="lazy" alt="旋转餐厅">
+  <div class="panel-text">
+    <span class="scene-tag">正午 · 酒店顶层旋转餐厅</span>
+    <div class="narrator">旋转餐厅。不超过十五人。每转一圈，上海的天际线就慢慢换了一个角度。</div>
+    <div class="inner-voice">每转一圈我就觉得自己离真相和危险同时近了一步。</div>
+  </div>
+</div>
+
+<!-- Frame 08 -->
+<div class="panel">
+  <img src="f08.jpg" loading="lazy" alt="被安排在Victor对面">
+  <div class="panel-text">
+    <div class="narrator">服务员把我引到Victor Chen的正对面。</div>
+    <div class="inner-voice">这不是随机座位。</div>
+  </div>
+</div>
+
+<!-- Frame 09 -->
+<div class="panel">
+  <img src="f09.jpg" loading="lazy" alt="平板录音">
+  <div class="panel-text">
+    <div class="dialogue">"今天是朋友间的交流，没有PPT。"Victor微笑着说。</div>
+    <div class="inner-voice">没有PPT但每个人面前的平板在录音。很Nexus。</div>
+  </div>
+</div>
+
+<!-- Frame 10 -->
+<div class="panel">
+  <img src="f10.jpg" loading="lazy" alt="Victor与朱江对话">
+  <div class="panel-text">
+    <div class="narrator">红酒倒了三轮。话题从AI行业趋势聊到各自的创业故事。Victor的控场能力极强——每个人都觉得自己是今天的主角。</div>
+    <div class="inner-voice">但只有我的座位在他正对面。</div>
+  </div>
+</div>
+
+<!-- Frame 11 -->
+<div class="panel">
+  <img src="f11.jpg" loading="lazy" alt="朱江思考">
+  <div class="panel-text">
+    <div class="narrator">午餐上某个投资人吹嘘AI改变世界，滔滔不绝讲了十分钟。</div>
+    <div class="inner-voice">兄弟，你连WiFi密码都要问服务员。</div>
+  </div>
+</div>
+
+<!-- DECISION 5 -->
+<!-- Frame 12 -->
+<div class="panel">
+  <img src="f12.jpg" loading="lazy" alt="Victor提问">
+  <div class="panel-text">
+    <div class="dialogue">"朱总，"Victor突然转向我，"Trinity AI的用户画像系统——如果给你无限算力，极限在哪？"</div>
+    <div class="narrator">全场安静了。十四双眼睛看向我。</div>
+  </div>
+</div>
+
+<!-- Frame 13 -->
+<div class="panel">
+  <img src="f13.jpg" loading="lazy" alt="朱江决策">
+  <div class="panel-text">
+    <div class="decision-marker">
+      <div class="label">决 策 点 5</div>
+      <div class="choice">给一个"真实但已被我放弃的技术路线"——七分真话进阶版</div>
+    </div>
+    <div class="inner-voice">真诚的深度，无害的方向。让他觉得看到了我的底牌——但那张牌我三个月前就扔了。</div>
+  </div>
+</div>
+
+<!-- ACT 3: 暗中交锋 -->
+<div class="act-divider">暗 中 交 锋</div>
+
+<!-- Frame 14 -->
+<div class="panel">
+  <img src="f14.jpg" loading="lazy" alt="Victor欣赏">
+  <div class="panel-text">
+    <div class="narrator">我讲了十五分钟。从数据清洗到特征工程，从模型架构到落地瓶颈。每一个技术细节都是真的——只是方向已经过时。</div>
+    <div class="inner-voice">Victor的眼神从"考察"变成了"欣赏"。鱼上钩了。</div>
+  </div>
+</div>
+
+<!-- Frame 15 -->
+<div class="panel">
+  <img src="f15.jpg" loading="lazy" alt="洗手间镜面">
+  <div class="panel-text">
+    <span class="scene-tag">午餐后 · 洗手间</span>
+    <div class="narrator">Victor当场邀请我明天参观Nexus研发中心。新项目"Horizon"需要中国合作伙伴。</div>
+    <div class="inner-voice">Horizon。又一个代号。这些人真爱起名字。</div>
+  </div>
+</div>
+
+<!-- Frame 16 -->
+<div class="panel">
+  <img src="f16.jpg" loading="lazy" alt="老K现身">
+  <div class="panel-text">
+    <div class="narrator">我正在洗手间洗手。镜子里突然多了一个人。</div>
+    <div class="dialogue">"你给Victor的答案是假的对吧。"</div>
+    <div class="narrator">中年男人，头发花白，深色休闲西装。声音很低。</div>
+  </div>
+</div>
+
+<!-- Frame 17 -->
+<div class="panel">
+  <img src="f17.jpg" loading="lazy" alt="老K离开">
+  <div class="panel-text">
+    <div class="dialogue">"放心，我不是Nexus的人。有些事，不是只有天衡在查。"</div>
+    <div class="narrator">他推门走了。始终没有回头。</div>
+    <div class="inner-voice">中国的情报系统……不是只有一个部门。</div>
+  </div>
+</div>
+
+<!-- Frame 18 -->
+<div class="panel">
+  <img src="f18.jpg" loading="lazy" alt="甜品被收走">
+  <div class="panel-text">
+    <div class="narrator">回到座位，发现服务员已经把我的甜品收走了。</div>
+    <div class="inner-voice">连甜品都保不住，还想保住秘密？</div>
+  </div>
+</div>
+
+<!-- DECISION 6 -->
+<!-- Frame 19 -->
+<div class="panel">
+  <img src="f19.jpg" loading="lazy" alt="电梯中的决定">
+  <div class="panel-text">
+    <div class="decision-marker">
+      <div class="label">决 策 点 6</div>
+      <div class="choice">暂时不告诉沈若棋"老K"的事——先自己搞清楚再说</div>
+    </div>
+    <div class="inner-voice">和天衡合作才四十八小时。这份信任还不够让我把所有牌都摊开。黑客的直觉告诉我——先判断，再共享。</div>
+  </div>
+</div>
+
+<!-- Frame 20 -->
+<div class="panel">
+  <img src="f20.jpg" loading="lazy" alt="锁屏">
+  <div class="panel-text">
+    <div class="narrator">按下锁屏键。电梯楼层数字在跳动。</div>
+    <div class="inner-voice">沈若棋，抱歉。不是不信你。是我还没信任何人的习惯。</div>
+  </div>
+</div>
+
+<!-- ACT 4: 夜间分析 -->
+<div class="act-divider">当 晚 · 深 渊</div>
+
+<!-- Frame 21 -->
+<div class="panel">
+  <img src="f21.jpg" loading="lazy" alt="夜间分析">
+  <div class="panel-text">
+    <span class="scene-tag">当晚 · 酒店房间</span>
+    <div class="narrator">换回白T恤和运动裤。打开笔记本。今晚有两件事要做。</div>
+  </div>
+</div>
+
+<!-- Frame 22 -->
+<div class="panel">
+  <img src="f22.jpg" loading="lazy" alt="NFC分析">
+  <div class="panel-text">
+    <div class="narrator">第一件：分析老K的工牌NFC信号。洗手间擦肩而过的那一秒，我的手机已经扫描了他的胸牌。</div>
+    <div class="inner-voice">政府认证芯片。但不是天衡的编码格式。</div>
+  </div>
+</div>
+
+<!-- Frame 23 -->
+<div class="panel">
+  <img src="f23.jpg" loading="lazy" alt="发现真相">
+  <div class="panel-text">
+    <div class="inner-voice">中国情报系统不是只有一个部门。老K代表的是另一个。</div>
+    <div class="narrator">这意味着Nexus的问题比天衡告诉我的更严重——严重到不止一个部门在盯。</div>
+  </div>
+</div>
+
+<!-- Frame 24 -->
+<div class="panel">
+  <img src="f24.jpg" loading="lazy" alt="揉头发">
+  <div class="panel-text">
+    <div class="inner-voice">第二件事。</div>
+    <div class="narrator">匿名邮件。路由经过七个国家的跳板。最终IP——北京。</div>
+  </div>
+</div>
+
+<!-- Frame 25 -->
+<div class="panel">
+  <img src="f25.jpg" loading="lazy" alt="匿名邮件">
+  <div class="panel-text">
+    <div class="dialogue">"Horizon不是合作项目。是猎杀名单。你在上面。"</div>
+  </div>
+</div>
+
+<!-- Frame 26 -->
+<div class="panel">
+  <img src="f26.jpg" loading="lazy" alt="手指颤抖">
+  <div class="panel-text">
+    <div class="narrator">我的手指在键盘上微微发抖。</div>
+    <div class="inner-voice">猎杀名单。我在上面。明天Victor要带我去Nexus研发中心。</div>
+  </div>
+</div>
+
+<!-- Frame 27 -->
+<div class="panel">
+  <img src="f27.jpg" loading="lazy" alt="恢复冷静">
+  <div class="panel-text">
+    <div class="narrator">深呼吸。攥紧拳头。再松开。</div>
+    <div class="inner-voice">冷静。开始溯源。发这封邮件的人，想要我知道。问题是——他为什么要我知道？是警告，还是另一种操控？</div>
+  </div>
+</div>
+
+<!-- Frame 28 -->
+<div class="panel">
+  <img src="f28.jpg" loading="lazy" alt="窗前分析">
+  <div class="panel-text">
+    <div class="narrator">搬到窗边的椅子上继续工作。上海的夜景在脚下铺展——外滩、东方明珠、万家灯火。</div>
+    <div class="inner-voice">这座城市有两千四百万人。他们不知道有个AI金融操控系统正在对准他们。而唯一知道的人，明天要主动走进虎穴。</div>
+  </div>
+</div>
+
+<!-- Frame 29 -->
+<div class="panel">
+  <img src="f29.jpg" loading="lazy" alt="李昊消息">
+  <div class="panel-text">
+    <div class="narrator">手机亮了。李昊。</div>
+    <div class="dialogue">"明天去研发中心我来接你，你住哪个酒店？"</div>
+  </div>
+</div>
+
+<!-- Frame 30 -->
+<div class="panel">
+  <img src="f30.jpg" loading="lazy" alt="朱江察觉异常">
+  <div class="panel-text">
+    <div class="inner-voice">他昨晚闯进我的房间。他知道我住哪个酒店、哪个房间。现在他问我住哪？</div>
+    <div class="narrator">要么他在装不知道——保护自己。要么他在确认我的位置——替别人确认。</div>
+  </div>
+</div>
+
+<!-- Frame 31 -->
+<div class="panel">
+  <img src="f31.jpg" loading="lazy" alt="两个屏幕">
+  <div class="panel-text">
+    <div class="narrator">一手是李昊的微信，一手是匿名邮件的溯源结果。两层迷雾。</div>
+    <div class="inner-voice">猎杀名单、第四方势力、双面卧底、北京来信……我一个搞AI的创业者，怎么就走到了这一步？</div>
+  </div>
+</div>
+
+<!-- Frame 32 -->
+<div class="panel">
+  <img src="f32.jpg" loading="lazy" alt="窗前剪影">
+  <div class="panel-text">
+    <div class="narrator">站在落地窗前。一只手贴在玻璃上。玻璃是冰的，和心里的温度差不多。</div>
+    <div class="inner-voice">明天，我要走进Nexus的研发中心。一个被列入猎杀名单的人，主动走进猎手的巢穴。</div>
+  </div>
+</div>
+
+<!-- Frame 33 -->
+<div class="panel">
+  <img src="f33.jpg" loading="lazy" alt="眼中倒影">
+  <div class="panel-text">
+    <div class="inner-voice">但反过来想——如果他们已经想杀我，为什么还请我去参观？也许Horizon不只是猎杀名单。也许名单上的人，是他们想招募的人。</div>
+    <div class="narrator">猎物和猎手之间，有时候只差一个转身。</div>
+  </div>
+</div>
+
+<!-- Frame 34 -->
+<div class="panel">
+  <img src="f34.jpg" loading="lazy" alt="上海夜景">
+  <div class="panel-text">
+    <div class="inner-voice">Horizon。地平线。站在地平线上的人，要么看到日出，要么被黑夜吞噬。</div>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="hook">
+    Horizon是什么？<br>
+    我为何在猎杀名单上？<br>
+    老K代表哪个势力？<br>
+    北京来信——天衡的测试，还是第四方的警告？<br>
+    李昊装不知酒店——逃跑信号，还是确认位置？<br><br>
+    明天，我将深入虎穴。<br>
+    是机会，还是罗网？
+  </div>
+  <div class="tbc">第四章 · 待续</div>
+</div>
+
+</div>
+
+<script>
+// Lazy fade-in on scroll
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+panels.forEach(panel => {
+  panel.style.opacity = '0';
+  panel.style.transform = 'translateY(30px)';
+  observer.observe(panel);
+});
+</script>
+
+</body>
+</html>
