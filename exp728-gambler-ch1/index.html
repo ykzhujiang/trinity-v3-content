@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>赌神觉醒 · 第一章：三十天</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0d8cc;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:linear-gradient(180deg,#0a0a0a 0%,#1a130a 40%,#0d0906 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:50%;left:50%;width:300px;height:300px;background:radial-gradient(circle,rgba(212,175,55,0.15),transparent 70%);transform:translate(-50%,-50%);pointer-events:none}
+.cover h1{font-size:40px;font-weight:900;background:linear-gradient(135deg,#d4af37,#f5d76e,#d4af37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;letter-spacing:6px}
+.cover .sub{font-size:16px;color:#8a7a5a;margin-bottom:8px;letter-spacing:3px}
+.cover .chapter{font-size:22px;color:#d4af37;font-weight:700;margin-bottom:40px;letter-spacing:4px}
+.cover .scroll-hint{font-size:14px;color:#554a3a;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
+.cover .arrow{display:inline-block;animation:bounce 1.5s ease-in-out infinite;font-size:24px;color:#d4af37;margin-top:12px}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+.panel{position:relative;width:100%;max-width:430px;margin:0 auto;opacity:0;transform:translateY(30px);transition:opacity 0.5s ease,transform 0.5s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block}
+.panel .text{padding:14px 18px 20px;font-size:17px;line-height:1.85;color:#ccc0a8}
+.panel .text .dialogue{color:#fff;font-weight:600;font-size:18px;margin:6px 0}
+.panel .text .inner{color:#c9a84c;font-style:italic;font-size:16px;margin:4px 0}
+.panel .text .narrate{color:#b0a88a;font-size:16px;margin:4px 0;line-height:1.8}
+.panel .text .system{color:#d4af37;font-family:'Courier New',monospace;font-size:15px;background:rgba(212,175,55,0.08);padding:8px 12px;border-radius:4px;border-left:3px solid #d4af37;margin:8px 0}
+.panel .text .humor{color:#e8c84a;font-size:15px;margin:4px 0}
+
+.section-break{text-align:center;padding:30px 20px;font-size:13px;color:#4a4030;letter-spacing:8px}
+.section-break .line{width:50px;height:1px;background:linear-gradient(90deg,transparent,#d4af37,transparent);margin:10px auto}
+
+.decision-box{max-width:430px;margin:10px auto 20px;padding:18px;background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.25);border-radius:6px}
+.decision-box .label{color:#d4af37;font-size:12px;font-weight:700;letter-spacing:3px;margin-bottom:6px}
+.decision-box .q{color:#fff;font-size:17px;margin-bottom:8px;font-weight:600}
+.decision-box .opt{color:#c9a84c;font-size:15px;line-height:1.7;padding-left:12px;border-left:2px solid rgba(212,175,55,0.3);margin:6px 0}
+.decision-box .chosen{color:#f5d76e;font-weight:600;font-size:15px;margin-top:8px}
+
+.cliffhanger{max-width:430px;margin:30px auto;text-align:center;padding:30px 20px}
+.cliffhanger .quote{font-size:20px;font-weight:700;color:#fff;margin-bottom:16px;line-height:1.6}
+.cliffhanger .tease{font-size:15px;color:#8a7a5a;line-height:1.6}
+.cliffhanger .next{display:inline-block;margin-top:20px;padding:10px 28px;border:1px solid #d4af37;color:#d4af37;border-radius:20px;font-size:14px;letter-spacing:3px;animation:pulse 2s ease-in-out infinite}
+
+footer{text-align:center;padding:40px 20px;color:#2a2520;font-size:11px}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="sub">V5 · 虚拟朱江走进故事世界</div>
+  <h1>赌神觉醒</h1>
+  <div class="chapter">第一章：三十天</div>
+  <div class="scroll-hint">向下滑动开始阅读</div>
+  <div class="arrow">↓</div>
+</div>
+
+<!-- ====== 开场：会议室 — 坏消息 ====== -->
+
+<div class="panel">
+  <img src="f01.jpg" loading="lazy" alt="会议室">
+  <div class="text">
+    <div class="narrate">会议室里只剩我一个人。窗外的阳光透过百叶窗，在长桌上画出一道道冰冷的光线。</div>
+    <div class="inner">（手机响了。张总的号码。最后的希望。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f02.jpg" loading="lazy" alt="来电">
+  <div class="text">
+    <div class="narrate">手机屏幕上跳动的名字，像一把悬在头顶的刀。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f03.jpg" loading="lazy" alt="坏消息">
+  <div class="text">
+    <div class="dialogue">"朱总，不好意思……我们最终决定投另一家了。"</div>
+    <div class="narrate">张总的声音从电话里传来，客气得像在读悼词。</div>
+    <div class="inner">（完了。最后一根救命稻草。断了。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f04.jpg" loading="lazy" alt="白板前">
+  <div class="text">
+    <div class="narrate">我站在白板前，上面画满了商业模型、用户增长曲线、技术路线图。三年的梦想，全写在这块板上。</div>
+    <div class="inner">（公司账上还能撑三十天。三十天后，这些全变成废纸。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f05.jpg" loading="lazy" alt="清点资产">
+  <div class="text">
+    <div class="narrate">我坐在地上，开始清点"资产"：一台落灰的服务器、两箱方便面、和一份叫《AI改变世界》的PPT。</div>
+    <div class="humor">世界倒是没改变。我的银行卡余额改变了。</div>
+  </div>
+</div>
+
+<div class="section-break"><div class="line"></div>抉 择<div class="line"></div></div>
+
+<div class="decision-box">
+  <div class="label">◆ 决策点 1</div>
+  <div class="q">竞品公司开出了高薪收购offer——放弃梦想，换一个体面的打工人身份？</div>
+  <div class="opt">A：接受收购，至少不用再吃方便面</div>
+  <div class="opt">B：拒绝。死也要死在自己的战场上</div>
+  <div class="chosen">▸ 我选了B。不是因为勇敢，是因为不甘心。</div>
+</div>
+
+<div class="panel">
+  <img src="f06.jpg" loading="lazy" alt="两条路">
+  <div class="text">
+    <div class="narrate">两条路摆在面前。一条通向舒适的办公室和体面的年薪，另一条通向方便面和不确定的未来。</div>
+    <div class="inner">（我花了三年训练AI模型，训练到最后，被训练得最深的是我自己。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f07.jpg" loading="lazy" alt="撕碎offer">
+  <div class="text">
+    <div class="narrate">我把收购协议撕成了碎片。纸屑在空调风里飞了半天。</div>
+    <div class="humor">挺浪漫的。就是收拾起来有点麻烦。</div>
+  </div>
+</div>
+
+<div class="section-break"><div class="line"></div>偶 遇<div class="line"></div></div>
+
+<!-- ====== SCENE 2: 被老周拉去散心 ====== -->
+
+<div class="panel">
+  <img src="f08.jpg" loading="lazy" alt="街头">
+  <div class="text">
+    <div class="narrate">晚上，大学室友老周不知从哪冒出来，非要拉我去"散散心"。</div>
+    <div class="dialogue">"老朱！你看你这脸，苦得跟秋天的苦瓜似的！走走走，哥带你见识个好地方！"</div>
+    <div class="inner">（老周这人吧，心是好的。就是去的地方一般不太靠谱。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f09.jpg" loading="lazy" alt="推门">
+  <div class="text">
+    <div class="dialogue">"进进进！包你开心！"</div>
+    <div class="narrate">老周把我推进一扇没有招牌的门。</div>
+    <div class="inner">（上一次他说"包你开心"，我在KTV唱了一晚上《伤心太平洋》。）</div>
+  </div>
+</div>
+
+<div class="section-break"><div class="line"></div>觉 醒<div class="line"></div></div>
+
+<!-- ====== SCENE 3: 地下赌场-小局 ====== -->
+
+<div class="panel">
+  <img src="f10.jpg" loading="lazy" alt="赌场">
+  <div class="text">
+    <div class="narrate">门一推开，我愣住了。</div>
+    <div class="narrate">暗金色的灯光、墨绿的台面、筹码碰撞的清脆声。这是一间地下德州扑克室。</div>
+    <div class="inner">（老周，你管这叫"散心"？）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f11.jpg" loading="lazy" alt="拿牌">
+  <div class="text">
+    <div class="narrate">稀里糊涂坐上了牌桌。翻开底牌的时候，手指有点抖。</div>
+    <div class="inner">（我连斗地主都打不好。这是德州扑克。赌真钱的那种。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f12.jpg" loading="lazy" alt="觉醒">
+  <div class="text">
+    <div class="narrate">然后——一切都变了。</div>
+    <div class="narrate">我的眼前突然浮现出半透明的数据流。每个人头顶都有跳动的数字：心率、微表情置信度、诈唬概率……</div>
+    <div class="inner">（这是什么？AR眼镜？不对，我没戴眼镜……）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f13.jpg" loading="lazy" alt="数据之眼">
+  <div class="text">
+    <div class="narrate">数据像代码一样在我的虹膜上倒映。对面那个秃顶大叔的诈唬概率：87%。</div>
+    <div class="inner">（这和我训练AI的时候看到的数据可视化……一模一样。）</div>
+    <div class="system">[ 概率直觉 · 已觉醒 ]</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f14.jpg" loading="lazy" alt="以为猝死">
+  <div class="text">
+    <div class="narrate">我整个人定住了。手悬在半空。</div>
+    <div class="inner">（加班猝死了？这是走马灯？不对，走马灯不应该在赌场啊……）</div>
+    <div class="dialogue">"喂？朱哥？你没事吧？"</div>
+    <div class="narrate">老周在旁边使劲推我。</div>
+    <div class="humor">我认真思考了三秒钟，确认自己应该还活着。证据是：死人不会闻到老周身上的火锅味。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f15.jpg" loading="lazy" alt="看穿诈唬">
+  <div class="text">
+    <div class="narrate">管他呢。先试试。</div>
+    <div class="narrate">对面那个表情得意的大叔，概率直觉告诉我——他在装。</div>
+    <div class="inner">（89%在诈唬。这个置信度，比我训练过的大多数AI模型都高。）</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <div class="label">◆ 决策点 2</div>
+  <div class="q">手里是一对J。牌面一般。但概率直觉说对面在装——跟还是弃？</div>
+  <div class="opt">A：安全起见，弃牌观察</div>
+  <div class="opt">B：相信直觉，all in</div>
+  <div class="chosen">▸ 我选了B。三年搞AI教会我一件事：如果你训练出的模型自己都不信，那训练个锤子。</div>
+</div>
+
+<div class="panel">
+  <img src="f16.jpg" loading="lazy" alt="全押">
+  <div class="text">
+    <div class="narrate">我把面前所有筹码推到中间。</div>
+    <div class="dialogue">"all in。"</div>
+    <div class="narrate">全桌安静了。老周的嘴巴张成了O型。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f17.jpg" loading="lazy" alt="翻牌">
+  <div class="text">
+    <div class="narrate">翻牌。公共牌出了第三张J。</div>
+    <div class="narrate">对面大叔的脸垮了。</div>
+    <div class="system">[ 概率直觉验证 · 准确 ]</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f18.jpg" loading="lazy" alt="老周反应">
+  <div class="text">
+    <div class="narrate">老周从椅子上弹起来，筹码被他撞飞了一地。</div>
+    <div class="dialogue">"卧槽卧槽卧槽！！！朱哥你开挂了吧？！"</div>
+    <div class="humor">他的眼镜都歪了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f19.jpg" loading="lazy" alt="连赢">
+  <div class="text">
+    <div class="narrate">接下来两个小时，我赢了一手又一手。不是每手都赢，但每手都在我预期之内。该弃的弃，该推的推。</div>
+    <div class="inner">（概率直觉不是读心术，是数据分析。对手的每一个微动作，都是一个数据点。而我，训练了三年的模式识别。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f20.jpg" loading="lazy" alt="赢了80万">
+  <div class="text">
+    <div class="narrate">一晚上。八十万。</div>
+    <div class="narrate">我坐在筹码山后面，有点恍惚。老周在旁边数了三遍，每次数出来的数字都不一样。</div>
+    <div class="dialogue">"你以前打过？"</div>
+    <div class="dialogue">"没有。但我花了三年训练AI看数据。"</div>
+    <div class="humor">老周的表情，像是一个韭菜在股市里亲眼看到了庄家操盘。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f21.jpg" loading="lazy" alt="老周质问">
+  <div class="text">
+    <div class="dialogue">"你到底是搞AI的还是搞赌博的？！你三年前就在骗我？！"</div>
+    <div class="narrate">老周抓着我的肩膀，脸凑到跟前。眼镜歪了他也不管。</div>
+    <div class="dialogue">"哥，你冤枉我。今天真是第一次。"</div>
+    <div class="dialogue">"第一次就赢八十万？？你怎么不去买彩票？？"</div>
+  </div>
+</div>
+
+<div class="section-break"><div class="line"></div>邀 请<div class="line"></div></div>
+
+<!-- ====== 白姐出场 ====== -->
+
+<div class="panel">
+  <img src="f22.jpg" loading="lazy" alt="白姐">
+  <div class="text">
+    <div class="narrate">就在这时，人群自动让出了一条路。</div>
+    <div class="narrate">一个穿暗红旗袍的女人走过来，步伐从容，像这间屋子是她的客厅。事实上，确实是。</div>
+    <div class="inner">（赌场老板？这气场……比我见过的所有投资人都强。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f23.jpg" loading="lazy" alt="放下邀请函">
+  <div class="text">
+    <div class="narrate">她在我面前放下一张黑色的卡片。</div>
+    <div class="dialogue">"朱先生。一周后有一场更大的局。买入五百万，奖池五千万。"</div>
+    <div class="narrate">她的眼神像在看一件有趣的商品。</div>
+    <div class="dialogue">"有兴趣吗？"</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f24.jpg" loading="lazy" alt="黑色邀请函">
+  <div class="text">
+    <div class="narrate">黑色卡片上压印着一条金龙。做工比我见过的任何名片都精致。</div>
+    <div class="inner">（五百万。这个数字，刚好是公司续命需要的钱。）</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <div class="label">◆ 决策点 3</div>
+  <div class="q">五百万买入 = 公司最后的家底。赌上全部身家进大赌局，还是见好就收用八十万多撑一个月？</div>
+  <div class="opt">A：见好就收，80万至少能多发两个月工资</div>
+  <div class="opt">B：All in。五千万奖池能让公司起死回生</div>
+  <div class="chosen">▸ 我盯着那张黑色卡片看了很久。最终把它放进了口袋。</div>
+</div>
+
+<div class="panel">
+  <img src="f25.jpg" loading="lazy" alt="夜空思考">
+  <div class="text">
+    <div class="narrate">走出赌场，冷风一吹，脑子清醒了一些。</div>
+    <div class="inner">（五百万。全部身家。如果输了，不只是我完蛋——团队里五个人的饭碗都没了。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f26.jpg" loading="lazy" alt="团队合照">
+  <div class="text">
+    <div class="narrate">脑海里浮现出办公室墙上那张合照。小王在加班改bug，苏薇在和客户吵架，老陈在给服务器换硬盘。</div>
+    <div class="inner">（他们信我。三年了，一分钱没挣到，还跟着我。我没资格让他们失望。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f27.jpg" loading="lazy" alt="收起卡片">
+  <div class="text">
+    <div class="narrate">我把黑色卡片郑重地放进内口袋。</div>
+    <div class="inner">（不是赌博。是投资。我在投资我自己训练了三年的"模型"——只不过这个模型，是我的大脑。）</div>
+  </div>
+</div>
+
+<div class="section-break"><div class="line"></div>大 赌 局<div class="line"></div></div>
+
+<!-- ====== SCENE 4: 大赌局 ====== -->
+
+<div class="panel">
+  <img src="f28.jpg" loading="lazy" alt="高级赌场">
+  <div class="text">
+    <div class="narrate">一周后。</div>
+    <div class="narrate">和上次的小赌场完全不是一个量级。黑色大理石地面、水晶吊灯、天鹅绒帷幔。空气里弥漫着雪茄和老钱的味道。</div>
+    <div class="inner">（穿了最好的那套黑西装来。不知道为什么，这套衣服让我觉得自己不只是一个快破产的创业者。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f29.jpg" loading="lazy" alt="赌桌全景">
+  <div class="text">
+    <div class="narrate">圆桌上坐了五个人。灯光只照亮桌面，坐在这里的人，脸都隐在半明半暗之间。</div>
+    <div class="inner">（每个人手边的筹码都比我公司的资产多。我是这张桌上最穷的人。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f30.jpg" loading="lazy" alt="刘总">
+  <div class="text">
+    <div class="narrate">对面坐着一个戴大金链的胖子。矿老板刘总。</div>
+    <div class="narrate">他点了根雪茄，朝我这边扫了一眼。那种眼神——像在看一道小菜。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f31.jpg" loading="lazy" alt="刘总炫耀加注">
+  <div class="text">
+    <div class="narrate">刘总玩筹码像玩花生米。一把五十万甩出去，金链子跟着手臂晃。</div>
+    <div class="dialogue">"年轻人，第一次来？别紧张啊，输了就当交学费嘛。"</div>
+    <div class="inner">（概率直觉启动。扫描……扫描中……）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f32.jpg" loading="lazy" alt="透视分析">
+  <div class="text">
+    <div class="narrate">概率直觉在工作。数据流像X光一样笼罩在刘总身上：</div>
+    <div class="system">[ 分析目标：刘总 ]<br>自信度：伪装<br>掌心微颤：0.3秒延迟<br>真实手牌评估：弱<br>行为模式：强势诈唬型</div>
+    <div class="inner">（装。全在装。金链子叮当响的越大声，手里的牌越烂。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f33.jpg" loading="lazy" alt="微颤特写">
+  <div class="text">
+    <div class="narrate">特写：刘总放在桌上的手。金戒指下面，指尖有一个几乎不可察觉的微颤。0.3秒。</div>
+    <div class="inner">（这0.3秒，值五千万。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f34.jpg" loading="lazy" alt="我的扑克脸">
+  <div class="text">
+    <div class="narrate">我一根手指有节奏地敲着筹码。脸上什么也没有。</div>
+    <div class="inner">（训练AI三年。最大的收获不是技术，是耐心。等数据够了，答案自然会来。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f35.jpg" loading="lazy" alt="全场all in">
+  <div class="text">
+    <div class="narrate">最后一手。五个人全部推到中间。筹码堆成了小山。</div>
+    <div class="inner">（我的创业梦、团队的饭碗、三年的坚持——全押在了这一手上。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f36.jpg" loading="lazy" alt="亮牌">
+  <div class="text">
+    <div class="narrate">我翻牌。动作很轻，很稳。</div>
+    <div class="narrate">全桌的眼睛都看过来了。</div>
+    <div class="narrate">刘总的脸色，变了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f37.jpg" loading="lazy" alt="刘总暴怒">
+  <div class="text">
+    <div class="narrate">刘总一拳砸在桌上。筹码弹起来摔了一地。金链子甩出一个弧度。</div>
+    <div class="dialogue">"不可能！！这局你他妈怎么赢的？！"</div>
+    <div class="narrate">我没动。一根指头都没动。</div>
+    <div class="inner">（数据不会骗人。人会。但数据不会。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f38.jpg" loading="lazy" alt="老周隔玻璃">
+  <div class="text">
+    <div class="narrate">隔着VIP室的玻璃，老周整个脸贴在上面，眼泪哗哗地流。</div>
+    <div class="dialogue">"呜呜呜……我就知道……我大学的时候就知道你是个狠人……呜呜呜……"</div>
+    <div class="humor">他的花衬衫被泪水和鼻涕糊了一片。旁边的保安看他的眼神充满了不安。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f39.jpg" loading="lazy" alt="白姐观察">
+  <div class="text">
+    <div class="narrate">角落里，白姐举着酒杯。赌局的结果映在红酒的液面上。</div>
+    <div class="narrate">她的表情——不是惊讶，是一种"果然如此"的微笑。</div>
+    <div class="inner">（她在看什么？她在等什么？）</div>
+  </div>
+</div>
+
+<div class="decision-box">
+  <div class="label">◆ 决策点 4</div>
+  <div class="q">赢了五千万。但在整理筹码时，我发现了一份可疑的财务单据。这笔钱的来路……不太干净。</div>
+  <div class="opt">A：拿钱走人，管它干不干净，公司要紧</div>
+  <div class="opt">B：留下来查清楚，不能拿烫手的钱</div>
+  <div class="chosen">▸ 我把单据拍了照，存进手机。然后微笑着收下了筹码。先拿钱，后查清。两手都要抓。</div>
+</div>
+
+<div class="panel">
+  <img src="f40.jpg" loading="lazy" alt="发现可疑文件">
+  <div class="text">
+    <div class="narrate">清点赢得的筹码时，一张薄薄的单据从中间滑了出来。上面的数字和公司名——</div>
+    <div class="inner">（等等。这个公司名……我见过。在投我竞品的那份融资报告里。）</div>
+  </div>
+</div>
+
+<div class="section-break"><div class="line"></div>真 相<div class="line"></div></div>
+
+<!-- ====== 悬念结尾 ====== -->
+
+<div class="panel">
+  <img src="f41.jpg" loading="lazy" alt="走出赌场">
+  <div class="text">
+    <div class="narrate">我走出赌场，夜风灌进来。掏出手机，随手刷了一下新闻。</div>
+    <div class="narrate">然后——我定住了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f42.jpg" loading="lazy" alt="手机新闻">
+  <div class="text">
+    <div class="narrate">新闻头条：一位科技公司CEO的照片。商业采访。</div>
+    <div class="narrate">这张脸——就是截胡我融资的那个竞品公司老板。</div>
+    <div class="narrate">而他旁边站着的人……正是今晚赌桌上，矿老板刘总。</div>
+    <div class="inner">（刘总不是矿老板。他是竞品的人。今晚的赌局……不是巧合。）</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f43.jpg" loading="lazy" alt="楼顶远眺">
+  <div class="text">
+    <div class="narrate">我站在天台上，城市的灯火铺展到天际。风把我的头发吹乱了。</div>
+    <div class="narrate">三十天前，我以为只是一个创业公司快倒闭的故事。</div>
+    <div class="narrate">现在我知道了——</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="f44.jpg" loading="lazy" alt="最后的眼神">
+  <div class="text">
+    <div class="dialogue">"这盘棋，比我以为的大得多。"</div>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <div class="quote">融资暗战、地下赌局、概率直觉……<br>这一切的幕后推手，到底是谁？</div>
+  <div class="tease">白姐邀请我的真正目的是什么？<br>竞品CEO和赌场之间有什么关系？<br>而我的"概率直觉"……真的只是AI训练的副产品吗？</div>
+  <div class="next">第二章 · 敬请期待</div>
+</div>
+
+<footer>赌神觉醒 · V5 · Trinity v3 系统生成</footer>
+
+<script>
+// Lazy reveal on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel').forEach(p => obs.observe(p));
+</script>
+
+</body>
+</html>
