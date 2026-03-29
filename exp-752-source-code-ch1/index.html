@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scale=no">
+<title>源代码 · 第一章「觉醒」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a14;color:#e0e0e0;font-family:'PingFang SC','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a14 0%,#0d1a2a 50%,#0a0a14 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' font-size='8' fill='%2300ff4120'%3E01001%3C/text%3E%3C/svg%3E") repeat;animation:coderain 20s linear infinite;opacity:0.3}
+@keyframes coderain{0%{background-position:0 0}100%{background-position:0 600px}}
+.cover h1{font-size:2.8rem;color:#00ff88;text-shadow:0 0 30px rgba(0,255,136,0.5);z-index:1;letter-spacing:0.3em}
+.cover h2{font-size:1.2rem;color:#4a9eff;margin-top:1rem;z-index:1;opacity:0.8}
+.cover .subtitle{font-size:1rem;color:#666;margin-top:2rem;z-index:1}
+.scroll-hint{position:absolute;bottom:2rem;color:#00ff8880;font-size:0.9rem;animation:bounce 2s infinite;z-index:1}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.panel-container{max-width:500px;margin:0 auto;padding:0 0.5rem}
+.panel{margin:0.5rem 0;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:8px;display:block}
+.panel .text{padding:1rem 0.8rem;font-size:1.15rem;line-height:1.8}
+.panel .narration{color:#a0c4ff;font-style:italic;padding:0.8rem;font-size:1.05rem;line-height:1.7;border-left:3px solid #00ff8840}
+.panel .inner-thought{color:#00ff88;padding:0.8rem;font-size:1.05rem;border-left:3px solid #00ff88;background:rgba(0,255,136,0.05);border-radius:0 8px 8px 0;margin:0.3rem 0}
+.panel .dialogue{padding:0.8rem;font-size:1.1rem;line-height:1.7}
+.panel .dialogue .speaker{color:#ffd700;font-weight:bold;margin-right:0.3rem}
+.panel .dialogue .line{color:#e0e0e0}
+
+.act-title{text-align:center;padding:3rem 1rem;font-size:1.5rem;color:#00ff88;text-shadow:0 0 15px rgba(0,255,136,0.3);opacity:0;transform:translateY(20px);transition:all 0.8s ease}
+.act-title.visible{opacity:1;transform:translateY(0)}
+.act-title .cn{font-size:1.8rem;margin-bottom:0.5rem}
+.act-title .en{font-size:0.9rem;color:#4a9eff;opacity:0.6}
+
+.decision-box{margin:1rem 0.5rem;padding:1.2rem;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:12px}
+.decision-box .label{color:#ffd700;font-size:0.85rem;margin-bottom:0.5rem;letter-spacing:0.1em}
+.decision-box .choice{color:#00ff88;font-size:1.05rem;line-height:1.6}
+
+.cliffhanger{text-align:center;padding:4rem 2rem;font-size:1.3rem;color:#ff4444;text-shadow:0 0 20px rgba(255,68,68,0.4);opacity:0;transition:all 1s ease}
+.cliffhanger.visible{opacity:1}
+.cliffhanger .tbc{font-size:2rem;margin-top:2rem;color:#00ff88;letter-spacing:0.5em}
+
+footer{text-align:center;padding:3rem 1rem;color:#333;font-size:0.8rem}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>源代码</h1>
+  <h2>SOURCE CODE</h2>
+  <div class="subtitle">第一章「觉醒」</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<div class="panel-container">
+
+<!-- ACT 1 -->
+<div class="act-title"><div class="cn">第一幕 · 蓝屏重启</div><div class="en">BLUE SCREEN REBOOT</div></div>
+
+<div class="panel"><img src="f01.jpg" loading="lazy" alt=""><div class="narration">凌晨三点十七分。我已经在这把椅子上坐了十四个小时。</div></div>
+
+<div class="panel"><img src="f02.jpg" loading="lazy" alt=""><div class="narration">屏幕突然蓝了。满屏代码像瀑布一样往下刷——这不是普通的蓝屏。</div></div>
+
+<div class="panel"><img src="f03.jpg" loading="lazy" alt=""><div class="narration">桌上全是战斗的痕迹：三杯咖啡、两盒外卖、一沓写满算法的草稿纸。我揉了揉眼睛，准备重启。</div></div>
+
+<div class="panel"><img src="f04.jpg" loading="lazy" alt=""><div class="narration">然后——头炸了。不是比喻。真的像有什么东西在颅骨里面爆开。</div></div>
+
+<div class="panel"><img src="f05.jpg" loading="lazy" alt=""><div class="narration">等疼痛过去，我睁开眼。世界……变了。空气中飘浮着半透明的绿色代码流，像数据粒子在呼吸。</div></div>
+
+<div class="panel"><img src="f06.jpg" loading="lazy" alt=""><div class="narration">我看向自己的手——上面浮现出一排参数：心率92、肾上腺素↑、疲劳度87%。就像游戏里的状态面板，但这是真的。</div></div>
+
+<div class="panel"><img src="f07.jpg" loading="lazy" alt=""><div class="inner-thought">……我是不是加班加出幻觉了？</div></div>
+
+<div class="panel"><img src="f08.jpg" loading="lazy" alt=""><div class="narration">走到窗边。城市夜景还在，但每栋楼之间多了发光的数据高速公路。信息像血液一样在城市的血管里流动。壮观得让人窒息。</div></div>
+
+<!-- ACT 2 -->
+<div class="act-title"><div class="cn">第二幕 · 新世界</div><div class="en">NEW WORLD</div></div>
+
+<div class="panel"><img src="f09.jpg" loading="lazy" alt=""><div class="narration">第二天早上。我洗脸的时候看了一眼镜子——头顶飘着属性面板：CEO · Lv3 · 精力42% · 压力78%。</div><div class="inner-thought">好家伙，一夜没睡，精力都红了。</div></div>
+
+<div class="panel"><img src="f10.jpg" loading="lazy" alt=""><div class="narration">走进公司，前台小姐姐头上飘着：开心62% · 暗恋某人 · 今天想请假。</div><div class="inner-thought">……这信息量也太大了。</div></div>
+
+<div class="panel"><img src="f11.jpg" loading="lazy" alt=""><div class="narration">晨会。每个同事头上都有参数，五颜六色的浮标在会议室里飘来飘去。林小鱼的面板最扎眼：焦虑71% · 核心事件：服务器bug未修复。</div></div>
+
+<div class="panel"><img src="f12.jpg" loading="lazy" alt=""><div class="dialogue"><span class="speaker">我：</span><span class="line">"小鱼，昨晚服务器是不是出了问题？"</span></div><div class="dialogue"><span class="speaker">林小鱼：</span><span class="line">"你怎么知道？！我还没说——"</span></div></div>
+
+<div class="panel"><img src="f13.jpg" loading="lazy" alt=""><div class="inner-thought">这玩意……比任何数据分析工具都强。而且不要钱。</div></div>
+
+<div class="panel"><img src="f14.jpg" loading="lazy" alt=""><div class="narration">下午要和竞品公司开商业合作会。我换上了西装外套，在镜子前整理了一下。</div><div class="inner-thought">该上战场了。</div></div>
+
+<div class="panel"><img src="f15.jpg" loading="lazy" alt=""><div class="narration">会议室里，对面坐着竞品的张总，笑容满面。但他的代码全是红色警告——紧张89% · 核心意图：拖延合作窃取技术方案 · 谎言计数：3。</div><div class="inner-thought">好家伙。笑得越灿烂，代码越血红。</div></div>
+
+<div class="panel"><img src="f16.jpg" loading="lazy" alt=""><div class="dialogue"><span class="speaker">张总：</span><span class="line">"朱总，我们非常期待这次合作！"</span></div><div class="narration">他头顶弹出实时解析：谎言#4 · 真实意图：获取核心算法后单方面终止。</div></div>
+
+<div class="panel"><img src="f17.jpg" loading="lazy" alt="">
+<div class="decision-box"><div class="label">▶ 决策点 1</div><div class="choice">发现谎言。拆穿？隐忍？警告？<br>→ 我选择隐忍。先收集证据，再精准打击。——菩萨心肠，霹雳手段。</div></div>
+<div class="dialogue"><span class="speaker">我：</span><span class="line">"张总说得好，我让团队准备详细方案。"</span></div><div class="narration">手在桌下悄悄用手机拍下了他的"代码快照"。</div></div>
+
+<div class="panel"><img src="f18.jpg" loading="lazy" alt=""><div class="dialogue"><span class="speaker">我：</span><span class="line">"合作方案先别发，我有新情报。"</span></div><div class="dialogue"><span class="speaker">林小鱼：</span><span class="line">"什么情报？"</span></div><div class="dialogue"><span class="speaker">我：</span><span class="line">"直觉。"</span></div><div class="inner-thought">（其实是开挂。）</div></div>
+
+<!-- ACT 3 -->
+<div class="act-title"><div class="cn">第三幕 · 过载</div><div class="en">OVERLOAD</div></div>
+
+<div class="panel"><img src="f19.jpg" loading="lazy" alt=""><div class="narration">晚上回到家，我开始测试这个能力的边界。电视里新闻主播在播报——她的代码显示：提词器模式，紧张度45%。</div><div class="inner-thought">连新闻都能看穿……这东西到底是什么？</div></div>
+
+<div class="panel"><img src="f20.jpg" loading="lazy" alt=""><div class="narration">窗外的世界更壮观。楼下每个路人都是流动的数据包，整条街像一条数字河流。</div></div>
+
+<div class="panel"><img src="f21.jpg" loading="lazy" alt=""><div class="narration">我试着"聚焦"一个外卖小哥——信息放大了：收入日均280 · 今日订单23 · 疲劳97% · 内心：想女儿。</div><div class="inner-thought">……能看到别人的内心，这种能力，到底是福是祸？</div></div>
+
+<div class="panel"><img src="f22.jpg" loading="lazy" alt=""><div class="narration">然后——鼻血来了。一滴血落在白T恤上。</div><div class="inner-thought">操。</div></div>
+
+<div class="panel"><img src="f23.jpg" loading="lazy" alt=""><div class="narration">视野开始模糊，代码流变成乱码。头痛炸裂。我扶着墙，整个世界在抖。</div></div>
+
+<div class="panel"><img src="f24.jpg" loading="lazy" alt=""><div class="narration">代码视觉强制关闭了。世界恢复"正常"。我坐在地上喘气，像刚跑完马拉松。</div></div>
+
+<div class="panel"><img src="f25.jpg" loading="lazy" alt="">
+<div class="decision-box"><div class="label">▶ 决策点 2</div><div class="choice">能力过载，第一次流鼻血。恐惧？兴奋？冷静分析？<br>→ 我选择冷静分析。每个系统都有规则。规则能被逆向，就能被优化。</div></div>
+<div class="narration">我擦掉鼻血，翻开笔记本开始记录：触发条件：聚焦深度 · 持续时间≈28分钟 · 过载症状：鼻血+视觉模糊 · 恢复时间：待测。</div></div>
+
+<div class="panel"><img src="f26.jpg" loading="lazy" alt=""><div class="inner-thought">每个系统都有规则。规则能被逆向，就能被优化。——这是黑客的本能。</div></div>
+
+<div class="panel"><img src="f27.jpg" loading="lazy" alt=""><div class="narration">我给这个能力取了个名字。像创业者给产品命名一样，我在笔记本上写下两个字：</div><div class="inner-thought" style="font-size:1.4rem;text-align:center;padding:1rem">「代码之眼」</div></div>
+
+<div class="panel"><img src="f28.jpg" loading="lazy" alt=""><div class="narration">深夜。我在电脑前写了一个简单的自测程序：每天记录代码之眼的使用时间和症状。用debug的方式debug自己——这大概是全世界最疯狂的自测了。</div></div>
+
+<!-- ACT 4 -->
+<div class="act-title"><div class="cn">第四幕 · 暗线</div><div class="en">HIDDEN THREAD</div></div>
+
+<div class="panel"><img src="f29.jpg" loading="lazy" alt=""><div class="narration">第三天。我穿上最好的西装走进会议室。证据已经收集够了，是时候收网了。</div></div>
+
+<div class="panel"><img src="f30.jpg" loading="lazy" alt=""><div class="narration">当着双方律师的面，我"不经意"地提到了几个技术细节——每一个都是从张总的代码里读出来的真实意图。张总的脸一秒比一秒白。</div></div>
+
+<div class="panel"><img src="f31.jpg" loading="lazy" alt=""><div class="narration">合作终止。张总灰溜溜地走了。</div><div class="dialogue"><span class="speaker">林小鱼：</span><span class="line">"你到底怎么知道这些的？"</span></div><div class="dialogue"><span class="speaker">我：</span><span class="line">"做了功课。"</span></div><div class="inner-thought">（年度最佳轻描淡写。）</div></div>
+
+<div class="panel"><img src="f32.jpg" loading="lazy" alt=""><div class="narration">当晚，我请全公司吃火锅庆功。锅底翻滚，笑声不断。在这个能看穿一切的新世界里，最真实的东西，还是一顿热气腾腾的火锅。</div></div>
+
+<div class="panel"><img src="f33.jpg" loading="lazy" alt=""><div class="narration">回家路上。我无意间扫了一眼路人——代码正常。出租车司机——代码正常。一切都很平常。</div></div>
+
+<div class="panel"><img src="f34.jpg" loading="lazy" alt=""><div class="narration">然后——一个穿黑色卫衣的人走过。我习惯性地扫过去——</div><div class="inner-thought" style="color:#ff4444">那个人没有代码。整个人是一片空白。像一段被注释掉的代码。</div></div>
+
+<div class="panel"><img src="f35.jpg" loading="lazy" alt="">
+<div class="narration">我停下脚步，回头看。那个人也停下了。没有回头。但他头顶缓缓浮出一行字——</div>
+<div class="inner-thought" style="font-size:1.5rem;text-align:center;padding:1.5rem;color:#ff4444;text-shadow:0 0 20px rgba(255,68,68,0.5)">「你也看得见？」</div>
+</div>
+
+<div class="cliffhanger">
+  <div>夜色无声。两个人背对而立。</div>
+  <div>空气中只剩这一行代码。</div>
+  <div class="tbc">未完待续</div>
+</div>
+
+</div>
+
+<footer>源代码 · 第一章「觉醒」 — V5原创长篇 · Trinity v3</footer>
+
+<script>
+// Intersection Observer for scroll animations
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:0.15});
+document.querySelectorAll('.panel,.act-title,.cliffhanger').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
