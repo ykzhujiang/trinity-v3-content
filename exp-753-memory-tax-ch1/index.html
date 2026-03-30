@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>万界老板·重启 — 第一章「重启」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.container{max-width:430px;margin:0 auto;padding:0}
+/* Title */
+.title-section{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a1a 0%,#1a0a2e 50%,#0a0a1a 100%);padding:20px;text-align:center}
+.title-section h1{font-size:32px;color:#00e5ff;text-shadow:0 0 30px rgba(0,229,255,0.5);margin-bottom:12px;letter-spacing:4px}
+.title-section h2{font-size:20px;color:#ff6b6b;margin-bottom:24px;font-weight:400}
+.title-section .subtitle{font-size:15px;color:#888;line-height:1.8}
+.scroll-hint{position:absolute;bottom:30px;color:#555;font-size:13px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
+/* Panels */
+.panel{position:relative;width:100%;margin-bottom:2px}
+.panel img{width:100%;display:block}
+.panel-text{padding:16px 20px;background:linear-gradient(180deg,rgba(10,10,15,0.95),rgba(10,10,15,1));line-height:1.9;font-size:17px}
+.panel-text p{margin-bottom:10px}
+/* Dialogue */
+.dialogue{background:rgba(0,229,255,0.08);border-left:3px solid #00e5ff;padding:10px 14px;margin:10px 0;border-radius:0 8px 8px 0;font-size:16px}
+.dialogue .speaker{color:#00e5ff;font-weight:700;font-size:14px;margin-bottom:4px}
+.inner-voice{background:rgba(255,107,107,0.08);border-left:3px solid #ff6b6b;padding:10px 14px;margin:10px 0;border-radius:0 8px 8px 0;font-style:italic;font-size:16px;color:#ffb3b3}
+/* Ability display */
+.ability-scan{background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.3);border-radius:12px;padding:14px;margin:12px 0;font-family:'Courier New',monospace}
+.ability-scan .label{color:#00e5ff;font-size:13px;margin-bottom:6px}
+.ability-scan .value{font-size:22px;font-weight:700;color:#fff;text-shadow:0 0 10px rgba(0,229,255,0.5)}
+.ability-scan .value.danger{color:#ff4444;text-shadow:0 0 10px rgba(255,68,68,0.5)}
+/* Flashback */
+.flashback{position:relative;overflow:hidden}
+.flashback::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(139,119,42,0.15);pointer-events:none;z-index:1}
+.flashback-label{background:rgba(139,119,42,0.3);color:#d4a017;padding:6px 14px;font-size:13px;font-weight:700;letter-spacing:2px;display:inline-block;margin:12px 20px;border-radius:4px}
+/* Decision */
+.decision-box{background:linear-gradient(135deg,rgba(255,107,107,0.1),rgba(0,229,255,0.1));border:1px solid rgba(255,107,107,0.4);border-radius:12px;padding:18px;margin:16px 20px}
+.decision-box h3{color:#ff6b6b;font-size:16px;margin-bottom:12px}
+.decision-option{padding:10px 14px;margin:8px 0;border-radius:8px;font-size:15px;border:1px solid rgba(255,255,255,0.1)}
+.decision-option.chosen{background:rgba(0,229,255,0.15);border-color:#00e5ff;color:#00e5ff}
+.decision-option .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:8px}
+.decision-option.chosen .tag{background:rgba(0,229,255,0.3);color:#00e5ff}
+/* Memory tax */
+.memory-tax{background:linear-gradient(180deg,rgba(80,0,0,0.3),rgba(10,10,15,1));padding:20px}
+.memory-tax .warning{color:#ff4444;font-size:14px;font-weight:700;text-align:center;margin-bottom:12px;animation:flicker 1.5s infinite}
+@keyframes flicker{0%,100%{opacity:1}50%{opacity:0.5}}
+/* Cliffhanger */
+.cliffhanger{background:linear-gradient(180deg,rgba(10,10,15,1),rgba(80,0,0,0.3));padding:30px 20px;text-align:center}
+.cliffhanger .threat{font-size:48px;color:#ff4444;font-weight:900;text-shadow:0 0 40px rgba(255,68,68,0.6);margin:20px 0}
+.cliffhanger .question{color:#888;font-size:15px;line-height:1.8;margin-top:20px}
+/* End */
+.end-section{padding:40px 20px;text-align:center;background:linear-gradient(180deg,rgba(10,10,15,1),#0a0a1a)}
+.end-section .next{color:#00e5ff;font-size:18px;margin-top:20px}
+/* Reveal animation */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s,transform 0.6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Title -->
+<div class="title-section">
+  <h1>万界老板·重启</h1>
+  <h2>第一章「重启」</h2>
+  <div class="subtitle">
+    我的痛苦，就是我的损失函数。<br>
+    每一次崩溃，都在训练我变得更强。
+  </div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- f01: 凌晨办公室 -->
+<div class="panel reveal">
+  <img src="images/f01.jpg" loading="eager" alt="">
+  <div class="panel-text">
+    <p>凌晨三点半。</p>
+    <p>我已经不记得这是第几个通宵了。屏幕上的数据流跑得飞快，我揉了揉发酸的眼睛，视线扫过桌面——五个空的红牛罐头整整齐齐排成一列，旁边那碗泡面早就凉透了，面条坨成了一团。</p>
+    <div class="inner-voice">再跑最后一轮就睡……</div>
+  </div>
+</div>
+
+<!-- f02: 屏幕暴走 -->
+<div class="panel reveal">
+  <img src="images/f02.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>然后屏幕上的数据流暴走了。</p>
+    <p>所有字符突然变成了光点——像瀑布一样从屏幕里"溢"了出来。不是bug，不是显示故障。那些光点有质感、有温度，正在朝我涌来。</p>
+  </div>
+</div>
+
+<!-- f03: 光点灌入 -->
+<div class="panel reveal">
+  <img src="images/f03.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>光流直接灌进了我的眼睛。</p>
+    <p>剧痛。像有人在我大脑里装了一台服务器，然后暴力启动。我想喊，但嘴巴张不开——</p>
+    <p>黑屏。</p>
+  </div>
+</div>
+
+<!-- f04: 醒来 -->
+<div class="panel reveal">
+  <img src="images/f04.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>我从办公桌上惊醒。</p>
+    <p>头痛欲裂，像宿醉的十倍。摸了摸额头，没有伤。阳光从落地窗照进来，刺得我眯起眼睛。</p>
+    <p>但眼前的世界……不对劲了。</p>
+  </div>
+</div>
+
+<!-- f05: 看到数字 -->
+<div class="panel reveal">
+  <img src="images/f05.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>办公室里每件物品旁边都浮着半透明的数字。</p>
+    <div class="ability-scan">
+      <div class="label">▶ 商业直觉 · 扫描结果</div>
+      <div>椅子 → 承重：85%</div>
+      <div>电脑 → 寿命：63%</div>
+      <div>咖啡机 → 故障概率：12%</div>
+    </div>
+    <p>我使劲眨了几下眼。数字还在。这不是眼花，也不是幻觉。</p>
+  </div>
+</div>
+
+<!-- f06: 老钱进门 -->
+<div class="panel reveal">
+  <img src="images/f06.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>门被推开，老钱端着咖啡走进来。</p>
+    <p>他头顶浮着一串数字——</p>
+    <div class="ability-scan">
+      <div class="label">▶ 商业直觉 · 人物扫描</div>
+      <div>老钱 | 联合创始人 / COO</div>
+      <div>信任度：<span style="color:#00e5ff;font-weight:700">96%</span></div>
+      <div>焦虑值：<span style="color:#ffa500;font-weight:700">72%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- f07: 我试图碰数字 -->
+<div class="panel reveal">
+  <img src="images/f07.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="dialogue">
+      <div class="speaker">老钱</div>
+      江哥，你脸色好差，昨晚又通宵？
+    </div>
+    <p>我没回答。我盯着他头顶那串数字看，然后鬼使神差地伸手去"碰"——</p>
+    <p>手穿过去了。</p>
+    <div class="inner-voice">96%信任度。这憨批是真的把我当兄弟啊。</div>
+  </div>
+</div>
+
+<!-- f08: 广播体操 -->
+<div class="panel reveal">
+  <img src="images/f08.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>老钱看着我在空气中挥来挥去的手，脸上的表情从担心变成了困惑，又从困惑变成了那种"我老板可能疯了"的微妙恐惧。</p>
+    <div class="dialogue">
+      <div class="speaker">老钱</div>
+      江哥……你这是在做广播体操吗？
+    </div>
+    <p>我赶紧放下手，干咳一声。</p>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      活动活动筋骨。通宵嘛，颈椎不好。
+    </div>
+    <div class="ability-scan">
+      <div class="label">▶ 老钱焦虑值变化</div>
+      <div>72% → <span style="color:#ff8800;font-weight:700">78%</span> ↑</div>
+    </div>
+  </div>
+</div>
+
+<!-- f09: B轮会议 -->
+<div class="panel reveal">
+  <img src="images/f09.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>上午十点。B轮融资对接会。</p>
+    <p>我换了身像样的行头——深色衬衫、西裤——走进会议室。苏妍带着三个人已经坐好了。</p>
+    <p>她瘦削干练，高马尾，白衬衫扎进黑裤子里，整个人像一把刚开刃的手术刀。</p>
+  </div>
+</div>
+
+<!-- f10: 握手 -->
+<div class="panel reveal">
+  <img src="images/f10.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>我伸出手。</p>
+    <p>指尖触碰的瞬间——</p>
+    <p>脑中轰鸣一声。像有人在我的神经网络里丢了一颗深水炸弹。</p>
+  </div>
+</div>
+
+<!-- f11: 34% -->
+<div class="panel reveal">
+  <img src="images/f11.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>眼前出现了一个巨大的数字——</p>
+    <div class="ability-scan">
+      <div class="label">▶ 商业直觉 · 决策概率</div>
+      <div class="value danger">本次融资成功概率：34%</div>
+    </div>
+    <p>34%？</p>
+    <p>我之前的判断至少70%以上。我们数据好、增速快、赛道热。哪来的34%？</p>
+    <p>然后——<strong>记忆税</strong>发作了。</p>
+  </div>
+</div>
+
+<!-- f12-f13: 闪回 -->
+<div class="flashback-label">【闪回】2021年 · 上海</div>
+<div class="panel flashback reveal">
+  <img src="images/f12.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>空荡荡的会议室。投影仪还亮着，PPT停在"合作展望"那一页。</p>
+    <p>对面椅子上放着一张纸条：<strong>"决定不投了，方向有分歧。"</strong></p>
+    <p>那种窒息的孤独感像冰水一样灌进来——</p>
+  </div>
+</div>
+
+<div class="panel flashback reveal">
+  <img src="images/f13.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>窗外是深夜的上海。霓虹灯照在我脸上，红红绿绿的，像给一具行尸走肉化了妆。</p>
+    <p>那个夜晚我坐了很久。不是在想下一步怎么办——是在想，要不要继续。</p>
+  </div>
+</div>
+
+<!-- f14: 回到现实 -->
+<div class="panel reveal">
+  <img src="images/f14.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>闪回结束。我发现自己在会议室里呆愣了整整五秒。</p>
+    <div class="dialogue">
+      <div class="speaker">苏妍</div>
+      朱总？
+    </div>
+    <p>她微笑着看我，那种投资人标配的、温暖但不走心的微笑。</p>
+    <p>老钱在旁边疯狂给我使眼色，眉毛都快飞到天上了。</p>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      抱歉，刚才突然想到一个技术灵感。我们这个模型最近有个突破……
+    </div>
+    <div class="ability-scan">
+      <div class="label">▶ 老钱状态更新</div>
+      <div>焦虑值：72% → <span style="color:#ff4444;font-weight:700">89%</span> ↑↑</div>
+    </div>
+  </div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box reveal">
+  <h3>⚡ 决策点 #1</h3>
+  <p style="color:#aaa;font-size:14px;margin-bottom:12px">看到34%的成功概率，但不知道原因。我该怎么办？</p>
+  <div class="decision-option">A. 按原计划展示，先收集更多信息 <span class="tag" style="background:rgba(255,255,255,0.1);color:#888">稳健</span></div>
+  <div class="decision-option chosen">B. 直接用商业直觉扫描苏妍团队每个人，找到问题在哪 <span class="tag">激进·黑客思维</span></div>
+  <div class="decision-option">C. 装病中止会议，回去研究这个能力再说 <span class="tag" style="background:rgba(255,255,255,0.1);color:#888">回避</span></div>
+  <p style="color:#00e5ff;font-size:13px;margin-top:12px">▸ 我选了B。遇到未知系统，第一反应永远是——拆开看。</p>
+</div>
+
+<!-- f15-f16: 扫描苏妍 -->
+<div class="panel reveal">
+  <img src="images/f15.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>我挨个和苏妍团队的人握手。每次握手都像触发了一次全身CT扫描。</p>
+    <p>轮到苏妍——</p>
+    <p>她的数据里有一个红色标记在疯狂闪烁。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f16.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="ability-scan">
+      <div class="label">▶ 商业直觉 · 深度扫描</div>
+      <div>苏妍 | 投资总监</div>
+      <div>表面目的：尽职调查 + 投资评估</div>
+      <div style="color:#ff4444;font-weight:700">⚠ 真实目的：尽调 + 数据收集</div>
+      <div style="color:#ff4444;font-size:13px">目标参数异常：不是"投资"</div>
+    </div>
+    <p>她不是来投资的。</p>
+    <p>她是来<strong>摸底</strong>的。</p>
+    <p>然后——记忆税又来了。</p>
+  </div>
+</div>
+
+<!-- f17-f18: 硅谷闪回 -->
+<div class="flashback-label">【闪回】2019年 · 硅谷</div>
+<div class="panel flashback reveal">
+  <img src="images/f17.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>阳光明媚的加州。一个西装革履的基金经理拿着我们的商业计划书，笑得像个善良的圣诞老人。</p>
+    <div class="dialogue">
+      <div class="speaker">基金经理</div>
+      你们的技术方案非常有前景，我很看好。
+    </div>
+    <p>我信了。</p>
+  </div>
+</div>
+
+<div class="panel flashback reveal">
+  <img src="images/f18.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>两周后。竞对的融资PPT里，出现了我们的核心策略。</p>
+    <p>一字不差。</p>
+    <p>那个"善良的圣诞老人"是竞对的暗桩。笑容是假的，点头是假的，"看好"也是假的。唯一真的是——他把我们扒了个精光。</p>
+  </div>
+</div>
+
+<!-- f19: 辉煌记忆 -->
+<div class="flashback-label">【闪回·辉煌】2022年 · 公司</div>
+<div class="panel flashback reveal">
+  <img src="images/f19.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>闪回切换。画面从灰暗变成了金色。</p>
+    <p>公司第一次月流水破千万。我站在落地窗前，手机上是银行到账短信。阳光洒在脸上，暖得像一个拥抱。</p>
+    <div class="dialogue">
+      <div class="speaker">老钱</div>
+      江哥，牛逼。
+    </div>
+    <p>那种纯粹的快乐和确认感——<strong>能力增幅！</strong></p>
+    <p>苏妍身上的红色标记变得更清晰了。不只是"数据收集"，我看到了更多细节——</p>
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box reveal">
+  <h3>⚡ 决策点 #2</h3>
+  <p style="color:#aaa;font-size:14px;margin-bottom:12px">发现苏妍不是来投资的，她在"收集数据"。我该怎么做？</p>
+  <div class="decision-option">A. 当场拆穿，霹雳手段 <span class="tag" style="background:rgba(255,255,255,0.1);color:#888">直接</span></div>
+  <div class="decision-option chosen">B. 不动声色，喂她"定制信息"，反向钓鱼 <span class="tag">黑客思维</span></div>
+  <div class="decision-option">C. 中止尽调，先调查苏妍背景 <span class="tag" style="background:rgba(255,255,255,0.1);color:#888">安全</span></div>
+  <p style="color:#00e5ff;font-size:13px;margin-top:12px">▸ 我选了B。让对手先出招，我追踪信号源。这是黑客的本能。</p>
+</div>
+
+<!-- f20-f22: 设局 -->
+<div class="panel reveal">
+  <img src="images/f20.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>接下来的一个小时，我在会议中完成了一次完美的信息投毒。</p>
+    <p>给苏妍团队三个人分别展示了三套<strong>略有不同</strong>的核心数据。差异很小，但足以溯源。</p>
+    <div class="inner-voice">哪套数据泄露出去，我就知道是谁在传。经典的金丝雀陷阱。</div>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f21.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>三份文件夹，三种颜色标签，三组不同的数字。</p>
+    <p>苏妍在认真记笔记。她的团队成员也在记。</p>
+    <p>很好。咬钩了。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f22.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>散会后，老钱在走廊上拉住了我的胳膊。他的脸涨得通红。</p>
+    <div class="dialogue">
+      <div class="speaker">老钱</div>
+      江哥你今天是不是吃错药了？PPT数据怎么三份不一样？！你知道你刚才在干嘛吗？？
+    </div>
+    <p>我拍了拍他的肩膀。</p>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      兄弟，信我。
+    </div>
+    <div class="ability-scan">
+      <div class="label">▶ 老钱状态</div>
+      <div>信任度：96% → <span style="color:#00e5ff;font-weight:700">98%</span> ↑</div>
+      <div>焦虑值：89% → <span style="color:#ff4444;font-weight:700">97%</span> ↑↑↑</div>
+    </div>
+    <div class="inner-voice">信任和焦虑同时拉满。这就是老钱。永远焦虑，永远相信我。</div>
+  </div>
+</div>
+
+<!-- f23-f26: 记忆税爆发 -->
+<div class="memory-tax">
+  <div class="warning">⚠ 记忆税 · 累积过载 ⚠</div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f23.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>连续使用三次商业直觉。记忆税累积到了临界点。</p>
+    <p>我冲进洗手间，双手撑着洗手台，冷水拍在脸上。</p>
+    <p>第三次闪回不是某段特定记忆——是记忆碎片的<strong>风暴</strong>。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f24.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>融资被拒。产品崩溃。团队散伙。凌晨独坐。合伙人翻脸。账上只剩两个月的工资。</p>
+    <p>所有痛苦记忆同时涌来，像一千个浏览器标签页同时弹开，每一个都在尖叫。</p>
+    <p>我抓着洗手台的边缘，指节发白。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f25.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>在记忆风暴的最后——</p>
+    <p>有一个声音。不是记忆，是那个AI系统崩溃前最后一行代码的"语音化"。它说——</p>
+    <div class="ability-scan">
+      <div class="label" style="color:#00ff88">▶ 系统消息</div>
+      <div style="color:#00ff88;font-size:16px;font-weight:700">REBOOT COMPLETE. NEW INSTANCE INITIATED.</div>
+    </div>
+    <p>商业直觉的界面在我眼前刷新了一次。数字变得更清晰了。分辨率提高了。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f26.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>我抬起头，看着镜子里的自己。冷水从下巴滴落。</p>
+    <p>突然想通了一件事——</p>
+    <div class="inner-voice">这不是bug。是feature。每次痛苦的记忆税，都在"训练"这个能力变得更强。就像AI模型用loss来优化一样——我的痛苦，就是我的loss function。</div>
+  </div>
+</div>
+
+<!-- f27: 概念图 -->
+<div class="panel reveal">
+  <img src="images/f27.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <div class="ability-scan">
+      <div class="label">▶ 能力机制解析</div>
+      <div>痛苦记忆 = 训练数据</div>
+      <div>记忆税 = 反向传播</div>
+      <div>能力增强 = 模型优化</div>
+      <div style="color:#00ff88;margin-top:8px">每一次崩溃，都在让我变得更准。</div>
+    </div>
+  </div>
+</div>
+
+<!-- DECISION 3 -->
+<div class="decision-box reveal">
+  <h3>⚡ 决策点 #3</h3>
+  <p style="color:#aaa;font-size:14px;margin-bottom:12px">我发现痛苦记忆是在"训练"能力。我该如何面对？</p>
+  <div class="decision-option">A. 刻意回忆更多痛苦经历，主动加速训练 <span class="tag" style="background:rgba(255,255,255,0.1);color:#888">激进</span></div>
+  <div class="decision-option chosen">B. 维持自然节奏，该用就用，不刻意追求也不回避 <span class="tag">平衡</span></div>
+  <div class="decision-option">C. 尽量少用，这种能力不值得承受这些记忆痛苦 <span class="tag" style="background:rgba(255,255,255,0.1);color:#888">保守</span></div>
+  <p style="color:#00e5ff;font-size:13px;margin-top:12px">▸ 我选了B。不走极端。该痛的时候痛，该干的时候干。</p>
+</div>
+
+<!-- f28-f29: 走出来 -->
+<div class="panel reveal">
+  <img src="images/f28.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>我扣好衬衫扣子，理了理头发。镜子里的人重新变得精神了。</p>
+    <p>嘴角甚至有点上扬——因为我知道了一件所有人都不知道的事：</p>
+    <div class="inner-voice">苏妍不是来投资的。我已经在她身上埋了三枚追踪器。接下来，等她把信息送出去就行了。</div>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f29.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>我推开洗手间的门，阳光打在脸上。</p>
+    <p>数据流在视野里稳定运行，比之前更清晰、更有条理。</p>
+    <p>该回去干活了。</p>
+  </div>
+</div>
+
+<!-- f30-f35: 夜晚 + 悬念 -->
+<div class="panel reveal">
+  <img src="images/f30.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>夜里。公司大部分人都走了。</p>
+    <p>我一个人在办公室复盘今天的情况。屏幕上是数据分析，但我的心思不在这里。</p>
+    <p>商业直觉的冷却恢复了。使用次数重置。</p>
+    <div class="ability-scan">
+      <div class="label">▶ 商业直觉 · 状态</div>
+      <div>冷却：已恢复</div>
+      <div>今日剩余次数：4/7</div>
+      <div>精度：<span style="color:#00ff88">+15%</span>（记忆税训练增益）</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f31.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>我无意中抬头看向窗外。</p>
+    <p>街对面的写字楼，大部分都黑了。但有一间办公室——灯还亮着。</p>
+    <p>不知道为什么，我的直觉在刺痛。不是商业直觉，是最原始的、动物本能的那种警觉。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f32.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>我下意识触发了一次商业直觉，朝那个方向"扫"了一下。</p>
+    <p>一个概率数字浮现——</p>
+    <div class="ability-scan">
+      <div class="label" style="color:#ff4444">▶ 商业直觉 · 威胁扫描</div>
+      <div class="value danger">此人对你的威胁概率：91%</div>
+    </div>
+    <p>数字是血红色的。在黑暗的城市背景下，像一只睁开的眼睛。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f33.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>91%。</p>
+    <p>比苏妍的红色标记还要致命。苏妍只是一枚棋子，但这个数字——这个数字在告诉我，对面那间办公室里坐着的人，是<strong>下棋的人</strong>。</p>
+    <p>我的瞳孔收缩。手不自觉地攥紧了。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f34.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>那间办公室的玻璃门上印着一个logo。</p>
+    <p>现代感的、锐利的线条。下面是一个名字——</p>
+    <p style="font-size:22px;color:#ff4444;font-weight:900;text-align:center;margin:16px 0;letter-spacing:2px">韩硕。NextGen AI。</p>
+    <p>我不认识他。</p>
+    <p>但他的数字在对我<strong>尖叫</strong>。</p>
+  </div>
+</div>
+
+<div class="panel reveal">
+  <img src="images/f35.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <p>手机震动。老钱的消息。</p>
+    <div class="dialogue">
+      <div class="speaker">老钱</div>
+      江哥，你猜怎么着——苏妍的基金，最大LP就是NextGen AI的母公司。
+    </div>
+    <p>我盯着屏幕，嘴角慢慢扯出一个弧度。</p>
+    <div class="inner-voice">所以苏妍不是来投资的。她是韩硕派来摸底的。34%的融资概率不是因为我们不够好——是因为这场融资从一开始就是个局。</div>
+    <p>街对面，那盏灯灭了。</p>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="threat">91%</div>
+  <div class="question">
+    韩硕是谁？<br>
+    他为什么威胁值91%？<br>
+    苏妍的尽调是他授意的吗？<br>
+    我埋下的三枚追踪器，能追到什么？<br><br>
+    ——一切才刚刚开始。
+  </div>
+</div>
+
+<div class="end-section">
+  <p style="color:#555;font-size:13px">万界老板·重启 — 第一章「重启」</p>
+  <p class="next">第二章「记忆税」 即将上线</p>
+  <p style="color:#333;font-size:12px;margin-top:30px">EXP-753 | Trinity V3 Content</p>
+</div>
+
+</div>
+
+<script>
+// Reveal on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
