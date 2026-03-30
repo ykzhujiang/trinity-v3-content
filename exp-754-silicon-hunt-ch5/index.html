@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗算·硅局 第五章「旧代码」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.header{text-align:center;padding:40px 20px 20px;background:linear-gradient(180deg,#0d1520 0%,#0a0a12 100%)}
+.header h1{font-size:28px;color:#8ab4f8;letter-spacing:4px;text-shadow:0 0 20px rgba(138,180,248,0.3)}
+.header .subtitle{font-size:16px;color:#6b7b8d;margin-top:8px;letter-spacing:2px}
+.header .chapter-info{font-size:13px;color:#4a5568;margin-top:12px}
+.panel{width:100%;max-width:500px;margin:0 auto;padding:0 12px}
+.frame{margin-bottom:2px;position:relative;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.frame.visible{opacity:1;transform:translateY(0)}
+.frame img{width:100%;display:block;border-radius:2px}
+.narration{padding:16px 20px;font-size:17px;line-height:1.8;color:#c8d0da;position:relative}
+.narration.inner-voice{color:#8ab4f8;font-style:italic;border-left:3px solid #8ab4f8;padding-left:20px;margin:8px 20px;font-size:16px;line-height:1.7}
+.narration.dialogue{color:#e8e8e8;font-size:17px}
+.narration .speaker{color:#f0a050;font-weight:bold;margin-right:4px}
+.narration .humor{color:#ffd700;font-size:15px;margin-top:4px;display:block}
+.decision{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border:1px solid #8ab4f844;border-radius:8px;margin:16px 12px;padding:20px}
+.decision .label{color:#f0a050;font-size:14px;font-weight:bold;letter-spacing:2px;margin-bottom:8px}
+.decision .question{color:#e0e0e0;font-size:16px;line-height:1.6;margin-bottom:12px}
+.decision .choice{padding:8px 12px;margin:4px 0;border-radius:4px;font-size:14px;color:#8b9bb4;line-height:1.5}
+.decision .choice.selected{background:#8ab4f822;border:1px solid #8ab4f8;color:#8ab4f8}
+.section-break{text-align:center;padding:24px;color:#4a5568;font-size:20px;letter-spacing:8px}
+.cliffhanger{background:linear-gradient(180deg,#0a0a12 0%,#1a0a0a 50%,#0a0a12 100%);padding:30px 20px;text-align:center;margin-top:20px}
+.cliffhanger p{color:#ff6b6b;font-size:18px;line-height:2;letter-spacing:1px}
+.nav{text-align:center;padding:30px 20px 60px}
+.nav a{color:#8ab4f8;text-decoration:none;font-size:14px;padding:8px 16px;border:1px solid #8ab4f844;border-radius:4px;margin:0 8px}
+.nav a:hover{background:#8ab4f822}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>暗算·硅局</h1>
+<div class="subtitle">第五章「旧代码」</div>
+<div class="chapter-info">V5 · 第一人称 · 谍战×科技创业</div>
+</div>
+
+<div class="panel">
+
+<!-- === 开场：凌晨3:30 酒店房间 === -->
+
+<div class="frame"><img src="f01.jpg" loading="lazy" alt="凌晨酒店房间"></div>
+<div class="narration">凌晨三点半。我已经在这把椅子上坐了四个小时。</div>
+<div class="narration">酒店房间的窗帘拉得严严实实，唯一的光源是笔记本屏幕——泛着冷绿色的终端界面，像一扇通往过去的门。</div>
+
+<div class="frame"><img src="f02.jpg" loading="lazy" alt="旧硬盘连接笔记本"></div>
+<div class="narration">我从旅行包最底层翻出了那块移动硬盘。五年没通电了。接上USB的瞬间，硬盘发出轻微的嗡鸣——像一个沉睡多年的人被叫醒。</div>
+<div class="narration inner-voice">我有个习惯——所有写过的代码都保留离线备份。黑客的偏执。这个习惯今晚可能要救我一命。</div>
+
+<div class="frame"><img src="f03.jpg" loading="lazy" alt="朱江看屏幕震惊"></div>
+<div class="narration">文件目录加载完毕。我找到了那个文件夹——「Shepherd Protocol v0.3」。</div>
+<div class="narration">牧羊人协议。大三那年，我和室友陈默一起写的。本意是破解学校实验室的安全系统练手，纯粹是学术娱乐。但里面有一个核心算法——一种自适应加密通信协议——理论上可以让AI在不被检测的情况下控制任何联网设备。</div>
+
+<div class="frame"><img src="f04.jpg" loading="lazy" alt="代码界面"></div>
+<div class="narration">当年我以为这只是课后练习。毕业前我删了。陈默也说他删了。</div>
+<div class="narration inner-voice">那它怎么出现在Horizon里？</div>
+
+<div class="frame"><img src="f05.jpg" loading="lazy" alt="俯视朱江在酒店房间"></div>
+<div class="narration">我拿着硬盘，像拿着一颗没拆引信的炸弹。十五年前写的代码，现在成了某个价值数十亿的秘密项目的核心？这不是巧合，这是有人在棋盘上布了一步十五年的棋。</div>
+
+<div class="frame"><img src="f06.jpg" loading="lazy" alt="朱江看手机犹豫"></div>
+<div class="narration">我需要联系陈默确认。但陈默现在是国内某大厂的CTO，社交圈和我完全不同。直接打电话可能暴露我在调查Horizon。</div>
+
+<!-- 决策点9 -->
+<div class="decision">
+<div class="label">⚡ 决策点 #9</div>
+<div class="question">我需要联系大学室友陈默。但直接联系可能暴露我在调查Horizon。</div>
+<div class="choice">A. 用私人号码直接打电话，伪装成叙旧 → 快但可能被监听</div>
+<div class="choice">B. 通过天衡的安全通道联系 → 安全但等于告诉天衡"旧代码"的事</div>
+<div class="choice selected">✦ C. 用匿名方式联系，不暴露自己身份 → 最慢但最安全，还能测试陈默的反应</div>
+</div>
+
+<div class="frame"><img src="f07.jpg" loading="lazy" alt="一次性手机"></div>
+<div class="narration">我从旅行包里掏出一部一次性手机。对，我出差永远带一部——这又是黑客的偏执。编辑好消息，只写了一个暗号：</div>
+<div class="narration dialogue">"Shepherd还活着。"</div>
+<div class="narration inner-voice">只有陈默能看懂这句话。如果他心里没鬼，他会直接问"你谁啊"。如果他有鬼……他的反应会告诉我一切。</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- === 升级：陈默的回复 === -->
+
+<div class="frame"><img src="f08.jpg" loading="lazy" alt="朱江等待回复"></div>
+<div class="narration">三个小时。窗帘缝隙里透进了第一缕晨光。一次性手机震了一下。</div>
+<div class="narration">不是文字。是一个加密文件。</div>
+
+<div class="frame"><img src="f09.jpg" loading="lazy" alt="解密进度条"></div>
+<div class="narration">我把文件传到笔记本上，跑解密。陈默用的是我们当年约定的加密方式——这说明他不仅看懂了暗号，还记得十五年前的约定。</div>
+<div class="narration inner-voice">到底是心里没鬼的老朋友回应……还是有备而来的精心伪装？</div>
+
+<div class="frame"><img src="f10.jpg" loading="lazy" alt="陈默视频画面"></div>
+<div class="narration">文件解开了。是一段视频。</div>
+<div class="narration">画面里，陈默坐在一间昏暗的房间里，面色憔悴，眼圈发黑，穿着皱巴巴的白衬衫。他看起来像好几天没睡觉了。</div>
+<div class="narration dialogue"><span class="speaker">陈默：</span>"学长，如果你看到这个，说明你也发现了。牧羊人协议不是我泄露的。"</div>
+
+<div class="frame"><img src="f11.jpg" loading="lazy" alt="朱江震惊特写"></div>
+<div class="narration dialogue"><span class="speaker">陈默：</span>"三年前有人入侵了我的个人服务器，拿走了所有项目代码。我追查了一年，最后追到了一家空壳公司——注册在开曼群岛，实控人……我查不到。"</div>
+
+<div class="frame"><img src="f12.jpg" loading="lazy" alt="朱江低角度震怒"></div>
+<div class="narration dialogue"><span class="speaker">陈默：</span>"但那家空壳公司的第一笔种子投资，来自天衡资本。"</div>
+<div class="narration">我盯着屏幕，嘴里蹦出一个字：</div>
+<div class="narration dialogue" style="font-size:22px;font-weight:bold;text-align:center;color:#ff6b6b;padding:20px">"操。"</div>
+
+<div class="frame"><img src="f13.jpg" loading="lazy" alt="朱江起身抓头发"></div>
+<div class="narration">天衡资本。天衡科技的投资部门。沈若棋的雇主。</div>
+<div class="narration">我从椅子上弹起来，两手插进头发里来回抓。脑子里的拼图碎片开始疯狂重组——</div>
+
+<div class="frame"><img src="f14.jpg" loading="lazy" alt="投资文件"></div>
+<div class="narration inner-voice">天衡招募我，可能不是因为我的创业能力。而是因为我是"牧羊人协议"的原作者。</div>
+<div class="narration inner-voice">我就是解开Horizon项目的钥匙。他们需要的不是一个创业者——他们需要的是一把锁的原配钥匙。</div>
+
+<div class="frame"><img src="f15.jpg" loading="lazy" alt="朱江窗边沉思"></div>
+<div class="narration">我走到窗边，手掌按在冰冷的玻璃上。城市天际线在晨光中浮现——远处有几栋标着科技公司logo的大楼，其中一栋就是天衡科技的总部。</div>
+<div class="narration inner-voice">从一开始，我就不是猎手。我是猎物。</div>
+
+<div class="frame"><img src="f16.jpg" loading="lazy" alt="朱江脑中信息网络"></div>
+<div class="narration">正当我消化这个信息时——</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- === 转折：沈若棋敲门 === -->
+
+<div class="frame"><img src="f17.jpg" loading="lazy" alt="走廊监控视角"></div>
+<div class="narration">门口传来轻轻的敲门声。三下。节奏很稳。</div>
+<div class="narration">我看了一眼手机上连着的走廊监控画面——是沈若棋。但她身后站着两个穿黑色西装的壮汉。沈若棋的表情很平静。</div>
+<div class="narration inner-voice">太平静了。</div>
+
+<div class="frame"><img src="f18.jpg" loading="lazy" alt="朱江从房内望向门"></div>
+<div class="narration">我的心跳瞬间加速到一百二。视线扫过房间——笔记本上还开着陈默的视频最后一帧，旧硬盘插在USB上，一次性手机扔在桌角。三样东西，每一样都是致命证据。</div>
+
+<div class="frame"><img src="f19.jpg" loading="lazy" alt="朱江眼睛特写"></div>
+<div class="narration inner-voice">我有大概九十秒。</div>
+
+<!-- 决策点10 -->
+<div class="decision">
+<div class="label">⚡ 决策点 #10</div>
+<div class="question">沈若棋带人来了。房间里有绝不能被看到的证据。我有90秒。</div>
+<div class="choice">A. 藏好证据，正常开门 → 最稳但如果对方搜房就完了</div>
+<div class="choice">B. 从阳台翻到隔壁房间 → 物理逃脱，但暴露自己在搞鬼</div>
+<div class="choice selected">✦ C. 快速上传关键文件到加密云端，物理销毁硬盘和手机，再开门</div>
+</div>
+
+<div class="narration inner-voice">数据可以备份，硬件可以再买。但如果数据落到别人手里——那就什么都完了。</div>
+
+<div class="frame"><img src="f20.jpg" loading="lazy" alt="手指疯狂敲键盘"></div>
+<div class="narration">七十秒。我的手指在键盘上飞舞——打开加密上传通道，选中所有关键文件，拖入上传队列。进度条开始跑。</div>
+
+<div class="frame"><img src="f21.jpg" loading="lazy" alt="强磁铁消磁硬盘"></div>
+<div class="narration">五十秒。上传还在跑。我从旅行包侧袋里掏出一块钕磁铁——是的，我出差永远带一块强磁铁。</div>
+<div class="narration"><span class="humor">（你永远不知道一个有偏执症的前黑客旅行包里装了什么。）</span></div>
+<div class="narration">磁铁紧紧贴上硬盘表面。嗡——盘片报废。</div>
+
+<div class="frame"><img src="f22.jpg" loading="lazy" alt="掰断SIM卡"></div>
+<div class="narration">三十秒。一次性手机掰开后盖，抽出SIM卡，"啪"一声掰成两半，扔进马桶冲掉。手机壳塞进垃圾桶底层。</div>
+
+<div class="frame"><img src="f23.jpg" loading="lazy" alt="朱江换好衣服整理衣领"></div>
+<div class="narration">十秒。上传完成。我关掉笔记本，扫了一眼房间——硬盘已废，手机已毁，加密通道自动关闭。完美。</div>
+<div class="narration">我用最后几秒换上衬衫和西裤，整了整衣领。深呼吸。</div>
+
+<div class="frame"><img src="f24.jpg" loading="lazy" alt="朱江开门面对沈若棋"></div>
+<div class="narration">打开门。</div>
+<div class="narration dialogue"><span class="speaker">沈若棋：</span>"Victor提前了明天的会议，想请你现在过去。"</div>
+<div class="narration">她身后两个黑西装壮汉面无表情。Victor的私人安保。</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"好，给我五分钟换件衣服。"</div>
+<div class="narration"><span class="humor">（门外两个壮汉能把我拧成麻花，我的语气像在叫外卖。）</span></div>
+
+<div class="frame"><img src="f25.jpg" loading="lazy" alt="朱江看手机加密消息"></div>
+<div class="narration">关上门的瞬间，手机震了一下。加密频道。</div>
+<div class="narration">是沈若棋发来的：</div>
+<div class="narration dialogue" style="color:#ff6b6b;border-left:3px solid #ff6b6b;padding-left:20px;margin:8px 20px">"你房间有窃听器。左床头灯底座、卫生间镜子后面。"</div>
+<div class="narration inner-voice">……这女人到底是哪边的？</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- === 高潮：70秒回放 + 变身 === -->
+
+<div class="frame"><img src="f26.jpg" loading="lazy" alt="打字上传紧迫感"></div>
+<div class="narration" style="color:#ff9b50;font-weight:bold;text-align:center;letter-spacing:2px">[ 七十秒前 ]</div>
+<div class="narration">后来复盘，我把那七十秒的操作拆解成了精确的时间线。像拆弹一样。</div>
+
+<div class="frame"><img src="f27.jpg" loading="lazy" alt="桌面证据销毁全景"></div>
+<div class="narration">第0-25秒：加密上传启动。文件总量47MB，上传速度12MB/s。我一边看进度条，一边把笔记本浏览记录清零、加密通道日志擦除。</div>
+
+<div class="frame"><img src="f28.jpg" loading="lazy" alt="磁铁消磁硬盘特写"></div>
+<div class="narration">第25-40秒：强磁铁贴上硬盘。两千高斯的钕磁铁，接触瞬间盘片磁畴全部紊乱。就算用顶级数据恢复也读不出一个字节。</div>
+<div class="narration"><span class="humor">（这块磁铁是在深圳华强北买的，当时老板问我买这么强的磁铁干嘛，我说吸冰箱贴。）</span></div>
+
+<div class="frame"><img src="f29.jpg" loading="lazy" alt="拆手机SIM卡"></div>
+<div class="narration">第40-55秒：手机销毁。SIM卡掰断冲掉，手机恢复出厂设置后塞进垃圾桶。</div>
+
+<div class="frame"><img src="f30.jpg" loading="lazy" alt="变身前后对比"></div>
+<div class="narration">第55-70秒：换衣服。从一个凌晨三点蹲在酒店里搞黑客活动的偏执狂，变成一个准备出席商务会议的体面人。</div>
+<div class="narration inner-voice">同一个人，两副面孔。这就是我的日常。</div>
+
+<div class="frame"><img src="f31.jpg" loading="lazy" alt="朱江从容走出房间"></div>
+<div class="narration">我打开门的时候，嘴角带着恰到好处的微笑。沈若棋观察了我一秒——她在看我有没有慌张的痕迹。</div>
+<div class="narration inner-voice">没有。我在这方面受过训练——不是专业训练，是被生活训练的。创业者面对投资人质疑时的扑克脸，和面对可能的敌人时的扑克脸，本质上是同一种技能。</div>
+
+<div class="frame"><img src="f32.jpg" loading="lazy" alt="走廊行走"></div>
+<div class="narration">走在走廊里，沈若棋在前面半步。她的高跟鞋敲在大理石地面上，节奏稳定。两个安保走在最后。</div>
+
+<div class="frame"><img src="f33.jpg" loading="lazy" alt="朱江看手机消息"></div>
+<div class="narration">我借着调整袖口的动作，瞥了一眼手机屏幕上沈若棋的消息。</div>
+<div class="narration inner-voice">窃听器。左床头灯底座、卫生间镜子后面。</div>
+<div class="narration inner-voice">她是在帮我？如果是天衡安的窃听器，她告诉我等于背叛雇主。如果不是天衡安的……那又是谁？</div>
+<div class="narration inner-voice">更重要的问题是——如果房间有窃听器，那我刚才七十秒的操作，消磁硬盘的声音、掰断SIM卡的声音……全被录下来了。</div>
+<div class="narration inner-voice">他们听到了什么？他们能推断出什么？</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- === 高潮结尾：会议室反转 === -->
+
+<div class="frame"><img src="f34.jpg" loading="lazy" alt="豪华会议室"></div>
+<div class="narration">Victor的私人会议室在顶层。落地窗外是整个城市的天际线。</div>
+<div class="narration">他坐在长桌尽头，手指交叉，看起来像一个正在审视棋盘的棋手。</div>
+
+<div class="frame"><img src="f35.jpg" loading="lazy" alt="朱江和Victor对坐"></div>
+<div class="narration dialogue"><span class="speaker">Victor：</span>"朱先生，我听说你对Horizon的芯片架构很感兴趣。"</div>
+<div class="narration">我的表情纹丝不动。"了解合作伙伴的技术方向，是基本功课。"</div>
+<div class="narration dialogue"><span class="speaker">Victor：</span>"很好。正好，我们的首席算法架构师明天到场。我想安排你们认识一下。"</div>
+
+<div class="frame"><img src="f36.jpg" loading="lazy" alt="名片推过桌面"></div>
+<div class="narration">Victor把一张名片推过桌面。</div>
+<div class="narration">名片在深色桌面上滑了半米，停在我手边。</div>
+
+<div class="frame"><img src="f37.jpg" loading="lazy" alt="朱江看名片扑克脸"></div>
+<div class="narration">我拿起名片。</div>
+<div class="narration" style="text-align:center;font-size:20px;color:#e8e8e8;padding:16px;border:1px solid #8ab4f844;border-radius:4px;margin:8px 20px;background:#16213e"><b>陈默</b><br>Nexus AI Lab · 首席架构师</div>
+<div class="narration">我的表情没有任何变化。</div>
+<div class="narration inner-voice">但我的心跳加速到了一百二。</div>
+
+<div class="frame"><img src="f38.jpg" loading="lazy" alt="朱江与Victor对峙全景"></div>
+<div class="narration">陈默。我的大学室友。三小时前刚给我发了一段"求救视频"的人。</div>
+<div class="narration">他不是被入侵的受害者。</div>
+<div class="narration">他是Nexus的首席架构师。</div>
+<div class="narration inner-voice">那段"求救视频"……是陷阱。</div>
+
+</div><!-- panel end -->
+
+<div class="cliffhanger">
+<p>陈默是Nexus的人。</p>
+<p>"求救视频"是一场表演。</p>
+<p>那三年前"入侵服务器偷走牧羊人协议"的人——</p>
+<p>和陈默本人，是同一个人吗？</p>
+<p style="margin-top:16px;color:#8ab4f8;font-size:16px">天衡资本投资的空壳公司，是陈默设的局。</p>
+<p style="color:#ffd700;font-size:20px;margin-top:16px;font-weight:bold">这是一盘从大学就开始的十五年棋局。</p>
+<p style="color:#ff6b6b;font-size:22px;margin-top:12px;font-weight:bold">我到底是棋手，还是棋子？</p>
+</div>
+
+<div class="nav">
+<a href="../exp-749-silicon-hunt-ch4/index.html">← 第四章</a>
+<a href="#" style="opacity:0.3;pointer-events:none">第六章 →</a>
+</div>
+
+<script>
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.frame').forEach(f=>observer.observe(f));
+</script>
+
+</body>
+</html>
