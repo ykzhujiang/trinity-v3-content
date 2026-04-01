@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赌神觉醒 第一章「入局」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0c0c14;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.header{text-align:center;padding:40px 20px 20px;background:linear-gradient(180deg,#1a0f08 0%,#0c0c14 100%)}
+.header h1{font-size:28px;color:#ffd700;letter-spacing:4px;text-shadow:0 0 20px rgba(255,215,0,0.3)}
+.header .subtitle{font-size:16px;color:#8b7355;margin-top:8px;letter-spacing:2px}
+.header .chapter-info{font-size:13px;color:#4a5568;margin-top:12px}
+.panel{width:100%;max-width:500px;margin:0 auto;padding:0 12px}
+.frame{margin-bottom:2px;position:relative;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.frame.visible{opacity:1;transform:translateY(0)}
+.frame img{width:100%;display:block;border-radius:2px}
+.narration{padding:16px 20px;font-size:17px;line-height:1.8;color:#c8d0da}
+.narration.inner-voice{color:#ffd700;font-style:italic;border-left:3px solid #ffd700;padding-left:20px;margin:8px 20px;font-size:16px;line-height:1.7}
+.narration.dialogue{color:#e8e8e8;font-size:17px}
+.narration .speaker{color:#f0a050;font-weight:bold;margin-right:4px}
+.narration .humor{color:#66ccff;font-size:15px;margin-top:4px;display:block}
+.decision{background:linear-gradient(135deg,#1a1a2e 0%,#2a1a0e 100%);border:1px solid #ffd70044;border-radius:8px;margin:16px 12px;padding:20px}
+.decision .label{color:#ffd700;font-size:14px;font-weight:bold;letter-spacing:2px;margin-bottom:8px}
+.decision .question{color:#e0e0e0;font-size:16px;line-height:1.6;margin-bottom:12px}
+.decision .choice{padding:8px 12px;margin:4px 0;border-radius:4px;font-size:14px;color:#8b9bb4;line-height:1.5}
+.decision .choice.selected{background:#ffd70022;border:1px solid #ffd700;color:#ffd700}
+.section-break{text-align:center;padding:24px;color:#4a5568;font-size:20px;letter-spacing:8px}
+.cliffhanger{background:linear-gradient(180deg,#0c0c14 0%,#1a0a0a 50%,#0c0c14 100%);padding:30px 20px;text-align:center;margin-top:20px}
+.cliffhanger p{color:#ff6b6b;font-size:18px;line-height:2;letter-spacing:1px}
+.nav{text-align:center;padding:30px 20px 60px}
+.nav a{color:#ffd700;text-decoration:none;font-size:14px;padding:8px 16px;border:1px solid #ffd70044;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>赌神觉醒</h1>
+<div class="subtitle">第一章「入局」</div>
+<div class="chapter-info">V5 · 第一人称 · 商战×赌局×数据之眼</div>
+</div>
+
+<div class="panel">
+
+<!-- === ACT 1: 公司危机 === -->
+
+<div class="frame"><img src="images/frame-01.jpg" loading="lazy" alt=""></div>
+<div class="narration">晚上十一点，我还在办公室。</div>
+<div class="narration">窗外是这座城市最繁华的CBD夜景，但我眼里只有笔记本屏幕上那条一路下跌的营收曲线——像心电图走到了最后一段。</div>
+
+<div class="frame"><img src="images/frame-02.jpg" loading="lazy" alt=""></div>
+<div class="narration">公司账上的现金流倒计时：92天。</div>
+<div class="narration inner-voice">三个月。我的AI创业公司，从融资估值3个亿到现在只剩92天的命。这概率比我写一个没有bug的代码还低——不对，我写的代码从来都有bug。</div>
+
+<div class="frame"><img src="images/frame-03.jpg" loading="lazy" alt=""></div>
+<div class="narration">我揉了揉太阳穴，靠在椅背上。三年了。三年前我从大厂辞职出来创业的时候，所有人都说"朱江疯了"。</div>
+<div class="narration inner-voice">现在看来，他们说对了一半——我确实疯了，但还没疯够。</div>
+
+<div class="frame"><img src="images/frame-04.jpg" loading="lazy" alt=""></div>
+<div class="narration">第二天的董事会，气氛比冰窖还冷。三个投资人代表站在会议桌对面，像三座人形的资产负债表。</div>
+<div class="narration dialogue"><span class="speaker">林总：</span>"朱江，我们的意思很明确。砍掉你那个AI大模型项目，把资源集中到变现快的SaaS业务线上。这是唯一活下去的路。"</div>
+
+<div class="frame"><img src="images/frame-05.jpg" loading="lazy" alt=""></div>
+<div class="narration">我看着桌上那份裁员方案。</div>
+<div class="narration inner-voice">砍掉AI项目？那是我创业的全部意义。没有这个项目，这家公司就是一具精致的空壳——能赚钱，但毫无灵魂。</div>
+
+<!-- 决策点1 -->
+<div class="decision">
+<div class="label">⚡ 决策点 #1</div>
+<div class="question">公司账上只剩3个月现金流。投资人要求砍掉核心AI项目换融资。</div>
+<div class="choice">A. 妥协，砍项目保命 → 活下去，但失去一切意义</div>
+<div class="choice selected">✦ B. 拒绝，寻找其他出路 → 危险，但保住灵魂</div>
+</div>
+
+<div class="frame"><img src="images/frame-06.jpg" loading="lazy" alt=""></div>
+<div class="narration">我站起来，嘴角浮出一个连我自己都觉得略带疯狂的笑容。</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"各位，AI项目不会砍。这是我的底线。"</div>
+<div class="narration inner-voice">林总的脸色瞬间变了。他大概没见过快破产的CEO还这么硬气。</div>
+
+<div class="frame"><img src="images/frame-07.jpg" loading="lazy" alt=""></div>
+<div class="narration">我把方案推回去，手掌压在文件上。</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"给我两个月。两个月内我找到新的资金来源。找不到，我自己负全部责任。"</div>
+<div class="narration"><span class="humor">（会议室安静了三秒钟。我数的——这三秒钟比任何deadline都漫长。）</span></div>
+
+<div class="section-break">· · ·</div>
+
+<!-- === ACT 2: 出走 + 邀请 === -->
+
+<div class="frame"><img src="images/frame-08.jpg" loading="lazy" alt=""></div>
+<div class="narration">我从会议室出来的时候，小王已经在走廊等着了。他穿着永恒不变的格子衬衫，脸上写满了紧张。</div>
+<div class="narration dialogue"><span class="speaker">小王：</span>"老板……怎么样？"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"两个月。我给自己买了两个月。"</div>
+<div class="narration dialogue"><span class="speaker">小王：</span>"两个月能干嘛啊？！"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"不知道。但至少比零天多。"</div>
+
+<div class="frame"><img src="images/frame-09.jpg" loading="lazy" alt=""></div>
+<div class="narration">小王的手机响了五次。全是技术组的——服务器又出了故障。</div>
+<div class="narration inner-voice">这就是创业：一边和投资人谈判生死，一边服务器宕机。人生的多线程，比任何操作系统都复杂。</div>
+
+<div class="frame"><img src="images/frame-10.jpg" loading="lazy" alt=""></div>
+<div class="narration">那天晚上回到家，我在书桌抽屉里发现了一封信。</div>
+<div class="narration">黑色的信封，烫金的凤凰图案。上面两个字：鲲鹏。</div>
+<div class="narration inner-voice">我不记得是谁放在这里的。但它就在那——像一颗不知道什么时候种下的棋子。</div>
+
+<div class="frame"><img src="images/frame-11.jpg" loading="lazy" alt=""></div>
+<div class="narration">信的内容很简短：</div>
+<div class="narration dialogue">"朱江先生台鉴：鲲鹏会恭请阁下莅临。本周五，晚八时。附地址。赌注不是钱。"</div>
+<div class="narration inner-voice">"赌注不是钱"——这句话在我脑子里转了三圈。如果赌注不是钱，那是什么？资源？技术？还是……什么更危险的东西？</div>
+
+<div class="frame"><img src="images/frame-12.jpg" loading="lazy" alt=""></div>
+<div class="narration">我站在窗前，看着城市的灯火。玻璃上映出我自己的脸——疲惫，但眼睛里有一种光，连我自己都不太认识。</div>
+
+<!-- 决策点2 -->
+<div class="decision">
+<div class="label">⚡ 决策点 #2</div>
+<div class="question">收到鲲鹏会邀请函。小王劝"这明摆是鸿门宴"。</div>
+<div class="choice">A. 不去，太危险</div>
+<div class="choice">B. 去，但做好准备</div>
+<div class="choice selected">✦ C. 去，而且主动设局 → 黑客基因=主动hack系统</div>
+</div>
+
+<div class="frame"><img src="images/frame-13.jpg" loading="lazy" alt=""></div>
+<div class="narration">周四晚上，我花了整整五个小时做情报工作。</div>
+<div class="narration">鲲鹏会——表面上是一个企业家私人沙龙，实际上是一个以德州扑克为形式的资源交换平台。庄家兼主持人叫陈永年，外号"陈局"，五十多岁，曾经的政协委员，现在是游走在灰色地带的掮客。</div>
+<div class="narration inner-voice">别人去赌局是带钱。我去赌局，带的是笔记本。我要把每个赴约的人，变成我的数据集。</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- === ACT 3: 赴约 === -->
+
+<div class="frame"><img src="images/frame-14.jpg" loading="lazy" alt=""></div>
+<div class="narration">周五晚上七点半。小王开车，我坐后座。</div>
+<div class="narration">雨下得不大，但城市的霓虹灯全被打散成一片模糊的光。我盯着车窗外的雨滴，脑子里在跑最后一遍模拟。</div>
+<div class="narration dialogue"><span class="speaker">小王：</span>"老板，你真确定要去吗？"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"确定。"</div>
+<div class="narration dialogue"><span class="speaker">小王：</span>"万一出事呢？"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"你在楼下等着，我半小时发一次微信。超过一小时没发，你就报警。"</div>
+<div class="narration dialogue"><span class="speaker">小王：</span>"……报什么警，你在打牌不是打架。"</div>
+<div class="narration dialogue"><span class="speaker">我：</span>"打牌有时候比打架危险。"</div>
+
+<div class="frame"><img src="images/frame-15.jpg" loading="lazy" alt=""></div>
+<div class="narration">小王又开始在微信上疯狂打字。我瞄了一眼——他在跟技术组吐槽："老板跑去赌博了，如果明天公司没了，大家提前更新简历。"</div>
+<div class="narration inner-voice">我选择性忽略这条消息。毕竟他的简历上"前公司倒闭原因"那栏确实不好写。</div>
+
+<div class="frame"><img src="images/frame-16.jpg" loading="lazy" alt=""></div>
+<div class="narration">车停在一栋殖民风格的老建筑前。门口没有招牌，只有两个穿黑色西装的保安，和一盏暖黄色的壁灯。</div>
+<div class="narration inner-voice">越低调的门面，越不简单。这条规则，在创投圈和赌场都通用。</div>
+
+<div class="frame"><img src="images/frame-17.jpg" loading="lazy" alt=""></div>
+<div class="narration">我深吸一口气，推门进去。</div>
+<div class="narration">门内是一条长廊，尽头是金色的光。像走进一个巨大的隐喻——从黑暗走向未知。</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- === ACT 4: 赌局 === -->
+
+<div class="frame"><img src="images/frame-18.jpg" loading="lazy" alt=""></div>
+<div class="narration">圆形赌桌，绿色绒面，水晶吊灯。七个座位，六个已经坐了人。</div>
+<div class="narration">我扫了一圈：两个房地产老板模样的中年人，一个穿休闲卫衣的年轻人（科技圈的？），一个秃顶但眼神凶狠的矮个子，还有——</div>
+<div class="narration">一个短发女人，穿黑色西装，面无表情地坐在角落。</div>
+
+<div class="frame"><img src="images/frame-19.jpg" loading="lazy" alt=""></div>
+<div class="narration">坐在主位的是陈永年。花白头发，金丝眼镜，深灰色中山装。他看见我进来，慢条斯理地笑了。</div>
+<div class="narration dialogue"><span class="speaker">陈老板：</span>"朱总。久仰。鲲鹏会欢迎新朋友。"</div>
+<div class="narration inner-voice">这老头说话的腔调，像是在念一份精心排版的文档——每句话都带三层嵌套，你永远不知道真正的返回值是什么。</div>
+
+<div class="frame"><img src="images/frame-20.jpg" loading="lazy" alt=""></div>
+<div class="narration">我在唯一空着的座位坐下。那个短发女人——赵薇薇，从名牌上看——淡淡地瞥了我一眼。那个眼神冷得像代码里的null值：没有任何信息，但你知道它一定不简单。</div>
+
+<div class="frame"><img src="images/frame-21.jpg" loading="lazy" alt=""></div>
+<div class="narration">第一手牌发下来。我低头一看——一对10，红心和黑桃。</div>
+<div class="narration inner-voice">中等偏上的手牌。如果是打线上德州，我会直接加注。但这是鲲鹏会的第一局，桌上坐的全是比我有钱一百倍的人。这里的气场本身就是一种武器。</div>
+
+<!-- 决策点3 -->
+<div class="decision">
+<div class="label">⚡ 决策点 #3</div>
+<div class="question">第一局德州扑克，手里一对10。对面全是商业大佬，气场压人。</div>
+<div class="choice">A. 保守跟注观察 → 安全，但显得胆小</div>
+<div class="choice">B. 直接加注施压 → 震慑，但暴露实力</div>
+<div class="choice selected">✦ C. 故意示弱引诱 → 表面温和，内在凶狠</div>
+</div>
+
+<div class="frame"><img src="images/frame-22.jpg" loading="lazy" alt=""></div>
+<div class="narration">我选择了跟注。而且特意犹豫了三秒钟才跟——让所有人以为我是个不确定的菜鸟。</div>
+<div class="narration inner-voice">程序设计的第一课：永远不要在第一次运行时就暴露你的全部能力。先观察，再优化，最后才是全速执行。</div>
+
+<div class="frame"><img src="images/frame-23.jpg" loading="lazy" alt=""></div>
+<div class="narration">然后——那件事发生了。</div>
+<div class="narration">我盯着陈老板的脸，突然间，他脸上的每一个细微的肌肉运动都变得无比清晰。眉梢的0.3毫米抬动，嘴角向左偏了0.7度，瞳孔在0.2秒内缩小了——</div>
+<div class="narration">数字。我的视野里浮现出了数字。概率。百分比。</div>
+<div class="narration inner-voice">我这是觉醒了还是近视加重了？</div>
+
+<div class="frame"><img src="images/frame-24.jpg" loading="lazy" alt=""></div>
+<div class="narration">我眨了眨眼。没有消失。</div>
+<div class="narration">赵薇薇——WIN: 20%, BLUFF: 45%。陈老板——WIN: 35%, FOLD: 10%。</div>
+<div class="narration">我的大脑像一台突然被超频的服务器，疯狂地处理着视觉信息、行为模式、概率计算。这不是超能力——这是我十五年编程思维和数学直觉的集中爆发。</div>
+<div class="narration inner-voice">数据之眼。我心里给它起了个名字。虽然名字很中二，但此刻我的心跳频率快赶上CPU满载了。</div>
+
+<div class="frame"><img src="images/frame-25.jpg" loading="lazy" alt=""></div>
+<div class="narration">Flop翻出了9、10、K。我凑成了三条10。</div>
+<div class="narration">但我的脸上没有任何波动。我甚至故意皱了一下眉头，好像牌面对我不太友好。</div>
+
+<div class="frame"><img src="images/frame-26.jpg" loading="lazy" alt=""></div>
+<div class="narration">Turn翻出了J。赵薇薇加注了。陈老板跟注。</div>
+<div class="narration">我的"数据之眼"告诉我：赵薇薇在诈——她的右手无名指在桌面下微微抖动，频率和她诈牌时的模式高度吻合。陈老板有东西，但不够大——他的呼吸节奏平稳但略快，说明他在期待但不确定。</div>
+<div class="narration">我跟注。继续装弱。</div>
+
+<div class="frame"><img src="images/frame-27.jpg" loading="lazy" alt=""></div>
+<div class="narration">River。全场摊牌。</div>
+<div class="narration">我翻出一对10——三条。赵薇薇扔了牌——果然是诈。陈老板翻出K对——输了。</div>
+<div class="narration">筹码推到我面前的瞬间，整个桌子安静了两秒钟。</div>
+<div class="narration inner-voice">第一局，小赢。但重要的不是赢了多少——重要的是我知道了，数据之眼是真的。我手里多了一张底牌，而且是所有人都看不见的那种。</div>
+
+<div class="section-break">♠ ♥ ♣ ♦</div>
+
+<!-- === CLIFFHANGER === -->
+
+<div class="frame"><img src="images/frame-28.jpg" loading="lazy" alt=""></div>
+<div class="narration">我起身准备离开。陈老板叫住了我。</div>
+<div class="narration dialogue"><span class="speaker">陈老板：</span>"朱总，今晚只是热身。"</div>
+<div class="narration">他递过来一张黑色名片。正面什么都没有，翻过来——</div>
+<div class="narration">一个日期，一个地址。</div>
+
+<div class="cliffhanger">
+<p>那个日期，是我AI项目竞标的同一天。</p>
+<p>那个地址，是竞标会场的同一栋楼。</p>
+<p>这不是巧合。</p>
+<p style="color:#ffd700;font-size:20px;margin-top:12px">「赌注不是钱」——现在我终于明白这句话的意思了。</p>
+</div>
+
+<div class="nav">
+<a href="#">第二章「数据之眼」· 即将推出</a>
+</div>
+
+</div>
+
+<script>
+const o=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add('visible'),o.unobserve(e.target))})},{threshold:0.1});
+document.querySelectorAll('.frame').forEach(e=>o.observe(e));
+</script>
+</body>
+</html>
