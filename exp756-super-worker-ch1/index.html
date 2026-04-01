@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>超级打工人 · 第一章「系统上线」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e8e0d8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.container{max-width:420px;margin:0 auto;padding:0}
+/* Title */
+.title-section{padding:60px 20px 40px;text-align:center;background:linear-gradient(180deg,#1a1410 0%,#0a0a0a 100%)}
+.title-section h1{font-size:28px;font-weight:800;color:#ffd700;text-shadow:0 0 20px rgba(255,215,0,0.3);margin-bottom:8px;letter-spacing:2px}
+.title-section .subtitle{font-size:16px;color:#a89880;letter-spacing:4px}
+.title-section .chapter{font-size:14px;color:#665840;margin-top:16px;letter-spacing:6px}
+/* Panels */
+.panel{position:relative;width:100%;margin-bottom:2px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block}
+.panel .text{padding:16px 20px;font-size:18px;line-height:1.8;background:#111;border-left:3px solid #ffd700}
+.panel .text .dialogue{color:#ffd700;font-weight:600}
+.panel .text .inner{color:#8cb4d4;font-style:italic;font-size:16px}
+.panel .text .narration{color:#c8b8a0}
+.panel .text .action{color:#a0a0a0;font-size:15px}
+.panel .text .sfx{color:#ff6b4a;font-weight:700;font-size:20px;text-align:center;display:block;margin:8px 0}
+/* Decision points */
+.decision{background:linear-gradient(135deg,#1a1410,#201a14);border:1px solid #ffd700;border-radius:12px;margin:16px 12px;padding:20px;animation:glow 2s ease-in-out infinite alternate}
+.decision h3{color:#ffd700;font-size:16px;margin-bottom:12px;text-align:center}
+.decision .option{padding:10px 16px;margin:8px 0;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);border-radius:8px;font-size:16px;color:#e8e0d8;transition:all 0.3s}
+.decision .option.chosen{background:rgba(255,215,0,0.2);border-color:#ffd700;box-shadow:0 0 10px rgba(255,215,0,0.2)}
+.decision .option.chosen::before{content:"✓ ";color:#ffd700}
+/* System UI */
+.system-msg{background:linear-gradient(135deg,#0f0a1a,#1a0f2a);border:1px solid #8b5cf6;border-radius:12px;margin:16px 12px;padding:16px;font-family:'Courier New',monospace}
+.system-msg .sys-header{color:#8b5cf6;font-size:14px;text-align:center;margin-bottom:8px;letter-spacing:2px}
+.system-msg .sys-content{color:#c4b5fd;font-size:17px;line-height:1.7;text-align:center}
+.system-msg.alert{border-color:#ef4444;background:linear-gradient(135deg,#1a0a0a,#2a0f0f)}
+.system-msg.alert .sys-header{color:#ef4444}
+.system-msg.alert .sys-content{color:#fca5a5}
+/* Scene headers */
+.scene-header{padding:30px 20px 16px;text-align:center}
+.scene-header span{display:inline-block;padding:6px 20px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:20px;font-size:13px;color:#ffd700;letter-spacing:3px}
+/* Cliffhanger */
+.cliffhanger{padding:40px 20px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0a0510)}
+.cliffhanger .text{font-size:20px;color:#8b5cf6;font-weight:600;opacity:0;animation:fadeIn 1s ease forwards}
+.cliffhanger .next{margin-top:20px;font-size:14px;color:#665840;letter-spacing:4px;animation:pulse 2s infinite}
+/* Animations */
+@keyframes glow{from{box-shadow:0 0 5px rgba(255,215,0,0.1)}to{box-shadow:0 0 15px rgba(255,215,0,0.2)}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:0.5}50%{opacity:1}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="title-section">
+  <div class="chapter">第一章</div>
+  <h1>系统上线</h1>
+  <div class="subtitle">超级打工人</div>
+</div>
+
+<!-- 场景1: 投资人会议室 -->
+<div class="scene-header"><span>📍 某投资机构 · 会议室</span></div>
+
+<div class="panel">
+  <img src="images/frame-01.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【全景 · 俯拍】高档会议室，落地窗外是CBD天际线。我站在投影幕前，PPT上写着"AI无限可能"。三个投资人坐在对面。</span><br>
+    <span class="narration">我深吸一口气，开始了这个月第七次融资路演。这次一定行。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-02.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【近景 · 平视】我的特写，满脸自信，手指向PPT。</span><br>
+    <span class="dialogue">"我们的AI模型在三个核心指标上已经超越了市面上所有竞品——"</span><br>
+    <span class="inner">（说得连我自己都快信了。）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-03.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【中景 · 我的主观视角】三个投资人：左边那位在刷抖音，中间的在回微信，右边的……在玩消消乐。</span><br>
+    <span class="inner">（好家伙，我以为我在路演，原来我在给他们当白噪音。）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-04.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【双人中景 · 侧面】中间的投资人终于放下手机，抬头看了我一眼。</span><br>
+    <span class="dialogue">投资人："朱总，打断一下——你们跟ChatGPT有什么区别？"</span><br>
+    <span class="dialogue">我："……我们更穷。"</span><br>
+    <span class="narration">会议室陷入了三秒钟的死寂。我清楚地听到了右边那位消消乐过关的音效。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-05.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【全身 · 侧面走廊】我一个人靠在会议室门外的白墙上，领带松了，苦笑。</span><br>
+    <span class="narration">被拒了。意料之中。手里的BP文件夹比出门时轻了——因为投资人连拿都没拿。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-06.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【半身 · 电梯内】电梯镜子里映出我的脸，从苦笑慢慢变成一种说不清的表情。</span><br>
+    <span class="inner">（第七次了。账上的钱还够发两个月工资。两个月后，我连"更穷"这个梗都用不上了，因为真穷了。）</span>
+  </div>
+</div>
+
+<!-- 场景2: 居民楼办公室 -->
+<div class="scene-header"><span>📍 城中村居民楼 · 3楼 "办公室"</span></div>
+
+<div class="panel">
+  <img src="images/frame-07.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【远景 · 仰拍】一栋老旧的居民楼，阳台上晾着各家的衣服，一楼的小饭馆飘出油烟。三楼的窗户亮着灯。</span><br>
+    <span class="narration">我们的"办公室"在三楼。租金便宜，因为楼下是面馆，每天下午四点准时被油烟味轰炸。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-08.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【广角中景】三张桌子挤在一起的小房间。阿布在角落敲代码，满屏红色报错。苗苗歪在椅子上刷手机。外卖盒堆成小山。</span><br>
+    <span class="narration">这就是我的团队。全部身家。一个写bug比feature多的技术合伙人，一个嘴比脑快的运营。加上我——一个连投资人都糊弄不了的CEO。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-09.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【中景 · 门口视角】我推开门。阿布和苗苗同时转头看我。</span><br>
+    <span class="narration">三个人对视了大概五秒钟。</span><br>
+    <span class="dialogue">苗苗（看我表情就懂了）："……又没戏？"</span><br>
+    <span class="dialogue">我："投资人问我们跟ChatGPT有什么区别。"</span><br>
+    <span class="dialogue">苗苗："你怎么回答的？"</span><br>
+    <span class="dialogue">我："我说我们更穷。"</span><br>
+    <span class="dialogue">阿布（没抬头，继续敲代码）："确实。"</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-10.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【近景 · 侧面】阿布的特写。厚厚的黑框眼镜，鼻梁上滑下来一半。屏幕上密密麻麻的报错信息映在镜片上。</span><br>
+    <span class="narration">阿布，我的技术合伙人。写了三年代码，最大的成就是把一个bug修好后生出两个新的。社恐到什么程度呢——上次他跟快递员对话，结巴了七次。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-11.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【近景 · 3/4侧】苗苗看着手机屏幕。招聘APP的推送通知堆了一屏。</span><br>
+    <span class="narration">苗苗，我的运营。大学学妹，毕业后不知道为什么跟了我创业。可能是因为我画的饼特别大。她最大的优点和缺点是同一个——嘴快。说出来的话经常是残酷的真相，但说的方式会让你哭笑不得。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-12.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【半身 · 仰拍】我瘫坐在那把随时可能散架的转椅上，仰头望着天花板上的水渍。</span>
+  </div>
+</div>
+
+<div class="decision">
+  <h3>⚡ 决策点 #1</h3>
+  <div class="option">A）散伙吧，各找出路</div>
+  <div class="option">B）死磕到底，不信邪</div>
+  <div class="option">C）先裁员，只留自己一个人</div>
+  <div class="option chosen">我选了B。不是因为我多有信念——是因为我连遣散费都发不起。</div>
+</div>
+
+<!-- 场景3: 系统觉醒 -->
+<div class="scene-header"><span>⚡ 命运的泡面时间</span></div>
+
+<div class="panel">
+  <img src="images/frame-13.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【中景 · 侧面】我站在饮水机旁，往泡面桶里倒热水。</span><br>
+    <span class="narration">晚上八点。阿布还在跟他的第47个bug搏斗，苗苗已经走了（明天有个面试，她以为我不知道）。我一个人在黑暗中泡泡面，觉得这大概就是我人生的低谷了。</span><br>
+    <span class="inner">（不过低谷也有好处——至少不会更低了。吧？）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-14.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【主观视角 · 特写】眼前突然凭空出现了一个半透明的界面。花里胡哨的边框，像素风图标，进度条卡在37%不动了。</span><br>
+    <span class="sfx">叮～</span>
+    <span class="narration">我以为是加班太多出现幻觉了。</span>
+  </div>
+</div>
+
+<div class="system-msg">
+  <div class="sys-header">【打工人系统 v0.1 beta】</div>
+  <div class="sys-content">
+    加载中… 37%……<br>
+    ………………<br>
+    加载中… 37%……<br>
+    「请拍打屏幕」<br>
+    ………………<br>
+    加载完成！100%！
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-15.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【全身 · 侧面 · 动态】我吓得往后一跳，泡面桶飞了出去，面汤洒了一地。</span><br>
+    <span class="dialogue">我："卧——！！！"</span><br>
+    <span class="inner">（我的泡面……红烧牛肉味的……刚泡好……）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-16.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【系统界面特写】花里胡哨的主界面。金色边框配紫色渐变底色，像2008年的QQ空间。角落有个穿工地马甲的小人在跳舞。</span>
+  </div>
+</div>
+
+<div class="system-msg">
+  <div class="sys-header">【系统公告】</div>
+  <div class="sys-content">
+    恭喜宿主成为全球第1,048,576位打工人！<br>
+    （没错，刚好是2的20次方，很吉利的）<br><br>
+    您的初始等级为：<span style="color:#ffd700;font-size:20px;font-weight:bold">临时工</span><br><br>
+    温馨提示：本系统不支持退款、投诉和差评。<br>
+    如有问题，请对着空气大喊"我要加班"。
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-17.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【系统界面】属性面板。小人图标穿着橙色工地马甲和安全帽，所有属性条都短得几乎看不见。</span><br>
+    <span class="inner">（临时工。我堂堂一个CEO，系统给我定级临时工。说实话……也挺准的。）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-18.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【三人中景】阿布听到动静走过来，苗苗……不对，苗苗不是走了吗？她居然在门口探头："听到你在尖叫，以为你被催债的找上门了。"</span><br>
+    <span class="dialogue">我（指着空气）："你们看到了吗？这里有个界面！"</span><br>
+    <span class="dialogue">阿布（推了推眼镜）："……没有。"</span><br>
+    <span class="dialogue">苗苗："老板，你是不是该去看看医生？"</span><br>
+    <span class="inner">（只有我能看到。太好了，这下连队友都觉得我疯了。）</span>
+  </div>
+</div>
+
+<!-- 场景4: 接到任务 -->
+<div class="scene-header"><span>📋 第一个任务</span></div>
+
+<div class="panel">
+  <img src="images/frame-19.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【系统界面】任务面板弹出。金色边框，倒计时器滴答作响。</span>
+  </div>
+</div>
+
+<div class="system-msg">
+  <div class="sys-header">【新任务！】</div>
+  <div class="sys-content">
+    📋 24小时内签下一个付费客户<br>
+    ⏰ 倒计时：24:00:00<br>
+    🎁 奖励：随机Buff × 1<br><br>
+    <span style="font-size:13px;color:#8b8b8b">（温馨提示：失败惩罚未知。建议不要尝试。）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-20.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【近景】我盯着浮在空气中的任务面板，表情从震惊慢慢变成一种无奈的苦笑。</span><br>
+    <span class="inner">（24小时签下付费客户。我们连demo都跑不通。上次给甲方演示，系统当场蓝屏，阿布当场社死。）</span><br>
+    <span class="narration">但我注意到了"随机Buff"。不知道为什么，这三个字让我心里痒痒的。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-21.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【中景 · 白板视角】三个人站在白板前。白板上写满了各种方案，大部分被划掉了。</span><br>
+    <span class="dialogue">苗苗："要不我们去地铁口发传单？"</span><br>
+    <span class="dialogue">阿布（举手）："我可以把我们的bug包装成feature。"</span><br>
+    <span class="dialogue">我："……你说的每一个字都让我很心累。"</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-22.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【三人中景 · 苗苗为中心】苗苗突然来了灵感，眼睛亮了，嘴巴已经比脑子先动了。</span><br>
+    <span class="dialogue">苗苗："不如——去楼下王叔的面馆推销AI点餐系统！"</span><br>
+    <span class="dialogue">我："面馆……一共十二道菜，客人基本上来了就说'老样子'。要什么AI点餐？"</span><br>
+    <span class="dialogue">苗苗："那就推销AI回复差评！王叔上次被人在美团上写了一星差评，气得把手机摔了！"</span><br>
+    <span class="inner">（等等……这个好像真的有搞头？）</span>
+  </div>
+</div>
+
+<!-- 场景5: 面馆 -->
+<div class="scene-header"><span>📍 楼下 · 老王面馆</span></div>
+
+<div class="panel">
+  <img src="images/frame-23.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【远景 · 街景】楼下的面馆，热气腾腾。红灯笼，塑料凳子，玻璃窗上全是水汽。王叔在门口擦桌子。</span><br>
+    <span class="narration">王叔，五十多岁，开了二十年面馆。和我的关系就是——我欠他三个月面钱。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-24.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【全身 · 面馆门口】我换了T恤和牛仔裤，站在面馆门口犹豫。</span>
+  </div>
+</div>
+
+<div class="decision">
+  <h3>⚡ 决策点 #2</h3>
+  <div class="option">A）正经商务pitch：掏出PPT讲AI趋势</div>
+  <div class="option chosen">B）帮他解决一个实际痛点：那个让他摔手机的差评</div>
+  <div class="option">C）请他吃饭套近乎（用他自己店的面请他吃……）</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-25.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【半身】王叔。微胖，围裙上沾着油渍，脸上带着做了二十年生意的那种精明和憨厚。</span><br>
+    <span class="dialogue">王叔："哟，小朱。来还面钱的？"</span><br>
+    <span class="dialogue">我："王叔……今天来是想帮你个忙。"</span><br>
+    <span class="dialogue">王叔（警觉）："上次你说帮忙，差点把我的收银系统搞瘫痪了。"</span><br>
+    <span class="dialogue">我："那次是阿布的锅！这次不一样，真的！"</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-26.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【双人中景】我和王叔坐在面馆里聊天。面前放着一碗我"顺便"点的红烧牛肉面（赊账的）。</span><br>
+    <span class="dialogue">我："王叔，你上次被写一星差评的事……"</span><br>
+    <span class="dialogue">王叔（脸色一变）："别提那个！说我的面'又贵又难吃'，我开了二十年店，第一次被说难吃！一碗面才十二块，贵？！"</span><br>
+    <span class="dialogue">我："那你怎么回复的？"</span><br>
+    <span class="dialogue">王叔："我回了个'你才难吃'。然后被平台警告了。"</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-27.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【中景 · 俯拍桌面】我打开笔记本电脑，屏幕上显示着我们花了一个小时临时攒出来的AI差评回复工具。</span><br>
+    <span class="dialogue">我："看这个——我把那条差评输进去，AI帮你生成回复。"</span><br>
+    <span class="narration">我按下了生成键。说实话，我心里也没底。阿布说"应该能跑"，但他每次说"应该"的时候，成功率大概是50%。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-28.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【屏幕特写】AI生成的回复出现在屏幕上：</span><br>
+    <span class="narration">"亲爱的顾客，非常抱歉给您带来了不好的体验。作为一家开了二十年的老店，您的每一口面都是我们的心意。可能那天我们的状态确实不够好，但这绝不是我们的正常水准。真心希望您能再给我们一次机会，下次来我请您吃一碗我最拿手的红烧牛肉面，让您感受到我们的诚意。——老王"</span><br>
+    <span class="inner">（这个AI……真的觉得对不起顾客。比我们都真诚。）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-29.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【半身 · 特写】王叔看完回复，先是愣了三秒，然后一巴掌拍在桌上，哈哈大笑。</span><br>
+    <span class="dialogue">王叔："哈哈哈哈！写得比我儿子的作文都好！这个'真心希望您再给我们一次机会'——我自己都被感动了！"</span><br>
+    <span class="sfx">啪——（拍桌声）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-30.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【双人中景】王叔竖起大拇指。我长出一口气，如释重负地笑了。</span><br>
+    <span class="dialogue">王叔："行！这个我买！多少钱？"</span><br>
+    <span class="dialogue">我："一个月……99？"</span><br>
+    <span class="dialogue">王叔："贵了。"</span><br>
+    <span class="dialogue">我："那……69？"</span><br>
+    <span class="dialogue">王叔："行。从你的面钱里扣。"</span><br>
+    <span class="inner">（我的第一个付费客户。月收入69块。扣完我还欠他200多。但——成了！）</span>
+  </div>
+</div>
+
+<!-- 场景6: Buff发放 + 悬念 -->
+<div class="scene-header"><span>🎰 随机Buff发放</span></div>
+
+<div class="panel">
+  <img src="images/frame-31.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【系统界面 · 特效】金光四射的"任务完成"庆祝画面，但特效像2005年的Flash动画，五彩纸屑的像素都数得清。</span><br>
+    <span class="sfx">🎊 叮叮叮！任务完成！🎊</span>
+  </div>
+</div>
+
+<div class="system-msg">
+  <div class="sys-header">【Buff 抽奖】</div>
+  <div class="sys-content">
+    🎁 恭喜获得随机Buff！<br><br>
+    <span style="font-size:22px;color:#ffd700;font-weight:bold">「社交恐惧消除 × 1」</span><br><br>
+    <span style="font-size:13px;color:#8b8b8b">效果说明：永久消除目标的社交恐惧症。</span><br>
+    <span style="font-size:13px;color:#8b8b8b">注意：目标随机分配，不一定是宿主本人。</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-32.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="inner">（等等——"目标随机分配"？"不一定是宿主本人"？？）</span><br>
+    <span class="narration">话音刚落——</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-33.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【三人中景 · 办公室】阿布突然站了起来。他放下键盘，转向苗苗，张开嘴——</span><br>
+    <span class="dialogue">阿布："苗苗你知道吗今天我debug的时候发现了一个特别有意思的问题就是我们的数据库连接池的配置其实可以优化百分之三十你有没有兴趣听我讲一下另外你今天穿的这个卫衣挺好看的——"</span><br>
+    <span class="narration">苗苗的嘴巴张成了O型。我的嘴巴也张成了O型。</span><br>
+    <span class="narration">阿布。那个跟快递员说话都结巴的阿布。在滔滔不绝。而且停不下来。</span><br>
+    <span class="dialogue">阿布（继续）："对了我一直想说其实我觉得你们每次点外卖都点错了那个黄焖鸡其实隔壁那家更好吃——"</span><br>
+    <span class="inner">（Buff是真的。但它没给我——给了阿布。这个系统，是认真的吗？！）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-34.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【系统界面 · 红色警告】突然，系统界面变成了刺眼的红色。警告三角标不停闪烁。</span>
+  </div>
+</div>
+
+<div class="system-msg alert">
+  <div class="sys-header">⚠️ 【系统警告】</div>
+  <div class="sys-content">
+    检测到同区域存在<span style="color:#ef4444;font-weight:bold">其他宿主</span>……<br><br>
+    建议：保持警惕。<br><br>
+    <span style="font-size:13px">（本提示不提供更多信息。因为穷。升级VIP可解锁详细情报。VIP价格：999,999积分。您当前积分：1。）</span>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-35.jpg" loading="lazy" alt="">
+  <div class="text">
+    <span class="action">【背影 · 窗户视角 · 悬念感】我走到窗边，推开窗，夜风灌进来。对面的写字楼灯火通明，但有一个窗户——那里的光不太一样。一闪一闪的，像是什么界面的光。</span><br>
+    <span class="narration">其他宿主。同一个区域。</span><br>
+    <span class="narration">我不知道那是朋友还是敌人。但我知道一件事——</span><br>
+    <span class="narration">我不再是一个人了。</span>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <div class="text">对面那个窗户的光，到底是谁？</div>
+  <div class="next">—— 第二章「同区宿主」· 即将上线 ——</div>
+</div>
+
+</div>
+
+<script>
+// Lazy reveal on scroll
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+panels.forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
