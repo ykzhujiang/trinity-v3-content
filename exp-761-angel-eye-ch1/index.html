@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>天使之眼 — 第一章「看透人心的创业者」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e8e0d4;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:linear-gradient(180deg,#0a0a12 0%,#1a1428 50%,#0a0a12 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 30%,rgba(218,165,32,0.15) 0%,transparent 60%);pointer-events:none}
+.cover h1{font-size:2.4em;font-weight:900;background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.3em;letter-spacing:0.05em;text-shadow:0 0 40px rgba(255,215,0,0.3)}
+.cover .subtitle{font-size:1.1em;color:#b8a080;margin-bottom:2em;letter-spacing:0.1em}
+.cover .chapter{font-size:0.95em;color:#8a7a6a;letter-spacing:0.2em}
+.cover .scroll-hint{position:absolute;bottom:30px;animation:bounce 2s infinite;color:#ffd70080;font-size:0.85em}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+.panel-container{max-width:500px;margin:0 auto;padding:0}
+.frame{position:relative;margin:0;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.frame.visible{opacity:1;transform:translateY(0)}
+.frame img{width:100%;display:block}
+.frame .text-overlay{padding:20px 24px;background:linear-gradient(180deg,rgba(10,10,18,0.95),rgba(10,10,18,1));position:relative}
+.frame .text-overlay p{font-size:1.05em;line-height:1.85;color:#d4c8b8;margin-bottom:0.5em}
+.frame .text-overlay .inner-voice{color:#ffd700cc;font-style:italic;font-size:0.95em}
+.frame .text-overlay .system-text{background:rgba(255,215,0,0.08);border-left:3px solid #ffd700;padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:0.9em;color:#ffd700;line-height:1.6}
+.frame .text-overlay .system-warning{background:rgba(255,60,60,0.08);border-left:3px solid #ff3c3c;padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:0.9em;color:#ff6b6b;line-height:1.6}
+.frame .text-overlay .dialog{color:#e8e0d4;font-weight:500}
+.frame .text-overlay .dialog::before{content:'"';color:#ffd700}
+.frame .text-overlay .dialog::after{content:'"';color:#ffd700}
+.frame .text-overlay .narrator{color:#9a8a7a;font-size:0.9em}
+
+.beat-divider{text-align:center;padding:40px 20px;color:#ffd70060;font-size:0.8em;letter-spacing:0.3em}
+.beat-divider::before,.beat-divider::after{content:'——';margin:0 0.5em}
+
+.s-rank-glow{animation:sglow 2s ease-in-out infinite alternate}
+@keyframes sglow{0%{box-shadow:0 0 20px rgba(255,215,0,0.2)}100%{box-shadow:0 0 40px rgba(255,215,0,0.4)}}
+.d-rank-glow{box-shadow:0 0 20px rgba(255,60,60,0.3)}
+
+.ending{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:linear-gradient(180deg,#0a0a12,#1a1428)}
+.ending h2{font-size:1.8em;background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5em}
+.ending .next{color:#8a7a6a;font-size:0.95em;margin-top:1em;letter-spacing:0.1em}
+
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#ffd700,#ff8c00);z-index:100;transition:width 0.1s}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="cover">
+  <div class="chapter">V5 原创长篇 · 第一章</div>
+  <h1>天使之眼</h1>
+  <div class="subtitle">看透人心的创业者</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<div class="panel-container">
+
+<!-- Beat 1: 普通的一天 -->
+<div class="frame"><img src="images/frame-01.jpg" loading="eager" alt="f01"><div class="text-overlay"><p>又一个下午，又一叠商业计划书。</p><p>我坐在老位置翻着这些花花绿绿的PPT打印稿，每一页都写着"颠覆行业"，但翻完只有一个感觉——</p></div></div>
+
+<div class="frame"><img src="images/frame-02.jpg" loading="eager" alt="f02"><div class="text-overlay"><p class="inner-voice">"……又是一堆吹牛的。"</p></div></div>
+
+<div class="frame"><img src="images/frame-03.jpg" loading="eager" alt="f03"><div class="text-overlay"><p>算了，回去吧。看了三十份计划书，没一个让我心动的。</p><p class="narrator">AI创业这条路，我走了快十年了，什么牛皮没见过？</p></div></div>
+
+<div class="beat-divider">雷击觉醒</div>
+
+<!-- Beat 2: 雷击觉醒 -->
+<div class="frame"><img src="images/frame-04.jpg" loading="lazy" alt="f04"><div class="text-overlay"><p>刚出门，天就变了。</p><p>紫黑色的云压得极低，明明刚才还是大晴天。我本能地抬头——</p></div></div>
+
+<div class="frame"><img src="images/frame-05.jpg" loading="lazy" alt="f05"><div class="text-overlay"><p><strong>一道闪电劈在我手机上。</strong></p><p>没有任何预兆。白蓝色的电光从天而降，精准命中我右手里的手机。整个世界在那一瞬间变成了白色。</p></div></div>
+
+<div class="frame"><img src="images/frame-06.jpg" loading="lazy" alt="f06"><div class="text-overlay"><p>我被弹飞了两米远，摔在地上。手机炸成了碎片。</p><p>但是——我居然没事？全身上下检查了一遍，除了POLO衫上沾了点灰，连根毛都没少。</p></div></div>
+
+<div class="frame"><img src="images/frame-07.jpg" loading="lazy" alt="f07"><div class="text-overlay"><p>站起来的那一刻，我知道什么东西变了。</p><p>路人头顶上……<strong>浮着东西</strong>。模糊的、半透明的、像全息投影一样的数据面板。</p></div></div>
+
+<div class="frame"><img src="images/frame-08.jpg" loading="lazy" alt="f08"><div class="text-overlay"><p>我死死盯着一个路人头顶的面板。</p><p>一个字母评级，几行小字，百分比数字……</p><p class="inner-voice">这他妈是什么？</p></div></div>
+
+<div class="beat-divider">系统初始化</div>
+
+<!-- Beat 3: 系统初始化 -->
+<div class="frame"><img src="images/frame-09.jpg" loading="lazy" alt="f09"><div class="text-overlay"><p>眼前突然弹出一个巨大的半透明面板——</p><div class="system-text">天使之眼 v1.0 已激活</div><p>蓝金配色，科幻感拉满。像是某个游戏的开场CG直接投射进了现实。</p></div></div>
+
+<div class="frame"><img src="images/frame-10.jpg" loading="lazy" alt="f10"><div class="text-overlay"><div class="system-text">潜力值分级：S / A / B / C / D<br>洞察力点数：100<br>任务系统：已解锁</div></div></div>
+
+<div class="frame"><img src="images/frame-11.jpg" loading="lazy" alt="f11"><div class="text-overlay"><p>我掐了掐鼻梁。</p><p class="inner-voice">"我是不是脑子被雷劈坏了？"</p><p class="narrator">说实话，如果不是它跟着我的视线移动，我真的会以为自己出现了幻觉。</p></div></div>
+
+<div class="frame"><img src="images/frame-12.jpg" loading="lazy" alt="f12"><div class="text-overlay"><p>抱着试试看的心态，我看向路边一个打电话的小伙子。</p><div class="system-text">潜力值 B | 外卖平台创业<br>致命弱点：执行力差 | 成功率 12%</div><p>我整个人愣住了。</p></div></div>
+
+<div class="beat-divider">路演会场</div>
+
+<!-- Beat 4: 赵老板登场 -->
+<div class="frame"><img src="images/frame-13.jpg" loading="lazy" alt="f13"><div class="text-overlay"><p class="narrator">两小时后。某高档写字楼，顶层路演厅。</p><p>今天有个AI医疗项目的路演，之前就约好了的。</p></div></div>
+
+<div class="frame"><img src="images/frame-14.jpg" loading="lazy" alt="f14"><div class="text-overlay"><p>赵老板站在台上，PPT做得比好莱坞大片还精美。</p><p class="dialog">我们的AI医疗项目，将颠覆——整个——行业！</p><p class="narrator">台下投资人们频频点头。这家伙确实有台上功夫。</p></div></div>
+
+<div class="frame d-rank-glow"><img src="images/frame-15.jpg" loading="lazy" alt="f15"><div class="text-overlay"><p>然后我用天使之眼看了他一眼。</p><p>赵老板头顶亮起一个<strong style="color:#ff3c3c">血红色</strong>的面板——</p><div class="system-warning">潜力值 D | 致命弱点：数据全造假 | 成功率 0.3%</div></div></div>
+
+<div class="frame"><img src="images/frame-16.jpg" loading="lazy" alt="f16"><div class="text-overlay"><p>我差点当场笑出声。</p><p>脸都憋红了，嘴唇死死抿住，腮帮子鼓得跟河豚似的。旁边的投资人疑惑地瞟了我一眼。</p></div></div>
+
+<div class="frame"><img src="images/frame-17.jpg" loading="lazy" alt="f17"><div class="text-overlay"><p class="dialog">朱总，你觉得这个项目怎么样？</p><p class="narrator">旁边一个老牌投资人凑过来问。</p></div></div>
+
+<div class="frame"><img src="images/frame-18.jpg" loading="lazy" alt="f18"><div class="text-overlay"><p>我把笑意压下去，恢复了职业微笑。</p><p class="dialog">我再看看。</p><p class="inner-voice">内心OS：兄弟，这哥们数据全是假的，你们居然还信了？</p></div></div>
+
+<div class="beat-divider">S级降临</div>
+
+<!-- Beat 5: 林小鱼出现 -->
+<div class="frame"><img src="images/frame-19.jpg" loading="lazy" alt="f19"><div class="text-overlay"><p>路演结束，我出来透透气。</p><p class="inner-voice">那个赵老板太搞笑了——0.3%的成功率，台下一群人差点抢着投。如果天使之眼说的是真的……那这个世界的投资，是有多瞎啊？</p></div></div>
+
+<div class="frame"><img src="images/frame-20.jpg" loading="lazy" alt="f20"><div class="text-overlay"><p>然后我看到了她。</p><p>大楼门口的人行道边，一个穿着白T恤的女生坐在小板凳上，面前摆着一张折叠桌。桌上放着……纸板做的教具？</p></div></div>
+
+<div class="frame s-rank-glow"><img src="images/frame-21.jpg" loading="lazy" alt="f21"><div class="text-overlay"><p>我随手用天使之眼扫了一眼——</p><p>然后我整个人<strong>石化</strong>了。</p><div class="system-text" style="border-color:#ffd700;background:rgba(255,215,0,0.12);color:#ffd700">潜力值 S!!! ⭐⭐⭐<br>隐藏天赋：教育产品天才 + 极强用户洞察<br>成功率（有资金）87%</div></div></div>
+
+<div class="frame"><img src="images/frame-22.jpg" loading="lazy" alt="f22"><div class="text-overlay"><p>手里的烟掉了。</p><p><strong>S级？？</strong>我今天看了几十个人，最高的也就B级。楼上那个吹得天花乱坠的赵老板才D级。</p><p class="inner-voice">而这个……在路边摆摊卖纸板教具的姑娘……是S级？？</p></div></div>
+
+<div class="frame"><img src="images/frame-23.jpg" loading="lazy" alt="f23"><div class="text-overlay"><p>写字楼的玻璃幕墙倒映着天空，西装革履的投资人们鱼贯而出。</p><p>楼下的人行道边，一个女生守着一张小折叠桌。</p><p>头顶那个金色的S级面板，比整栋大楼都耀眼。</p></div></div>
+
+<div class="frame"><img src="images/frame-24.jpg" loading="lazy" alt="f24"><div class="text-overlay"><div class="system-text">洞察力消耗 -5<br>补充信息：目标人物3次创业失败，现欠债40万<br>但每次失败都离成功更近</div><p class="inner-voice">三次失败，欠债四十万。但成功率87%。这姑娘……到底是什么人？</p></div></div>
+
+<div class="beat-divider">接触试探</div>
+
+<!-- Beat 6: 接触试探 -->
+<div class="frame"><img src="images/frame-25.jpg" loading="lazy" alt="f25"><div class="text-overlay"><p>我蹲下来，拿起桌上一个纸板做的小装置，翻来覆去看了看。</p><p>做工粗糙，但设计……很巧妙。用最简单的材料，把复杂的AI概念变成了可以动手操作的教具。</p></div></div>
+
+<div class="frame"><img src="images/frame-26.jpg" loading="lazy" alt="f26"><div class="text-overlay"><p class="dialog">这个是我自己设计的！</p><p>她眼睛一下子亮了。</p><p class="dialog">你看这里，翻开这个纸板，小朋友就能理解什么是神经网络——每个节点都是一个开关，信号从这边传到那边……</p></div></div>
+
+<div class="frame"><img src="images/frame-27.jpg" loading="lazy" alt="f27"><div class="text-overlay"><p>她一开口就停不下来了。</p><p>从用户痛点到产品迭代，从教学方法论到儿童认知心理……每一句话都精准踩在点上。</p><p class="inner-voice">这不是在摆摊，这是在做产品路演。而且比楼上那个赵老板强一万倍。</p></div></div>
+
+<div class="frame"><img src="images/frame-28.jpg" loading="lazy" alt="f28"><div class="text-overlay"><div class="system-text">用户洞察极强 — 她说的每一句话都踩在用户痛点上</div><p class="narrator">我见过太多创业者了。会吹的多，会做的少。这姑娘是真的懂。</p></div></div>
+
+<div class="frame"><img src="images/frame-29.jpg" loading="lazy" alt="f29"><div class="text-overlay"><div class="system-text">洞察力消耗 -5<br>补充信息：目标人物3次创业失败，现欠债40万<br>但每次失败都离成功更近</div><p class="inner-voice">有些人失败是因为不行，有些人失败是因为时机未到。</p></div></div>
+
+<div class="frame"><img src="images/frame-30.jpg" loading="lazy" alt="f30"><div class="text-overlay"><p>我们就这么蹲在路边聊了快半小时。路人来来往往，没人注意到这个角落里正在发生的事情——</p><p>一个穿着西装的投资人，和一个摆摊的姑娘，在讨论AI教育的未来。</p><p class="narrator">而她头顶那个金色S级面板，在夕阳下安静地闪烁着。</p></div></div>
+
+<div class="beat-divider">赵老板的阴影</div>
+
+<!-- Beat 7: 赵老板的阴影 -->
+<div class="frame"><img src="images/frame-31.jpg" loading="lazy" alt="f31"><div class="text-overlay"><p>这时候，赵老板一群人从大楼里出来了。</p><p>几个投资人众星捧月似的围着他。赵老板眼角余光扫到了蹲在摊位边的我——</p></div></div>
+
+<div class="frame"><img src="images/frame-32.jpg" loading="lazy" alt="f32"><div class="text-overlay"><p class="dialog">哟，朱总！你的投资眼光不会这么差吧？看上个摆摊的了？</p><p>身后几个投资人跟着笑。小鱼紧张地缩了缩肩膀。</p></div></div>
+
+<div class="frame"><img src="images/frame-33.jpg" loading="lazy" alt="f33"><div class="text-overlay"><p>我站起身来，拍了拍裤腿上的灰。</p><p>抬头看着赵老板——不，是看着他头顶那个血红色的D级标签。</p><p>笑了。</p></div></div>
+
+<div class="frame"><img src="images/frame-34.jpg" loading="lazy" alt="f34"><div class="text-overlay"><p class="dialog">赵总，投资这事，每个人有每个人的眼光。</p><p>我的视野里，赵老板头顶是暗红色的D级，身后是金光闪闪的S级。</p><p class="inner-voice">谁才是真正的宝藏，我心里清楚得很。</p></div></div>
+
+<div class="frame"><img src="images/frame-35.jpg" loading="lazy" alt="f35"><div class="text-overlay"><p>赵老板不以为然地走了。</p><p class="inner-voice">你永远叫不醒一个装睡的人。但你可以找到那些真正醒着的。</p></div></div>
+
+<div class="beat-divider">天使投资</div>
+
+<!-- Beat 8: 做出决定 -->
+<div class="frame"><img src="images/frame-36.jpg" loading="lazy" alt="f36"><div class="text-overlay"><p>我转回头，看着还有些惊魂未定的小鱼。</p><p class="dialog">别理他们。我叫朱江，做AI的。你的教具方向很好——我想投你。</p></div></div>
+
+<div class="frame"><img src="images/frame-37.jpg" loading="lazy" alt="f37"><div class="text-overlay"><p class="dialog">你……你认真的吗？</p><p>她的眼睛瞪得老大，嘴巴微张。</p><p class="dialog">我连公司都没有。</p></div></div>
+
+<div class="frame"><img src="images/frame-38.jpg" loading="lazy" alt="f38"><div class="text-overlay"><p class="dialog">没有公司我帮你注册。先给你100万，够不够启动？</p><p>我伸出手。她愣了三秒，然后伸出手握住了我的——手在发抖。</p></div></div>
+
+<div class="frame"><img src="images/frame-39.jpg" loading="lazy" alt="f39"><div class="text-overlay"><p>她的眼眶红了。</p><p>不是那种哭天抢地的哭，是那种……被人第一次真正看见的哭。</p><p class="narrator">三次创业失败，欠债四十万。然后在路边摆摊的时候，有人蹲下来，认真看了她做的东西。</p></div></div>
+
+<div class="frame"><img src="images/frame-40.jpg" loading="lazy" alt="f40"><div class="text-overlay"><div class="system-text">✅ 第一笔天使投资已记录<br>任务进度 1/10<br>解锁预告：完成3笔成功投资后解锁「谎言检测」能力</div><p>第一笔。十分之一。</p><p class="inner-voice">游戏，才刚刚开始。</p></div></div>
+
+<div class="beat-divider">深夜警告</div>
+
+<!-- Beat 9: 悬念铺垫 -->
+<div class="frame"><img src="images/frame-41.jpg" loading="lazy" alt="f41"><div class="text-overlay"><p>当晚，回到家。</p><p>换了灰色卫衣和运动裤，窝在沙发上翻看今天和小鱼聊的笔记。窗外是城市的万家灯火。</p><p class="inner-voice">今天经历的一切……是真的。天使之眼是真的。那些数据是真的。</p></div></div>
+
+<div class="frame"><img src="images/frame-42.jpg" loading="lazy" alt="f42"><div class="text-overlay"><p>然后系统突然弹出了一个红色警告——</p><div class="system-warning">⚠️ 警告：检测到附近有另一个「天使之眼」使用者</div><p><strong>什么？</strong></p><p>我猛地坐直了。不止我一个人有这个能力？</p></div></div>
+
+<div class="frame"><img src="images/frame-43.jpg" loading="lazy" alt="f43"><div class="text-overlay"><p>手机震了一下。一条来自未知号码的短信。</p><p>屏幕的白光照在我的脸上。短信只有一句话——</p></div></div>
+
+<div class="frame"><img src="images/frame-44.jpg" loading="lazy" alt="f44"><div class="text-overlay"><p style="font-size:1.2em;text-align:center;color:#ff6b6b;font-weight:700;padding:15px 0">"朱江，恭喜觉醒。我们该谈谈了。"</p><p>我盯着这行字看了整整十秒。</p><p class="inner-voice">对方知道我的名字。知道我觉醒了。</p></div></div>
+
+<div class="beat-divider">从来不怕竞争</div>
+
+<!-- Beat 10: 章末钩子 -->
+<div class="frame"><img src="images/frame-45.jpg" loading="lazy" alt="f45"><div class="text-overlay"><p>最初的震惊过后，我反而冷静了下来。</p><p>靠在沙发上，手指轻轻敲着手机背面。嘴角微微翘起。</p><p class="inner-voice">不管你是谁……我朱江从来不怕竞争。</p></div></div>
+
+<div class="frame"><img src="images/frame-46.jpg" loading="lazy" alt="f46"><div class="text-overlay"><p>我走到窗前，双手插兜，看着窗外的城市。</p><p>这座城市里，有多少创业者正在拼命？他们的潜力值又是多少？</p><p class="inner-voice">而那个发短信的人……他的潜力值，又会是什么级别？</p></div></div>
+
+<div class="frame"><img src="images/frame-47.jpg" loading="lazy" alt="f47"><div class="text-overlay"><p>城市的夜空下，千万盏灯火里，隐约有些微弱的光点在闪烁。</p><p>金色的、蓝色的、绿色的、红色的……</p><p>那些是看不见的潜力。是等待被发现的星辰。</p><p style="text-align:center;color:#ffd700;font-weight:700;margin-top:15px">而我，刚刚获得了看见它们的眼睛。</p></div></div>
+
+</div>
+
+<div class="ending">
+  <h2>第一章 · 完</h2>
+  <div class="next">下一章：谎言检测者</div>
+</div>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  const p=h>0?(window.scrollY/h)*100:0;
+  document.getElementById('progressBar').style.width=p+'%';
+});
+// Intersection observer for fade-in
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.1,rootMargin:'0px 0px 50px 0px'});
+document.querySelectorAll('.frame').forEach(f=>obs.observe(f));
+</script>
+</body>
+</html>
