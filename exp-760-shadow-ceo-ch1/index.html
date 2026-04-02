@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>影帝CEO — 第一章：今天的单，准时送达</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a12;
+  color: #e8e4df;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.story-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+.cover {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0a0a1a 0%, #1a1025 50%, #0a0a12 100%);
+  padding: 40px 20px;
+  text-align: center;
+}
+.cover h1 {
+  font-size: 36px;
+  color: #e8c87a;
+  letter-spacing: 6px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 30px rgba(232,200,122,0.3);
+}
+.cover .subtitle {
+  font-size: 18px;
+  color: #8888aa;
+  letter-spacing: 4px;
+  margin-bottom: 40px;
+}
+.cover .tagline {
+  font-size: 15px;
+  color: #666;
+  max-width: 300px;
+  line-height: 1.8;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  font-size: 13px;
+  color: #555;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+.section-title {
+  text-align: center;
+  padding: 50px 20px 20px;
+  font-size: 13px;
+  letter-spacing: 8px;
+  color: #d4a574;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+.section-title.visible { opacity: 1; transform: translateY(0); }
+
+.panel {
+  margin: 8px 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+  background: #141420;
+}
+.panel.visible { opacity: 1; transform: translateY(0); }
+.panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.panel-text {
+  padding: 16px 20px;
+  font-size: 18px;
+  line-height: 1.9;
+  color: #d8d4ce;
+}
+
+.narration {
+  padding: 12px 24px;
+  margin: 4px 20px;
+  font-style: italic;
+  color: #c4a882;
+  border-left: 3px solid #d4a574;
+  font-size: 17px;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.6s ease;
+}
+.narration.visible { opacity: 1; transform: translateX(0); }
+
+.dialogue {
+  padding: 12px 20px;
+  margin: 4px 20px;
+  background: #1a1a2e;
+  border-radius: 12px;
+  font-size: 18px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.5s ease;
+}
+.dialogue.visible { opacity: 1; transform: scale(1); }
+.dialogue .speaker {
+  font-size: 14px;
+  color: #8888aa;
+  margin-bottom: 4px;
+}
+
+.decision-box {
+  margin: 20px 12px;
+  padding: 24px 20px;
+  background: linear-gradient(135deg, #1a1a3e 0%, #2a1a2e 100%);
+  border: 1px solid #d4a574;
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+.decision-box.visible { opacity: 1; transform: translateY(0); }
+.decision-label {
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: #e8c87a;
+  margin-bottom: 12px;
+}
+.decision-options .option {
+  padding: 10px 16px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #999;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.decision-options .option.chosen {
+  color: #e8c87a;
+  background: rgba(232,200,122,0.08);
+  border-color: #d4a574;
+}
+.chosen-tag {
+  font-size: 12px;
+  background: #d4a574;
+  color: #0a0a12;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.panel-wide {
+  margin: 16px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s ease;
+}
+.panel-wide.visible { opacity: 1; transform: translateY(0); }
+.panel-wide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.suspense-box {
+  margin: 30px 12px;
+  padding: 30px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, transparent, rgba(212,165,116,0.05), transparent);
+  opacity: 0;
+  transition: all 1s ease;
+}
+.suspense-box.visible { opacity: 1; }
+.suspense-box .hook {
+  font-size: 16px;
+  color: #d4a574;
+  margin: 10px 0;
+  line-height: 2;
+}
+.suspense-box .tbc {
+  font-size: 22px;
+  color: #e8c87a;
+  letter-spacing: 6px;
+  margin-top: 30px;
+}
+</style>
+</head>
+<body>
+
+<div class="story-container">
+
+<!-- COVER -->
+<div class="cover">
+  <h1>影帝CEO</h1>
+  <div class="subtitle">第一章</div>
+  <div class="tagline">「今天的单，准时送达」</div>
+  <div class="scroll-hint">↓ 向下滑动</div>
+</div>
+
+<!-- SECTION 1: 凌晨暗战 -->
+<div class="section-title">壹 · 凌晨三点的战争</div>
+
+<!-- Frame 1 -->
+<div class="panel">
+  <img src="images/f01.jpg" loading="lazy" alt="">
+  <div class="panel-text">凌晨三点。上海某老旧居民楼，六楼尽头。<br>整栋楼都沉在黑暗里，只有一扇窗透出冷蓝的光。</div>
+</div>
+
+<!-- Frame 2 -->
+<div class="panel">
+  <img src="images/f02.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">三块屏幕上的数据像瀑布一样往下淌。我盯着中间那块——服务器集群的流量图正在发疯。</div>
+
+<!-- Frame 3 -->
+<div class="panel">
+  <img src="images/f03.jpg" loading="lazy" alt="">
+  <div class="panel-text">DDOS攻击。每秒800万次请求，直冲"影子科技"的核心API。</div>
+</div>
+<div class="narration">有人在凌晨三点对我的公司发起攻击。挑这个时间，还挺懂行。</div>
+
+<!-- Frame 4 -->
+<div class="panel">
+  <img src="images/f04.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">我抿了口凉透的咖啡，指尖飞速敲击键盘。30秒，定位攻击源——一台位于新加坡的跳板服务器。VPN加密？小意思。</div>
+
+<!-- Frame 5 -->
+<div class="panel">
+  <img src="images/f05.jpg" loading="lazy" alt="">
+  <div class="panel-text">反手黑进对方系统，在根目录留了个文本文件：<br><span style="color:#6fc;font-family:monospace">「下次别用这么烂的VPN :) —— 影子」</span></div>
+</div>
+<div class="narration">处理完，我往后一靠。椅子发出不堪重负的吱呀声——这把二手椅子跟我这个出租屋一样，随时可能散架。</div>
+
+<!-- Frame 6 -->
+<div class="panel-wide">
+  <img src="images/f06.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">镜头拉远的话，这个场景挺荒诞的——一间月租1800的破出租屋里，一个穿着拖鞋和老头衫的男人，刚刚击退了一场对估值500亿公司的网络攻击。<br><br>那个男人是我。朱江。白天送外卖的那个。</div>
+
+<!-- SECTION 2: 早安，打工人 -->
+<div class="section-title">贰 · 早安，打工人</div>
+
+<!-- Frame 7 -->
+<div class="panel">
+  <img src="images/f07.jpg" loading="lazy" alt="">
+  <div class="panel-text">早上七点，闹钟炸响。<br>我从沙发上弹起来——对，沙发，因为床让给了三块显示器。</div>
+</div>
+
+<!-- Frame 8 -->
+<div class="panel">
+  <img src="images/f08.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">穿上外卖服，戴上头盔。镜子里那个人跟三小时前坐在屏幕前指挥千人团队的家伙，完全是两个物种。</div>
+
+<!-- Frame 9 -->
+<div class="panel">
+  <img src="images/f09.jpg" loading="lazy" alt="">
+  <div class="panel-text">出门前手机弹出一条推送：<br><span style="color:#e8c87a">「快讯：影子科技估值突破500亿，神秘创始人身份仍是谜」</span></div>
+</div>
+<div class="narration">我划掉通知，锁门，下楼。电动车还停在昨天那个位置，后视镜上的裂纹又多了一道。</div>
+
+<!-- Frame 10 -->
+<div class="panel">
+  <img src="images/f10.jpg" loading="lazy" alt="">
+  <div class="panel-text">上海的早晨，阳光很好。我骑着电动车穿过早高峰的车流，耳机里放着导航——<br>「第一单：虹桥路88号，冰美式×2」</div>
+</div>
+
+<!-- SECTION 3: 世界对你的评价 -->
+<div class="section-title">叁 · 你这辈子就只能送外卖了</div>
+
+<!-- Frame 11 -->
+<div class="panel">
+  <img src="images/f11.jpg" loading="lazy" alt="">
+  <div class="panel-text">第一单，一栋联合办公的写字楼。玻璃门上贴着各种创业公司的logo，我认识其中三个——都用着我公司的API。</div>
+</div>
+
+<!-- Frame 12 -->
+<div class="panel">
+  <img src="images/f12.jpg" loading="lazy" alt="">
+</div>
+<div class="dialogue">
+  <div class="speaker">创业公司CEO · 陈总</div>
+  "送个外卖也能迟到？你看看你们这些人，天天骑个电动车在马路上横冲直撞——说句不好听的，你们这辈子就只能送外卖了。"
+</div>
+
+<!-- Frame 13 -->
+<div class="panel">
+  <img src="images/f13.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">我笑了笑，把咖啡递过去："您说得对，对不住。"</div>
+<div class="narration">心里OS：兄弟，你公司上个月申请接入影子科技的API，被我亲手拒的。原因——代码质量太差，怕拖垮我的服务器。</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box">
+  <div class="decision-label">⚡ 决策点</div>
+  <div style="font-size:17px;color:#d8d4ce;margin-bottom:16px;">被当面羞辱后，我选择——</div>
+  <div class="decision-options">
+    <div class="option">A) 忍气吞声说"您说得对"，保持低调</div>
+    <div class="option chosen">B) 不动声色，回头用技术给他一个小小的教训 <span class="chosen-tag">我的选择</span></div>
+  </div>
+</div>
+
+<!-- Frame 14 -->
+<div class="panel">
+  <img src="images/f14.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">走出大楼，我掏出手机。三十秒，查到他公司官网的SSL证书下周到期，顺手把续费提醒邮件从他收件箱里……移走了。<br><br>下周他的网站会弹安全警告，估计够他IT团队忙活半天的。</div>
+<div class="narration">不是什么大事，就图个乐。毕竟——我是个有素质的外卖员。</div>
+
+<!-- Frame 15 -->
+<div class="panel">
+  <img src="images/f15.jpg" loading="lazy" alt="">
+  <div class="panel-text">第二单，送到另一栋写字楼。保安大哥拦住我。</div>
+</div>
+<div class="dialogue">
+  <div class="speaker">保安大哥</div>
+  "外卖不能上楼。"
+</div>
+
+<!-- Frame 16 -->
+<div class="panel">
+  <img src="images/f16.jpg" loading="lazy" alt="">
+</div>
+<div class="dialogue">
+  <div class="speaker">我</div>
+  "哥，这咖啡再不送上去就凉了。凉了客户投诉，投诉了我扣钱，扣钱了我交不起房租，交不起房租我就得睡大街——你忍心吗？"
+</div>
+<div class="dialogue">
+  <div class="speaker">保安大哥</div>
+  "……你小子嘴挺贫的。行行行，赶紧上去赶紧下来。"
+</div>
+<div class="narration">生存技能第一条：学会跟保安搞好关系。这条我在MIT读博的时候就悟了——当时是跟实验室管理员。</div>
+
+<!-- SECTION 4: 人生导师大刘 -->
+<div class="section-title">肆 · 大刘的人生指导</div>
+
+<!-- Frame 17 -->
+<div class="panel">
+  <img src="images/f17.jpg" loading="lazy" alt="">
+  <div class="panel-text">中午，外卖站。<br>几个骑手挤在小铁皮棚子里躲太阳，吃着各自的午饭。</div>
+</div>
+
+<!-- Frame 18 -->
+<div class="panel">
+  <img src="images/f18.jpg" loading="lazy" alt="">
+</div>
+<div class="dialogue">
+  <div class="speaker">大刘 · 外卖站站长</div>
+  "小朱啊，你说你一个大学毕业生，三十好几了还送外卖，你不着急吗？"
+</div>
+<div class="narration">大刘，四十五岁，干外卖站站长八年了。自认为看透人生，最大的爱好就是给所有人当人生导师。</div>
+
+<!-- Frame 19 -->
+<div class="panel">
+  <img src="images/f19.jpg" loading="lazy" alt="">
+</div>
+<div class="dialogue">
+  <div class="speaker">大刘</div>
+  "我跟你说，男人三十五岁以后没有稳定工作就完了。你看隔壁老张，去年考了个货运资格证，现在跑长途一个月两万多……"
+</div>
+<div class="narration">我一边吃泡面一边点头。大刘不知道的是——我上个月拒掉了三家世界500强的收购邀约，最高的出价是200亿美金。</div>
+
+<!-- Frame 20 -->
+<div class="panel">
+  <img src="images/f20.jpg" loading="lazy" alt="">
+</div>
+<div class="dialogue">
+  <div class="speaker">大刘</div>
+  "诶你看这个新闻——影子科技，估值500亿！这老板到底是谁啊？"
+</div>
+<div class="dialogue">
+  <div class="speaker">我</div>
+  "谁知道呢。搞不好就是个送外卖的。"
+</div>
+<div class="dialogue">
+  <div class="speaker">大刘</div>
+  "哈哈哈哈！就你？朱江同志，做梦也得靠谱点！"
+</div>
+
+<!-- Frame 21 -->
+<div class="panel">
+  <img src="images/f21.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">大刘笑得泡面差点喷出来。我也跟着笑了。<br><br>说实话，我挺喜欢这种日子的。没人知道我是谁，没人带着目的接近我。送外卖的朱江，就只是朱江。</div>
+
+<!-- Frame 22 -->
+<div class="panel">
+  <img src="images/f22.jpg" loading="lazy" alt="">
+</div>
+<div class="dialogue">
+  <div class="speaker">大刘</div>
+  "对了，我给你介绍个对象——我老婆的闺蜜，32岁，在银行上班，人特别实在。"
+</div>
+<div class="dialogue">
+  <div class="speaker">我</div>
+  "刘哥，你上个月就给我介绍过了，人家一听我送外卖，直接把我拉黑了。"
+</div>
+<div class="dialogue">
+  <div class="speaker">大刘</div>
+  "这次不一样！这个……比上次那个还实在！"
+</div>
+<div class="narration">更实在的意思大概是——对外卖员的容忍度更高一点。</div>
+
+<!-- SECTION 5: 送餐送到对手楼下 -->
+<div class="section-title">伍 · 明光科技</div>
+
+<!-- Frame 23 -->
+<div class="panel">
+  <img src="images/f23.jpg" loading="lazy" alt="">
+  <div class="panel-text">下午两点，第十七单。<br>导航把我带到了陆家嘴一栋六十层的写字楼前。<br>我抬头看了一眼楼顶的logo，心里咯噔一下——</div>
+</div>
+
+<!-- Frame 24 -->
+<div class="panel-wide">
+  <img src="images/f24.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">明光科技。我最大的竞争对手。<br><br>他们的CEO林婉清，三年来一直在追踪"影子"的真实身份。她的技术团队做了上百种推演，想找出我是谁。</div>
+<div class="narration">而现在，我要端着一份麻辣烫走进她的大楼。</div>
+
+<!-- Frame 25 -->
+<div class="panel">
+  <img src="images/f25.jpg" loading="lazy" alt="">
+  <div class="panel-text">前台刷了外卖通行码，进入电梯。<br>我摁了32楼。</div>
+</div>
+
+<!-- Frame 26 -->
+<div class="panel">
+  <img src="images/f26.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">电梯门在28楼开了。<br>走进来一个人——干练短发，黑色职业装，气场两米八。</div>
+
+<!-- Frame 27 -->
+<div class="panel">
+  <img src="images/f27.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">林婉清。<br><br>明光科技CEO。福布斯中国30岁以下精英榜。AI行业最年轻的上市公司掌门人。<br><br>以及——恨不得把"影子"挫骨扬灰的人。</div>
+
+<!-- Frame 28 -->
+<div class="panel">
+  <img src="images/f28.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">她站在我旁边，低头看手机。我尽量把自己缩小，假装研究外卖保温袋的拉链。<br><br>心跳开始加速。不是因为她好看——虽然确实好看——是因为她手机屏幕上的内容。<br><br>那是一份关于"影子科技创始人身份追踪"的邮件标题。</div>
+
+<!-- Frame 29 -->
+<div class="panel">
+  <img src="images/f29.jpg" loading="lazy" alt="">
+</div>
+<div class="dialogue">
+  <div class="speaker">林婉清</div>
+  "……"
+</div>
+<div class="narration">她突然抬头看了我一眼。<br>三秒钟。她盯着我的脸看了整整三秒钟。</div>
+
+<!-- Frame 30 -->
+<div class="panel">
+  <img src="images/f30.jpg" loading="lazy" alt="">
+</div>
+<div class="dialogue">
+  <div class="speaker">林婉清</div>
+  "你……长得有点眼熟。我们见过吗？"
+</div>
+<div class="dialogue">
+  <div class="speaker">我</div>
+  "嘿嘿，美女，您的麻辣烫。32楼的对吧？"
+</div>
+
+<!-- Frame 31 -->
+<div class="panel">
+  <img src="images/f31.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">她皱了皱眉，似乎在检索记忆。我感觉自己的心脏快要从外卖服里蹦出来。<br><br>叮——32楼到了。</div>
+<div class="dialogue">
+  <div class="speaker">我</div>
+  "到了！祝您用餐愉快！"
+</div>
+<div class="narration">我几乎是小跑着出了电梯。背后，我感觉她的目光还钉在我后脑勺上。</div>
+
+<!-- SECTION 6: 夜幕之下 -->
+<div class="section-title">陆 · 匿名来信</div>
+
+<!-- Frame 32 -->
+<div class="panel">
+  <img src="images/f32.jpg" loading="lazy" alt="">
+  <div class="panel-text">晚上十点。送完最后一单。<br>骑着电动车回出租屋的路上，上海的夜景在两旁流淌。</div>
+</div>
+<div class="narration">今天跑了41单，赚了387块。<br>三个小时前，我的公司签了一份8亿的政府合同。<br>反差感这种东西，习惯了就好。</div>
+
+<!-- Frame 33 -->
+<div class="panel">
+  <img src="images/f33.jpg" loading="lazy" alt="">
+  <div class="panel-text">回到出租屋，换上T恤，坐到三块屏幕前。<br>我是外卖员朱江的一天结束了。影子科技创始人朱江的一天才刚开始。</div>
+</div>
+
+<!-- Frame 34 -->
+<div class="panel">
+  <img src="images/f34.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">先处理白天堆积的公司事务——<br>新产品的Demo不错，批了。<br>东南亚市场的合作方案，改了两处数据，回了。<br>CTO问要不要招一个新的安全团队负责人——<br>"不用，我自己就是最好的安全团队。"</div>
+
+<!-- Frame 35 -->
+<div class="panel">
+  <img src="images/f35.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">一切如常。直到我看到了那封邮件。</div>
+
+<!-- Frame 36 -->
+<div class="panel-wide">
+  <img src="images/f36.jpg" loading="lazy" alt="">
+</div>
+<div class="panel" style="margin:4px 12px;background:#0d0d1a;border:1px solid rgba(232,200,122,0.3)">
+  <div class="panel-text" style="font-family:monospace;color:#e8c87a;font-size:16px;">
+    发件人：[已加密]<br>
+    收件人：shadow@shadowtech.ai<br>
+    主题：我知道你是谁<br><br>
+    <span style="color:#ddd">影子先生，<br>
+    你的外卖服下面藏的东西，比你送的那些麻辣烫有意思多了。<br><br>
+    我们应该谈谈。<br><br>
+    —— 一个朋友</span>
+  </div>
+</div>
+
+<!-- Frame 37 -->
+<div class="panel">
+  <img src="images/f37.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">我盯着屏幕，瞳孔收缩。<br><br>发件人IP——反向追踪三层跳板后——<br>指向明光科技的内部网络。</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box">
+  <div class="decision-label">⚡ 决策点</div>
+  <div style="font-size:17px;color:#d8d4ce;margin-bottom:16px;">收到匿名邮件，我选择——</div>
+  <div class="decision-options">
+    <div class="option">A) 立即启动应急方案，准备消失</div>
+    <div class="option chosen">B) 反向追踪发件人，主动出击 <span class="chosen-tag">我的选择</span></div>
+    <div class="option">C) 按兵不动，继续观察</div>
+  </div>
+</div>
+
+<!-- Frame 38 -->
+<div class="panel">
+  <img src="images/f38.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">我活动了一下手指，嘴角微微上扬。<br>消失？那是怯懦。按兵不动？那不是我的风格。<br><br>你想找影子？好啊——那就看看，到底是你先找到我，还是我先查清楚你是谁。</div>
+
+<!-- Frame 39 -->
+<div class="panel">
+  <img src="images/f39.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">正准备开始追踪，手机震了。大刘的微信消息。</div>
+<div class="dialogue">
+  <div class="speaker">大刘 · 微信</div>
+  "兄弟告诉你个大消息！！明天开始，老王面馆被明光科技收购了！以后你送餐天天要去他们楼下！方便了吧哈哈哈哈！"
+</div>
+<div class="narration">我放下手机，看着天花板沉默了五秒钟。<br><br>明光科技——林婉清的公司——收购了我天天去送餐的那家面馆。</div>
+
+<!-- Frame 40 -->
+<div class="panel-wide">
+  <img src="images/f40.jpg" loading="lazy" alt="">
+</div>
+<div class="narration">巧合？<br><br>在我这行——没有巧合。</div>
+
+<!-- ENDING -->
+<div class="suspense-box">
+  <div class="hook">匿名邮件来自明光科技内部——谁在追踪影子？</div>
+  <div class="hook">林婉清说"你长得有点眼熟"——她认出了什么？</div>
+  <div class="hook">收购面馆——布局，还是巧合？</div>
+  <div class="tbc">— 第一章 · 完 —</div>
+  <div style="margin-top:20px;font-size:14px;color:#666;">下一章：「你的面馆，现在是我的了」</div>
+</div>
+
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel,.panel-wide,.narration,.dialogue,.section-title,.decision-box,.suspense-box').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
