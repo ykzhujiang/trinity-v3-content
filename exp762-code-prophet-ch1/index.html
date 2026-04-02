@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码先知 · 第一章 重生觉醒</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:18px;scroll-behavior:smooth}
+body{background:#0a0a12;color:#e8e8e8;font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;line-height:1.8;overflow-x:hidden}
+
+/* Title Screen */
+.title-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a12 0%,#0d1b2a 50%,#1b263b 100%);padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.title-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(0,180,255,0.08) 0%,transparent 60%);pointer-events:none}
+.title-screen h1{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#00b4ff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.15em;margin-bottom:0.5rem;animation:glow 3s ease-in-out infinite alternate}
+.title-screen .subtitle{font-size:1.2rem;color:#6fa8dc;margin-bottom:2rem;opacity:0.8}
+.title-screen .chapter{font-size:1.5rem;color:#aaa;letter-spacing:0.3em;margin-bottom:1rem}
+.title-screen .scroll-hint{position:absolute;bottom:2rem;color:#6fa8dc;font-size:0.9rem;animation:bounce 2s infinite}
+@keyframes glow{from{filter:drop-shadow(0 0 10px rgba(0,180,255,0.3))}to{filter:drop-shadow(0 0 20px rgba(0,255,136,0.4))}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+/* Panel Container */
+.story{max-width:480px;margin:0 auto;padding:0 0 4rem}
+
+/* Single Panel */
+.panel{margin:0;padding:0;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+
+.panel img{width:100%;display:block;border-radius:0}
+.panel .text{padding:1rem 1.2rem;font-size:1.05rem;line-height:1.9;color:#d4d4d4;background:#0d0d18}
+.panel .text .dialogue{color:#ffd700;font-weight:600;font-size:1.1rem}
+.panel .text .inner{color:#6fc3df;font-style:italic;font-size:0.95rem}
+.panel .text .narration{color:#c8c8c8}
+.panel .text .humor{color:#ff9f43;font-weight:500}
+.panel .text .decision{background:linear-gradient(135deg,rgba(0,180,255,0.1),rgba(255,100,50,0.1));border-left:3px solid #00b4ff;padding:0.8rem 1rem;margin:0.5rem 0;border-radius:0 8px 8px 0;font-size:1rem}
+.panel .text .decision-title{color:#00b4ff;font-weight:700;font-size:1.15rem;margin-bottom:0.3rem}
+
+/* Section Dividers */
+.section-title{text-align:center;padding:3rem 1.5rem 1.5rem;color:#6fa8dc;font-size:0.85rem;letter-spacing:0.4em;text-transform:uppercase;opacity:0.6}
+
+/* End Screen */
+.end-screen{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:3rem 1.5rem;text-align:center;background:linear-gradient(180deg,#0d0d18,#0a0a12)}
+.end-screen h2{font-size:1.8rem;color:#e8e8e8;margin-bottom:1rem}
+.end-screen .preview{color:#6fa8dc;font-size:1rem;line-height:2;max-width:320px}
+.end-screen .tbc{font-size:2rem;color:#00b4ff;margin-top:2rem;letter-spacing:0.3em}
+
+/* Responsive */
+@media(max-width:480px){
+  .story{max-width:100%}
+  .panel .text{padding:0.8rem 1rem;font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<div class="title-screen">
+  <div class="chapter">第一章</div>
+  <h1>代码先知</h1>
+  <div class="subtitle">重生觉醒</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<div class="story">
+
+<!-- 开场：2026量子实验室 -->
+<div class="section-title">—— 2026 · 量子实验室 ——</div>
+
+<div class="panel">
+  <img src="images/f01.jpg" alt="f01" loading="eager">
+  <div class="text">
+    <p class="narration">2026年6月30日，我的36岁生日。</p>
+    <p class="narration">在量子计算实验室里写代码，是我给自己安排的"生日庆祝"。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f02.jpg" alt="f02" loading="eager">
+  <div class="text">
+    <p class="inner">这个量子纠缠态模拟程序跑了三个月了，今天终于要出结果。</p>
+    <p class="inner">如果成功，意味着——</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f03.jpg" alt="f03" loading="eager">
+  <div class="text">
+    <p class="narration">"异常能量波动检测……量子态坍缩失控……"</p>
+    <p class="humor">卧槽，这不是我写的Bug吧？</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f04.jpg" alt="f04" loading="eager">
+  <div class="text">
+    <p class="narration">白光铺天盖地涌来。</p>
+    <p class="humor">我最后的念头是：这Bug级别至少是P0……</p>
+  </div>
+</div>
+
+<!-- 确认重生 -->
+<div class="section-title">—— 2010 · 大学宿舍 ——</div>
+
+<div class="panel">
+  <img src="images/f05.jpg" alt="f05" loading="eager">
+  <div class="text">
+    <p class="narration">……</p>
+    <p class="narration">我被一阵刺眼的阳光扎醒了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f06.jpg" alt="f06">
+  <div class="text">
+    <p class="dialogue">"小王？？？"</p>
+    <p class="inner">我看到了一个不可能看到的人——我大学室友，正在打……魔兽世界？</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f07.jpg" alt="f07">
+  <div class="text">
+    <p class="narration">诺基亚N97。屏幕上的日期：2010年6月30日。</p>
+    <p class="narration">我的27岁生日。</p>
+    <p class="narration"><strong>十六年前。</strong></p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f08.jpg" alt="f08">
+  <div class="text">
+    <p class="dialogue">"江哥，你没事吧？大白天做噩梦了？"</p>
+    <p class="dialogue">"快下来，今天你生日，哥们请你吃食堂！"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f09.jpg" alt="f09">
+  <div class="text">
+    <p class="narration">Windows XP。CRT显示器。科比还在湖人。</p>
+    <p class="inner">这不是梦。</p>
+    <p class="humor">这是——整个系统版本回滚了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f10.jpg" alt="f10">
+  <div class="text">
+    <p class="narration">镜子里的这个人……</p>
+    <p class="narration">我年轻了九岁。</p>
+    <p class="humor">皮肤回到了没有996的状态。不错。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f11.jpg" alt="f11">
+  <div class="text">
+    <p class="narration">我盯着镜中的自己，鼻子突然一酸。</p>
+    <p class="inner">不是因为害怕。</p>
+    <p class="inner">是因为……我想起了那些回不去的人和事。</p>
+    <p class="narration">现在，真的回来了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f12.jpg" alt="f12">
+  <div class="text">
+    <p class="narration">走出宿舍的那一刻，2010年夏天的阳光扑面而来。</p>
+    <p class="inner">空气都是甜的。</p>
+    <p class="narration">那是移动互联网大爆发前最后的宁静。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f13.jpg" alt="f13">
+  <div class="text">
+    <p class="inner">iPhone 4还没在中国上市。微信还没出生。短视频？不存在的。</p>
+    <p class="inner">整个世界就像一张白纸。</p>
+    <p class="narration">而我，带着2026年的全部记忆，站在了这张白纸面前。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f14.jpg" alt="f14">
+  <div class="text">
+    <p class="humor">一个程序员重生回十六年前。</p>
+    <p class="inner">这不是Bug。</p>
+    <p class="narration">这是上天给我的一次——<strong>Debug机会</strong>。</p>
+  </div>
+</div>
+
+<!-- 能力觉醒 -->
+<div class="section-title">—— 代码预知 · 觉醒 ——</div>
+
+<div class="panel">
+  <img src="images/f15.jpg" alt="f15">
+  <div class="text">
+    <p class="narration">然后——</p>
+    <p class="narration">毫无预兆地，一阵炸裂般的头痛。</p>
+    <p class="humor">像有人在我脑子里跑了一个O(n!)的算法。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f16.jpg" alt="f16">
+  <div class="text">
+    <p class="narration">痛到我蹲在地上。</p>
+    <p class="narration">然后——我闭上了眼睛。</p>
+    <p class="inner">在黑暗中，我"看见"了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f17.jpg" alt="f17">
+  <div class="text">
+    <p class="inner">整个世界……变成了代码。</p>
+    <p class="inner">不是《黑客帝国》那种绿色字符瀑布，是……</p>
+    <p class="narration">是一个巨大的、活的、可视化的系统架构图。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f18.jpg" alt="f18">
+  <div class="text">
+    <p class="inner">WiFi信号像蓝色水波。人群之间的社交关系是彩色丝线。</p>
+    <p class="inner">教务系统的数据流在我眼前清清楚楚。</p>
+    <p class="narration">每一条SQL查询，每一个API调用。</p>
+    <p class="narration">我全都……<strong>看得见</strong>。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f19.jpg" alt="f19">
+  <div class="text">
+    <p class="narration">视野恢复正常的瞬间，鼻血流了下来。</p>
+    <p class="inner">头痛还在，像宿醉的十倍。</p>
+    <p class="narration">但我的手在发抖——不是因为痛，是因为<strong>兴奋</strong>。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f20.jpg" alt="f20">
+  <div class="text">
+    <p class="narration">我坐在长椅上，一边擦鼻血一边消化刚才发生的事。</p>
+    <p class="humor">重生？OK，接受了。</p>
+    <p class="humor">异能？代码可视化？</p>
+    <p class="humor">这TM是什么游戏开局？SSR抽卡？</p>
+  </div>
+</div>
+
+<!-- 第一次使用 -->
+<div class="section-title">—— 网吧 · 验证 ——</div>
+
+<div class="panel">
+  <img src="images/f21.jpg" alt="f21">
+  <div class="text">
+    <p class="inner">我需要验证这个能力。</p>
+    <p class="humor">2010年验证代码能力的最佳场所——网吧。</p>
+    <p class="humor">是的，你没看错。那个年代，网吧才是程序员的"共享办公空间"。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f22.jpg" alt="f22">
+  <div class="text">
+    <p class="humor">烟味、泡面味、键盘声、骂人声。</p>
+    <p class="humor">2010年网吧的四大基本要素。</p>
+    <p class="inner">那一刻我居然有点怀念。</p>
+    <p class="humor">……好吧只怀念了0.5秒。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f23.jpg" alt="f23">
+  <div class="text">
+    <p class="narration">我随手找了个购物网站。2010年遍地都是的那种小型电商。</p>
+    <p class="inner">深吸一口气——</p>
+    <p class="inner">闭眼。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f24.jpg" alt="f24">
+  <div class="text">
+    <p class="inner">再次"看见"了。</p>
+    <p class="inner">整个网站的架构在我眼前展开——</p>
+    <p class="inner">前端、后端、数据库，像一栋透明的大楼。</p>
+    <p class="narration">而在二楼和三楼之间的数据管道里，有一个刺眼的<strong style="color:#ff4444">红色裂缝</strong>。</p>
+    <p class="narration">SQL注入漏洞。入门级的。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f25.jpg" alt="f25">
+  <div class="text">
+    <p class="humor">又流鼻血了。</p>
+    <p class="narration">但我笑了。</p>
+    <p class="inner">不是幻觉。不是做梦。</p>
+    <p class="humor">我朱江，一个35——不对，现在27岁的程序员，重生了，还觉醒了代码透视眼。</p>
+    <p class="humor">这剧本谁写的？给他加鸡腿。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f26.jpg" alt="f26">
+  <div class="text">
+    <p class="inner">问题来了。</p>
+    <p class="inner">这个漏洞，用好了能导出整个用户数据库。</p>
+    <p class="humor">2010年的数据保护法？呵。基本不存在。</p>
+    <p class="inner">我可以……</p>
+  </div>
+</div>
+
+<!-- 决策1 -->
+<div class="panel">
+  <img src="images/f27.jpg" alt="f27">
+  <div class="text">
+    <div class="decision">
+      <div class="decision-title">⚡ 决策点 #1：白帽 vs 黑帽</div>
+      <p><strong style="color:#ff4444">黑帽子：</strong>利用漏洞拿数据，暗网变现，一夜暴富。</p>
+      <p><strong style="color:#00ff88">白帽子：</strong>联系站长，提醒漏洞，不要一分钱。</p>
+      <p class="inner" style="margin-top:0.5rem">我想了三秒钟。</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f28.jpg" alt="f28">
+  <div class="text">
+    <p class="narration">三秒后我笑了。</p>
+    <p class="inner">我朱江重生一次，不是为了当个数据贩子的。</p>
+    <p class="narration">上辈子写了十五年代码，信仰只有一个：</p>
+    <p class="narration"><strong>技术是用来帮人的，不是用来害人的。</strong></p>
+    <p class="humor">白帽子。没得选。</p>
+  </div>
+</div>
+
+<!-- 转折 -->
+<div class="section-title">—— 大排档 · 命运的相遇 ——</div>
+
+<div class="panel">
+  <img src="images/f29.jpg" alt="f29">
+  <div class="text">
+    <p class="narration">站长回复的速度出乎我意料。</p>
+    <p class="narration">当天下午，他就约我在学校门口的大排档见面。</p>
+    <p class="narration">他叫<strong>林远</strong>，25岁，刚从大厂辞职创业三个月，全部身家赌在这个购物网站上。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f30.jpg" alt="f30">
+  <div class="text">
+    <p class="dialogue">"兄弟，你不知道你帮了我多大的忙。"</p>
+    <p class="dialogue">"如果被黑产先发现这个漏洞，我三个月的心血，十万块的启动资金，全完了。"</p>
+    <p class="narration">他的声音有点发抖。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f31.jpg" alt="f31">
+  <div class="text">
+    <p class="dialogue">"别客气，举手之劳。"</p>
+    <p class="inner">我嘴上这么说，心里在用2026年的信息做评估：</p>
+    <p class="inner">这个年代，敢辞职创业做电商的人，十个有九个会死。</p>
+    <p class="inner">但活下来的那一个……</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f32.jpg" alt="f32">
+  <div class="text">
+    <p class="narration">几瓶啤酒下肚，我"不小心"聊起了移动互联网。</p>
+    <p class="dialogue">"你这个PC端购物网站，半年内必须转移动端。"</p>
+    <p class="dialogue">"智能手机马上要爆发，用户的购物习惯会从电脑迁移到手机上。"</p>
+    <p class="dialogue">"还有，社交化电商才是终局——人们不是'去购物'，是'在社交中顺便购物'。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f33.jpg" alt="f33">
+  <div class="text">
+    <p class="humor">林远的表情变了三次。</p>
+    <p class="narration">第一次：<em>"这人在说什么？"</em>（困惑）</p>
+    <p class="narration">第二次：<em>"等等，好像有道理？"</em>（惊讶）</p>
+    <p class="narration">第三次：<em>"卧槽这人是哪来的先知？"</em>（兴奋）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f34.jpg" alt="f34">
+  <div class="text">
+    <p class="dialogue">"朱江！你——你要是创业，我投你！"</p>
+    <p class="dialogue">"不管你做什么，我第一个投！"</p>
+    <p class="humor">旁边桌的大叔被吓了一跳，烤串差点掉了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f35.jpg" alt="f35">
+  <div class="text">
+    <p class="narration">我没有答应，也没有拒绝。</p>
+    <p class="narration">只是举起杯子碰了一下他的杯子。</p>
+    <p class="inner">这个叫林远的年轻人，他自己都不知道，他未来会成为什么样的人。</p>
+    <p class="inner"><strong>但我知道。</strong></p>
+  </div>
+</div>
+
+<!-- 决策2 -->
+<div class="section-title">—— 宿舍 · 秘密 ——</div>
+
+<div class="panel">
+  <img src="images/f36.jpg" alt="f36">
+  <div class="text">
+    <p class="narration">告别林远，走在回宿舍的路上。</p>
+    <p class="narration">夏夜的风带着栀子花香。</p>
+    <p class="inner">2010年的空气，没有焦虑的味道。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f37.jpg" alt="f37">
+  <div class="text">
+    <p class="dialogue">"江哥，你今天不对劲啊。"</p>
+    <p class="narration">小王推了推眼镜，胖脸上难得露出认真的表情。</p>
+    <p class="dialogue">"你说话的方式、走路的姿势、看东西的眼神……都不像你了。"</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f38.jpg" alt="f38">
+  <div class="text">
+    <div class="decision">
+      <div class="decision-title">⚡ 决策点 #2：说真话？</div>
+      <p><em>"我从2026年重生回来了，还觉醒了超能力。"</em></p>
+      <p class="inner" style="margin-top:0.3rem">说出来……他会信吗？</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f39.jpg" alt="f39">
+  <div class="text">
+    <p class="dialogue">"可能是生日喝多了吧。"</p>
+    <p class="narration">我笑着抢了他的辣条。</p>
+    <p class="inner">不是不信任小王。</p>
+    <p class="inner">是太早说出来，只会让他觉得我疯了。</p>
+    <p class="inner">时机没到。但这个人，<strong>我一定会带上</strong>。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f40.jpg" alt="f40">
+  <div class="text">
+    <p class="dialogue">"你——！那是我最后一包！！"</p>
+    <p class="humor">"你这人怎么重生——不对，怎么过个生日就变成辣条强盗了！"</p>
+    <p class="inner">……他说了什么？</p>
+    <p class="humor">算了，应该是口误。</p>
+  </div>
+</div>
+
+<!-- 章末悬念 -->
+<div class="section-title">—— 深夜 · 异变 ——</div>
+
+<div class="panel">
+  <img src="images/f41.jpg" alt="f41">
+  <div class="text">
+    <p class="narration">躺在上铺，听着小王的呼噜声。</p>
+    <p class="inner">这一切都是真的。</p>
+    <p class="inner">2010年。移动互联网的黎明。</p>
+    <p class="inner">我有2026年的记忆。我有代码预知的能力。</p>
+    <p class="narration">而我面前有一整条全新的路要走。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f42.jpg" alt="f42">
+  <div class="text">
+    <p class="narration">然后——头痛又来了。</p>
+    <p class="inner">这次我没有主动使用能力。</p>
+    <p class="narration"><strong>它自己启动了。</strong></p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f43.jpg" alt="f43">
+  <div class="text">
+    <p class="inner">我"看见"了小王。</p>
+    <p class="inner">不是代码。不是数据流。</p>
+    <p class="narration">是一条<strong style="color:#ff4444">红色的线</strong>。缠绕在他身上，像活的。</p>
+    <p class="narration">它延伸向远方……终点是一片我看不穿的<strong>黑暗</strong>。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f44.jpg" alt="f44">
+  <div class="text">
+    <p class="narration">我猛地睁开眼。心跳快到要炸。</p>
+    <p class="inner">代码预知……不，这已经不是代码了。</p>
+    <p class="inner">我的能力……在进化？</p>
+    <p class="narration">那条红色的线是什么？</p>
+    <p class="narration">小王身上……<strong>为什么会有那种东西？</strong></p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f45.jpg" alt="f45">
+  <div class="text">
+    <p class="narration">2010年6月30日。</p>
+    <p class="narration">我重生的第一天。</p>
+    <p class="inner">我以为这只是一个程序员带着金手指重新来过的爽文剧本。</p>
+    <p class="narration"><strong>我错了。</strong></p>
+    <p class="narration">这个故事，远比我想象的要复杂得多。</p>
+  </div>
+</div>
+
+</div><!-- .story -->
+
+<div class="end-screen">
+  <h2>—— 第一章 完 ——</h2>
+  <div class="preview">
+    <p>▶ 第二章预告</p>
+    <p style="margin-top:1rem;color:#ffd700">「第一桶金」</p>
+    <p style="margin-top:0.5rem">一个即将爆火的APP里藏着一个致命漏洞。</p>
+    <p>修复它，还是……利用它？</p>
+  </div>
+  <div class="tbc">T B C</div>
+</div>
+
+<script>
+// Lazy reveal on scroll
+const panels=document.querySelectorAll('.panel');
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})
+},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});
+panels.forEach(p=>io.observe(p));
+</script>
+
+</body>
+</html>
