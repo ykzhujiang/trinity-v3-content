@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>超频 第一章 — 脑中的时钟</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0c0e14;
+  color: #e2dfd8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.header {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0c0e14 0%, #111828 50%, #0c0e14 100%);
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(0,200,255,0.06) 0%, transparent 60%);
+}
+.header h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #00d4ff;
+  text-shadow: 0 0 40px rgba(0,212,255,0.4), 0 0 80px rgba(0,212,255,0.15);
+  z-index: 1;
+}
+.header .subtitle {
+  font-size: 1.4rem;
+  color: #7a8fa0;
+  margin-top: 1rem;
+  letter-spacing: 0.35em;
+  z-index: 1;
+}
+.header .chapter {
+  font-size: 1rem;
+  color: #4a6070;
+  margin-top: 0.8rem;
+  letter-spacing: 0.2em;
+  z-index: 1;
+}
+.header .scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 0.85rem;
+  color: #4a6070;
+  animation: pulse 2s ease infinite;
+  z-index: 1;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(5px); }
+}
+
+.panel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: #d4d0c8;
+}
+.panel-text.bg-warm {
+  background: linear-gradient(180deg, rgba(12,14,20,0.95) 0%, #0c0e14 100%);
+}
+.panel-text.bg-cyber {
+  background: linear-gradient(180deg, rgba(0,20,40,0.95) 0%, #0c0e14 100%);
+}
+.panel-text.bg-dark {
+  background: linear-gradient(180deg, rgba(30,10,10,0.95) 0%, #0c0e14 100%);
+}
+.panel-text .dialogue {
+  color: #f0d9a8;
+  font-weight: 600;
+  margin: 0.4rem 0;
+}
+.panel-text .thought {
+  color: #80c4e8;
+  font-style: italic;
+}
+.panel-text .narrator {
+  color: #a0a8b0;
+  font-size: 1.05rem;
+}
+.panel-text .scene {
+  color: #607080;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Section dividers */
+.section-break {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background: #0c0e14;
+}
+.section-break h2 {
+  font-size: 1.6rem;
+  color: #00d4ff;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+.section-break .line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+  margin: 1rem auto;
+}
+
+/* Decision points */
+.decision-box {
+  margin: 1rem 1.5rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(0,212,255,0.3);
+  border-radius: 8px;
+  background: rgba(0,212,255,0.05);
+}
+.decision-box .label {
+  font-size: 0.85rem;
+  color: #00d4ff;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+.decision-box .choice {
+  color: #e8d5b7;
+  font-weight: 600;
+}
+
+/* End card */
+.end-card {
+  padding: 4rem 1.5rem;
+  text-align: center;
+  background: linear-gradient(180deg, #0c0e14 0%, #0a1520 50%, #0c0e14 100%);
+}
+.end-card h2 {
+  font-size: 1.8rem;
+  color: #00d4ff;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 30px rgba(0,212,255,0.3);
+}
+.end-card .tbc {
+  font-size: 1.2rem;
+  color: #607080;
+  margin-top: 1.5rem;
+  letter-spacing: 0.3em;
+}
+.end-card .hook {
+  font-size: 1.1rem;
+  color: #80c4e8;
+  margin-top: 2rem;
+  font-style: italic;
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>超 频</h1>
+  <div class="subtitle">OVERCLOCK</div>
+  <div class="chapter">第一章 · 脑中的时钟</div>
+  <div class="scroll-hint">▼ 向下滑动</div>
+</div>
+
+<!-- OPENING: 深夜办公室 -->
+<div class="section-break"><div class="line"></div><h2>深夜 · 灵犀科技</h2><div class="line"></div></div>
+
+<div class="panel"><img src="images/f01.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="scene">【场景】上海浦东·灵犀科技办公室·凌晨2点</div>
+  <div class="narrator">外滩的灯光早就暗了，但17楼的灵犀科技还亮着一盏灯。</div>
+  <div class="thought">白板上"融资D-1"四个字像催命符。</div>
+</div>
+
+<div class="panel"><img src="images/f02.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="thought">眼睛已经干得像砂纸了。但这个bug不解决，明天的融资就是一场笑话。</div>
+  <div class="narrator">我第三次拿起红牛，发现罐子是空的。</div>
+</div>
+
+<div class="panel"><img src="images/f03.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="thought">账上还剩三个月。三个月后，灵犀科技就是一个笑话。</div>
+  <div class="narrator">屏幕上的红色报错像一排嘲笑的嘴。Python traceback，老朋友了。</div>
+</div>
+
+<!-- TRIGGER: 芯片事件 -->
+<div class="section-break"><div class="line"></div><h2>量子碎片</h2><div class="line"></div></div>
+
+<div class="panel"><img src="images/f04.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="dialogue">"江哥，你还没走？"</div>
+  <div class="narrator">老陈推门进来，手里提着一个金属箱子，眼睛亮得不像凌晨两点的人。</div>
+  <div class="dialogue">"看看这个。从MIT量子实验室搞到的。"</div>
+</div>
+
+<div class="panel"><img src="images/f05.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">箱子打开，黑色防震海绵上躺着一块晶体——大概两厘米，通体泛着淡淡的青蓝色光。</div>
+  <div class="dialogue">"量子神经芯片？原型？"</div>
+  <div class="dialogue">"嗯，实验室淘汰的。说是计算架构不稳定。我想拿来研究一下。"</div>
+  <div class="thought">好奇心害死猫。但我已经是一只快破产的猫了。</div>
+</div>
+
+<div class="panel"><img src="images/f06.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">我伸手去拿——</div>
+  <div class="narrator">指尖刚碰到芯片表面，一声脆响。芯片碎了。碎片扎进我的右手掌心。</div>
+  <div class="narrator">剧痛。青蓝色的光从掌心炸开。</div>
+  <div class="dialogue">"操——"</div>
+</div>
+
+<div class="panel"><img src="images/f07.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-cyber">
+  <div class="narrator">然后世界变了。</div>
+  <div class="thought">每一台电脑、每一部手机、每一根网线——它们的数据流变成了可见的光丝，像发光的蛛网一样布满整个办公室。</div>
+  <div class="thought">而屏幕上那行困扰我三周的bug，在数据流中闪烁着刺眼的红色脉冲。</div>
+</div>
+
+<div class="panel"><img src="images/f08.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-cyber">
+  <div class="thought">我……看到了代码的"形状"。不是文字，是结构。整个系统的架构像一座透明的城市浮在我眼前。</div>
+  <div class="thought">右上角浮现一个数字：处理速度 10,247x。</div>
+  <div class="thought">这什么鬼？</div>
+</div>
+
+<!-- FIRST USE: 修bug -->
+<div class="section-break"><div class="line"></div><h2>超 频</h2><div class="line"></div></div>
+
+<div class="panel"><img src="images/f09.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-cyber">
+  <div class="narrator">我的手自己动了起来。或者说，我的大脑知道该怎么做——手只是跟不上而已。</div>
+  <div class="narrator">键盘声连成一片。红色节点一个接一个变绿。</div>
+  <div class="thought">0.3秒。</div>
+</div>
+
+<div class="panel"><img src="images/f10.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-cyber">
+  <div class="dialogue">"……江哥？"</div>
+  <div class="narrator">老陈的声音像从水底传来。我回过头，世界恢复了正常。</div>
+  <div class="narrator">他的眼镜都快掉了。</div>
+  <div class="dialogue">"你刚才……你手指的速度……那不是人类能做到的。"</div>
+</div>
+
+<div class="panel"><img src="images/f11.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">我看向屏幕。绿色的"BUILD SUCCESSFUL"。</div>
+  <div class="narrator">三周的bug。0.3秒。</div>
+  <div class="dialogue">"老陈，你那芯片……是什么来头？"</div>
+  <div class="dialogue">"我也想知道！你刚才到底——"</div>
+</div>
+
+<div class="panel"><img src="images/f12.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-dark">
+  <div class="narrator">话没说完，我的脑子像被人用锤子砸了。</div>
+  <div class="narrator">疼。疼到眼前发白。鼻子里涌出一股热流——血。</div>
+</div>
+
+<div class="panel"><img src="images/f13.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-dark">
+  <div class="narrator">我从椅子上栽了下去，跪在地上，双手死死捂住脑袋。代码碎片像幽灵一样在空气中闪烁——不，那是幻觉。</div>
+  <div class="dialogue">"江哥！江哥你怎么了？！"</div>
+</div>
+
+<div class="panel"><img src="images/f14.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">疼痛过去后，我坐在地上，擦了把鼻血，抬头看着眼前这个戴眼镜的瘦高个。</div>
+  <div class="dialogue">"你……谁？"</div>
+  <div class="narrator">老陈的表情凝固了。</div>
+</div>
+
+<div class="panel"><img src="images/f15.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">五秒后记忆回来了。</div>
+  <div class="dialogue">"哦——老陈！debug之神！我的好兄弟！"</div>
+  <div class="dialogue">"……你三秒前还叫我debug之神。这是什么bug把你脑子也刷了？"</div>
+  <div class="dialogue">"可能是个feature。"</div>
+</div>
+
+<div class="panel"><img src="images/f16.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">老陈拿过台灯，照着我的右手掌心。</div>
+  <div class="narrator">芯片碎片扎入的位置周围，细细的黑色纹路正在蔓延——像电路板上的走线，从掌心延伸到指根。</div>
+  <div class="dialogue">"这是什么？纹身？"</div>
+  <div class="dialogue">"你纹身还会发光？"</div>
+  <div class="thought">确实在发光。很微弱的，青蓝色的光。</div>
+</div>
+
+<!-- FUSION: 融资大战 -->
+<div class="section-break"><div class="line"></div><h2>融资局</h2><div class="line"></div></div>
+
+<div class="panel"><img src="images/f17.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="scene">【场景】上海陆家嘴·某投资机构会议室·第二天上午</div>
+  <div class="narrator">西装是昨晚让老陈从我车里拿的。领带没系——我觉得创业者不系领带显得更真实。</div>
+  <div class="narrator">对面坐着三个投资人和一个FA。灵犀科技的命运，就在这张玻璃桌上。</div>
+</div>
+
+<div class="panel"><img src="images/f18.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">前半小时靠正常发挥。产品数据、增长曲线、市场空间——这些我背了一百遍。</div>
+  <div class="narrator">但到了技术壁垒的提问环节，问题越来越刁钻。</div>
+  <div class="thought">桌子底下，我的右手在发热。掌心的纹路隐隐跳动。</div>
+  <div class="thought">试试？</div>
+</div>
+
+<div class="panel"><img src="images/f19.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-cyber">
+  <div class="narrator">世界又变了。</div>
+  <div class="thought">每个人头上都浮现了"数据标签"——像游戏里的血条，但显示的是他们的决策状态。</div>
+  <div class="thought">张总（老头）：已决定投资 ✅</div>
+  <div class="thought">赵总（年轻女性）：犹豫中，需要更多数据 ⚠️</div>
+  <div class="thought">李总（中年男）：在演戏，心里已经拒绝了 ❌</div>
+</div>
+
+<div class="panel"><img src="images/f20.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-cyber">
+  <div class="thought">等一下。李总头上……浮现的不是投资分析。</div>
+  <div class="thought">是一碗兰州拉面。热气腾腾的那种。加蛋加肉。</div>
+  <div class="thought">哥，你来几千万的投资评审会上想午饭吃什么？？</div>
+  <div class="narrator">我差点笑出声。</div>
+</div>
+
+<div class="panel"><img src="images/f21.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">李总放弃了，没关系。关键是赵总——她犹豫的点是技术可行性。</div>
+  <div class="narrator">我转向她，拿出iPad，精准地展示了她最关心的那几个技术指标。</div>
+  <div class="narrator">她的眼睛亮了。</div>
+</div>
+
+<div class="panel"><img src="images/f22.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">当赵总开始记笔记的时候，我知道赢了。</div>
+  <div class="narrator">张总本来就想投。赵总现在也想投。两票够了。</div>
+  <div class="narrator">李总还在想他的拉面。</div>
+</div>
+
+<div class="panel"><img src="images/f23.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">握手的时候，张总的力道很重。</div>
+  <div class="dialogue">"朱江，灵犀科技的方向我很看好。细节让FA对接。"</div>
+  <div class="thought">我的掌心纹路在他的握力下微微发热。希望他没注意到。</div>
+</div>
+
+<div class="panel"><img src="images/f24.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">走出大厦的那一刻，上海的阳光晃得我睁不开眼。</div>
+  <div class="narrator">我掏出手机，拨了老陈。</div>
+  <div class="dialogue">"拿到了。"</div>
+  <div class="dialogue">"多少？"</div>
+  <div class="dialogue">"够活一年半的。"</div>
+  <div class="narrator">电话那头传来椅子倒地的声音。</div>
+</div>
+
+<div class="panel"><img src="images/f25.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">我在陆家嘴的街头握紧拳头，差点蹦起来。</div>
+  <div class="narrator">办公室那边，老陈大概已经把椅子蹦坏了。</div>
+</div>
+
+<div class="panel"><img src="images/f26.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">晚上，办公室。换回T恤牛仔裤，桌上摆着庆功外卖。</div>
+  <div class="narrator">我跳了一段极其难看的庆祝舞。老陈用手机录了下来。</div>
+  <div class="dialogue">"删掉。"</div>
+  <div class="dialogue">"已经发工作群了。"</div>
+  <div class="dialogue">"……你完了。"</div>
+</div>
+
+<!-- SIDE EFFECTS: 副作用 -->
+<div class="section-break"><div class="line"></div><h2>代 价</h2><div class="line"></div></div>
+
+<div class="panel"><img src="images/f27.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-dark">
+  <div class="narrator">笑声戛然而止。</div>
+  <div class="narrator">冷却反噬来了——比昨晚猛烈十倍。</div>
+</div>
+
+<div class="panel"><img src="images/f28.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-dark">
+  <div class="narrator">我又跪在了地上。这次不是膝盖先着地——是整个人摔下去的。</div>
+  <div class="narrator">眼前出现幻觉：代码片段、数据表、网络拓扑图……它们像鬼魂一样漂浮在办公室里，忽明忽灭。</div>
+  <div class="dialogue">"江哥！！"</div>
+</div>
+
+<div class="panel"><img src="images/f29.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-dark">
+  <div class="narrator">老陈拉过我的右手，用手电照着。</div>
+  <div class="narrator">黑色的电路纹路已经蔓延过了手腕，爬到了前臂。线条更粗了，脉冲更频繁了。</div>
+  <div class="dialogue">"江哥，这东西在扩散。"</div>
+  <div class="dialogue">"我看到了。"</div>
+  <div class="dialogue">"我们是不是该去医院——"</div>
+  <div class="dialogue">"去医院说什么？医生你好，我被量子芯片感染了？"</div>
+</div>
+
+<div class="panel"><img src="images/f30.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">疼痛消退后，我瘫在沙发上，冰袋捂着脑门。</div>
+  <div class="dialogue">"感觉怎样？"</div>
+  <div class="dialogue">"像宿醉，但宿的是一台超级计算机。"</div>
+  <div class="narrator">老陈没笑。他的表情很严肃。</div>
+  <div class="dialogue">"你用了两次。第一次鼻血，忘了我的名字。第二次直接昏倒，纹路扩散了一倍。第三次呢？"</div>
+  <div class="thought">我没回答。因为我也在想这个问题。</div>
+</div>
+
+<div class="panel"><img src="images/f31.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">我举起右手，在台灯下转动。</div>
+  <div class="narrator">电路纹路在灯光下泛着微弱的青蓝色。像纹身，但比纹身精密一万倍。</div>
+  <div class="thought">它在进化。在适应我的身体。还是在吞噬我的身体？</div>
+  <div class="thought">不管了。至少今天，它救了灵犀科技。</div>
+</div>
+
+<!-- CLIFFHANGER -->
+<div class="section-break"><div class="line"></div><h2>你不是第一个</h2><div class="line"></div></div>
+
+<div class="panel"><img src="images/f32.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-cyber">
+  <div class="scene">【场景】灵犀科技办公室·深夜·老陈已离开</div>
+  <div class="narrator">我一个人查芯片的来源资料。MIT实验室的论文、量子神经接口的专利、芯片的物料清单……</div>
+  <div class="narrator">然后超频毫无预警地启动了。</div>
+  <div class="thought">不是我触发的。是芯片自己。</div>
+</div>
+
+<div class="panel"><img src="images/f33.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-cyber">
+  <div class="narrator">屏幕上的乱码开始自动解码——不是我在解，是我大脑里的"它"在解。</div>
+  <div class="narrator">解密完成。一行字。</div>
+  <div class="narrator" style="font-size: 1.4rem; color: #00d4ff; text-align: center; padding: 1rem 0; font-weight: 700;">「你不是第一个。」</div>
+  <div class="thought">什么意思？不是第一个……被芯片选中的人？</div>
+</div>
+
+<div class="panel"><img src="images/f34.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="narrator">手机震了一下。匿名号码。</div>
+  <div class="narrator" style="font-size: 1.2rem; color: #f0d9a8; text-align: center; padding: 0.5rem 0;">「恭喜觉醒。灵犀科技的竞争才刚开始。——L」</div>
+  <div class="thought">L？谁是L？</div>
+  <div class="thought">灵犀科技的竞争？什么竞争？</div>
+  <div class="thought">我攥紧手机。掌心的纹路在黑暗中跳动。</div>
+</div>
+
+<div class="panel"><img src="images/f35.jpg" loading="lazy" alt=""></div>
+<div class="panel-text bg-warm">
+  <div class="scene">【场景】上海市中心·幻象科技总部·同一时间</div>
+  <div class="narrator">城市另一头，五十二层。</div>
+  <div class="narrator">一个短发女人站在落地窗前，手里举着一块完整的——完完整整的——同款量子芯片。</div>
+  <div class="narrator">芯片的青蓝色光映在她的脸上。她在微笑。</div>
+  <div class="narrator">窗外，浦东的灯火像一片星海。</div>
+</div>
+
+<!-- END CARD -->
+<div class="end-card">
+  <h2>第一章 · 完</h2>
+  <div class="tbc">TO BE CONTINUED</div>
+  <div class="hook">
+    "你不是第一个"——谁是第一个？<br>
+    神秘的"L"是谁？<br>
+    幻象科技手里的完整芯片意味着什么？<br>
+    超频的代价，他能承受多久？<br><br>
+    第二章：觉醒者们
+  </div>
+</div>
+
+<script>
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+panels.forEach(p => observer.observe(p));
+</script>
+
+</body>
+</html>
