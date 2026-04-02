@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>带货之王 · 第一章 · 系统觉醒</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  background: #faf7f2;
+  color: #2a2a2a;
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 60px 20px 30px;
+  background: linear-gradient(180deg, #fff8f0 0%, #faf7f2 100%);
+}
+.header h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #1a5276, #2e86c1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.header .subtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  letter-spacing: 2px;
+}
+.header .chapter {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 16px;
+  background: linear-gradient(135deg, #2e86c1, #1a5276);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Comic container */
+.comic {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 12px 60px;
+}
+
+/* Panel */
+.panel {
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Text block */
+.panel-text {
+  padding: 14px 16px;
+  font-size: 1.12rem;
+  line-height: 1.85;
+  color: #333;
+}
+
+/* Dialogue */
+.dialogue {
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin: 8px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  position: relative;
+  font-size: 1.05rem;
+}
+.dialogue::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 24px;
+  width: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff;
+}
+.dialogue .speaker {
+  font-weight: 700;
+  color: #2e86c1;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+.dialogue.xiaoyu .speaker { color: #8e44ad; }
+.dialogue.system .speaker { color: #c0392b; }
+
+/* System panel style */
+.sys-panel {
+  background: linear-gradient(135deg, #0a1628 0%, #1a2744 100%);
+  border: 1px solid rgba(52, 152, 219, 0.4);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  color: #7ec8e3;
+  font-family: "Courier New", monospace;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  box-shadow: 0 0 20px rgba(52, 152, 219, 0.1), inset 0 0 20px rgba(52, 152, 219, 0.05);
+}
+.sys-panel .sys-title {
+  color: #f1c40f;
+  font-weight: 700;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(52, 152, 219, 0.2);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.sys-panel .highlight { color: #f1c40f; font-weight: 700; }
+.sys-panel .stat { color: #2ecc71; }
+.sys-panel .warning { color: #e74c3c; font-weight: 700; }
+
+/* Narration */
+.narration {
+  font-style: italic;
+  color: #666;
+  padding: 8px 0;
+  border-left: 3px solid #bdc3c7;
+  padding-left: 14px;
+  margin: 8px 0;
+}
+
+/* Inner thought */
+.thought {
+  color: #555;
+  font-style: italic;
+  padding: 8px 16px;
+  margin: 8px 0;
+  background: #f5f0e8;
+  border-radius: 12px;
+  position: relative;
+}
+.thought::before { content: "💭 "; }
+
+/* Section divider */
+.section-divider {
+  text-align: center;
+  padding: 20px 0;
+  color: #bdc3c7;
+  font-size: 1.4rem;
+  letter-spacing: 8px;
+}
+
+/* Barrage / comments overlay */
+.barrage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+.barrage span {
+  background: rgba(46, 134, 193, 0.1);
+  border: 1px solid rgba(46, 134, 193, 0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  color: #2e86c1;
+  animation: float 2s ease-in-out infinite;
+}
+.barrage span:nth-child(2) { animation-delay: 0.3s; }
+.barrage span:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Achievement */
+.achievement {
+  background: linear-gradient(135deg, #f1c40f 0%, #e67e22 100%);
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  border-radius: 12px;
+  margin: 12px 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Mystery message */
+.mystery {
+  background: #0a0a0a;
+  color: #ccc;
+  border-radius: 12px;
+  padding: 18px;
+  margin: 12px 0;
+  font-family: monospace;
+  font-size: 1rem;
+  line-height: 1.8;
+  border: 1px solid #333;
+  text-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+.mystery .sender { color: #e74c3c; font-weight: 700; }
+
+/* Warning panel */
+.warning-panel {
+  background: linear-gradient(135deg, #2c0a0a 0%, #4a1010 100%);
+  border: 1px solid rgba(231, 76, 60, 0.5);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  color: #e74c3c;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  animation: blink 1.5s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(231, 76, 60, 0.2);
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Cliffhanger */
+.cliffhanger {
+  text-align: center;
+  padding: 30px 20px;
+  color: #7f8c8d;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+.cliffhanger .questions {
+  font-size: 1.15rem;
+  color: #2c3e50;
+  font-weight: 600;
+  line-height: 2.2;
+  margin-top: 12px;
+}
+.cliffhanger .tbc {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #2e86c1;
+  margin-top: 20px;
+  letter-spacing: 4px;
+}
+
+/* Emotion indicators */
+.emotion-up { color: #27ae60; font-weight: 700; }
+.emotion-down { color: #e74c3c; font-weight: 700; }
+.emotion-explode { color: #f39c12; font-weight: 700; font-size: 1.2rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>带货之王</h1>
+  <div class="subtitle">直播系统文 × AI创业</div>
+  <div class="chapter">第一章 · 系统觉醒</div>
+</div>
+
+<div class="comic">
+
+<!-- ===== ACT 1: 开场 ===== -->
+
+<!-- F01 -->
+<div class="panel">
+  <img src="img/f01.jpg" loading="eager" alt="空荡的办公室">
+  <div class="panel-text">
+    <div class="narration">公司最鼎盛的时候，这间办公室坐了一百多号人。现在……连工位都被搬走卖了抵债。</div>
+  </div>
+</div>
+
+<!-- F02 -->
+<div class="panel">
+  <img src="img/f02.jpg" loading="eager" alt="撤资函">
+  <div class="panel-text">
+    <div class="thought">第三次了。第三次创业失败。手里这封撤资函，连信封都是我们自己设计的logo……</div>
+  </div>
+</div>
+
+<!-- F03 -->
+<div class="panel">
+  <img src="img/f03.jpg" loading="eager" alt="肖雨进门">
+  <div class="panel-text">
+    <div class="dialogue xiaoyu">
+      <div class="speaker">肖雨</div>
+      账上还够发两个月工资。我已经把非必要开支全砍了，包括你的咖啡预算。
+    </div>
+  </div>
+</div>
+
+<!-- F04 -->
+<div class="panel">
+  <img src="img/f04.jpg" loading="lazy" alt="朱江笑了">
+  <div class="panel-text">
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      那我们就还有两个月改变世界。
+    </div>
+    <div class="thought">说出来的时候，我自己都觉得像在讲脱口秀。但不笑一笑的话，还能怎样呢。</div>
+  </div>
+</div>
+
+<div class="section-divider">· · ·</div>
+
+<!-- ===== ACT 2: 系统觉醒 ===== -->
+
+<!-- F05 -->
+<div class="panel">
+  <img src="img/f05.jpg" loading="lazy" alt="系统激活">
+  <div class="panel-text">
+    <div class="sys-panel">
+      <div class="sys-title">【带货系统】 · 激活！</div>
+      <span class="highlight">触发条件已满足：</span><br>
+      ✓ 连续创业失败 3 次<br>
+      ✓ 负债超过 500 万<br>
+      ✓ 仍未放弃<br><br>
+      <span class="stat">"逆境值已满，系统强制启动。"</span>
+    </div>
+    <div class="thought">我揉了三次眼睛。这东西……还在。要不是桌上的撤资函提醒我这是现实，我会以为自己加班到产生幻觉了。</div>
+  </div>
+</div>
+
+<!-- F06 -->
+<div class="panel">
+  <img src="img/f06.jpg" loading="lazy" alt="技能面板">
+  <div class="panel-text">
+    <div class="sys-panel">
+      <div class="sys-title">技能解锁</div>
+      🔍 <span class="highlight">真实价值透视</span> — 看穿任何产品的真实价值和隐藏缺陷<br><br>
+      📈 <span class="highlight">情绪曲线预测</span> — 实时感知观众的情绪波动
+    </div>
+  </div>
+</div>
+
+<!-- F07 -->
+<div class="panel">
+  <img src="img/f07.jpg" loading="lazy" alt="矿泉水透视">
+  <div class="panel-text">
+    <div class="narration">我半信半疑地碰了一下桌上的矿泉水瓶——</div>
+    <div class="sys-panel">
+      <div class="sys-title">产品扫描：农夫山泉</div>
+      真实价值: <span class="stat">8.7/10</span><br>
+      水源地 pH: <span class="stat">7.3</span><br>
+      含锶量: <span class="highlight">竞品的2倍</span><br><br>
+      💡 最佳话术: "这不是水，这是天然的微量元素补充剂"
+    </div>
+  </div>
+</div>
+
+<!-- F08 -->
+<div class="panel">
+  <img src="img/f08.jpg" loading="lazy" alt="朱江懵了">
+  <div class="panel-text">
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      ……我是不是该辞了CEO去卖矿泉水？
+    </div>
+    <div class="thought">一瓶两块钱的水给我分析出了论文级别的数据。这系统是认真的？</div>
+  </div>
+</div>
+
+<div class="section-divider">· · ·</div>
+
+<!-- ===== ACT 3: 被逼上直播 ===== -->
+
+<!-- F09 -->
+<div class="panel">
+  <img src="img/f09.jpg" loading="lazy" alt="钱总来电">
+  <div class="panel-text">
+    <div class="dialogue system">
+      <div class="speaker">钱总（电话）</div>
+      朱江啊，不是我不给你面子。七天，一百万，一分不能少。你也知道，我那边也有人催我。
+    </div>
+    <div class="thought">钱总说话的时候，我能听到他那头麻将的哗啦声。一百万对他来说是一顿饭钱，对我来说是最后一根稻草。</div>
+  </div>
+</div>
+
+<!-- F10 -->
+<div class="panel">
+  <img src="img/f10.jpg" loading="lazy" alt="手机催债">
+  <div class="panel-text">
+    <div class="narration">七天。一百万。这不是最后通牒，这是死刑宣判。</div>
+  </div>
+</div>
+
+<!-- F11 -->
+<div class="panel">
+  <img src="img/f11.jpg" loading="lazy" alt="肖雨的提议">
+  <div class="panel-text">
+    <div class="dialogue xiaoyu">
+      <div class="speaker">肖雨</div>
+      要不……你去直播带货？我们仓库还有一堆AI短剧周边没卖出去。反正也是沉没成本。
+    </div>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      你让一个连续失败三次的创业者去当主播？
+    </div>
+    <div class="dialogue xiaoyu">
+      <div class="speaker">肖雨</div>
+      你还有更好的方案？
+    </div>
+    <div class="thought">……她说得好有道理，我竟无言以对。</div>
+  </div>
+</div>
+
+<!-- F12 -->
+<div class="panel">
+  <img src="img/f12.jpg" loading="lazy" alt="仓库">
+  <div class="panel-text">
+    <div class="narration">仓库里堆满了AI角色手办、T恤、马克杯。当初设计的时候，我们觉得每一个都能大卖。现在它们安安静静地蒙着灰，像一座座小型纪念碑。</div>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      这些东西成本两块，标价九十九……我当初是怎么说服自己这能卖出去的？
+    </div>
+  </div>
+</div>
+
+<!-- F13 -->
+<div class="panel">
+  <img src="img/f13.jpg" loading="lazy" alt="系统分析">
+  <div class="panel-text">
+    <div class="sys-panel">
+      <div class="sys-title">库存扫描完成</div>
+      检测到库存商品: <span class="stat">x 2,000 件</span><br>
+      直播潜力评估: <span class="highlight">A 级</span><br>
+      最佳开播时段: <span class="highlight">今晚 20:00</span><br><br>
+      💡 建议：利用「真实价值透视」展示产品隐藏价值
+    </div>
+    <div class="thought">行吧。反正已经到谷底了，再挖也挖不出地下室了。不如搏一把。</div>
+  </div>
+</div>
+
+<div class="section-divider">· · ·</div>
+
+<!-- ===== ACT 4: 第一场直播（高潮）===== -->
+
+<!-- F14 -->
+<div class="panel">
+  <img src="img/f14.jpg" loading="lazy" alt="简陋直播间">
+  <div class="panel-text">
+    <div class="narration">晚上八点。直播间是办公室角落临时搭的——一张折叠桌、两盏淘宝买的补光灯、一串肖雨从圣诞节留下来的装饰灯。</div>
+    <div class="thought">说实话，我上台做过几百次路演，面对过各种投资人。但对着一个手机屏幕说话，比面对一百个投资人还紧张。</div>
+  </div>
+</div>
+
+<!-- F15 -->
+<div class="panel">
+  <img src="img/f15.jpg" loading="lazy" alt="零观众开播">
+  <div class="panel-text">
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      大家好，欢迎来到……呃……有人吗？
+    </div>
+    <div class="narration">屏幕上的数字：观众 0。连个机器人都没有。</div>
+    <div class="thought">这种尴尬，连路演被投资人中途接电话走掉都比不上。至少那次还有一个人。</div>
+  </div>
+</div>
+
+<!-- F16 -->
+<div class="panel">
+  <img src="img/f16.jpg" loading="lazy" alt="系统提示">
+  <div class="panel-text">
+    <div class="sys-panel">
+      <div class="sys-title">情绪曲线分析</div>
+      当前观众情绪: <span class="emotion-down">无聊 ↓↓↓</span><br><br>
+      💡 建议: 展示产品隐藏细节 + 讲述背后的真实故事<br>
+      <span class="stat">「真诚是最大的话术」</span>
+    </div>
+    <div class="thought">好吧系统，既然你这么说了……那我就豁出去讲个真实的。</div>
+  </div>
+</div>
+
+<!-- F17 -->
+<div class="panel">
+  <img src="img/f17.jpg" loading="lazy" alt="讲故事">
+  <div class="panel-text">
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      这个手办，是我们团队凌晨三点设计出来的。那天外卖已经冷了，程序员小李的代码跑了八小时才生成这个角色……你们可能觉得它就是个塑料玩具。但对我来说，它是一百个人的梦想凝固成的样子。
+    </div>
+    <div class="narration">我自己都没想到，说着说着，声音居然有点哽咽。不是表演，是真的想起了那些日子。</div>
+  </div>
+</div>
+
+<!-- F18 -->
+<div class="panel">
+  <img src="img/f18.jpg" loading="lazy" alt="情绪上升">
+  <div class="panel-text">
+    <div class="sys-panel">
+      <div class="sys-title">情绪曲线</div>
+      <span class="emotion-up">共鸣触发！↑↑↑</span><br>
+      观众数: <span class="stat">7 → 43 → 210</span>
+    </div>
+    <div class="barrage">
+      <span>这故事比手办好看！</span>
+      <span>老板你自己就很有梗啊</span>
+      <span>破产CEO直播 笑死</span>
+    </div>
+  </div>
+</div>
+
+<!-- F19 -->
+<div class="panel">
+  <img src="img/f19.jpg" loading="lazy" alt="全情投入">
+  <div class="panel-text">
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      我跟你们说，这个公司巅峰的时候一百号人！现在包括我就剩三个。但这些手办，是一百个人一起做的！你买的不是玩具，你买的是一百个年轻人燃烧的青春！
+    </div>
+    <div class="barrage">
+      <span>哈哈哈哈这CEO太真实了</span>
+      <span>给我整笑了又整哭了</span>
+      <span>下单了！冲着老板这张嘴</span>
+      <span>已买3个 支持创业人</span>
+    </div>
+  </div>
+</div>
+
+<!-- F20 -->
+<div class="panel">
+  <img src="img/f20.jpg" loading="lazy" alt="万人直播">
+  <div class="panel-text">
+    <div class="sys-panel">
+      <div class="sys-title">📈 情绪曲线 · 爆发！</div>
+      观众数: <span class="emotion-explode">20,000！</span><br><br>
+      <span class="highlight">🏆 成就解锁：首次万人直播</span>
+    </div>
+    <div class="achievement">🏆 成就解锁：首次万人直播！</div>
+  </div>
+</div>
+
+<!-- F21 -->
+<div class="panel">
+  <img src="img/f21.jpg" loading="lazy" alt="颤抖的手">
+  <div class="panel-text">
+    <div class="narration">两小时后，直播结束。我看着手机上的数字——</div>
+    <div class="thought">八万块。对钱总来说不算什么。但对我来说……这是三次创业失败后，第一次觉得自己做对了什么。手在抖，不是因为紧张，是因为太久没有这种感觉了。</div>
+  </div>
+</div>
+
+<!-- F22 -->
+<div class="panel">
+  <img src="img/f22.jpg" loading="lazy" alt="击掌庆祝">
+  <div class="panel-text">
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      肖雨！八万！两小时八万！
+    </div>
+    <div class="dialogue xiaoyu">
+      <div class="speaker">肖雨</div>
+      ……离一百万还差九十二万。但这是个好的开始。
+    </div>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      你就不能让我高兴十秒钟吗！
+    </div>
+    <div class="dialogue xiaoyu">
+      <div class="speaker">肖雨</div>
+      （推了推眼镜）九、八、七——
+    </div>
+  </div>
+</div>
+
+<div class="section-divider">· · ·</div>
+
+<!-- ===== ACT 5: 反转+悬念 ===== -->
+
+<!-- F23 -->
+<div class="panel">
+  <img src="img/f23.jpg" loading="lazy" alt="上了热搜">
+  <div class="panel-text">
+    <div class="dialogue xiaoyu">
+      <div class="speaker">肖雨</div>
+      你知道你上了本地热搜吗？"AI公司CEO亲自下场卖手办"。评论区都在说你是"最惨创业者"。
+    </div>
+    <div class="dialogue">
+      <div class="speaker">我</div>
+      ……这算好事还是坏事？
+    </div>
+    <div class="dialogue xiaoyu">
+      <div class="speaker">肖雨</div>
+      免费流量，当然是好事。
+    </div>
+    <div class="narration">我们相视而笑。好久没有这种感觉了——觉得明天可能会更好。</div>
+  </div>
+</div>
+
+<!-- F24 -->
+<div class="panel">
+  <img src="img/f24.jpg" loading="lazy" alt="神秘私信">
+  <div class="panel-text">
+    <div class="narration">我正准备关手机休息。屏幕突然弹出一条私信。没有头像，没有名字——</div>
+    <div class="mystery">
+      "你的系统，只是一个测试版。<br>
+      真正的游戏还没开始。<br><br>
+      —— <span class="sender">0号玩家</span>"
+    </div>
+    <div class="thought">什么意思？还有别人……也有系统？</div>
+  </div>
+</div>
+
+<!-- F25 -->
+<div class="panel">
+  <img src="img/f25.jpg" loading="lazy" alt="红色警告">
+  <div class="panel-text">
+    <div class="warning-panel">
+      ⚠️ 检测到同类系统信号<br>
+      威胁等级: S
+    </div>
+    <div class="narration">窗外的城市灯火通明，一切看起来和平常一样。但我知道，从今天开始，一切都不一样了。</div>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="questions">
+    0号玩家是谁？<br>
+    还有多少人拥有系统？<br>
+    真正的游戏……是什么？
+  </div>
+  <div class="tbc">— 未完待续 —</div>
+</div>
+
+</div><!-- .comic -->
+
+<script>
+// Intersection Observer for scroll-triggered animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+
+// Make first 3 panels visible immediately
+document.querySelectorAll('.panel').forEach((p, i) => {
+  if (i < 3) p.classList.add('visible');
+});
+</script>
+</body>
+</html>
