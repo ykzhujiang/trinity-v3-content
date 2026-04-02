@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗算·硅局 第七章 — 牧羊人的代价</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0c12;
+  color: #e8e6e0;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0a0c12 0%, #141824 50%, #0a0c12 100%);
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(70,130,180,0.08) 0%, transparent 60%);
+}
+.header h1 {
+  font-size: 2.6rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #c8d6e5;
+  text-shadow: 0 0 30px rgba(100,150,200,0.3);
+  z-index: 1;
+}
+.header .subtitle {
+  font-size: 1.3rem;
+  color: #7f8c9b;
+  margin-top: 1rem;
+  letter-spacing: 0.3em;
+  z-index: 1;
+}
+.header .chapter {
+  font-size: 1rem;
+  color: #546e7a;
+  margin-top: 0.8rem;
+  letter-spacing: 0.2em;
+  z-index: 1;
+}
+.header .scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 0.85rem;
+  color: #546e7a;
+  animation: pulse 2s ease infinite;
+  z-index: 1;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(5px); }
+}
+
+/* Panels */
+.panel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #d4d0c8;
+  background: linear-gradient(180deg, rgba(10,12,18,0.95) 0%, #0a0c12 100%);
+}
+.panel-text .dialogue {
+  color: #e8d5b7;
+  font-weight: 600;
+  margin: 0.3rem 0;
+}
+.panel-text .thought {
+  color: #8ba7c8;
+  font-style: italic;
+  margin: 0.3rem 0;
+}
+.panel-text .narration {
+  color: #a0a0a0;
+  margin: 0.3rem 0;
+}
+.panel-text .speaker {
+  color: #c0956a;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+/* Section dividers */
+.section-title {
+  text-align: center;
+  padding: 3rem 1.5rem 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.section-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.section-title h2 {
+  font-size: 1.6rem;
+  color: #7f8c9b;
+  letter-spacing: 0.3em;
+  font-weight: 300;
+}
+.section-title .line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #4a6b8a, transparent);
+  margin: 1rem auto;
+}
+
+/* Decision panels */
+.decision-panel {
+  background: linear-gradient(180deg, rgba(20,24,36,0.98), rgba(10,12,18,0.98));
+  border-left: 3px solid #4a6b8a;
+  margin: 0.5rem 1rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+}
+.decision-panel h3 {
+  color: #8ba7c8;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.8rem;
+}
+.decision-panel .choice {
+  color: #c8a96e;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(100,130,180,0.15);
+}
+.decision-panel .choice:last-child { border-bottom: none; }
+.decision-panel .chosen {
+  color: #e8d5b7;
+  background: rgba(70,130,180,0.1);
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* End card */
+.end-card {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(180deg, #0a0c12, #0d1117, #0a0c12);
+}
+.end-card h2 {
+  font-size: 1.8rem;
+  color: #7f8c9b;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+}
+.end-card .tease {
+  color: #c0956a;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 320px;
+}
+.end-card .series {
+  color: #546e7a;
+  font-size: 0.85rem;
+  margin-top: 2rem;
+  letter-spacing: 0.15em;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>暗算·硅局</h1>
+  <div class="subtitle">第 七 章</div>
+  <div class="chapter">牧羊人的代价</div>
+  <div class="scroll-hint">↓ 向下滑动</div>
+</div>
+
+<!-- ===== 第一段·困局 ===== -->
+<div class="section-title">
+  <h2>困 局</h2>
+  <div class="line"></div>
+</div>
+
+<!-- F01 -->
+<div class="panel">
+  <img src="images/f01.jpg" loading="lazy" alt="夜街独行">
+  <div class="panel-text">
+    <div class="narration">离开图书馆已经两个小时了。</div>
+    <div class="thought">我没有回头，但我知道——三个人，保持五十米。专业。</div>
+    <div class="narration">深夜的街道上，霓虹灯的倒影在湿漉漉的路面上碎成光斑。我把手插进外套口袋，像一个普通的深夜散步者。</div>
+  </div>
+</div>
+
+<!-- F02 -->
+<div class="panel">
+  <img src="images/f02.jpg" loading="lazy" alt="跟踪者视角">
+  <div class="panel-text">
+    <div class="narration">他们不急。像猎人等猎物自己走进陷阱。</div>
+    <div class="thought">我能感觉到手机镜头对准我后背的温度——可能是错觉，但黑客的直觉很少出错。</div>
+  </div>
+</div>
+
+<!-- F03 -->
+<div class="panel">
+  <img src="images/f03.jpg" loading="lazy" alt="酒店加密通信">
+  <div class="panel-text">
+    <div class="narration">回到酒店，反锁门，拉上窗帘。打开笔记本电脑，启动加密信道。</div>
+    <div class="thought">老K应该还没睡。他从来不睡。</div>
+  </div>
+</div>
+
+<!-- F04 -->
+<div class="panel">
+  <img src="images/f04.jpg" loading="lazy" alt="加密对话">
+  <div class="panel-text">
+    <div class="speaker">老K</div>
+    <div class="dialogue">「你现在是棋盘上最值钱的棋子。」</div>
+    <br>
+    <div class="speaker">我</div>
+    <div class="dialogue">「我打算不做棋子了。」</div>
+  </div>
+</div>
+
+<!-- F05 -->
+<div class="panel">
+  <img src="images/f05.jpg" loading="lazy" alt="苦笑">
+  <div class="panel-text">
+    <div class="thought">这算夸我还是骂我？</div>
+    <div class="narration">我往后靠在床头，用手遮住半张脸。苦笑了一下。</div>
+    <div class="thought">不重要了。重要的是，Victor明天就会来敲门。</div>
+  </div>
+</div>
+
+<!-- F06 -->
+<div class="panel">
+  <img src="images/f06.jpg" loading="lazy" alt="窗前决心">
+  <div class="panel-text">
+    <div class="narration">我站在落地窗前。城市的灯光星星点点，像无数双眼睛。</div>
+    <div class="thought">问题不是去不去。问题是——用什么姿态去。</div>
+  </div>
+</div>
+
+<!-- DECISION-13 -->
+<div class="panel">
+  <img src="images/f07.jpg" loading="lazy" alt="决策时刻">
+  <div class="decision-panel">
+    <h3>⚡ 决 策 点 · 1 3</h3>
+    <div class="narration" style="color:#7f8c9b;margin-bottom:0.8rem;">Victor明天正式邀请加入Horizon。</div>
+    <div class="choice">A · 假装同意，卧底渗透，暗藏后手</div>
+    <div class="choice">B · 直接拒绝，公开身份，舆论对抗</div>
+    <div class="choice">C · 谈判——帮你激活，但要50%归属权</div>
+    <div class="chosen">
+      <strong>→ 选择A</strong><br>
+      渗透、信息收集、精准打击——这才是黑客的风格。但不是单纯的卧底。我要改写牧羊人协议的激活密钥，加入时间锁——72小时后自动休眠，需要我亲手续命。<br><br>
+      <span style="color:#8ba7c8;">你想用我的代码？可以。但你得养着我。</span>
+    </div>
+  </div>
+</div>
+
+<!-- F08 -->
+<div class="panel">
+  <img src="images/f08.jpg" loading="lazy" alt="猎手的笑容">
+  <div class="panel-text">
+    <div class="narration">我打开代码编辑器。屏幕的冷光映在脸上。</div>
+    <div class="thought">渗透、收集、精准打击——这才是我的风格。</div>
+    <div class="narration">嘴角不自觉地上扬。猎人伪装成猎物的时刻，总是让人兴奋。</div>
+  </div>
+</div>
+
+<!-- ===== 第二段·翻转 ===== -->
+<div class="section-title">
+  <h2>翻 转</h2>
+  <div class="line"></div>
+</div>
+
+<!-- F09 -->
+<div class="panel">
+  <img src="images/f09.jpg" loading="lazy" alt="深夜编程">
+  <div class="panel-text">
+    <div class="narration">凌晨三点十七分。第四杯咖啡见底。</div>
+    <div class="narration">桌上散落着写了又揉掉的草稿纸——不是代码不行，是我在找一个十五年前埋的彩蛋。</div>
+  </div>
+</div>
+
+<!-- F10 -->
+<div class="panel">
+  <img src="images/f10.jpg" loading="lazy" alt="牧羊人协议核心">
+  <div class="panel-text">
+    <div class="narration">牧羊人协议。版本2.0。核心算法中，有一个随机数种子生成器——基于我个人的数学直觉写出的函数。</div>
+    <div class="thought">十五年前我在MIT实验室里写下它的时候，觉得只是个有趣的签名。</div>
+    <div class="thought">现在，它是我唯一的武器。</div>
+  </div>
+</div>
+
+<!-- F11 -->
+<div class="panel">
+  <img src="images/f11.jpg" loading="lazy" alt="找到彩蛋">
+  <div class="panel-text">
+    <div class="thought">十五年了……它还在。</div>
+    <div class="narration">我盯着屏幕上那段熟悉的代码，像重逢一个老朋友。Victor买走了协议，买走了公司，买走了一切——但没有买走这个。</div>
+    <div class="thought">因为他根本不知道它存在。</div>
+  </div>
+</div>
+
+<!-- F12 -->
+<div class="panel">
+  <img src="images/f12.jpg" loading="lazy" alt="时间锁">
+  <div class="panel-text">
+    <div class="narration">时间锁注入完成。从现在开始，牧羊人协议每运行72小时就会自动休眠。</div>
+    <div class="narration">唯一的解锁密钥——在我脑子里。</div>
+  </div>
+</div>
+
+<!-- F13 -->
+<div class="panel">
+  <img src="images/f13.jpg" loading="lazy" alt="自我吐槽">
+  <div class="panel-text">
+    <div class="dialogue">「每72小时喂一次药，我就是那颗药。」</div>
+    <div class="thought">这大概是世界上最贵的定时器。</div>
+    <div class="narration">我往后一靠，双手抱头，望着天花板。有点想笑。</div>
+    <div class="thought">Victor啊Victor，你买了一匹需要特殊饲料的马，而饲料就是驯马人本人。</div>
+  </div>
+</div>
+
+<!-- F14 -->
+<div class="panel">
+  <img src="images/f14.jpg" loading="lazy" alt="关上笔记本">
+  <div class="panel-text">
+    <div class="narration">"咔。"合上笔记本。窗帘缝隙里透进一线微光——天快亮了。</div>
+    <div class="thought">武器已经上膛。现在该换上战衣了。</div>
+  </div>
+</div>
+
+<!-- F15 -->
+<div class="panel">
+  <img src="images/f15.jpg" loading="lazy" alt="洗漱准备">
+  <div class="panel-text">
+    <div class="narration">镜子里的人看起来并不像一个熬了通宵的人。</div>
+    <div class="thought">也许是因为兴奋。猎人出发前的那种兴奋。</div>
+  </div>
+</div>
+
+<!-- F16 -->
+<div class="panel">
+  <img src="images/f16.jpg" loading="lazy" alt="商务正装">
+  <div class="panel-text">
+    <div class="narration">深色西装，不系领带。刚好在「我尊重你」和「我不怕你」之间。</div>
+    <div class="thought">战场换了，盔甲也得换。</div>
+  </div>
+</div>
+
+<!-- F17 -->
+<div class="panel">
+  <img src="images/f17.jpg" loading="lazy" alt="Victor的消息">
+  <div class="panel-text">
+    <div class="speaker">Victor Reeves</div>
+    <div class="dialogue">「期待今天下午的会面，朱先生。地点已发。」</div>
+    <div class="narration">手机屏幕亮起来的瞬间，我的拇指悬在回复键上方。</div>
+  </div>
+</div>
+
+<!-- F18 -->
+<div class="panel">
+  <img src="images/f18.jpg" loading="lazy" alt="一个字：好">
+  <div class="panel-text">
+    <div class="narration">我打了一个字。</div>
+    <div class="dialogue" style="font-size:1.4rem;text-align:center;padding:0.5rem 0;">「好。」</div>
+    <div class="thought">有时候，一个字比一千个字更有力。</div>
+  </div>
+</div>
+
+<!-- ===== 第三段·陈默的选择 ===== -->
+<div class="section-title">
+  <h2>陈 默 的 选 择</h2>
+  <div class="line"></div>
+</div>
+
+<!-- F19 -->
+<div class="panel">
+  <img src="images/f19.jpg" loading="lazy" alt="陈默找来">
+  <div class="panel-text">
+    <div class="narration">上午十点。有人敲门。不是约定的暗号——是一种慌张的、不规则的敲击。</div>
+    <div class="thought">只有一个人会这样敲门。</div>
+  </div>
+</div>
+
+<!-- F20 -->
+<div class="panel">
+  <img src="images/f20.jpg" loading="lazy" alt="开门对视">
+  <div class="panel-text">
+    <div class="narration">门开半扇。陈默站在走廊里，脸色像纸一样白。</div>
+    <div class="thought">他的眼镜歪了，衣服皱巴巴的。看起来比我这个通宵的人更像没睡觉。</div>
+  </div>
+</div>
+
+<!-- F21 -->
+<div class="panel">
+  <img src="images/f21.jpg" loading="lazy" alt="手抖咖啡杯">
+  <div class="panel-text">
+    <div class="narration">我给他倒了杯咖啡。他双手捧着杯子，液面在轻微地晃。</div>
+    <div class="thought">当年黑客大赛拿冠军的手，现在连咖啡杯都端不稳。</div>
+    <div class="narration">我没催他。有些话需要自己找到出口。</div>
+  </div>
+</div>
+
+<!-- F22 -->
+<div class="panel">
+  <img src="images/f22.jpg" loading="lazy" alt="Horizon真相">
+  <div class="panel-text">
+    <div class="speaker">陈默</div>
+    <div class="dialogue">「Horizon不是AI产品……」</div>
+    <div class="narration">他的声音压得很低，像怕墙壁也长了耳朵。</div>
+    <div class="speaker">陈默</div>
+    <div class="dialogue">「是AI自主加密通信网络。一个不受任何政府监控的通信层。」</div>
+  </div>
+</div>
+
+<!-- F23 -->
+<div class="panel">
+  <img src="images/f23.jpg" loading="lazy" alt="信息冲击">
+  <div class="panel-text">
+    <div class="thought">数字武器。</div>
+    <div class="narration">这两个字在我脑子里像炸弹一样爆开。</div>
+    <div class="thought">Victor不是科技创业者。他是数字武器商。</div>
+    <div class="narration">而我——我是那个造了关键零件的人。</div>
+  </div>
+</div>
+
+<!-- F24 -->
+<div class="panel">
+  <img src="images/f24.jpg" loading="lazy" alt="全球通信网络">
+  <div class="panel-text">
+    <div class="narration">AI自主加密通信层。不受任何政府监控。听起来像自由主义者的乌托邦，实际上——</div>
+    <div class="thought">这是最完美的数字武器交易平台。情报、资金、指令，全部隐形流动。</div>
+    <div class="thought">而牧羊人协议，是这个平台的AI大脑。</div>
+  </div>
+</div>
+
+<!-- DECISION-14 -->
+<div class="panel">
+  <img src="images/f25.jpg" loading="lazy" alt="决策点14">
+  <div class="decision-panel">
+    <h3>⚡ 决 策 点 · 1 4</h3>
+    <div class="narration" style="color:#7f8c9b;margin-bottom:0.8rem;">知道了Horizon的真实面目——这不再只是商业博弈了。</div>
+    <div class="choice">A · 继续卧底，秘密联系国安部门</div>
+    <div class="choice">B · 继续卧底，暂不通报，独自积累筹码</div>
+    <div class="choice">C · 立刻终止卧底，带证据回国</div>
+    <div class="chosen">
+      <strong>→ 选择A</strong><br>
+      有些事，超出了个人利益的边界。但我不是天真的英雄主义——我会有策略地透露信息，保持筹码控制。<br><br>
+      <span style="color:#8ba7c8;">菩萨心肠，霹雳手段。</span>
+    </div>
+  </div>
+</div>
+
+<!-- F26 -->
+<div class="panel">
+  <img src="images/f26.jpg" loading="lazy" alt="站起来看窗外">
+  <div class="panel-text">
+    <div class="narration">我站起来，走到窗边。城市在阳光下像一块巨大的电路板。</div>
+    <div class="thought">有些事，超出了个人利益的边界。</div>
+    <div class="narration">身后传来陈默小心翼翼放下咖啡杯的声音。</div>
+  </div>
+</div>
+
+<!-- F27 -->
+<div class="panel">
+  <img src="images/f27.jpg" loading="lazy" alt="对陈默说话">
+  <div class="panel-text">
+    <div class="narration">我转过身。</div>
+    <div class="dialogue">「明天照常去见Victor。你什么都不用变。」</div>
+    <div class="narration">陈默抬头看我。他的眼睛里有恐惧，也有一点——如释重负。</div>
+    <div class="thought">他等的就是这句话。有人替他做那个决定。</div>
+  </div>
+</div>
+
+<!-- F28 -->
+<div class="panel">
+  <img src="images/f28.jpg" loading="lazy" alt="走廊分别">
+  <div class="panel-text">
+    <div class="narration">陈默走出去的时候，肩膀还是绷着的。门关上，走廊恢复安静。</div>
+    <div class="thought">我们都是棋子。区别是——我知道棋盘有多大。</div>
+  </div>
+</div>
+
+<!-- ===== 第四段·悬念结尾 ===== -->
+<div class="section-title">
+  <h2>牧 羊 人 的 代 价</h2>
+  <div class="line"></div>
+</div>
+
+<!-- F29 -->
+<div class="panel">
+  <img src="images/f29.jpg" loading="lazy" alt="与Victor会面">
+  <div class="panel-text">
+    <div class="narration">下午两点。Nexus总部顶层会议室。</div>
+    <div class="narration">落地窗外是整个城市的天际线。长桌两端——Victor坐在光里，我坐在影里。</div>
+    <div class="thought">有意思。他故意选了逆光位，让自己看起来更有威压感。</div>
+    <div class="thought">可惜我不是那种会被灯光唬住的人。</div>
+  </div>
+</div>
+
+<!-- F30 -->
+<div class="panel">
+  <img src="images/f30.jpg" loading="lazy" alt="握手">
+  <div class="panel-text">
+    <div class="narration">他站起来，微笑着伸出手。我迎上去。</div>
+    <div class="narration">两只手握在一起。他的手掌宽厚有力，像个常年打高尔夫的人。</div>
+    <div class="thought">我演出了自己最好的「被说服」。</div>
+    <div class="thought">真诚的眼神，恰到好处的犹豫之后的坚定，以及——一个感恩的微笑。</div>
+  </div>
+</div>
+
+<!-- F31 -->
+<div class="panel">
+  <img src="images/f31.jpg" loading="lazy" alt="电梯里">
+  <div class="panel-text">
+    <div class="narration">电梯门关上的瞬间，笑容消失。</div>
+    <div class="narration">金属墙面映出一张冷硬的脸。是我自己的脸。</div>
+    <div class="thought">72小时。从现在开始计时。</div>
+  </div>
+</div>
+
+<!-- F32 -->
+<div class="panel">
+  <img src="images/f32.jpg" loading="lazy" alt="联系老K">
+  <div class="panel-text">
+    <div class="narration">深夜。加密信道再次启动。</div>
+    <div class="speaker">我</div>
+    <div class="dialogue">「这件事超出了我们的级别。」</div>
+    <br>
+    <div class="speaker">老K</div>
+    <div class="dialogue">「你确定？一旦进了那个圈子，就退不出来了。」</div>
+  </div>
+</div>
+
+<!-- F33 -->
+<div class="panel">
+  <img src="images/f33.jpg" loading="lazy" alt="沉默">
+  <div class="panel-text">
+    <div class="narration">我盯着屏幕。光标一闪一闪的。</div>
+    <div class="narration">很长的沉默。</div>
+    <div class="thought">退不出来……</div>
+    <div class="thought">可是我早就退不出来了，从Victor买走牧羊人协议的那天开始。</div>
+  </div>
+</div>
+
+<!-- F34 -->
+<div class="panel">
+  <img src="images/f34.jpg" loading="lazy" alt="手机震动">
+  <div class="panel-text">
+    <div class="narration">「嗡——」</div>
+    <div class="narration">手机突然在桌面上跳了一下。不是老K的频道，是——</div>
+    <div class="narration">沈若棋。</div>
+    <div class="thought">她发了一张图片。</div>
+  </div>
+</div>
+
+<!-- F35 - 最终悬念 -->
+<div class="panel">
+  <img src="images/f35.jpg" loading="lazy" alt="大学合影">
+  <div class="panel-text">
+    <div class="narration">一张大学时代的老照片。三个年轻人搂着肩膀，笑得肆无忌惮。</div>
+    <div class="narration">左边是我。中间是陈默。右边——</div>
+    <div class="thought">右边那个人，我记得他。我当然记得他。</div>
+    <div class="narration">沈若棋在照片上画了一个红圈，圈住第三个人的脸。</div>
+    <div class="dialogue" style="font-size:1.2rem;color:#c0956a;text-align:center;padding:1rem 0;">
+      「他现在在五角大楼工作。」
+    </div>
+    <div style="height:1rem;"></div>
+    <div class="thought" style="text-align:center;font-size:1.1rem;">
+      我的手，慢慢地，攥紧了手机。
+    </div>
+  </div>
+</div>
+
+<!-- End Card -->
+<div class="end-card">
+  <h2>第七章 · 完</h2>
+  <div class="tease">
+    三个人的大学合影。<br>
+    三个人的人生轨迹。<br>
+    当其中一条线指向五角大楼——<br><br>
+    <strong style="color:#e8d5b7;">牧羊人的代价，远比想象中昂贵。</strong>
+  </div>
+  <div class="series">暗算·硅局 — 第八章即将揭晓</div>
+</div>
+
+<!-- Scroll animation JS -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const els = document.querySelectorAll('.panel, .section-title');
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { obs.observe(el); });
+});
+</script>
+
+</body>
+</html>
