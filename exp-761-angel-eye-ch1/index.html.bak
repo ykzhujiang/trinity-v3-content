@@ -6,41 +6,41 @@
 <title>天使之眼 — 第一章「看透人心的创业者」</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#faf5ee;color:#2d2418;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:linear-gradient(180deg,#faf5ee 0%,#f0e6d6 50%,#faf5ee 100%);position:relative;overflow:hidden}
-.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 30%,rgba(218,165,32,0.2) 0%,transparent 60%);pointer-events:none}
-.cover h1{font-size:2.4em;font-weight:900;background:linear-gradient(135deg,#d4920a,#b8700a,#d4920a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.3em;letter-spacing:0.05em;text-shadow:0 0 40px rgba(212,146,10,0.3)}
-.cover .subtitle{font-size:1.1em;color:#7a6a50;margin-bottom:2em;letter-spacing:0.1em}
-.cover .chapter{font-size:0.95em;color:#8a7a60;letter-spacing:0.2em}
-.cover .scroll-hint{position:absolute;bottom:30px;animation:bounce 2s infinite;color:#d4920a80;font-size:0.85em}
+body{background:#0a0a12;color:#e8e0d4;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:linear-gradient(180deg,#0a0a12 0%,#1a1428 50%,#0a0a12 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 30%,rgba(218,165,32,0.15) 0%,transparent 60%);pointer-events:none}
+.cover h1{font-size:2.4em;font-weight:900;background:linear-gradient(135deg,#ffd700,#ff8c00,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.3em;letter-spacing:0.05em;text-shadow:0 0 40px rgba(255,215,0,0.3)}
+.cover .subtitle{font-size:1.1em;color:#b8a080;margin-bottom:2em;letter-spacing:0.1em}
+.cover .chapter{font-size:0.95em;color:#8a7a6a;letter-spacing:0.2em}
+.cover .scroll-hint{position:absolute;bottom:30px;animation:bounce 2s infinite;color:#ffd70080;font-size:0.85em}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
 
 .panel-container{max-width:500px;margin:0 auto;padding:0}
 .frame{position:relative;margin:0;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
 .frame.visible{opacity:1;transform:translateY(0)}
 .frame img{width:100%;display:block}
-.frame .text-overlay{padding:20px 24px;background:linear-gradient(180deg,rgba(250,245,238,0.95),rgba(250,245,238,1));position:relative}
-.frame .text-overlay p{font-size:1.05em;line-height:1.85;color:#3d3428;margin-bottom:0.5em}
-.frame .text-overlay .inner-voice{color:#b87a0a;font-style:italic;font-size:0.95em}
-.frame .text-overlay .system-text{background:rgba(180,130,30,0.1);border-left:3px solid #c89a20;padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:0.9em;color:#9a7a10;line-height:1.6}
-.frame .text-overlay .system-warning{background:rgba(200,50,50,0.08);border-left:3px solid #cc3333;padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:0.9em;color:#cc4444;line-height:1.6}
-.frame .text-overlay .dialog{color:#2d2418;font-weight:500}
-.frame .text-overlay .dialog::before{content:'"';color:#c89a20}
-.frame .text-overlay .dialog::after{content:'"';color:#c89a20}
-.frame .text-overlay .narrator{color:#7a6a50;font-size:0.9em}
+.frame .text-overlay{padding:20px 24px;background:linear-gradient(180deg,rgba(10,10,18,0.95),rgba(10,10,18,1));position:relative}
+.frame .text-overlay p{font-size:1.05em;line-height:1.85;color:#d4c8b8;margin-bottom:0.5em}
+.frame .text-overlay .inner-voice{color:#ffd700cc;font-style:italic;font-size:0.95em}
+.frame .text-overlay .system-text{background:rgba(255,215,0,0.08);border-left:3px solid #ffd700;padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:0.9em;color:#ffd700;line-height:1.6}
+.frame .text-overlay .system-warning{background:rgba(255,60,60,0.08);border-left:3px solid #ff3c3c;padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-family:'Courier New',monospace;font-size:0.9em;color:#ff6b6b;line-height:1.6}
+.frame .text-overlay .dialog{color:#e8e0d4;font-weight:500}
+.frame .text-overlay .dialog::before{content:'"';color:#ffd700}
+.frame .text-overlay .dialog::after{content:'"';color:#ffd700}
+.frame .text-overlay .narrator{color:#9a8a7a;font-size:0.9em}
 
-.beat-divider{text-align:center;padding:40px 20px;color:#c89a2060;font-size:0.8em;letter-spacing:0.3em}
+.beat-divider{text-align:center;padding:40px 20px;color:#ffd70060;font-size:0.8em;letter-spacing:0.3em}
 .beat-divider::before,.beat-divider::after{content:'——';margin:0 0.5em}
 
 .s-rank-glow{animation:sglow 2s ease-in-out infinite alternate}
-@keyframes sglow{0%{box-shadow:0 0 20px rgba(212,146,10,0.2)}100%{box-shadow:0 0 40px rgba(212,146,10,0.4)}}
-.d-rank-glow{box-shadow:0 0 20px rgba(200,50,50,0.3)}
+@keyframes sglow{0%{box-shadow:0 0 20px rgba(255,215,0,0.2)}100%{box-shadow:0 0 40px rgba(255,215,0,0.4)}}
+.d-rank-glow{box-shadow:0 0 20px rgba(255,60,60,0.3)}
 
-.ending{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:linear-gradient(180deg,#faf5ee,#f0e6d6)}
-.ending h2{font-size:1.8em;background:linear-gradient(135deg,#d4920a,#b8700a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5em}
-.ending .next{color:#7a6a50;font-size:0.95em;margin-top:1em;letter-spacing:0.1em}
+.ending{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:linear-gradient(180deg,#0a0a12,#1a1428)}
+.ending h2{font-size:1.8em;background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5em}
+.ending .next{color:#8a7a6a;font-size:0.95em;margin-top:1em;letter-spacing:0.1em}
 
-.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#d4920a,#b8700a);z-index:100;transition:width 0.1s}
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#ffd700,#ff8c00);z-index:100;transition:width 0.1s}
 </style>
 </head>
 <body>
@@ -108,7 +108,7 @@ body{background:#faf5ee;color:#2d2418;font-family:'PingFang SC','Hiragino Sans G
 
 <div class="frame"><img src="images/frame-20.jpg" loading="lazy" alt="f20"><div class="text-overlay"><p>然后我看到了她。</p><p>大楼门口的人行道边，一个穿着白T恤的女生坐在小板凳上，面前摆着一张折叠桌。桌上放着……纸板做的教具？</p></div></div>
 
-<div class="frame s-rank-glow"><img src="images/frame-21.jpg" loading="lazy" alt="f21"><div class="text-overlay"><p>我随手用天使之眼扫了一眼——</p><p>然后我整个人<strong>石化</strong>了。</p><div class="system-text" style="border-color:#c89a20;background:rgba(200,154,32,0.12);color:#9a7a10">潜力值 S!!! ⭐⭐⭐<br>隐藏天赋：教育产品天才 + 极强用户洞察<br>成功率（有资金）87%</div></div></div>
+<div class="frame s-rank-glow"><img src="images/frame-21.jpg" loading="lazy" alt="f21"><div class="text-overlay"><p>我随手用天使之眼扫了一眼——</p><p>然后我整个人<strong>石化</strong>了。</p><div class="system-text" style="border-color:#ffd700;background:rgba(255,215,0,0.12);color:#ffd700">潜力值 S!!! ⭐⭐⭐<br>隐藏天赋：教育产品天才 + 极强用户洞察<br>成功率（有资金）87%</div></div></div>
 
 <div class="frame"><img src="images/frame-22.jpg" loading="lazy" alt="f22"><div class="text-overlay"><p>手里的烟掉了。</p><p><strong>S级？？</strong>我今天看了几十个人，最高的也就B级。楼上那个吹得天花乱坠的赵老板才D级。</p><p class="inner-voice">而这个……在路边摆摊卖纸板教具的姑娘……是S级？？</p></div></div>
 
@@ -166,7 +166,7 @@ body{background:#faf5ee;color:#2d2418;font-family:'PingFang SC','Hiragino Sans G
 
 <div class="frame"><img src="images/frame-43.jpg" loading="lazy" alt="f43"><div class="text-overlay"><p>手机震了一下。一条来自未知号码的短信。</p><p>屏幕的白光照在我的脸上。短信只有一句话——</p></div></div>
 
-<div class="frame"><img src="images/frame-44.jpg" loading="lazy" alt="f44"><div class="text-overlay"><p style="font-size:1.2em;text-align:center;color:#cc4444;font-weight:700;padding:15px 0">"朱江，恭喜觉醒。我们该谈谈了。"</p><p>我盯着这行字看了整整十秒。</p><p class="inner-voice">对方知道我的名字。知道我觉醒了。</p></div></div>
+<div class="frame"><img src="images/frame-44.jpg" loading="lazy" alt="f44"><div class="text-overlay"><p style="font-size:1.2em;text-align:center;color:#ff6b6b;font-weight:700;padding:15px 0">"朱江，恭喜觉醒。我们该谈谈了。"</p><p>我盯着这行字看了整整十秒。</p><p class="inner-voice">对方知道我的名字。知道我觉醒了。</p></div></div>
 
 <div class="beat-divider">从来不怕竞争</div>
 
@@ -175,7 +175,7 @@ body{background:#faf5ee;color:#2d2418;font-family:'PingFang SC','Hiragino Sans G
 
 <div class="frame"><img src="images/frame-46.jpg" loading="lazy" alt="f46"><div class="text-overlay"><p>我走到窗前，双手插兜，看着窗外的城市。</p><p>这座城市里，有多少创业者正在拼命？他们的潜力值又是多少？</p><p class="inner-voice">而那个发短信的人……他的潜力值，又会是什么级别？</p></div></div>
 
-<div class="frame"><img src="images/frame-47.jpg" loading="lazy" alt="f47"><div class="text-overlay"><p>城市的夜空下，千万盏灯火里，隐约有些微弱的光点在闪烁。</p><p>金色的、蓝色的、绿色的、红色的……</p><p>那些是看不见的潜力。是等待被发现的星辰。</p><p style="text-align:center;color:#c89a20;font-weight:700;margin-top:15px">而我，刚刚获得了看见它们的眼睛。</p></div></div>
+<div class="frame"><img src="images/frame-47.jpg" loading="lazy" alt="f47"><div class="text-overlay"><p>城市的夜空下，千万盏灯火里，隐约有些微弱的光点在闪烁。</p><p>金色的、蓝色的、绿色的、红色的……</p><p>那些是看不见的潜力。是等待被发现的星辰。</p><p style="text-align:center;color:#ffd700;font-weight:700;margin-top:15px">而我，刚刚获得了看见它们的眼睛。</p></div></div>
 
 </div>
 
