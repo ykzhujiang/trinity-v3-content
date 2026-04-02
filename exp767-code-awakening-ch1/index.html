@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码觉醒 · 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:18px;scroll-behavior:smooth}
+body{background:#0a0a12;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;line-height:1.8}
+
+/* Loading */
+.loader{position:fixed;inset:0;z-index:999;background:#0a0a12;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s}
+.loader.hide{opacity:0;pointer-events:none}
+.loader .logo{font-size:2rem;color:#00ff88;text-shadow:0 0 20px #00ff8866;animation:pulse 1.5s infinite}
+.loader .bar{width:200px;height:3px;background:#222;border-radius:2px;margin-top:1.5rem;overflow:hidden}
+.loader .bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#00ff88,#00aaff);transition:width .3s}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* System UI panel */
+.sys-panel{background:linear-gradient(135deg,#0d1b2a 0%,#1b263b 100%);border:1px solid #00ff8844;border-radius:12px;padding:1rem 1.2rem;margin:1rem 0;font-family:'Courier New',monospace;font-size:.85rem;color:#00ff88;line-height:1.7;box-shadow:0 0 15px #00ff8822;position:relative;overflow:hidden}
+.sys-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#00ff88,transparent);animation:scanline 3s infinite}
+@keyframes scanline{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.sys-panel .label{color:#00aaff;font-weight:bold}
+.sys-panel .warn{color:#ff6b35}
+.sys-panel .exp{color:#ffd700}
+
+/* Frames */
+.frame{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease;margin:0 auto;max-width:480px;padding:0 12px}
+.frame.visible{opacity:1;transform:translateY(0)}
+.frame img{width:100%;border-radius:8px;display:block;margin:1.2rem auto;box-shadow:0 4px 20px rgba(0,0,0,.6)}
+.frame .caption{padding:.5rem 0 1.5rem;font-size:1.05rem}
+.frame .inner{color:#88ccff;font-style:italic;padding:.3rem .8rem;border-left:3px solid #00aaff44;margin:.5rem 0}
+.frame .dialog{background:#1a1a2e;border-radius:10px;padding:.8rem 1rem;margin:.5rem 0;position:relative}
+.frame .dialog .speaker{color:#00ff88;font-weight:bold;font-size:.9rem;margin-bottom:.3rem}
+.frame .dialog.sys{border-left:3px solid #ffd700;background:#1a1a1a}
+.frame .dialog.sys .speaker{color:#ffd700}
+
+/* Decision point */
+.decision{background:linear-gradient(135deg,#1a0a2e,#2a1040);border:2px solid #ff00aa55;border-radius:14px;padding:1.2rem;margin:1.5rem 0;max-width:480px;margin-left:auto;margin-right:auto}
+.decision h3{color:#ff00aa;font-size:1.1rem;margin-bottom:.8rem;text-align:center}
+.decision .opt{background:#ffffff08;border:1px solid #ffffff15;border-radius:8px;padding:.7rem 1rem;margin:.5rem 0;cursor:default;transition:background .3s}
+.decision .opt.chosen{background:#ff00aa22;border-color:#ff00aa88}
+.decision .opt .tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:4px;margin-left:.5rem}
+.decision .opt .tag.a{background:#00ff8833;color:#00ff88}
+.decision .opt .tag.b{background:#ff6b3533;color:#ff6b35}
+
+/* Scene break */
+.scene-break{text-align:center;padding:2rem 0;color:#ffffff30;font-size:1.5rem;letter-spacing:1rem}
+
+/* Chapter end */
+.chapter-end{max-width:480px;margin:2rem auto;padding:1.5rem;text-align:center}
+.chapter-end h2{color:#00aaff;font-size:1.3rem;margin-bottom:1rem;text-shadow:0 0 10px #00aaff44}
+.chapter-end .preview{background:#0d1b2a;border:1px solid #00aaff33;border-radius:12px;padding:1.2rem;margin-top:1rem;text-align:left;font-size:.95rem;color:#aaa;line-height:1.8}
+.chapter-end .preview strong{color:#ff6b35}
+
+/* Title */
+.title-section{text-align:center;padding:3rem 1rem 2rem;max-width:480px;margin:0 auto}
+.title-section h1{font-size:1.8rem;color:#00ff88;text-shadow:0 0 30px #00ff8844;letter-spacing:.3rem;margin-bottom:.5rem}
+.title-section .sub{color:#666;font-size:.85rem}
+.title-section .ch{color:#00aaff;font-size:1.1rem;margin-top:.8rem}
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div class="loader" id="loader">
+  <div class="logo">【代码觉醒系统】</div>
+  <div class="bar"><span id="loadbar"></span></div>
+</div>
+
+<!-- Title -->
+<div class="title-section frame">
+  <h1>代码觉醒</h1>
+  <div class="sub">黑客 × 重生 × 系统文</div>
+  <div class="ch">第一章 · 逆向人生</div>
+</div>
+
+<!-- ACT 1: 2026 Despair (f01-f03) -->
+<div class="frame">
+  <img src="img/f01.jpg" loading="lazy" alt="天台">
+  <div class="caption">
+    <div class="inner">又一个通宵。我站在公司天台，风吹得领带乱飘。</div>
+    楼下的城市灯火依旧繁华，和我没有半毛钱关系了。三次创业，三次失败。这一次最惨——不是技术不行，是被自己人捅了刀子。
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f02.jpg" loading="lazy" alt="手机余额">
+  <div class="caption">
+    手机震了一下。我低头一看——银行余额：<span style="color:#ff4444;font-weight:bold">-5,000,000</span>。
+    <div class="inner">五百万。够在上海买个厕所了。可惜是负数。</div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f03.jpg" loading="lazy" alt="世界扭曲">
+  <div class="caption">
+    突然，一阵剧烈的眩晕袭来。眼前的城市景观开始扭曲、碎裂，像是显卡过热导致的画面撕裂。我抓住栏杆，但手指穿过了金属——
+    <div class="inner">我的意识在坠落。不是从天台，是从时间里。</div>
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- ACT 2: Rebirth (f04-f08) -->
+<div class="frame">
+  <img src="img/f04.jpg" loading="lazy" alt="宿舍醒来">
+  <div class="caption">
+    "嘿！新来的，醒了没？快去打水！"
+    <br><br>
+    我猛地睁开眼。天花板很低，床板很硬，空气里弥漫着洗衣粉和方便面的味道。
+    <div class="inner">上铺。这是……上铺？我已经二十年没睡过上铺了。</div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f05.jpg" loading="lazy" alt="2001年日历">
+  <div class="caption">
+    墙上钉着一本日历，翻到九月——<span style="color:#ffd700;font-weight:bold">2001年9月</span>。
+    <div class="inner">不对。这不可能。这绝对不可能。</div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f06.jpg" loading="lazy" alt="翻盖手机">
+  <div class="caption">
+    枕头旁边放着一个银色翻盖手机。摩托罗拉V70。
+    <div class="inner">这款手机……是我大一时省了两个月生活费买的。2001年最酷的玩意儿。</div>
+    我翻开手机，屏幕亮起绿色的背光。没有微信，没有支付宝，甚至没有彩信。
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f07.jpg" loading="lazy" alt="系统面板">
+  <div class="caption">
+    就在这时，眼前突然炸开一个半透明的蓝色面板——
+  </div>
+  <div class="sys-panel">
+    <div class="label">【代码觉醒系统已激活】</div>
+    <br>
+    宿主：朱江 ｜ 等级：<span class="warn">Lv.1 菜鸟</span><br>
+    触发条件：连续创业失败×3 + 技术被窃 + 仍未放弃<br>
+    认证结果：<span class="exp">✓ 资格通过</span><br><br>
+    核心能力：<br>
+    　▸ 逆向工程（<span class="exp">已解锁</span>）<br>
+    　▸ 网络渗透（Lv.3解锁）<br>
+    　▸ AI预见（Lv.10解锁）<br><br>
+    <div class="label">[主线任务]</div>
+    在2001年的互联网荒野中，建立属于你的数字帝国。
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f08.jpg" loading="lazy" alt="照镜子">
+  <div class="caption">
+    我跳下床冲向镜子。镜子里是一张18岁的脸——没有黑眼圈，没有皱纹，下巴上只有一层淡淡的胡茬。
+    <div class="inner">我回来了。带着25年的记忆和技术，回到了一切开始的地方。</div>
+    <div class="dialog sys">
+      <div class="speaker">【系统】</div>
+      别照了，Lv.1的脸有什么好看的。倒是你的室友，好像遇到了点麻烦？
+    </div>
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- ACT 3: Roommate crisis (f09-f14) -->
+<div class="frame">
+  <img src="img/f09.jpg" loading="lazy" alt="刘哥电脑蓝屏">
+  <div class="caption">
+    <div class="dialog">
+      <div class="speaker">刘哥</div>
+      "完了完了完了！！我的论文！我的游戏存档！全完了啊啊啊！"
+    </div>
+    对面床位，一个一米八多的东北大汉正对着电脑疯狂拍桌子。屏幕上是一个我非常熟悉的画面——CRT显示器蓝得发白。
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f10.jpg" loading="lazy" alt="室友围观">
+  <div class="caption">
+    宿舍门一开，隔壁的人全涌了进来。五六个人挤在巴掌大的宿舍里，对着那台冒蓝光的电脑指指点点。
+    <div class="dialog">
+      <div class="speaker">室友甲</div>
+      "重启试试？"
+    </div>
+    <div class="dialog">
+      <div class="speaker">室友乙</div>
+      "格式化吧，没救了。"
+    </div>
+    <div class="dialog">
+      <div class="speaker">刘哥</div>
+      "我游戏装了三天三夜啊！用的是校园网！56K！你让我格式化？！"
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f11.jpg" loading="lazy" alt="勒索信息">
+  <div class="caption">
+    我从上铺探头一看——屏幕上的勒索信息赫然写着：
+    <div class="sys-panel" style="border-color:#ff4444;color:#ff4444">
+      你的文件已被加密！<br>
+      汇款100元至以下地址解锁...<br>
+      否则72小时后永久删除！
+    </div>
+    <div class="inner">这个病毒……CryptoWorm的早期变种。2003年才被安全界公开分析，但我2008年在某次渗透测试中逆向过它的第四代变种。对25年后的我来说，这东西就像小学数学题。</div>
+  </div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision frame">
+  <h3>🎯 抉择时刻</h3>
+  <div class="opt chosen">
+    <strong>A. 直接出手</strong> — 反正回到过去了，不装了。
+    <span class="tag a">✓ 我的选择</span>
+  </div>
+  <div class="opt">
+    <strong>B. 装作不会</strong> — 低调行事，韬光养晦。
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f12.jpg" loading="lazy" alt="思考">
+  <div class="caption">
+    <div class="inner">低调？我上辈子就是因为太低调，技术全被合伙人偷了。这辈子——老子要高调地活。</div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f13.jpg" loading="lazy" alt="跳下床">
+  <div class="caption">
+    我从上铺一跃而下，在一片惊讶的目光中走向那台电脑。
+    <div class="dialog">
+      <div class="speaker">刘哥</div>
+      "兄弟……你、你会修电脑？"
+    </div>
+    "让一下。"
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f14.jpg" loading="lazy" alt="坐下操作">
+  <div class="caption">
+    我坐下来，活动了一下手指。25年的肌肉记忆涌上来——虽然这双手只有18岁。
+    <div class="dialog sys">
+      <div class="speaker">【系统】</div>
+      检测到Lv.1级别的挑战目标。说真的，这都不够塞牙缝的。建议你闭着眼操作，至少还能赚点表演分。
+    </div>
+    <div class="inner">我选择性地忽略了这个毒舌AI。</div>
+  </div>
+</div>
+
+<!-- ACT 4: The Kill (f15-f19) -->
+<div class="frame">
+  <img src="img/f15.jpg" loading="lazy" alt="疯狂打字">
+  <div class="caption">
+    手指落在键盘上的那一刻，一切都变了。
+    <br><br>
+    啪啪啪啪啪——<br>
+    我的手速不像一个大一新生，更像是一台人形打字机。CMD窗口弹出，绿色代码瀑布般滚落。
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f16.jpg" loading="lazy" alt="逆向代码">
+  <div class="caption">
+    先定位病毒进程，找到它的注册表注入点。然后反编译加密模块——这个早期变种的加密算法简陋得让人想笑，用的是单密钥对称加密，密钥就硬编码在程序里。
+    <div class="inner">2001年的黑客们写病毒还挺淳朴的。不像后来的勒索软件，动不动就RSA-2048。</div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f17.jpg" loading="lazy" alt="室友震惊">
+  <div class="caption">
+    身后安静得可怕。我回头看了一眼——六个人集体石化，嘴巴张着能塞进鸡蛋。
+    <div class="dialog">
+      <div class="speaker">刘哥</div>
+      "这……这是在干啥？？看不懂但好像很厉害的样子……"
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f18.jpg" loading="lazy" alt="自信侧脸">
+  <div class="caption">
+    <div class="inner">小意思。</div>
+    提取密钥，解密文件，清除病毒残留，修补系统漏洞——全套操作，一气呵成。用时：<span style="color:#00ff88;font-weight:bold">4分23秒</span>。
+    <div class="sys-panel">
+      <span class="label">[支线任务完成]</span> 破解勒索病毒<br>
+      逆向工程 <span class="exp">+50 EXP</span><br>
+      <span class="exp">🎉 逆向工程升至 Lv.2！</span><br>
+      <span class="warn">解锁新技能：内存取证（被动）</span>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f19.jpg" loading="lazy" alt="胜利">
+  <div class="caption">
+    屏幕恢复正常。Windows桌面出现，文件完好无损。
+    <div class="dialog">
+      <div class="speaker">刘哥</div>
+      "我的游戏存档！！还在！！！兄弟你是神仙啊！！"
+    </div>
+    他一把抱住了我，差点把我从椅子上举起来。旁边的人也开始鼓掌。
+    <div class="dialog sys">
+      <div class="speaker">【系统】</div>
+      恭喜，你用Lv.10的实力欺负了一个Lv.0的病毒。真是太英勇了。要不要我给你颁个奖？
+    </div>
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- ACT 5: Professor Chen (f20-f23) -->
+<div class="frame">
+  <img src="img/f20.jpg" loading="lazy" alt="教授破门">
+  <div class="caption">
+    <strong>"砰——"</strong>
+    <br><br>
+    宿舍门被猛地推开。走廊里的日光灯把一个人的影子投进来——高瘦，笔挺，像一把尺子。
+    <div class="dialog">
+      <div class="speaker">陈教授</div>
+      "谁——在入侵校园网？"
+    </div>
+    欢呼声戛然而止。
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f21.jpg" loading="lazy" alt="教授检查屏幕">
+  <div class="caption">
+    陈教授推了推金框眼镜，径直走到电脑前。他弯腰查看屏幕上残留的CMD窗口，手指沿着代码一行行滑过。
+    <div class="inner">坏了。我破解病毒时触发了校园网的安全告警——2001年的入侵检测系统虽然原始，但我的操作对这个时代来说确实太"异常"了。</div>
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision frame">
+  <h3>🎯 抉择时刻</h3>
+  <div class="opt">
+    <strong>A. 坦白说自学的</strong> — 网上看教程自己摸索的。
+  </div>
+  <div class="opt chosen">
+    <strong>B. 反问他</strong> — "您是怎么看出来的？"
+    <span class="tag a">✓ 我的选择</span>
+  </div>
+  <div class="opt">
+    <strong>C. 编个理由</strong> — 说朋友教的。
+    <span class="tag b">保守</span>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f22.jpg" loading="lazy" alt="对峙">
+  <div class="caption">
+    陈教授转过身，居高临下地看着我。
+    <div class="dialog">
+      <div class="speaker">陈教授</div>
+      "这台电脑上的操作痕迹显示——有人在4分钟内完成了完整的逆向工程。大一新生，你能解释一下吗？"
+    </div>
+    <div class="inner">面对权威时最好的策略不是辩解，而是让对方也露出底牌。</div>
+    "教授……我想问一个问题。"
+    <br><br>
+    "整个交大的校园网监控中心在第三教学楼四层。从那里走到男生宿舍四号楼，正常步行需要12分钟。"
+    <br><br>
+    "我操作完到您出现，刚好4分多钟。"
+    <br><br>
+    "——<strong>您是跑过来的吧？什么样的告警，值得系主任亲自跑过来？</strong>"
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f23.jpg" loading="lazy" alt="教授表情变化">
+  <div class="caption">
+    整个宿舍安静了。
+    <br><br>
+    陈教授的表情在三秒内完成了一次不可思议的转变——从铁青，到惊讶，到……一种我非常熟悉的眼神。
+    <div class="inner">那是一个高手认出另一个高手时的眼神。在我上辈子的37年里，很少有人用这种眼神看过我。</div>
+  </div>
+</div>
+
+<!-- ACT 6: Cliffhanger (f24-f26) -->
+<div class="frame">
+  <img src="img/f24.jpg" loading="lazy" alt="宿舍全景">
+  <div class="caption">
+    陈教授沉默了很久。CRT显示器的嗡嗡声成了房间里唯一的声音。
+    <br><br>
+    然后，他开口了——
+    <div class="dialog">
+      <div class="speaker">陈教授</div>
+      "这个逆向手法……你师从何人？"
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f25.jpg" loading="lazy" alt="朱江微笑">
+  <div class="caption">
+    我没有回答。只是微微笑了一下。
+    <div class="inner">师从何人？师从未来，教授。师从25年后那个被人背刺到欠债五百万、站在天台吹风的中年男人。</div>
+    <div class="dialog sys">
+      <div class="speaker">【系统】</div>
+      提示：陈教授的隐藏身份已解锁——90年代中国第一代白帽黑客，代号"铁壁"。<br>
+      <span class="warn">⚠ 警告：此人物与主线任务有深度关联。</span>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <img src="img/f26.jpg" loading="lazy" alt="对峙全景">
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end frame">
+  <h2>第一章 · 完</h2>
+  <div class="sys-panel">
+    <span class="label">【本章数据】</span><br>
+    逆向工程：Lv.1 → <span class="exp">Lv.2</span><br>
+    经验值：<span class="exp">+50</span><br>
+    隐藏线索：<span class="warn">+1（陈教授身份）</span><br>
+    好感度变化：刘哥 <span class="exp">+30</span> ｜ 陈教授 <span class="warn">???</span>
+  </div>
+  <div class="preview">
+    <strong>下章预告：</strong><br><br>
+    陈教授给我出了一道题——72小时内，攻破他亲手设计的防火墙。
+    <br><br>
+    "通过了，我收你进实验室。"
+    <br><br>
+    我本想拒绝。但当我看到那个防火墙的底层架构时，血液瞬间冷却——
+    <br><br>
+    <strong style="color:#ff4444">这套架构……和25年后背刺我的那个技术泄露方案，一模一样。</strong>
+    <br><br>
+    <span style="color:#666;font-size:.85rem">《代码觉醒》第二章 · 铁壁防线 — 即将上线</span>
+  </div>
+</div>
+
+<div style="height:80px"></div>
+
+<script>
+// Loading bar
+const imgs=document.querySelectorAll('img[loading]');
+let loaded=0;
+const bar=document.getElementById('loadbar');
+const loader=document.getElementById('loader');
+function tick(){loaded++;bar.style.width=Math.min(100,loaded/imgs.length*100)+'%';if(loaded>=imgs.length)setTimeout(()=>loader.classList.add('hide'),400)}
+imgs.forEach(img=>{if(img.complete)tick();else{img.onload=tick;img.onerror=tick}});
+setTimeout(()=>loader.classList.add('hide'),5000);
+
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+document.querySelectorAll('.frame').forEach(f=>obs.observe(f));
+</script>
+</body>
+</html>
