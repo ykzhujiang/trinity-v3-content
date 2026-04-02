@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗网拍卖师 · 第一章：最后一件拍品</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0f;
+  color: #e8e0d0;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0a0a0f 0%, #1a1520 50%, #0a0a0f 100%);
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(218,165,32,0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: pulse-gold 3s ease-in-out infinite;
+}
+@keyframes pulse-gold {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.3); }
+}
+.title-screen h1 {
+  font-size: 2.5rem;
+  color: #daa520;
+  text-shadow: 0 0 30px rgba(218,165,32,0.4);
+  letter-spacing: 0.3em;
+  position: relative;
+  z-index: 1;
+}
+.title-screen .subtitle {
+  font-size: 1.1rem;
+  color: #8a7e6e;
+  margin-top: 1rem;
+  letter-spacing: 0.2em;
+  position: relative;
+  z-index: 1;
+}
+.title-screen .chapter {
+  font-size: 1.4rem;
+  color: #c0a060;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+}
+.scroll-hint {
+  position: relative;
+  z-index: 1;
+  margin-top: 3rem;
+  color: #5a5040;
+  font-size: 0.85rem;
+  animation: fade-bounce 2s ease-in-out infinite;
+}
+@keyframes fade-bounce {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 0.8; transform: translateY(8px); }
+}
+
+/* Panel Container */
+.panels {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0;
+}
+.panel {
+  position: relative;
+  width: 100%;
+  margin-bottom: 2px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.1rem;
+  line-height: 2;
+  background: linear-gradient(180deg, rgba(10,10,15,0.95) 0%, rgba(15,12,20,0.98) 100%);
+}
+.panel-text .narrator {
+  color: #a09080;
+  font-style: italic;
+}
+.panel-text .dialogue {
+  color: #e8e0d0;
+  font-weight: 500;
+}
+.panel-text .thought {
+  color: #7aa0c0;
+  font-style: italic;
+}
+.panel-text .decision-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
+  color: #0a0a0f;
+  padding: 0.2rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.panel-text .humor {
+  color: #c0a060;
+  font-size: 0.95rem;
+}
+
+/* Act dividers */
+.act-divider {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #0a0a0f;
+}
+.act-divider h2 {
+  color: #daa520;
+  font-size: 1.3rem;
+  letter-spacing: 0.3em;
+  text-shadow: 0 0 20px rgba(218,165,32,0.3);
+}
+.act-divider .line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #daa520, transparent);
+  margin: 1rem auto;
+}
+
+/* Cliffhanger */
+.cliffhanger {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(180deg, #0a0a0f 0%, #0f0a15 50%, #0a0a0f 100%);
+}
+.cliffhanger .next {
+  font-size: 1.6rem;
+  color: #daa520;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(218,165,32,0.4);
+  margin-top: 2rem;
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+.cliffhanger .tease {
+  color: #6a5e4e;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+</style>
+</head>
+<body>
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <h1>暗网拍卖师</h1>
+  <div class="subtitle">V5 · 朱江的故事</div>
+  <div class="chapter">第一章：最后一件拍品</div>
+  <div class="scroll-hint">↓ 向下滑动开始 ↓</div>
+</div>
+
+<div class="panels">
+
+<!-- ACT 1: 邀请 -->
+<div class="act-divider"><div class="line"></div><h2>第一幕 · 邀请</h2><div class="line"></div></div>
+
+<div class="panel">
+  <img src="images/f01.jpg" loading="lazy" alt="深夜手机屏幕亮起">
+  <div class="panel-text">
+    <p class="narrator">凌晨两点，公司安静得只剩下服务器的嗡嗡声。</p>
+    <p class="thought">手机震了一下。不是微信，不是短信——是一个我从没见过的加密通讯协议。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f02.jpg" loading="lazy" alt="加密消息内容">
+  <div class="panel-text">
+    <p class="thought">坐标、时间、一个金色小锤子的图标。没有发送者信息，没有任何可追溯的元数据。</p>
+    <p class="thought">作为一个搞了十年安全的人，我的第一反应不是害怕——是好奇。这加密协议，写得真漂亮。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f03.jpg" loading="lazy" alt="落地窗前的背影">
+  <div class="panel-text">
+    <p class="narrator">我走到落地窗前，上海的夜景在脚下铺开。外滩的灯光倒映在黄浦江里，像碎了一地的黄金。</p>
+    <p class="thought">上周的入侵事件还没查清楚。我们的量子加密核心代码，被人干干净净地拿走了。没留下一丝痕迹。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f04.jpg" loading="lazy" alt="入侵检测警报">
+  <div class="panel-text">
+    <p class="thought">安全面板上，红色警报依然刺眼。入侵者访问了我们最核心的代码仓库——量子加密引擎。那是我花了三年时间，一行一行敲出来的。</p>
+    <p class="thought">追踪了一周，一无所获。这人的技术，不在我之下。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f05.jpg" loading="lazy" alt="手指在键盘上飞速敲击">
+  <div class="panel-text">
+    <p class="narrator">我重新坐回工位，开始分析那条加密消息。十指翻飞，代码在屏幕上飞速滚动。</p>
+    <p class="thought">这条消息的加密方式……用的是椭圆曲线变体，非常优雅。和入侵我代码库的人，笔迹像。</p>
+    <p class="thought">他们不只是在邀请我——他们在炫技。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f06.jpg" loading="lazy" alt="咖啡馆中林姐递出黑卡">
+  <div class="panel-text">
+    <p class="narrator">第二天傍晚，我按坐标来到一家隐蔽的咖啡馆。对面坐着一个短发女人，四十出头，面无表情。</p>
+    <p class="dialogue">"朱江先生。"她的声音像刀片划过冰面，"我叫林姐。代表委托方邀请你参加一场……特殊的交流活动。"</p>
+    <p class="narrator">她从包里取出一张哑光黑色卡片，缓缓推到我面前。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f07.jpg" loading="lazy" alt="黑色邀请卡特写">
+  <div class="panel-text">
+    <p class="thought">卡片质感像拉丝金属，烫金文字写着——"暗网·第37届拍卖会"。角上有全息防伪的小锤子。</p>
+    <p class="thought">第37届。这意味着这个地下拍卖会已经运作了很久。而我，直到代码被偷，才知道它的存在。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f08.jpg" loading="lazy" alt="肩越镜头看向林姐">
+  <div class="panel-text">
+    <p class="dialogue">"你的技术值得更大的舞台。"林姐说这话的时候，眼睛一直盯着我的表情，像在做实验。</p>
+    <p class="thought">更大的舞台？有意思。他们偷了我的代码，现在又来邀请我去看？这要么是陷阱，要么是挑衅——无论哪种，我都想去看看。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f09.jpg" loading="lazy" alt="朱江的自信微笑">
+  <div class="panel-text">
+    <p class="decision-tag">决策点 1</p>
+    <p class="thought">拒绝？不可能。我骨子里的黑客基因不允许我对这种谜题说不。</p>
+    <p class="thought">直接暴露身份？太蠢了。菩萨心肠霹雳手段，先摸清底牌再说。</p>
+    <p class="dialogue">"我去。"我拿起卡片，嘴角微扬，"但用我的规则——匿名，独立包间，不留影像记录。"</p>
+    <p class="narrator">林姐第一次露出一丝不易察觉的笑意。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f10.jpg" loading="lazy" alt="走出咖啡馆的背影">
+  <div class="panel-text">
+    <p class="narrator">我起身离开。大衣衣摆被夜风吹起，街灯在湿润的路面上拉出长长的影子。</p>
+    <p class="thought">三年的心血被偷，一周追踪无果。现在，猎物主动把我邀进了它的巢穴。</p>
+    <p class="thought">好戏开场。</p>
+  </div>
+</div>
+
+<!-- ACT 2: 拍卖场 -->
+<div class="act-divider"><div class="line"></div><h2>第二幕 · 拍卖场</h2><div class="line"></div></div>
+
+<div class="panel">
+  <img src="images/f11.jpg" loading="lazy" alt="地下停车场通道">
+  <div class="panel-text">
+    <p class="narrator">按照卡片背面的指引，我来到市中心一栋写字楼的地下三层。停车场空荡荡的，脚步声在水泥柱间回响。</p>
+    <p class="thought">尽头那扇铁门的缝隙里，透出一线金色的光。像是通往另一个世界的入口。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f12.jpg" loading="lazy" alt="刷卡开门">
+  <div class="panel-text">
+    <p class="narrator">黑卡贴上感应器的瞬间，蓝色扫描光掠过卡面，铁门无声滑开。</p>
+    <p class="thought">生物识别+量子密钥双重验证。这套安保系统……不便宜，也不简单。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f13.jpg" loading="lazy" alt="拍卖大厅全景">
+  <div class="panel-text">
+    <p class="narrator">眼前的景象让我不由得屏住了呼吸。</p>
+    <p class="thought">圆形剧场式的地下大厅，半弧形排列着十几个VIP包间，每间都用烟灰色玻璃隔开。中央舞台上立着一座讲台，金色的拍卖锤在聚光灯下闪闪发光。水晶吊灯把整个空间切割成明暗交错的棱镜。</p>
+    <p class="thought">地下三十米，藏着一座宫殿。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f14.jpg" loading="lazy" alt="走下台阶进入大厅">
+  <div class="panel-text">
+    <p class="narrator">我沿着弧形台阶走下去。换好的黑色三件套合身得像第二层皮肤。头顶的聚光灯在我周围画出一个光锥。</p>
+    <p class="thought">从进门那一刻起，我就在被观察。没关系——我也在观察他们。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f15.jpg" loading="lazy" alt="扫视买家们">
+  <div class="panel-text">
+    <p class="thought">2号包间——白发老者，金丝眼镜，正从容地品着茶。举手投足间全是旧钱的味道。我给他起了个代号：老钱。</p>
+    <p class="thought">5号包间——穿运动外套的年轻人，二郎腿翘着刷手机，一副"我来花钱的不是来受气的"样子。代号：小张。</p>
+    <p class="humor">（嗯，起代号这个习惯是从哪学来的？大概是看谍战剧看多了。）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f16.jpg" loading="lazy" alt="拍卖师登台">
+  <div class="panel-text">
+    <p class="narrator">灯光暗了下来，只有舞台上的金色聚光灯亮着。一个穿黑色燕尾服的拍卖师走上讲台，身后的大屏幕亮起：001号拍品。</p>
+    <p class="thought">开始了。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f17.jpg" loading="lazy" alt="AI语音克隆系统演示">
+  <div class="panel-text">
+    <p class="narrator">第一件拍品——AI语音克隆系统。屏幕上展示着声纹波形和对比图，效果确实惊人。</p>
+    <p class="thought">技术不错，但不算顶尖。合成延迟还有120毫秒，声纹特征保真度大概92%。我两年前就做到96%了。</p>
+    <p class="humor">（不是我吹，但确实……还不如我实习生写的。）</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f18.jpg" loading="lazy" alt="手写笔记">
+  <div class="panel-text">
+    <p class="narrator">我在小本子上记录每件拍品的成交价和买家反应。银笔在黑色皮面上沙沙作响。</p>
+    <p class="thought">老钱出手稳健，每次加价都是最小幅度，但从不犹豫——典型的老猎手。小张加价很猛但会回头看手机，大概在和后方确认预算。</p>
+    <p class="thought">旁边那杯威士忌，一口没动。今晚我需要绝对清醒。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f19.jpg" loading="lazy" alt="竞拍进行中">
+  <div class="panel-text">
+    <p class="narrator">第五件拍品——自动驾驶感知模块。老钱举牌，不紧不慢。</p>
+    <p class="thought">五件下来，成交总额已经过了八千万美金。这个地下拍卖场的交易规模，比我想象的大得多。</p>
+    <p class="thought">但真正让我不安的是——如果这些都是被盗的AI技术，那这条产业链，已经完整到可怕。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f20.jpg" loading="lazy" alt="靠在沙发上等待">
+  <div class="panel-text">
+    <p class="narrator">前面五件，我一件没出手。靠在皮沙发上，双臂交叉，像个等菜上桌的食客。</p>
+    <p class="humor">（说实话，到目前为止，这场拍卖会最精彩的部分是这张沙发。真的，意大利手工牛皮，谁家的供应商？）</p>
+    <p class="thought">但我知道，好戏在后头。邀请函上写的是"特邀嘉宾"，不是来看前菜的。</p>
+  </div>
+</div>
+
+<!-- THE TWIST -->
+<div class="act-divider"><div class="line"></div><h2>最终拍品</h2><div class="line"></div></div>
+
+<div class="panel">
+  <img src="images/f21.jpg" loading="lazy" alt="最终拍品出现">
+  <div class="panel-text">
+    <p class="narrator">屏幕上跳出四个字——"最终拍品"。灯光骤然变冷。</p>
+    <p class="thought">代码界面出现在大屏幕上。干净、优雅的架构图，精密的函数签名……</p>
+    <p class="thought">等等。</p>
+    <p class="thought">这个变量命名风格……这个递归结构……</p>
+    <p class="thought">我的血一瞬间凉了半截。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f22.jpg" loading="lazy" alt="震惊的表情">
+  <div class="panel-text">
+    <p class="thought">这是我的代码。</p>
+    <p class="thought">一行一行，全是我的。那个只有我自己才会用的注释缩进方式，那个我花了三个月debug才理顺的量子密钥协商协议——</p>
+    <p class="thought">他们把我的心血摆在拍卖台上，像摆一件赃物。</p>
+    <p class="narrator">我的手死死攥住扶手，指节发白。</p>
+  </div>
+</div>
+
+<!-- ACT 3: 抉择 -->
+<div class="act-divider"><div class="line"></div><h2>第三幕 · 抉择</h2><div class="line"></div></div>
+
+<div class="panel">
+  <img src="images/f23.jpg" loading="lazy" alt="拳头握紧">
+  <div class="panel-text">
+    <p class="narrator">拳头缓缓收紧，皮沙发的扶手在压力下发出细微的嘎吱声。</p>
+    <p class="thought">冷静。深呼吸。愤怒是最没用的情绪——它只会让你暴露。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f24.jpg" loading="lazy" alt="拍卖师介绍最终拍品">
+  <div class="panel-text">
+    <p class="dialogue">"最终拍品——量子加密AI核心系统。"拍卖师的声音回荡在大厅里，"可破解目前已知的所有加密体系。起拍价——一千万美金。"</p>
+    <p class="thought">一千万。他们给我三年心血标的价，一千万。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f25.jpg" loading="lazy" alt="竞拍开始">
+  <div class="panel-text">
+    <p class="narrator">老钱不紧不慢地举牌：1200万。</p>
+    <p class="narrator">小张猛地前倾：1500万。</p>
+    <p class="narrator">数字在屏幕上跳动，每一次攀升都像踩在我的神经上。</p>
+    <p class="thought">他们在抢我的东西。就在我面前。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f26.jpg" loading="lazy" alt="林姐在包间入口观察">
+  <div class="panel-text">
+    <p class="narrator">余光里，林姐出现在我包间门口。双臂交叉，逆光中她的轮廓锐利如刀。</p>
+    <p class="thought">她在看我的反应。从头到尾，这场拍卖会对我来说不只是一场拍卖——它是一场测试。</p>
+    <p class="thought">好。那就让我给你们看看，被测试者也能翻盘。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f27.jpg" loading="lazy" alt="站在玻璃墙前俯瞰全场">
+  <div class="panel-text">
+    <p class="narrator">我站起来，走到包间的落地玻璃墙前。整个拍卖场在脚下展开——舞台、竞拍者、大屏幕上我的代码。</p>
+    <p class="thought">玻璃上映出我模糊的倒影。背后是他们的游戏，眼前是我的战场。</p>
+    <p class="thought">用钱买回来？不。那等于承认这场拍卖的合法性。</p>
+    <p class="thought">当场揭穿？太早了。我还不知道是谁偷的，通过什么渠道流出的。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f28.jpg" loading="lazy" alt="在竞拍牌背面写字">
+  <div class="panel-text">
+    <p class="decision-tag">决策点 2</p>
+    <p class="narrator">我拿起竞拍牌。但没有举起——而是翻过来。</p>
+    <p class="narrator">银笔在背面划出一行字。每一笔都沉稳有力。</p>
+    <p class="thought">不买。不闹。暗中布局，亲手拿回来。这是黑客的方式——找到系统漏洞，安静地拿走属于你的东西。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f29.jpg" loading="lazy" alt="冷静而危险的微笑">
+  <div class="panel-text">
+    <p class="narrator">嘴角微微上扬。不是笑——是一个黑客找到了漏洞时特有的表情。</p>
+    <p class="thought">既然是我写的代码，里面藏着什么，只有我知道。</p>
+    <p class="thought">量子加密核心里有一个后门。不是bug，是我故意留的。一个只有我知道的"彩蛋"。</p>
+    <p class="thought">谁买走它，谁就把我的钥匙带回了家。</p>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/f30.jpg" loading="lazy" alt="画面渐暗">
+  <div class="panel-text">
+    <p class="narrator">竞价还在继续。2000万、2500万、3000万……</p>
+    <p class="thought">出价越高越好。花大价钱买走我的代码的人，就是我下一步要找的人。</p>
+    <p class="thought">你们以为这是一场拍卖。</p>
+    <p class="thought" style="color: #daa520; font-weight: bold;">不——这是我布下的第一个局。</p>
+  </div>
+</div>
+
+</div><!-- end panels -->
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <p style="color: #5a5040; font-size: 0.9rem;">暗网拍卖师 · 第一章 完</p>
+  <div class="next">第二章：反向竞拍</div>
+  <p class="tease">买走代码的人以为赢了。他不知道，他买走的是一把打开牢笼的钥匙——而钥匙的主人，就在他身后。</p>
+  <div style="margin-top: 3rem; color: #3a3530; font-size: 0.8rem;">即将到来…</div>
+</div>
+
+<script>
+// Intersection Observer for scroll-reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(panel => observer.observe(panel));
+</script>
+
+</body>
+</html>
