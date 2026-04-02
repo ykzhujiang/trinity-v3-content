@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重启1999 · 第一章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a12;
+  color: #e0e0e0;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Title screen */
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0a0a1a 0%, #0d1a0d 50%, #0a0a1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(0,255,100,0.12) 0%, transparent 70%);
+  top: 20%; left: 50%;
+  transform: translateX(-50%);
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+}
+.title-main {
+  font-size: 2.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00ff88, #00ccff, #ff6600);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.3em;
+  z-index: 1;
+  animation: title-in 1.5s ease-out;
+}
+.title-sub {
+  font-size: 1rem;
+  color: #00aa66;
+  margin-top: 1rem;
+  letter-spacing: 0.5em;
+  z-index: 1;
+  animation: title-in 1.5s ease-out 0.3s both;
+}
+.title-chapter {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 2rem;
+  z-index: 1;
+  animation: title-in 1.5s ease-out 0.6s both;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 0.8rem;
+  color: #444;
+  animation: bounce 2s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes title-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Manga panels */
+.panel {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 1rem 1.2rem;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  background: #0d0d18;
+}
+.panel-text .dialogue {
+  color: #fff;
+  font-weight: 600;
+  margin: 0.3rem 0;
+}
+.panel-text .thought {
+  color: #88aaff;
+  font-style: italic;
+  margin: 0.3rem 0;
+}
+.panel-text .narration {
+  color: #999;
+  font-size: 1rem;
+  margin: 0.3rem 0;
+}
+.panel-text .action {
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+/* Decision boxes */
+.decision-box {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-left: 4px solid #00ff88;
+  margin: 0.5rem 1rem;
+  padding: 1rem;
+  border-radius: 0 8px 8px 0;
+}
+.decision-box h3 {
+  color: #00ff88;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.decision-option {
+  padding: 0.4rem 0;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+.decision-option.chosen {
+  color: #00ff88;
+  font-weight: 700;
+}
+.decision-option.chosen::before {
+  content: '▶ ';
+}
+
+/* Section dividers */
+.section-divider {
+  text-align: center;
+  padding: 2rem 0;
+  background: #0a0a12;
+}
+.section-divider span {
+  color: #333;
+  font-size: 0.8rem;
+  letter-spacing: 1em;
+}
+
+/* End screen */
+.end-screen {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #0a0a12;
+  padding: 3rem 1rem;
+}
+.end-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.2em;
+}
+.end-next {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #00ff88;
+  animation: pulse-text 2s ease-in-out infinite;
+}
+@keyframes pulse-text {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.end-sub {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Scroll animations */
+.panel {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <div class="title-main">重启1999</div>
+  <div class="title-sub">重生 × 黑客 × AI创业</div>
+  <div class="title-chapter">第一章 · 回到起点</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- F01: 服务器爆炸 -->
+<div class="panel">
+  <img src="images/f01.jpg" loading="eager" alt="服务器爆炸">
+  <div class="panel-text">
+    <div class="dialogue">「不——！」</div>
+    <div class="action">服务器机房，火花四溅。我的意识在白光中碎裂。</div>
+  </div>
+</div>
+
+<!-- F02: 白光吞噬 -->
+<div class="panel">
+  <img src="images/f02.jpg" loading="lazy" alt="白光">
+  <div class="panel-text">
+    <div class="narration">一切都消失了。时间、空间、记忆……全部溶解在无尽的白光里。</div>
+  </div>
+</div>
+
+<!-- F03: 醒来 -->
+<div class="panel">
+  <img src="images/f03.jpg" loading="lazy" alt="宿舍醒来">
+  <div class="panel-text">
+    <div class="dialogue">「嗯……头好疼……」</div>
+    <div class="action">我揉着太阳穴坐起来。身下是硌人的木板床，空气里弥漫着廉价洗衣粉的味道。</div>
+    <div class="thought">等等——这个味道……我大学时代的宿舍？</div>
+  </div>
+</div>
+
+<!-- F04: 看到CRT -->
+<div class="panel">
+  <img src="images/f04.jpg" loading="lazy" alt="CRT电脑">
+  <div class="panel-text">
+    <div class="dialogue">「这是……奔腾II？！」</div>
+    <div class="thought">大头CRT显示器。米色机箱。3.5寸软驱。这些东西我只在记忆深处见过。</div>
+  </div>
+</div>
+
+<!-- F05: 日历 -->
+<div class="panel">
+  <img src="images/f05.jpg" loading="lazy" alt="1999年9月日历">
+  <div class="panel-text">
+    <div class="thought">（1999年……9月1日……我穿越了？！）</div>
+    <div class="action">墙上的日历像一记重锤砸在我的意识上。不是做梦。不是幻觉。</div>
+    <div class="thought">我回到了27年前。</div>
+  </div>
+</div>
+
+<!-- F06: 看手 -->
+<div class="panel">
+  <img src="images/f06.jpg" loading="lazy" alt="年轻的手">
+  <div class="panel-text">
+    <div class="thought">（这双手……18岁的手……）</div>
+    <div class="action">我翻来覆去看着自己的手。没有老茧，没有岁月的痕迹。紧绷的、年轻的皮肤。</div>
+    <div class="thought">43岁的灵魂，18岁的身体。我的心跳开始加速——不是恐惧，是兴奋。</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>· · ·</span></div>
+
+<!-- F07: 老刘 -->
+<div class="panel">
+  <img src="images/f07.jpg" loading="lazy" alt="老刘">
+  <div class="panel-text">
+    <div class="dialogue">「江哥！走不走？网吧打星际！」</div>
+    <div class="action">门被猛地推开，一个圆脸胖子探进头来。红格子衬衫，小眼睛眯成一条缝，满脸堆笑。</div>
+    <div class="thought">老刘……我的大学室友。一个热心肠的东北胖子，梦想是开网吧。2026年他是某连锁网咖的区域总监。</div>
+  </div>
+</div>
+
+<!-- F08: 野心 -->
+<div class="panel">
+  <img src="images/f08.jpg" loading="lazy" alt="朱江眼神">
+  <div class="panel-text">
+    <div class="thought">（1999年9月……QQ刚上线三个月。马化腾还在到处找投资。李彦宏刚从硅谷回来。马云在杭州湖畔花园开了第一次会。）</div>
+    <div class="thought">（而我——知道接下来27年每一个风口、每一次变革、每一个价值千亿的机会。）</div>
+    <div class="action">嘴角不自觉地翘了起来。</div>
+  </div>
+</div>
+
+<!-- F09: DECISION-1 -->
+<div class="panel">
+  <img src="images/f09.jpg" loading="lazy" alt="决策1">
+  <div class="panel-text">
+    <div class="decision-box">
+      <h3>⚡ 决策点 1：去网吧还是留在宿舍？</h3>
+      <div class="decision-option">A: 留在宿舍研究电脑——安全但封闭</div>
+      <div class="decision-option chosen">B: 去网吧——先摸清这个时代的真实网络环境</div>
+      <div class="decision-option">C: 直接去图书馆查资料——学者路线</div>
+    </div>
+    <div class="thought">（实践出真知。我需要亲眼看看1999年的互联网是什么样子。）</div>
+  </div>
+</div>
+
+<!-- F10: 网吧外景 -->
+<div class="panel">
+  <img src="images/f10.jpg" loading="lazy" alt="飞翔网吧">
+  <div class="panel-text">
+    <div class="narration">上海的九月，阳光还带着夏天的尾巴。「飞翔网吧」的霓虹招牌在白天看起来格外廉价。</div>
+    <div class="thought">但对1999年的年轻人来说，这里就是通往新世界的大门。</div>
+  </div>
+</div>
+
+<!-- F11: 网吧内景 -->
+<div class="panel">
+  <img src="images/f11.jpg" loading="lazy" alt="网吧内部">
+  <div class="panel-text">
+    <div class="narration">1999年的网吧，2块钱一小时。CRT大头显示器排成排，烟雾缭绕，键盘噼啪作响。</div>
+    <div class="thought">空气里混着烟味、泡面味和汗味。这就是中国互联网最原始的样子。而我，站在了一切的起点。</div>
+  </div>
+</div>
+
+<!-- F12: 黄毛炫耀 -->
+<div class="panel">
+  <img src="images/f12.jpg" loading="lazy" alt="黄毛黑客">
+  <div class="panel-text">
+    <div class="dialogue">「看！我把学校主页黑了！」</div>
+    <div class="action">隔壁座位，一个染着黄毛的小子指着屏幕，声音大得恨不得全网吧都听见。屏幕上是被涂改的校园网首页。</div>
+    <div class="narration">围观的几个人发出「哇」的惊叹。</div>
+  </div>
+</div>
+
+<!-- F13: 不屑 -->
+<div class="panel">
+  <img src="images/f13.jpg" loading="lazy" alt="朱江微笑">
+  <div class="panel-text">
+    <div class="thought">（SQL注入？2026年CTF初赛都不考这种低级漏洞……）</div>
+    <div class="action">我微微摇头，嘴角不自觉地翘了一下。</div>
+  </div>
+</div>
+
+<!-- F14: 键盘特写 -->
+<div class="panel">
+  <img src="images/f14.jpg" loading="lazy" alt="键盘飞速敲击">
+  <div class="panel-text">
+    <div class="action">手指落在键盘上的一瞬间，肌肉记忆接管了一切。27年的编程功底，从指尖倾泻而出。</div>
+    <div class="narration">黑底绿字的终端界面上，代码如流水般滚动。</div>
+  </div>
+</div>
+
+<!-- F15: 拿下校园网 -->
+<div class="panel">
+  <img src="images/f15.jpg" loading="lazy" alt="超级管理员">
+  <div class="panel-text">
+    <div class="dialogue">「好了。」</div>
+    <div class="action">我靠在椅背上，双手交叉。屏幕上赫然显示：「校园网管理后台 — 超级管理员」。</div>
+    <div class="narration">从坐下到拿下整个校园网——3分钟。</div>
+  </div>
+</div>
+
+<!-- F16: 老刘震惊 -->
+<div class="panel">
+  <img src="images/f16.jpg" loading="lazy" alt="老刘震惊">
+  <div class="panel-text">
+    <div class="dialogue">「卧……卧槽？！三分钟？！」</div>
+    <div class="action">老刘的嘴巴张成了O型，手里的可乐差点掉地上。</div>
+  </div>
+</div>
+
+<!-- F17: 黄毛呆住 -->
+<div class="panel">
+  <img src="images/f17.jpg" loading="lazy" alt="反差">
+  <div class="panel-text">
+    <div class="action">黄毛从隔壁探过头来，刚才的得意全变成了呆滞。</div>
+    <div class="thought">（这个年代的防火墙……就像纸糊的。1999年的网络安全基本等于零。我就是降维打击。）</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>· · ·</span></div>
+
+<!-- F18: 网吧老板 -->
+<div class="panel">
+  <img src="images/f18.jpg" loading="lazy" alt="网吧老板">
+  <div class="panel-text">
+    <div class="dialogue">「小兄弟，你这技术……有没有兴趣合伙？」</div>
+    <div class="action">一个戴金链子的中年男人从柜台后面走过来，精明的眼神上下打量着我。</div>
+    <div class="thought">网吧老板。1999年能开网吧的人，多少有点路子。</div>
+  </div>
+</div>
+
+<!-- F19: DECISION-2 -->
+<div class="panel">
+  <img src="images/f19.jpg" loading="lazy" alt="决策2">
+  <div class="panel-text">
+    <div class="thought">（网吧……一个月能赚几万。但六个月后，互联网股票会暴涨10倍。一年后，中国互联网的格局会彻底改写。）</div>
+    <div class="decision-box">
+      <h3>⚡ 决策点 2：接受网吧合伙还是放长线？</h3>
+      <div class="decision-option">A: 接受合伙——稳定的第一桶金</div>
+      <div class="decision-option chosen">B: 拒绝——格局要大，不在小生意上浪费时间</div>
+      <div class="decision-option">C: 接受但只做技术顾问——两头都不耽误</div>
+    </div>
+    <div class="thought">（我的目标不是开网吧。我要做的事情，会改变整个中国互联网。）</div>
+  </div>
+</div>
+
+<!-- F20: 婉拒 -->
+<div class="panel">
+  <img src="images/f20.jpg" loading="lazy" alt="婉拒">
+  <div class="panel-text">
+    <div class="dialogue">「谢了老板，我有别的打算。」</div>
+    <div class="action">我站起身，微微点头。老板的表情从期待变成了遗憾。</div>
+    <div class="thought">他不知道，他刚刚错过的不是一个技术员，而是一个来自未来的人。</div>
+  </div>
+</div>
+
+<!-- F21: 校园 -->
+<div class="panel">
+  <img src="images/f21.jpg" loading="lazy" alt="校园林荫道">
+  <div class="panel-text">
+    <div class="narration">回到校园，一切都那么年轻。梧桐树的叶子在阳光下泛着金光，90年代的教学楼方方正正。</div>
+    <div class="thought">这里是上海交大。我18岁的起点，也是我人生的重新起点。</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>· · ·</span></div>
+
+<!-- F22: BBS -->
+<div class="panel">
+  <img src="images/f22.jpg" loading="lazy" alt="BBS论坛">
+  <div class="panel-text">
+    <div class="action">图书馆里，我打开了校园BBS。翻了几个技术版块，一个帖子标题让我的手指僵在了半空中。</div>
+    <div class="narration">「分布式计算的未来——DreamCoder」</div>
+  </div>
+</div>
+
+<!-- F23: 震惊 -->
+<div class="panel">
+  <img src="images/f23.jpg" loading="lazy" alt="朱江震惊">
+  <div class="panel-text">
+    <div class="thought">（DreamCoder……这个ID……）</div>
+    <div class="thought">（这不是未来某巨头CTO 20岁时的网名吗？！2026年他执掌着万亿市值的技术帝国。而现在，他就在这个校园的某个角落，发着BBS帖子？）</div>
+    <div class="action">我的心跳突然加速。</div>
+  </div>
+</div>
+
+<!-- F24: 食堂 -->
+<div class="panel">
+  <img src="images/f24.jpg" loading="lazy" alt="大学食堂">
+  <div class="panel-text">
+    <div class="narration">午饭时间。食堂人山人海，金属餐盘碰撞声此起彼伏。</div>
+    <div class="action">老刘在对面大口扒饭，我心不在焉地戳着盘子里的红烧肉。</div>
+  </div>
+</div>
+
+<!-- F25: 扫码支付 -->
+<div class="panel">
+  <img src="images/f25.jpg" loading="lazy" alt="扫码支付笑话">
+  <div class="panel-text">
+    <div class="dialogue">「等下，我扫码支付……」</div>
+    <div class="action">话一出口我就后悔了。</div>
+    <div class="dialogue" style="color: #ff8888;">「啥？扫啥码？你发烧了吧？」</div>
+    <div class="action">老刘的筷子悬在半空中，一脸不可思议地看着我。</div>
+  </div>
+</div>
+
+<!-- F26: 围观 -->
+<div class="panel">
+  <img src="images/f26.jpg" loading="lazy" alt="食堂围观">
+  <div class="panel-text">
+    <div class="thought">（靠，忘了这是1999年了……）</div>
+    <div class="action">周围几桌的同学都转过头来看我，像看外星人一样。</div>
+    <div class="dialogue">「没……没什么，我说刷卡。」</div>
+    <div class="narration">我尴尬地掏出饭卡。心里默默给自己记了一笔：时代词汇注意表，第一条——「扫码支付」。</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>· · ·</span></div>
+
+<!-- F27: 小陈 -->
+<div class="panel">
+  <img src="images/f27.jpg" loading="lazy" alt="小陈出场">
+  <div class="panel-text">
+    <div class="dialogue">「同学，能借你这本《C++编程思想》看看吗？」</div>
+    <div class="action">一个瘦高个走到我面前，黑框眼镜，白T恤，手里捧着一本比砖头还厚的《算法导论》。</div>
+    <div class="thought">小陈。我记得他。安静、内向，但脑子是真的好使。</div>
+  </div>
+</div>
+
+<!-- F28: 算法天赋 -->
+<div class="panel">
+  <img src="images/f28.jpg" loading="lazy" alt="算法笔记">
+  <div class="panel-text">
+    <div class="action">我随手翻了翻他的笔记本——密密麻麻的算法推导，思路清晰得可怕。</div>
+    <div class="thought">（这个算法优化思路……比2026年的论文都超前！20岁就能独立推导出这种东西？）</div>
+    <div class="thought">（天才。被埋没的天才。在我的记忆里，小陈后来去了一家普通公司写CRUD……太浪费了。）</div>
+  </div>
+</div>
+
+<!-- F29: DECISION-3 -->
+<div class="panel">
+  <img src="images/f29.jpg" loading="lazy" alt="决策3">
+  <div class="panel-text">
+    <div class="thought">（找到你了……我的合伙人。）</div>
+    <div class="decision-box">
+      <h3>⚡ 决策点 3：现在就拉拢小陈还是再观察？</h3>
+      <div class="decision-option">A: 现在就表明意图——抢占先机</div>
+      <div class="decision-option chosen">B: 再观察——人不能仓促信任，先看看他的品性</div>
+      <div class="decision-option">C: 先给他一个小任务试试水——用能力说话</div>
+    </div>
+    <div class="thought">（急不得。真正的合伙人关系，不是靠冲动建立的。先做朋友。）</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>· · ·</span></div>
+
+<!-- F30: 域名 -->
+<div class="panel">
+  <img src="images/f30.jpg" loading="lazy" alt="域名网站">
+  <div class="panel-text">
+    <div class="narration">深夜。宿舍里只有我的CRT屏幕还亮着。</div>
+    <div class="action">我打开了一个域名注册网站，眼睛越瞪越大。</div>
+    <div class="thought">（taobao.com——30块。weixin.com——25块。douyin.com——20块……）</div>
+    <div class="thought">（这些在2026年价值千万的域名，现在只要几十块钱！）</div>
+  </div>
+</div>
+
+<!-- F31: 200块 -->
+<div class="panel">
+  <img src="images/f31.jpg" loading="lazy" alt="200块钱">
+  <div class="panel-text">
+    <div class="narration">全部身家——200块。一个月的生活费。</div>
+    <div class="action">我把口袋里皱巴巴的纸币摊在桌上，一张一张数。</div>
+    <div class="thought">够买4-5个域名。但买了之后，这个月吃什么？</div>
+  </div>
+</div>
+
+<!-- F32: DECISION-4 -->
+<div class="panel">
+  <img src="images/f32.jpg" loading="lazy" alt="决策4">
+  <div class="panel-text">
+    <div class="decision-box">
+      <h3>⚡ 决策点 4：200块全买域名还是留一半？</h3>
+      <div class="decision-option">A: 留100块生活费，100块买域名——稳妥</div>
+      <div class="decision-option chosen">B: 全部买域名——all in是我的风格</div>
+      <div class="decision-option">C: 先不买，等找到赚钱的路子再说——保守</div>
+    </div>
+    <div class="thought">（200块？一个月不吃饭又不会死。但错过了这些域名，可就真的死了。）</div>
+    <div class="action">我咬紧牙关，把所有钱推向键盘旁边。</div>
+  </div>
+</div>
+
+<!-- F33: 疯狂注册 -->
+<div class="panel">
+  <img src="images/f33.jpg" loading="lazy" alt="注册域名">
+  <div class="panel-text">
+    <div class="action">拨号连接……注册……确认……付款。重复。CRT屏幕的荧光映在我的脸上。</div>
+    <div class="narration">一个又一个域名落入囊中。每一个，都是未来的金矿。</div>
+  </div>
+</div>
+
+<!-- F34: 老刘偷看 -->
+<div class="panel">
+  <img src="images/f34.jpg" loading="lazy" alt="老刘偷看">
+  <div class="panel-text">
+    <div class="dialogue" style="color: #ff8888;">「大半夜不睡觉你搁这干啥呢？」</div>
+    <div class="action">老刘从上铺探出头来，睡眼惺忪，头发像鸡窝。</div>
+  </div>
+</div>
+
+<!-- F35: 在买未来 -->
+<div class="panel">
+  <img src="images/f35.jpg" loading="lazy" alt="在买未来">
+  <div class="panel-text">
+    <div class="dialogue">「在买未来。」</div>
+    <div class="action">我头也不回，屏幕的光映在眼中，像两团小小的火焰。</div>
+  </div>
+</div>
+
+<!-- F36: 老刘翻白眼 -->
+<div class="panel">
+  <img src="images/f36.jpg" loading="lazy" alt="老刘吐槽">
+  <div class="panel-text">
+    <div class="dialogue" style="color: #ff8888;">「神经病……」</div>
+    <div class="action">老刘翻了个白眼，用被子蒙住了头。三秒后传来均匀的呼噜声。</div>
+    <div class="thought">（等将来你知道这些域名值多少钱，你就不会说我神经病了。）</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>· · ·</span></div>
+
+<!-- F37: OICQ -->
+<div class="panel">
+  <img src="images/f37.jpg" loading="lazy" alt="OICQ注册">
+  <div class="panel-text">
+    <div class="narration">拨号上网的「嘟嘟嘟——嘶啦啦——」响了半分钟。</div>
+    <div class="action">屏幕上出现了一只圆滚滚的企鹅——OICQ，QQ的前身。</div>
+    <div class="thought">（注册成功。五位数QQ号：19830。在未来，五位数QQ号就是身份的象征。）</div>
+  </div>
+</div>
+
+<!-- F38: 年表 -->
+<div class="panel">
+  <img src="images/f38.jpg" loading="lazy" alt="写年表">
+  <div class="panel-text">
+    <div class="action">我打开记事本，开始打字。窗外月光洒进来，和屏幕的光混在一起。</div>
+    <div class="narration">标题：「1999-2026 互联网大事年表」</div>
+    <div class="thought">（这是我最大的武器。27年的未来记忆，每一个关键节点，每一次技术变革，每一个商业机会。全部记下来。）</div>
+  </div>
+</div>
+
+<!-- F39: 年表内容 -->
+<div class="panel">
+  <img src="images/f39.jpg" loading="lazy" alt="年表内容">
+  <div class="panel-text">
+    <div class="narration">2003：淘宝成立。2004：Facebook上线。2007：iPhone发布。2011：微信上线。2016：AlphaGo。2022：ChatGPT。</div>
+    <div class="action">一行一行，我把未来写进了这个1999年的记事本文件里。</div>
+    <div class="thought">然后光标停在了一个地方——</div>
+  </div>
+</div>
+
+<!-- F40: 记忆空白 -->
+<div class="panel">
+  <img src="images/f40.jpg" loading="lazy" alt="记忆漏洞">
+  <div class="panel-text">
+    <div class="thought">（等等……2005到2007……我完全想不起来！）</div>
+    <div class="action">我盯着屏幕上2004和2008之间的空白，手指悬在键盘上方。脑子里一片空白。</div>
+    <div class="thought">不是记不清，是彻底没有。就像硬盘上被格式化的扇区，干干净净，什么都没有。</div>
+  </div>
+</div>
+
+<!-- F41: DECISION-5 -->
+<div class="panel">
+  <img src="images/f41.jpg" loading="lazy" alt="决策5">
+  <div class="panel-text">
+    <div class="thought">（重生不完美。我的记忆有漏洞。2005到2007，整整三年，可能发生了什么重要的事？）</div>
+    <div class="decision-box">
+      <h3>⚡ 决策点 5：继续执行计划还是先调查记忆漏洞？</h3>
+      <div class="decision-option">A: 停下来，先搞清楚为什么会丢失记忆——谨慎</div>
+      <div class="decision-option chosen">B: 继续计划，边走边修——行动派，车到山前必有路</div>
+      <div class="decision-option">C: 记下疑点，设定一个调查期限——折中</div>
+    </div>
+    <div class="thought">（三年的空白？那就空着。我不能因为一个漏洞就停下脚步。先跑起来，问题会在路上解决。）</div>
+  </div>
+</div>
+
+<!-- F42: 眼神 -->
+<div class="panel">
+  <img src="images/f42.jpg" loading="lazy" alt="决意的眼神">
+  <div class="panel-text">
+    <div class="thought">（不管缺了什么，这一次，我要亲手塑造未来。）</div>
+    <div class="action">屏幕的光映在瞳孔里，像两颗微小的星辰。</div>
+  </div>
+</div>
+
+<!-- F43: 月光 -->
+<div class="panel">
+  <img src="images/f43.jpg" loading="lazy" alt="月光校园">
+  <div class="panel-text">
+    <div class="narration">那是一个旧世界的最后一个夜晚。</div>
+    <div class="narration">月光洒在1999年的校园上空，所有的故事都还没有开始。</div>
+    <div class="narration">而我，已经知道了结局。</div>
+  </div>
+</div>
+
+<div class="section-divider"><span>· · ·</span></div>
+
+<!-- F44: DreamCoder弹窗 -->
+<div class="panel">
+  <img src="images/f44.jpg" loading="lazy" alt="DreamCoder消息">
+  <div class="panel-text">
+    <div class="action">就在我准备关机睡觉的时候——</div>
+    <div class="action">屏幕上突然跳出一个弹窗。不是系统弹窗，不是广告弹窗。</div>
+    <div class="narration" style="color: #00ff88; font-weight: 700; font-size: 1.2rem; text-align: center; padding: 0.5rem 0;">「你不是唯一一个回来的人。——DreamCoder」</div>
+  </div>
+</div>
+
+<!-- F45: 冷汗 -->
+<div class="panel">
+  <img src="images/f45.jpg" loading="lazy" alt="朱江冷汗">
+  <div class="panel-text">
+    <div class="action">冷汗从太阳穴滑落。瞳孔猛缩。</div>
+    <div class="thought">（"回来的人"……他也是穿越者？那个BBS上的DreamCoder……不只是未来巨头的CTO……他也是从未来回来的？）</div>
+    <div class="thought">（如果不止我一个人知道未来……那一切都变了。）</div>
+  </div>
+</div>
+
+<!-- End screen -->
+<div class="end-screen">
+  <div class="end-title">第一章 · 完</div>
+  <div class="end-next">第二章 · 暗网棋局 · 即将上线</div>
+  <div class="end-sub">穿越者不止一个。棋局，远比想象的复杂。</div>
+</div>
+
+<script>
+// Scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.panel').forEach(panel => {
+  observer.observe(panel);
+});
+</script>
+</body>
+</html>
