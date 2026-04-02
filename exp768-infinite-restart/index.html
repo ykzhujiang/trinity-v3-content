@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>无限重启 · 第一章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Title screen */
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(100,100,255,0.15) 0%, transparent 70%);
+  top: 20%; left: 50%;
+  transform: translateX(-50%);
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.3); }
+}
+.title-main {
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.3em;
+  z-index: 1;
+  animation: title-in 1.5s ease-out;
+}
+.title-sub {
+  font-size: 1.1rem;
+  color: #8888aa;
+  margin-top: 1rem;
+  letter-spacing: 0.5em;
+  z-index: 1;
+  animation: title-in 1.5s ease-out 0.3s both;
+}
+.title-chapter {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 2rem;
+  z-index: 1;
+  animation: title-in 1.5s ease-out 0.6s both;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 0.8rem;
+  color: #444;
+  animation: bounce 2s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes title-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Loop dividers */
+.loop-divider {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(180deg, transparent, rgba(100,100,255,0.05), transparent);
+  position: relative;
+}
+.loop-divider .loop-label {
+  font-size: 0.75rem;
+  color: #555;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.loop-divider .loop-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #333;
+  margin: 0.5rem 0;
+}
+.loop-divider .loop-time {
+  font-size: 1.5rem;
+  font-family: 'Courier New', monospace;
+  color: #667eea;
+  animation: flicker 3s ease-in-out infinite;
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Panels */
+.panel {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel-image {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 1.2rem 1.5rem;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  position: relative;
+}
+.panel-text .scene-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: #667eea;
+  border: 1px solid #333;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+}
+.panel-text .dialogue {
+  color: #f0f0f0;
+  font-weight: 600;
+}
+.panel-text .inner-voice {
+  color: #aaa;
+  font-style: italic;
+  border-left: 2px solid #667eea;
+  padding-left: 0.8rem;
+  margin: 0.5rem 0;
+}
+.panel-text .narration {
+  color: #999;
+}
+.panel-text .emotion {
+  color: #764ba2;
+  font-size: 0.9rem;
+}
+.panel-text .humor {
+  color: #f5a623;
+}
+
+/* Decision points */
+.decision-point {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+  border: 1px solid rgba(102,126,234,0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 1.5rem;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.decision-point .dp-label {
+  font-size: 0.7rem;
+  color: #667eea;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+.decision-point .dp-question {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+.decision-point .dp-choice {
+  display: block;
+  padding: 0.6rem 1rem;
+  margin: 0.4rem 0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #888;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #222;
+}
+.decision-point .dp-choice.chosen {
+  color: #f0f0f0;
+  background: rgba(102,126,234,0.15);
+  border-color: #667eea;
+}
+.decision-point .dp-choice.chosen::before {
+  content: '✦ ';
+  color: #667eea;
+}
+.decision-point .dp-reason {
+  font-size: 0.8rem;
+  color: #667eea;
+  margin-top: 0.8rem;
+  font-style: italic;
+}
+
+/* Cliffhanger */
+.cliffhanger {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(180deg, #0a0a1a, #1a0020);
+}
+.cliffhanger .message-box {
+  display: inline-block;
+  background: rgba(255,50,50,0.1);
+  border: 1px solid rgba(255,50,50,0.3);
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  color: #ff4444;
+  animation: msg-blink 2s ease-in-out infinite;
+  margin: 2rem 0;
+}
+@keyframes msg-blink {
+  0%, 100% { border-color: rgba(255,50,50,0.3); }
+  50% { border-color: rgba(255,50,50,0.8); box-shadow: 0 0 20px rgba(255,50,50,0.2); }
+}
+.cliffhanger .tbc {
+  font-size: 1.5rem;
+  color: #333;
+  letter-spacing: 0.5em;
+  margin-top: 3rem;
+}
+
+/* Glitch reset effect */
+.reset-panel {
+  text-align: center;
+  padding: 2rem;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+.reset-panel::after {
+  content: '07:00';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  font-family: 'Courier New', monospace;
+  color: rgba(102,126,234,0.15);
+  font-weight: 900;
+}
+</style>
+</head>
+<body>
+
+<!-- TITLE -->
+<div class="title-screen">
+  <div class="title-main">无限重启</div>
+  <div class="title-sub">INFINITE RESTART</div>
+  <div class="title-chapter">第一章 · 谈判日</div>
+  <div class="scroll-hint">↓ 向下滑动开始 ↓</div>
+</div>
+
+<!-- ==================== LOOP 1 ==================== -->
+<div class="loop-divider">
+  <div class="loop-label">循 环</div>
+  <div class="loop-number">01</div>
+  <div class="loop-time">07:00</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-01-morning-wakeup.jpg" loading="eager" alt="清晨醒来">
+  <div class="panel-text">
+    <span class="scene-tag">场景：卧室 / 中景 / 平视</span>
+    <div class="inner-voice">闹钟准时在七点响起。今天是决定公司命运的日子——和赵鹏的融资谈判。</div>
+    <div class="narration">我伸了个懒腰，满血复活的感觉。三个月的准备，今天就是见分晓的时候。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-02-mirror-confidence.jpg" loading="lazy" alt="镜前自信">
+  <div class="panel-text">
+    <span class="scene-tag">场景：浴室 / 中景 / 通过镜面反射</span>
+    <div class="inner-voice">镜子里的我，看起来还不错。三十出头，正是能拼能打的时候。</div>
+    <div class="narration">我理了理头发，对着镜子里的自己点了点头。今天这场仗，必须赢。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-03-car-ride.jpg" loading="lazy" alt="车窗外的城市">
+  <div class="panel-text">
+    <span class="scene-tag">场景：轿车后座 / 侧面特写 / 车窗倒影</span>
+    <div class="narration">车窗外是熟悉的CBD天际线，玻璃幕墙在阳光下闪着光。我的公司就在其中一栋里——虽然只占了半层。</div>
+    <div class="inner-voice">但很快就不一样了。拿到这笔融资，一切都会不一样。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-04-meeting-room.jpg" loading="lazy" alt="会议室对峙">
+  <div class="panel-text">
+    <span class="scene-tag">场景：高层会议室 / 广角全景 / 平视</span>
+    <div class="narration">会议室在38层，整面玻璃幕墙，能看到半个城市。赵鹏已经坐在长桌另一端，两个助理像门神一样分列左右。</div>
+    <div class="inner-voice">这排场……是想给我一个下马威？</div>
+    <div class="dialogue">"赵总，久仰。"我微笑着伸出手。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-05-document-slam.jpg" loading="lazy" alt="文件推过来">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议桌面 / 特写 / 低角度浅景深</span>
+    <div class="narration">寒暄不到三分钟，赵鹏就开门见山了。一个牛皮纸文件夹沿着会议桌滑过来。</div>
+    <div class="dialogue">"朱总，先看看这个。"赵鹏的声音不带任何感情。</div>
+    <div class="inner-voice">他食指上的金戒指在灯光下晃了一下。我打开文件夹——</div>
+    <div class="emotion">心跳骤然加速。</div>
+    <div class="narration">这是我们的核心算法审计报告。而且是<strong>内部版本</strong>——这东西怎么会在他手上？</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-06-angry-exit.jpg" loading="lazy" alt="愤怒离场">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室门口 / 中景 / 从室内向外拍</span>
+    <div class="dialogue">"基于这些问题，我们给出的估值是……你们报价的十分之一。"</div>
+    <div class="inner-voice">十分之一？！这不是谈判，这是抢劫！</div>
+    <div class="dialogue">"赵总，这个价格，我们没什么好谈的了。"</div>
+    <div class="narration">我站起来，椅子发出刺耳的摩擦声。推开玻璃门的时候，我余光瞥到赵鹏嘴角微微上扬。</div>
+    <div class="inner-voice">那个笑容……像是一切尽在掌握。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-07-car-impact.jpg" loading="lazy" alt="车祸">
+  <div class="panel-text">
+    <span class="scene-tag">场景：街道斑马线 / 低角度 / 动态模糊</span>
+    <div class="narration">满脑子都是赵鹏那个笑容，过马路的时候完全没注意——</div>
+    <div class="inner-voice">刺眼的白光。</div>
+    <div class="narration">刹车声，喇叭声，骨头碎裂的声音，全部混在一起。</div>
+    <div class="inner-voice">疼。</div>
+    <div class="inner-voice">然后……什么都没有了。</div>
+  </div>
+</div>
+
+<div class="panel reset-panel">
+  <img class="panel-image" src="images/frame-08-reset-flash.jpg" loading="lazy" alt="时间重置">
+</div>
+
+<!-- ==================== LOOP 2 ==================== -->
+<div class="loop-divider">
+  <div class="loop-label">循 环</div>
+  <div class="loop-number">02</div>
+  <div class="loop-time">07:00</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-09-wakeup-deja-vu.jpg" loading="lazy" alt="惊醒">
+  <div class="panel-text">
+    <span class="scene-tag">场景：卧室 / 中景 / 平视</span>
+    <div class="narration">我猛地坐起来，浑身是汗。手本能地摸向胸口——</div>
+    <div class="inner-voice">完好的。没有伤口。</div>
+    <div class="narration">手机屏幕亮着：<strong>7:00 AM</strong>。</div>
+    <div class="inner-voice">做梦？……那也太真实了吧。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-10-same-breakfast.jpg" loading="lazy" alt="既视感">
+  <div class="panel-text">
+    <span class="scene-tag">场景：办公室大堂 / 过肩镜头</span>
+    <div class="narration">到了公司，小陈拿着平板迎上来：</div>
+    <div class="dialogue">"老板，赵鹏那边确认了，下午两点——"</div>
+    <div class="inner-voice">等等。这句话……我昨天听过。一模一样。</div>
+    <div class="narration">我停下脚步，盯着小陈。他被我看得有点发毛。</div>
+    <div class="inner-voice">如果不是梦呢？</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-11-prepared-counter.jpg" loading="lazy" alt="有备而来">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室 / 中景 / 平视</span>
+    <div class="narration">这次我有备而来。提前准备了算法审计的回应材料，当赵鹏把文件推过来的时候——</div>
+    <div class="dialogue">"赵总，关于算法审计的问题，我这边也有份材料。"</div>
+    <div class="narration">赵鹏眉头挑了一下，显然没预料到我会有准备。但那只是一瞬间。</div>
+    <div class="dialogue">"朱总准备得不错。不过——"他从公文包里又抽出一份文件。"看看这个？"</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-12-linwei-secret.jpg" loading="lazy" alt="林薇的秘密">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室 / 特写反应镜头 / 单顶光</span>
+    <div class="narration">那是一份协议。签名栏上赫然写着——<strong>林薇</strong>。</div>
+    <div class="inner-voice">林薇？！我的CTO？我的联合创始人？</div>
+    <div class="narration">协议内容是关于核心AI算法的技术转让。日期就在三个月前。</div>
+    <div class="inner-voice">这不可能……我们一起创业四年了……</div>
+    <div class="emotion">脑子里像有什么东西碎了。</div>
+  </div>
+</div>
+
+<!-- DECISION POINT 1 -->
+<div class="decision-point panel">
+  <div class="dp-label">◆ 决策点 D-1</div>
+  <div class="dp-question">发现林薇的秘密协议——我该怎么做？</div>
+  <span class="dp-choice">A. 当面质问林薇</span>
+  <span class="dp-choice chosen">B. 暗中调查，不打草惊蛇</span>
+  <span class="dp-choice">C. 装作不知道，继续谈判</span>
+  <div class="dp-reason">我的直觉告诉我：先搞清楚真相，再做决定。黑客的第一课——信息不完整时，永远不要暴露自己。</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-13-loop2-death.jpg" loading="lazy" alt="循环2重置">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室 / 俯瞰 / 抽象时空扭曲</span>
+    <div class="narration">但这一次的打击太大了。我机械地走出会议室，脑子里全是那份协议——</div>
+    <div class="inner-voice">林薇为什么要这么做……</div>
+    <div class="narration">眼前一黑。又是那种被抽离现实的感觉。</div>
+    <div class="inner-voice">不是梦。</div>
+    <div class="inner-voice">是循环。</div>
+  </div>
+</div>
+
+<!-- ==================== LOOP 3 ==================== -->
+<div class="loop-divider">
+  <div class="loop-label">循 环</div>
+  <div class="loop-number">03</div>
+  <div class="loop-time">07:00</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-14-wakeup-determined.jpg" loading="lazy" alt="决意">
+  <div class="panel-text">
+    <span class="scene-tag">场景：卧室 / 中景 / 侧低角度</span>
+    <div class="narration">第三次醒来，我没有慌。坐在床边，双肘撑膝，盯着自己的手掌。</div>
+    <div class="inner-voice">好。我接受这个设定。时间循环，记忆保留，身体重置。</div>
+    <div class="inner-voice">那就用这个Bug，把所有真相查个底朝天。</div>
+    <div class="narration">床头的笔记本上，我写下了第一行字：<strong>「第三次。今天不去谈判。跟踪林薇。」</strong></div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-15-following-linwei.jpg" loading="lazy" alt="跟踪林薇">
+  <div class="panel-text">
+    <span class="scene-tag">场景：地下停车场 / 远景 / 低角度 / 黑色电影光影</span>
+    <div class="narration">换了身连帽卫衣和牛仔裤，帽子压低。上午十一点，林薇没来公司，直接开车去了CBD对面的商务楼。</div>
+    <div class="inner-voice">我躲在柱子后面，看着她走进一辆银色轿车。</div>
+    <div class="narration">跟了二十分钟，她在金融街一家私密会所停下。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-16-cafe-spying.jpg" loading="lazy" alt="咖啡馆监视">
+  <div class="panel-text">
+    <span class="scene-tag">场景：咖啡馆窗边 / 中景 / 玻璃反射</span>
+    <div class="narration">我在对面咖啡馆找了个靠窗位置。假装看手机，余光锁定——</div>
+    <div class="inner-voice">林薇对面坐的那个人……是赵鹏的助理。</div>
+    <div class="narration">他们压低声音在说什么，表情都很紧张。林薇一直在摇头，但那个助理似乎在施压。</div>
+    <div class="inner-voice">这不像是在做交易。更像是……在威胁。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-17-overheard-shock.jpg" loading="lazy" alt="偷听">
+  <div class="panel-text">
+    <span class="scene-tag">场景：走廊墙边 / 极端特写 / 斜切阴影</span>
+    <div class="narration">我跟到了会所楼上的私人房间外。贴着墙壁，屏住呼吸——</div>
+    <div class="dialogue">「……你不配合，你知道你妈在哪家医院。」</div>
+    <div class="inner-voice">！！！</div>
+    <div class="narration">林薇的母亲住院的事，我知道。但我不知道那家医院是……</div>
+    <div class="inner-voice">赵鹏控制的。内部有卧底。林薇不是背叛我，她是被胁迫的。</div>
+  </div>
+</div>
+
+<!-- DECISION POINT 2 -->
+<div class="decision-point panel">
+  <div class="dp-label">◆ 决策点 D-2</div>
+  <div class="dp-question">偷听被发现——门突然打开——</div>
+  <span class="dp-choice">A. 正面对峙</span>
+  <span class="dp-choice">B. 假装路过</span>
+  <span class="dp-choice chosen">C. 跑！（但下次循环，正面对峙）</span>
+  <div class="dp-reason">身体比脑子快——先跑了再说。但信息已经到手，下一次循环不会再怂。</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-18-stairway-fall.jpg" loading="lazy" alt="楼梯坠落">
+  <div class="panel-text">
+    <span class="scene-tag">场景：旋转楼梯 / 俯瞰动态 / 运动模糊</span>
+    <div class="narration">转身就跑。身后脚步声追了上来——</div>
+    <div class="inner-voice">楼梯！靠，踩空了——</div>
+    <div class="narration">整个人向后翻倒，手抓向栏杆但只摸到了空气。旋转楼梯变成了一个巨大的漩涡——</div>
+    <div class="inner-voice">又来了。至少这次摔死比被车撞舒服一点……才怪。</div>
+  </div>
+</div>
+
+<!-- ==================== LOOPS 4-5 ==================== -->
+<div class="loop-divider">
+  <div class="loop-label">循 环</div>
+  <div class="loop-number">04 - 05</div>
+  <div class="loop-time">07:00</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-19-planning-wall.jpg" loading="lazy" alt="情报墙">
+  <div class="panel-text">
+    <span class="scene-tag">场景：客厅 / 广角 / 暖灯+暗室</span>
+    <div class="narration">客厅的白墙变成了情报板。便利贴、红线、时间轴、人物关系图。</div>
+    <div class="inner-voice">我把它当成了一场大型存档读档游戏。每次循环就是一条命——而我有无限条命。</div>
+    <div class="narration">这次不急。系统性地收集情报。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-20-multiple-paths.jpg" loading="lazy" alt="多线路探索">
+  <div class="panel-text">
+    <span class="scene-tag">场景：多重分镜 / 风格化分屏</span>
+    <div class="inner-voice">每次循环走不同路线。</div>
+    <div class="narration">第一条线：去谈判，但故意输掉，观察赵鹏团队的反应模式。</div>
+    <div class="narration">第二条线：跟踪林薇，这次带了录音设备。</div>
+    <div class="narration">第三条线：黑进公司服务器，查代码访问日志。</div>
+    <div class="narration">第四条线：直接去医院摸底。</div>
+    <div class="inner-voice">存档。读档。再来。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-21-server-room.jpg" loading="lazy" alt="服务器房">
+  <div class="panel-text">
+    <span class="scene-tag">场景：机房 / 低角度 / 绿光LED</span>
+    <div class="narration">凌晨三点潜入自己公司的机房——说起来很讽刺，CEO要偷偷查自己公司的服务器。</div>
+    <div class="inner-voice">日志不会骗人。三个月前，核心算法文件被复制过。外发IP……</div>
+    <div class="narration">解析出来的地址指向一个匿名中转节点。但数据包大小和时间戳和林薇那份协议完全吻合。</div>
+    <div class="inner-voice">不是林薇主动泄露的。代码是被他们用林薇的权限偷走的。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-22-linwei-hospital.jpg" loading="lazy" alt="医院真相">
+  <div class="panel-text">
+    <span class="scene-tag">场景：医院外 / 远景 / 冷暖对比</span>
+    <div class="narration">透过医院窗户，林薇正坐在病床边，握着她母亲的手。</div>
+    <div class="inner-voice">她看起来很憔悴。比公司里任何时候都脆弱。</div>
+    <div class="narration">这家医院叫"盛安"。查了一下——大股东是赵鹏背后那个科技集团的关联公司。</div>
+    <div class="inner-voice">她母亲在他们手里。林薇根本没有选择。</div>
+  </div>
+</div>
+
+<!-- DECISION POINT 3 -->
+<div class="decision-point panel">
+  <div class="dp-label">◆ 决策点 D-3</div>
+  <div class="dp-question">得知林薇是被胁迫的——怎么做？</div>
+  <span class="dp-choice">A. 告诉林薇"我知道了"</span>
+  <span class="dp-choice chosen">B. 默默帮她，不让她知道</span>
+  <span class="dp-choice">C. 把这个信息做筹码</span>
+  <div class="dp-reason">她够苦了。不需要知道有人在暗中保护她——做就行了。</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-23-comedy-predict.jpg" loading="lazy" alt="背台词惊吓">
+  <div class="panel-text">
+    <span class="scene-tag">场景：办公室 / 中景 / 明亮喜感</span>
+    <div class="narration">到了第五次循环，有些事情变得好笑起来。</div>
+    <div class="narration">小陈走过来刚张嘴，我接上：</div>
+    <div class="dialogue humor">"赵鹏那边确认了，下午两点，38层会议室，对吧？"</div>
+    <div class="narration">小陈嘴巴半张着，眼珠子差点掉出来。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-24-comedy-predict2.jpg" loading="lazy" alt="小陈崩溃">
+  <div class="panel-text">
+    <span class="scene-tag">场景：办公室 / 双人特写 / 喜剧</span>
+    <div class="dialogue humor">"你……你下一句要说'老板别紧张'。"</div>
+    <div class="narration">小陈把平板护在胸前，后退两步，看我的眼神像看鬼：</div>
+    <div class="dialogue">"老板你……怎么知道？？？"</div>
+    <div class="inner-voice">忍住。不能笑。保持CEO的威严。</div>
+    <div class="narration">没忍住。笑出了声。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-25-montage-intel.jpg" loading="lazy" alt="情报收集蒙太奇">
+  <div class="panel-text">
+    <span class="scene-tag">场景：多场景蒙太奇 / 动态拼接</span>
+    <div class="narration">两次循环，系统性情报收集——</div>
+    <div class="narration">① 备份了所有服务器日志和入侵痕迹。</div>
+    <div class="narration">② 拿到了赵鹏三家关联公司的工商信息。</div>
+    <div class="narration">③ 录下了赵鹏助理威胁林薇的对话。</div>
+    <div class="narration">④ 找到了另一个被赵鹏吞并的创业公司创始人——他愿意作证。</div>
+    <div class="inner-voice">拼图快完成了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-26-stock-joke.jpg" loading="lazy" alt="炒股失败">
+  <div class="panel-text">
+    <span class="scene-tag">场景：书房电脑前 / 中景 / 暖光喜感</span>
+    <div class="inner-voice humor">对了，我试过用"前世记忆"炒股。</div>
+    <div class="inner-voice humor">然后发现循环只有一天。</div>
+    <div class="inner-voice humor">收盘价我倒是知道了，问题是——明天的数据没用，因为永远到不了明天。</div>
+    <div class="narration">看着K线图，苦笑。</div>
+    <div class="inner-voice humor">命运给了我一个外挂，但附带了一条讽刺性的使用条款。</div>
+  </div>
+</div>
+
+<!-- ==================== LOOPS 6-7 ==================== -->
+<div class="loop-divider">
+  <div class="loop-label">循 环</div>
+  <div class="loop-number">06 - 07</div>
+  <div class="loop-time">07:00</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-27-confident-entrance.jpg" loading="lazy" alt="自信入场">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室入口 / 低角度英雄镜头 / 逆光</span>
+    <div class="narration">第六次循环。这次不是去挨打——是去还手。</div>
+    <div class="inner-voice">我带着五次循环积累的全部情报走进了那间会议室。</div>
+    <div class="narration">赵鹏照例坐在对面，准备了他的那套表演。</div>
+    <div class="inner-voice">可惜，你不知道我已经看了五遍了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-28-evidence-reveal.jpg" loading="lazy" alt="亮出证据">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议桌 / 中景 / 权力翻转</span>
+    <div class="narration">赵鹏照例推出那份文件。我接过来，看都没看：</div>
+    <div class="dialogue">"赵总，这份文件我已经看过了。"</div>
+    <div class="narration">在他还没反应过来的时候，我从自己的包里一张一张抽出照片放在桌上。</div>
+    <div class="dialogue">"倒是这些，你可能没看过——盛安医院的实控链、你助理威胁我合伙人的录音文字稿、还有……赵鹏关联公司的资金流水。"</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-29-zhao-counter.jpg" loading="lazy" alt="赵鹏反击">
+  <div class="panel-text">
+    <span class="scene-tag">场景：赵鹏 / 特写 / 阴冷光线</span>
+    <div class="narration">赵鹏脸色变了，但只是一瞬间。随即恢复了那副老狐狸的镇定。</div>
+    <div class="dialogue">"朱总啊朱总……你查了不少东西。但你有没有想过——"他十指交叉，靠回椅背，"你面对的不只是我。"</div>
+    <div class="narration">他身后，玻璃幕墙外站着两个壮汉。不是助理。是保镖。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-30-bigger-conspiracy.jpg" loading="lazy" alt="更大的阴谋">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室 / 过肩镜头看大屏</span>
+    <div class="narration">赵鹏按了个遥控器，会议室大屏亮了——</div>
+    <div class="narration">屏幕上是一个巨大的集团架构图。十几家子公司，触角伸向医疗、金融、AI、半导体。而我的公司，被标注在一个红色方框里——标签写着<strong>"待收购标的"</strong>。</div>
+    <div class="inner-voice">这不是一个人的阴谋。这是一台机器。而我的公司只是它嘴里的一块肉。</div>
+  </div>
+</div>
+
+<!-- DECISION POINT 4 -->
+<div class="decision-point panel">
+  <div class="dp-label">◆ 决策点 D-4</div>
+  <div class="dp-question">赵鹏亮出终极底牌——背后是整个科技集团。怎么应对？</div>
+  <span class="dp-choice">A. 硬刚到底</span>
+  <span class="dp-choice chosen">B. 假装投降，争取时间</span>
+  <span class="dp-choice">C. 提出分拆合作方案</span>
+  <div class="dp-reason">霹雳手段。示弱是最好的进攻。让他们以为赢了——然后在下一次循环中完成真正的布局。</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-31-bodyguard-escort.jpg" loading="lazy" alt="被押送">
+  <div class="panel-text">
+    <span class="scene-tag">场景：走廊 / 中景 / 顶光</span>
+    <div class="narration">两个保镖架着我的胳膊往外走。不算温柔，但也没真动粗——毕竟是在写字楼里。</div>
+    <div class="inner-voice">没关系。这次是故意输的。我需要看到赵鹏的全部底牌。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-32-tomorrow-quip.jpg" loading="lazy" alt="明天见">
+  <div class="panel-text">
+    <span class="scene-tag">场景：走廊 / 回眸特写 / 浅景深</span>
+    <div class="narration">被架到电梯口的时候，我扭头看了赵鹏一眼，淡淡说了一句：</div>
+    <div class="dialogue humor">"赵总——明天见。"</div>
+    <div class="inner-voice humor">他当然不知道这句话的含义。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-33-zhao-confused.jpg" loading="lazy" alt="赵鹏困惑">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室门口 / 赵鹏特写 / 冷蓝光</span>
+    <div class="narration">赵鹏站在会议室门口，看着我被带走。</div>
+    <div class="narration">他的表情从得意……慢慢变成了困惑。</div>
+    <div class="inner-voice">那一瞬间，他一定感觉到了什么不对劲——一个输家不该有那种笑容。</div>
+  </div>
+</div>
+
+<!-- ==================== LOOPS 8-10: FINAL PLAN ==================== -->
+<div class="loop-divider">
+  <div class="loop-label">循 环</div>
+  <div class="loop-number">08 - 10</div>
+  <div class="loop-time">07:00</div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-34-mastermind-plan.jpg" loading="lazy" alt="终极计划">
+  <div class="panel-text">
+    <span class="scene-tag">场景：公寓 / 广角 / 蓝白屏幕光</span>
+    <div class="narration">最后三次循环。不再收集情报——开始布局。</div>
+    <div class="inner-voice">四步棋。每一步必须在今天之内完成。</div>
+    <div class="narration">计划代号：<strong>「终局」</strong>。</div>
+    <div class="narration">第一步：转移核心代码到安全服务器。</div>
+    <div class="narration">第二步：联系赵鹏的竞争对手。</div>
+    <div class="narration">第三步：安排林薇母亲转院。</div>
+    <div class="narration">第四步：准备赵鹏的违法证据包。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-35-code-transfer.jpg" loading="lazy" alt="代码转移">
+  <div class="panel-text">
+    <span class="scene-tag">场景：笔记本屏幕 / 特写 / 绿光</span>
+    <div class="narration">上午八点。核心AI源代码全量加密备份完成，传输到三个独立的安全节点。</div>
+    <div class="inner-voice">就算他们拿到了旧版本，新版本的密钥只有我知道。</div>
+    <div class="narration">屏幕上显示绿色的<strong>"COMPLETE"</strong>。</div>
+    <div class="inner-voice">第一步，完成。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-36-rival-investor.jpg" loading="lazy" alt="接触竞争对手">
+  <div class="panel-text">
+    <span class="scene-tag">场景：高级餐厅 / 中景 / 温暖优雅</span>
+    <div class="narration">上午十一点。CBD另一端，一家法式餐厅。</div>
+    <div class="narration">对面坐的是陈瑶——华远资本的合伙人。赵鹏在业内最大的竞争对手。</div>
+    <div class="dialogue">"陈总，我有一个提案，可能会让你非常感兴趣。"</div>
+    <div class="narration">我们握手的时候，她眼里闪过精明的光芒。</div>
+    <div class="inner-voice">第二步，完成。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-37-rescue-plan.jpg" loading="lazy" alt="救援计划">
+  <div class="panel-text">
+    <span class="scene-tag">场景：夜晚天台 / 远景 / 青橙色调</span>
+    <div class="narration">下午一点。我联系了一个做医疗的老朋友。</div>
+    <div class="dialogue">"老周，帮个忙。今天下午三点，安排一辆救护车到盛安医院，转院手续我已经搞定了。"</div>
+    <div class="inner-voice">林薇的母亲会在赵鹏发现之前离开他的控制范围。</div>
+    <div class="narration">林薇不会知道是我安排的。她只会收到医院的一个"正常转院通知"。</div>
+    <div class="inner-voice">第三步，完成。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-38-evidence-compile.jpg" loading="lazy" alt="证据整理">
+  <div class="panel-text">
+    <span class="scene-tag">场景：书桌 / 特写 / 黎明微光</span>
+    <div class="narration">最后一块拼图。十次循环收集的所有证据——商业间谍、胁迫、关联交易、违规操作——全部整理成一份证据包。</div>
+    <div class="narration">三份拷贝。一份给律师，一份给陈瑶，一份……给媒体做备份。</div>
+    <div class="inner-voice">第四步，完成。</div>
+    <div class="inner-voice">该上最后一个存档了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-39-final-morning.jpg" loading="lazy" alt="最终出发">
+  <div class="panel-text">
+    <span class="scene-tag">场景：穿衣镜前 / 中景 / 晨光切割</span>
+    <div class="narration">第十次循环的早晨。我站在镜子前，穿上了全黑的西装和黑衬衫。</div>
+    <div class="inner-voice">不是丧服。是战袍。</div>
+    <div class="narration">镜子里的那个人，和第一次循环相比，眼神完全不一样了。</div>
+    <div class="inner-voice">十条命的份量——全在这最后一次。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-40-walk-to-destiny.jpg" loading="lazy" alt="步入命运">
+  <div class="panel-text">
+    <span class="scene-tag">场景：办公大堂 / 低角度跟拍 / 自然光</span>
+    <div class="narration">走过大堂的时候，我注意到同事们下意识地让开了路。</div>
+    <div class="inner-voice">也许是这身黑的气场。也许是我脸上的表情。</div>
+    <div class="narration">小陈小跑着跟上来：</div>
+    <div class="dialogue">"老板——赵鹏那边确认了，下午两点——"</div>
+    <div class="dialogue humor">"38层会议室，我知道。"</div>
+    <div class="narration">小陈又呆住了。</div>
+    <div class="inner-voice humor">不好意思，这是第十遍了。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-41-final-entrance.jpg" loading="lazy" alt="最终入场">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室 / 广角 / 逆光镜头光晕</span>
+    <div class="narration">推开那扇我推过十次的玻璃门。</div>
+    <div class="narration">赵鹏在老位置，助理在老位置，保镖在老位置。一切都一样——</div>
+    <div class="inner-voice">除了我。</div>
+    <div class="narration">我在赵鹏对面坐下，没有寒暄：</div>
+    <div class="dialogue">"赵总，今天我们不聊融资了。"</div>
+    <div class="dialogue">"聊聊你背后那位老板吧。"</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-42-checkmate-line.jpg" loading="lazy" alt="将军">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议桌对面 / 双人特写 / 侧光</span>
+    <div class="narration">那一秒钟的空气，凝固了。</div>
+    <div class="narration">赵鹏的表情从例行公事的优越，一帧一帧地切换成——</div>
+    <div class="emotion">震惊。</div>
+    <div class="narration">他知道了。我什么都知道了。</div>
+    <div class="inner-voice">十次循环。十条命。换来的就是你脸上这个表情。</div>
+    <div class="inner-voice">值了。</div>
+  </div>
+</div>
+
+<!-- ==================== CLIMAX ==================== -->
+<div class="panel">
+  <img class="panel-image" src="images/frame-43-zhao-face-drops.jpg" loading="lazy" alt="赵鹏崩溃">
+  <div class="panel-text">
+    <span class="scene-tag">场景：赵鹏 / 极端特写 / 底光阴影</span>
+    <div class="narration">赵鹏的面具碎了。</div>
+    <div class="narration">五十岁的老江湖，第一次在谈判桌上额头冒汗。</div>
+    <div class="dialogue">"你……怎么会知道……"</div>
+    <div class="inner-voice">因为我已经活了十遍今天，赵总。你不知道而已。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-44-control-moment.jpg" loading="lazy" alt="掌控全场">
+  <div class="panel-text">
+    <span class="scene-tag">场景：会议室 / 俯瞰 / 电影式顶拍</span>
+    <div class="narration">我站起来，双手撑在桌面上，环顾四周。</div>
+    <div class="narration">赵鹏的助理不安地看向赵鹏。保镖没有接到指令，不敢动。</div>
+    <div class="dialogue">"证据包已经在律师手里了。转院手续办完了。你的竞争对手——陈瑶，刚才和我吃了个早饭。"</div>
+    <div class="dialogue">"赵总，这局棋……该你落子了。"</div>
+  </div>
+</div>
+
+<!-- ==================== CLIFFHANGER ==================== -->
+<div class="panel">
+  <img class="panel-image" src="images/frame-45-phone-buzz.jpg" loading="lazy" alt="手机震动">
+  <div class="panel-text">
+    <span class="scene-tag">场景：手机特写 / 浅景深 / 戏剧停顿</span>
+    <div class="narration">就在这一刻——</div>
+    <div class="narration">桌上的手机震了一下。</div>
+    <div class="narration">匿名号码。一条消息。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img class="panel-image" src="images/frame-46-smile-freezes.jpg" loading="lazy" alt="笑容凝固">
+  <div class="panel-text">
+    <span class="scene-tag">场景：朱江侧脸 / 电影级特写 / 明暗分割</span>
+    <div class="narration">我低头看了一眼——</div>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <div class="message-box">「你以为你是唯一一个在循环的人吗？」</div>
+  <div style="color:#666; font-size:1rem; margin-top:1rem;">我的笑容，凝固了。</div>
+  <div class="tbc">—— 第一章 · 完 ——</div>
+  <div style="color:#444; font-size:0.85rem; margin-top:2rem; letter-spacing:0.2em;">第二章 · 敬请期待</div>
+</div>
+
+<script>
+// Scroll-reveal animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
