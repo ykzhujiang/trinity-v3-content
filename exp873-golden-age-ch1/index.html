@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>黄金年代 第一章 — 梦开始的地方</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e0d4;font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+.title-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;background:linear-gradient(180deg,#0a0a12 0%,#1a1520 50%,#0a0a12 100%)}
+.title-screen .series{font-size:0.9rem;color:#a09080;letter-spacing:0.4em;margin-bottom:1rem}
+.title-screen h1{font-size:2.6rem;color:#f0c040;text-shadow:0 0 30px rgba(240,192,64,0.5);margin-bottom:0.8rem;letter-spacing:0.2em;animation:glow 3s ease-in-out infinite alternate}
+.title-screen .chapter{font-size:1.2rem;color:#d0b080;letter-spacing:0.2em;margin-bottom:0.5rem}
+.title-screen .tagline{font-size:1rem;color:#807060;margin-top:1rem;font-style:italic}
+.title-screen .hint{font-size:0.8rem;color:#504030;margin-top:3rem;animation:fadeIn 2s ease 1s both}
+@keyframes glow{0%{text-shadow:0 0 20px rgba(240,192,64,0.3)}100%{text-shadow:0 0 40px rgba(240,192,64,0.7)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.section-header{text-align:center;padding:2.5rem 1rem;position:relative}
+.section-header h2{font-size:1.5rem;color:#f0c040;letter-spacing:0.15em;text-shadow:0 0 15px rgba(240,192,64,0.3)}
+.section-header .sub{font-size:0.85rem;color:#807060;margin-top:0.5rem}
+.section-header::before,.section-header::after{content:'';display:block;width:50px;height:1px;background:linear-gradient(90deg,transparent,#f0c040,transparent);margin:0.8rem auto}
+
+.frame{margin:0 auto;max-width:100%;position:relative;opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
+.frame.visible{opacity:1;transform:translateY(0)}
+.frame img{width:100%;display:block}
+.frame .narration{padding:1rem 1.2rem;font-size:1.1rem;line-height:1.9;color:#e8e0d4;white-space:pre-line}
+.frame .narration.inner{color:#c0b090;font-style:italic;border-left:3px solid #f0c040;padding-left:1rem;background:linear-gradient(90deg,rgba(240,192,64,0.05),transparent)}
+.frame .narration.decision{border-left:3px solid #64b4ff;padding-left:1rem;background:linear-gradient(90deg,rgba(100,180,255,0.06),transparent)}
+.frame .narration.decision .label{color:#64b4ff;font-size:0.85rem;font-weight:bold;letter-spacing:0.1em;display:block;margin-bottom:0.3rem}
+.frame .narration.tension{color:#ff8060;border-left:3px solid #ff6040;padding-left:1rem;background:linear-gradient(90deg,rgba(255,96,64,0.06),transparent)}
+.frame .narration.humor{color:#a0d868;font-style:italic}
+
+.sep{height:1px;background:linear-gradient(90deg,transparent 10%,rgba(240,192,64,0.15) 50%,transparent 90%);margin:0.3rem 0}
+
+.cliffhanger{text-align:center;padding:3rem 1.5rem;background:linear-gradient(180deg,#0a0a12 0%,#200810 50%,#0a0a12 100%)}
+.cliffhanger .hook{font-size:1.2rem;color:#ff6040;line-height:2;text-shadow:0 0 15px rgba(255,96,64,0.3)}
+.cliffhanger .next{font-size:0.85rem;color:#504030;letter-spacing:0.2em;margin-top:2rem}
+
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.scroll-arrow{animation:bounce 2s infinite;font-size:1.2rem;color:#504030}
+</style>
+</head>
+<body>
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <div class="series">V5 · 重生系列</div>
+  <h1>黄 金 年 代</h1>
+  <div class="chapter">第一章　梦开始的地方</div>
+  <div class="tagline">"如果能回到那个蓬勃向上、充满未知和希望的年代……"</div>
+  <div class="hint"><span class="scroll-arrow">↓</span> 向下滑动</div>
+</div>
+
+<!-- ACT 1: 2026深夜 -->
+<div class="section-header">
+  <h2>二〇二六 · 深夜</h2>
+  <div class="sub">一切崩塌的前夜</div>
+</div>
+
+<div class="frame"><img src="f01.jpg" loading="lazy" alt="深夜高楼">
+<div class="narration">凌晨三点四十七分。
+
+整栋写字楼只剩我办公室的灯还亮着。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f02.jpg" loading="lazy" alt="空荡办公室">
+<div class="narration">三个月前，这里还坐满了人。
+
+产品部、算法组、运营团队——八十多号人的创业公司，做AI+本地生活，做了三年。
+
+现在，工位空了一大半。核心团队被巨头挖走，投资人集体撤退。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f03.jpg" loading="lazy" alt="墙上标语">
+<div class="narration inner">墙上那行标语还在——"构建人与AI和谐共生的新文明时代"。
+
+当初贴上去的时候，我是真信的。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f04.jpg" loading="lazy" alt="手机短信">
+<div class="narration tension">手机亮了。投资人张总的短信。
+
+"朱江，周五之前拿不出新的融资方案，我们只能走清算程序了。这是最后通牒。"</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f05.jpg" loading="lazy" alt="疲惫侧脸">
+<div class="narration inner">我盯着手机屏幕，光打在脸上，像验尸灯。
+
+三年。一千多个日夜。就这么结束了？</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f06.jpg" loading="lazy" alt="趴桌入睡">
+<div class="narration">我趴在桌上，闭上了眼。
+
+不是放弃，只是……太累了。</div></div>
+
+<!-- ACT 2: 重生 -->
+<div class="section-header">
+  <h2>重　生</h2>
+  <div class="sub">阳光、鸟鸣、和一部诺基亚</div>
+</div>
+
+<div class="frame"><img src="f07.jpg" loading="lazy" alt="宿舍醒来">
+<div class="narration">不知道睡了多久。
+
+一束暖黄色的阳光刺进眼睛。空气里有洗衣粉和方便面的味道。
+
+身下……是硬板床？</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f08.jpg" loading="lazy" alt="诺基亚手机">
+<div class="narration">我下意识摸手机。
+
+摸到一个……方块？
+
+诺基亚。实体键盘。屏幕上显示——
+
+<b>2010年6月15日，星期二。</b></div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f09.jpg" loading="lazy" alt="震惊表情">
+<div class="narration inner">我的大脑宕机了三秒。
+
+然后疯狂重启。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f10.jpg" loading="lazy" alt="跳下床">
+<div class="narration">上下铺！贴满海报的墙！那台又厚又重的联想笔记本！室友的臭袜子！
+
+这是……交大的宿舍。
+
+我的宿舍。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f11.jpg" loading="lazy" alt="窗前望校园">
+<div class="narration">我冲到窗前。
+
+校园里绿树成荫，有人在晨跑，有人骑着自行车赶早课。阳光洒在红顶教学楼上，金灿灿的。
+
+2010年。我27岁。一切还没开始。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f12.jpg" loading="lazy" alt="走出宿舍">
+<div class="narration">我几乎是跑出宿舍楼的。
+
+站在阳光下，深吸一口气——空气是甜的。不是2026年北京那种味道，是真的甜。
+
+我笑了。笑到眼泪流下来。</div></div>
+
+<!-- ACT 3: 确认记忆 -->
+<div class="section-header">
+  <h2>时 间 地 图</h2>
+  <div class="sub">十六年的未来，全在我脑子里</div>
+</div>
+
+<div class="frame"><img src="f13.jpg" loading="lazy" alt="长椅思考">
+<div class="narration">我在校园长椅上坐了整整一个小时，逐条核对脑中的记忆。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f14.jpg" loading="lazy" alt="微信2011">
+<div class="narration inner">微信——2011年1月上线，张小龙的作品。三年内席卷全国。</div></div>
+
+<div class="frame"><img src="f15.jpg" loading="lazy" alt="美团2010">
+<div class="narration inner">美团——2010年3月成立，王兴第三次创业。团购大战，千团大战，最后活下来的那个。</div></div>
+
+<div class="frame"><img src="f16.jpg" loading="lazy" alt="滴滴2012">
+<div class="narration inner">滴滴——2012年诞生，程维从阿里出来做的。补贴大战烧掉几百亿。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f17.jpg" loading="lazy" alt="自信表情">
+<div class="narration">每一个风口，每一次洗牌，每一个关键节点——我全部知道。
+
+我手里握着一张完美的时间地图。
+
+这一次，我不会输。</div></div>
+
+<!-- ACT 4: DECISION-1 -->
+<div class="section-header">
+  <h2>抉 择 一</h2>
+  <div class="sub">巨头的大门 vs 自己的路</div>
+</div>
+
+<div class="frame"><img src="f18.jpg" loading="lazy" alt="校招海报">
+<div class="narration">校园公告栏前人头攒动。
+
+腾讯、百度、阿里——2010年的校招季，这些名字还带着神圣的光环。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f19.jpg" loading="lazy" alt="海报前">
+<div class="narration">同学们挤在海报前，眼里闪着光，讨论着"进腾讯年薪能有十五万吧"。
+
+我站在人群外面，手插口袋。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f20.jpg" loading="lazy" alt="轻蔑转身">
+<div class="narration decision"><span class="label">⟐ 决策点 ·壹</span>
+加入巨头积累资源，还是直接创业？
+
+我笑了一下，转身走了。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f21.jpg" loading="lazy" alt="林荫道">
+<div class="narration inner">我知道腾讯未来会值多少钱。我知道百度会错过移动互联网。我全知道。
+
+但我上辈子就没选大厂，这辈子更不会。
+
+我知道未来十六年的剧本——凭什么给别人打工？</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f22.jpg" loading="lazy" alt="背影阳光">
+<div class="narration">阳光透过梧桐树叶，在路上洒下斑驳的光影。
+
+我大步走向未来。我的未来。</div></div>
+
+<!-- ACT 5: 遇到老王 -->
+<div class="section-header">
+  <h2>故 人</h2>
+  <div class="sub">上辈子最信任的人，此刻还是个迷茫的研究生</div>
+</div>
+
+<div class="frame"><img src="f23.jpg" loading="lazy" alt="咖啡馆外景">
+<div class="narration">下午，我走进校园旁边那家咖啡馆。
+
+十六年后这家店早拆了。此刻它还在，木门上贴着褪色的优惠券。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f24.jpg" loading="lazy" alt="看到老王">
+<div class="narration">推门的一瞬间，我看到了他。
+
+角落里，一个戴眼镜的瘦高个，弓着背对着笔记本噼里啪啦敲代码。
+
+老王。王志远。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f25.jpg" loading="lazy" alt="眼眶微红">
+<div class="narration inner">我站在门口，一动不动。
+
+上辈子，他是我的联合创始人。公司最难的时候，所有人都跑了，就他还在。白天写代码，晚上陪我喝酒。
+
+直到巨头开出三倍薪水挖他，我亲口说"你去吧，你应得的"。
+
+他走的那天，我一个人在办公室坐到天亮。
+
+而此刻，他二十四岁，还不认识我，还在为硕士论文发愁。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f26.jpg" loading="lazy" alt="老王抬头">
+<div class="narration">他感觉到有人盯着他看，抬起头。
+
+"……同学？你找谁？"</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f27.jpg" loading="lazy" alt="两人对坐">
+<div class="narration">我走过去，在他对面坐下，点了两杯美式。
+
+"王志远，计算机系研三，研究方向是推荐算法，论文卡在协同过滤的冷启动问题上。对吧？"
+
+他眼睛瞪得跟铜铃似的。
+
+"你……你怎么知道的？"
+
+我笑了笑："你想不想做点更有意思的事？"</div></div>
+
+<!-- ACT 6: DECISION-2 -->
+<div class="section-header">
+  <h2>抉 择 二</h2>
+  <div class="sub">要不要现在就拉他上船</div>
+</div>
+
+<div class="frame"><img src="f28.jpg" loading="lazy" alt="伸出手">
+<div class="narration decision"><span class="label">⟐ 决策点 ·贰</span>
+现在就拉老王入伙？他还不成熟，提前入伙可能改变他的成长轨迹。
+
+但上辈子我犯的最大错误，就是太晚重视身边的人。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f29.jpg" loading="lazy" alt="握手">
+<div class="narration inner">这辈子，我要从第一天就保护好我的人。
+
+"跟我干。具体做什么以后再说。你只需要知道一件事——我不会让你后悔。"</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f30.jpg" loading="lazy" alt="并肩夕阳">
+<div class="narration">老王被我这通操作搞得一愣一愣的，但不知道为什么，他点了头。
+
+后来他跟我说："当时觉得你像个神经病，但你眼神太认真了，认真到我不忍心拒绝。"</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f31.jpg" loading="lazy" alt="边走边聊">
+<div class="narration">夕阳把我们的影子拉得很长。
+
+我跟他讲了三个小时——不是讲未来（那个不能说），而是讲我对移动互联网的理解。
+
+他越听越兴奋，最后说了一句："操，你是天才还是疯子？"
+
+"都是。"</div></div>
+
+<!-- ACT 7: DECISION-3 -->
+<div class="section-header">
+  <h2>抉 择 三</h2>
+  <div class="sub">即时通讯 vs 本地生活</div>
+</div>
+
+<div class="frame"><img src="f32.jpg" loading="lazy" alt="白板画方案">
+<div class="narration">租了一间月租八百的小房子。四个人，一块白板，三台笔记本，开干。
+
+我在白板上画了两个方向。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f33.jpg" loading="lazy" alt="方向选择">
+<div class="narration decision"><span class="label">⟐ 决策点 ·叁</span>
+A：做即时通讯。我知道这个赛道天花板最高——微信还有半年才上线。
+
+B：做本地生活O2O。美团模式已经验证过，更容易快速盈利。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f34.jpg" loading="lazy" alt="写代码">
+<div class="narration inner">我选了B。
+
+不是因为没野心。是因为我不是张小龙——做即时通讯需要的不只是知道未来，需要极致的产品直觉。
+
+O2O我更懂。上辈子的创业就是从本地服务开始的。
+
+先活下来，再图大的。菩萨心肠，霹雳手段。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f35.jpg" loading="lazy" alt="团队围看">
+<div class="narration">老王看完方案，眼睛亮了。
+
+"这个逻辑……太清晰了。你是怎么想到的？"
+
+我笑而不答。</div></div>
+
+<!-- ACT 8: 开干 -->
+<div class="section-header">
+  <h2>四十八小时</h2>
+  <div class="sub">用2026年的思维，做2010年的产品</div>
+</div>
+
+<div class="frame"><img src="f36.jpg" loading="lazy" alt="出租屋创业">
+<div class="narration">四个人挤在三十平的出租屋里。桌上堆满方便面和红牛。墙上贴满便利贴。
+
+创业最原始的模样。
+
+但我心里清楚——这间破屋子里，正在孵化一个改变游戏规则的东西。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f37.jpg" loading="lazy" alt="痛苦写代码">
+<div class="narration humor">最痛苦的是开发工具。
+
+2010年，没有React，没有Vue，没有Docker，甚至jQuery都还是个新鲜玩意儿。
+
+我脑子里全是2026年的技术栈，但手里只有Dreamweaver和记事本。
+
+就像一个开过法拉利的人，突然被迫骑三轮车送外卖。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f38.jpg" loading="lazy" alt="MVP完成">
+<div class="narration">但核心逻辑我闭着眼都能写。
+
+四十八小时。三个通宵。MVP上线了。
+
+凌晨四点，老王和另外两个兄弟趴在桌上睡着了。我盯着屏幕上那个简陋但完整的界面，笑了。
+
+丑是丑了点。但它能跑。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f39.jpg" loading="lazy" alt="用户增长">
+<div class="narration">上线第一天。
+
+用户数：12。
+
+第二天：47。
+
+第三天：189。
+
+不快。但每一个数字都是真实的。每一个用户都是主动来的。
+
+一切按计划进行。</div></div>
+
+<!-- ACT 9: 悬念 -->
+<div class="section-header">
+  <h2>意 外 来 客</h2>
+</div>
+
+<div class="frame"><img src="f40.jpg" loading="lazy" alt="刷数据">
+<div class="narration">第四天晚上，我一个人在刷后台数据。
+
+用户增长曲线平滑上升。复购率符合预期。交大周边的商家已经有三家主动来谈合作。
+
+一切都很好。太好了。
+
+好到我差点忘了——这个世界可能不只有我一个"知道未来的人"。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f41.jpg" loading="lazy" alt="邮件弹出">
+<div class="narration tension">叮。
+
+一封新邮件。发件人：未知。
+
+我的手悬在键盘上方，停住了。</div></div>
+
+<div class="sep"></div>
+
+<div class="frame"><img src="f42.jpg" loading="lazy" alt="瞳孔收缩">
+<div class="narration tension">邮件只有一行字：
+
+<b>"朱江，你是不是也从2026年回来的？"</b></div></div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="hook">
+    我的脊背一阵发凉。
+    
+    不是冷。是恐惧。
+    
+    如果这个世界上还有另一个重生者……
+    那我的时间地图，就不再是唯一的了。
+  </div>
+  <div class="next">—— 第二章 · 暗流　即将更新 ——</div>
+</div>
+
+<script>
+const frames=document.querySelectorAll('.frame');
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+frames.forEach(f=>io.observe(f));
+</script>
+</body>
+</html>
