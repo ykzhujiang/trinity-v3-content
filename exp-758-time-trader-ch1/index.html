@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>时间商人 · 第一章：交易开始</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a1a;color:#e0e8f0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 20px;background:linear-gradient(180deg,#0a0a2e 0%,#0d1b3e 40%,#1a0a2e 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='30' y='35' text-anchor='middle' fill='%2300ff8822' font-size='10' font-family='monospace'%3E01%3C/text%3E%3C/svg%3E") repeat;animation:matrixScroll 20s linear infinite;opacity:0.3}
+@keyframes matrixScroll{0%{background-position:0 0}100%{background-position:0 600px}}
+.cover h1{font-size:2.8em;background:linear-gradient(135deg,#00ff88,#00ccff,#ff00aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px;position:relative;z-index:1;letter-spacing:4px}
+.cover .subtitle{font-size:1.3em;color:#88aacc;margin-bottom:40px;position:relative;z-index:1}
+.cover .chapter{font-size:1em;color:#00ff88;border:1px solid #00ff8844;padding:8px 24px;border-radius:20px;display:inline-block;position:relative;z-index:1}
+.stats{position:relative;z-index:1;margin-top:30px;font-family:monospace;color:#00ff88;font-size:0.9em;opacity:0.7}
+.scroll-hint{position:relative;z-index:1;margin-top:40px;animation:bounce 2s infinite;color:#00ccff88;font-size:0.9em}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+.panel{width:100%;max-width:500px;margin:0 auto;padding:0 12px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:8px;display:block;margin:24px 0 16px 0;box-shadow:0 4px 30px rgba(0,200,255,0.15)}
+.panel .narration{font-size:1.15em;line-height:1.9;padding:4px 8px 32px 8px;color:#c8d8e8}
+.panel .narration .dialog{color:#00ff88;font-weight:600}
+.panel .narration .system{color:#ff6688;font-family:monospace;font-size:0.95em;background:#ff668811;padding:2px 8px;border-radius:4px;display:inline}
+.panel .narration .thought{color:#aabbdd;font-style:italic}
+.panel .narration .thought::before{content:'💭 '}
+
+.decision{background:linear-gradient(135deg,#1a0a3e,#0a1a3e);border:1px solid #00ff8833;border-radius:12px;padding:24px 16px;margin:24px auto;max-width:500px;text-align:center}
+.decision h3{color:#00ff88;font-size:1.2em;margin-bottom:16px}
+.decision .choice{background:#00ff8811;border:1px solid #00ff8844;border-radius:8px;padding:12px 16px;margin:8px 0;color:#88ccaa;font-size:1em}
+.decision .chosen{background:#00ff8833;border-color:#00ff88;color:#00ff88;font-weight:bold;position:relative}
+.decision .chosen::after{content:'✦ 我的选择';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:0.75em;color:#00ffaa}
+
+.section-break{text-align:center;padding:40px 20px;color:#00ccff44;font-size:1.5em;letter-spacing:12px}
+
+.cliffhanger{background:linear-gradient(180deg,#0a0a1a,#1a0020,#2a0010);padding:60px 20px;text-align:center;min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.cliffhanger .price{font-size:2.5em;color:#ff4466;font-weight:bold;margin:20px 0;text-shadow:0 0 30px #ff446688;animation:pricePulse 2s infinite}
+@keyframes pricePulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.cliffhanger .life{font-family:monospace;color:#00ccff;font-size:1.1em;margin:16px 0}
+.cliffhanger .question{font-size:1.4em;color:#e0e8f0;margin-top:30px;line-height:1.6}
+.cliffhanger .next{color:#00ff8888;font-size:0.9em;margin-top:40px;border:1px solid #00ff8844;padding:10px 30px;border-radius:20px;display:inline-block}
+
+footer{text-align:center;padding:40px 20px;color:#334;font-size:0.8em}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>时间商人</h1>
+  <div class="subtitle">当你能用寿命换未来的秘密</div>
+  <div class="chapter">第一章 · 交易开始</div>
+  <div class="stats">时间积分：0 ｜ 剩余寿命：38年4个月 ｜ 交易等级：未激活</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- 帧1: 猝死 -->
+<div class="panel">
+  <img src="images/frame-01.jpg" loading="lazy" alt="凌晨办公室">
+  <div class="narration">
+    凌晨三点半，我还在review代码。<br><br>
+    上海的夜景在落地窗外安静地亮着，像一张永远不关机的屏幕。我已经连续工作了十八个小时，第四杯美式早就凉透了。<br><br>
+    然后，胸口突然像被人一拳打穿。
+  </div>
+</div>
+
+<!-- 帧2: 倒地 -->
+<div class="panel">
+  <img src="images/frame-02.jpg" loading="lazy" alt="倒地瞬间">
+  <div class="narration">
+    我摔倒在地的瞬间，眼前闪过一行字——<br><br>
+    <span class="system">「检测到高价值意识体。是否接入时间交易系统？」</span><br><br>
+    然后，世界黑了。
+  </div>
+</div>
+
+<!-- 帧3: ICU -->
+<div class="panel">
+  <img src="images/frame-03.jpg" loading="lazy" alt="ICU病房">
+  <div class="narration">
+    再次睁眼的时候，我躺在ICU里，浑身插满了管子。<br><br>
+    何总站在床边，脸色比显示器还白：<span class="dialog">"心脏骤停四分钟，医生说能活过来是奇迹。"</span><br><br>
+    <span class="thought">四分钟……我明明看到了什么东西。</span>
+  </div>
+</div>
+
+<!-- 帧4: 出院 -->
+<div class="panel">
+  <img src="images/frame-04.jpg" loading="lazy" alt="病床沉思">
+  <div class="narration">
+    医生让我住院观察一周。我第三天就签了免责声明出来了。<br><br>
+    <span class="thought">创业者没有住院的权利。我的A轮投资人比医生更着急。</span><br><br>
+    但那行绿色的字，一直在我脑子里转。
+  </div>
+</div>
+
+<!-- 帧5: 陆家嘴 -->
+<div class="panel">
+  <img src="images/frame-05.jpg" loading="lazy" alt="陆家嘴街头">
+  <div class="narration">
+    出院那天傍晚，我走在陆家嘴的天桥上。<br><br>
+    然后我看到了——每个路人的头顶，都浮着一串淡蓝色的数字。像倒计时，又像某种评分。<br><br>
+    <span class="thought">我没疯吧？</span>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- 帧6: 时间密度 -->
+<div class="panel">
+  <img src="images/frame-06.jpg" loading="lazy" alt="看见时间密度">
+  <div class="narration">
+    我试着聚焦那些数字——它们是每个人的<b>时间密度值</b>。<br><br>
+    有些人头顶的数字很亮，像满电的手机。有些人的数字暗淡得几乎看不见。<br><br>
+    这他妈是什么科幻片设定？
+  </div>
+</div>
+
+<!-- 帧7: 系统面板 -->
+<div class="panel">
+  <img src="images/frame-07.jpg" loading="lazy" alt="系统面板">
+  <div class="narration">
+    我低头看自己的手——一个半透明的全息面板凭空出现。<br><br>
+    <span class="system">时间积分：0 ｜ 可交易额度：0 ｜ 剩余寿命：38年4个月</span><br><br>
+    <span class="thought">剩余寿命？这东西还能精确到月？比我的项目排期都准。</span>
+  </div>
+</div>
+
+<!-- 帧8: 咖啡馆 -->
+<div class="panel">
+  <img src="images/frame-08.jpg" loading="lazy" alt="咖啡馆观察">
+  <div class="narration">
+    系统说：<span class="system">「完成首笔认知套利即可激活交易功能。」</span><br><br>
+    认知套利？这词倒是很对我的胃口。<br><br>
+    我走进一家咖啡馆坐下，用做CEO养成的习惯扫视四周。一个年轻人在对面桌上焦虑地算着什么，笔记本上全是融资模型的数据。
+  </div>
+</div>
+
+<!-- 帧9: 发现bug -->
+<div class="panel">
+  <img src="images/frame-09.jpg" loading="lazy" alt="发现致命错误">
+  <div class="narration">
+    我的大脑像编译器一样自动运转——<br><br>
+    <span class="thought">TAM用的全市场数据忽悠投资人，但burn rate算错了两个数量级。按这个模型融到钱，三个月内公司必死。</span><br><br>
+    这种错误，我2015年犯过一模一样的。
+  </div>
+</div>
+
+<!-- 帧10: 决策点1 -->
+<div class="decision">
+  <h3>⟐ 决策点 ⟐</h3>
+  <div class="choice">沉默离开，先搞清楚自己的状况</div>
+  <div class="choice chosen">上前指出错误——我不能看着别人掉进我踩过的坑</div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-10.jpg" loading="lazy" alt="指出错误">
+  <div class="narration">
+    我走过去，三句话指出了他模型里的致命Bug。<br><br>
+    <span class="dialog">"你的burn rate少了两个零。按这个数融钱，三个月烧完，投资人会把你钉在耻辱柱上。"</span><br><br>
+    年轻人震惊地抬头看我，嘴巴张了足足五秒没合上。
+  </div>
+</div>
+
+<!-- 帧11: 系统激活 -->
+<div class="panel">
+  <img src="images/frame-11.jpg" loading="lazy" alt="系统激活">
+  <div class="narration">
+    一串全息提示在我眼前闪烁——<br><br>
+    <span class="system">「首笔认知套利完成。时间积分+100。交易功能已激活。」</span><br><br>
+    <span class="thought">创业路上有人拉过我一把，我才活过来。这个恩，要还的。</span><br><br>
+    只是没想到，帮个忙还能攒积分。早知道我天天去创业咖啡馆坐着。
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- 帧12: 交易界面 -->
+<div class="panel">
+  <img src="images/frame-12.jpg" loading="lazy" alt="交易界面">
+  <div class="narration">
+    交易界面在我脑海中展开——一个极简的终端，像我见过最优雅的股票交易系统。<br><br>
+    一排排信息碎片在滚动，每条都标着价格。最便宜的10积分，最贵的10000积分。<br><br>
+    <span class="thought">先用最小成本测试系统真实性。这是任何黑客的第一步。</span>
+  </div>
+</div>
+
+<!-- 帧13: 纠结 -->
+<div class="panel">
+  <img src="images/frame-13.jpg" loading="lazy" alt="内心纠结">
+  <div class="narration">
+    我看到最便宜的一条：10积分——<br><br>
+    <span class="system">「明天下午2:17，陆家嘴星巴克。」</span><br><br>
+    莫名其妙。一句话都不完整。<br><br>
+    <span class="thought">但恰好可以验证——如果明天那个时间那个地点真的发生了什么，就说明系统是真的。</span>
+  </div>
+</div>
+
+<!-- 帧14-15: 购买 -->
+<div class="panel">
+  <img src="images/frame-14.jpg" loading="lazy" alt="决定购买">
+  <div class="narration">
+    我买了。<br><br>
+    手指碰到虚拟按钮的瞬间，一阵冰冷的感觉从指尖蔓延到全身。
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-15.jpg" loading="lazy" alt="交易界面特写">
+  <div class="narration">
+    <span class="system">剩余寿命：38年3个月29天</span><br><br>
+    少了一天。<br><br>
+    <span class="thought">一条信息换一天命？这个汇率……比任何高利贷都黑。</span>
+  </div>
+</div>
+
+<!-- 帧16: 按下按钮 -->
+<div class="panel">
+  <img src="images/frame-16.jpg" loading="lazy" alt="按下按钮">
+  <div class="narration">
+    但数字不会骗人。我确实感觉到了什么东西从身体里被抽走——不是疼痛，更像是一种微妙的……空。<br><br>
+    <span class="thought">行了。明天去验证。如果系统是真的，我只亏了一天。如果是假的……反正我本来就在ICU里多赖了几天。</span>
+  </div>
+</div>
+
+<!-- 帧17: 夜晚独处 -->
+<div class="panel">
+  <img src="images/frame-17.jpg" loading="lazy" alt="夜晚沉思">
+  <div class="narration">
+    回到家，我躺在沙发上盯着天花板。<br><br>
+    窗外的上海夜景像一块巨大的电路板，每一盏灯都是一个运行中的进程。<br><br>
+    <span class="thought">如果这个系统是真的……它在筛选什么样的人？为什么选中了我？</span>
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- 帧18-19: 星巴克验证 -->
+<div class="panel">
+  <img src="images/frame-18.jpg" loading="lazy" alt="星巴克外景">
+  <div class="narration">
+    第二天下午两点十五分，我坐在陆家嘴那家星巴克的角落。<br><br>
+    点了一杯美式——如果系统是假的，至少赚杯咖啡的清净。
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/frame-19.jpg" loading="lazy" alt="等待中">
+  <div class="narration">
+    2:16。<br>
+    我假装看手机，余光扫着门口。心跳不争气地加速。<br><br>
+    <span class="thought">冷静。你是做过A轮路演的人。一个咖啡馆而已。</span>
+  </div>
+</div>
+
+<!-- 帧20: 陆薇登场 -->
+<div class="panel">
+  <img src="images/frame-20.jpg" loading="lazy" alt="陆薇登场">
+  <div class="narration">
+    2:17整。<br><br>
+    门被推开。一个黑色风衣的女人走了进来——短发利落，眼神锋利得像手术刀。<br><br>
+    她没有看别人，径直朝我走过来。
+  </div>
+</div>
+
+<!-- 帧21: 对话 -->
+<div class="panel">
+  <img src="images/frame-21.jpg" loading="lazy" alt="对峙">
+  <div class="narration">
+    <span class="dialog">"你是新觉醒的？"</span><br><br>
+    她坐到我对面，像坐进自己的主场。<br><br>
+    <span class="dialog">"买了那条10积分的提示来验证系统？"</span><br><br>
+    我瞳孔一缩。她怎么知道？
+  </div>
+</div>
+
+<!-- 帧22: 陆薇特写 -->
+<div class="panel">
+  <img src="images/frame-22.jpg" loading="lazy" alt="陆薇特写">
+  <div class="narration">
+    她笑了。不是热情的笑，是看透了新手套路的那种笑。<br><br>
+    <span class="dialog">"因为每个新手的第一笔交易都一样。那条提示——是我挂上去的。"</span><br><br>
+    <span class="thought">好家伙。我以为我在测试系统，结果系统里有人在钓鱼。</span>
+  </div>
+</div>
+
+<!-- 帧23: 规则讲解 -->
+<div class="panel">
+  <img src="images/frame-23.jpg" loading="lazy" alt="谈判">
+  <div class="narration">
+    她叫陆薇，觉醒已经三年。用了十分钟给我讲了基本规则：<br><br>
+    交易者之间可以合作也可以对抗。信息碎片可以转卖。<br><br>
+    但有一条铁律——<span class="dialog">"永远不要透支寿命交易。"</span>
+  </div>
+</div>
+
+<!-- 帧24: 警告 -->
+<div class="panel">
+  <img src="images/frame-24.jpg" loading="lazy" alt="透支的后果">
+  <div class="narration">
+    <span class="dialog">"有个交易者，三十岁，买了太多信息。一夜白头。"</span><br><br>
+    她的语气很平，像在说今天天气不错。<br><br>
+    <span class="dialog">"这个系统不是给你发财的。它在筛选能改变世界的人。做不到的——会被回收。"</span><br><br>
+    <span class="thought">回收？什么意思？</span>
+  </div>
+</div>
+
+<!-- 帧25: 握紧咖啡 -->
+<div class="panel">
+  <img src="images/frame-25.jpg" loading="lazy" alt="握紧咖啡杯">
+  <div class="narration">
+    我的手不自觉地握紧了咖啡杯。<br><br>
+    改变世界。这四个字我在BP里写了无数遍，但从来没有像现在这样，感觉它是认真的。<br><br>
+    <span class="thought">认真到要用命来换的那种认真。</span>
+  </div>
+</div>
+
+<!-- 决策点3 -->
+<div class="decision">
+  <h3>⟐ 决策点 ⟐</h3>
+  <div class="choice">接受陆薇的"新手引导"，安全但受制于人</div>
+  <div class="choice chosen">独自摸索规则——在不了解底牌之前，不做别人的棋子</div>
+</div>
+
+<!-- 帧26: 陆薇离开 -->
+<div class="panel">
+  <img src="images/frame-26.jpg" loading="lazy" alt="陆薇离开">
+  <div class="narration">
+    陆薇站起来穿上风衣，回头看了我一眼。<br><br>
+    <span class="dialog">"你会后悔的。新手独自上路，存活率不到三成。"</span><br><br>
+    我笑了：<span class="dialog">"我创业的时候，成功率也不到三成。"</span>
+  </div>
+</div>
+
+<!-- 帧27: 独处 -->
+<div class="panel">
+  <img src="images/frame-27.jpg" loading="lazy" alt="独处决心">
+  <div class="narration">
+    她留了一张名片。带全息边缘的那种。<br><br>
+    <span class="thought">在不了解对方底牌之前，不要成为别人的棋子。我需要先建立自己的信息网络。</span><br><br>
+    但名片我收了。<span class="thought">互利的机会，总会有的。</span>
+  </div>
+</div>
+
+<!-- 帧28: 离开咖啡馆 -->
+<div class="panel">
+  <img src="images/frame-28.jpg" loading="lazy" alt="走向夜色">
+  <div class="narration">
+    走出星巴克，上海的夜正在醒来。<br><br>
+    陆家嘴的霓虹灯一层层亮起来，路人头顶的蓝色数字在夜色中格外清晰。<br><br>
+    我把名片放进口袋，大步走进这个我从未见过的世界。
+  </div>
+</div>
+
+<div class="section-break">· · ·</div>
+
+<!-- 帧29: 系统推送 -->
+<div class="panel">
+  <img src="images/frame-29.jpg" loading="lazy" alt="系统推送">
+  <div class="narration">
+    当晚十一点，我收到了系统的第一次主动推送——<br><br>
+    <span class="system">「⚠ 高价值事件即将发生。地点：黄浦区。预计积分收益：500-2000」</span><br><br>
+    系统第一次主动推送。<span class="thought">这说明事件的级别……非常高。</span>
+  </div>
+</div>
+
+<!-- 帧30: 赌场入口 -->
+<div class="panel">
+  <img src="images/frame-30.jpg" loading="lazy" alt="赌场入口">
+  <div class="narration">
+    我换了一件黑衬衫，打车去了黄浦区的一条老弄堂。<br><br>
+    红灯笼在窄巷尽头摇晃，一扇铁门后面传来隐约的人声。<br><br>
+    <span class="thought">我一个做AI的创业者，居然要去地下赌场。人生的剧本果然不是自己写的。</span>
+  </div>
+</div>
+
+<!-- 帧31: 赌场内部 -->
+<div class="panel">
+  <img src="images/frame-31.jpg" loading="lazy" alt="赌场全景">
+  <div class="narration">
+    赌场比我想象的高级。绿绒桌、水晶灯、雪茄烟雾缭绕。<br><br>
+    坐在主位的是一个胖子——笑面虎，戴金表，一看就是老江湖。<br><br>
+    他们叫他<b>老K</b>。
+  </div>
+</div>
+
+<!-- 帧32: 扫描 -->
+<div class="panel">
+  <img src="images/frame-32.jpg" loading="lazy" alt="扫描赌场">
+  <div class="narration">
+    我走进去，下意识扫了一圈。<br><br>
+    每个赌客头顶的时间密度值都亮了——大部分人的数字暗淡无光，像快没电的灯泡。<br><br>
+    正常。地下赌场嘛，能来的大多是被生活逼到这一步的人。
+  </div>
+</div>
+
+<!-- 帧33: 发现另一个交易者 -->
+<div class="panel">
+  <img src="images/frame-33.jpg" loading="lazy" alt="发现高密度者">
+  <div class="narration">
+    但有一个人——<br><br>
+    桌子对面，一个人的时间密度值亮得刺眼。比在场所有人加起来都高。<br><br>
+    我看向他。<br><br>
+    他也正在看我。<br><br>
+    <span class="thought">另一个时间交易者。</span>
+  </div>
+</div>
+
+<!-- 帧34: 老K -->
+<div class="panel">
+  <img src="images/frame-34.jpg" loading="lazy" alt="老K的赌局">
+  <div class="narration">
+    老K拍了拍桌子，宣布今晚的特殊赌局：<span class="dialog">"押注三天后某科技公司的股价走向。每人一百万，三天后开盘验证。"</span><br><br>
+    <span class="thought">用赌博的方式做空做多？这不就是没有牌照的期货市场？</span>
+  </div>
+</div>
+
+<!-- 帧35: 三方对峙 -->
+<div class="panel">
+  <img src="images/frame-35.jpg" loading="lazy" alt="三方对峙">
+  <div class="narration">
+    我、那个高密度值的神秘人、还有满脸堆笑的老K。<br><br>
+    三个人，三种心思，一张赌桌。<br><br>
+    <span class="thought">赌场最危险的不是输钱，而是不知道谁在跟你玩不同的游戏。</span>
+  </div>
+</div>
+
+<!-- 决策点4 -->
+<div class="decision">
+  <h3>⟐ 决策点 ⟐</h3>
+  <div class="choice">用系统信息碎片获取优势</div>
+  <div class="choice chosen">不用系统，先凭自己的判断下注——观察对手</div>
+</div>
+
+<!-- 帧36: 克制 -->
+<div class="panel">
+  <img src="images/frame-36.jpg" loading="lazy" alt="克制不用系统">
+  <div class="narration">
+    我选择不用系统下注。<br><br>
+    凭我做AI行业的认知，那家科技公司的走向我有七成把握。<br><br>
+    <span class="thought">信息差是武器，但过早使用就暴露了火力配置。先看那个高密度值的家伙怎么操作。</span>
+  </div>
+</div>
+
+<!-- 帧37: 异变 -->
+<div class="panel">
+  <img src="images/frame-37.jpg" loading="lazy" alt="系统异变">
+  <div class="narration">
+    赌局进行到一半——系统界面突然闪了红光。<br><br>
+    <span class="system">「⚠ 警告：检测到时间线扭曲。当前事件正在被多个交易者同时干预。」</span><br><br>
+    我的血一下子凉了半截。
+  </div>
+</div>
+
+<!-- 帧38: 瞳孔 -->
+<div class="panel">
+  <img src="images/frame-38.jpg" loading="lazy" alt="瞳孔特写">
+  <div class="narration">
+    多个交易者同时干预——<br><br>
+    这不是普通的赌局。<b>这是时间交易者之间的博弈。</b><br><br>
+    老K的赌桌，只是一个舞台。真正的赌局，在时间线上。<br><br>
+    <span class="thought">而我，一个昨天才激活系统的新手，坐在了高手对决的中间。</span>
+  </div>
+</div>
+
+<!-- 帧39: 365天 -->
+<div class="panel">
+  <img src="images/frame-39.jpg" loading="lazy" alt="365天的代价">
+  <div class="narration">
+    我试图用系统查看更多信息。<br><br>
+    屏幕弹出一行红字——<br><br>
+    <span class="system">「紧急交易可用：此刻真相。价格：365天寿命。」</span>
+  </div>
+</div>
+
+<!-- 高潮悬念 -->
+<div class="cliffhanger">
+  <img src="images/frame-40.jpg" loading="lazy" alt="抉择" style="width:100%;max-width:500px;border-radius:8px;box-shadow:0 4px 40px rgba(255,0,80,0.3)">
+  <div class="price">365天</div>
+  <div class="life">剩余寿命：37年3个月29天 → 36年3个月29天</div>
+  <div class="question">
+    一年的命……<br>值多少钱？
+  </div>
+  <div class="next">【第一章完】<br>第二章预告：赌局揭晓，代价降临</div>
+</div>
+
+<footer>
+  时间商人 · V5分镜剧本 · EXP-758<br>
+  Trinity v3 · 向死而生
+</footer>
+
+<script>
+// Intersection Observer for scroll-reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel, .decision, .cliffhanger').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -24,11 +24,11 @@ body{background:#0a0e1a;color:#c8d6e5;font-family:'PingFang SC','Hiragino Sans G
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
 
 /* Panel container */
-.panel{position:relative;width:100%;max-width:450px;margin:0 auto;padding:0 0.5rem;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.panel{position:relative;width:100%;max-width:min(450px,100vw);margin:0 auto;padding:0 0.5rem;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
 .panel.visible{opacity:1;transform:translateY(0)}
 
 /* Frame image */
-.panel img{width:100%;border-radius:8px;display:block;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.panel img{width:100%;max-width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
 
 /* Narration text */
 .narration{max-width:450px;margin:0.8rem auto 2.5rem;padding:0 1rem;font-size:1rem;line-height:1.9;color:#a8b8c8}
