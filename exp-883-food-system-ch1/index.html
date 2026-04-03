@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>我的厨神系统 — 第一章：蛋炒饭的觉醒</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#1a1510;
+  color:#e8dcc8;
+  font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  font-size:20px;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+.container{
+  max-width:450px;
+  margin:0 auto;
+  padding:0;
+}
+.title-block{
+  text-align:center;
+  padding:60px 20px 40px;
+  background:linear-gradient(180deg,#2a1f10 0%,#1a1510 100%);
+}
+.title-block h1{
+  font-size:26px;
+  color:#e8a838;
+  text-shadow:0 0 20px rgba(232,168,56,0.4);
+  letter-spacing:3px;
+  margin-bottom:8px;
+}
+.title-block .subtitle{
+  font-size:16px;
+  color:#a08860;
+  letter-spacing:2px;
+}
+.title-block .chapter{
+  font-size:14px;
+  color:#8a7a60;
+  margin-top:12px;
+}
+.panel{margin-bottom:0;position:relative}
+.panel img{
+  width:100%;
+  display:block;
+  object-fit:cover;
+}
+.panel-text{
+  padding:20px 24px 28px;
+  background:linear-gradient(180deg,rgba(26,21,16,0.95) 0%,#1a1510 100%);
+}
+.panel-text p{margin-bottom:0}
+.panel-text .dialogue{
+  color:#f0d080;
+  font-weight:600;
+}
+.panel-text .thought{
+  color:#b0c8e0;
+  font-style:italic;
+}
+.panel-text .system{
+  color:#60d0f0;
+  font-family:'Courier New',monospace;
+  font-size:16px;
+  background:rgba(0,180,255,0.08);
+  border-left:3px solid #40a0d0;
+  padding:8px 12px;
+  margin:8px 0;
+  border-radius:0 6px 6px 0;
+}
+.panel-text .xiaoxian{
+  color:#ffb347;
+  font-weight:500;
+}
+.panel-text .warning{
+  color:#ff6060;
+  font-family:'Courier New',monospace;
+  font-size:16px;
+  background:rgba(255,60,60,0.08);
+  border-left:3px solid #ff4040;
+  padding:8px 12px;
+  margin:8px 0;
+  border-radius:0 6px 6px 0;
+}
+.scene-divider{
+  text-align:center;
+  padding:30px 20px;
+  color:#e8a838;
+  font-size:14px;
+  letter-spacing:6px;
+  opacity:0.6;
+}
+.scene-divider::before,.scene-divider::after{
+  content:'';
+  display:inline-block;
+  width:40px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#e8a838,transparent);
+  vertical-align:middle;
+  margin:0 12px;
+}
+.decision-block{
+  background:linear-gradient(135deg,rgba(232,168,56,0.12) 0%,rgba(26,21,16,0.95) 100%);
+  border:1px solid rgba(232,168,56,0.3);
+  border-radius:12px;
+  margin:16px 20px;
+  padding:20px;
+}
+.decision-block h3{
+  color:#e8a838;
+  font-size:18px;
+  margin-bottom:12px;
+  letter-spacing:2px;
+}
+.decision-option{
+  display:flex;
+  align-items:flex-start;
+  margin:10px 0;
+  padding:10px;
+  border-radius:8px;
+  background:rgba(255,255,255,0.03);
+}
+.decision-option .letter{
+  color:#e8a838;
+  font-weight:700;
+  font-size:20px;
+  min-width:30px;
+}
+.decision-option .desc{
+  color:#c0b090;
+  font-size:17px;
+}
+.decision-chosen{
+  background:rgba(232,168,56,0.15)!important;
+  border:1px solid rgba(232,168,56,0.4);
+}
+.decision-chosen .desc{color:#e8dcc8}
+.end-block{
+  text-align:center;
+  padding:50px 20px 80px;
+  background:linear-gradient(180deg,#1a1510 0%,#0d0a07 100%);
+}
+.end-block .tbc{
+  font-size:22px;
+  color:#e8a838;
+  letter-spacing:4px;
+  margin-bottom:8px;
+}
+.end-block .next{
+  font-size:14px;
+  color:#8a7a60;
+}
+/* Animations */
+.panel{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="title-block">
+  <h1>我的厨神系统</h1>
+  <div class="subtitle">第一章·蛋炒饭的觉醒</div>
+  <div class="chapter">「每一粒米都是一行代码」</div>
+</div>
+
+<!-- f01 -->
+<div class="panel">
+  <img src="images/f01.jpg" alt="CBD写字楼" loading="lazy">
+  <div class="panel-text">
+    <p>我站在这栋48层的写字楼下面，手里攥着改了第17版的商业计划书。</p>
+  </div>
+</div>
+
+<!-- f02 -->
+<div class="panel">
+  <img src="images/f02.jpg" alt="会议室" loading="lazy">
+  <div class="panel-text">
+    <p>PPT翻到第47页，林总终于抬起了头。</p>
+    <p class="thought">我心想，终于看完了。</p>
+  </div>
+</div>
+
+<!-- f03 -->
+<div class="panel">
+  <img src="images/f03.jpg" alt="林总特写" loading="lazy">
+  <div class="panel-text">
+    <p class="dialogue">"下一个。"</p>
+    <p>他只说了两个字，连我的名字都懒得提。</p>
+  </div>
+</div>
+
+<!-- f04 -->
+<div class="panel">
+  <img src="images/f04.jpg" alt="手部特写" loading="lazy">
+  <div class="panel-text">
+    <p>我的手指几乎要把计划书捏碎了。47页。我熬了三个通宵写的47页。</p>
+  </div>
+</div>
+
+<!-- f05 -->
+<div class="panel">
+  <img src="images/f05.jpg" alt="电梯" loading="lazy">
+  <div class="panel-text">
+    <p>电梯从48楼降到1楼，我看着数字一格一格往下跳。</p>
+    <p class="thought">就像我这半年的创业路——一直在往下掉。</p>
+  </div>
+</div>
+
+<div class="scene-divider">低 谷</div>
+
+<!-- f06 -->
+<div class="panel">
+  <img src="images/f06.jpg" alt="出租屋外景" loading="lazy">
+  <div class="panel-text">
+    <p>回到我那月租1800的出租屋，楼道里飘着隔壁老王家的红烧肉香味。我咽了咽口水。</p>
+  </div>
+</div>
+
+<!-- f07 -->
+<div class="panel">
+  <img src="images/f07.jpg" alt="冰箱内景" loading="lazy">
+  <div class="panel-text">
+    <p>打开冰箱——三个鸡蛋，半碗昨天的剩饭。</p>
+    <p>我苦笑了一下：<span class="dialogue">"连泡面都吃不起的CEO，这履历挺有竞争力的。"</span></p>
+  </div>
+</div>
+
+<!-- f08 -->
+<div class="panel">
+  <img src="images/f08.jpg" alt="准备打蛋" loading="lazy">
+  <div class="panel-text">
+    <p>算了，煎个蛋配剩饭将就一顿吧。</p>
+    <p class="thought">毕竟，活着才有机会东山再起。</p>
+  </div>
+</div>
+
+<div class="scene-divider">触 发</div>
+
+<!-- f09 -->
+<div class="panel">
+  <img src="images/f09.jpg" alt="系统触发" loading="lazy">
+  <div class="panel-text">
+    <p>蛋壳碰到锅沿的一瞬间——</p>
+    <p class="dialogue">"叮！"</p>
+    <p>一道金光从锅底炸了出来，差点把我吓得坐地上。</p>
+  </div>
+</div>
+
+<!-- f10 -->
+<div class="panel">
+  <img src="images/f10.jpg" alt="系统面板" loading="lazy">
+  <div class="panel-text">
+    <p>眼前凭空出现了一块半透明的蓝色面板。</p>
+    <div class="system">厨神系统 v1.0 已激活<br>宿主：朱江<br>等级：Lv.0 厨房杀手<br>当前能力：无</div>
+    <p class="thought">等等，"厨房杀手"是什么鬼等级？</p>
+  </div>
+</div>
+
+<!-- f11 -->
+<div class="panel">
+  <img src="images/f11.jpg" alt="小鲜登场" loading="lazy">
+  <div class="panel-text">
+    <p>一个拳头大小的白色厨师帽精灵从面板里飘了出来。</p>
+    <p class="xiaoxian">"哟，就你这厨艺，能触发我算你运气好。"</p>
+    <p>它叉着腰，帽檐歪到一边。</p>
+  </div>
+</div>
+
+<!-- f12 -->
+<div class="panel">
+  <img src="images/f12.jpg" alt="朱江戳小鲜" loading="lazy">
+  <div class="panel-text">
+    <p>我试着戳了它一下——手指穿过了它的身体。</p>
+    <p class="xiaoxian">"别动手动脚的！"</p>
+    <p>它炸毛了。</p>
+    <p class="dialogue">"行了行了，你谁啊？我是不是加班加出幻觉了？"</p>
+  </div>
+</div>
+
+<!-- f13 -->
+<div class="panel">
+  <img src="images/f13.jpg" alt="任务面板" loading="lazy">
+  <div class="panel-text">
+    <p>小鲜噼里啪啦解释了一通。简单来说：做菜，做好菜，就能解锁现实中的超能力。</p>
+    <div class="system">新手任务：完成一份"完美蛋炒饭"<br>要求：米粒分明 · 蛋香四溢 · 火候精准<br>奖励：解锁现实能力×1<br>失败惩罚：无（新手保护期）</div>
+    <p class="thought">听起来像网文设定，但这面板该死的真实。</p>
+  </div>
+</div>
+
+<div class="scene-divider">修 炼</div>
+
+<!-- f14 -->
+<div class="panel">
+  <img src="images/f14.jpg" alt="第一次尝试" loading="lazy">
+  <div class="panel-text">
+    <p>好，蛋炒饭嘛，多简单。我挽起袖子，系上那条从没用过的围裙。</p>
+    <p class="xiaoxian">小鲜在旁边飘着，一脸"我倒要看看你能作出什么花样"。</p>
+  </div>
+</div>
+
+<!-- f15 -->
+<div class="panel">
+  <img src="images/f15.jpg" alt="失败1-焦了" loading="lazy">
+  <div class="panel-text">
+    <p>第一次——焦了。整锅饭变成了黑炭。</p>
+    <p class="xiaoxian">"这不是蛋炒饭，这是蛋葬饭。"</p>
+  </div>
+</div>
+
+<!-- f16 -->
+<div class="panel">
+  <img src="images/f16.jpg" alt="失败2-太咸" loading="lazy">
+  <div class="panel-text">
+    <p>第二次——一不留神盐放多了。一口下去我的表情大概能申请表情包专利。</p>
+    <p class="xiaoxian">"咸到能腌咸鱼，而且是那种没人想吃的咸鱼。"</p>
+  </div>
+</div>
+
+<!-- f17 -->
+<div class="panel">
+  <img src="images/f17.jpg" alt="失败3-飞蛋" loading="lazy">
+  <div class="panel-text">
+    <p>第三次——我模仿大厨颠锅。鸡蛋确实飞起来了……然后贴在了天花板上。</p>
+    <p class="xiaoxian">小鲜笑到在空中翻了个跟头。</p>
+  </div>
+</div>
+
+<!-- f18 -->
+<div class="panel">
+  <img src="images/f18.jpg" alt="失败4-浓烟" loading="lazy">
+  <div class="panel-text">
+    <p>第四次不说了。消防队差点来。</p>
+    <p>隔壁老王敲我门问是不是着火了，我说没有，在做饭。他的表情比林总拒绝我时还难看。</p>
+  </div>
+</div>
+
+<!-- f19 -->
+<div class="panel">
+  <img src="images/f19.jpg" alt="坐在地上" loading="lazy">
+  <div class="panel-text">
+    <p>第五次也失败了。我坐在地上，盯着天花板上那个还没铲下来的煎蛋印子。</p>
+    <p class="xiaoxian">"要不……放弃？"小鲜小声说。</p>
+  </div>
+</div>
+
+<div class="scene-divider">顿 悟</div>
+
+<!-- f20 -->
+<div class="panel">
+  <img src="images/f20.jpg" alt="灵光一闪" loading="lazy">
+  <div class="panel-text">
+    <p>放弃？我朱江要是会放弃，就不会创业第三次了。</p>
+    <p class="thought">等等——我突然想到了什么。我是程序员出身啊！</p>
+  </div>
+</div>
+
+<!-- f21 -->
+<div class="panel">
+  <img src="images/f21.jpg" alt="编程分析" loading="lazy">
+  <div class="panel-text">
+    <p>如果把炒饭当成一个程序——</p>
+    <div class="system">oil_temp = 180°C // 温度是变量<br>egg_time = 15s // 时间是循环<br>rice_moisture = 0.3 // 水分是参数<br>stir_freq = 2/s // 调味是调优</div>
+    <p class="thought">我之前不是在"炒饭"，我是在"暴力调试"！</p>
+  </div>
+</div>
+
+<!-- f22 -->
+<div class="panel">
+  <img src="images/f22.jpg" alt="科学家姿态" loading="lazy">
+  <div class="panel-text">
+    <p>第六次。这次，我先把所有参数定义好。</p>
+    <p>油温180度预热，鸡蛋搅拌15秒均匀，米饭提前松散——每个步骤都是一次函数调用。</p>
+  </div>
+</div>
+
+<!-- f23 -->
+<div class="panel">
+  <img src="images/f23.jpg" alt="打蛋" loading="lazy">
+  <div class="panel-text">
+    <p>蛋液入碗，金黄色在白瓷碗里旋开。</p>
+    <p class="xiaoxian">小鲜吞了吞口水："你该不会真的……"</p>
+  </div>
+</div>
+
+<!-- f24 -->
+<div class="panel">
+  <img src="images/f24.jpg" alt="下锅" loading="lazy">
+  <div class="panel-text">
+    <p>蛋液入锅的一瞬间，<span class="dialogue">"滋啦——"</span></p>
+    <p>蛋花在热油中炸开，蓬松金黄，完美。</p>
+    <p class="thought">"温度精准，bug修复。"</p>
+  </div>
+</div>
+
+<!-- f25 -->
+<div class="panel">
+  <img src="images/f25.jpg" alt="翻炒" loading="lazy">
+  <div class="panel-text">
+    <p>饭粒在锅中跳舞，每一粒都裹着薄薄的蛋衣。</p>
+    <p class="thought">火候从大火切中火的时机精确到秒——循环次数优化完毕。</p>
+  </div>
+</div>
+
+<div class="scene-divider">完 美</div>
+
+<!-- f26 -->
+<div class="panel">
+  <img src="images/f26.jpg" alt="完美蛋炒饭" loading="lazy">
+  <div class="panel-text">
+    <p>出锅。</p>
+    <p>金黄的蛋炒饭，米粒分明，蛋香扑鼻。</p>
+    <p class="thought">这不是一盘炒饭，这是我人生第一次"编译成功"的作品。</p>
+  </div>
+</div>
+
+<!-- f27 -->
+<div class="panel">
+  <img src="images/f27.jpg" alt="系统判定" loading="lazy">
+  <div class="panel-text">
+    <div class="system">✦ PERFECT ✦<br>完美蛋炒饭<br>评分：98/100<br>米粒分明 ✓ 蛋香四溢 ✓ 火候精准 ✓<br>正在解锁奖励……</div>
+    <p>我的手在抖，但不是因为害怕。</p>
+  </div>
+</div>
+
+<!-- f28 -->
+<div class="panel">
+  <img src="images/f28.jpg" alt="能力解锁" loading="lazy">
+  <div class="panel-text">
+    <p>一股暖流从胃部扩散到全身。</p>
+    <div class="system">解锁能力：说服力 Lv.1<br>效果：说话时自带一种让人想听下去的磁性</div>
+  </div>
+</div>
+
+<!-- f29 -->
+<div class="panel">
+  <img src="images/f29.jpg" alt="面板更新" loading="lazy">
+  <div class="panel-text">
+    <div class="system">宿主：朱江<br>等级：Lv.1 入门厨师<br>能力：说服力 Lv.1<br>系统评语：不错，从"厨房杀手"毕业了</div>
+    <p class="thought">……这系统是认真的吗？</p>
+  </div>
+</div>
+
+<div class="scene-divider">验 证</div>
+
+<!-- f30 -->
+<div class="panel">
+  <img src="images/f30.jpg" alt="便利店" loading="lazy">
+  <div class="panel-text">
+    <p>出门测试。楼下便利店，我随口和店员说：</p>
+    <p class="dialogue">"姐，今天茶叶蛋看着特别香啊。"</p>
+    <p>话刚出口，我自己都愣了——声音里带着一种莫名的感染力。</p>
+  </div>
+</div>
+
+<!-- f31 -->
+<div class="panel">
+  <img src="images/f31.jpg" alt="多得一个蛋" loading="lazy">
+  <div class="panel-text">
+    <p class="dialogue">"小哥你真会说话！多给你一个！"</p>
+    <p>她居然笑着多塞给我一个茶叶蛋。</p>
+    <p>我走出便利店，看着手里两个茶叶蛋，陷入了沉思。</p>
+  </div>
+</div>
+
+<div class="scene-divider">决 意</div>
+
+<!-- f32 -->
+<div class="panel">
+  <img src="images/f32.jpg" alt="望向CBD" loading="lazy">
+  <div class="panel-text">
+    <p>站在街头，我看向远处48楼的灯光。</p>
+    <p class="thought">林总，你今天说"下一个"的时候，大概没想到……下一次见面，局面会完全不一样。</p>
+  </div>
+</div>
+
+<!-- f33 DECISION POINT -->
+<div class="panel">
+  <img src="images/f33.jpg" alt="决策点" loading="lazy">
+  <div class="panel-text">
+    <p><strong>[DECISION-1]</strong> 怎么用这个新能力？</p>
+    <div class="decision-block">
+      <h3>⚡ 关键抉择</h3>
+      <div class="decision-option">
+        <span class="letter">A</span>
+        <span class="desc">直接找林总，用说服力翻盘</span>
+      </div>
+      <div class="decision-option">
+        <span class="letter">B</span>
+        <span class="desc">先做更多菜提升等级，稳扎稳打</span>
+      </div>
+      <div class="decision-option">
+        <span class="letter">C</span>
+        <span class="desc">找其他投资人，另辟蹊径</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- f34 -->
+<div class="panel">
+  <img src="images/f34.jpg" alt="选择A" loading="lazy">
+  <div class="panel-text">
+    <p>算了，我什么时候走过"稳扎稳打"这条路？</p>
+    <p class="dialogue">"明天，直接去找林总。"</p>
+    <p>说服力只有Lv.1又怎样——我朱江从来都是霹雳手段。</p>
+    <p class="xiaoxian">小鲜在耳边叹气："就知道你会选最莽的那个。"</p>
+  </div>
+</div>
+
+<!-- f35 -->
+<div class="panel">
+  <img src="images/f35.jpg" alt="系统警告" loading="lazy">
+  <div class="panel-text">
+    <p>突然，系统弹出一条红色警告——</p>
+    <div class="warning">⚠ S级任务触发条件检测中……<br>目标人物：林总<br>检测结果：味觉记忆中存在一道改变人生的菜<br>任务详情：？？？（需接近目标后解锁）</div>
+    <p>我愣住了。林总？美食？这里面有什么故事？</p>
+  </div>
+</div>
+
+<div class="end-block">
+  <div class="tbc">— 未完待续 —</div>
+  <div class="next">第二章：林总的味觉记忆</div>
+</div>
+
+</div><!-- container -->
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.panel').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
