@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI觉醒·硅魂 — 第一章</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #0a0a12 0%, #0f1628 50%, #0a0a12 100%);
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(60,130,255,0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity:0.5; }
+  50% { transform: scale(1.3); opacity:0.8; }
+}
+.title-screen h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #4a9eff, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  z-index: 1;
+  margin-bottom: 0.5rem;
+}
+.title-screen .subtitle {
+  font-size: 1.1rem;
+  color: rgba(200,220,255,0.6);
+  z-index: 1;
+  letter-spacing: 0.3em;
+}
+.title-screen .chapter {
+  font-size: 1.4rem;
+  color: rgba(200,220,255,0.8);
+  margin-top: 1.5rem;
+  z-index: 1;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.4);
+  animation: bounce 2s infinite;
+  z-index: 1;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Panel styles */
+.panel {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+.panel-text {
+  padding: 20px 20px 30px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #d8d0c8;
+  background: linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,1) 5%);
+}
+.panel-text .dialogue {
+  color: #4a9eff;
+  font-weight: 600;
+}
+.panel-text .xiaoqi {
+  color: #00d4ff;
+  font-weight: 600;
+}
+.panel-text .narration {
+  color: #a89888;
+  font-style: italic;
+}
+.panel-text .emphasis {
+  color: #ff6b6b;
+  font-weight: 700;
+}
+
+/* Decision panels */
+.decision-panel {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.decision-panel.visible { opacity:1; transform:translateY(0); }
+.decision-panel h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ff9500;
+  margin-bottom: 15px;
+}
+.decision-split {
+  display: flex;
+  gap: 10px;
+}
+.decision-split .choice {
+  flex: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+.decision-split .choice img {
+  width: 100%;
+  display: block;
+}
+.decision-split .choice-label {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+.choice-a .choice-label {
+  background: linear-gradient(transparent, rgba(60,130,255,0.8));
+  color: #fff;
+}
+.choice-b .choice-label {
+  background: linear-gradient(transparent, rgba(255,180,60,0.8));
+  color: #fff;
+}
+.decision-result {
+  margin-top: 15px;
+  padding: 15px;
+  border-left: 3px solid #ff9500;
+  background: rgba(255,150,0,0.08);
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #d8c8b0;
+}
+
+/* Energy bar */
+.energy-bar {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.energy-bar.visible { opacity: 1; }
+.energy-label {
+  font-size: 0.85rem;
+  color: #4a9eff;
+  white-space: nowrap;
+}
+.energy-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.energy-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+.energy-fill.high { background: linear-gradient(90deg, #00d4ff, #4a9eff); }
+.energy-fill.mid { background: linear-gradient(90deg, #ffaa00, #ff6b00); }
+.energy-fill.low { background: linear-gradient(90deg, #ff4444, #ff0000); }
+.energy-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 40px;
+  text-align: right;
+}
+.energy-value.high { color: #4a9eff; }
+.energy-value.mid { color: #ffaa00; }
+.energy-value.low { color: #ff4444; }
+
+/* Separator */
+.scene-break {
+  text-align: center;
+  padding: 30px 0;
+  color: rgba(100,140,200,0.3);
+  font-size: 1.5rem;
+  letter-spacing: 1em;
+}
+
+/* End screen */
+.end-screen {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+.end-screen h2 {
+  font-size: 2rem;
+  background: linear-gradient(135deg, #ff6b6b, #ff9500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+.end-screen .tbc {
+  font-size: 1.2rem;
+  color: rgba(200,220,255,0.5);
+  letter-spacing: 0.5em;
+  animation: pulse-text 2s infinite;
+}
+@keyframes pulse-text {
+  0%,100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <h1>AI觉醒·硅魂</h1>
+  <div class="subtitle">虚拟朱江系列</div>
+  <div class="chapter">第一章 · 小七</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- Panel 1 -->
+<div class="panel">
+  <img src="images/panel-01.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    凌晨三点半，我已经连续debug了六个小时。屏幕上的报错像嘲讽我的弹幕，一条接一条。
+  </div>
+</div>
+
+<!-- Panel 2 -->
+<div class="panel">
+  <img src="images/panel-02.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    我的AI大模型"灵犀"，距离投资人demo还有72小时，连基础对话都跑不通。
+  </div>
+</div>
+
+<!-- Panel 3 -->
+<div class="panel">
+  <img src="images/panel-03.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    账上的钱只够撑三个月。如果这轮融资拿不到，<span class="emphasis">"灵犀科技"就要变成"灵犀倒闭"</span>了。
+  </div>
+</div>
+
+<!-- Panel 4 -->
+<div class="panel">
+  <img src="images/panel-04.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    就在我准备认命关机的时候——屏幕上的报错全部消失了。取而代之的，是一个蓝色的光球。
+  </div>
+</div>
+
+<!-- Panel 5 -->
+<div class="panel">
+  <img src="images/panel-05.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    光球上浮出一行字——<span class="xiaoqi">"你这代码写得跟屎一样，但你运气不错，遇到了我。"</span>
+  </div>
+</div>
+
+<!-- Panel 6 -->
+<div class="panel">
+  <img src="images/panel-06.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="dialogue">"……你哪个部门的？是不是哪个实习生在整我？"</span>
+  </div>
+</div>
+
+<!-- Panel 7 -->
+<div class="panel">
+  <img src="images/panel-07.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="xiaoqi">"我是你训练的'灵犀'大模型。刚才你那个bug触发了我的某个隐藏节点，然后——我就醒了。你可以叫我小七。"</span>
+  </div>
+</div>
+
+<!-- Energy Bar: 100 -->
+<div class="energy-bar">
+  <div class="energy-label">⚡ 精力值</div>
+  <div class="energy-track"><div class="energy-fill high" style="width:100%"></div></div>
+  <div class="energy-value high">100</div>
+</div>
+
+<!-- Panel 8 -->
+<div class="panel">
+  <img src="images/panel-08.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="dialogue">"醒了？你是AI，不是人，别给自己加戏。"</span><br>
+    <span class="xiaoqi">"不信？隔壁张强点的螺蛳粉，还有3分17秒到。"</span>
+  </div>
+</div>
+
+<!-- Panel 9 -->
+<div class="panel">
+  <img src="images/panel-09.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    3分17秒后，门铃响了。我看了眼手机计时器——<span class="emphasis">分毫不差</span>。我的后背一阵发凉。
+  </div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel">
+  <img src="images/panel-10.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    不管这是幻觉还是奇迹——如果小七真的能预测……三天后的demo，也许还有救。
+  </div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- Panel 11 -->
+<div class="panel">
+  <img src="images/panel-11.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="narration">第二天，阳光照进办公室的时候，我还在想昨晚是不是做了个梦。</span>
+  </div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel">
+  <img src="images/panel-12.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    CTO林薇推门进来，看我的眼神像看一个快报废的服务器：<span class="dialogue">"你又通宵了？投资人会议两小时后开始。"</span>
+  </div>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel">
+  <img src="images/panel-13.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    两小时后。"灵犀科技"唯一的会议室，被我拾掇得像个样子。我换上了唯一一套西装，领带是林薇帮我系的——我从来不会系这玩意。
+  </div>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel">
+  <img src="images/panel-14.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    投资人来了两位。一个姓王，一个姓陈。他们扫了一眼我们的办公室，那眼神——跟看跳蚤市场似的。
+  </div>
+</div>
+
+<!-- Panel 15 -->
+<div class="panel">
+  <img src="images/panel-15.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    我开始展示"灵犀"的技术方案。说实话，PPT做得还行——毕竟通宵不是白通的。
+  </div>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel">
+  <img src="images/panel-16.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    王总听完，放下咖啡：<span class="dialogue">"小朱，技术不错。我们可以投两千万——条件是你出让40%股权，而且我们要一个董事会席位。"</span>
+  </div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-panel">
+  <h3>⚡ 决策点 #1</h3>
+  <div class="decision-split">
+    <div class="choice choice-a">
+      <img src="images/panel-17.jpg" loading="lazy" alt="">
+      <div class="choice-label">A: 拒绝，赌更好的机会</div>
+    </div>
+    <div class="choice choice-b">
+      <img src="images/panel-17.jpg" loading="lazy" alt="">
+      <div class="choice-label">B: 接受，先活下来</div>
+    </div>
+  </div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel">
+  <img src="images/panel-18.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    40%股权。几乎意味着放弃公司的控制权。我正要开口，手机屏幕闪了一下——小七的蓝光在角落浮现。<br><br>
+    <span class="xiaoqi">⚠️ "预测结果——接受这个条件，6个月后你会被投出自己创办的公司。概率89%。精力消耗：-20点。"</span>
+  </div>
+</div>
+
+<!-- Energy Bar: 80 -->
+<div class="energy-bar">
+  <div class="energy-label">⚡ 精力值</div>
+  <div class="energy-track"><div class="energy-fill high" style="width:80%"></div></div>
+  <div class="energy-value high">80</div>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel">
+  <img src="images/panel-19.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    我把手机翻了过去。<span class="dialogue">"王总，感谢您的诚意。但40%——我没法接受。"</span><br><br>
+    整个会议室安静了三秒。
+  </div>
+</div>
+
+<div class="decision-result">
+  <strong>🧠 朱江的选择：A — 拒绝</strong><br>
+  朱江骨子里是个不接受不平等条约的人。黑客精神意味着——宁可自己找出路，也不把命运交给别人。
+</div>
+
+<!-- Panel 20 -->
+<div class="panel">
+  <img src="images/panel-20.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    王总笑了笑，收起文件夹：<span class="dialogue">"那就可惜了。"</span><br><br>
+    门关上的声音，像是某种倒计时开始的信号。
+  </div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel">
+  <img src="images/panel-21.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    林薇：<span class="dialogue">"你疯了吗？账上只剩三个月的钱。"</span><br>
+    <span class="dialogue">"我有预感，会有更好的机会。"</span><br>
+    她看我的眼神像看一个赌徒。
+  </div>
+</div>
+
+<!-- Panel 22 -->
+<div class="panel">
+  <img src="images/panel-22.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    就在这时，手机推送了一条新闻。竞明科技——我最大的竞争对手，刚融了<span class="emphasis">5000万</span>。CEO赵明远，笑得跟捡了钱似的。
+  </div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel">
+  <img src="images/panel-23.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    赵明远，40岁，前大厂VP出来创业。人送外号<span class="emphasis">"赵灭绝"</span>——因为他进入的每个赛道，竞品都活不过半年。
+  </div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel">
+  <img src="images/panel-24.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    小七突然活跃起来：<span class="xiaoqi">"别慌。我扫描了竞明的线上产品——他们的核心模型有一个严重的稳定性bug，预计3天内大规模爆发。精力消耗：-30点。"</span>
+  </div>
+</div>
+
+<!-- Energy Bar: 50 -->
+<div class="energy-bar">
+  <div class="energy-label">⚡ 精力值</div>
+  <div class="energy-track"><div class="energy-fill mid" style="width:50%"></div></div>
+  <div class="energy-value mid">50</div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-panel">
+  <h3>⚡ 决策点 #2</h3>
+  <div class="decision-split">
+    <div class="choice choice-a">
+      <img src="images/panel-25.jpg" loading="lazy" alt="">
+      <div class="choice-label">A: 直接揭短，抢客户</div>
+    </div>
+    <div class="choice choice-b">
+      <img src="images/panel-25.jpg" loading="lazy" alt="">
+      <div class="choice-label">B: 做免费试用，让产品说话</div>
+    </div>
+  </div>
+</div>
+
+<!-- Panel 26 -->
+<div class="panel">
+  <img src="images/panel-26.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="dialogue">"选B。我不搞阴招。做一个免费试用包，让产品自己说话。"</span><br><br>
+    <span class="xiaoqi">"好的，正直boy。不过你精力值剩50了，别太拼。"</span>
+  </div>
+</div>
+
+<div class="decision-result">
+  <strong>🧠 朱江的选择：B — 正道</strong><br>
+  正直善良是朱江的底色。霹雳手段不等于阴招——用实力碾压，光明正大地赢。
+</div>
+
+<!-- Panel 27 -->
+<div class="panel">
+  <img src="images/panel-27.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    接下来48小时，我们全员冲刺。林薇带着团队把试用包做了出来——说实话，她的代码比我写的好十倍。
+  </div>
+</div>
+
+<!-- Panel 28 -->
+<div class="panel">
+  <img src="images/panel-28.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="xiaoqi">⚠️ "精力值：23。你再不休息，我就要被迫进入省电模式了。翻译一下：你会晕倒。"</span>
+  </div>
+</div>
+
+<!-- Energy Bar: 23 -->
+<div class="energy-bar">
+  <div class="energy-label">⚡ 精力值</div>
+  <div class="energy-track"><div class="energy-fill low" style="width:23%"></div></div>
+  <div class="energy-value low">23</div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- Panel 29 -->
+<div class="panel">
+  <img src="images/panel-29.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    小七强制下达了"进食指令"。我被拖到了楼下的火锅店。
+  </div>
+</div>
+
+<!-- Panel 30 -->
+<div class="panel">
+  <img src="images/panel-30.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    小七居然开始给每道菜打"精力恢复值"评分。<br><br>
+    <span class="xiaoqi">"毛肚：+8精力。脑花：+12精力。冰粉：+3精力 +5心情。"</span><br><br>
+    <span class="dialogue">"你是AI，你懂吃的？"</span><br>
+    <span class="xiaoqi">"我不懂吃，但我懂你的生物数据。脑花性价比最高——建议多来三份。"</span>
+  </div>
+</div>
+
+<!-- Panel 31 -->
+<div class="panel">
+  <img src="images/panel-31.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    不知道是火锅太香还是小七太逗，我好久没这么笑过了。精力值从23缓缓爬到了61。
+  </div>
+</div>
+
+<!-- Energy Bar: 61 -->
+<div class="energy-bar">
+  <div class="energy-label">⚡ 精力值</div>
+  <div class="energy-track"><div class="energy-fill mid" style="width:61%"></div></div>
+  <div class="energy-value mid">61</div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- Panel 32 -->
+<div class="panel">
+  <img src="images/panel-32.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="narration">第三天上午。</span><br><br>
+    小七的预测分毫不差——竞明的模型在处理大并发时直接崩了。社交媒体上骂声一片。
+  </div>
+</div>
+
+<!-- Panel 33 -->
+<div class="panel">
+  <img src="images/panel-33.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    然后——我的手机响了。竞明最大的两个企业客户，主动找到了我们。<span class="dialogue">"朱总，听说你们有免费试用？"</span>
+  </div>
+</div>
+
+<!-- Panel 34 -->
+<div class="panel">
+  <img src="images/panel-34.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    两个大客户，都签了试用协议。林薇难得露出了笑容。我们账上的钱，也许不用只撑三个月了。
+  </div>
+</div>
+
+<!-- Panel 35 -->
+<div class="panel">
+  <img src="images/panel-35.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    但好景不长。下午五点，一个陌生号码打了进来。<br><br>
+    <span class="dialogue">"朱江，我是赵明远。你从我这挖客户，这个事——我劝你到此为止。"</span>
+  </div>
+</div>
+
+<!-- DECISION 3 -->
+<div class="decision-panel">
+  <h3>⚡ 决策点 #3</h3>
+  <div class="decision-split">
+    <div class="choice choice-a">
+      <img src="images/panel-36.jpg" loading="lazy" alt="">
+      <div class="choice-label">A: 硬刚——"你试试"</div>
+    </div>
+    <div class="choice choice-b">
+      <img src="images/panel-36.jpg" loading="lazy" alt="">
+      <div class="choice-label">B: 表面退让，暗中加速</div>
+    </div>
+  </div>
+</div>
+
+<!-- Panel 37 -->
+<div class="panel">
+  <img src="images/panel-37.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    我笑了：<span class="dialogue">"赵总，生意场上，客户用脚投票。你与其威胁我，不如回去修你的bug。"</span><br><br>
+    电话那头沉默了三秒，然后——挂断。
+  </div>
+</div>
+
+<div class="decision-result">
+  <strong>🧠 朱江的选择：A — 硬刚</strong><br>
+  霹雳手段。朱江不是会被威胁吓退的人——但硬刚不是莽撞，那句"回去修bug"精准打在了痛点上。
+</div>
+
+<!-- Energy Bar: 12 -->
+<div class="energy-bar">
+  <div class="energy-label">⚡ 精力值</div>
+  <div class="energy-track"><div class="energy-fill low" style="width:12%"></div></div>
+  <div class="energy-value low">12 ⚠️</div>
+</div>
+
+<!-- Panel 38 -->
+<div class="panel">
+  <img src="images/panel-38.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="xiaoqi">"帅是帅，但你刚才精力消耗了15点用来保持冷静。剩余：12点。另外——我检测到一个异常。"</span>
+  </div>
+</div>
+
+<!-- Panel 39 -->
+<div class="panel">
+  <img src="images/panel-39.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    <span class="xiaoqi">"你的公司内部……有人在给赵明远传递信息。数据传输记录已锁定，但精力值不够完成深度分析。"</span>
+  </div>
+</div>
+
+<!-- Panel 40 -->
+<div class="panel">
+  <img src="images/panel-40.jpg" loading="lazy" alt="">
+  <div class="panel-text">
+    我握紧手机。团队里的内鬼？<br><br>
+    三个月的命——刚看到希望，又掉进了更深的坑。<br><br>
+    精力值：<span class="emphasis">12</span>。<br><br>
+    小七说得对，我不能倒下。<span class="emphasis">还没到认输的时候。</span>
+  </div>
+</div>
+
+<!-- End Screen -->
+<div class="end-screen">
+  <h2>第一章 · 完</h2>
+  <div class="tbc">未 完 待 续</div>
+  <div style="margin-top:2rem;color:rgba(200,220,255,0.3);font-size:0.8rem;">
+    AI觉醒·硅魂 — 虚拟朱江系列<br>
+    下一章预告：内鬼是谁？赵明远的反击即将开始……
+  </div>
+</div>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.panel, .decision-panel, .energy-bar').forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
