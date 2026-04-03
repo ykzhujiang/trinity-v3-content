@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重启日 · 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.story{max-width:480px;margin:0 auto;padding:0 0 60px}
+.panel{position:relative;width:100%;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;margin-bottom:2px}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.text-block{padding:16px 20px;font-size:19px;line-height:1.75;letter-spacing:0.02em}
+.narration{color:#c8c8d0;font-style:italic;padding:14px 20px;font-size:17px;line-height:1.7;border-left:3px solid #3a5a8a;margin:8px 20px;background:rgba(58,90,138,0.08)}
+.dialogue{padding:14px 20px;font-size:20px;line-height:1.7;margin:4px 16px;border-radius:12px}
+.dialogue.zj{background:rgba(70,130,180,0.12);border-left:3px solid #4682b4}
+.dialogue.other{background:rgba(180,130,70,0.12);border-left:3px solid #b4824a}
+.dialogue .speaker{font-size:13px;color:#888;margin-bottom:4px;font-weight:600;letter-spacing:0.05em}
+.system-ui{background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);border-radius:8px;margin:8px 16px;padding:14px 18px;font-family:'Courier New',monospace;font-size:15px;color:#00ff88;line-height:1.6}
+.system-ui .label{font-size:12px;color:#00ff8866;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
+.chapter-title{text-align:center;padding:50px 20px 30px;font-size:28px;font-weight:700;color:#fff;letter-spacing:0.05em;text-shadow:0 0 30px rgba(70,130,180,0.4)}
+.chapter-title .sub{font-size:15px;color:#6a8ab0;margin-top:8px;font-weight:400}
+.beat-divider{text-align:center;padding:24px 0;color:#4a4a5a;font-size:13px;letter-spacing:0.3em}
+.code-block{background:#0d1117;border:1px solid #1a2332;border-radius:8px;margin:8px 16px;padding:14px 18px;font-family:'Courier New',monospace;font-size:14px;color:#7ee787;line-height:1.7;overflow-x:auto}
+.decision-box{background:linear-gradient(135deg,rgba(255,170,0,0.08),rgba(255,100,0,0.08));border:1px solid rgba(255,170,0,0.25);border-radius:12px;margin:12px 16px;padding:20px;text-align:center}
+.decision-box h3{color:#ffaa00;font-size:16px;margin-bottom:12px;letter-spacing:0.1em}
+.decision-box .choice{color:#ffcc66;font-size:18px;line-height:1.6;font-weight:600}
+.cliffhanger{background:linear-gradient(180deg,transparent,rgba(0,100,200,0.1));padding:30px 20px;text-align:center}
+.cliffhanger .hook{font-size:20px;color:#7ab8e0;line-height:1.8;font-weight:500}
+.cliffhanger .next{margin-top:16px;font-size:14px;color:#4a6a8a;letter-spacing:0.1em}
+.loop-indicator{text-align:center;padding:8px;font-size:12px;color:#4a6a8a;letter-spacing:0.15em;border-top:1px solid #1a1a2a}
+.energy-bar{display:inline-block;background:rgba(0,0,0,0.4);border:1px solid rgba(0,255,136,0.2);border-radius:4px;padding:2px 8px;font-family:'Courier New',monospace;font-size:13px;color:#00ff88}
+.montage-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:0 0 2px}
+.montage-grid .panel{margin-bottom:0}
+@keyframes glitch{0%,100%{opacity:1}50%{opacity:0.7;transform:translateX(2px)}}
+.glitch-text{animation:glitch 0.3s ease infinite}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="story">
+
+<div class="chapter-title panel">
+  <div>重启日</div>
+  <div class="sub">第一章 · 死循环</div>
+</div>
+
+<!-- Beat 1: 闹钟7:00 -->
+<div class="loop-indicator panel">━━ LOOP 1 ━━</div>
+
+<div class="panel"><img src="p01-wake-up.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">闹钟在7:00准时炸开。我伸手摸到手机，眯着眼看了一眼——4月15日。路演日。</div>
+
+<div class="panel"><img src="p02-mirror.jpg" loading="lazy" alt=""></div>
+<div class="system-ui panel">
+  <div class="label">小七提醒</div>
+  检测到眼部水肿指数超标，建议贴两片黄瓜 🥒
+</div>
+<div class="narration panel">镜子里的人黑眼圈重得像画了烟熏妆。昨晚改PPT改到三点，今天就是A轮路演，赌上全部身家的那种。</div>
+
+<div class="panel"><img src="p03-suit-up.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">深蓝西装，白衬衫，领口扣到最上面一颗。今天得让自己看起来像个值得投两千万的人。</div>
+
+<!-- Beat 2: 前台小王的咖啡 -->
+<div class="beat-divider panel">· · ·</div>
+
+<div class="panel"><img src="p04-lobby.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">踏进公司大堂的那一刻，我看到前台小王端着咖啡转身——</div>
+
+<div class="panel"><img src="p05-coffee-spill.jpg" loading="lazy" alt=""></div>
+<div class="dialogue other panel">
+  <div class="speaker">小王</div>
+  朱总对不起对不起！！我我我...
+</div>
+
+<div class="panel"><img src="p06-reaction.jpg" loading="lazy" alt=""></div>
+<div class="dialogue zj panel">
+  <div class="speaker">我</div>
+  没事，去换件衣服。
+</div>
+<div class="system-ui panel">
+  <div class="label">精力值</div>
+  92/100 → 84/100 <span style="color:#ff6666">(-8)</span>
+</div>
+
+<!-- Beat 3: 陈明的电话 -->
+<div class="beat-divider panel">· · ·</div>
+
+<div class="panel"><img src="p07-phone-call.jpg" loading="lazy" alt=""></div>
+<div class="dialogue other panel">
+  <div class="speaker">陈明</div>
+  老朱，PPT第12页那个数据改了没？
+</div>
+<div class="dialogue zj panel">
+  <div class="speaker">我</div>
+  改了改了。
+</div>
+<div class="narration panel">没改。完全忘了。</div>
+
+<div class="panel"><img src="p08-ppt-rush.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">9:47。离路演还有13分钟。我的手指在键盘上飞，改第12页的数据。冷汗从额头滑下来。</div>
+
+<!-- Beat 4: 路演 -->
+<div class="beat-divider panel">· · ·</div>
+
+<div class="panel"><img src="p09-meeting-room.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">会议室。赵姐坐在对面——短发，灰色职业装，一张能让温度降三度的扑克脸。</div>
+
+<div class="panel"><img src="p10-presenting.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">前8页很顺利。数据漂亮，增长曲线性感，我甚至开始觉得今天运气不错——</div>
+
+<div class="panel"><img src="p11-zhao-interrupts.jpg" loading="lazy" alt=""></div>
+<div class="dialogue other panel">
+  <div class="speaker">赵姐</div>
+  数据很好。但我有一个问题。
+</div>
+
+<div class="panel"><img src="p12-the-question.jpg" loading="lazy" alt=""></div>
+<div class="dialogue other panel">
+  <div class="speaker">赵姐</div>
+  你……真正想做什么？
+</div>
+
+<div class="panel"><img src="p13-silence.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">五秒。十秒。准备好的商业话术全涌到嘴边，但一个字都说不出口。</div>
+<div class="narration panel">路演失败。</div>
+
+<!-- Beat 5: 失败回家 -->
+<div class="beat-divider panel">· · ·</div>
+
+<div class="panel"><img src="p14-home-defeated.jpg" loading="lazy" alt=""></div>
+<div class="system-ui panel">
+  <div class="label">精力值</div>
+  23/100 <span style="color:#ff4444">■■□□□□□□□□</span>
+</div>
+
+<div class="panel"><img src="p15-xiaoqi-message.jpg" loading="lazy" alt=""></div>
+<div class="system-ui panel">
+  <div class="label">小七 · 今日复盘</div>
+  路演失败。原因：关键问题卡壳。建议：明天准备答案。
+</div>
+<div class="dialogue zj panel">
+  <div class="speaker">我</div>
+  明天再说吧。
+</div>
+<div class="narration panel">闭眼。意识沉入黑暗。</div>
+
+<!-- Beat 6: 闹钟7:00...又来了 -->
+<div class="loop-indicator panel">━━ LOOP 2 ━━</div>
+
+<div class="panel"><img src="p16-alarm-again.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">闹钟。7:00。</div>
+<div class="narration panel">我看了一眼日期——</div>
+<div class="text-block panel" style="font-size:24px;text-align:center;color:#ffaa00;font-weight:700">4月15日。</div>
+<div class="narration panel">……什么？</div>
+
+<div class="panel"><img src="p17-deja-vu.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">一模一样的早晨。一模一样的黑眼圈。一种强烈的既视感从脊椎爬上后脑勺。</div>
+
+<div class="panel"><img src="p18-coffee-spill-again.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">进公司。小王端着咖啡转身——洒在同一件西装的同一个位置。连飞溅的弧度都一模一样。</div>
+<div class="dialogue zj panel">
+  <div class="speaker">我</div>
+  ……这也太准了吧。
+</div>
+
+<div class="panel"><img src="p19-same-call.jpg" loading="lazy" alt=""></div>
+<div class="dialogue other panel">
+  <div class="speaker">陈明 · 9:47</div>
+  老朱，PPT第12页那个数据改了没？
+</div>
+<div class="narration panel">背脊发凉。逐字逐句，和昨天一模一样。</div>
+
+<div class="panel"><img src="p20-chill.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">路演。赵姐。同一个位置。同一个表情。第8页——</div>
+<div class="dialogue other panel">
+  <div class="speaker">赵姐</div>
+  你真正想做什么？
+</div>
+<div class="narration panel">这次，我确信了。</div>
+<div class="text-block panel" style="text-align:center;color:#4682b4;font-size:22px;font-weight:600">时间在循环。</div>
+
+<!-- Beat 7: 确认循环 -->
+<div class="beat-divider panel">· · ·</div>
+
+<div class="panel"><img src="p21-zhao-same-question.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">恐惧只持续了三十秒。然后，程序员的本能觉醒了。</div>
+
+<div class="panel"><img src="p22-eureka.jpg" loading="lazy" alt=""></div>
+<div class="dialogue zj panel">
+  <div class="speaker">我（内心）</div>
+  如果人生是代码……这是个死循环。
+</div>
+
+<div class="panel"><img src="p23-code-thinking.jpg" loading="lazy" alt=""></div>
+<div class="code-block panel">
+while True:<br>
+&nbsp;&nbsp;live_same_day()<br>
+&nbsp;&nbsp;# TODO: find break condition<br>
+&nbsp;&nbsp;# 断点在哪？？？
+</div>
+
+<div class="panel"><img src="p24-debug-mindset.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">每一天都是一次测试。每一次选择都是一个变量。我要做的，就是找到那个能让循环break的条件。</div>
+
+<!-- Beat 8: Loop 3-4 蒙太奇 -->
+<div class="loop-indicator panel">━━ LOOP 3 ━━</div>
+
+<div class="panel"><img src="p25-montage-loop3-outfit.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">第三次循环。换了衣服——运动休闲风。换了开场白——讲段子暖场。</div>
+
+<div class="panel"><img src="p26-montage-loop3-fail.jpg" loading="lazy" alt=""></div>
+<div class="code-block panel">
+[Loop 3] 穿casual + 用段子开场<br>
+= FAIL @ page 8<br>
+= 赵姐：同一个问题，同一张扑克脸<br>
+<span style="color:#ff6666">// 服装和话术不是关键变量</span>
+</div>
+
+<div class="panel"><img src="p29-dodge-coffee.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">倒是小王的咖啡——第三次，我学会了侧身躲开。</div>
+
+<div class="loop-indicator panel">━━ LOOP 4 ━━</div>
+
+<div class="panel"><img src="p27-montage-loop4-sing.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">第四次循环。我在路演中间站上了会议桌，唱了一首《海阔天空》。纯粹是想测试极端情况。</div>
+
+<div class="panel"><img src="p28-zhao-frown.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">然后我看到了——赵姐的嘴角，微微向下撇了一下。和前三次的完美扑克脸不同。</div>
+<div class="code-block panel">
+[Loop 4] 唱歌 = <span style="color:#00ff88">赵姐皱眉 (NEW VARIABLE!)</span><br>
+<span style="color:#ffaa00">// 第一个变化！她的反应不是固定的！</span>
+</div>
+
+<div class="panel"><img src="p30-catch-coffee.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">而小王的咖啡——这次我直接伸手接住了杯子。她的表情简直像看到了超能力。</div>
+
+<!-- Beat 9: Loop 5 -->
+<div class="loop-indicator panel">━━ LOOP 5 ━━</div>
+
+<div class="panel"><img src="p31-analysis.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">第五次醒来。我没有急着出门。拿出笔记本，开始做系统分析。</div>
+
+<div class="panel"><img src="p32-debug-log.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">四次循环的数据摆在面前。所有变量中，只有一个断点始终不变——赵姐那个问题。不是PPT的问题。不是衣服的问题。不是开场白的问题。</div>
+
+<div class="panel"><img src="p33-xiaoqi-insight.jpg" loading="lazy" alt=""></div>
+<div class="system-ui panel">
+  <div class="label">小七 · 分析</div>
+  这个问题不是在测试你的商业计划。是在测试<b style="color:#fff">你</b>。
+</div>
+<div class="dialogue zj panel">
+  <div class="speaker">我</div>
+  测试我什么？
+</div>
+<div class="system-ui panel">
+  <div class="label">小七</div>
+  你自己。
+</div>
+
+<div class="panel"><img src="p34-contemplation.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">窗外的城市灯火通明。我端着杯茶，看着自己在玻璃上的倒影。四次循环，我换了衣服，换了话术，换了态度——唯独没换的，是我自己。</div>
+<div class="narration panel">问题要的不是对的答案。是真的答案。</div>
+
+<!-- Decision Point -->
+<div class="panel"><img src="p35-decision.jpg" loading="lazy" alt=""></div>
+
+<div class="decision-box panel">
+  <h3>⟐ DECISION POINT ⟐</h3>
+  <div style="font-size:16px;color:#c8a860;margin-bottom:12px">赵姐再次问"你真正想做什么"——</div>
+  <div class="choice">我选择说真心话。</div>
+</div>
+
+<!-- Beat 10: 悬念结尾 -->
+<div class="beat-divider panel">· · ·</div>
+
+<div class="panel"><img src="p36-honest-answer.jpg" loading="lazy" alt=""></div>
+<div class="dialogue zj panel">
+  <div class="speaker">我</div>
+  我想让AI不再是冷冰冰的工具。我想让它成为每个人身边……有温度的朋友。
+</div>
+<div class="narration panel">不是准备好的话术。不是市场数据。不是商业模型。就是这么一句听起来幼稚得要命的真心话。</div>
+
+<div class="panel"><img src="p37-zhao-shock.jpg" loading="lazy" alt=""></div>
+<div class="narration panel">赵姐的表情变了。不是扑克脸。不是皱眉。是——震惊。</div>
+<div class="narration panel">她的嘴唇微微动了一下，像是要说什么——</div>
+
+<div class="text-block panel" style="text-align:center;font-size:16px;color:#555;letter-spacing:0.3em;padding:30px 0 10px">然后——</div>
+
+<div class="panel"><img src="p38-alarm-701.jpg" loading="lazy" alt=""></div>
+<div class="text-block panel" style="text-align:center;font-size:28px;color:#ffcc00;font-weight:700;text-shadow:0 0 20px rgba(255,204,0,0.3)">7:01</div>
+<div class="narration panel">闹钟响了。但这次——多了一分钟。</div>
+
+<div class="panel"><img src="p39-smile.jpg" loading="lazy" alt=""></div>
+<div class="system-ui panel" style="border-color:rgba(255,170,0,0.3);color:#ffaa00">
+  <div class="label" style="color:#ffaa0066">精力值</div>
+  <span class="glitch-text">??</span>/100 <span style="color:#666">█ █ ░ █ ░ █ █ ░ ░ █</span>
+</div>
+<div class="narration panel">我看着手机屏幕上的7:01，嘴角不自觉地上扬。</div>
+<div class="dialogue zj panel">
+  <div class="speaker">我</div>
+  系统在变化。
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger panel">
+  <div class="hook">
+    多出的一分钟意味着什么？<br>
+    赵姐听到真心话后的反应是什么？<br>
+    如果循环的规则在变——<br>
+    <b>还有什么会变？</b>
+  </div>
+  <div class="next">▸ 重启日 · 第二章 · 即将更新</div>
+</div>
+
+</div>
+
+<script>
+// Intersection Observer for scroll-triggered animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.panel').forEach(el => observer.observe(el));
+
+// Preload first 5 images
+document.querySelectorAll('img').forEach((img, i) => {
+  if (i < 5) img.loading = 'eager';
+});
+</script>
+</body>
+</html>

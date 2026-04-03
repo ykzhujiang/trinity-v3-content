@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码江湖·武道AI — 第一章·算道初现</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0f;
+  color: #e8e0d4;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.panel {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+}
+.panel .text {
+  padding: 16px 20px;
+  font-size: 19px;
+  line-height: 1.9;
+}
+.panel .dialogue {
+  padding: 12px 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffd700;
+}
+.panel .thought {
+  padding: 12px 20px;
+  font-size: 18px;
+  color: #8ec8f0;
+  font-style: italic;
+}
+.panel .system {
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #00ff88;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  background: rgba(0, 255, 136, 0.05);
+  border-left: 3px solid #00ff88;
+  margin: 8px 20px;
+  border-radius: 0 4px 4px 0;
+}
+.panel .xiaoqi {
+  padding: 12px 20px;
+  font-size: 18px;
+  color: #ff88cc;
+}
+.chapter-title {
+  text-align: center;
+  padding: 60px 20px 40px;
+  max-width: 450px;
+  margin: 0 auto;
+}
+.chapter-title h1 {
+  font-size: 28px;
+  color: #ffd700;
+  margin-bottom: 8px;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+.chapter-title h2 {
+  font-size: 20px;
+  color: #8ec8f0;
+  font-weight: normal;
+}
+.decision-box {
+  max-width: 410px;
+  margin: 16px auto;
+  padding: 20px;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+}
+.decision-box h3 {
+  color: #ffd700;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+.decision-box .option {
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 6px;
+  font-size: 17px;
+  color: #ccc;
+  background: rgba(255,255,255,0.03);
+}
+.decision-box .option.chosen {
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid #ffd700;
+  color: #ffd700;
+}
+.decision-box .reason {
+  margin-top: 12px;
+  font-size: 17px;
+  color: #8ec8f0;
+  font-style: italic;
+}
+.separator {
+  max-width: 450px;
+  margin: 20px auto;
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  letter-spacing: 12px;
+}
+.cliffhanger {
+  max-width: 410px;
+  margin: 30px auto 60px;
+  padding: 24px;
+  text-align: center;
+  font-size: 22px;
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+}
+.debug-log {
+  max-width: 410px;
+  margin: 12px auto;
+  padding: 16px;
+  background: rgba(0, 20, 0, 0.6);
+  border: 1px solid #00ff88;
+  border-radius: 6px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 14px;
+  color: #00ff88;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-title">
+  <h1>代码江湖·武道AI</h1>
+  <h2>第一章 · 算道初现</h2>
+</div>
+
+<!-- P01: 加班 -->
+<div class="panel">
+  <img src="images/p01.jpg" loading="eager" alt="">
+  <div class="text">凌晨三点半。我盯着屏幕上的训练曲线，loss值在0.03附近反复横跳——就像我的人生一样，看似在优化，其实在原地打转。</div>
+  <div class="thought">（再跑一轮就回去……说了三个小时了。）</div>
+</div>
+
+<!-- P02: 系统崩溃 -->
+<div class="panel">
+  <img src="images/p02.jpg" loading="lazy" alt="">
+  <div class="text">屏幕突然开始闪烁。代码在我眼前扭曲、变形——这不是普通的崩溃。</div>
+  <div class="system">⚠ CRITICAL ERROR: Memory overflow detected<br>⚠ Neural pathway sync failed<br>⚠ Consciousness bridge: UNSTABLE</div>
+</div>
+
+<!-- P03: 坠入虚空 -->
+<div class="panel">
+  <img src="images/p03.jpg" loading="lazy" alt="">
+  <div class="thought">（意识在坠落。代码碎片从身边飞过，像星辰一样。很美。也很恐怖。我想抓住什么，但手指穿过了所有东西。）</div>
+</div>
+
+<!-- P04: 醒来 -->
+<div class="panel">
+  <img src="images/p04.jpg" loading="lazy" alt="">
+  <div class="text">视线逐渐清晰。木质天花板。竹简。毛笔。窗外是……飞檐翘角？</div>
+  <div class="thought">（这是哪……这特么是哪？）</div>
+</div>
+
+<!-- P05: 看手 -->
+<div class="panel">
+  <img src="images/p05.jpg" loading="lazy" alt="">
+  <div class="text">我低头看了看自己——灰色长衫、布鞋、束发带。摸了摸下巴，络腮胡还在。</div>
+  <div class="thought">（好消息：脸没变。坏消息：衣服全变了。更坏的消息：这不像是cosplay。）</div>
+</div>
+
+<!-- P06: 系统激活 -->
+<div class="panel">
+  <img src="images/p06.jpg" loading="lazy" alt="">
+  <div class="text">一个半透明的蓝色界面突然在我面前凭空浮现。科技感十足的HUD——在一间古代书房里。</div>
+  <div class="system">【AI宗师系统已激活】<br>宿主检测中……<br>AI知识储备：SSS级<br>武学基础：F级</div>
+</div>
+
+<!-- P07: 面板详情 -->
+<div class="panel">
+  <img src="images/p07.jpg" loading="lazy" alt="">
+  <div class="system">━━ 宿主属性面板 ━━<br>算力：1/100<br>数据库：空<br>已解锁技能：无<br>战力值：3<br>━━━━━━━━━━━━━━</div>
+  <div class="thought">（SSS级脑子配F级拳头……这角色面板是认真的吗？）</div>
+</div>
+
+<!-- P08: 和小七斗嘴 -->
+<div class="panel">
+  <img src="images/p08.jpg" loading="lazy" alt="">
+  <div class="xiaoqi">小七：「哟，史上最不平衡的角色面板诞生了。恭喜宿主，您的智力和武力差距之大，堪称一绝。」</div>
+  <div class="dialogue">我："……你这AI助手的嘴也太毒了吧？"</div>
+  <div class="xiaoqi">小七：「我只是实事求是。」</div>
+</div>
+
+<!-- P09: 鸡比你强 -->
+<div class="panel">
+  <img src="images/p09.jpg" loading="lazy" alt="">
+  <div class="xiaoqi">小七：「您现在的战斗力，怎么说呢……还不如门口那只鸡。它战力值5。」</div>
+  <div class="dialogue">我："……"</div>
+  <div class="thought">（一只鸡。一只该死的鸡。比我强。）</div>
+</div>
+
+<!-- P10: 思考 -->
+<div class="panel">
+  <img src="images/p10.jpg" loading="lazy" alt="">
+  <div class="text">但我没慌。做了十年程序员，我太熟悉这种局面了——新项目、零基础、看似不可能的目标。</div>
+  <div class="thought">（F级怎么了？每个伟大的创业公司，一开始都是F级。）</div>
+</div>
+
+<div class="separator">· · ·</div>
+
+<!-- P11: 算学堂 -->
+<div class="panel">
+  <img src="images/p11.jpg" loading="lazy" alt="">
+  <div class="text">算学堂。我继承的"门派"。说是门派，更像是一个快倒闭的创业公司——破旧的招牌、长满杂草的院子、三个老弱病残。</div>
+</div>
+
+<!-- P12: 安抚学生 -->
+<div class="panel">
+  <img src="images/p12.jpg" loading="lazy" alt="">
+  <div class="text">三个学生看着我，眼里写满了不安。一个白发老人、一个瘦弱少年、一个戴帽的中年人。</div>
+  <div class="dialogue">我蹲下来："别怕。从今天开始，这里会不一样的。"</div>
+  <div class="thought">（虽然我也不知道怎么不一样……先稳住团队士气再说。创业第一课。）</div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box panel">
+  <h3>⚡ 决策点 1 — 身份选择</h3>
+  <div class="text" style="padding:0 0 12px;font-size:17px;">算学堂被武林视为废物门派。我该怎么出发？</div>
+  <div class="option">A. 低调发育，先悄悄练功再出头（先做MVP）</div>
+  <div class="option">B. 直接亮出"算道"招牌，挑战周边门派（先路演再说）</div>
+  <div class="option chosen">→ 我选A</div>
+  <div class="reason">在创业圈学到的第一课：别在产品没ready的时候就去路演。</div>
+  <div class="xiaoqi" style="padding:8px 0 0;">小七：「谨慎？你以前融资的时候不是这样的啊。」</div>
+</div>
+
+<!-- P13: 铁拳门来犯 -->
+<div class="panel">
+  <img src="images/p13.jpg" loading="lazy" alt="">
+  <div class="text">低调发育的计划执行了不到半天。大门被一脚踹开。</div>
+  <div class="dialogue">"算学堂的废物们，出来！"</div>
+</div>
+
+<!-- P14: 嚣张 -->
+<div class="panel">
+  <img src="images/p14.jpg" loading="lazy" alt="">
+  <div class="text">三个铁拳门弟子。领头的光头上一条刀疤，随手抓起架上的竹简，啪地折断。</div>
+  <div class="dialogue">光头："今天交不出五十两，就拆了你这破房子。"</div>
+</div>
+
+<!-- P15: 保护学生 -->
+<div class="panel">
+  <img src="images/p15.jpg" loading="lazy" alt="">
+  <div class="text">三个学生缩在桌子后面，发抖。老人把少年护在身后。</div>
+  <div class="text">我站了出来。</div>
+</div>
+
+<!-- P16: 朱江的眼神 -->
+<div class="panel">
+  <img src="images/p16.jpg" loading="lazy" alt="">
+  <div class="thought">（心跳在加速。但……我身后有人。）</div>
+  <div class="thought">（菩萨心肠，霹雳手段。）</div>
+</div>
+
+<!-- P17: 系统扫描 -->
+<div class="panel">
+  <img src="images/p17.jpg" loading="lazy" alt="">
+  <div class="system">━━ 目标扫描 ━━<br>光头刀疤：战力23 ⚠️<br>板寸歪鼻：战力18<br>长脸瘦竹：战力21<br>━━━━━━━━━━━━━━<br>宿主战力：3<br>建议：跑 🏃</div>
+  <div class="xiaoqi">小七：「三个加起来62，你是3。数学不会骗人。」</div>
+</div>
+
+<!-- P18: 分析环境 -->
+<div class="panel">
+  <img src="images/p18.jpg" loading="lazy" alt="">
+  <div class="thought">（不跑。这些学生还在后面。再说——）</div>
+  <div class="text">我的眼睛在快速扫描环境：书架位置、地上的棋盘、门口的宽度、桌上的茶壶……</div>
+  <div class="thought">（力量不够的时候，就用脑子。程序员的看家本领。）</div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box panel">
+  <h3>⚡ 决策点 2 — 战斗策略</h3>
+  <div class="option">A. 正面硬刚（堂堂正正）</div>
+  <div class="option">B. 利用环境+分析弱点，智取（找系统漏洞）</div>
+  <div class="option chosen">→ 我选B</div>
+  <div class="reason">力量不够的时候，就用脑子。这不是怂，这是效率。</div>
+</div>
+
+<!-- P19: 战术规划 -->
+<div class="panel">
+  <img src="images/p19.jpg" loading="lazy" alt="">
+  <div class="xiaoqi">小七快速播报弱点：「左边膝伤旧患，右边出拳后0.3秒有收力间隙，中间那个……纯莽夫，智力感人。」</div>
+  <div class="thought">（好。先诱莽夫冲锋→利用书架做掩护→棋盘绊倒膝伤的→最后抓0.3秒间隙。）</div>
+</div>
+
+<!-- P20: 闪避 -->
+<div class="panel">
+  <img src="images/p20.jpg" loading="lazy" alt="">
+  <div class="text">莽夫先冲过来了——正如预期。我侧身一闪，他的拳头擦着我耳朵过去。</div>
+  <div class="xiaoqi">小七：「梯度下降第一步——先避开最大的loss。」</div>
+</div>
+
+<!-- P21: 书架倒塌 -->
+<div class="panel">
+  <img src="images/p21.jpg" loading="lazy" alt="">
+  <div class="text">莽夫一头撞翻了书架。竹简像瀑布一样倾泻。完美。</div>
+  <div class="thought">（第一步完成。环境已重构。）</div>
+</div>
+
+<!-- P22: 踢茶壶 -->
+<div class="panel">
+  <img src="images/p22.jpg" loading="lazy" alt="">
+  <div class="text">我跳上桌子，一脚把茶壶踢飞——</div>
+</div>
+
+<!-- P23: 命中膝盖 -->
+<div class="panel">
+  <img src="images/p23.jpg" loading="lazy" alt="">
+  <div class="text">茶壶精准命中板寸的旧伤膝盖。他惨叫着单膝跪地。</div>
+  <div class="xiaoqi">小七：「精准打击。目标二号已瘫痪。剩余威胁：2。」</div>
+</div>
+
+<!-- P24: 数节拍 -->
+<div class="panel">
+  <img src="images/p24.jpg" loading="lazy" alt="">
+  <div class="text">长脸挥拳。我在心里默数——一、二、三……</div>
+  <div class="thought">（0.3秒间隙……现在！）</div>
+</div>
+
+<!-- P25: 借力甩飞 -->
+<div class="panel">
+  <img src="images/p25.jpg" loading="lazy" alt="">
+  <div class="text">一掌拍在他手腕上，借力一带——长脸整个人被甩出了门外，在院子里翻了两个滚。</div>
+</div>
+
+<!-- P26: 站在莽夫面前 -->
+<div class="panel">
+  <img src="images/p26.jpg" loading="lazy" alt="">
+  <div class="text">莽夫从废墟里爬起来，抬头——我已经站在他面前了。</div>
+  <div class="dialogue">我："你的攻击模式太线性了。线性回归连作业都交不了。"</div>
+</div>
+
+<!-- P27: 赶走 -->
+<div class="panel">
+  <img src="images/p27.jpg" loading="lazy" alt="">
+  <div class="text">莽夫完全听不懂。但那股气势把他镇住了。三个人互相搀扶，狼狈地逃出了算学堂。</div>
+</div>
+
+<!-- P28: 目送 -->
+<div class="panel">
+  <img src="images/p28.jpg" loading="lazy" alt="">
+  <div class="text">我抱着胳膊靠在门框上，看着他们落荒而逃的背影。</div>
+  <div class="system">━━ 战斗结算 ━━<br>战力值：3 → 8 (+5)<br>数据库：+3条铁拳门武功样本<br>系统升级进度：2%<br>━━━━━━━━━━━━━━</div>
+</div>
+
+<!-- P29: 系统升级 -->
+<div class="panel">
+  <img src="images/p29.jpg" loading="lazy" alt="">
+  <div class="xiaoqi">小七：「恭喜宿主，首战告捷！虽然是以弱胜强，但说实话，对面也不太强。别骄傲。」</div>
+  <div class="dialogue">我："能不能夸人的时候不带转折？"</div>
+</div>
+
+<!-- P30: 学生崇拜 -->
+<div class="panel">
+  <img src="images/p30.jpg" loading="lazy" alt="">
+  <div class="text">三个学生目瞪口呆地看着我。老人的手在抖。少年的眼睛在发光。</div>
+  <div class="dialogue">少年结巴着问："堂……堂主，您这是什么武功？"</div>
+</div>
+
+<!-- P31: 算道 -->
+<div class="panel">
+  <img src="images/p31.jpg" loading="lazy" alt="">
+  <div class="text">我不好意思地挠了挠头。但嘴角忍不住上扬。</div>
+  <div class="dialogue">我："这叫……算道。"</div>
+  <div class="thought">（其实就是数据分析+逻辑推理+一点点运气。但是——听起来很酷对吧？）</div>
+</div>
+
+<div class="separator">· · ·</div>
+
+<!-- DECISION 3 -->
+<div class="decision-box panel">
+  <h3>⚡ 决策点 3 — 铁拳门一定会报复</h3>
+  <div class="text" style="padding:0 0 12px;font-size:17px;">那三个杂鱼回去肯定告状。铁拳门掌门赵铁柱一定会来。</div>
+  <div class="option">A. 主动出击，先发制人（闪电战思维）</div>
+  <div class="option">B. 加固防守，训练学生，以逸待劳（构建壁垒/建生态）</div>
+  <div class="option">C. 去铁拳门谈判，化敌为友（BD思维/合作共赢）</div>
+  <div class="option chosen">→ 我选B</div>
+  <div class="reason">先build团队，再打仗。一个人的创业公司走不远。</div>
+  <div class="dialogue" style="padding:8px 0 0;">"但是……也得准备一个杀手锏以防万一。"</div>
+</div>
+
+<!-- P32: 黄昏规划 -->
+<div class="panel">
+  <img src="images/p32.jpg" loading="lazy" alt="">
+  <div class="text">黄昏。我坐在台阶上，面前浮着战术全息面板。三个学生围在身边，第一次露出了安心的表情。</div>
+  <div class="thought">（三个人，零基础，一堆破铜烂铁。但这就是起点。每个伟大的团队都是从这样开始的。）</div>
+</div>
+
+<!-- P33: 动员 -->
+<div class="panel">
+  <img src="images/p33.jpg" loading="lazy" alt="">
+  <div class="dialogue">我站起来："从明天开始，我教你们算道。不需要蛮力——用脑子打赢一切。"</div>
+  <div class="text">夕阳把我的影子拉得很长。学生们的眼里有了光。</div>
+</div>
+
+<div class="separator">· · ·</div>
+
+<!-- P34: 深夜研究 -->
+<div class="panel">
+  <img src="images/p34.jpg" loading="lazy" alt="">
+  <div class="text">深夜。书房里只有烛光和全息面板的蓝光。我在整理今天战斗采集到的数据。</div>
+</div>
+
+<!-- P35: 发现异常 -->
+<div class="panel">
+  <img src="images/p35.jpg" loading="lazy" alt="">
+  <div class="xiaoqi">小七突然严肃起来：「宿主，检测到异常。」</div>
+  <div class="system">⚠ 警告：铁拳门武功数据中<br>发现一段加密代码<br>加密协议：未知<br>代码架构：高度可疑</div>
+</div>
+
+<!-- P36: 震惊 -->
+<div class="panel">
+  <img src="images/p36.jpg" loading="lazy" alt="">
+  <div class="dialogue">我："加密代码？在古代武功里？"</div>
+  <div class="xiaoqi">小七：「不是古代的……这段代码的架构，和你在公司开发的AI模型——」</div>
+  <div class="xiaoqi">「一模一样。」</div>
+</div>
+
+<!-- P37: 茶杯碎 -->
+<div class="panel">
+  <img src="images/p37.jpg" loading="lazy" alt="">
+  <div class="text">手一抖。茶杯从指间滑落，在地上摔得粉碎。</div>
+  <div class="thought">（这不可能。这绝对不可能。除非——这个世界不是我以为的那样。）</div>
+</div>
+
+<!-- P38: 黑衣人 -->
+<div class="panel">
+  <img src="images/p38.jpg" loading="lazy" alt="">
+  <div class="text">窗外，月色如水。</div>
+  <div class="text">院墙上，一个黑衣身影一闪而逝。</div>
+</div>
+
+<!-- P39: 黑衣人特写 -->
+<div class="panel">
+  <img src="images/p39.jpg" loading="lazy" alt="">
+  <div class="text">兜帽下露出半张脸。</div>
+  <div class="text">嘴角，微微上扬。</div>
+</div>
+
+<!-- P40: 结尾 -->
+<div class="panel">
+  <img src="images/p40.jpg" loading="lazy" alt="">
+  <div class="text">烛光摇曳。全息面板的蓝光映在我脸上。</div>
+  <div class="thought">（这个世界……不只是古代那么简单。）</div>
+</div>
+
+<div class="cliffhanger">
+  第一章 · 算道初现 — 完<br>
+  <span style="font-size:18px;color:#8ec8f0;">铁拳门武功里为什么有现代AI代码？<br>黑衣人是谁？<br>这个世界的真相是什么？</span><br>
+  <span style="font-size:16px;color:#666;">— 第二章即将揭晓 —</span>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.panel, .decision-box, .cliffhanger').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
