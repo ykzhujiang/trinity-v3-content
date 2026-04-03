@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>都市赌神·千术人生 — 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:rgb(35,28,22);
+  color:#e8dcc8;
+  font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  font-size:20px;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+.container{
+  max-width:450px;
+  margin:0 auto;
+  padding:0;
+}
+.title-block{
+  position:relative;
+  text-align:center;
+  padding:60px 20px 40px;
+  background:linear-gradient(180deg,rgb(42,31,16) 0%,rgb(35,28,22) 100%);
+}
+.title-block h1{
+  font-size:28px;
+  color:#d4af37;
+  text-shadow:0 0 20px rgba(212,175,55,0.4);
+  letter-spacing:4px;
+  margin-bottom:8px;
+}
+.title-block .subtitle{
+  font-size:16px;
+  color:#a08860;
+  letter-spacing:2px;
+}
+.title-block .chapter{
+  font-size:14px;
+  color:#8a7a60;
+  margin-top:12px;
+}
+.panel{
+  margin-bottom:0;
+  position:relative;
+}
+.panel img{
+  width:100%;
+  display:block;
+  object-fit:cover;
+}
+.panel-text{
+  padding:20px 24px 28px;
+  background:linear-gradient(180deg,rgba(35,28,22,0.95) 0%,rgb(35,28,22) 100%);
+}
+.panel-text p{margin-bottom:0}
+.panel-text strong{
+  color:#d4af37;
+  text-shadow:0 0 8px rgba(212,175,55,0.3);
+}
+.scene-divider{
+  text-align:center;
+  padding:30px 20px;
+  color:#d4af37;
+  font-size:14px;
+  letter-spacing:6px;
+  opacity:0.6;
+}
+.scene-divider::before,.scene-divider::after{
+  content:'';
+  display:inline-block;
+  width:40px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#d4af37,transparent);
+  vertical-align:middle;
+  margin:0 12px;
+}
+.decision-block{
+  margin:8px 12px;
+  padding:0;
+  border:2px solid #d4af37;
+  border-radius:8px;
+  overflow:hidden;
+  background:rgb(31,26,18);
+}
+.decision-header{
+  text-align:center;
+  padding:16px;
+  font-size:22px;
+  color:#d4af37;
+  background:linear-gradient(180deg,rgb(42,32,16),rgb(31,26,18));
+  letter-spacing:4px;
+  text-shadow:0 0 15px rgba(212,175,55,0.5);
+}
+.decision-desc{
+  padding:12px 20px;
+  font-size:16px;
+  color:#c0b090;
+  border-bottom:1px solid rgba(212,175,55,0.15);
+}
+.split-screen{
+  display:flex;
+  align-items:stretch;
+  min-height:120px;
+}
+.split-option{
+  flex:1;
+  position:relative;
+  padding:16px 14px;
+}
+.split-label{
+  display:inline-block;
+  font-size:16px;
+  font-weight:bold;
+  width:28px;height:28px;line-height:28px;
+  text-align:center;
+  border-radius:50%;
+  margin-bottom:8px;
+}
+.split-label-a{background:rgba(100,130,180,0.9);color:#fff}
+.split-label-b{background:rgba(200,160,60,0.9);color:#fff}
+.split-text{font-size:14px;line-height:1.6;color:#c0b090}
+.split-divider{
+  width:2px;
+  background:linear-gradient(180deg,#d4af37 0%,rgba(212,175,55,0.3) 50%,#d4af37 100%);
+  position:relative;
+  flex-shrink:0;
+}
+.split-divider span{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:#d4af37;color:rgb(35,28,22);
+  font-size:11px;font-weight:bold;
+  width:26px;height:26px;line-height:26px;
+  text-align:center;border-radius:50%;
+}
+.decision-choice{
+  padding:16px 20px;
+  text-align:center;
+  border-top:1px solid rgba(212,175,55,0.2);
+}
+.choice-label{font-size:14px;color:#a08860;margin-bottom:4px}
+.choice-text{font-size:17px;color:#e8dcc8;font-style:italic;margin-bottom:4px}
+.choice-result{font-size:16px;color:#d4af37;font-weight:bold}
+.end-card{
+  text-align:center;
+  padding:60px 20px;
+  background:linear-gradient(180deg,rgb(35,28,22),rgb(13,10,6));
+}
+.end-card .series{
+  font-size:12px;
+  color:#6a5a40;
+  letter-spacing:2px;
+  margin-top:20px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="title-block">
+    <h1>都市赌神·千术人生</h1>
+    <div class="subtitle">第一章：桌下的博弈</div>
+    <div class="chapter">V5 · 朱江的平行宇宙</div>
+  </div>
+  <div class="panel">
+    <img src="images/f01.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>上海陆家嘴。68层。<br>会议室的阳光刺眼，但比不上对面那个男人的笑容——刺得我心底发寒。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f02.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我的手搭在文件夹边缘，指节微微发白。<br>三十分钟前这还是一场正常的融资谈判。三十分钟后，一切都变了。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f03.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>陈铭远——铭远资本的掌门人。五十多岁，花白头发梳得一丝不苟，鹰钩鼻，笑起来像只老鹰看着猎物。<br>他把一份文件推到桌面中央，用一根手指。<br>「朱总，看看这个。」</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f04.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我低头看了一眼——<br><strong>30%股权收购协议。</strong><br>红色公章，已经盖好了。<br>这不是谈判，这是<strong>通牒</strong>。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f05.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>桌下，我的拳头攥紧。<br>愤怒？当然。但更多的是一种……熟悉感。<br>有人在对我的系统发动攻击，而我还没看清攻击面。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f06.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我抬头看着陈铭远。<br>压下怒气，开始<strong>扫描</strong>。<br>他的微表情、呼吸频率、手指敲桌的节奏——全部录入。<br>这不是第一次有人想吃掉我。<br><strong>但我还从没输过。</strong></p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f07.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>他的食指在敲桌面。<br>一下、两下、三下。节奏均匀——这不是焦虑，是<strong>炫耀</strong>。<br>他在享受这个过程。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f08.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>两个男人隔着一张桌子对视。阳光在中间画了一条线。<br>他的世界和我的世界，泾渭分明。<br>但分界线马上就要模糊了。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f09.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我嘴角微微上扬。<br>不是勉强的笑——是<strong>认出对手</strong>之后的笑。<br>陈铭远想用钱解决问题？那他不知道——<br><strong>有些游戏，不是钱能赢的。</strong></p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f10.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>走廊外，阿豪隔着玻璃墙急得团团转。<br>圆框眼镜起雾了，胖脸涨得通红。<br>他看不清里面的情况，但看得出来——气氛不对。</p></div>
+  </div>
+  <div class="scene-divider">夜幕降临</div>
+  <div class="panel">
+    <img src="images/f11.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>入夜。上海某顶级私人会所。<br>古典欧式建筑，暖金色灯光从拱形窗户溢出，黑色豪车排成一排。<br>红毯通向大门——像通向战场的最后一段路。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f12.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我走在长廊里，外套脱了，只剩白衬衫，袖子撸到小臂。<br>西装是谈判的盔甲，衬衫才是战斗的制服。<br>脚步声在大理石地面上回响，一步比一步坚定。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f13.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>推开门——<br>圆形赌桌，深红色桌面，金色筹码码得整整齐齐。<br>头顶的琥珀色灯投下一团暖光，像聚光灯对准舞台。<br><strong>好戏开场。</strong></p></div>
+  </div>
+  <div class="scene-divider">牌局</div>
+  <div class="panel">
+    <img src="images/f14.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>五个人围坐赌桌。<br>陈铭远端坐对面，三件套一丝不苟。苏婉站在他身后，像一尊冰雕。<br>另外三个牌手——都是陈铭远请来的富豪，来看我出丑的。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f15.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>陈铭远端起威士忌，食指在杯壁画圈。<br>「朱总，许久不见。」<br>那语气——像在招待一只已经被关进笼子的猎物。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f16.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>苏婉站在陈铭远椅子后面。职业装、珍珠项链、冷到骨子里的表情。<br>但我注意到她的眼神——<br>有一瞬间，像是在求救。<br>或者我看错了。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f17.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我坐下，整理筹码。双手稳如磐石。<br>白衬衫袖口挽起，露出前臂。<br>放松、从容，像回到了自己家的客厅。<br>牌桌，才是我的<strong>主场</strong>。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f18.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>荷官开始发牌。<br>牌滑过红色桌面，沙沙声像倒计时。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f19.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>第一人称视角——我掀起牌角偷看。<br>周围是金色筹码和红色绒面。<br>对手的手指在余光里若隐若现。<br>数据输入完毕——开始计算。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f20.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我的眼睛在扫描。<br>不看牌——看<strong>人</strong>。<br>每个人的微表情都是一个API接口：紧张时摸鼻子=0.87相关性，说谎时眨眼频率+23%。<br>我不是在打牌，我在做<strong>逆向工程</strong>。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f21.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>一个老牌手无意识摸了下鼻子。<br>我的瞳孔里映出他手表表面的反射。<br>微表情捕获——<strong>bluff概率87%</strong>。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f22.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>然后我看到了。<br>苏婉的手指在调珍珠耳环——右耳。<br>动作极其隐蔽，但我的「扫描」模式没有放过它。<br>她在给陈铭远<strong>传暗号</strong>。<br>他们在出千。</p></div>
+  </div>
+
+    <div class="decision-block">
+      <div class="decision-header">⚡ 抉择时刻 ⚡</div>
+      <div class="decision-desc">
+        <p>我发现了苏婉在给陈铭远传暗号——他们在出千。</p>
+      </div>
+      <div class="split-screen">
+        <div class="split-option">
+          <div class="split-label split-label-a">A</div>
+          <div class="split-text">当场揭穿。掀桌子，让所有人知道陈铭远作弊。<br>霹雳手段——正面刚。</div>
+        </div>
+        <div class="split-divider"><span>VS</span></div>
+        <div class="split-option">
+          <div class="split-label split-label-b">B</div>
+          <div class="split-text">假装没发现，反向利用暗号系统喂假信息。<br>黑客思维——hack他们的通信协议。</div>
+        </div>
+      </div>
+      <div class="decision-choice">
+        <div class="choice-label">我的选择——</div>
+        <div class="choice-text">「发现漏洞不是为了报告，是为了利用。」</div>
+        <div class="choice-result">→ 选B · 反向Hack</div>
+      </div>
+    </div>
+  <div class="panel">
+    <img src="images/f23.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>嘴角浮起一丝笑。<br>不是愤怒——是<strong>兴奋</strong>。<br>找到exploit了。他们的信号系统有一个致命漏洞：<br>它是<strong>单向的</strong>。苏婉传给陈铭远，但陈铭远无法验证信息真伪。<br>如果我喂假信息呢？</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f24.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我故意把牌的角度偏了两度。<br>刚好让苏婉能「不小心」瞥到。<br>当然，她看到的——是我想让她看到的。<br>反向hack，启动。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f25.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>第一手——我推出一摞筹码，然后fold。<br>脸上演了一出「犹豫之后的遗憾」。<br>陈铭远笑着收走筹码。<br>他以为他赢了。<br><strong>他不知道这叫「战略性亏损」。跟A轮给低估值一个道理。</strong></p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f26.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>第二手、第三手，继续输。<br>我的筹码堆肉眼可见地缩小。<br>陈铭远越来越得意，苏婉越传越自信。<br>他们的系统在按我的剧本运行。</p></div>
+  </div>
+  <div class="scene-divider">场外</div>
+  <div class="panel">
+    <img src="images/f27.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>阿豪在外面的车里快疯了。<br>手机屏幕的光映在他圆圆的脸上和起雾的眼镜上。<br>他发了第7条消息：<br><strong>「你是不是疯了???」</strong></p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f28.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我在桌子底下看了眼手机。<br>阿豪的消息刷了满屏感叹号。<br>我打了四个字：<br>「<strong>别急，我在调参。</strong>」<br>然后加了个🙂。</p></div>
+  </div>
+  <div class="scene-divider">暗流</div>
+  <div class="panel">
+    <img src="images/f29.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>俯瞰赌桌——筹码分布触目惊心。<br>陈铭远那边金山耸立，我这边只剩一小堆。<br>三手全输。<br>所有人都以为——我完了。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f30.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>陈铭远举杯，眼里全是得意。<br>身后的苏婉允许自己有了一丝动摇——她的眼神飘向我，仅仅一瞬。<br>是同情？还是……</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f31.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>只看我的眼睛。<br>琥珀色灯光在瞳孔里燃烧。<br>没有恐惧，没有犹豫。<br>那是一个把猎物引进陷阱之后的猎人的眼神——<br><strong>绝对冷静的计算</strong>。</p></div>
+  </div>
+  <div class="scene-divider">最后一手</div>
+  <div class="panel">
+    <img src="images/f32.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>最后一手牌发下来。<br>我的手指稳得像做手术——掀开牌角。<br>算过了。<br>我知道我有什么，也知道他有什么。<br>该收网了。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f33.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>陈铭远把全部筹码推到中央。<br><strong>All in。</strong><br>金色筹码在桌面中央堆成一座山。<br>他的表情写着四个字：<strong>必胜无疑</strong>。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f34.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>所有目光落在我身上。<br>椅子往后靠了一点，双眼锁定那座金山。<br>一只手搭在仅剩的筹码上。<br><strong>这一刻，我的公司、我的团队、我五年的心血——全在这一手。</strong></p></div>
+  </div>
+
+    <div class="decision-block">
+      <div class="decision-header">⚡ 抉择时刻 ⚡</div>
+      <div class="decision-desc">
+        <p>最后一手。陈铭远All in。<br>如果我只跟注——赢回公司。<br>如果我反加注——连他一起吃掉。</p>
+      </div>
+      <div class="split-screen">
+        <div class="split-option">
+          <div class="split-label split-label-a">A</div>
+          <div class="split-text">保守跟注，只赢回公司控制权。<br>安全牌，见好就收。</div>
+        </div>
+        <div class="split-divider"><span>VS</span></div>
+        <div class="split-option">
+          <div class="split-label split-label-b">B</div>
+          <div class="split-text">反加注All in，一把全收。<br>赢了连他的筹码一起吞。要做就做到底。</div>
+        </div>
+      </div>
+      <div class="decision-choice">
+        <div class="choice-label">我的选择——</div>
+        <div class="choice-text">「要么不做，要做就做到底。」</div>
+        <div class="choice-result">→ 选B · 全部All in</div>
+      </div>
+    </div>
+  <div class="panel">
+    <img src="images/f35.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我的手把所有筹码推出去。<br>一个动作，干脆利落。<br>筹码滑过红色桌面——<br><strong>「要么不做，要做就做到底。」</strong></p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f36.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>满桌的筹码汇成金色的海。<br>我在这边，他在那边。<br>其他人全部屏住呼吸。<br>陈铭远的眉毛——第一次抽动了。<br>他没想到我会反加注。</p></div>
+  </div>
+  <div class="scene-divider">真相</div>
+  <div class="panel">
+    <img src="images/f37.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>翻牌。<br>牌面朝上，红色桌面映着金色灯光。<br><strong>我赢了。</strong></p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f38.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>陈铭远的脸——面具碎了。<br>鹰钩鼻两侧的肌肉在抽搐，花白头发下面的太阳穴在跳。<br>他张着嘴，但说不出话。<br>五十多岁的优雅在这一刻被打回了原形。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f39.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我站起来，松了松领带。<br>不是炫耀——是终于可以呼吸了。<br>「陈总，您的出千师……下次建议换个左撇子。<br>右手食指的节奏太规律了，<strong>比我家WiFi还明显。</strong>」<br>全场沉默。然后——有人笑了。</p></div>
+  </div>
+  <div class="scene-divider">暗线</div>
+  <div class="panel">
+    <img src="images/f40.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>苏婉走到我面前。<br>一只手递出一个黑色U盘，珍珠手链在灯光下微微闪烁。<br>「这是陈铭远收购你公司时用的手段证据。<br>他不只是针对你。」<br>她的眼里有一种被压抑太久的<strong>解脱</strong>。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f41.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我打开笔记本电脑看了U盘里的内容。<br>胜利的笑容一点一点消失。<br>眉头越皱越深。<br>这个……不是结束。<br>这是<strong>开始</strong>。</p></div>
+  </div>
+  <div class="panel">
+    <img src="images/f42.jpg" alt="" loading="lazy">
+    <div class="panel-text"><p>我站在窗前，看着上海的夜。<br>手里攥着U盘，另一只手插在口袋里。<br>玻璃上映出我的脸——看不清表情。<br>阿豪走过来：「怎么了？」<br>我：<br>「<strong>这个游戏……还没开始。</strong>」<br><br><span style='font-size:1.4em;color:#d4af37'>【第一章·完】</span></p></div>
+  </div>
+
+  <div class="end-card">
+    <div class="series">都市赌神·千术人生 — EXP-879<br>Trinity V5 · 朱江的平行宇宙</div>
+  </div>
+</div>
+</body>
+</html>
