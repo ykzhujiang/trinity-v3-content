@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重启战队 · 第一章：回到那个夏天</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a12;color:#e8e0d4;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#1a0f05 0%,#2d1800 40%,#4a2800 70%,#ff6b00 100%);padding:20px;text-align:center;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" x="20" font-size="80" opacity="0.03" fill="white">⚡</text></svg>') repeat;opacity:0.3}
+.cover h1{font-size:2.8em;font-weight:900;color:#ffb347;text-shadow:0 0 40px rgba(255,107,0,0.6);margin-bottom:10px;letter-spacing:4px;animation:glow 3s ease-in-out infinite alternate;position:relative;z-index:1}
+.cover h2{font-size:1.3em;color:#ffd699;opacity:0.9;font-weight:300;margin-bottom:30px;position:relative;z-index:1}
+.cover .meta{font-size:0.85em;color:#cc8833;position:relative;z-index:1}
+@keyframes glow{from{text-shadow:0 0 20px rgba(255,107,0,0.4)}to{text-shadow:0 0 60px rgba(255,107,0,0.8),0 0 100px rgba(255,179,71,0.3)}}
+.story{max-width:480px;margin:0 auto;padding:0}
+.panel{width:100%;margin:0;position:relative;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;object-fit:cover}
+.panel-text{padding:16px 20px;background:linear-gradient(180deg,rgba(10,10,18,0.95),rgba(10,10,18,1));font-size:1.05em;line-height:1.8}
+.panel-text .scene{color:#8a7a6a;font-size:0.8em;margin-bottom:6px;font-style:italic}
+.panel-text .dialogue{color:#ffcc66;margin:8px 0}
+.panel-text .dialogue::before{content:'「';color:#ff9933}
+.panel-text .dialogue::after{content:'」';color:#ff9933}
+.panel-text .inner{color:#88bbdd;font-style:italic;margin:8px 0}
+.panel-text .inner::before{content:'（'}
+.panel-text .inner::after{content:'）'}
+.panel-text .narrate{color:#c8bfb0;margin:6px 0}
+.panel-text .humor{color:#66dd88;margin:8px 0;font-size:0.95em}
+.decision{background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #ff6b00;border-radius:12px;margin:20px 16px;padding:20px;animation:pulse-border 2s ease-in-out infinite}
+@keyframes pulse-border{0%,100%{border-color:#ff6b00}50%{border-color:#ffcc00}}
+.decision h3{color:#ffb347;font-size:1.1em;margin-bottom:12px}
+.decision .option{padding:10px 14px;margin:8px 0;border-radius:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)}
+.decision .option.chosen{background:rgba(255,107,0,0.15);border-color:#ff6b00}
+.decision .option .label{color:#888;font-size:0.85em}
+.decision .option.chosen .label{color:#ffb347}
+.decision .option .text{color:#ddd;margin-top:4px}
+.decision .option.chosen .text{color:#fff}
+.decision .chosen-tag{display:inline-block;background:#ff6b00;color:#fff;font-size:0.75em;padding:2px 8px;border-radius:4px;margin-left:8px}
+.decision .reasoning{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,107,0,0.3);color:#cc8833;font-size:0.9em;line-height:1.6}
+.divider{height:2px;margin:0;background:linear-gradient(90deg,transparent,rgba(255,107,0,0.3),transparent)}
+.cliffhanger{background:linear-gradient(180deg,#0a0a12,#000);padding:40px 20px;text-align:center}
+.cliffhanger .msg{font-size:1.4em;color:#ffcc66;font-weight:700;animation:flicker 1.5s ease-in-out infinite alternate}
+.cliffhanger .sub{color:#666;margin-top:20px;font-size:0.9em}
+@keyframes flicker{from{opacity:0.7;text-shadow:none}to{opacity:1;text-shadow:0 0 20px rgba(255,204,102,0.5)}}
+.end{padding:40px 20px;text-align:center;background:#0a0a12}
+.end .title{color:#ff6b00;font-size:1.2em;margin-bottom:10px}
+.end .info{color:#666;font-size:0.8em}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>重启战队</h1>
+<h2>第一章：回到那个夏天</h2>
+<div class="meta">2012 · 中国电竞黎明前夜<br>一个知道未来的人，和一群不被看好的少年</div>
+</div>
+
+<div class="story">
+
+<!-- Beat 1: 醒来 -->
+<div class="panel"><img src="b143/p01.webp" loading="eager" alt="p01">
+<div class="panel-text">
+<div class="scene">【特写】清晨·出租屋</div>
+<div class="inner">光…好刺眼。我在哪？</div>
+</div></div>
+
+<div class="panel"><img src="b143/p02.webp" loading="eager" alt="p02">
+<div class="panel-text">
+<div class="scene">【俯拍】床头柜·翻盖手机</div>
+<div class="narrate">手机屏幕亮着——2012年7月15日。</div>
+<div class="inner">2012？这不可能…</div>
+</div></div>
+
+<div class="panel"><img src="b143/p03.webp" loading="eager" alt="p03">
+<div class="panel-text">
+<div class="scene">【中景·侧拍】出租屋·窗边</div>
+<div class="narrate">窗外传来一声熟悉的游戏提示音——"欢迎来到召唤师峡谷"。</div>
+<div class="inner">召唤师峡谷…英雄联盟S2赛季？</div>
+</div></div>
+
+<div class="panel"><img src="b143/p04.webp" loading="eager" alt="p04">
+<div class="panel-text">
+<div class="scene">【中景】卫生间·镜前</div>
+<div class="narrate">镜子里是一张年轻得不像话的脸。我下意识摸了摸肚子——平的。</div>
+<div class="humor">四块腹肌？不对…四块半。2026年的啤酒肚呢？</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 2: 确认重生 -->
+<div class="panel"><img src="b143/p05.webp" loading="lazy" alt="p05">
+<div class="panel-text">
+<div class="scene">【全景·俯拍】2012年夏天·城市街道</div>
+<div class="narrate">街上全是2012年的标志。诺基亚广告牌、3G基站标识、路边停着的摩托车。阳光烫人，蝉鸣震天。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p06.webp" loading="lazy" alt="p06">
+<div class="panel-text">
+<div class="scene">【过肩镜头】报刊亭</div>
+<div class="narrate">我在路边报刊亭买了份报纸。头条写着——"网络游戏是'电子海洛因'？"</div>
+<div class="inner">在这个所有人都觉得打游戏是浪费生命的时代……我知道一个秘密。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p07.webp" loading="lazy" alt="p07">
+<div class="panel-text">
+<div class="scene">【特写】报纸·翻盖手机·零钱</div>
+<div class="narrate">手在微微发抖。旁边是翻盖手机和仅有的三块五毛钱。</div>
+<div class="inner">六年后，有个叫IG的战队，会让整个中国沸腾。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p08.webp" loading="lazy" alt="p08">
+<div class="panel-text">
+<div class="scene">【中景·侧面】便利店门口</div>
+<div class="narrate">我习惯性掏出手机想扫码付款——收银台只有一台老式收银机。</div>
+<div class="humor">对了，2012年还得用现金。我口袋里只有三块五……一瓶水都买不起。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p09.webp" loading="lazy" alt="p09">
+<div class="panel-text">
+<div class="scene">【远景】2012年街景·黄昏</div>
+<div class="narrate">自行车、公交车、还在打地基的写字楼。远处工地的塔吊像巨人的手臂，伸向一个它还不知道会变成什么样的未来。</div>
+<div class="inner">而我知道。</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 3: 网吧初遇 -->
+<div class="panel"><img src="b143/p10.webp" loading="lazy" alt="p10">
+<div class="panel-text">
+<div class="scene">【全景】"决胜网吧"门口·傍晚</div>
+<div class="narrate">红色霓虹灯招牌，门口歪歪斜斜停着几辆自行车。烟雾从门缝里飘出来。这就是2012年所有传奇开始的地方——网吧。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p11.webp" loading="lazy" alt="p11">
+<div class="panel-text">
+<div class="scene">【全景】网吧内部</div>
+<div class="narrate">CRT显示器排成行，荧光灯管嗡嗡响，键盘敲击声此起彼伏。烟雾缭绕中，几十个年轻人沉浸在各自的战场里。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p12.webp" loading="lazy" alt="p12">
+<div class="panel-text">
+<div class="scene">【中景·侧拍】网吧角落</div>
+<div class="narrate">角落里，一个少年独占一台机器。黑色卫衣，刘海遮住半张脸，大耳机挂在脖子上。手速快得像弹钢琴。</div>
+<div class="inner">这操作……</div>
+</div></div>
+
+<div class="panel"><img src="b143/p13.webp" loading="lazy" alt="p13">
+<div class="panel-text">
+<div class="scene">【特写】键盘上飞舞的手指</div>
+<div class="narrate">那双手纤细但精准，每一次点击都恰到好处。CRT屏幕上，卡萨丁在敌阵中穿梭如鬼魅。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p14.webp" loading="lazy" alt="p14">
+<div class="panel-text">
+<div class="scene">【特写·3/4侧面】我的表情变化</div>
+<div class="inner">如果这套操作放到五年后的职业赛场……至少LPL前三的中单。而现在，他只是一个在网吧打野球的少年。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p15.webp" loading="lazy" alt="p15">
+<div class="panel-text">
+<div class="scene">【中景·背影】走向角落</div>
+<div class="narrate">我穿过一排排CRT显示器，向那个角落走去。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p16.webp" loading="lazy" alt="p16">
+<div class="panel-text">
+<div class="scene">【过肩镜头】屏幕上的操作</div>
+<div class="narrate">从他肩后看过去——卡萨丁三段位移接闪现收割，四杀。他甚至没有变过表情。</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 4: 第一次对话 -->
+<div class="panel"><img src="b143/p17.webp" loading="lazy" alt="p17">
+<div class="panel-text">
+<div class="scene">【双人中景】网吧角落</div>
+<div class="dialogue">你这卡萨丁，Combo接法不对。第二段位移应该先A一下再接。</div>
+<div class="narrate">他头都没抬。</div>
+<div class="dialogue">你谁啊？玩LOL几个月了？</div>
+</div></div>
+
+<div class="panel"><img src="b143/p18.webp" loading="lazy" alt="p18">
+<div class="panel-text">
+<div class="scene">【特写】林小北转头</div>
+<div class="narrate">他终于转过头来。刘海被耳机带起一角，露出一只明亮的眼睛——里面是惊讶，和一丝不服。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p19.webp" loading="lazy" alt="p19">
+<div class="panel-text">
+<div class="scene">【中景】角色互换——我坐下操作</div>
+<div class="narrate">我笑了笑，坐到他的位置上，手握住那个磨得发亮的鼠标。</div>
+<div class="dialogue">让我试试。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p20.webp" loading="lazy" alt="p20">
+<div class="panel-text">
+<div class="scene">【特写】屏幕画面</div>
+<div class="narrate">一套2015年才会流行的走位技巧。闪现预判、技能取消后摇、完美卡视野——对面五个人，三十秒，全灭。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p21.webp" loading="lazy" alt="p21">
+<div class="panel-text">
+<div class="scene">【双人特写】师徒初现</div>
+<div class="narrate">林小北蹲在我旁边，眼神从冷漠变成了炽热。嘴微微张开，像看到了什么不可能的东西。</div>
+<div class="inner">就是这个表情。天才遇到更大的世界时的表情。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p22.webp" loading="lazy" alt="p22">
+<div class="panel-text">
+<div class="scene">【远景·喜剧】柜台后的赵大炮</div>
+<div class="narrate">柜台后面，一个光头胖子探出脑袋，花衬衫扎眼，叼着的烟差点掉地上。</div>
+<div class="dialogue">哎！你们两个不准在我网吧搞基啊！</div>
+<div class="humor">整个网吧的人都转过头来看我们。林小北的脸红了——大概是气的。</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 5: DECISION-1 -->
+<div class="panel"><img src="b143/p23.webp" loading="lazy" alt="p23">
+<div class="panel-text">
+<div class="scene">【双人中景】网吧门口·夕阳</div>
+<div class="narrate">我和林小北走出网吧，站在门口台阶上。夕阳把整条街染成金色。</div>
+</div></div>
+
+<div class="decision">
+<h3>⚡ 决策点一：如何说服林小北？</h3>
+<div class="option"><div class="label">选项A · 利益驱动</div><div class="text">「打游戏能赚大钱，三年后职业选手年薪百万。」</div></div>
+<div class="option"><div class="label">选项B · 尊严驱动</div><div class="text">「你想证明他们都错了吗？」</div></div>
+<div class="option"><div class="label">选项C · 安全驱动</div><div class="text">「跟我组队，保底月薪两千。」</div></div>
+<div class="option chosen"><div class="label">✦ 我的选择 <span class="chosen-tag">B</span></div><div class="text">「你想证明他们都错了吗？」</div></div>
+<div class="reasoning">我看得出来。这个少年需要的不是钱——他需要的是有人告诉他：你没有在浪费生命。每个被否定过的天才，内心深处都渴望同一句话。</div>
+</div>
+
+<div class="panel"><img src="b143/p24.webp" loading="lazy" alt="p24">
+<div class="panel-text">
+<div class="scene">【特写·3/4侧面】夕阳下的我</div>
+<div class="dialogue">小北。你爸妈说你在浪费时间，对吧？老师说你不务正业，同学觉得你是网瘾少年。</div>
+<div class="narrate">我看着他，认真地说——</div>
+<div class="dialogue">你想证明他们都错了吗？</div>
+</div></div>
+
+<div class="panel"><img src="b143/p25.webp" loading="lazy" alt="p25">
+<div class="panel-text">
+<div class="scene">【特写】林小北低头</div>
+<div class="narrate">他低下了头。刘海遮住了所有表情，但我看到他的嘴唇在轻微颤抖。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p26.webp" loading="lazy" alt="p26">
+<div class="panel-text">
+<div class="scene">【中景】林小北抬头</div>
+<div class="narrate">他猛地抬起头。第一次，两只眼睛都露了出来——明亮、炙热、带着几乎要溢出来的东西。</div>
+<div class="dialogue">……你认真的？</div>
+</div></div>
+
+<div class="panel"><img src="b143/p27.webp" loading="lazy" alt="p27">
+<div class="panel-text">
+<div class="scene">【全景】网吧门口·长影子</div>
+<div class="narrate">夕阳把我们的影子拉得很长很长。街上有自行车经过，有小贩在收摊，有人在叫孩子回家吃饭。</div>
+<div class="inner">2012年7月15日。故事开始的日子。</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 6: 梦想的种子 -->
+<div class="panel"><img src="b143/p28.webp" loading="lazy" alt="p28">
+<div class="panel-text">
+<div class="scene">【远景】网吧天台·夕阳</div>
+<div class="narrate">我带他上了网吧的天台。眼前是2012年的城市天际线——矮楼、塔吊、还在建设中的一切。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p29.webp" loading="lazy" alt="p29">
+<div class="panel-text">
+<div class="scene">【中景·侧面】我望向远方</div>
+<div class="dialogue">三年后，会有一个叫LPL的联赛。五年后，电竞会进亚运会。十年后，职业选手的转会费会超过足球明星。</div>
+<div class="narrate">我双手撑着天台栏杆，看着那些还不存在的未来。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p30.webp" loading="lazy" alt="p30">
+<div class="panel-text">
+<div class="scene">【特写·侧面】林小北在听</div>
+<div class="narrate">他的表情从怀疑变成若有所思，再变成一种说不清的东西——像是第一次在黑暗中看到了光。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p31.webp" loading="lazy" alt="p31">
+<div class="panel-text">
+<div class="scene">【鸟瞰】天台上的两个人</div>
+<div class="dialogue">我要做的，不只是组一支战队——我要建一个帝国。</div>
+<div class="narrate">林小北看着我，沉默了很久。</div>
+<div class="dialogue">你是不是脑子有病？</div>
+</div></div>
+
+<div class="panel"><img src="b143/p32.webp" loading="lazy" alt="p32">
+<div class="panel-text">
+<div class="scene">【特写·3/4角度】林小北微笑</div>
+<div class="narrate">但他笑了。很小很小的笑。</div>
+<div class="humor">「可能吧。」我也笑了。「但我上辈子……咳，我的意思是，我有预感。」</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 7: DECISION-2 赵大炮 -->
+<div class="panel"><img src="b143/p33.webp" loading="lazy" alt="p33">
+<div class="panel-text">
+<div class="scene">【中景】网吧内·赵大炮出场</div>
+<div class="narrate">回到网吧，赵大炮已经在等我们了。原来这胖子一直在偷听。</div>
+<div class="dialogue">组战队？要花钱吧？</div>
+</div></div>
+
+<div class="panel"><img src="b143/p34.webp" loading="lazy" alt="p34">
+<div class="panel-text">
+<div class="scene">【三人中景】柜台前</div>
+<div class="dialogue">你投不投？</div>
+<div class="dialogue">多少钱？</div>
+<div class="dialogue">先借我五万。</div>
+<div class="narrate">赵大炮差点把烟呛出来。</div>
+<div class="dialogue">五万？！你知道我这网吧一个月才赚多少吗？</div>
+</div></div>
+
+<div class="decision">
+<h3>⚡ 决策点二：如何说服赵大炮投资？</h3>
+<div class="option"><div class="label">选项A · 画饼型</div><div class="text">「老赵，电竞未来是千亿市场，你现在投五万，十年后值五个亿。」</div></div>
+<div class="option chosen"><div class="label">✦ 我的选择 <span class="chosen-tag">B · 对赌型</span></div><div class="text">「三个月内打进市级联赛，你追加投资。打不进——我给你打工一年。」</div></div>
+<div class="option"><div class="label">选项C · 共情型</div><div class="text">「老赵你不也是网吧出身吗？你当年也被人看不起吧？」</div></div>
+<div class="reasoning">我是创业者。创业者不画饼，用结果说话。敢对赌，是因为我知道这些孩子有多强。而且，赵大炮这种人，你越跟他讲感情他越觉得你在忽悠。跟他来硬的，他反而尊重你。</div>
+</div>
+
+<div class="panel"><img src="b143/p35.webp" loading="lazy" alt="p35">
+<div class="panel-text">
+<div class="scene">【特写】赵大炮的表情变化</div>
+<div class="narrate">赵大炮盯着我看了整整十秒。烟灰掉在柜台上他都没注意。然后他的嘴角慢慢翘起来——那种精明商人嗅到机会的笑。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p36.webp" loading="lazy" alt="p36">
+<div class="panel-text">
+<div class="scene">【中景·侧面】握手</div>
+<div class="dialogue">成交。但你要输了，不是打工一年——是刷三个月厕所。</div>
+<div class="dialogue">成交。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p37.webp" loading="lazy" alt="p37">
+<div class="panel-text">
+<div class="scene">【特写】两只手紧握</div>
+<div class="narrate">一只胖乎乎的手，一只精瘦有力的手。在昏暗的网吧灯光下，握在了一起。</div>
+<div class="inner">2012年7月15日。初始资金：五万块。团队：三个人。距离中国电竞登顶世界——还有六年。</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 8: 第一个困难 -->
+<div class="panel"><img src="b143/p38.webp" loading="lazy" alt="p38">
+<div class="panel-text">
+<div class="scene">【中景·背影】林小北家门口·夜</div>
+<div class="narrate">林小北答应了。但他提了一个条件——</div>
+<div class="dialogue">我爸如果知道我打职业，会打断我的腿。</div>
+<div class="narrate">门缝里透出灯光，隐约能听到争吵声。他的拳头攥得紧紧的。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p39.webp" loading="lazy" alt="p39">
+<div class="panel-text">
+<div class="scene">【中景·侧面】路灯下的我</div>
+<div class="narrate">我站在楼下路灯的光圈里，看着二楼那扇亮着灯的窗户。</div>
+<div class="inner">我知道2025年的世界长什么样。但我改变不了2012年一个父亲对游戏的恐惧。</div>
+<div class="inner">有些boss，用技术打不倒。</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 9: 夜幕·练习赛 -->
+<div class="panel"><img src="b143/p40.webp" loading="lazy" alt="p40">
+<div class="panel-text">
+<div class="scene">【全景】深夜·决胜网吧</div>
+<div class="narrate">凌晨两点。整个网吧只有角落三个位置还亮着。荧光灯关了大半，只剩CRT屏幕的冷光。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p41.webp" loading="lazy" alt="p41">
+<div class="panel-text">
+<div class="scene">【中景·侧面】并肩作战</div>
+<div class="narrate">我指着屏幕讲战术，林小北双手飞速操作执行。第一次配合——但默契得像打了一百场。</div>
+<div class="dialogue">中路压线的时候别急着换血，等我信号。</div>
+<div class="dialogue">嗯。</div>
+<div class="inner">他话不多。但每个"嗯"都带着信任。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p42.webp" loading="lazy" alt="p42">
+<div class="panel-text">
+<div class="scene">【远景】赵大炮在柜台后面偷看</div>
+<div class="narrate">赵大炮坐在远处的柜台后面，假装在看杂志，手里端着两碗泡好的方便面。</div>
+<div class="humor">他以为自己很隐蔽。但花衬衫在暗处实在太显眼了。</div>
+</div></div>
+
+<div class="panel"><img src="b143/p43.webp" loading="lazy" alt="p43">
+<div class="panel-text">
+<div class="scene">【特写】屏幕上的消息</div>
+<div class="narrate">对面玩家发了条消息："这个队伍是职业的吧？"</div>
+<div class="narrate">赵大炮看到了。他终于不装了——咧开嘴，露出一个真正的笑。然后端着泡面走过来。</div>
+<div class="dialogue">别说我不支持你们啊。但泡面钱从你们工资里扣。</div>
+<div class="humor">我接过泡面。红烧牛肉味。2012年的红烧牛肉面，两块五一碗。这是我吃过最贵的投资庆功宴。</div>
+</div></div>
+
+<div class="divider"></div>
+
+<!-- Beat 10: 悬念结尾 -->
+<div class="panel"><img src="b143/p44.webp" loading="lazy" alt="p44">
+<div class="panel-text">
+<div class="scene">【中景·侧面】网吧天台·深夜</div>
+<div class="narrate">凌晨四点。我独自站在天台上，城市已经睡了。远处只有几盏灯还亮着。</div>
+<div class="narrate">翻盖手机突然震了一下。</div>
+<div class="narrate">一条短信。来自一个陌生号码。</div>
+</div></div>
+
+<div class="cliffhanger">
+<div class="msg">「你也是回来的人吗？」</div>
+<div class="sub" style="margin-top:30px;color:#888;font-size:1em;">我的脸色变了。</div>
+<div class="sub" style="margin-top:20px;color:#cc8833;font-size:1.1em;font-style:italic;">我以为……只有我一个人知道未来。</div>
+<div class="sub" style="margin-top:40px;color:#444;font-size:0.85em;">—— 第一章 · 完 ——</div>
+<div class="sub" style="margin-top:15px;color:#ff6b00;font-size:0.9em;">第二章：五个臭皮匠 · 即将更新</div>
+</div>
+
+<div class="end">
+<div class="title">《重启战队》</div>
+<div class="info">V5原创 · 重生×电竞×创业 · 2012中国电竞黎明</div>
+<div class="info" style="margin-top:8px;">EXP-900 · CYCLE-operator-596</div>
+</div>
+
+</div>
+
+<script>
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.15});
+document.querySelectorAll('.panel,.decision,.cliffhanger').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
