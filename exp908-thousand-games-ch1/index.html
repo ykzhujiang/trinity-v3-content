@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千局 · 第一章：底牌</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#2a2d3e;color:#e0d8cc;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif}
+.cover{
+  height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:linear-gradient(180deg,#1e2030 0%,#2a2d3e 40%,#3a2a1a 100%);
+  text-align:center;padding:2rem
+}
+.cover h1{font-size:2.8rem;color:#d4a656;margin-bottom:.5rem;letter-spacing:.4em;text-shadow:0 2px 12px rgba(212,166,86,.4)}
+.cover .sub{font-size:1.4rem;color:#c0a060;margin-bottom:.5rem}
+.cover .genre{font-size:1rem;color:#888;letter-spacing:.2em;margin-bottom:2rem}
+.cover .ch{font-size:1rem;color:#666;letter-spacing:.2em}
+.scroll-hint{color:#666;font-size:.9rem;margin-top:3rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+.panel{
+  width:100%;max-width:500px;margin:0 auto;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .6s ease,transform .6s ease
+}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:4px}
+.panel .text{
+  padding:1.2rem 1.5rem 2rem;
+  font-size:1.15rem;line-height:1.85;color:#d8d0c0;
+  background:linear-gradient(180deg,rgba(42,45,62,.98) 0%,rgba(42,45,62,.9) 100%)
+}
+.panel:nth-child(odd) .text{border-left:3px solid #d4a656;padding-left:1.5rem}
+.panel:nth-child(even) .text{border-left:3px solid #8B6914;padding-left:1.5rem}
+.inner{color:#a09078;font-style:italic;display:block;margin-top:.5rem;font-size:1.05rem}
+.poker-thought{color:#d4a656;font-style:italic;display:block;margin-top:.5rem;font-size:1.05rem}
+.zhujiang{color:#d4a656;font-weight:bold}
+.chenju{color:#7aa87a;font-weight:bold}
+.linxiaomian{color:#6a9fd4;font-weight:bold}
+.xiaoyu{color:#5ab5e6;font-weight:bold}
+.decision-card{
+  max-width:500px;margin:1rem auto 2rem;
+  background:linear-gradient(135deg,#3a2a1a 0%,#2a2d3e 100%);
+  border:1px solid #d4a656;border-radius:12px;overflow:hidden
+}
+.decision-card summary{
+  padding:1.2rem 1.5rem;font-size:1.1rem;color:#d4a656;cursor:pointer;
+  list-style:none;display:flex;align-items:center;gap:.5rem
+}
+.decision-card summary::-webkit-details-marker{display:none}
+.decision-card summary::before{content:'🃏';font-size:1.2rem}
+.decision-card .choice{padding:1rem 1.5rem;font-size:1.05rem;line-height:1.8;color:#b0a898;border-top:1px solid rgba(212,166,86,.3)}
+.decision-card .chosen{background:rgba(212,166,86,.1);border-left:3px solid #d4a656;padding-left:1.2rem;margin:.8rem 1rem;border-radius:4px}
+.decision-card .chosen p{color:#d4a656;font-weight:bold;margin-bottom:.3rem}
+.decision-card .soul{color:#888;font-size:.95rem;line-height:1.7;padding:0 1.5rem 1.2rem}
+.ending{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#2a2d3e 0%,#3a2a1a 50%,#2a2d3e 100%)}
+.ending .next{font-size:1.3rem;color:#d4a656;margin-bottom:1rem}
+.ending .tease{font-size:1rem;color:#888;line-height:1.8}
+.spacer{height:1.5rem}
+.section-title{
+  text-align:center;padding:3rem 1rem 1rem;
+  font-size:1.3rem;color:#d4a656;letter-spacing:.3em
+}
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="ch">—— V5 · 原创长篇 ——</div>
+  <h1>千 局</h1>
+  <div class="sub">第一章：底牌</div>
+  <div class="genre">赌神 × 商战 × AI创业</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- ═══ Beat 1-2: 投资人博弈 ═══ -->
+<div class="section-title">高 手 过 招</div>
+
+<div class="panel">
+  <img src="images/p01.webp" alt="p01" loading="eager">
+  <div class="text">陈局的办公室在陆家嘴最高的那栋楼的第52层。上海的天际线在落地窗外铺成一张巨大的棋盘，晨光把每栋大厦都镀上一层金。<span class="inner">第一次见面就约在主场。经典的心理压制开局——"看看我的资源，然后乖乖听话。"</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p02.webp" alt="p02" loading="eager">
+  <div class="text">我坐在访客椅上，端着他的好茶，脸上挂着得体的微笑。但我的眼睛一直在工作——扫描他的每一个动作，每一个表情变化，像拆解一局德州扑克。<span class="poker-thought">牌桌第一法则：坐下来的头三分钟，什么都别说，什么都看在眼里。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p03.webp" alt="p03" loading="eager">
+  <div class="text"><span class="chenju">陈局</span>端起茶杯，小拇指微翘，嘴角弧度恰到好处——四十年商海练出来的标准笑容。但他端杯的角度暴露了一切。<span class="poker-thought">茶杯举太高了。你紧张了，陈老板。这是在虚张声势。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p04.webp" alt="p04" loading="eager">
+  <div class="text">我微微眯起眼睛。在我的视角里，他的办公桌变成了一张绿色的牌桌，合同文件变成了翻面的底牌，他的笑容变成了——<span class="poker-thought">一个扑克牌手最经典的"我手牌很好"的假表情。可惜，你碰到的是"千局"。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p05.webp" alt="p05" loading="eager">
+  <div class="text"><span class="chenju">陈局</span>的助理踩着高跟鞋进来了，手里捧着一个文件夹。进来的时间是<span class="chenju">陈局</span>第三次喝茶之后——精确到秒。<span class="poker-thought">配合出牌。她进来的时机是提前安排好的，用来打断我的思考节奏。老套路了。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p06.webp" alt="p06" loading="eager">
+  <div class="text"><span class="chenju">"朱总啊，我们对辰光科技的AI技术是非常看好的，"</span><span class="chenju">陈局</span>把合同推过来，笑得像个慈祥的长辈，<span class="chenju">"这个条件，整个行业你去打听打听，没有比这更好的了。"</span><span class="inner">我接过合同，翻开第一页。笑容不变，大戏开始。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ Beat 3: DECISION-1 合同陷阱 ═══ -->
+<div class="section-title">第 十 七 条</div>
+
+<div class="panel">
+  <img src="images/p07.webp" alt="p07" loading="eager">
+  <div class="text">我一页页翻着合同，表情配合地时不时点头。翻到附件第17条的时候，我的手指停了半秒。<span class="poker-thought">找到了。控制权转让条款，埋在一个看似无害的"业绩对赌"里。六个月达不成KPI，董事会席位自动过半。高，实在是高。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p08.webp" alt="p08" loading="eager">
+  <div class="text">我的瞳孔微微收缩——这是我唯一的破绽，但<span class="chenju">陈局</span>不可能看到。因为我低着头"认真看合同"。<span class="poker-thought">好牌不急着出。当年在地下牌局，我拿到同花顺也是这副表情——慢慢翻，慢慢看，让对手以为我在犹豫。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p09.webp" alt="p09" loading="eager">
+  <div class="text">我抬头看<span class="chenju">陈局</span>，笑得比他还真诚：<span class="zhujiang">"陈总，条件确实很好，我回去和团队讨论一下，尽快给您答复。"</span><span class="inner">翻译：我看到你的底牌了，但我不会告诉你我看到了。先让你以为自己在做庄。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- Decision Card 1 -->
+<details class="decision-card">
+  <summary>决策点一：发现合同陷阱</summary>
+  <div class="choice">
+    <p><strong>A. 当场指出陷阱，正面对抗</strong></p>
+    <p>直接翻脸："陈总，第17条这个控制权条款，您是当我不识字吗？"</p>
+    <p><strong>B. 假装没看到，暗中准备反击</strong></p>
+    <p>不动声色，笑着离开。回去布局，等时机成熟再一击致命。</p>
+  </div>
+  <div class="chosen">
+    <p>🃏 我选了B</p>
+    好牌不急着出。不打无准备之仗，先收集信息再出手——这是千局的规矩。
+  </div>
+  <div class="soul">SOUL：菩萨心肠霹雳手段。能看穿陷阱说明眼力够，选择隐忍说明格局够。霹雳手段不是随时都用，而是在最关键的时刻一击必杀。</div>
+</details>
+
+<div class="panel">
+  <img src="images/p10.webp" alt="p10" loading="eager">
+  <div class="text">握手告别。<span class="chenju">陈局</span>的手劲比见面时大了三分——他以为自己赢了。我的手劲保持不变——因为我知道，这局牌才刚翻了第一轮。<span class="poker-thought">陈老板，你以为你在做庄？这局……我才是发牌的人。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ Beat 4-5: 危机爆发 ═══ -->
+<div class="section-title">内 鬼</div>
+
+<div class="panel">
+  <img src="images/p11.webp" alt="p11" loading="lazy">
+  <div class="text">推开公司大门的时候，气氛就不对。平时嘻嘻哈哈的办公区安静得像考场。<span class="inner">不好。这种安静我见过——大学牌局出千被发现时，整桌人就是这种安静。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p12.webp" alt="p12" loading="lazy">
+  <div class="text"><span class="linxiaomian">林小棉</span>朝我冲过来，眼镜歪了都顾不上扶，手里抱着笔记本电脑像抱着一颗定时炸弹：<span class="linxiaomian">"老大！出事了！竞品今天发了一个产品——和我们的架构一模一样！连API接口命名都一样！"</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p13.webp" alt="p13" loading="lazy">
+  <div class="text">我看着屏幕上竞品的发布页面，脑子里的扑克桌又浮现了。<span class="poker-thought">有人在出老千。API接口命名一样？这不是巧合，这是内鬼。有人把我们的底牌翻给了对手。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p14.webp" alt="p14" loading="lazy">
+  <div class="text">我攥紧了拳头，指节发白。但只持续了两秒。<span class="inner">愤怒是最没用的情绪。愤怒让你看不清牌面。冷静下来，分析，找漏洞，设圈套。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p15.webp" alt="p15" loading="lazy">
+  <div class="text"><span class="linxiaomian">林小棉</span>已经钻进了他的三屏工作站，手指在键盘上飞舞，屏幕上代码像瀑布一样滚动。他查代码库访问日志的速度比说话流利多了。<span class="inner">社恐归社恐，这哥们排查安全漏洞比谁都快。这就是为什么他是我唯一的技术合伙人。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p16.webp" alt="p16" loading="lazy">
+  <div class="text"><span class="xiaoyu">小鱼</span>在我桌上弹出了全员可疑度分析。排第一的可疑度87%，排最后的——<span class="xiaoyu">"小鱼：可疑度0.01%。备注：昨晚多看了代码库两眼，但那是因为在学习！绝对不是偷代码！真的！"</span><span class="inner">……你都写备注自证清白了，你说你不可疑谁信？</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ Beat 6-7: DECISION-2 信息陷阱 ═══ -->
+<div class="section-title">三 条 假 信 息</div>
+
+<div class="panel">
+  <img src="images/p17.webp" alt="p17" loading="lazy">
+  <div class="text">我把<span class="linxiaomian">林小棉</span>拉进会议室，在白板上画了三条线。<span class="zhujiang">"嫌疑人三个，对吧？"</span>我转过身看他，<span class="zhujiang">"德州扑克有一招叫'标记牌'——给每张牌做不同的记号，看哪张被偷看了就知道谁在作弊。"</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p18.webp" alt="p18" loading="lazy">
+  <div class="text">白板上三条线清清楚楚：甲路线——"新算法用了Transformer架构"；乙路线——"新算法用了Mamba架构"；丙路线——"新算法用了混合架构"。每条假信息只透露给一个人。<span class="poker-thought">看哪个版本泄露出去，内鬼就现形了。博弈论入门级操作——但有效就行。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p19.webp" alt="p19" loading="lazy">
+  <div class="text">我转过身，对着白板，嘴角勾起一个弧度。<span class="linxiaomian">林小棉</span>看着我的表情往后缩了缩——他认识这个笑容。大学牌局上每次我露出这个笑容，对面就要输光筹码。<span class="poker-thought">千局的规矩：不是我翻你的底牌，而是你自己把底牌翻给我看。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p20.webp" alt="p20" loading="lazy">
+  <div class="text"><span class="zhujiang">"小棉，这个计划需要你去跟嫌疑人B吃个饭，自然地把假消息透给他。"</span>我话音刚落，<span class="linxiaomian">林小棉</span>整个人缩进了椅子里，脸上写着四个大字：社交恐惧。<span class="linxiaomian">"我……我能不能用Slack消息代替？"</span><span class="inner">不能。你得用嘴说。我知道这对你来说比写十万行代码还难。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- Decision Card 2 -->
+<details class="decision-card">
+  <summary>决策点二：如何锁定内鬼</summary>
+  <div class="choice">
+    <p><strong>A. 直接审问三人</strong></p>
+    <p>效率高，但可能打草惊蛇。万一审错了，真内鬼反而会更小心。</p>
+    <p><strong>B. 设计"信息陷阱"——给三人各透露不同假信息</strong></p>
+    <p>经典博弈论策略。慢一点，但100%精准锁定。</p>
+  </div>
+  <div class="chosen">
+    <p>🃏 我选了B</p>
+    好的牌手从不正面亮牌。设个局，让对手自己把底牌翻出来。
+  </div>
+  <div class="soul">SOUL：黑客基因——拆解系统运作方式。不管是扑克概率还是商业博弈，核心都是信息不对称。谁掌握了信息，谁就是做庄的人。</div>
+</details>
+
+<div class="panel">
+  <img src="images/p21.webp" alt="p21" loading="lazy">
+  <div class="text">三天后。三条假信息像三张标记牌一样发了出去。我在办公室喝咖啡假装什么事都没有，<span class="linxiaomian">林小棉</span>在他的工作站监控所有出站数据。<span class="xiaoyu">小鱼</span>在后台像一条真正的鱼一样巡逻数据流。<span class="inner">猎人布好了陷阱，现在只需要等。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ Beat 8-9: 真相揭露 ═══ -->
+<div class="section-title">底 牌 翻 开</div>
+
+<div class="panel">
+  <img src="images/p22.webp" alt="p22" loading="lazy">
+  <div class="text">深夜十一点，办公室只剩我和<span class="linxiaomian">林小棉</span>。桌上的台灯把我们的影子拉得很长。<span class="linxiaomian">林小棉</span>突然猛拍桌子——这是他这辈子做过的最有激情的社交动作：<span class="linxiaomian">"抓到了！丙路线——混合架构版本泄露了！"</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p23.webp" alt="p23" loading="lazy">
+  <div class="text">屏幕上，数据泄露的路径像一条发光的线，从嫌疑人丙的工作邮箱出发，经过三个中转节点，最终抵达了——<span class="inner">等等。这个接收端……不是竞品的服务器。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p24.webp" alt="p24" loading="lazy">
+  <div class="text">我盯着屏幕上的接收端IP地址。顺着查下去，域名注册信息，公司关联关系——最终指向了一个名字。<span class="inner">陈局。是陈局的人。内鬼不是贪钱，是被安插的。这个老狐狸在投资之前就开始布局了。</span>我的手指在桌面上慢慢停下来。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p25.webp" alt="p25" loading="lazy">
+  <div class="text">我猛地站起来，椅子向后滑出去撞上了墙。<span class="linxiaomian">林小棉</span>吓了一跳差点把眼镜弹飞。<span class="inner">第17条的控制权陷阱、安插内鬼偷技术、竞品突然发布……这不是三件独立的事。这是一整盘棋。陈局从头到尾都在做庄。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p26.webp" alt="p26" loading="lazy">
+  <div class="text">但震惊只持续了五秒。然后一种奇妙的感觉从胸口升起来——不是恐惧，是兴奋。嘴角不受控制地翘起来。<span class="poker-thought">好久没碰到过这种级别的对手了。大学毕业以后，就再也没人能让我有这种……棋逢对手的快感。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p27.webp" alt="p27" loading="lazy">
+  <div class="text"><span class="xiaoyu">小鱼</span>在旁边疯狂闪烁：<span class="xiaoyu">"⚠️ 威胁等级：红色！建议行动方案计算中……方案一：跑路。方案二：快跑。方案三：现在就跑——算了，根据历史数据分析，你不会跑的。"</span><span class="inner">你终于学聪明了。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ Beat 10: 章末悬念 ═══ -->
+<div class="section-title">千 局</div>
+
+<div class="panel">
+  <img src="images/p28.webp" alt="p28" loading="lazy">
+  <div class="text">深夜的办公室只剩我一个人。<span class="linxiaomian">林小棉</span>已经回去了。我把一副扑克牌摊在桌面上——这是我的习惯，想不通的事情就一边洗牌一边想。<span class="inner">城市的灯火在窗外延伸到天际线。每一栋楼都是一张牌，每一家公司都是一个玩家。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p29.webp" alt="p29" loading="lazy">
+  <div class="text">我翻出一张牌。黑桃A。<span class="poker-thought">德州扑克里，黑桃A是最大的起手牌——但单张A什么都不是。你需要配合，需要公共牌，需要对手犯错。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p30.webp" alt="p30" loading="lazy">
+  <div class="text">黑桃A在台灯下泛着光。我笑了——不是得体的商务微笑，是那种大学地下牌局时才会露出的笑容。危险的、兴奋的、势在必得的笑。<span class="inner">陈局，你以为你在做庄？你只是翻了一轮牌而已。真正的庄家——千局——还没开始发牌呢。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- Decision Card 3 -->
+<details class="decision-card">
+  <summary>决策点三：如何应对陈局的棋局</summary>
+  <div class="choice">
+    <p><strong>A. 收集更多证据，慢慢反击</strong></p>
+    <p>稳妥，但给了对手更多时间。陈局也在布局。</p>
+    <p><strong>B. 主动出击，约陈局打一场真正的牌局</strong></p>
+    <p>高风险高回报。把商业博弈搬到真正的牌桌上，面对面读他的底牌。</p>
+  </div>
+  <div class="chosen">
+    <p>🃏 我选了B</p>
+    千局的名字不是靠等出来的。12%的胜率？当年就是从12%翻盘开始的。
+  </div>
+  <div class="soul">SOUL：霹雳手段 + 热血。看清了全局之后，不再隐忍。千局不可能选择被动等待——攻比守更适合他的血液。</div>
+</details>
+
+<div class="panel">
+  <img src="images/p31.webp" alt="p31" loading="lazy">
+  <div class="text"><span class="xiaoyu">小鱼</span>的声音弱弱地从屏幕边缘冒出来：<span class="xiaoyu">"老板，概率模型显示……我们的胜率只有12%。"</span>我把黑桃A竖起来，对着城市的灯光。<span class="zhujiang">"小鱼，当年'千局'这个名字是怎么来的，你知道吗？"</span><span class="xiaoyu">"……百度百科上没有这个词条。"</span><span class="zhujiang">"那是因为，千局的传说——就是从12%翻盘开始的。"</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p32.webp" alt="p32" loading="lazy">
+  <div class="text">大学时代的画面闪过脑海。那个抽着廉价烟、穿着连帽衫的少年，在昏暗的灯光下对着一桌老手亮出同花顺。那一晚，所有人记住了一个名字——千局。<span class="inner">很久了。久到我以为那个人已经不在了。但他一直在。他一直在我血液里。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p33.webp" alt="p33" loading="lazy">
+  <div class="text">我拿起手机，拨出一个号码。站在落地窗前，城市的灯光在脚下铺成一张巨大的牌桌。电话接通了。<span class="zhujiang">"陈总，好久没一起坐坐了。周六晚上，有没有兴趣打几圈牌？老地方见。"</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p34.webp" alt="p34" loading="lazy">
+  <div class="text">挂了电话。嘴角的弧度没有收回。<span class="poker-thought">陈局，这局牌，我做庄。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 尾声 ═══ -->
+<div class="panel">
+  <img src="images/p35.webp" alt="p35" loading="lazy">
+  <div class="text" style="text-align:center;color:#d4a656;font-size:1rem;">城市的灯火如同一盘永不停歇的牌局。<br>在第52层的某个窗口里，有人刚刚亮出了底牌。<br><br>而更精彩的牌局——才刚刚开始。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="ending">
+  <div class="next">—— 第二章：牌桌 ——</div>
+  <div class="tease">
+    陈局的主场。一张真正的牌桌。<br>
+    商业博弈从会议室搬到了绿色的桌面上。<br>
+    筹码、底牌、all-in——每一手牌都是一个商业决策。<br>
+    而千局……已经很久没有认真打过牌了。<br><br>
+    <span style="color:#d4a656">「当年赢得千局之名的那一手——是所有人都以为我会弃牌的那一手。」</span>
+  </div>
+</div>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{rootMargin:'120px'});
+document.querySelectorAll('.panel').forEach(p=>io.observe(p));
+</script>
+</body>
+</html>
