@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暗算·硅局 Ch1「投资人的另一张名片」</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e0d8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.scroll-container {
+  max-width: 430px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+/* Title screen */
+.title-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #1a0f05 0%, #0a0a0a 100%);
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(218,165,32,0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: titleGlow 4s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%,-50%) scale(1.2); }
+}
+.title-main {
+  font-size: 36px;
+  font-weight: 900;
+  color: #daa520;
+  letter-spacing: 8px;
+  margin-bottom: 16px;
+  position: relative;
+  text-shadow: 0 0 30px rgba(218,165,32,0.3);
+}
+.title-sub {
+  font-size: 18px;
+  color: #a09080;
+  letter-spacing: 4px;
+  margin-bottom: 30px;
+}
+.title-chapter {
+  font-size: 14px;
+  color: #706050;
+  letter-spacing: 2px;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  animation: bounce 2s infinite;
+  color: #504030;
+  font-size: 13px;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+
+/* Panel styles */
+.panel {
+  /* Fixed: default visible, animation is progressive enhancement */
+  position: relative;
+  margin-bottom: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 20px 24px;
+  background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, #0a0a0a 100%);
+  position: relative;
+}
+.panel-text .scene-tag {
+  display: inline-block;
+  font-size: 11px;
+  color: #daa520;
+  background: rgba(218,165,32,0.1);
+  border: 1px solid rgba(218,165,32,0.3);
+  padding: 2px 10px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+.panel-text .dialogue {
+  font-size: 20px;
+  line-height: 1.7;
+  color: #e8e0d8;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.panel-text .inner-voice {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #b8a898;
+  font-style: italic;
+  padding-left: 16px;
+  border-left: 2px solid rgba(218,165,32,0.3);
+  margin-bottom: 8px;
+}
+.panel-text .narrator {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #908070;
+  margin-bottom: 8px;
+}
+/* Decision highlight */
+.decision-marker {
+  background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(139,69,19,0.1) 100%);
+  border: 1px solid rgba(218,165,32,0.3);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 10px 0;
+}
+.decision-marker .label {
+  font-size: 12px;
+  color: #daa520;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.decision-marker .choice {
+  font-size: 18px;
+  color: #e8d8c8;
+  font-weight: 600;
+}
+/* Divider */
+.act-divider {
+  text-align: center;
+  padding: 50px 20px;
+  color: #504030;
+  font-size: 13px;
+  letter-spacing: 6px;
+  position: relative;
+}
+.act-divider::before, .act-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #504030, transparent);
+}
+.act-divider::before { left: 20%; }
+.act-divider::after { right: 20%; }
+/* Cliffhanger */
+.cliffhanger {
+  padding: 60px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a0f05 50%, #0a0a0a 100%);
+}
+.cliffhanger .hook {
+  font-size: 20px;
+  color: #daa520;
+  line-height: 1.8;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.cliffhanger .tbc {
+  font-size: 14px;
+  color: #504030;
+  letter-spacing: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-container">
+
+<!-- Title Screen -->
+<div class="title-screen">
+  <div class="title-chapter">第一章</div>
+  <div class="title-main">暗算·硅局</div>
+  <div class="title-sub">投资人的另一张名片</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- ACT 1: 深夜办公室 -->
+<div class="act-divider">深 夜</div>
+
+<!-- Frame 01 -->
+<div class="panel">
+  <img src="f01.webp" loading="lazy" alt="深夜办公室">
+  <div class="panel-text">
+    <span class="scene-tag">深夜 · 创业公司办公室</span>
+    <div class="inner-voice">又一个投资人放了鸽子。这已经是这个月第三个了。</div>
+  </div>
+</div>
+
+<!-- Frame 02 -->
+<div class="panel">
+  <img src="f02.webp" loading="lazy" alt="银行余额">
+  <div class="panel-text">
+    <div class="inner-voice">我的AI能预测用户喜好，怎么预测不了投资人的心？</div>
+    <div class="narrator">屏幕上的银行余额，像一把倒计时的刀。账上的钱，最多撑三个月。</div>
+  </div>
+</div>
+
+<!-- Frame 03 -->
+<div class="panel">
+  <img src="f03.webp" loading="lazy" alt="窗前">
+  <div class="panel-text">
+    <div class="inner-voice">三年了，从大厂出来三年了。当初说要做出改变世界的AI产品，现在连工资都快发不出来。</div>
+  </div>
+</div>
+
+<!-- Frame 04 -->
+<div class="panel">
+  <img src="f04.webp" loading="lazy" alt="手机消息">
+  <div class="panel-text">
+    <div class="narrator">手机亮了。合伙人小王的消息——"江哥，这个月工资……"</div>
+    <div class="inner-voice">小王跟了我三年，房贷车贷全靠这份工资。我不能让他们跟着我一起死。</div>
+  </div>
+</div>
+
+<!-- Frame 05 -->
+<div class="panel">
+  <img src="f05.webp" loading="lazy" alt="坚定的眼神">
+  <div class="panel-text">
+    <div class="inner-voice">不行。还没到最后一步，绝不认输。</div>
+  </div>
+</div>
+
+<div class="act-divider">第 二 天</div>
+
+<!-- Frame 06 -->
+<div class="panel">
+  <img src="f06.webp" loading="lazy" alt="咖啡馆">
+  <div class="panel-text">
+    <span class="scene-tag">次日 · 商务咖啡馆</span>
+    <div class="inner-voice">沈若棋，某基金合伙人。主动约我见面，说看了我们的技术白皮书"很感兴趣"。</div>
+    <div class="narrator">阳光很好，咖啡很香。我在心里默念：这次一定要成。</div>
+  </div>
+</div>
+
+<!-- Frame 07 -->
+<div class="panel">
+  <img src="f07.webp" loading="lazy" alt="沈若棋登场">
+  <div class="panel-text">
+    <div class="inner-voice">这投资人气场不太一样。走路像军人——稳、准、快。</div>
+  </div>
+</div>
+
+<!-- Frame 08 -->
+<div class="panel">
+  <img src="f08.webp" loading="lazy" alt="握手">
+  <div class="panel-text">
+    <div class="dialogue">"朱总，久仰。"</div>
+    <div class="inner-voice">握手力气真大。而且她的手——没有一个投资人的手上会有这种茧。</div>
+  </div>
+</div>
+
+<!-- Frame 09 -->
+<div class="panel">
+  <img src="f09.webp" loading="lazy" alt="沈若棋提问">
+  <div class="panel-text">
+    <div class="dialogue">"你们的多模态推理引擎，底层用的是自研框架？不是套壳？"</div>
+    <div class="inner-voice">这个问题太专业了。一般投资人只问DAU和变现模型。</div>
+  </div>
+</div>
+
+<!-- Frame 10 — DECISION 1 -->
+<div class="panel">
+  <img src="f10.webp" loading="lazy" alt="装傻">
+  <div class="panel-text">
+    <div class="dialogue">"你大学时期的那个逆向工程项目，还有源码吗？"</div>
+    <div class="decision-marker">
+      <div class="label">▸ 决策点 1</div>
+      <div class="choice">用幽默装傻，试探她的信息来源</div>
+    </div>
+    <div class="dialogue">"什么项目？我大学只会打DOTA。段位倒是挺高的。"</div>
+    <div class="inner-voice">她怎么知道这个？这事我从没跟任何人提过。好，先装傻，看她怎么接。</div>
+  </div>
+</div>
+
+<div class="act-divider">试 探</div>
+
+<!-- Frame 11 -->
+<div class="panel">
+  <img src="f11.webp" loading="lazy" alt="沈若棋的微笑">
+  <div class="panel-text">
+    <div class="dialogue">"DOTA段位，我也查了。不影响你同时做逆向工程。"</div>
+    <div class="inner-voice">这女人查得太深了。我的背景调查做到了大学？不，这不是普通的尽调……</div>
+  </div>
+</div>
+
+<!-- Frame 12 -->
+<div class="panel">
+  <img src="f12.webp" loading="lazy" alt="财务数据">
+  <div class="panel-text">
+    <div class="dialogue">"你的公司还有87天。这是你的全部财务数据——"</div>
+    <div class="inner-voice">87天？连我自己都没算清楚的数字，她精确到天？</div>
+  </div>
+</div>
+
+<!-- Frame 13 -->
+<div class="panel">
+  <img src="f13.webp" loading="lazy" alt="数据特写">
+  <div class="panel-text">
+    <div class="inner-voice">这些数据……有些连我的CFO都没统计出来。她背后是谁？</div>
+  </div>
+</div>
+
+<!-- Frame 14 -->
+<div class="panel">
+  <img src="f14.webp" loading="lazy" alt="U盘">
+  <div class="panel-text">
+    <div class="dialogue">"我可以给你续命。但你得先看看这个。"</div>
+    <div class="inner-voice">加密U盘。军工级的硬件加密。这东西我在大学的时候……不，先不想这些。</div>
+  </div>
+</div>
+
+<!-- Frame 15 -->
+<div class="panel">
+  <img src="f15.webp" loading="lazy" alt="犹豫">
+  <div class="panel-text">
+    <div class="inner-voice">连我自己都没算清的财务数据，她竟然精确到天。这个女人到底是谁？</div>
+  </div>
+</div>
+
+<!-- Frame 16 -->
+<div class="panel">
+  <img src="f16.webp" loading="lazy" alt="思考">
+  <div class="panel-text">
+    <div class="inner-voice">如果她想害我，没必要当面给U盘。如果是病毒，我有办法处理。关键是——她知道我能处理。</div>
+  </div>
+</div>
+
+<!-- Frame 17 -->
+<div class="panel">
+  <img src="f17.webp" loading="lazy" alt="打开电脑">
+  <div class="panel-text">
+    <span class="scene-tag">沙盒启动</span>
+    <div class="inner-voice">先开个沙盒。不管里面是什么，它只能在笼子里跑。</div>
+    <div class="narrator">手指在键盘上飞速敲击，创建隔离环境。几秒钟，一个数字牢笼搭好了。</div>
+  </div>
+</div>
+
+<!-- Frame 18 — DECISION 2 -->
+<div class="panel">
+  <img src="f18.webp" loading="lazy" alt="插入U盘">
+  <div class="panel-text">
+    <div class="decision-marker">
+      <div class="label">▸ 决策点 2</div>
+      <div class="choice">用沙盒打开U盘——好奇心战胜了谨慎</div>
+    </div>
+    <div class="inner-voice">黑客的第一法则——任何系统都值得被打开看看。</div>
+  </div>
+</div>
+
+<div class="act-divider">真 相</div>
+
+<!-- Frame 19 -->
+<div class="panel">
+  <img src="f19.webp" loading="lazy" alt="视频播放">
+  <div class="panel-text">
+    <div class="inner-voice">这是……AI在实时分析股票市场？不，不只是分析——它在预测，然后……操控？</div>
+  </div>
+</div>
+
+<!-- Frame 20 -->
+<div class="panel">
+  <img src="f20.webp" loading="lazy" alt="AI系统界面">
+  <div class="panel-text">
+    <div class="inner-voice">Nexus Global。全球前五的AI芯片公司。他们在用自家AI操控金融市场？</div>
+  </div>
+</div>
+
+<!-- Frame 21 -->
+<div class="panel">
+  <img src="f21.webp" loading="lazy" alt="颤抖的手">
+  <div class="panel-text">
+    <div class="inner-voice">手在抖。但不是因为害怕。是因为……这是我见过的最精妙的系统架构。作为工程师，我忍不住——太他妈漂亮了。</div>
+  </div>
+</div>
+
+<!-- Frame 22 -->
+<div class="panel">
+  <img src="f22.webp" loading="lazy" alt="回头">
+  <div class="panel-text">
+    <div class="dialogue">"这他妈是……超级AI在做庄。"</div>
+    <div class="narrator">沈若棋微微点头，表情平静得像在说"今天天气不错"。</div>
+  </div>
+</div>
+
+<!-- Frame 23 -->
+<div class="panel">
+  <img src="f23.webp" loading="lazy" alt="沈若棋严肃">
+  <div class="panel-text">
+    <div class="dialogue">"Nexus的AI武器化项目，代号'牧歌'。已经在三个国家的股市做过实验了。"</div>
+    <div class="inner-voice">AI武器化。三个国家。这不是商业间谍，这是……</div>
+  </div>
+</div>
+
+<!-- Frame 24 -->
+<div class="panel">
+  <img src="f24.webp" loading="lazy" alt="亮出身份">
+  <div class="panel-text">
+    <div class="dialogue">"天衡。AI安全特别行动组。我是联络官沈若棋。"</div>
+    <div class="inner-voice">天衡……我只在一些暗网论坛的传说里听过这个名字。他们真的存在？</div>
+  </div>
+</div>
+
+<!-- Frame 25 -->
+<div class="panel">
+  <img src="f25.webp" loading="lazy" alt="震惊到兴奋">
+  <div class="panel-text">
+    <div class="inner-voice">说实话，看完那个视频，我手在发抖——不是害怕，是兴奋。创业者看到颠覆性技术的第一反应永远是：我能不能用？</div>
+  </div>
+</div>
+
+<!-- Frame 26 -->
+<div class="panel">
+  <img src="f26.webp" loading="lazy" alt="招募">
+  <div class="panel-text">
+    <div class="dialogue">"所以我们需要一个懂AI、懂商业、还能当卧底的人。目前候选名单上——只有你。"</div>
+    <div class="inner-voice">只有我。因为我刚好是那种——又懂技术又够疯的人。</div>
+  </div>
+</div>
+
+<div class="act-divider">抉 择</div>
+
+<!-- Frame 27 -->
+<div class="panel">
+  <img src="f27.webp" loading="lazy" alt="天台">
+  <div class="panel-text">
+    <span class="scene-tag">黄昏 · 天台</span>
+    <div class="inner-voice">站在天台上，风很大。手里攥着的不只是一个U盘——是一张通往完全不同人生的门票。</div>
+  </div>
+</div>
+
+<!-- Frame 28 -->
+<div class="panel">
+  <img src="f28.webp" loading="lazy" alt="来电">
+  <div class="panel-text">
+    <div class="narrator">手机突然响了。</div>
+    <div class="dialogue">"江哥！又有投资人约见面！说看了我们的demo很感兴趣！"</div>
+    <div class="inner-voice">投资人？这个时候？</div>
+  </div>
+</div>
+
+<!-- Frame 29 -->
+<div class="panel">
+  <img src="f29.webp" loading="lazy" alt="接电话">
+  <div class="panel-text">
+    <div class="dialogue">"谁？"</div>
+    <div class="dialogue">"Nexus Global亚太区。"</div>
+    <div class="inner-voice">Nexus。我刚看完他们的秘密，他们就找上门了。</div>
+  </div>
+</div>
+
+<!-- Frame 30 -->
+<div class="panel">
+  <img src="f30.webp" loading="lazy" alt="巧了">
+  <div class="panel-text">
+    <div class="dialogue" style="font-size: 24px; color: #daa520;">"……巧了。"</div>
+    <div class="inner-voice">巧了？不，这个世界上没有巧合。但不管是天衡的安排还是Nexus的布局——他们都选了我。而我，刚好也想走进这个局。</div>
+  </div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+  <div class="hook">Nexus主动找上门——<br>是巧合，还是布局？</div>
+  <div class="hook" style="font-size: 17px; color: #a09080;">朱江刚看完他们的秘密，<br>他们就出现了。</div>
+  <div style="height: 30px;"></div>
+  <div class="tbc">— 第一章 · 完 —</div>
+  <div class="tbc" style="margin-top: 10px;">第二章「硅谷猎场」 即将开启</div>
+</div>
+
+</div>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.panel').forEach(panel => observer.observe(panel));
+</script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代号·回档 — 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a1a 0%,#1a1a2e 50%,#0a0a1a 100%);padding:20px;text-align:center;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,136,0.03) 2px,rgba(0,255,136,0.03) 4px);pointer-events:none}
+.cover h1{font-size:2.8em;font-weight:900;background:linear-gradient(135deg,#00ff88,#00ccff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;letter-spacing:4px;text-shadow:0 0 40px rgba(0,255,136,0.3)}
+.cover .subtitle{font-size:1.3em;color:#888;margin-bottom:30px;letter-spacing:2px}
+.cover .tag{display:inline-block;padding:6px 16px;border:1px solid rgba(0,255,136,0.4);border-radius:20px;color:#00ff88;font-size:0.85em;margin:4px;backdrop-filter:blur(4px)}
+.cover .scroll-hint{position:absolute;bottom:30px;color:#555;font-size:0.9em;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+
+.panel{position:relative;width:100%;max-width:500px;margin:0 auto;padding:0 16px;opacity:0;transform:translateY(40px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel-img{width:100%;border-radius:12px;display:block;margin:20px auto 0;box-shadow:0 8px 32px rgba(0,0,0,0.6)}
+.panel-text{padding:16px 4px 20px;font-size:1.15em;line-height:1.8;color:#ccc}
+.panel-text .narration{color:#999;font-style:italic;display:block;margin-bottom:8px}
+.panel-text .thought{color:#00ccff;display:block;margin:8px 0;padding-left:12px;border-left:3px solid #00ccff33}
+.panel-text .dialogue{color:#fff;display:block;margin:8px 0}
+.panel-text .dialogue::before{content:'"';color:#00ff88}
+.panel-text .dialogue::after{content:'"';color:#00ff88}
+.panel-text .system{color:#ff6b35;font-family:'Courier New',monospace;font-size:0.9em;display:block;margin:10px 0;padding:8px 12px;background:rgba(255,107,53,0.1);border-radius:8px;border:1px solid rgba(255,107,53,0.2)}
+.panel-text .funny{color:#ffd700;font-size:0.85em;display:block;margin-top:6px}
+
+.decision{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:16px;margin:12px 0}
+.decision .label{color:#00ff88;font-size:0.8em;font-weight:bold;letter-spacing:2px;margin-bottom:8px}
+
+.loop-break{text-align:center;padding:60px 20px;position:relative}
+.loop-break h2{font-size:1.8em;color:#ff6b35;letter-spacing:6px;text-shadow:0 0 30px rgba(255,107,53,0.4)}
+.loop-break .glitch{animation:glitch 0.3s infinite}
+@keyframes glitch{0%{text-shadow:2px 0 #ff0000,-2px 0 #00ffff}25%{text-shadow:-2px 0 #ff0000,2px 0 #00ffff}50%{text-shadow:1px -1px #ff0000,-1px 1px #00ffff}75%{text-shadow:-1px 1px #ff0000,1px -1px #00ffff}100%{text-shadow:2px 0 #ff0000,-2px 0 #00ffff}}
+
+.cliffhanger{background:linear-gradient(180deg,#0a0a1a,#1a0a0a);padding:40px 20px 80px;text-align:center}
+.cliffhanger .fade-text{font-size:1.3em;color:#ff4444;line-height:2;animation:textfade 3s ease-in-out infinite alternate}
+@keyframes textfade{0%{opacity:1}100%{opacity:0.3}}
+.cliffhanger .next{margin-top:30px;color:#555;font-size:0.9em;letter-spacing:2px}
+
+.spacer{height:20px}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>代号·回档</h1>
+<div class="subtitle">第一章 · 星期一永远不会结束</div>
+<div>
+<span class="tag">时间循环</span>
+<span class="tag">AI创业</span>
+<span class="tag">系统文</span>
+<span class="tag">V5 · 第一人称</span>
+</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- LOOP #1: 正常人的一天 -->
+
+<div class="panel" id="p1">
+<img class="panel-img" src="images/p01.webp" loading="lazy" alt="闹钟7:00">
+<div class="panel-text">
+<span class="narration">2026年3月23日，星期一。</span>
+<span class="thought">闹钟响了。又是一个星期一。</span>
+</div>
+</div>
+
+<div class="panel" id="p2">
+<img class="panel-img" src="images/p02.webp" loading="lazy" alt="起床">
+<div class="panel-text">
+<span class="thought">昨晚三点半才睡。B轮路演PPT改到了第十七版。</span>
+<span class="narration">我坐在床边揉了揉眼睛，公寓里安静得只听得到空调的嗡嗡声。</span>
+</div>
+</div>
+
+<div class="panel" id="p3">
+<img class="panel-img" src="images/p03.webp" loading="lazy" alt="地铁">
+<div class="panel-text">
+<span class="narration">八点半，地铁里。手机震了一下。</span>
+<span class="narration">CTO李明发来消息：「江总，出事了，看看这个」</span>
+<span class="thought">李明从来不在早上八点半发消息。除非——天塌了。</span>
+</div>
+</div>
+
+<div class="panel" id="p4">
+<img class="panel-img" src="images/p04.webp" loading="lazy" alt="新闻">
+<div class="panel-text">
+<span class="narration">启元科技发布「天枢」大模型，API免费开放，性能碾压GPT-5。</span>
+<span class="thought">我们的核心壁垒。刚被人免费公开了。</span>
+<span class="funny">评论区第一条："创业公司棺材板钉好了没？"——谢谢，很暖心。</span>
+</div>
+</div>
+
+<div class="panel" id="p5">
+<img class="panel-img" src="images/p05.webp" loading="lazy" alt="公司">
+<div class="panel-text">
+<span class="narration">「深圳梦码科技」。推开玻璃门，三排工位大部分空着。</span>
+<span class="thought">三个月前三十人。现在连我七个。</span>
+</div>
+</div>
+
+<div class="panel" id="p6">
+<img class="panel-img" src="images/p06.webp" loading="lazy" alt="会议全景">
+<div class="panel-text">
+<span class="narration">紧急全员会议。五个人围着一张能坐十二人的会议桌。</span>
+</div>
+</div>
+
+<div class="panel" id="p7">
+<img class="panel-img" src="images/p07.webp" loading="lazy" alt="李明焦虑">
+<div class="panel-text">
+<span class="narration">李明推了推眼镜，额头上全是汗。他的格子衬衫领口已经被揉皱了。</span>
+<span class="dialogue">技术壁垒没了...我们的差异化还剩什么？</span>
+<span class="funny">实习生小陈的笔记本上写满了「完了完了完了完了」——字迹在发抖。</span>
+</div>
+</div>
+
+<div class="panel" id="p8">
+<img class="panel-img" src="images/p08.webp" loading="lazy" alt="林薇冷静">
+<div class="panel-text">
+<span class="narration">林薇端着咖啡杯，表情不变。银色腕表在日光灯下闪了一下。</span>
+<span class="dialogue">技术壁垒从来不是真的壁垒。执行力才是。</span>
+<span class="thought">林薇说得对。不是输在技术上，是输在时间上。</span>
+</div>
+</div>
+
+<div class="panel" id="p9">
+<img class="panel-img" src="images/p09.webp" loading="lazy" alt="电话">
+<div class="panel-text">
+<span class="narration">投资人王总的电话进来了。</span>
+<span class="dialogue">小朱啊，今天下午路演...启元的事你看到了？要不要另找时间？</span>
+<div class="decision">
+<div class="label">◆ 决策点 #1 ◆</div>
+<span class="thought">我没犹豫。</span>
+<span class="dialogue">王总，照常。两点准时见。</span>
+<span class="narration">菩萨心肠，霹雳手段。面对危机，正面刚。</span>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p10">
+<img class="panel-img" src="images/p10.webp" loading="lazy" alt="面馆">
+<div class="panel-text">
+<span class="narration">楼下面馆。我和林薇对坐，她点了一碗清汤面。</span>
+<span class="dialogue">你真觉得路演能过？</span>
+<span class="narration">我嘴里含着面条，往碗里又舀了一勺老干妈。第三勺。</span>
+<span class="dialogue">我觉得...这碗面加了老干妈之后，人生还有希望。</span>
+<span class="funny">老板从后厨探出头看了我一眼，表情像在看一个壮烈赴死的勇士。</span>
+</div>
+</div>
+
+<div class="panel" id="p11">
+<img class="panel-img" src="images/p11.webp" loading="lazy" alt="筷子特写">
+<div class="panel-text">
+<div class="decision">
+<div class="label">◆ 决策点 #2 ◆</div>
+<span class="dialogue">如果不过呢？</span>
+<span class="dialogue">再吃一碗面。</span>
+<span class="narration">我笑着说。但低头看到自己捏筷子的手指关节发白。</span>
+<span class="thought">苦中作乐。这是我唯一会的活下去的方式。</span>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p12">
+<img class="panel-img" src="images/p12.webp" loading="lazy" alt="路演全景">
+<div class="panel-text">
+<span class="narration">下午两点。落地窗外是深圳CBD的天际线，阳光刺得人睁不开眼。</span>
+<span class="narration">对面坐着三位投资人。王总居中，两鬓花白，三件套扣得一丝不苟。</span>
+</div>
+</div>
+
+<div class="panel" id="p13">
+<img class="panel-img" src="images/p13.webp" loading="lazy" alt="PPT">
+<div class="panel-text">
+<span class="narration">PPT第十七版。标题：「为什么现在是最好时机」。</span>
+<span class="thought">说实话，我自己都不太信这个标题了。</span>
+</div>
+</div>
+
+<div class="panel" id="p14">
+<img class="panel-img" src="images/p14.webp" loading="lazy" alt="关PPT">
+<div class="panel-text">
+<span class="narration">讲到第八页，我停了。然后合上了笔记本电脑。</span>
+<div class="decision">
+<div class="label">◆ 决策点 #3 ◆</div>
+<span class="dialogue">启元发了免费API，你们看到了。</span>
+<span class="dialogue">我告诉你们——我们七个人，今天早上九点到现在，没有一个提过离职。</span>
+<span class="narration">房间安静了三秒。</span>
+<span class="thought">正常路径堵死了。那就绕道。用真话当武器。</span>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p15">
+<img class="panel-img" src="images/p15.webp" loading="lazy" alt="走廊剪影">
+<div class="panel-text">
+<span class="narration">路演结束。走廊尽头，落地窗映着深圳的万家灯火。</span>
+<span class="narration">我靠着墙，松了松领带。</span>
+<span class="thought">王总的表情我读不出来。但今天那些话——不是真话，一个字都说不出来。</span>
+<span class="system">[ LOOP #1 — 23:42:17 ]</span>
+</div>
+</div>
+
+<!-- LOOP BREAK -->
+<div class="loop-break">
+<h2 class="glitch">■ 循环开始 ■</h2>
+</div>
+
+<div class="panel" id="p16">
+<img class="panel-img" src="images/p16.webp" loading="lazy" alt="蓝光">
+<div class="panel-text">
+<span class="narration">23:59:59。</span>
+<span class="narration">我趴在办公桌上，电脑屏幕的蓝光映在脸上。</span>
+<span class="thought">今天...结束了吧。</span>
+<span class="narration">然后——白光。</span>
+</div>
+</div>
+
+<div class="panel" id="p17">
+<img class="panel-img" src="images/p17.webp" loading="lazy" alt="闹钟再次">
+<div class="panel-text">
+<span class="system">DAY 1 — LOOP #2</span>
+<span class="narration">闹钟响了。7:00。</span>
+<span class="narration">屏幕上的日期：2026年3月23日。星期一。</span>
+</div>
+</div>
+
+<div class="panel" id="p18">
+<img class="panel-img" src="images/p18.webp" loading="lazy" alt="弹起">
+<div class="panel-text">
+<span class="dialogue">什么情况？！</span>
+<span class="thought">我记得趴在办公桌上...怎么回到了床上？</span>
+<span class="narration">灰色T恤。黑色短裤。和早上起床时一模一样。</span>
+</div>
+</div>
+
+<div class="panel" id="p19">
+<img class="panel-img" src="images/p19.webp" loading="lazy" alt="手机日期">
+<div class="panel-text">
+<span class="narration">拿起手机。3月23日。李明的消息——一个字不差。</span>
+<span class="thought">这条消息...我昨天看过。</span>
+</div>
+</div>
+
+<div class="panel" id="p20">
+<img class="panel-img" src="images/p20.webp" loading="lazy" alt="惊恐">
+<div class="panel-text">
+<span class="narration">我摸了摸自己的脸。</span>
+<span class="funny">络腮胡还在。OK，至少我还是我。</span>
+<span class="thought">但这种从困惑到惊恐的感觉...不是做梦能解释的。</span>
+</div>
+</div>
+
+<div class="panel" id="p21">
+<img class="panel-img" src="images/p21.webp" loading="lazy" alt="地铁验证">
+<div class="panel-text">
+<span class="narration">地铁上。一切和昨天完全一样。相同的乘客，相同的播报。</span>
+<span class="thought">那个棺材板评论应该在第三条。</span>
+<span class="narration">我打开新闻。评论区——第三条，一字不差。</span>
+<span class="thought">我倒吸了一口凉气。</span>
+</div>
+</div>
+
+<div class="panel" id="p22">
+<img class="panel-img" src="images/p22.webp" loading="lazy" alt="记录">
+<div class="panel-text">
+<span class="narration">到公司门口，我停下了。掏出手机，新建备忘录：</span>
+<span class="thought">「循环规则测试 #1」</span>
+<span class="narration">黑客思维启动。既然遇到了bug——那就系统性地测试它。</span>
+</div>
+</div>
+
+<div class="panel" id="p23">
+<img class="panel-img" src="images/p23.webp" loading="lazy" alt="测试蒙太奇">
+<div class="panel-text">
+<span class="narration">测试1：不去公司 → 队友更慌，李明打了七个电话。</span>
+<span class="narration">测试2：提前告诉李明「今天天枢会发布」 → 他以为我疯了。</span>
+<span class="narration">测试3：转100块到另一个账户 → 循环后余额恢复原样。</span>
+<span class="funny">连一百块都留不住。创业公司日常。</span>
+<span class="thought">结论：记忆保留。物质不保留。我，是唯一的变量。</span>
+</div>
+</div>
+
+<div class="panel" id="p24">
+<img class="panel-img" src="images/p24.webp" loading="lazy" alt="发现白皮书">
+<div class="panel-text">
+<span class="narration">下午。经过林薇办公桌的时候，余光扫到了一份文件。</span>
+<span class="system">🔓 [ 观察力 Lv.1 解锁 ]</span>
+<span class="system">📋 [ 异常：林薇桌上「启元科技·天枢白皮书」标注日期3月26日 ]</span>
+<span class="thought">今天3月23日。这份白皮书...标注日期是三天后。</span>
+</div>
+</div>
+
+<div class="panel" id="p25">
+<img class="panel-img" src="images/p25.webp" loading="lazy" alt="伸手">
+<div class="panel-text">
+<span class="narration">我的手不由自主地伸向那份文件——</span>
+</div>
+</div>
+
+<div class="panel" id="p26">
+<img class="panel-img" src="images/p26.webp" loading="lazy" alt="水杯">
+<div class="panel-text">
+<span class="narration">身后传来高跟鞋的声音。我猛地收手，碰倒了桌上的水杯——</span>
+<span class="funny">单手接住。水只洒了一点。装作若无其事地擦桌子。</span>
+<span class="narration">林薇走过来，看了我一眼。</span>
+<span class="dialogue">你站我工位干嘛？</span>
+<span class="dialogue">啊...找订书机。</span>
+<span class="thought">林薇。我最信任的合伙人。她桌上为什么有三天后的文件？</span>
+</div>
+</div>
+
+<div class="panel" id="p27">
+<img class="panel-img" src="images/p27.webp" loading="lazy" alt="路演反转">
+<div class="panel-text">
+<span class="narration">这轮路演，我改了策略。领带是松的——Loop#1的遗留习惯。</span>
+<div class="decision">
+<div class="label">◆ 决策点 #4 ◆</div>
+<span class="dialogue">王总，如果一家公司的合伙人，提前拿到了竞对三天后才发布的白皮书——这意味着什么？</span>
+<span class="narration">全场沉默。</span>
+<span class="narration">王总放下了手中的茶杯。他的眼神变了。</span>
+</div>
+</div>
+</div>
+
+<div class="panel" id="p28">
+<img class="panel-img" src="images/p28.webp" loading="lazy" alt="笔记消失">
+<div class="panel-text">
+<span class="system">DAY 1 — LOOP #2 — 23:58:41</span>
+<span class="system">⚠️ [ 循环即将重置。已收集数据：3/??? ]</span>
+<span class="narration">走廊里。我蹲在地上，笔记本上画满了时间线和箭头。</span>
+<span class="narration">还有两分钟。</span>
+</div>
+</div>
+
+<div class="cliffhanger">
+<div class="fade-text">
+<p>但有一件事让我脊背发凉——</p>
+<p>&nbsp;</p>
+<p>笔记本上的字...正在一个字一个字消失。</p>
+</div>
+<div class="system" style="display:inline-block;margin-top:20px;padding:12px 20px;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.3);border-radius:8px;color:#ff6b35;font-family:'Courier New',monospace;font-size:0.9em">
+⚠️ [ 警告：物理记录不可跨循环保留。请升级记忆系统。]
+</div>
+<p style="margin-top:20px;color:#ff4444;font-size:1.1em">闪白。</p>
+<p class="system" style="display:inline-block;margin-top:12px;padding:8px 16px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:8px;color:#00ff88;font-family:'Courier New',monospace">DAY 1 — LOOP #3</p>
+<div class="next">
+<p style="margin-top:30px;color:#666">▸ 第二章 · 即将更新</p>
+</div>
+</div>
+
+<div class="spacer"></div>
+
+<script>
+const observer=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&e.target.classList.add('visible')})},{threshold:0.15});
+document.querySelectorAll('.panel').forEach(e=>observer.observe(e));
+</script>
+</body>
+</html>

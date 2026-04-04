@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>战神归来×AI创业 第一章：幽灵潜伏</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;font-size:18px;line-height:1.8;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:linear-gradient(180deg,#0a0a0a 0%,#0f1a0f 50%,#0a0a0a 100%)}
+.cover h1{font-size:28px;color:#4CAF50;margin-bottom:12px;text-shadow:0 0 20px rgba(76,175,80,0.3)}
+.cover .subtitle{font-size:16px;color:#888;margin-bottom:8px}
+.cover .series{font-size:14px;color:#666;border:1px solid #333;padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:20px}
+.cover .intro{background:#111;border-left:3px solid #4CAF50;padding:16px;margin:20px 0;text-align:left;font-size:15px;color:#999;border-radius:0 8px 8px 0;max-width:360px}
+.cover .intro strong{color:#4CAF50}
+.panel{padding:0;margin:0}
+.panel img{width:100%;display:block}
+.panel-text{padding:20px 16px;background:#111;border-left:3px solid transparent}
+.panel-text.narration{border-left-color:#555}
+.panel-text.decision{border-left-color:#4CAF50;background:#0f1a0f}
+.panel-text.decision::before{content:"⚡ 决策时刻";display:block;color:#4CAF50;font-size:14px;font-weight:bold;margin-bottom:8px;letter-spacing:2px}
+.panel-text.tension{border-left-color:#c0392b;background:#1a0f0f}
+.panel-text.humor{border-left-color:#f39c12;background:#1a1700}
+.panel-text.insight{border-left-color:#3498db;background:#0f141a}
+.panel-text p{margin-bottom:12px}
+.panel-text p:last-child{margin-bottom:0}
+.dialogue{color:#fff;font-weight:500}
+.thought{color:#aaa;font-style:italic}
+.highlight{color:#4CAF50}
+.danger{color:#c0392b}
+.divider{height:2px;background:linear-gradient(90deg,transparent,#333,transparent);margin:0}
+.chapter-end{text-align:center;padding:40px 20px;background:linear-gradient(180deg,#0a0a0a,#0f1a0f)}
+.chapter-end h2{color:#4CAF50;font-size:22px;margin-bottom:16px}
+.chapter-end .preview{background:#111;border:1px solid #333;border-radius:12px;padding:20px;margin-top:16px;max-width:360px;margin-left:auto;margin-right:auto}
+.chapter-end .preview h3{color:#c0392b;font-size:16px;margin-bottom:8px}
+.option-box{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px 16px;margin:8px 0}
+.option-box .label{color:#4CAF50;font-weight:bold;font-size:14px}
+.option-box.chosen{border-color:#4CAF50;background:#0f1a0f}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="series">战神归来×AI创业 · V5沉浸式</div>
+  <h1>第一章：幽灵潜伏</h1>
+  <div class="subtitle">深夜代码 · 间谍渗透 · 反向猎杀</div>
+  <div class="intro">
+    <strong>我叫朱江。</strong>外界知道的我，是一个AI创业公司的CEO。他们不知道的是——三年前，我的代号叫"幽灵"，隶属于一支不存在于编制的特种部队。我以为我已经把过去埋得够深了。
+  </div>
+</div>
+
+<!-- Part 1: 日常 -->
+
+<!-- P01 -->
+<div class="panel fade-in">
+  <img src="images/p01.webp" loading="eager" alt="深夜写代码">
+  <div class="panel-text narration">
+    <p>凌晨三点半，第47次调参。</p>
+    <p class="thought">说好的A轮到账就早睡的。骗谁呢。</p>
+  </div>
+</div>
+
+<!-- P02 -->
+<div class="panel fade-in">
+  <img src="images/p02.webp" loading="eager" alt="大橘坐键盘">
+  <div class="panel-text humor">
+    <p>大橘一屁股坐在回车键上，终端疯狂滚屏。三个小时的调参成果，就这么被一只橘猫的屁股终结了。</p>
+    <p class="thought">这猫上辈子一定是个产品经理。专门在关键时刻乱按确认。</p>
+  </div>
+</div>
+
+<!-- P03 -->
+<div class="panel fade-in">
+  <img src="images/p03.webp" loading="eager" alt="搬家现场">
+  <div class="panel-text narration">
+    <p>第二天，搬新办公室。我扛着一箱服务器，林婉清举着平面图指挥。</p>
+    <p class="dialogue">"服务器房放角落，隔音好。"</p>
+    <p>阳光很好。团队士气很高。A轮的钱终于让我们从地下室搬到了有窗户的地方。</p>
+  </div>
+</div>
+
+<!-- P04 -->
+<div class="panel fade-in">
+  <img src="images/p04.webp" loading="lazy" alt="讨论工位">
+  <div class="panel-text narration">
+    <p>婉清指着角落说工位方案，我点头。</p>
+    <p class="thought">但我的余光，一直挂在门口。</p>
+    <p>新招的实习生今天第一天报到。HR说他简历很干净——太干净了。</p>
+  </div>
+</div>
+
+<!-- P05 -->
+<div class="panel fade-in">
+  <img src="images/p05.webp" loading="lazy" alt="小王的脚步">
+  <div class="panel-text insight">
+    <p>他走进来的时候，我看的不是他的脸，是他的脚。</p>
+    <p class="thought">双脚平行，与肩同宽，重心均匀分布。这个站姿……要么练过武术，要么——受过军事训练。</p>
+    <p>程序员不会这么站。</p>
+  </div>
+</div>
+
+<!-- P06 -->
+<div class="panel fade-in">
+  <img src="images/p06.webp" loading="lazy" alt="握手">
+  <div class="panel-text narration">
+    <p class="dialogue">"欢迎啊小王，缺什么跟我说。"</p>
+    <p>我笑着伸手。他也笑着握上来。</p>
+    <p class="thought">握手力度42公斤以上。虎口有茧。</p>
+    <p class="thought">这不是程序员的手。</p>
+  </div>
+</div>
+
+<!-- P07 -->
+<div class="panel fade-in">
+  <img src="images/p07.webp" loading="lazy" alt="办公室全貌">
+  <div class="panel-text narration">
+    <p>新办公室第一天。阳光洒进来，大橘在窗台上打盹，团队在整理工位。</p>
+    <p class="thought">一切看起来很好。除了那个站姿太标准的实习生。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Part 2: 暗流 -->
+
+<!-- P08 -->
+<div class="panel fade-in">
+  <img src="images/p08.webp" loading="lazy" alt="白板画架构">
+  <div class="panel-text narration">
+    <p>白天照常开会。我在白板上画模型架构，婉清和团队围坐讨论。</p>
+    <p>这个模型是我们的核心竞争力。准确率比行业标准高17个百分点。</p>
+  </div>
+</div>
+
+<!-- P09 -->
+<div class="panel fade-in">
+  <img src="images/p09.webp" loading="lazy" alt="小王拍白板">
+  <div class="panel-text tension">
+    <p>讲到一半，我余光看到了。</p>
+    <p class="thought">小王在拍白板。可以理解——实习生记笔记嘛。但他拍的角度，是在拍我写的<span class="danger">模型参数</span>，不是架构图。</p>
+    <p class="thought">架构图在左边。参数在右边。他的手机对准的是右边。</p>
+  </div>
+</div>
+
+<!-- P10 -->
+<div class="panel fade-in">
+  <img src="images/p10.webp" loading="lazy" alt="深夜监控">
+  <div class="panel-text tension">
+    <p>凌晨2点47分。服务器房的监控画面里，一个人影弯腰插入U盘。</p>
+    <p>是小王。</p>
+    <p class="thought">来得比我预期的早。</p>
+  </div>
+</div>
+
+<!-- P11 -->
+<div class="panel fade-in">
+  <img src="images/p11.webp" loading="lazy" alt="在家看监控">
+  <div class="panel-text narration">
+    <p>我靠在椅背上，看着笔记本里的监控画面，忍不住笑了一下。</p>
+    <p>大橘蹲在旁边，也盯着屏幕，尾巴一甩一甩的。</p>
+    <p class="thought">果然。小王同志，你的KPI完成得挺积极啊。</p>
+  </div>
+</div>
+
+<!-- P12 -->
+<div class="panel fade-in">
+  <img src="images/p12.webp" loading="lazy" alt="制作假数据">
+  <div class="panel-text insight">
+    <p>我走到书架前，拿出一个加密U盘，插进另一台电脑。</p>
+    <p>然后开始制作假数据包。</p>
+    <p class="thought">在部队我们管这叫"反向情报投喂"。给敌人他们想要的东西，只不过——全是假的。而且里面埋了追踪标记。</p>
+  </div>
+</div>
+
+<!-- DECISION-1 -->
+
+<!-- P13 -->
+<div class="panel fade-in">
+  <img src="images/p13.webp" loading="lazy" alt="决策时刻">
+  <div class="panel-text decision">
+    <p>手指悬在键盘上方。三条路。</p>
+    <div class="option-box">
+      <p class="label">A — 当场揭穿，报警</p>
+      <p class="thought">最安全的做法。但我只能抓到一个棋子，下棋的人还在暗处。</p>
+    </div>
+    <div class="option-box chosen">
+      <p class="label">B — 反向喂假情报，顺藤摸瓜 ✓</p>
+      <p class="thought">风险大。但能抓到下棋的人。</p>
+    </div>
+    <div class="option-box">
+      <p class="label">C — 私下约谈，给他一个机会</p>
+      <p class="thought">他看起来也不过25岁。也许是被逼的。</p>
+    </div>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="panel fade-in">
+  <img src="images/p14.webp" loading="lazy" alt="决断">
+  <div class="panel-text narration">
+    <p>嘴角微微上扬。手指落在键盘上，开始打字。</p>
+    <p class="thought">选B。不是因为我不想善良——而是善良要等到弄清楚谁在棋盘对面。</p>
+    <p class="thought">菩萨心肠可以稍后再发，先把雷排了。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Part 3: 反击 -->
+
+<!-- P15 -->
+<div class="panel fade-in">
+  <img src="images/p15.webp" loading="lazy" alt="带奶茶">
+  <div class="panel-text narration">
+    <p>第二天，我买了一排奶茶带进办公室。笑嘻嘻地分给每个人。</p>
+    <p class="thought">保持日常。最好的伪装就是完全不伪装。</p>
+  </div>
+</div>
+
+<!-- P16 -->
+<div class="panel fade-in">
+  <img src="images/p16.webp" loading="lazy" alt="递奶茶给小王">
+  <div class="panel-text narration">
+    <p class="dialogue">"小王，加班辛苦了。这个项目资料我放共享盘了，你直接拷。"</p>
+    <p>我递过去一杯奶茶，语气轻松得像在聊天气。</p>
+    <p class="thought">假数据包已经放好了。请享用。</p>
+  </div>
+</div>
+
+<!-- P17 -->
+<div class="panel fade-in">
+  <img src="images/p17.webp" loading="lazy" alt="大橘审视小王">
+  <div class="panel-text humor">
+    <p>大橘不知道什么时候跳上了小王的桌子，直勾勾盯着他，眼神锐利得像个退休老干部在审查年轻干部的入党材料。</p>
+    <p>小王有点尴尬，伸手去摸。大橘一巴掌拍开。</p>
+    <p class="thought">连大橘都看出来了。这猫的直觉比安全部门靠谱。</p>
+  </div>
+</div>
+
+<!-- P18 -->
+<div class="panel fade-in">
+  <img src="images/p18.webp" loading="lazy" alt="小王拷贝假数据">
+  <div class="panel-text tension">
+    <p>当晚，小王如期出现在服务器房。U盘插入，数据开始传输。</p>
+    <p>他不知道的是：这次拷走的每一个字节里，都埋着我写的追踪标记。</p>
+    <p class="thought">鱼饵已经咽下去了。接下来，只需要等鱼线绷紧。</p>
+  </div>
+</div>
+
+<!-- P19 -->
+<div class="panel fade-in">
+  <img src="images/p19.webp" loading="lazy" alt="追踪信号">
+  <div class="panel-text tension">
+    <p>手机震动。屏幕上，一个红点从我们公司出发，沿三环走了二十分钟，停在了——</p>
+    <p class="highlight">鼎盛大厦，32层。赵鹏飞的投资公司。</p>
+    <p class="thought">赵鹏飞。投了我A轮的人。有意思。</p>
+  </div>
+</div>
+
+<!-- P20 -->
+<div class="panel fade-in">
+  <img src="images/p20.webp" loading="lazy" alt="复盘关系网">
+  <div class="panel-text insight">
+    <p>我把自己关在会议室里，白板上画满了关系网。赵鹏飞的名字被画了个红圈。</p>
+    <p>大橘趴在会议桌上，尾巴搭在我的笔记本边缘。</p>
+    <p class="thought">一个投资人，投你钱的同时派人偷你数据。不是为了钱——是为了控制。他想要的不是回报率，是这个模型本身。</p>
+  </div>
+</div>
+
+<!-- P21 -->
+<div class="panel fade-in">
+  <img src="images/p21.webp" loading="lazy" alt="林婉清撞见">
+  <div class="panel-text narration">
+    <p>门被推开的一瞬间，我条件反射地伸手擦白板。</p>
+    <p>婉清站在门口，一挑眉。</p>
+    <p class="dialogue">"你什么时候学的情报分析？"</p>
+    <p class="dialogue">"看多了谍战剧。"</p>
+  </div>
+</div>
+
+<!-- P22 -->
+<div class="panel fade-in">
+  <img src="images/p22.webp" loading="lazy" alt="林婉清的眼神">
+  <div class="panel-text narration">
+    <p>她没说话。但那个眼神我太熟悉了——</p>
+    <p class="thought">林婉清是我见过最聪明的人。这也意味着……她是最难糊弄的。</p>
+    <p class="thought">她记住了。她一定记住了。</p>
+  </div>
+</div>
+
+<!-- P23 -->
+<div class="panel fade-in">
+  <img src="images/p23.webp" loading="lazy" alt="茶水间对话">
+  <div class="panel-text narration">
+    <p>茶水间。我背对小王泡咖啡，语气随意得像在问天气。</p>
+    <p class="dialogue">"小王，你之前在哪家公司？"</p>
+    <p class="dialogue">"一家小创业公司，倒了。"</p>
+    <p class="dialogue">"是吗。什么方向的？"</p>
+    <p class="thought">他的心率从72跳到了95。我不用回头就能从他声音的微颤判断——这个问题让他紧张了。</p>
+  </div>
+</div>
+
+<!-- P24 -->
+<div class="panel fade-in">
+  <img src="images/p24.webp" loading="lazy" alt="夜景剪影">
+  <div class="panel-text narration">
+    <p>深夜。我站在办公室落地窗前，俯瞰整座城市的灯火。</p>
+    <p class="thought">赵鹏飞，你选错了对手。你以为你在跟一个程序员下棋。</p>
+  </div>
+</div>
+
+<!-- P25 -->
+<div class="panel fade-in">
+  <img src="images/p25.webp" loading="lazy" alt="侧脸倒影">
+  <div class="panel-text narration">
+    <p>窗玻璃上映出城市和我的影子，重叠在一起。</p>
+    <p class="thought">但棋盘上坐着的……是一个从战场上退下来的人。</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Part 4: 悬念 -->
+
+<!-- P26 -->
+<div class="panel fade-in">
+  <img src="images/p26.webp" loading="lazy" alt="加密邮件">
+  <div class="panel-text tension">
+    <p>回到工位。一封加密邮件。发件人：unknown。</p>
+    <p>内容只有一行字——</p>
+    <p class="danger" style="font-size:22px;text-align:center;margin:16px 0">"幽灵，好久不见。"</p>
+    <p>我的手停在鼠标上，指关节发白。</p>
+  </div>
+</div>
+
+<!-- P27 -->
+<div class="panel fade-in">
+  <img src="images/p27.webp" loading="lazy" alt="手握鼠标">
+  <div class="panel-text tension">
+    <p class="thought">这个代号……只有部队里的人知道。</p>
+    <p class="thought">退役时所有档案都封存了。能查到这个名字的人，要么是老战友——要么，是有能力动用军方数据库的人。</p>
+    <p>不管是哪种，都不是好消息。</p>
+  </div>
+</div>
+
+<!-- P28 -->
+<div class="panel fade-in">
+  <img src="images/p28.webp" loading="lazy" alt="大橘感应">
+  <div class="panel-text humor">
+    <p>大橘从键盘上抬起头，歪着脑袋看我，耳朵竖得笔直。</p>
+    <p>它平时打雷都不带抬眼皮的。现在居然正襟危坐。</p>
+    <p class="thought">连大橘都意识到——气氛变了。</p>
+  </div>
+</div>
+
+<!-- P29 -->
+<div class="panel fade-in">
+  <img src="images/p29.webp" loading="lazy" alt="拨电话">
+  <div class="panel-text tension">
+    <p>我翻出通讯录底部一个没有名字的号码。两年没拨过。</p>
+    <p>等了三声。</p>
+    <p class="dialogue">"……你终于来电话了。朱江，有人在查你。"</p>
+    <p class="thought">陈老。我两年没联系的前指挥官。他已经知道了。</p>
+    <p class="thought">这意味着——查我的人，级别很高。</p>
+  </div>
+</div>
+
+<!-- P30 -->
+<div class="panel fade-in">
+  <img src="images/p30.webp" loading="lazy" alt="悬念结尾">
+  <div class="panel-text tension">
+    <p>我挂了电话，看着窗外。</p>
+    <p class="thought">我以为我可以永远把过去埋掉。</p>
+    <p class="thought">看来……过去不同意。</p>
+    <p>手机震动。林婉清的消息：</p>
+    <p class="danger" style="font-size:17px;background:#1a0808;padding:12px;border-radius:8px;margin-top:8px">"江哥，你以前到底是做什么的？我查了你简历上那家公司……<strong>它根本不存在。</strong>"</p>
+  </div>
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end">
+  <h2>— 第一章 · 完 —</h2>
+  <p style="color:#888;font-size:15px;margin-bottom:16px">间谍已入局 · 假情报已投喂 · 但过去追上来了</p>
+  <div class="preview">
+    <h3>第二章预告：路演风暴</h3>
+    <p style="color:#aaa;font-size:14px">
+      产品路演当天，投影仪被动了手脚，数据全部替换成了竞品方案。<br>
+      台下坐着赵鹏飞和三十位投资人。<br>
+      我有90秒做出反应。<br>
+      <span style="color:#4CAF50">——而90秒，对幽灵来说，绰绰有余。</span>
+    </p>
+  </div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
