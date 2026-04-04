@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代号朱雀 · 第三章：灼</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1e2e;color:#e8e8e8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif}
+.cover{
+  height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:linear-gradient(180deg,#2a1525 0%,#1a2535 50%,#1a1e2e 100%);
+  text-align:center;padding:2rem
+}
+.cover h1{font-size:2.8rem;color:#e8c547;margin-bottom:.5rem;letter-spacing:.3em;text-shadow:0 0 30px rgba(232,197,71,.4)}
+.cover .sub{font-size:1.4rem;color:#ff6b35;margin-bottom:2rem;text-shadow:0 0 20px rgba(255,107,53,.3)}
+.cover .ch{font-size:1.1rem;color:#888;letter-spacing:.2em}
+.scroll-hint{color:#555;font-size:.9rem;margin-top:3rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+.panel{
+  width:100%;max-width:500px;margin:0 auto;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .6s ease,transform .6s ease
+}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block}
+.panel .text{
+  padding:1.2rem 1.5rem 2rem;
+  font-size:1.15rem;line-height:1.85;color:#d8d8d8;
+  background:linear-gradient(180deg,rgba(26,30,46,.95) 0%,rgba(26,30,46,.8) 100%)
+}
+.panel:nth-child(odd) .text{border-left:3px solid #e8c547;padding-left:1.5rem}
+.panel:nth-child(even) .text{border-left:3px solid #ff6b35;padding-left:1.5rem}
+.decision-card{
+  max-width:500px;margin:1rem auto 2rem;
+  background:linear-gradient(135deg,#2a1530 0%,#1a2030 100%);
+  border:1px solid #c0392b;border-radius:12px;overflow:hidden
+}
+.decision-card summary{
+  padding:1.2rem 1.5rem;font-size:1.1rem;color:#e8c547;cursor:pointer;
+  list-style:none;display:flex;align-items:center;gap:.5rem
+}
+.decision-card summary::-webkit-details-marker{display:none}
+.decision-card summary::before{content:'🔥';font-size:1.2rem}
+.decision-card .choice{padding:1rem 1.5rem;font-size:1.05rem;line-height:1.8;color:#ccc;border-top:1px solid rgba(192,57,43,.3)}
+.decision-card .chosen{background:rgba(232,197,71,.08);border-left:3px solid #e8c547;padding-left:1.2rem;margin:.8rem 1rem;border-radius:4px}
+.decision-card .chosen p{color:#e8c547;font-weight:bold;margin-bottom:.3rem}
+.decision-card .inner{color:#999;font-size:.95rem;line-height:1.7;padding:0 1.5rem 1.2rem}
+.action .text{
+  background:linear-gradient(180deg,rgba(40,20,10,.95) 0%,rgba(26,30,46,.9) 100%);
+  border-left:3px solid #ff4444!important
+}
+.ending{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#1a1e2e 0%,#2a1525 50%,#1a1e2e 100%)}
+.ending .next{font-size:1.3rem;color:#e8c547;margin-bottom:1rem}
+.ending .tease{font-size:1rem;color:#888;line-height:1.8}
+.spacer{height:2rem}
+.section-title{
+  text-align:center;padding:3rem 1rem 1rem;
+  font-size:1.3rem;color:#e8c547;letter-spacing:.3em;
+  text-shadow:0 0 15px rgba(232,197,71,.3)
+}
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="ch">—— V5 · 原创长篇 ——</div>
+  <h1>代号朱雀</h1>
+  <div class="sub">第三章：灼</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- ═══ 开场 [格1-6]: 朱雀出笼 ═══ -->
+<div class="section-title">朱 雀 出 笼</div>
+
+<div class="panel">
+  <img src="images/p01.webp" alt="p01" loading="lazy">
+  <div class="text">深圳凌晨一点的南山大道，霓虹灯在挡风玻璃上拖出长长的光带。我握着方向盘，GPS导向宝安工业区。五年没摸这套装备。手指还记得每个扣子的位置——身体比大脑更诚实。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p02.webp" alt="p02" loading="lazy">
+  <div class="text">在后座拉开黑色装备箱——电子干扰器、开锁套件、微型无人机。我一件件组装，动作流畅得像是昨天才练过。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p03.webp" alt="p03" loading="lazy">
+  <div class="text">手指拧紧无人机最后一颗螺丝的时候，屏幕弹出提示——电池电量43%。五年没用，电池居然还有43%的电。中国制造，真的牛。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p04.webp" alt="p04" loading="lazy">
+  <div class="text">废弃仓库外，我放出无人机。红外画面里，六个热源。五个在走动巡逻，一个坐着不动——小鱼。活着就好。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p05.webp" alt="p05" loading="lazy">
+  <div class="text">我蹲在铁丝网后面，把战术手套的扣子拉紧。呼吸渐渐放缓。心跳从九十降到六十——这是身体在告诉我：准备好了。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p06.webp" alt="p06" loading="lazy">
+  <div class="text">六对一。以前觉得不公平，现在觉得他们人少了点。</div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 中段A [格7-20]: 突入 ═══ -->
+<div class="section-title">突 入</div>
+
+<div class="panel action">
+  <img src="images/p07.webp" alt="p07" loading="lazy">
+  <div class="text">配电箱的锁在开锁器面前只撑了三秒。我拉下总闸——整栋仓库瞬间陷入黑暗。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel action">
+  <img src="images/p08.webp" alt="p08" loading="lazy">
+  <div class="text">夜视模式启动。世界变成了绿色。守卫们像是被按了暂停键，有人在骂"又停电了"。我从侧门滑了进去。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel action">
+  <img src="images/p09.webp" alt="p09" loading="lazy">
+  <div class="text">第一个守卫靠在墙角玩手机——手机屏幕是唯一的光源。我从背后锁住他的脖子，三秒，无声倒地。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel action">
+  <img src="images/p10.webp" alt="p10" loading="lazy">
+  <div class="text">第二个从拐角冲出来，拳头带着风声。我侧身闪过，一记肘击精准命中太阳穴。他手机飞了出去——屏幕亮着，外卖App，鱼香肉丝。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p11.webp" alt="p11" loading="lazy">
+  <div class="text">兄弟，你也点了鱼香肉丝？缘分。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel action">
+  <img src="images/p12.webp" alt="p12" loading="lazy">
+  <div class="text">第三个和第四个守卫在走廊尽头聊天。我扔出一枚螺母——叮的一声，两人同时转头。身体本能地启动：右勾拳、左肘击、膝顶、收工。四秒。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel action">
+  <img src="images/p13.webp" alt="p13" loading="lazy">
+  <div class="text">第五个守卫站在小鱼的门外。他还没来得及拔枪，我的手刀已经切在他颈动脉上。身体向地面滑去的声音很轻，像是叹了口气。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p14.webp" alt="p14" loading="lazy">
+  <div class="text">门锁——密码锁。但这年头的密码锁，在电子干扰器面前跟没有一样。嘀——绿灯。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p15.webp" alt="p15" loading="lazy">
+  <div class="text">小鱼坐在铁椅上，手脚绑着扎带，嘴上封着银色胶带。白衬衫皱巴巴的沾着灰，细框眼镜只剩半边挂在耳朵上。但他的眼神——清醒、警觉。好小子，没有崩。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p16.webp" alt="p16" loading="lazy">
+  <div class="text">我撕开胶带。小鱼眨了眨眼，嘴唇动了动。他的第一句话不是"救命"，不是"谢谢"——</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p17.webp" alt="p17" loading="lazy">
+  <div class="text">"你……你怎么会格斗？！"这小子，命都快没了，好奇心还是第一位。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p18.webp" alt="p18" loading="lazy">
+  <div class="text">"……团建拓展学的。"小鱼那个表情——就差把"你觉得我信吗"刻在脸上了。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel action">
+  <img src="images/p19.webp" alt="p19" loading="lazy">
+  <div class="text">但来不及追问了。走廊深处传来脚步声——不是普通守卫慌张的奔跑。是稳定的、有节奏的、军靴踩在水泥地上的声音。一步一步，和我的步频一模一样。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p20.webp" alt="p20" loading="lazy">
+  <div class="text">我把小鱼推到角落，低声说："不管发生什么，别出来。"然后转身面对走廊。</div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 中段B [格21-32]: 凤凰现身 ═══ -->
+<div class="section-title">凤 凰 现 身</div>
+
+<div class="panel">
+  <img src="images/p21.webp" alt="p21" loading="lazy">
+  <div class="text">走廊尽头，应急灯投下昏黄的光。一个人影从光里走出来——深灰色长风衣，步伐沉稳得像在自家客厅散步。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p22.webp" alt="p22" loading="lazy">
+  <div class="text">他走近了。国字脸，浓眉，短寸头。左脸颊一道旧伤疤，从眉尾斜切到嘴角——像是被人用刀精确地划过。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p23.webp" alt="p23" loading="lazy">
+  <div class="text">我的瞳孔猛地收缩。不可能。这张脸我在梦里见过一千次。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p24.webp" alt="p24" loading="lazy">
+  <div class="text">他抬起左手推开走廊的侧门——无名指，缺失。我的心脏漏跳了一拍。那根手指，是五年前在撤离任务中被碎片切断的。我亲手给他止的血。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p25.webp" alt="p25" loading="lazy">
+  <div class="text">不可能。你的骨灰我亲手从前线运回来的。你的墓碑我每年清明都去扫。你……明明已经死了五年。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p26.webp" alt="p26" loading="lazy">
+  <div class="text">他停在三米外，看着我。那双眼睛里没有敌意——只有疲惫，和一种说不清的挣扎。然后他开口了，声音低沉得像在水底说话：</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p27.webp" alt="p27" loading="lazy">
+  <div class="text">"小朱。五年了。你的出拳习惯还是没改——先右勾拳再左肘击。"</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p28.webp" alt="p28" loading="lazy">
+  <div class="text">老秦。秦远山。代号"凤凰"。朱雀组二号。我的战友，我的搭档，我以为这辈子再也见不到的人。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p29.webp" alt="p29" loading="lazy">
+  <div class="text">两人对峙。空气凝固了三秒——或者三年，我分不清。战友重逢，却站在对立面。他是"影"的人。而我来端"影"的据点。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p30.webp" alt="p30" loading="lazy">
+  <div class="text">角落里，小鱼探出半个脑袋，声音发颤："所以……你们认识？！"我和老秦同时沉默。小鱼缩了回去——"好的，我不问了。"</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p31.webp" alt="p31" loading="lazy">
+  <div class="text">"你不该来。"老秦的声音很轻。"你不该'死'。"我的声音更轻。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p32.webp" alt="p32" loading="lazy">
+  <div class="text">走廊的应急灯忽明忽暗，在他脸上切出明暗两半——像他现在的身份一样，一半是我的战友，一半是"影"的人。</div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 高潮 [格33-42]: 灼心真相 ═══ -->
+<div class="section-title">灼 心 真 相</div>
+
+<div class="panel">
+  <img src="images/p33.webp" alt="p33" loading="lazy">
+  <div class="text">老秦带我们上了天台。深圳的天际线在远处亮着，像一排永不熄灭的篝火。他靠在栏杆上，点了根烟。手微微在抖。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p34.webp" alt="p34" loading="lazy">
+  <div class="text">"五年前那个任务，我不是牺牲。"他吐出一口烟，被风吹散。"是被卖了。"</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p35.webp" alt="p35" loading="lazy">
+  <div class="text">"上面需要一枚棋子做交易。我的位置被泄露给对方，换了一个更'有价值'的情报源。组织给你们发了阵亡通知——干净利落。"</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p36.webp" alt="p36" loading="lazy">
+  <div class="text">我的拳头攥紧了。指甲嵌进掌心。我给他烧过纸，扫过墓，喝醉了对着空酒瓶子讲话。原来这一切……是一场交易。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p37.webp" alt="p37" loading="lazy">
+  <div class="text">"被俘之后，'影'给了我两个选择——死，或者加入。我选了活。"老秦的伤疤在月光下像一条银色的蜈蚣。"但我没有真正归顺。五年了，我在'影'内部收集证据。"</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p38.webp" alt="p38" loading="lazy">
+  <div class="text">"'影'攻击辰光不只是商业目的。辰光的AI核心算法和军用AI系统有底层架构相似性。有人想通过辰光……获取这个架构。"我的后背一阵发凉。辰光不是棋子——是钥匙。</div>
+</div>
+<div class="spacer"></div>
+
+<!-- 决策点6 -->
+<details class="decision-card">
+  <summary>决策点 [DECISION-6]：是否带老秦强行撤离？</summary>
+  <div class="choice">
+    <p><strong>A：强行带走</strong> —— "你已经牺牲过一次，不会有第二次。" 情义优先，但会毁掉五年潜伏成果。</p>
+    <p><strong>B：尊重他的决定</strong> —— 带小鱼先撤，让老秦继续潜伏。理性+信任战友，但留他在刀尖上。</p>
+  </div>
+  <div class="chosen">
+    <p>▸ 我的选择：B</p>
+  </div>
+  <div class="inner">他不是小鱼。他是和我一样的人——做过选择，扛得住后果。我没资格替他决定。对弱者，我用行动保护。对强者，我用信任尊重。</div>
+</details>
+
+<div class="panel">
+  <img src="images/p39.webp" alt="p39" loading="lazy">
+  <div class="text">老秦从风衣内袋掏出一个U盘。黑色的，指甲盖大小。"这里面是'影'五年的运作记录。人员、资金、客户清单。我出不去——但你可以。"</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p40.webp" alt="p40" loading="lazy">
+  <div class="text">我接过U盘。金属外壳冰凉。五年的重量，压在掌心里。沉默了很久。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p41.webp" alt="p41" loading="lazy">
+  <div class="text">"五年来我以为你死了，给你烧过纸。你他妈欠我三年清明节的纸钱。"我的声音有点哑。老秦笑了——伤疤牵动嘴角，笑容苦涩得能拧出水。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p42.webp" alt="p42" loading="lazy">
+  <div class="text">"跟我走。"我说。他摇头："走了，'影'会收缩，证据链断。我再待一年。这条线……就能端掉。"他看着远处的深圳天际线。五年了，他离自由只差一年。或者一辈子。</div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 悬念结尾 [格43-46]: 新火种 ═══ -->
+<div class="section-title">新 火 种</div>
+
+<div class="panel">
+  <img src="images/p43.webp" alt="p43" loading="lazy">
+  <div class="text">从仓库后门撤出来的时候，天还没亮。小鱼坐在副驾驶上，用仅存的半副眼镜盯着我看了整整三十秒。然后开口："老大，你到底是谁？"</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p44.webp" alt="p44" loading="lazy">
+  <div class="text">我启动引擎。沉默了三秒。"我是你老板。其他的，以后再说。"小鱼张了张嘴，最终把话咽了回去。聪明人知道什么时候不该问。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p45.webp" alt="p45" loading="lazy">
+  <div class="text">等红灯的时候，我把U盘插进笔记本。文件夹套文件夹，数据像迷宫一样展开。但最底层有一份文件让我的手指停住了——辰光科技的原始融资协议。其中一条被划掉的条款，墨迹没有完全覆盖住下面的文字："核心算法使用权转让"。</div>
+</div>
+<div class="spacer"></div>
+
+<!-- 决策点7 -->
+<details class="decision-card">
+  <summary>决策点 [DECISION-7]：发现辰光融资协议的隐藏条款</summary>
+  <div class="choice">
+    <p><strong>A：明天在董事会上摊牌</strong> —— 快刀斩乱麻，把协议甩到桌上，但可能打草惊蛇。</p>
+    <p><strong>B：不动声色，层层追查</strong> —— 用老秦的情报反向追踪条款背后的人。黑客式渗透。</p>
+  </div>
+  <div class="chosen">
+    <p>▸ 我的选择：B</p>
+  </div>
+  <div class="inner">拿到root再说。掀桌子谁都会，但你掀了桌子之后呢？先看清楚棋盘上有几个棋手。陈副总不是幕后——他只是一颗被摆在明面上的棋子。真正的问题，在辰光的地基里。</div>
+</details>
+
+<div class="panel">
+  <img src="images/p46.webp" alt="p46" loading="lazy">
+  <div class="text">车驶入深圳凌晨的车流里。天际线亮起第一道晨光，霓虹灯在车窗上流成一条发光的河。我的脸映在玻璃上——半是疲惫，半是决意。辰光的地基有裂缝。我得在它塌之前，从里面修好它。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="ending">
+  <div class="next">—— 第三章 · 灼 · 完 ——</div>
+  <div class="tease">
+    辰光核心架构与军用AI的关联<br>
+    融资协议中被划掉的秘密条款<br>
+    老秦在"影"内部的最后一年<br>
+    小鱼眼中老板的另一副面孔<br><br>
+    <span style="color:#e8c547">第四章：根</span><br>
+    "每棵大树的根系里，都藏着它最初的秘密。"
+  </div>
+</div>
+
+<script>
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+},{threshold:0.15});
+document.querySelectorAll('.panel').forEach(p=>observer.observe(p));
+</script>
+</body>
+</html>
