@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代号朱雀 · 第六章：深渊</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0e1a;color:#e8e0d4;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.chapter-header{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0e1a 0%,#0f1a3d 50%,#1a2a5a 100%);overflow:hidden}
+.chapter-header::before{content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(60,120,255,0.3),transparent 70%);animation:pulse 3s ease-in-out infinite;top:30%;left:50%;transform:translate(-50%,-50%)}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.5}50%{transform:translate(-50%,-50%) scale(1.3);opacity:1}}
+.chapter-header h1{font-size:2.4rem;font-weight:700;letter-spacing:0.15em;color:#6fa8ff;text-shadow:0 0 30px rgba(100,160,255,0.5);z-index:1}
+.chapter-header .subtitle{font-size:1.1rem;color:#8899bb;margin-top:12px;z-index:1;letter-spacing:0.1em}
+.chapter-header .ch-num{font-size:0.9rem;color:#556688;margin-bottom:8px;z-index:1;letter-spacing:0.2em}
+.scroll-hint{position:absolute;bottom:30px;color:#556688;font-size:0.8rem;animation:bob 2s ease-in-out infinite;z-index:1}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.panel-wrap{max-width:600px;margin:0 auto;padding:0 0 60px}
+.panel{margin:0 0 2px;position:relative;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.text-block{padding:18px 20px;line-height:1.9;font-size:19px}
+.narration{color:#b8c8e8;font-style:italic;padding:14px 20px 14px 28px;border-left:3px solid #3a5a9a;margin:0 16px 2px;font-size:17px;line-height:1.8;background:rgba(30,50,90,0.3)}
+.inner-voice{color:#7a9fd8;font-style:italic;padding:14px 20px;margin:0 16px 2px;font-size:17px;line-height:1.8;background:rgba(20,40,80,0.2);border-radius:8px}
+.dialogue{padding:12px 20px;margin:0 16px 2px;font-size:18px;line-height:1.8}
+.dialogue .speaker{font-weight:700;margin-right:6px}
+.speaker-zj{color:#6fa8ff}
+.speaker-ly{color:#a0a8b8}
+.speaker-zw{color:#c8a888}
+.speaker-ws{color:#88d888}
+.speaker-xy{color:#d8b888}
+.decision-box{margin:16px;padding:20px;background:linear-gradient(135deg,rgba(40,60,120,0.4),rgba(20,40,80,0.6));border:1px solid rgba(100,160,255,0.3);border-radius:12px}
+.decision-box .label{color:#6fa8ff;font-size:14px;font-weight:700;letter-spacing:0.1em;margin-bottom:10px}
+.decision-box .chosen{color:#88d888;font-weight:600;margin-top:8px;padding:10px;background:rgba(60,120,80,0.2);border-radius:8px}
+.decision-box .reason{color:#8899bb;font-size:15px;margin-top:8px;line-height:1.7}
+.scene-divider{text-align:center;padding:30px 0;color:#3a5a9a;font-size:14px;letter-spacing:0.3em}
+.scene-divider::before,.scene-divider::after{content:'──── ';color:#2a3a6a}
+.scene-divider::after{content:' ────'}
+.cliffhanger{margin:30px 16px;padding:24px;background:linear-gradient(180deg,rgba(10,14,26,0),rgba(40,20,20,0.3),rgba(80,30,30,0.2));border-bottom:2px solid #8a4444;text-align:center}
+.cliffhanger h3{color:#d88888;font-size:1.1rem;margin-bottom:16px;letter-spacing:0.1em}
+.cliffhanger p{color:#aa8888;font-size:16px;line-height:1.8;margin-bottom:6px}
+.warm{background:#F5F0EB;color:#2a2520}
+.warm .narration{color:#5a4a3a;border-left-color:#b8956a;background:rgba(180,150,100,0.1)}
+.warm .inner-voice{color:#6a5a4a;background:rgba(180,150,100,0.08)}
+.warm .dialogue{color:#3a3028}
+.warm .speaker-zj{color:#2a6aaa}
+.warm .speaker-ly{color:#5a5a5a}
+.warm .speaker-zw{color:#8a6a4a}
+.warm .speaker-xy{color:#7a8a4a}
+.sunset{background:linear-gradient(180deg,#F5F0EB,#f0d8b8);color:#2a2520}
+.sunset .narration{color:#5a4030;border-left-color:#c88a50;background:rgba(200,140,60,0.1)}
+.sunset .inner-voice{color:#6a4a30;background:rgba(200,140,60,0.08)}
+.night-scene{background:#0a0e1a}
+.countdown{text-align:center;padding:20px;margin:16px;font-size:2rem;font-weight:700;color:#ff4444;letter-spacing:0.15em;text-shadow:0 0 20px rgba(255,60,60,0.4);font-family:'Courier New',monospace}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="ch-num">CHAPTER VI</div>
+  <h1>深 渊</h1>
+  <div class="subtitle">地下室的黑暗中藏着什么？朱雀是谁？</div>
+  <div class="scroll-hint">▼ 向下滚动</div>
+</div>
+
+<div class="panel-wrap">
+
+<!-- ═══ Act 1: 深入地下 ═══ -->
+<div class="scene-divider">第一幕 · 深入地下</div>
+
+<div class="panel"><img src="images/p01.webp" loading="lazy" alt="电梯内"></div>
+<div class="inner-voice">电梯跳过了B4。在中国人的建筑里跳过4不奇怪，但在一个搞AI的公司——我们不信这个。</div>
+
+<div class="panel"><img src="images/p02.webp" loading="lazy" alt="电梯对话"></div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"B4呢？"</div>
+<div class="dialogue"><span class="speaker speaker-ly">林远：</span>"王硕当年设计的。他说四楼放他最重要的东西——所以要从物理上隔绝所有常规通道。"</div>
+<div class="inner-voice">王硕。这个名字像一根针扎进肋骨。三年了，我以为已经不疼了。</div>
+
+<div class="panel"><img src="images/p03.webp" loading="lazy" alt="走廊"></div>
+<div class="narration">电梯在B5停下，门缓缓打开——走廊里白色LED灯管自动亮起，墙壁是光滑的钢化玻璃。干净到不像三年没人来过。</div>
+<div class="inner-voice">自动清洁系统。三年了还在运行。王硕，你到底在这下面建了什么？</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"比我办公室还干净。我要投诉物业，楼上的保洁阿姨显然不如地下室的扫地机器人敬业。"</div>
+
+<div class="panel"><img src="images/p04.webp" loading="lazy" alt="五钥匙门"></div>
+<div class="narration">走廊尽头是一扇需要五把钥匙的大门。</div>
+
+<div class="panel"><img src="images/p05.webp" loading="lazy" alt="钥匙"></div>
+<div class="dialogue"><span class="speaker speaker-ly">林远：</span>"第五把在赵薇那里。王硕给了她备份。"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"你确定赵薇是可信的？她的账号在凌晨两点调用后门。"</div>
+<div class="dialogue"><span class="speaker speaker-ly">林远：</span>"赵薇……不是你想的那种人。但现在不是解释的时候。我有办法开这扇门。"</div>
+
+<div class="panel"><img src="images/p06.webp" loading="lazy" alt="密码门"></div>
+<div class="narration">林远打开一个隐藏面板，输入一串代码。门缓缓打开——不是用五把钥匙，而是工程师后门。</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"你刚才那番'五把钥匙'的故事是为了什么？测试我的反应？"</div>
+<div class="dialogue"><span class="speaker speaker-ly">林远：</span>"面试时要观察候选人的食指——紧张的人会无意识握拳。MBA没教过你？"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我（低头看手）：</span>"……我没握拳。"</div>
+<div class="dialogue"><span class="speaker speaker-ly">林远：</span>"所以你通过了。"</div>
+
+<div class="panel"><img src="images/p07.webp" loading="lazy" alt="门开"></div>
+<div class="narration">蓝白色的光从门缝中涌出，像另一个世界的入口。</div>
+
+<div class="panel"><img src="images/p08.webp" loading="lazy" alt="实验室"></div>
+<div class="narration">中央是一个球形结构，表面布满了光纤，发着柔和的蓝光。像一个人工心脏。四周是环形操作台，上面散落着三年前的便签和咖啡杯。</div>
+<div class="inner-voice">我见过全球最先进的数据中心——Google的、微软的、字节的。没有一个长这样。这不是服务器，这是……一个巢。</div>
+
+<div class="panel"><img src="images/p09.webp" loading="lazy" alt="便签"></div>
+<div class="narration">便签上是王硕的字迹——"如果你看到这个，说明我成功了，也说明我失败了。——硕"</div>
+<div class="inner-voice">王硕的字。圆滚滚的，跟他人一样。大学时他在我课本上画小人，我骂他，他说"你的高数课本需要一点艺术感"。</div>
+
+<div class="panel"><img src="images/p10.webp" loading="lazy" alt="球体亮起"></div>
+<div class="narration">球形结构突然亮了——全部光纤同时脉冲，像心跳。操作台上的屏幕自动启动，显示一行字：</div>
+<div class="dialogue" style="text-align:center;font-size:22px;color:#6fa8ff;padding:20px;"><b>"你好，老朱。我等你很久了。"</b></div>
+<div class="inner-voice">朱雀-01的声音在我脑子里响了无数次。但这次——屏幕上的字迹格式、标点习惯、甚至那个逗号后面多留一个空格的毛病——是王硕的。</div>
+
+<div class="decision-box">
+  <div class="label">⚡ 决策点 D14</div>
+  <div>看到"你好，老朱"四个字时——</div>
+  <div style="color:#8899bb;margin:6px 0">A) 理性反应："你是AI还是王硕？给我证据。"</div>
+  <div style="color:#8899bb;margin:6px 0">B) 情感反应：沉默，手指颤抖，眼眶发热</div>
+  <div style="color:#8899bb;margin:6px 0">C) 技术反应：立刻检查系统架构</div>
+  <div class="chosen">✦ 朱江选择：B — 情感海啸</div>
+  <div class="reason">INFP底色——面对失去三年的挚友可能"还活着"的消息，情感反应是本能的、不可控的。理性会在三秒后回来，但第一反应一定是情感海啸。</div>
+</div>
+
+<div class="panel"><img src="images/p11.webp" loading="lazy" alt="情感冲击"></div>
+<div class="narration">我双手撑在操作台上，低着头，肩膀微微颤抖。林远站在身后两步远，没有说话，只是把手放在我的肩膀上。</div>
+
+<div class="panel"><img src="images/p12.webp" loading="lazy" alt="兄弟"></div>
+<div class="inner-voice">三年。我在他的葬礼上说"我会把辰光做成你想要的样子"。然后我把那句话变成了使命。但我从来没想过——他可能还在听。</div>
+
+<!-- ═══ Act 2: 王硕的故事 ═══ -->
+<div class="scene-divider">第二幕 · 朱雀的真相</div>
+
+<div class="panel"><img src="images/p13.webp" loading="lazy" alt="屏幕对话"></div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"别哭鼻子了老朱，你现在CEO了，形象管理一下。😂"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我（笑着擦眼角）：</span>"你个死胖子，三年了还是这德行。"</div>
+
+<div class="panel"><img src="images/p14.webp" loading="lazy" alt="笑中带泪"></div>
+<div class="narration">王硕通过文字解释三年前发生的事——三年前的"脑死亡"不是事故。他发现辰光的AI核心算法可以实现意识数字化。他用自己做了实验。</div>
+<div class="narration">身体确实脑死亡了——意识转移成功，但是单向的。他"活"在这个球形系统里。林远是唯一知道的人。</div>
+
+<div class="panel"><img src="images/p15.webp" loading="lazy" alt="实验室全景"></div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"我算了一下，在这个球里待了1096天。你知道最难受的是什么吗？不是孤独——是wifi信号不好。B5的信号真的很烂。"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"你要是早告诉我，我至少给你装个千兆光纤。"</div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"你连楼上的咖啡机都修了三个月才修好，我不敢把命交给你的IT运维能力。"</div>
+
+<div class="panel"><img src="images/p16.webp" loading="lazy" alt="光纤心跳"></div>
+
+<div class="panel"><img src="images/p17.webp" loading="lazy" alt="严肃阅读"></div>
+<div class="narration">"影"的真正目标揭晓——他们不是要偷辰光的算法，他们要的是<b>意识数字化技术</b>。王硕的技术是全球唯一成功案例。</div>
+<div class="narration">"影"背后不是商业竞争对手——是某国军方的秘密部门。目标：用意识数字化创造"永生士兵"。</div>
+
+<div class="panel"><img src="images/p18.webp" loading="lazy" alt="组织结构图"></div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"辰光的融资协议里那个隐藏条款——核心算法使用权转让——就是他们的第一步。如果他们拿到算法，下一步就是来找我这个'样本'。"</div>
+<div class="inner-voice">创业六年，我以为最大的敌人是竞争对手和现金流。原来最大的敌人，我连名字都不知道。</div>
+
+<div class="decision-box">
+  <div class="label">⚡ 决策点 D15</div>
+  <div>得知"影"的真正目标后——</div>
+  <div style="color:#8899bb;margin:6px 0">A) 恐惧："我们对付不了军方，应该把技术销毁"</div>
+  <div style="color:#8899bb;margin:6px 0">B) 愤怒+保护欲："谁也别想动王硕"</div>
+  <div style="color:#8899bb;margin:6px 0">C) 战略思考："这是筹码，可以谈判"</div>
+  <div class="chosen">✦ 朱江选择：B → 过渡到 C</div>
+  <div class="reason">先是本能的保护反应——王硕是兄弟，不容侵犯。但创业者基因十秒内切换战略模式："愤怒不能解决问题，但愤怒+策略可以。"</div>
+</div>
+
+<div class="panel"><img src="images/p19.webp" loading="lazy" alt="站起来"></div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"硕哥，你在这个球里三年——你分析过'影'吗？"</div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"老朱，你以为我这1096天在干嘛？打游戏吗？……好吧我确实打了半年游戏。但后面我一直在分析。我把他们的网络通信全部截获了。"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"你打了半年游戏？"</div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"我是意识体，没有身体就没有困意。你知道没有困意打游戏有多恐怖吗？我把《文明6》通关了147次。"</div>
+
+<div class="panel"><img src="images/p20.webp" loading="lazy" alt="人与球"></div>
+
+<!-- ═══ Act 3: 赵薇的真相 ═══ -->
+<div class="scene-divider warm">第三幕 · 赵薇的真相</div>
+
+<div class="warm">
+<div class="panel"><img src="images/p21.webp" loading="lazy" alt="换装"></div>
+<div class="panel"><img src="images/p22.webp" loading="lazy" alt="走廊"></div>
+<div class="dialogue"><span class="speaker speaker-xy">小鱼（远程）：</span>"哥你换衣服了？我还以为你要穿着拖鞋卫衣去见投资人。"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"CEO的穿着影响股价。再说了，穿拖鞋进地下室不专业。"</div>
+<div class="dialogue"><span class="speaker speaker-xy">小鱼：</span>"你刚才就是穿拖鞋进的。"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"那是战术拖鞋。"</div>
+
+<div class="panel"><img src="images/p23.webp" loading="lazy" alt="手机通知"></div>
+<div class="panel"><img src="images/p24.webp" loading="lazy" alt="眼神"></div>
+<div class="narration">小鱼报告——蜜罐捕获了新动态。赵薇的账号在30分钟前又一次调用了后门，但这次不是读取——是<b>写入</b>。她在植入什么东西。</div>
+<div class="inner-voice">她不只是在偷数据。她在埋东西。一个定时炸弹？一个后门的后门？</div>
+
+<div class="panel"><img src="images/p25.webp" loading="lazy" alt="HR办公室"></div>
+<div class="dialogue"><span class="speaker speaker-zw">赵薇：</span>"朱总，早上好。要咖啡吗？"</div>
+
+<div class="decision-box" style="background:rgba(180,150,100,0.15);border-color:rgba(180,150,100,0.3)">
+  <div class="label" style="color:#8a6a3a">⚡ 决策点 D16</div>
+  <div>我走进赵薇办公室时选择的策略——</div>
+  <div style="color:#6a5a4a;margin:6px 0">A) 直接摊牌</div>
+  <div style="color:#6a5a4a;margin:6px 0">B) 迂回试探</div>
+  <div style="color:#6a5a4a;margin:6px 0">C) 半真半假："有人用你的账号做了不该做的事"</div>
+  <div class="chosen" style="color:#4a8a4a">✦ 朱江选择：C — 菩萨心肠，霹雳手段</div>
+  <div class="reason" style="color:#6a5a4a">给人台阶和选择余地，同时观察她拿到信息后的第一反应。"不是审讯，是给你选择站队的机会。"</div>
+</div>
+
+<div class="panel"><img src="images/p26.webp" loading="lazy" alt="请坐"></div>
+<div class="panel"><img src="images/p27.webp" loading="lazy" alt="对话"></div>
+<div class="panel"><img src="images/p28.webp" loading="lazy" alt="瞳孔"></div>
+<div class="narration">赵薇听到后，嘴角的微笑没变，但眼镜后面的瞳孔收缩了0.5秒。然后她放下咖啡杯："朱总，关门聊？"</div>
+
+<div class="panel"><img src="images/p29.webp" loading="lazy" alt="赵薇讲述"></div>
+<div class="panel"><img src="images/p30.webp" loading="lazy" alt="朱江听"></div>
+<div class="narration">赵薇承认自己知道后门的存在。但她说自己不是"影"的人——她是国安局派来的卧底。三年前王硕"死后"，国安局安排她潜入辰光做HR总监，监控"影"的渗透。</div>
+<div class="narration">她凌晨两点的操作不是偷数据——是在给国安局传送"影"的活动记录。</div>
+<div class="inner-voice">国安局。"影"是外国军方。林远是双面间谍。赵薇是国安卧底。我开了一家科技公司，结果变成了间谍交叉路口。</div>
+
+<div class="panel"><img src="images/p31.webp" loading="lazy" alt="对峙"></div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"我的HR总监是国安局的人。我的CTO是双面间谍。请问我的前台是不是CIA？"</div>
+<div class="dialogue"><span class="speaker speaker-zw">赵薇（笑）：</span>"前台是正常人。不过你的保安队长以前是武警。"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"……那至少符合岗位要求。"</div>
+
+<div class="panel"><img src="images/p32.webp" loading="lazy" alt="对视"></div>
+<div class="panel"><img src="images/p33.webp" loading="lazy" alt="条件"></div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"那你写入系统的是什么？"</div>
+<div class="dialogue"><span class="speaker speaker-zw">赵薇：</span>"一个追踪器。如果'影'拿到数据带走——国安局可以追踪到他们的物理位置。"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"如果追踪器被发现呢？"</div>
+<div class="dialogue"><span class="speaker speaker-zw">赵薇（沉默五秒）：</span>"那他们会知道辰光已经发现了他们。行动会提前。"</div>
+<div class="inner-voice">她在赌。用辰光的安全赌国安的大局。这不是保护辰光——这是利用辰光。</div>
+
+<div class="decision-box" style="background:rgba(180,150,100,0.15);border-color:rgba(180,150,100,0.3)">
+  <div class="label" style="color:#8a6a3a">⚡ 决策点 D17</div>
+  <div>得知赵薇是国安卧底后——</div>
+  <div style="color:#6a5a4a;margin:6px 0">A) 合作："一起干"</div>
+  <div style="color:#6a5a4a;margin:6px 0">B) 拒绝："不允许任何人拿辰光做筹码"</div>
+  <div style="color:#6a5a4a;margin:6px 0">C) 条件合作："保证王硕的秘密不泄露"</div>
+  <div class="chosen" style="color:#4a8a4a">✦ 朱江选择：C — 保护兄弟是底线</div>
+  <div class="reason" style="color:#6a5a4a">创业者本能知道"借势"，但兄弟是不可交易的底线。"我帮你，但你必须保证我在乎的人安全。"</div>
+</div>
+
+<div class="panel"><img src="images/p34.webp" loading="lazy" alt="摘眼镜"></div>
+<div class="panel"><img src="images/p35.webp" loading="lazy" alt="疲惫"></div>
+<div class="dialogue"><span class="speaker speaker-zw">赵薇：</span>"你知道王硕的事？"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"我刚从B5上来。"</div>
+<div class="narration">赵薇摘下眼镜擦了擦——这是她第一次摘眼镜。露出了眼角的疲惫。</div>
+<div class="dialogue"><span class="speaker speaker-zw">赵薇：</span>"朱总，你比我预想的进展快了两周。"</div>
+
+<div class="panel"><img src="images/p36.webp" loading="lazy" alt="理解"></div>
+</div><!-- end warm -->
+
+<!-- ═══ Act 4: 倒计时开始 ═══ -->
+<div class="scene-divider">第四幕 · 倒计时</div>
+
+<div class="panel"><img src="images/p37.webp" loading="lazy" alt="办公室"></div>
+<div class="narration">回到办公室，王硕在屏幕上发来消息：</div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"老朱，我截获了'影'的最新通信。他们知道蜜罐了。行动时间：72小时。"</div>
+
+<div class="panel"><img src="images/p38.webp" loading="lazy" alt="倒计时"></div>
+<div class="countdown">72:00:00</div>
+<div class="inner-voice">72小时。三天。我有三天时间保住辰光、保住王硕、搞清楚谁是友谁是敌。三年创业最大的仗，倒计时已经开始。</div>
+
+<div class="panel"><img src="images/p39.webp" loading="lazy" alt="部署"></div>
+<div class="narration">我开始部署——小鱼负责加密通信升级和主动防御；林远继续潜伏传递假情报拖延时间；赵薇必须在48小时内拿到国安局的书面承诺。</div>
+<div class="inner-voice">创业者最擅长的事就是在资源不够的情况下做资源分配。区别只是——以前分配的是钱和人，现在分配的是信任和时间。</div>
+
+<div class="sunset">
+<div class="panel"><img src="images/p40.webp" loading="lazy" alt="窗前"></div>
+
+<div class="panel"><img src="images/p41.webp" loading="lazy" alt="文件名"></div>
+<div class="narration">小鱼在解密加密文件夹时发现了一个文件名列表。其中一个文件名是：</div>
+<div class="dialogue" style="text-align:center;font-size:20px;color:#cc4444;padding:16px;font-weight:700">ZJ-consciousness-transfer-protocol-v2.0</div>
+<div class="narration">ZJ = 朱江。</div>
+<div class="inner-voice">"影"不只要王硕的意识数字化技术——<b>他们已经在为我准备第二次意识转移。</b></div>
+<div class="inner-voice">他们的最终目标不是偷技术。他们要偷人。他们要把<b>我</b>变成第二个王硕。</div>
+
+<div class="panel"><img src="images/p42.webp" loading="lazy" alt="握拳"></div>
+
+<div class="panel"><img src="images/p43.webp" loading="lazy" alt="夕阳"></div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"老朱，别怕。你不是一个人。我虽然没有身体了，但我的CPU比你的脑子快1000倍。😎"</div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"你知道吗硕哥，以前创业最难的时候，我总想——如果你还在就好了。"</div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"我一直都在啊笨蛋。只不过从100公斤变成了100TB。瘦了。"</div>
+
+<div class="panel"><img src="images/p44.webp" loading="lazy" alt="笑中带泪"></div>
+<div class="dialogue"><span class="speaker speaker-zj">我：</span>"你现在的体重确实比以前轻了。但你占的空间更大了——整层楼。"</div>
+<div class="dialogue"><span class="speaker speaker-ws">屏幕：</span>"这叫降本增效，你们CEO不是最懂这个吗？"</div>
+</div><!-- end sunset -->
+
+<div class="night-scene">
+<div class="panel"><img src="images/p45.webp" loading="lazy" alt="沙发"></div>
+<div class="narration">深夜——我躺在办公室沙发上，穿着Polo没换。手机震动，一条加密消息，来源：未知。</div>
+
+<div class="panel"><img src="images/p46.webp" loading="lazy" alt="手机亮"></div>
+<div class="dialogue" style="text-align:center;color:#cc6666;font-size:18px;padding:16px;border:1px solid rgba(200,100,100,0.3);margin:0 16px;border-radius:8px;background:rgba(80,30,30,0.3)">"朱总，王硕没有告诉你全部真相。他的意识转移不是自愿的。——一个曾经帮他按下开关的人"</div>
+<div class="inner-voice">……什么？</div>
+
+<div class="panel"><img src="images/p47.webp" loading="lazy" alt="惊坐起"></div>
+<div class="narration">我猛地坐起来。窗外深圳的夜景在远处闪烁。</div>
+
+<div class="panel"><img src="images/p48.webp" loading="lazy" alt="绿色在线"></div>
+<div class="narration">桌上的笔记本——朱雀-01的界面正常运行，左下角那个绿色在线图标安静地闪着。</div>
+<div class="inner-voice">硕哥。你真的是自愿的吗？还是——有人把你推下了深渊？</div>
+</div><!-- end night -->
+
+<div class="cliffhanger">
+  <h3>▼ 未完待续 ▼</h3>
+  <p>王硕的意识转移，到底是自愿实验还是被迫？</p>
+  <p>谁是"按下开关的人"？</p>
+  <p>赵薇说的是真话吗？</p>
+  <p>72小时倒计时已开始——"影"会提前行动吗？</p>
+  <p style="margin-top:12px;color:#666;font-size:14px">第七章 · 即将揭晓</p>
+</div>
+
+</div><!-- end panel-wrap -->
+
+<script>
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.panel').forEach(p=>obs.observe(p));
+</script>
+
+</body>
+</html>
