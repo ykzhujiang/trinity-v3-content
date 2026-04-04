@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>重启日 第二章 — 循环加速</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}
+body{background:#faf6f0;color:#2a2a2a;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 20px;background:linear-gradient(180deg,#fdf8f0 0%,#f5ece0 50%,#faf6f0 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;width:250px;height:250px;background:radial-gradient(circle,rgba(255,160,60,0.12) 0%,transparent 70%);top:25%;left:50%;transform:translateX(-50%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.4;transform:translateX(-50%) scale(1)}50%{opacity:0.7;transform:translateX(-50%) scale(1.15)}}
+.cover .ip{font-size:14px;color:#b08a5a;letter-spacing:3px;margin-bottom:8px}
+.cover h1{font-size:32px;letter-spacing:6px;margin-bottom:10px;background:linear-gradient(135deg,#d4860a,#e6a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cover .sub{font-size:17px;color:#8a7a60;letter-spacing:3px;margin-bottom:24px}
+.cover .loop{display:inline-block;padding:8px 22px;border:1px solid rgba(210,140,50,0.35);border-radius:20px;color:#c08830;font-size:14px;animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 5px rgba(210,140,50,0.15)}50%{box-shadow:0 0 18px rgba(210,140,50,0.3)}}
+.scroll-hint{margin-top:36px;font-size:13px;color:#b0a080;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.panel{width:100%;max-width:450px;margin:0 auto;padding:0 12px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:8px;display:block;margin:20px 0 0 0;box-shadow:0 4px 16px rgba(0,0,0,0.12)}
+.panel .text{font-size:18px;line-height:1.9;padding:14px 4px 28px 4px;color:#3a3a3a}
+.panel .text strong{color:#c08830}
+.panel .text em{color:#8a7a60;font-style:normal}
+.panel .text .debug{display:inline-block;margin-top:8px;padding:5px 12px;background:rgba(40,40,40,0.06);border-left:3px solid #c08830;border-radius:0 4px 4px 0;font-size:13px;color:#7a6a50;font-family:'SF Mono','Menlo',monospace;letter-spacing:0.5px}
+.panel .text .decision{display:inline-block;padding:5px 16px;background:linear-gradient(135deg,rgba(255,180,0,0.15),rgba(255,120,0,0.1));border:1px solid rgba(255,160,0,0.35);border-radius:14px;color:#c08830;font-size:14px;font-weight:bold;letter-spacing:1px;margin-bottom:8px}
+.panel .text .thought{color:#8a7a60;font-style:italic}
+.beat-div{text-align:center;padding:40px 0 16px 0;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.beat-div.visible{opacity:1;transform:translateY(0)}
+.beat-div span{display:inline-block;padding:6px 24px;border:1px solid rgba(180,140,80,0.25);border-radius:16px;color:#a08a60;font-size:13px;letter-spacing:2px;background:rgba(210,170,100,0.06)}
+.ending{text-align:center;padding:60px 20px;color:#a09070}
+.ending a{color:#c08830;text-decoration:none;border-bottom:1px solid rgba(192,136,48,0.3);padding-bottom:2px}
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="ip">重启日</div>
+<h1>第二章</h1>
+<div class="sub">循 环 加 速</div>
+<div class="loop">∞ Loop 6 — Delta +60s</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- Beat 1: 7:01觉醒 -->
+<div class="beat-div"><span>7:01 觉醒</span></div>
+
+<div class="panel"><img src="images/p01.jpg" loading="lazy" alt="闹钟7:01"><div class="text">7:01。<br>比昨天多了一分钟。<br>我的手伸向手机，指尖有点发抖——不是因为紧张，是因为兴奋。</div></div>
+
+<div class="panel"><img src="images/p02.jpg" loading="lazy" alt="朱江坐床边"><div class="text">坐在床边，盯着手机屏幕上的时间反复确认。<br>身后那面墙——我的"疯狂侦探板"，贴满了五颜六色的便签。<br>五次循环的全部观察记录。<br><span class="debug">[LOG] Loop 6 init. Delta_time = +60s</span></div></div>
+
+<div class="panel"><img src="images/p03.jpg" loading="lazy" alt="便签墙特写"><div class="text">便签上写着我五次循环积累的情报：<br>"<strong>小王咖啡</strong>"——她每天9:10端咖啡经过走廊。<br>"<strong>陈明9:47</strong>"——他每天9:47打电话说PPT的事。<br>"<strong>赵姐银色胸针</strong>"——赵姐每次都戴那枚银色几何形胸针。<br>最大的一张写着：<strong>别穿那件蓝衬衫——第3次循环已验证=衰运</strong>。</div></div>
+
+<div class="panel"><img src="images/p04.jpg" loading="lazy" alt="朱江照镜子"><div class="text">对着镜子伸了个懒腰，看着镜中那个眼睛下面挂着黑眼圈的自己，忍不住自嘲一笑。<br><br><span class="thought">"第六天了。别人的土拨鼠日只过一天，我直接开了Season Pass。"</span></div></div>
+
+<!-- Beat 2: 小王咖啡进化 -->
+<div class="beat-div"><span>小王咖啡进化·第六版</span></div>
+
+<div class="panel"><img src="images/p05.jpg" loading="lazy" alt="走廊远景"><div class="text">9:10，公司走廊。<br>拐角处，那个该死的拖把桶又摆在那里了。<br>前五次循环，小王都是被这个桶绊倒、咖啡洒一身。我试过提醒她、接住杯子、扶住她——全是治标不治本。</div></div>
+
+<div class="panel"><img src="images/p06.jpg" loading="lazy" alt="朱江挪桶"><div class="text">这次，我弯腰把桶挪到了墙角。<br>表情轻松得像在做第100次排练——因为确实差不多了。<br><span class="debug">[FIX] Remove root cause instead of handling exception</span></div></div>
+
+<div class="panel"><img src="images/p07.jpg" loading="lazy" alt="小王惊讶"><div class="text">小王端着咖啡安全通过，走了两步突然回头：<br>"朱总？你怎么知道那里有桶？"</div></div>
+
+<div class="panel"><img src="images/p08.jpg" loading="lazy" alt="决策点2"><div class="text"><span class="decision">⚡ DECISION-2</span><br>怎么回答？<br>A. "直觉。"✅<br>B. "我经历了5次今天。"<br>C. 不解释，帅气走开。<br><br><span class="thought">"说真话她会叫120。先帅一把。"</span><br><br>我歪了歪头，微笑："直觉。"<br>帅了大概0.3秒——然后被走廊尽头的保洁阿姨喊了一嗓子：<strong>"谁动了我的桶！！"</strong></div></div>
+
+<!-- Beat 3: 陈明电话 -->
+<div class="beat-div"><span>陈明电话·变奏</span></div>
+
+<div class="panel"><img src="images/p09.jpg" loading="lazy" alt="来电陈明"><div class="text">9:47，手机准时响起。<br>来电显示：<strong>陈明</strong>。<br>六次循环，一秒不差。</div></div>
+
+<div class="panel"><img src="images/p10.jpg" loading="lazy" alt="朱江抢答"><div class="text">这次我抢先开口：<br>"PPT第12页改了，还有什么？"<br><br>电话那头沉默了三秒。<br>"你怎么知道我要说……"</div></div>
+
+<div class="panel"><img src="images/p11.jpg" loading="lazy" alt="分屏对话"><div class="text">我靠着落地窗，语气突然认真了：<br>"老陈，如果我告诉你今天会重复，你信吗？"<br><br>陈明推了推方框眼镜，表情茫然：<br>"……你是不是又熬夜了？我给你带了咖啡，下来拿。"</div></div>
+
+<div class="panel"><img src="images/p12.jpg" loading="lazy" alt="陈明公式"><div class="text"><span class="debug">陈明回应公式："你是不是又__了？我给你__了。"<br>六次循环，模板不变。<br>此人的确定性堪比物理常数。</span></div></div>
+
+<!-- Beat 4: 路演新策略 -->
+<div class="beat-div"><span>路演新策略</span></div>
+
+<div class="panel"><img src="images/p13.jpg" loading="lazy" alt="朱江街头"><div class="text">走在去路演的路上，心态和前五次完全不同了。<br><br><span class="thought">"前5次我在优化表演。这次我要优化状态。"</span><br><br>不紧张了。从容得像在逛街。</div></div>
+
+<div class="panel"><img src="images/p14.jpg" loading="lazy" alt="外卖小哥"><div class="text">路口，一个外卖小哥闯红灯冲过去，电动车后面的外卖箱上写着：<strong>"小朱家常菜"</strong>。<br><span class="debug">[NOTE] 环境细节可能不是随机的。"小朱"……？</span><br>我顿了一下。这循环里的所有东西，真的只是"重复"吗？</div></div>
+
+<div class="panel"><img src="images/p15.jpg" loading="lazy" alt="赵姐胸针变了"><div class="text">走进会议室。赵姐已经坐在那里了。<br>但今天，她胸前戴的不是银色几何形胸针——是一枚<strong>蓝色水滴形</strong>的。<br><br><span class="thought">"前5次银色几何。今天蓝色水滴？<br>她也在变？"</span></div></div>
+
+<!-- Beat 5: 路演·赵姐变奏 -->
+<div class="beat-div"><span>路演·赵姐变奏</span></div>
+
+<div class="panel"><img src="images/p16.jpg" loading="lazy" alt="路演全景"><div class="text">投影幕前，我的姿态比前五次放松了不止一个级别。<br>不是在"演"一个自信的CEO。<br>而是真的不紧张了——毕竟这个PPT我已经讲了六遍。</div></div>
+
+<div class="panel"><img src="images/p17.jpg" loading="lazy" alt="赵姐打断"><div class="text">赵姐突然抬手打断了我。<br>但她的表情不是挑剔——是<strong>好奇</strong>。<br><br>"上一次你说想让AI成为每个人的朋友。我回去想了一晚上。"</div></div>
+
+<div class="panel"><img src="images/p18.jpg" loading="lazy" alt="朱江震惊"><div class="text">我整个人僵住了。<br><br>"上一次"？<br>什么"上一次"？<br><br><span class="thought">"她记得上次循环？还是说……"</span></div></div>
+
+<div class="panel"><img src="images/p19.jpg" loading="lazy" alt="赵姐审视"><div class="text">赵姐靠在椅背上，双手交叉，审视中带着一丝微笑：<br>"别紧张。你昨天说的和今天的PPT，完全是两个人在讲。"<br><br><span class="thought">"真诚的痕迹……会积累在别人身上。"</span></div></div>
+
+<!-- Beat 6: 核心发现 -->
+<div class="beat-div"><span>核心发现</span></div>
+
+<div class="panel"><img src="images/p20.jpg" loading="lazy" alt="咖啡馆俯拍"><div class="text">下午，一个人坐在咖啡馆角落。<br>笔记本摊开，画满了六次循环的事件网络图。<br>箭头、圈圈、标注密密麻麻。旁边的美式已经凉了。</div></div>
+
+<div class="panel"><img src="images/p21.jpg" loading="lazy" alt="笔记特写"><div class="text">每个人的行为模式、微表情变化、台词差异……<br>我像个疯狂的数据科学家一样标注了所有异常值。<br>"<strong>根因</strong>"、"<strong>表象</strong>"、"<strong>隐藏状态</strong>"——<br>这三个词在笔记本上出现了不下二十次。</div></div>
+
+<div class="panel"><img src="images/p22.jpg" loading="lazy" alt="朱江顿悟"><div class="text">托着腮，盯着笔记本——<br>突然，所有碎片拼在了一起。<br><br><span class="debug">[INSIGHT] 循环不是让我优化自己——是让我理解别人。<br>每个"NPC"不是NPC，是有隐藏状态的完整程序。</span></div></div>
+
+<div class="panel"><img src="images/p23.jpg" loading="lazy" alt="朱江自嘲"><div class="text">我双手捂脸，发出一声苦笑。<br><br><span class="thought">"创业CEO花了6天才发现'用户才是核心'。<br>说出去丢人……"</span></div></div>
+
+<!-- Beat 7: DECISION-3 黄昏 -->
+<div class="beat-div"><span>黄昏抉择</span></div>
+
+<div class="panel"><img src="images/p24.jpg" loading="lazy" alt="桌上简历"><div class="text">傍晚回到公司。<br>路过陈明工位的时候，余光扫到他桌上的东西——<br>一份猎头公司的简历。</div></div>
+
+<div class="panel"><img src="images/p25.jpg" loading="lazy" alt="简历特写"><div class="text">夕阳的光正好打在那张纸上。<br>猎头公司的logo，下面赫然写着：<strong>陈明</strong>。<br>我的联合创始人。我的兄弟。</div></div>
+
+<div class="panel"><img src="images/p26.jpg" loading="lazy" alt="四目相对"><div class="text">他抬头看到我，愣了一秒——<br>然后慌忙把简历塞进抽屉。<br>两个人对视。夕阳从窗户打进来，把所有尴尬都镀上了一层金色。</div></div>
+
+<div class="panel"><img src="images/p27.jpg" loading="lazy" alt="决策点3"><div class="text"><span class="decision">⚡ DECISION-3</span><br>A. 假装没看到。<br>B. 直接问："你想走？"<br>C. "我如果是你，也会看看别的机会。" ✅<br>D. "那家给多少？我也投一份。"<br><br><span class="thought">"菩萨心肠，霹雳手段。但这一刻，只需要菩萨心肠。"</span></div></div>
+
+<div class="panel"><img src="images/p28.jpg" loading="lazy" alt="并肩看夕阳"><div class="text">我拉了把椅子，坐到他旁边。<br>两个人并肩看着窗外的夕阳，谁都没说话。<br><br>过了很久，他低下头：<br>"不是钱的问题。是……我看不懂公司的方向了。"<br><br><span class="thought">"真正的bug从来不在简历上——在未说出口的那句话里。"</span></div></div>
+
+<!-- Beat 8: 夜幕·系统提示 -->
+<div class="beat-div"><span>夜幕·系统提示</span></div>
+
+<div class="panel"><img src="images/p29.jpg" loading="lazy" alt="夜景剪影"><div class="text">深夜。办公室只剩一盏台灯。<br>城市的夜景在窗外安静地亮着。<br>和陈明聊了两个小时。把所有的困惑、焦虑、迷茫——都摊开来说了。<br>他最后说："你早这么说，我根本不会去看那个猎头。"</div></div>
+
+<div class="panel"><img src="images/p30.jpg" loading="lazy" alt="手机通知"><div class="text">正准备收拾回家，手机震了一下。<br>一个从没见过的App推送。图标是一个<strong>∞</strong>。<br><br>"<strong>Loop 6 解锁成就：【Root Cause Analysis】<br>奖励：+120秒<br>下一个断点：找到你最大的未处理exception。</strong>"</div></div>
+
+<div class="panel"><img src="images/p31.jpg" loading="lazy" alt="朱江震惊苦笑"><div class="text">震惊了两秒。然后苦笑。<br><br><span class="thought">"……这循环还有成就系统？"</span></div></div>
+
+<div class="panel"><img src="images/p32.jpg" loading="lazy" alt="截图失败"><div class="text">手忙脚乱想截图——通知消失了。<br>翻了个白眼。<br><span class="debug">[BUG] 系统通知无法截图。Feature or bug？<br>倾向feature——开发者和我一样讨厌screenshot testing。</span></div></div>
+
+<!-- Beat 9: 第七天·悬念 -->
+<div class="beat-div"><span>第七天</span></div>
+
+<div class="panel"><img src="images/p33.jpg" loading="lazy" alt="闹钟7:03"><div class="text"><strong>7:03。</strong><br>比昨天又多了两分钟。和系统通知说的一致——奖励120秒。<br>这个循环确实在奖励我。</div></div>
+
+<div class="panel"><img src="images/p34.jpg" loading="lazy" alt="朱江拿手机"><div class="text">拿起手机——<br>表情突然变了。<br>壁纸换了。不是我换的。</div></div>
+
+<div class="panel"><img src="images/p35.jpg" loading="lazy" alt="合影照片"><div class="text">一张合影。<br>我和一群人站在一起，都在笑。但我不认识他们中的任何一个。<br>左下角有一行小字：<br><strong>Version 0.7 — 6/7 exceptions handled</strong><br><br><span class="thought">"还有一个未处理的exception……"</span></div></div>
+
+<div class="panel"><img src="images/p36.jpg" loading="lazy" alt="赵姐身影"><div class="text">放大照片最右边——<br>一个模糊但轮廓很熟悉的身影。<br>短发。干练。便装。<br>在笑。<br><br><strong>等等……是赵姐？穿便装的赵姐，在笑？</strong></div></div>
+
+<div class="panel"><img src="images/p37.jpg" loading="lazy" alt="章末悬念"><div class="text" style="text-align:center;padding:60px 20px;font-size:20px;color:#8a7a60;line-height:2.2;">第七天。<br>距离debug完成——<br>还剩一个exception。<br><br><strong style="font-size:16px;letter-spacing:2px;">【重启日 · 第三章：未处理的exception】<br>即将载入……</strong></div></div>
+
+<div class="ending">
+<p>重启日 · 第二章 · 循环加速</p>
+<p style="margin-top:8px;font-size:13px;">V5 · 第一人称 · EXP-896</p>
+</div>
+
+<script>
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+document.querySelectorAll('.panel,.beat-div').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
