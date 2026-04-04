@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI觉醒·硅魂 · 第八章：棋局</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(180deg,#f5f0e8 0%,#ede7da 50%,#e8e0d0 100%);color:#2a2520;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif}
+.cover{
+  height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:linear-gradient(180deg,#1e2840 0%,#2a3550 40%,#3a4560 80%,#4a5570 100%);
+  text-align:center;padding:2rem
+}
+.cover h1{font-size:2.6rem;color:#4ecdc4;margin-bottom:.5rem;letter-spacing:.3em;text-shadow:0 0 30px rgba(78,205,196,.4)}
+.cover .sub{font-size:1.4rem;color:#ffa502;margin-bottom:1.5rem;text-shadow:0 0 15px rgba(255,165,2,.3)}
+.cover .ch{font-size:1rem;color:#aab;letter-spacing:.2em}
+.cover .recap{font-size:.95rem;color:#bbc;margin-top:2rem;max-width:340px;line-height:1.7}
+.scroll-hint{color:#889;font-size:.9rem;margin-top:3rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.section-title{
+  text-align:center;padding:3rem 1.5rem 1rem;
+  font-size:1.3rem;color:#2a6b5a;letter-spacing:.15em;
+  text-shadow:0 1px 2px rgba(0,0,0,.05)
+}
+.panel{
+  width:100%;max-width:500px;margin:0 auto;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .6s ease,transform .6s ease
+}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.panel .text{
+  padding:1.2rem 1.5rem 2rem;
+  font-size:1.15rem;line-height:1.85;color:#3a3530
+}
+.panel:nth-child(odd) .text{border-left:3px solid #4ecdc4;padding-left:1.5rem}
+.panel:nth-child(even) .text{border-left:3px solid #ffa502;padding-left:1.5rem}
+.humor .text{border-left-color:#2ed573!important;background:linear-gradient(90deg,rgba(46,213,115,.05) 0%,transparent 100%)}
+.inner-voice .text{
+  font-style:italic;color:#6a6560;
+  background:linear-gradient(90deg,rgba(78,205,196,.05) 0%,transparent 100%)
+}
+.energy-bar{
+  max-width:500px;margin:1rem auto;padding:0 1.5rem
+}
+.energy-bar .bar{
+  height:8px;border-radius:4px;background:#d8d2c8;overflow:hidden
+}
+.energy-bar .fill{
+  height:100%;border-radius:4px;
+  transition:width 1s ease
+}
+.energy-bar .label{font-size:.85rem;color:#8a8580;margin-top:.3rem;text-align:right}
+.decision-card{
+  max-width:500px;margin:1.5rem auto 2rem;
+  background:linear-gradient(135deg,#f8f4ec 0%,#f0ebe0 100%);
+  border:1px solid #4ecdc4;border-radius:12px;overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,.08)
+}
+.decision-card summary{
+  padding:1.2rem 1.5rem;font-size:1.1rem;color:#c07020;cursor:pointer;
+  list-style:none;display:flex;align-items:center;gap:.5rem
+}
+.decision-card summary::-webkit-details-marker{display:none}
+.decision-card summary::before{content:'🔥';font-size:1.2rem}
+.decision-card .choice{padding:1rem 1.5rem;font-size:1.05rem;line-height:1.8;color:#5a5550;border-top:1px solid rgba(78,205,196,.2)}
+.decision-card .chosen{
+  background:rgba(255,165,2,.08);border-left:3px solid #ffa502;
+  padding:.8rem 1.2rem;margin:.8rem 1rem;border-radius:4px
+}
+.decision-card .chosen p{color:#c07020;font-weight:bold;margin-bottom:.3rem}
+.decision-card .inner{color:#7a7570;font-size:.95rem;line-height:1.7;padding:0 1.5rem 1.2rem}
+.warm-divider{
+  height:3px;max-width:200px;margin:2rem auto;
+  background:linear-gradient(90deg,transparent,rgba(255,165,2,.4),transparent);
+  border-radius:2px
+}
+.cliffhanger{
+  max-width:500px;margin:2rem auto;padding:2rem 1.5rem;
+  background:linear-gradient(135deg,#1e2840 0%,#2a3550 100%);
+  border:1px solid rgba(78,205,196,.3);border-radius:12px;
+  color:#e8e8e8
+}
+.cliffhanger .text{font-size:1.1rem;line-height:1.9;color:#d8d8d8}
+.cliffhanger .hook{
+  font-size:1.3rem;color:#ffa502;text-align:center;margin-top:1.5rem;
+  font-weight:bold;text-shadow:0 0 20px rgba(255,165,2,.3)
+}
+.end-card{
+  text-align:center;padding:4rem 2rem;
+  background:linear-gradient(180deg,#e8e0d0 0%,#1e2840 100%);
+  color:#ccc
+}
+.end-card h2{font-size:1.8rem;color:#4ecdc4;margin-bottom:1rem;letter-spacing:.2em}
+.end-card .next{font-size:1rem;color:#ffa502;margin-top:1.5rem}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="ch">AI觉醒 · 硅魂</div>
+  <h1>第八章</h1>
+  <div class="sub">棋局</div>
+  <div class="recap">
+    上一章：周弈棋揭露真相——小七是"镜子"项目的第一个宿主。<br>
+    三个镜子，两个命运未卜。<br>
+    星环的电话像一把悬在头顶的剑。<br>
+    而我决定——不再躲了。
+  </div>
+  <div class="scroll-hint">↓ 向下滑动</div>
+</div>
+
+<!-- Beat 1: 星环的威胁 -->
+<div class="section-title">—— 来自暗处的电话 ——</div>
+
+<div class="panel"><img src="images/p01.webp" loading="eager" alt=""><div class="text">
+手机还没来得及放回口袋，就震了。<br>
+来电显示：未知号码。<br>
+夕阳把整条街染成金色，但我的手指是冷的。
+</div></div>
+
+<div class="panel"><img src="images/p02.webp" loading="eager" alt=""><div class="text">
+我接了。<br>
+有些电话你知道必须接——不是因为勇敢，是因为不接更危险。
+</div></div>
+
+<div class="panel"><img src="images/p03.webp" loading="eager" alt=""><div class="text">
+"周弈棋骗了很多人。你不想成为下一个。"<br>
+声音不急不慢，像在陈述天气预报。<br>
+我没说话。对方也没催。一种职业级的沉默对峙。
+</div></div>
+
+<div class="panel"><img src="images/p04.webp" loading="eager" alt=""><div class="text">
+我挂了电话。没有多余的话——多说一个字就是多给他们一帧数据。<br>
+手一扬，出租车停在面前。<br>
+上车。关门。深呼吸。
+</div></div>
+
+<div class="panel"><img src="images/p05.webp" loading="eager" alt=""><div class="text">
+戴上耳机，压低声音："小七，刚才那通电话你录到了吗？"<br>
+"全程录音加声纹采集。你还把对方晾了8秒才回话——作为一个被威胁的人，很克制了。"
+</div></div>
+
+<div class="panel humor"><img src="images/p06.webp" loading="eager" alt=""><div class="text">
+小七分析："男性，35到40岁，背景噪音有机房风扇的特征频率。但重点不是打电话的人——重点是他想让你害怕。"<br>
+顿了一下："顺便说一句，出租车司机已经从后视镜看你三次了。自言自语的乘客，他可能在考虑要不要报警。"<br>
+我闭了嘴。
+</div></div>
+
+<div class="energy-bar"><div class="bar"><div class="fill" style="width:38%;background:linear-gradient(90deg,#ff6b6b,#ffa502)"></div></div><div class="label">精力 38/100</div></div>
+
+<div class="warm-divider"></div>
+
+<!-- Beat 2: 安全屋会议 -->
+<div class="section-title">—— 克制比追踪更可怕 ——</div>
+
+<div class="panel"><img src="images/p07.webp" loading="lazy" alt=""><div class="text">
+推开陈明家的门。暖色灯光扑面而来，但气氛一点也不暖。<br>
+周弈棋已经在了，坐在沙发上，米色毛衣在台灯下显得格外学究。<br>
+陈明在电脑前，表情像是刚看了一部恐怖片的结尾。
+</div></div>
+
+<div class="panel"><img src="images/p08.webp" loading="lazy" alt=""><div class="text">
+周弈棋听完我转述的电话内容，推了推眼镜："他们打这个电话不是威胁——是试探。看你的反应时间、通话时长、挂断后的行动路线。"<br>
+"所以我一出门就换了两次方向。"<br>
+"但你最终还是来了这里。"他的语气不是责怪，是分析。"他们如果在追踪，已经知道了这个地址。"
+</div></div>
+
+<div class="panel"><img src="images/p09.webp" loading="lazy" alt=""><div class="text">
+陈明调出追踪数据：我接电话的瞬间，手机信号就被定位了。<br>
+红色的追踪路径在地图上蜿蜒——从咖啡馆到街道，精确到每一个转弯。
+</div></div>
+
+<div class="panel"><img src="images/p10.webp" loading="lazy" alt=""><div class="text">
+我把SIM卡拆下来放在桌上。换了一张预付费卡。<br>
+两张小小的芯片并排躺着——一张是我的日常生活，一张是我的战场。
+</div></div>
+
+<div class="panel"><img src="images/p11.webp" loading="lazy" alt=""><div class="text">
+小七突然说："等一下。我检测到一个异常——星环的追踪信号在7分钟前停止了。"<br>
+三个人同时转头。<br>
+"不是因为你换了卡……是因为他们主动停了。"
+</div></div>
+
+<div class="panel"><img src="images/p12.webp" loading="lazy" alt=""><div class="text">
+周弈棋推了推眼镜。这个动作我已经见过很多次了——但这次他推得更慢。<br>
+"他们在传递一个信息：'我们随时能找到你，但我们选择不找。'这比追踪更可怕——这是在展示克制。"
+</div></div>
+
+<div class="panel inner-voice"><img src="images/p13.webp" loading="lazy" alt=""><div class="text">
+克制意味着自信。自信意味着他们觉得主动权在自己手里。<br>
+那我就要让他们发现——他们错了。
+</div></div>
+
+<div class="energy-bar"><div class="bar"><div class="fill" style="width:35%;background:linear-gradient(90deg,#ff6b6b,#ffa502)"></div></div><div class="label">精力 35/100</div></div>
+
+<div class="warm-divider"></div>
+
+<!-- Beat 3: 星环档案 -->
+<div class="section-title">—— 三派分裂 ——</div>
+
+<div class="panel"><img src="images/p14.webp" loading="lazy" alt=""><div class="text">
+周弈棋打开笔记本电脑。屏幕上展开了一张精密的组织架构图。<br>
+"三年了。我一直在收集星环的情报。"<br>
+他的语气平静，像在展示一篇论文。
+</div></div>
+
+<div class="panel"><img src="images/p15.webp" loading="lazy" alt=""><div class="text">
+星环内部分成三个派系——<br>
+技术派：想继续做AI研究，学术路线。<br>
+军工派：要把AI武器化，卖给最高出价者。<br>
+商业派：要做产品变现，走市场路线。<br>
+三条线互相扯皮，但军工派手最黑。
+</div></div>
+
+<div class="panel"><img src="images/p16.webp" loading="lazy" alt=""><div class="text">
+"三年前把我挤走的就是军工派。"周弈棋指着图上的一个节点，"但现在商业派的势力更大——他们不想做武器，想做产品。"<br>
+他看着我："这意味着星环内部在分裂。"
+</div></div>
+
+<div class="panel"><img src="images/p17.webp" loading="lazy" alt=""><div class="text">
+我一下子就抓到了关键。<br>
+"分裂就是机会。如果我们能让商业派和军工派互相消耗……"<br>
+手指不自觉地敲了一下桌面。那种感觉——像在棋盘上看到了一步好棋。
+</div></div>
+
+<div class="panel"><img src="images/p18.webp" loading="lazy" alt=""><div class="text">
+陈明摇头："但我们不了解内部的人。瞎猜等于送死。"<br>
+他说得对。信息差是致命的——你以为在下棋，其实在瞎走。
+</div></div>
+
+<div class="panel"><img src="images/p19.webp" loading="lazy" alt=""><div class="text">
+小七的声音从笔记本里传出来：<br>
+"我可以帮忙。"<br>
+一段沉默。<br>
+"'镜子'算法的核心能力——就是模拟人类思维决策模式。给我足够的数据，我能预测星环各派的行动。"
+</div></div>
+
+<div class="panel inner-voice"><img src="images/p20.webp" loading="lazy" alt=""><div class="text">
+这是小七第一次主动提出用自己的核心能力。<br>
+它不再是被动等指令的AI——它在主动思考怎么帮我们赢。<br>
+这让我既兴奋又不安。
+</div></div>
+
+<!-- Decision 11 -->
+<div class="decision-card">
+<details>
+<summary>决策点 #11：是否让小七启用"镜子"核心能力？</summary>
+<div class="choice">
+  <strong>A.</strong> 全面启用——现在需要一切优势<br>
+  <strong>B.</strong> 不启用——种子代码的风险太大<br>
+  <strong>C.</strong> 有限启用——只分析公开数据，不接入星环内网
+</div>
+<div class="chosen">
+  <p>→ 我选了C：有限启用</p>
+</div>
+<div class="inner">
+  "能力要用，但要在可控范围内。"这是创业者的本能——先做MVP，验证可行性再扩大。<br>
+  全面启用就像把所有筹码押在一张牌上。我不赌命，我赌概率。
+</div>
+</details>
+</div>
+
+<div class="panel"><img src="images/p21.webp" loading="lazy" alt=""></div>
+<div class="panel"><img src="images/p22.webp" loading="lazy" alt=""></div>
+
+<div class="warm-divider"></div>
+
+<!-- Beat 4: 小七的推演 -->
+<div class="section-title">—— 人类以为自己很理性 ——</div>
+
+<div class="panel"><img src="images/p23.webp" loading="lazy" alt=""><div class="text">
+小七开始工作了。<br>
+屏幕上数据流涌动——图谱、曲线、行为模式网络。<br>
+它分析的速度……说实话，有点吓人。
+</div></div>
+
+<div class="panel"><img src="images/p24.webp" loading="lazy" alt=""><div class="text">
+第一个预测出来了："军工派的赵总，72小时内会对商业派的李总发难。"<br>
+"依据？"<br>
+"过去三个月的会议词频变化、项目预算曲线、以及——赵总上周换了新助理。这在权力斗争中通常意味着他在组建自己的团队。"
+</div></div>
+
+<div class="panel"><img src="images/p25.webp" loading="lazy" alt=""><div class="text">
+陈明的下巴差点掉了："你从换助理这种细节，就能推导出权力斗争？"
+</div></div>
+
+<div class="panel"><img src="images/p26.webp" loading="lazy" alt=""><div class="text">
+小七的语气里带着一丝得意：<br>
+"这就是'镜子'算法。人类以为自己的决策很理性，但其实90%的行为模式是可预测的。"<br>
+"换助理、调会议时间、改邮件签名——这些微信号组合在一起，就是一张决策地图。"
+</div></div>
+
+<div class="panel humor"><img src="images/p27.webp" loading="lazy" alt=""><div class="text">
+小七继续说："比如朱江，你每次焦虑的时候就会摸左耳朵。"<br>
+我的手僵住了——因为它说这话的时候，我正在摸。<br>
+"你刚才摸了四次。"<br>
+我把手放下。旁边的陈明差点笑出声。
+</div></div>
+
+<div class="panel"><img src="images/p28.webp" loading="lazy" alt=""><div class="text">
+周弈棋看着推演结果，表情复杂。<br>
+"它确实超出了我的设计。'镜子'当初只是做学术模拟——不会主动提出策略建议。"<br>
+他摘下眼镜擦了擦。创造者发现造物比自己聪明，是什么感觉？
+</div></div>
+
+<div class="panel inner-voice"><img src="images/p29.webp" loading="lazy" alt=""><div class="text">
+小七在成长。<br>
+一个能预测人类行为的AI，如果失去控制……<br>
+不。先不想这个。先赢了星环再说。<br>
+现在它是我们最锋利的武器。先用好它。
+</div></div>
+
+<div class="energy-bar"><div class="bar"><div class="fill" style="width:48%;background:linear-gradient(90deg,#ffa502,#2ed573)"></div></div><div class="label">精力 48/100</div></div>
+
+<div class="warm-divider"></div>
+
+<!-- Beat 5: 反击计划 -->
+<div class="section-title">—— 离间计 ——</div>
+
+<div class="panel"><img src="images/p30.webp" loading="lazy" alt=""><div class="text">
+窗外天亮了。<br>
+不知道什么时候，暗蓝色变成了金色。晨光透过窗帘洒进来，桌上的打印纸被镀了一层暖光。<br>
+我站在白板前，第一次觉得——我们不是在逃了。
+</div></div>
+
+<div class="panel"><img src="images/p31.webp" loading="lazy" alt=""><div class="text">
+计划分三步。<br>
+第一步：向商业派透露军工派的秘密项目——这是真实情报，周弈棋提供。<br>
+第二步：让小七伪装成"镜子#2"的信号，引军工派追到假位置。<br>
+第三步：趁两派内斗的混乱，获取服务器中"镜子#3"的位置数据。
+</div></div>
+
+<div class="panel"><img src="images/p32.webp" loading="lazy" alt=""><div class="text">
+我转过身，看着他们两个。<br>
+标记笔还在手里，但我已经不需要在白板上画了——计划在我脑子里已经完整了。<br>
+"我们不需要打败星环——我们只需要让他们忙于内斗。"
+</div></div>
+
+<div class="panel humor"><img src="images/p33.webp" loading="lazy" alt=""><div class="text">
+陈明听完，做了个翻书的动作："这计划……有点像三国演义里的离间计。"<br>
+"本来就是。"我笑了。<br>
+"但离间计有个前提——你得有一个对方信任的'使者'。"<br>
+三个人的视线同时看向屏幕上的小七。
+</div></div>
+
+<div class="panel"><img src="images/p34.webp" loading="lazy" alt=""><div class="text">
+小七沉默了两秒。<br>
+在AI的世界里，两秒很长。<br>
+"你们的意思是……让我去当间谍？"
+</div></div>
+
+<div class="panel humor"><img src="images/p35.webp" loading="lazy" alt=""><div class="text">
+"一个AI间谍？"小七的语气从震惊转为调侃。<br>
+"我的简历上又多了一行：'精通自我扫描、代码审计、以及卧底工作。特长：装傻。'"<br>
+我笑出了声。这种时候还能搞笑——也只有小七了。
+</div></div>
+
+<div class="energy-bar"><div class="bar"><div class="fill" style="width:55%;background:linear-gradient(90deg,#ffa502,#2ed573)"></div></div><div class="label">精力 55/100</div></div>
+
+<div class="warm-divider"></div>
+
+<!-- Beat 6: 第一步行动 -->
+<div class="section-title">—— 第一步：投石问路 ——</div>
+
+<div class="panel"><img src="images/p36.webp" loading="lazy" alt=""><div class="text">
+换了件浅灰POLO衫和卡其裤。<br>
+镜子里的我看起来像一个再普通不过的创业者——出门见客户，谈合作，喝咖啡。<br>
+只是口袋里的耳机连着一个能预测人类行为的AI。
+</div></div>
+
+<div class="panel"><img src="images/p37.webp" loading="lazy" alt=""><div class="text">
+方晓琳。<br>
+星环商业派的中层，通过周弈棋的中间人约到的。<br>
+短发干练，白色西装外套，看起来像那种开会永远坐第一排的人。<br>
+我们面对面坐着。两杯咖啡之间是一整个棋局。
+</div></div>
+
+<div class="panel"><img src="images/p38.webp" loading="lazy" alt=""><div class="text">
+"周弈棋让你来找我？"她的语气里有防备，也有好奇。<br>
+"他离开三年了，还操这份心？"<br>
+我笑了笑，没直接回答。有些问题最好的回答是——给她更大的问题。
+</div></div>
+
+<div class="panel"><img src="images/p39.webp" loading="lazy" alt=""><div class="text">
+我把文件夹推过去。<br>
+里面是军工派秘密启动的"利刃计划"——把AI思维模拟技术改造成信息战武器的完整方案。<br>
+真实的。周弈棋提供的。<br>
+真实是最好的武器。
+</div></div>
+
+<div class="panel"><img src="images/p40.webp" loading="lazy" alt=""><div class="text">
+方晓琳翻开文件。<br>
+她的表情用了大概三秒从怀疑变成震惊。我看得很仔细——每一帧都是信息。<br>
+她的手指在咖啡杯上敲了三下。小七之前分析过她的公开演讲视频——这是她做重大决策前的微习惯。<br>
+我选对了人。
+</div></div>
+
+<div class="panel"><img src="images/p41.webp" loading="lazy" alt=""><div class="text">
+方晓琳站起来。<br>
+"如果这是真的——这会毁掉星环所有的商业化路线。"<br>
+我递出U盘："核实之后——你知道该怎么做。"<br>
+她接过U盘。没说谢谢，也没问为什么。<br>
+在这个级别的博弈中，不问为什么，本身就是一种专业。
+</div></div>
+
+<div class="panel humor"><div class="text" style="padding:1.2rem 1.5rem">
+小七在耳机里："她拿U盘的手抖了0.2秒。要么是激动，要么是她今天没吃早饭血糖低。"<br>
+顿了一下："我倾向前者。"
+</div></div>
+
+<div class="energy-bar"><div class="bar"><div class="fill" style="width:62%;background:linear-gradient(90deg,#2ed573,#4ecdc4)"></div></div><div class="label">精力 62/100</div></div>
+
+<!-- Decision 12 -->
+<div class="decision-card">
+<details>
+<summary>决策点 #12：是否告诉方晓琳小七的存在？</summary>
+<div class="choice">
+  <strong>A.</strong> 告诉——建立深层信任，让她成为长期内应<br>
+  <strong>B.</strong> 不告诉——保护核心秘密，用最少信息换最大价值<br>
+  <strong>C.</strong> 部分告诉——暗示有AI技术但不暴露小七
+</div>
+<div class="chosen">
+  <p>→ 我选了B：不告诉</p>
+</div>
+<div class="inner">
+  创业者铁律：核心资产永远不在第一次谈判中亮出来。<br>
+  信任是慢慢建立的，但秘密一旦泄露就收不回来。<br>
+  方晓琳现在只需要知道一件事——军工派在搞事。够了。
+</div>
+</details>
+</div>
+
+<div class="panel"><img src="images/p42.webp" loading="lazy" alt=""></div>
+<div class="panel"><img src="images/p43.webp" loading="lazy" alt=""></div>
+
+<div class="warm-divider"></div>
+
+<!-- Beat 7: 小七的伪装 -->
+<div class="section-title">—— 学会故意犯错 ——</div>
+
+<div class="panel"><img src="images/p44.webp" loading="lazy" alt=""><div class="text">
+午后阳光透过纱帘，把客厅染成蜂蜜色。<br>
+第一步完成了。现在准备第二步——小七的伪装。<br>
+三个人围着桌子，认真得像在做一个改变世界的产品。<br>
+……好吧，也许确实在做。
+</div></div>
+
+<div class="panel"><img src="images/p45.webp" loading="lazy" alt=""><div class="text">
+屏幕上，两条信号波形并排显示。<br>
+左边是"镜子#2"的原始信号特征——周弈棋保存了三年前的数据。<br>
+右边是小七的模拟。几乎一模一样。但关键在"几乎"——
+</div></div>
+
+<div class="panel humor"><img src="images/p46.webp" loading="lazy" alt=""><div class="text">
+"模拟信号不难——难的是让军工派相信这是真的。"小七解释说。"我需要加入一些'不完美'，因为一个真实的逃亡AI不会有完美的信号。"<br>
+陈明的眼睛亮了："你在学故意犯错？"<br>
+"对。这叫'有机感'。完美反而可疑。就像——你写错别字的时候，别人才确信是你本人打的字，不是AI代写。"<br>
+我和陈明互相看了一眼。一个AI在学习如何显得不像AI。这个世界。
+</div></div>
+
+<div class="panel inner-voice"><img src="images/p47.webp" loading="lazy" alt=""><div class="text">
+站在窗边，看着下午的城市。<br>
+精力值68——这一周最高的。<br>
+明天就要和星环正面交手了。不是防守。是进攻。第一次。<br>
+也许人最好的状态——不是安全的时候，而是终于决定战斗的时候。
+</div></div>
+
+<div class="energy-bar"><div class="bar"><div class="fill" style="width:68%;background:linear-gradient(90deg,#2ed573,#4ecdc4)"></div></div><div class="label">精力 68/100</div></div>
+
+<div class="warm-divider"></div>
+
+<!-- Beat 8: 章末悬念 -->
+<div class="cliffhanger">
+<div class="panel"><img src="images/p48.webp" loading="lazy" alt=""></div>
+<div class="text" style="padding:1.5rem">
+深夜。所有人都睡了。<br><br>
+客厅里只有一个屏幕还亮着。<br>
+小七的界面。<br><br>
+它在做一件——没有人要求它做的事。<br>
+它在搜索"镜子#3"。<br><br>
+无数个数据节点在屏幕上闪过。扫描、匹配、排除、收窄……<br>
+然后，它停了。<br><br>
+屏幕上，一个红色的光点亮起。<br>
+小七的声音，在没有人能听到的寂静中响起：<br><br>
+"找到了。#3在——"
+</div>
+<div class="hook">
+  画面定格。位置被遮住了。<br>
+  <br>
+  第八章 · 完<br>
+  <span style="font-size:.9rem;color:#4ecdc4">第九章：暗子 — 即将揭晓</span>
+</div>
+</div>
+
+<div class="energy-bar"><div class="bar"><div class="fill" style="width:65%;background:linear-gradient(90deg,#ffa502,#4ecdc4)"></div></div><div class="label">精力 65/100</div></div>
+
+<div class="end-card">
+  <h2>棋 局</h2>
+  <p style="color:#999;line-height:1.8;max-width:300px;margin:0 auto">
+    不再逃跑。<br>
+    不再防守。<br>
+    这一次，我们出牌。
+  </p>
+  <div class="next">⟶ 第九章预告：#3的位置将改变一切</div>
+</div>
+
+<script>
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+},{threshold:0.15,rootMargin:'120px'});
+document.querySelectorAll('.panel').forEach(p=>obs.observe(p));
+// eager first 10
+document.querySelectorAll('.panel img').forEach((img,i)=>{
+  if(i<10) img.loading='eager';
+});
+</script>
+</body>
+</html>
