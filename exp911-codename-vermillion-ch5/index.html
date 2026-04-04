@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代号朱雀 · 第五章：影</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F5F0EB;color:#2a2a2a;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif}
+.cover{
+  height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:linear-gradient(180deg,#f8e8c8 0%,#F5F0EB 50%,#e8ddd0 100%);
+  text-align:center;padding:2rem
+}
+.cover h1{font-size:2.8rem;color:#8B4513;margin-bottom:.5rem;letter-spacing:.3em;text-shadow:0 2px 8px rgba(139,69,19,.2)}
+.cover .sub{font-size:1.4rem;color:#c0792a;margin-bottom:2rem}
+.cover .ch{font-size:1.1rem;color:#999;letter-spacing:.2em}
+.scroll-hint{color:#aaa;font-size:.9rem;margin-top:3rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+.panel{
+  width:100%;max-width:500px;margin:0 auto;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .6s ease,transform .6s ease
+}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:4px}
+.panel .text{
+  padding:1.2rem 1.5rem 2rem;
+  font-size:1.15rem;line-height:1.85;color:#3a3a3a;
+  background:linear-gradient(180deg,rgba(245,240,235,.98) 0%,rgba(245,240,235,.9) 100%)
+}
+.panel:nth-child(odd) .text{border-left:3px solid #c0792a;padding-left:1.5rem}
+.panel:nth-child(even) .text{border-left:3px solid #8B4513;padding-left:1.5rem}
+.inner{color:#888;font-style:italic;display:block;margin-top:.5rem;font-size:1.05rem}
+.joke{color:#c0792a;display:block;margin-top:.5rem;font-size:1.05rem}
+.zhujiang{color:#c0792a;font-weight:bold}
+.linyuan{color:#2e6b4f;font-weight:bold}
+.xiaoyu{color:#4a6fa5;font-weight:bold}
+.zhaowei{color:#7a3b7a;font-weight:bold}
+.qin{color:#8B4513;font-weight:bold}
+.decision-card{
+  max-width:500px;margin:1rem auto 2rem;
+  background:linear-gradient(135deg,#f0e6d6 0%,#e8ddd0 100%);
+  border:1px solid #c0792a;border-radius:12px;overflow:hidden
+}
+.decision-card summary{
+  padding:1.2rem 1.5rem;font-size:1.1rem;color:#8B4513;cursor:pointer;
+  list-style:none;display:flex;align-items:center;gap:.5rem
+}
+.decision-card summary::-webkit-details-marker{display:none}
+.decision-card summary::before{content:'🔥';font-size:1.2rem}
+.decision-card .choice{padding:1rem 1.5rem;font-size:1.05rem;line-height:1.8;color:#555;border-top:1px solid rgba(192,121,42,.3)}
+.decision-card .chosen{background:rgba(192,121,42,.1);border-left:3px solid #c0792a;padding-left:1.2rem;margin:.8rem 1rem;border-radius:4px}
+.decision-card .chosen p{color:#8B4513;font-weight:bold;margin-bottom:.3rem}
+.decision-card .soul{color:#999;font-size:.95rem;line-height:1.7;padding:0 1.5rem 1.2rem}
+.ending{text-align:center;padding:4rem 2rem;background:linear-gradient(180deg,#F5F0EB 0%,#f8e8c8 50%,#F5F0EB 100%)}
+.ending .next{font-size:1.3rem;color:#8B4513;margin-bottom:1rem}
+.ending .tease{font-size:1rem;color:#888;line-height:1.8}
+.spacer{height:1.5rem}
+.section-title{
+  text-align:center;padding:3rem 1rem 1rem;
+  font-size:1.3rem;color:#8B4513;letter-spacing:.3em
+}
+.golden .text{background:linear-gradient(180deg,rgba(248,232,200,.98) 0%,rgba(245,240,235,.95) 100%)}
+.memory .text{background:linear-gradient(180deg,rgba(255,248,230,.98) 0%,rgba(255,245,220,.9) 100%);border-left:3px solid #d4a745!important}
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="ch">—— V5 · 原创长篇 ——</div>
+  <h1>代号朱雀</h1>
+  <div class="sub">第五章：影</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<!-- ═══ 开场 [格1-8]: 蜜罐的早餐 ═══ -->
+<div class="section-title">蜜 罐 的 早 餐</div>
+
+<div class="panel">
+  <img src="images/p01.webp" alt="p01" loading="lazy">
+  <div class="text">辰光科技总部，清晨八点。一夜未眠，但我精神亢奋——蜜罐从昨晚六点开始运行，十二个小时，捕获了4.7GB数据。<span class="inner">第四杯咖啡。"影"比我想象的更饥渴。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p02.webp" alt="p02" loading="lazy">
+  <div class="text">4.7GB数据被朱雀-01自动分类为三个cluster：①辰光核心算法架构文件 ②人事档案（137份） ③一个加密文件夹，无法解密。<span class="inner">他们要架构、要人、还有一个我闻不到味的东西。三道菜，最后一道藏着什么？</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p03.webp" alt="p03" loading="lazy">
+  <div class="text">137份档案不是全部辰光员工——是精确筛选的AI团队核心成员。简历、技术栈、专利号、GitHub活跃度，比我们自己的花名册都详细。<span class="inner">他们不要辰光。他们要辰光的脑子。逐个逐个标记。这不是偷技术——这是军工级猎头。</span><span class="joke">"影"居然比我们自己的HR更了解我们的员工。说起HR——</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p04.webp" alt="p04" loading="lazy">
+  <div class="text">蜜罐访问日志精确到毫秒。凌晨2:17:03.221，调用来自辰光内部IP——192.168.3.47。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p05.webp" alt="p05" loading="lazy">
+  <div class="text">我让小鱼查这个IP。他秒回——也整夜没睡。<br><br><span class="xiaoyu">「哥，3.47是HR部门的网段。具体哪台机器在查了。」</span><br><span class="xiaoyu">「你也通宵了？受伤第三天还不睡？」</span><br><span class="zhujiang">「CEO的工作就是不睡觉。你看过哪个成功的创业者睡满八小时的？」</span><br><span class="xiaoyu">「马斯克？」</span><br><span class="zhujiang">「他六个孩子比我们六个后门更让人失眠。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p06.webp" alt="p06" loading="lazy">
+  <div class="text">小鱼很快定位：IP 3.47 = HR部门三楼第二间办公室台式机，登录账号——zhao_wei_hr。<br><br>但调用时间是凌晨2:17。<br><br>我调了辰光的门禁记录：赵薇昨晚十点离开公司，今早八点进入。凌晨2:17，她<strong>不在公司</strong>。<span class="inner">她的账号在调用后门，但她人不在。要么有人盗用了她的账号，要么——她远程了。</span><span class="joke">我开始怀念以前。那时候HR最大的威胁，是在团建时让你玩信任背摔。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p07.webp" alt="p07" loading="lazy">
+  <div class="text">加密文件夹交给朱雀-01暴力破解。预估时间：六小时。<span class="inner">六个小时。够我办一件事了。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p08.webp" alt="p08" loading="lazy">
+  <div class="text">我站起来，把卫衣拉链拉上，换上皮鞋。<br><br>是时候跟赵薇"偶遇"了。</div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 赵薇交锋 [格9-18]: 微笑背后 ═══ -->
+<div class="section-title">微 笑 背 后</div>
+
+<div class="panel">
+  <img src="images/p09.webp" alt="p09" loading="lazy">
+  <div class="text">辰光科技三楼HR部门。走廊明亮——白色墙壁、木质地板、整面玻璃隔断。几个HR员工跟我打招呼，我回以CEO式的点头微笑。<span class="inner">每个创始人都应该多逛逛自己的HR部门。你永远不知道谁在用L5权限，半夜调你的核心数据。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p10.webp" alt="p10" loading="lazy">
+  <div class="text">赵薇的办公室门开着。短发齐耳，圆框眼镜，深蓝色西装，嘴角挂着那种永远恰到好处的微笑。看到我，微笑扩大但不夸张。<br><br><span class="zhaowei">「朱总！难得来三楼。需要我帮忙？」</span><br><span class="zhujiang">「路过，闻到咖啡香就进来了。」</span><span class="inner">她桌上确实有咖啡——但我进来的方向闻不到。不过她没指出这个漏洞。分数+1。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p11.webp" alt="p11" loading="lazy">
+  <div class="text">话题从咖啡转到Q2技术招聘。我假装关心。<br><br><span class="zhujiang">「AI团队今年要扩多少人？」</span><br><span class="zhaowei">「计划三十人。但说实话，顶级AI人才特别难招——大厂开的价码太高了。」</span><br><span class="zhujiang">「确实。最近有没有猎头来挖我们的人？」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p12.webp" alt="p12" loading="lazy">
+  <div class="text">赵薇表情零变化。<br><br><span class="zhaowei">「猎头永远在。但核心团队很稳定，我盯着呢。」</span><span class="inner">"我盯着呢"。是的，你确实在盯着——盯着137份档案里每个人的GitHub活跃度。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p13.webp" alt="p13" loading="lazy">
+  <div class="text">我使出杀手锏——提到天使投资人周鸿。<br><br><span class="zhujiang">「对了，赵总是老周介绍来的对吧？上次他发消息说想来公司看看。」</span><br><br>这是谎话。周鸿三年前退出后再没联系过。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p14.webp" alt="p14" loading="lazy">
+  <div class="text">赵薇的笑容不变。但她右手食指轻轻敲了一下桌面。<strong>一次。</strong><br><br><span class="zhaowei">「是呢，周总是我的老领导。不过他退出后就很少联系了。您替我问个好吧。」</span><span class="inner">右手食指敲桌面。一次。心理学称之为"自我安抚动作"——在维持表面镇定时的无意识泄露。不是铁证，但信号够了。</span><span class="joke">作为一个创始人，我今天学到了：面试别人的时候要观察食指。这个技巧MBA课上没教。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p15.webp" alt="p15" loading="lazy">
+  <div class="text">我起身告辞。走出HR部门时用余光观察——赵薇在我转身后<strong>立刻拿起了手机</strong>。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p16.webp" alt="p16" loading="lazy">
+  <div class="text">我假装在走廊接电话，放慢脚步。玻璃隔断的反射让我看到赵薇在快速打字。<span class="inner">我提到周鸿后，她在三十秒内给某人发了消息。要么是通报，要么是请示。无论哪种——她不是独立行动的。线上有人。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p17.webp" alt="p17" loading="lazy">
+  <div class="text">回到办公室，给小鱼发消息。<br><br><span class="zhujiang">「盯住赵薇的手机信号。她刚刚发了一条消息，我需要知道接收方。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p18.webp" alt="p18" loading="lazy">
+  <div class="text"><span class="xiaoyu">「哥，监控同事手机信号，这个……合法吗？」</span><br><span class="zhujiang">「不合法。但在你的核心数据正在被偷的时候，你可以先做再说。」</span><br><span class="xiaoyu">「……好吧。提醒你一下，你今天已经是第三次让我做不合法的事了。我在考虑要不要更新简历。」</span><br><span class="zhujiang">「更新吧。反正你的简历已经在别人手里了——在蜜罐的4.7GB数据里。」</span><br><span class="xiaoyu">「……我恨你说得对。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 炸弹 [格19-28]: SSH的答案 ═══ -->
+<div class="section-title">S S H 的 答 案</div>
+
+<div class="panel">
+  <img src="images/p19.webp" alt="p19" loading="lazy">
+  <div class="text">中午十二点半。阳光正午直射，办公室一天中最亮的时刻。<br><br>朱雀-01的AI比对完成。SSH密钥匹配结果出炉。<br><br>我正在吃外卖——炒饭加一份鱼香肉丝。第五次了。<br><br>筷子停在半空。<span class="inner">来了。那个我一直不想看到的答案。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p20.webp" alt="p20" loading="lazy">
+  <div class="text">屏幕上的结果——<br><br>SSH密钥部分重叠的活跃账号所有者：<strong>lin_yuan_cto</strong><br>匹配度：<strong>94.7%</strong><br>密钥创建时间：五年前。辰光成立第一年。与后门埋入时间<strong>完全吻合</strong>。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p21.webp" alt="p21" loading="lazy">
+  <div class="text">不是震惊。是一种很深的疲惫。<span class="inner">94.7%。不是100%，但已经是数学意义上的确定。lin_yuan_cto。林远。我的CTO。我的大学室友。我——曾经最信任的人。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel memory">
+  <img src="images/p22.webp" alt="p22" loading="lazy">
+  <div class="text"><em>——闪回·2003年夏天——</em><br><br>宿舍里，阳光打在窗台上。我和林远对着一台老笔记本争论架构设计。那时候他瘦得像竹竿，笑起来牙龈都露出来。<span class="inner">你说"咱们以后一起做一家改变世界的公司"。你说这话的时候嘴里含着一根冰棍。我当时以为你在开玩笑。后来我发现你是认真的。那根冰棍是绿豆味的。我记得这种没用的细节。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel memory">
+  <img src="images/p23.webp" alt="p23" loading="lazy">
+  <div class="text"><em>——两只拳头碰在一起——</em><br><br>那时候的我们不知道什么是SSH密钥。只知道写代码可以改变世界。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p24.webp" alt="p24" loading="lazy">
+  <div class="text">回到现实。合上外卖盒。深呼吸。<br><br>94.7%匹配但不是100%——差了5.3%。<span class="inner">5.3%。在密码学里，这意味着密钥可能是基于林远的原始密钥<strong>衍生</strong>的——有人拿了他的密钥做种子，生成了一把新密钥。用原始密钥的人不一定知情。<br><br>但也可能是林远自己改了密钥的一部分来隐藏痕迹。94.7%的巧合——不是巧合。</span><span class="joke">我现在面前有两种可能：一、我最好的朋友是卧底；二、有人伪造了我最好朋友的身份来做卧底。两种都让我想再吃一份鱼香肉丝。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- DECISION-11 -->
+<details class="decision-card">
+  <summary>决策点 D-11：如何验证林远？</summary>
+  <div class="choice">
+    <strong>A.</strong> 直接拿SSH证据质问林远——快刀斩乱麻<br>
+    <strong>B.</strong> 不提SSH，设一个只有林远知道的技术陷阱<br>
+    <strong>C.</strong> 把SSH证据交给老秦，从"影"内部查
+  </div>
+  <div class="chosen"><p>→ 朱江选择 B：金丝雀陷阱</p></div>
+  <div class="soul">94.7%不是100%。5.3%的疑点=我需要100%的确定性。我不会在数学概率上定罪一个兄弟。设陷阱=用代码验证，而非人际对抗。这与午餐博弈一脉相承——我对林远的信任在被侵蚀，但还没断。我在给他最后一次证明清白的机会。</div>
+</details>
+
+<div class="panel">
+  <img src="images/p25.webp" alt="p25" loading="lazy">
+  <div class="text">我在辰光AI核心模块中埋入一段"金丝雀"代码——无害但独特的标记，位置只有CTO权限能看到。如果这段代码出现在蜜罐的数据流中——说明有人用CTO权限主动调取了它。<span class="inner">如果金丝雀飞出来了，那就不是别人盗用了你的密钥，林远。那就是你亲手打开的门。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p26.webp" alt="p26" loading="lazy">
+  <div class="text">小鱼凑过来看代码，发现我加了一行注释：<br><br><code>// 如果你能看到这行，恭喜你，你是内鬼。——朱江</code><br><br><span class="xiaoyu">「……这是世界上最直白的金丝雀。」</span><br><span class="zhujiang">「内鬼看不到注释。他只看代码。放心。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p27.webp" alt="p27" loading="lazy">
+  <div class="text">解密进度：67%。还需要两小时。<br><br>同时，小鱼传来消息：赵薇刚才那条消息的接收方——号码归属地查到了。<br><br><strong>北京。</strong><br><br>但号码本身无法追踪，加密通讯。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p28.webp" alt="p28" loading="lazy">
+  <div class="text"><span class="inner">北京。"影"的中心在北京？还是——那不是"影"，是别的什么？</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 对峙 [格29-40]: 旧友 ═══ -->
+<div class="section-title">旧 友</div>
+
+<div class="panel">
+  <img src="images/p29.webp" alt="p29" loading="lazy">
+  <div class="text"><span class="zhujiang">「天台聊聊？」</span><br><br>林远秒回：<span class="linyuan">「来。」</span><span class="inner">他秒回。要么是心里没鬼，要么是准备已久。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p30.webp" alt="p30" loading="lazy">
+  <div class="text">辰光科技天台花园，下午三点。深圳的阳光热烈。天台种着几盆多肉和一棵小桂花树。两把藤椅。<br><br>这是我和林远经常来聊天的地方。今天聊的，可能是最后一次。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p31.webp" alt="p31" loading="lazy">
+  <div class="text">林远从楼梯口走出来。瘦高、细框眼镜、黑色T恤+牛仔裤+帆布鞋。下午阳光打在他身上。<br><br><span class="linyuan">「你昨晚给我打电话没接。今天又约天台。朱江，你不会是要跟我告白吧？」</span><br><br>我笑了——是真笑。<br><br><span class="zhujiang">「你要是值得告白就好了。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p32.webp" alt="p32" loading="lazy">
+  <div class="text">两人坐在藤椅上。我不绕弯，直接切入。<br><br><span class="zhujiang">「辰光被渗透了。你知道吧。」</span><br><br>林远推了一下眼镜。<br><br><span class="linyuan">「我猜到了。那晚攻击之后，我检查了核心系统，发现三个五年前的后门。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p33.webp" alt="p33" loading="lazy">
+  <div class="text"><span class="zhujiang">「你什么时候发现的？」</span><br><span class="linyuan">「上次跟你吃完日料之后。回去就查了。」</span><span class="inner">他自己发现了后门。如果他是园丁，他不会告诉我他知道后门在哪。——除非他知道我也知道了，这是将计就计。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p34.webp" alt="p34" loading="lazy">
+  <div class="text">我加大压力——提到赵薇。<br><br><span class="zhujiang">「赵薇的账号在凌晨调用过后门。」</span><br><br>林远停顿了两秒。然后——他从口袋里掏出自己的手机，打开一个APP，递给我。<br><br>屏幕上是一个监控界面——<strong>林远自己也在监控赵薇</strong>。从三天前就开始了。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p35.webp" alt="p35" loading="lazy">
+  <div class="text"><span class="linyuan">「你以为只有你在查？」</span><span class="inner">他也在查赵薇。从三天前——比我还早一天。</span><span class="zhujiang">「你什么时候装的监控APP？」</span><br><span class="linyuan">「你觉得CTO闲着没事会干什么？写代码？CTO的工作是不信任所有系统。包括HR。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel golden">
+  <img src="images/p36.webp" alt="p36" loading="lazy">
+  <div class="text">关键时刻。我看着林远的眼睛。<br><br><span class="zhujiang">「五年前。辰光成立第一年。有人用你的SSH密钥生成了衍生密钥，埋了后门。你知不知情？」</span><br><br>空气凝固。天台上只有风声和远处的城市噪音。<br><br>林远摘下眼镜——擦镜片。这是他的习惯，紧张的时候总擦。但他的手很稳。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel golden">
+  <img src="images/p37.webp" alt="p37" loading="lazy">
+  <div class="text"><span class="linyuan">「我知道。」</span><span class="inner">他说"我知道"。三个字。像一把刀。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- DECISION-12 -->
+<details class="decision-card">
+  <summary>决策点 D-12：听到"我知道"后的反应</summary>
+  <div class="choice">
+    <strong>A.</strong> 控制情绪，让林远继续说<br>
+    <strong>B.</strong> 爆发——质问"你为什么不告诉我"<br>
+    <strong>C.</strong> 沉默，站起来走到栏杆边
+  </div>
+  <div class="chosen"><p>→ 朱江选择 A：控制情绪继续听</p></div>
+  <div class="soul">即使情感被重击，我仍然选择获取最完整的信息。但情感会泄露——声音变低、不自觉握拳。选A不是因为不在乎，而是因为太在乎，所以不能在知道全部真相之前做出反应。</div>
+</details>
+
+<div class="panel golden">
+  <img src="images/p38.webp" alt="p38" loading="lazy">
+  <div class="text">林远的解释——这是整个系列最关键的信息量。<br><br><span class="linyuan">「五年前，辰光拿周鸿的天使投资时，协议里有一个隐藏条款。你签了——你没看到。我看到了。」</span><br><span class="zhujiang">「核心算法使用权转让。老秦的U盘里有。」</span><br><span class="linyuan">「对。但你不知道的是——那不是周鸿自己的要求。周鸿背后有人。一个军工背景的机构，代号'影'。他们通过周鸿投资辰光，目的是在民用AI公司里埋线。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel golden">
+  <img src="images/p39.webp" alt="p39" loading="lazy">
+  <div class="text"><span class="linyuan">「我发现这件事后，有两个选择：告诉你，然后我们一起跟一个军工机构硬碰硬；或者——我自己处理。」</span><br><br><span class="zhujiang">「你选了自己处理。」</span><br><br><span class="linyuan">「我用我的SSH密钥生成了衍生密钥，把他们要求的后门——<strong>亲手埋了</strong>。但我改了后门的输出——所有通过后门传出去的数据都经过我的过滤层。他们以为拿到了真数据，实际上拿到的是<strong>我审查过的版本</strong>。五年了。」</span><span class="inner">他用五年的沉默和欺骗……保护了辰光。保护了我。但他选择了不告诉我。这是保护还是背叛？——不，这不是二选一的问题。这是两者同时存在。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p40.webp" alt="p40" loading="lazy">
+  <div class="text"><span class="zhujiang">「你一个人当了五年的双面间谍。」</span><br><br>林远苦笑。<br><br><span class="linyuan">「CTO的KPI里应该加一条：每年欺骗至少一个军工组织。」</span><br><br>我闭了一下眼。再睁开时——<br><br><span class="zhujiang">「那个过滤层……你现在还控制着吗？」</span><br><span class="linyuan">「控制着。但——有个问题。赵薇昨晚的调用绕过了我的过滤层。她走了另一条路径。一条<strong>我不知道的路径</strong>。」</span><span class="inner">林远埋了后门并控制了五年。但"影"最近升级了——他们新开了一条路径，绕过了林远的过滤。这意味着——"影"可能已经发现了林远的双面游戏。林远现在是暴露的。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- ═══ 悬念结尾 [格41-48]: 金丝雀飞了 ═══ -->
+<div class="section-title">金 丝 雀 飞 了</div>
+
+<div class="panel">
+  <img src="images/p41.webp" alt="p41" loading="lazy">
+  <div class="text">回到办公室。解密进度：94%。<br><br>手机震动——不是短信。是朱雀-01的自动告警。<br><br><strong>金丝雀触发了。</strong></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p42.webp" alt="p42" loading="lazy">
+  <div class="text">但——触发者不是林远。<br><br>金丝雀代码出现在蜜罐数据流中，调用权限是L5，但时间戳是——<strong>现在。此刻。</strong>有人在实时调取辰光核心数据。<br><br><span class="zhujiang">「不是你？」</span><br><br>林远看了一眼自己的手机。<br><br><span class="linyuan">「不是我。我的过滤层没有任何活动。」</span><span class="inner">金丝雀飞了，但不是从林远的笼子里飞出来的。第四个L5——赵薇。但赵薇没有技术能力直接调用。除非——L5权限不止四个人。或者——有人在用第五把钥匙。一把我们都不知道的钥匙。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p43.webp" alt="p43" loading="lazy">
+  <div class="text">调用来源不是赵薇的IP——是一个从未出现过的内部IP：<strong>192.168.9.01</strong>。<br><br>9号网段——辰光根本没有9号网段。这个IP不存在于公司网络拓扑中。</div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p44.webp" alt="p44" loading="lazy">
+  <div class="text">小鱼紧急汇报：<br><br><span class="xiaoyu">「哥，9号网段是……幽灵网段。物理上存在——在地下一层的机房里有一组老设备。但在公司IT资产清单上，这些设备<strong>三年前就报废了</strong>。」</span><span class="inner">报废的设备，幽灵的网段，第五把钥匙。有人在我脚下，在我的公司地下室里，运行着一个我不知道的系统。</span><span class="xiaoyu">「建议你下次买公司的时候先检查地下室。」</span><br><span class="zhujiang">「买这栋楼的时候我检查了消防通道、承重墙和停车位数量。没想到还得检查是不是有幽灵服务器。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p45.webp" alt="p45" loading="lazy">
+  <div class="text">解密终于完成——100%。<br><br>加密文件夹打开了。里面只有<strong>一个文件</strong>。<br><br>文件名：<strong>《朱雀计划》.pdf</strong><br>日期：五年前。在辰光成立之前。<span class="inner">朱雀。他们也叫它朱雀。我给AI安全系统起的名字——朱雀-01——我以为是我自己想出来的。但"影"在我之前五年，就已经有了一个叫"朱雀"的计划。</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel">
+  <img src="images/p46.webp" alt="p46" loading="lazy">
+  <div class="text">不是恐惧。是一种被命运击中的茫然。<span class="inner">我一直以为是巧合。但从来没有巧合。</span></div>
+</div>
+<div class="spacer"></div>
+
+<!-- DECISION-13 -->
+<details class="decision-card">
+  <summary>决策点 D-13：是否立刻打开文件？</summary>
+  <div class="choice">
+    <strong>A.</strong> 立刻打开——真相就在眼前<br>
+    <strong>B.</strong> 先做文件安全检查，确认无trap再打开<br>
+    <strong>C.</strong> 不打开，先去地下室——物理确认幽灵服务器
+  </div>
+  <div class="chosen"><p>→ 朱江选择 C：先去地下室</p></div>
+  <div class="soul">线上的可以等，物理的不能等。如果地下室有活跃设备正在实时窃取数据，文件可以晚看十分钟，但数据每秒都在流出。当有一个"可以亲自去看"的选项时，我总是选择亲自去。</div>
+</details>
+
+<div class="panel">
+  <img src="images/p47.webp" alt="p47" loading="lazy">
+  <div class="text"><span class="zhujiang">「跟我去地下室。」</span><br><span class="linyuan">「你要去找幽灵服务器？」</span><br><span class="zhujiang">「有人在我的公司地下室装了一台我不知道的服务器，运行了至少三年，用一个幽灵网段连进了我的核心系统。我现在非常想跟这台服务器——面对面聊聊。」</span><br><br>林远站起来，摘下眼镜擦了擦。<br><br><span class="linyuan">「就像大学那时候。你要去拆什么东西的时候，总拉着我。」</span><br><br><span class="zhujiang">「带上手电筒。」</span><br><span class="linyuan">「为什么？公司地下室有灯。」</span><br><span class="zhujiang">「因为电影里去地下室探险的人都要带手电筒。我们至少要有基本的仪式感。」</span><br><span class="linyuan">「……你这个CEO真的很不专业。」</span></div>
+</div>
+<div class="spacer"></div>
+
+<div class="panel golden">
+  <img src="images/p48.webp" alt="p48" loading="lazy">
+  <div class="text">电梯门关上。显示屏从15F开始往下跳——14、13……<br><br>手机震动。老秦的加密消息：<br><br><span class="qin"><strong>「别去地下室。朱雀不是计划，是一个人。」</strong></span><br><br>电梯数字继续往下。<span class="inner">朱雀是一个人。一个在我成立辰光之前就存在的人。在我给AI起名"朱雀"之前，就已经是"朱雀"的人。我一直以为是巧合。但从来没有巧合。</span><br><br>电梯到达B1。门开了。<br><br><strong>黑暗。</strong></div>
+</div>
+<div class="spacer"></div>
+
+<div class="ending">
+  <div class="next">—— 第五章 · 完 ——</div>
+  <div class="tease">
+    朱雀是谁？<br>
+    地下室里藏着什么？<br>
+    "影"为什么在五年前就有朱雀计划？<br>
+    赵薇发消息的对象——北京，是谁？<br>
+    "影"是否已发现林远的双面身份？<br><br>
+    <strong>第六章：地下</strong><br>
+    即将揭晓
+  </div>
+</div>
+
+<script>
+const o=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add('visible'),o.unobserve(e.target))})},{threshold:.15});
+document.querySelectorAll('.panel,.decision-card').forEach(e=>o.observe(e));
+</script>
+</body>
+</html>
