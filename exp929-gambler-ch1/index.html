@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>赌神崛起·筹码人生 — 第一章「牌桌之下」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:#0a0a0a;color:#e8dcc8;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.loader{position:fixed;inset:0;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s}
+.loader.done{opacity:0;pointer-events:none}
+.loader-chip{width:60px;height:60px;border-radius:50%;border:4px solid #c9a44a;border-top-color:transparent;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{margin-top:20px;color:#c9a44a;font-size:1.1rem;letter-spacing:4px}
+.title-section{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:linear-gradient(180deg,#0a0a0a 0%,#1a1208 50%,#0a0a0a 100%);position:relative;overflow:hidden}
+.title-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(201,164,74,.15) 0%,transparent 70%)}
+.title-badge{font-size:.85rem;letter-spacing:6px;color:#c9a44a;margin-bottom:16px;opacity:0;animation:fadeUp .8s .3s forwards}
+.title-main{font-size:2.2rem;font-weight:900;color:#f0e6d0;line-height:1.3;margin-bottom:8px;opacity:0;animation:fadeUp .8s .5s forwards;text-shadow:0 0 40px rgba(201,164,74,.3)}
+.title-sub{font-size:1.6rem;color:#c9a44a;font-weight:300;margin-bottom:24px;opacity:0;animation:fadeUp .8s .7s forwards}
+.title-chapter{font-size:1rem;color:#8a7a5a;letter-spacing:3px;opacity:0;animation:fadeUp .8s .9s forwards}
+.title-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,#c9a44a,transparent);margin:20px auto;opacity:0;animation:fadeUp .8s 1.1s forwards}
+.title-intro{font-size:1rem;color:#a09078;max-width:320px;line-height:1.8;opacity:0;animation:fadeUp .8s 1.3s forwards}
+.scroll-hint{position:absolute;bottom:30px;color:#c9a44a;font-size:.8rem;letter-spacing:3px;opacity:0;animation:fadeUp .8s 1.8s forwards,bounce 2s 2.5s infinite}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.title-badge,.title-main,.title-sub,.title-chapter,.title-divider,.title-intro{transform:translateY(20px)}
+.panels{max-width:420px;margin:0 auto;padding:0 0 60px}
+.panel{position:relative;margin:0;opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.panel.visible{opacity:1;transform:none}
+.panel img{width:100%;display:block}
+.panel-text{padding:16px 20px;background:linear-gradient(180deg,rgba(10,10,10,.95),rgba(10,10,10,.98));position:relative}
+.panel-text::before{content:'';position:absolute;top:0;left:20px;right:20px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,164,74,.3),transparent)}
+.narr{font-size:1.1rem;line-height:1.9;color:#d4c8a8;text-indent:2em;margin:8px 0}
+.narr em{font-style:normal;color:#c9a44a}
+.dialogue{font-size:1.05rem;line-height:1.8;color:#e8dcc8;margin:10px 0;padding-left:16px;border-left:3px solid #c9a44a}
+.dialogue .speaker{color:#c9a44a;font-weight:bold;margin-right:4px}
+.mono{font-size:1rem;line-height:1.8;color:#9a8a6a;margin:8px 0;padding:10px 16px;background:rgba(201,164,74,.06);border-radius:4px;font-style:italic;border-left:2px solid rgba(201,164,74,.3)}
+.scene-break{text-align:center;padding:40px 20px}
+.scene-break .label{font-size:.85rem;letter-spacing:5px;color:#c9a44a;position:relative;display:inline-block}
+.scene-break .label::before,.scene-break .label::after{content:'';position:absolute;top:50%;width:40px;height:1px;background:linear-gradient(90deg,transparent,#c9a44a)}
+.scene-break .label::before{right:calc(100% + 12px)}
+.scene-break .label::after{left:calc(100% + 12px)}
+.decision{margin:20px 20px;padding:20px;background:linear-gradient(135deg,rgba(201,164,74,.08),rgba(10,10,10,.95));border:1px solid rgba(201,164,74,.25);border-radius:8px}
+.decision-label{font-size:.8rem;color:#c9a44a;letter-spacing:3px;margin-bottom:8px}
+.decision-text{font-size:1.05rem;color:#e8dcc8;line-height:1.8}
+.decision-choice{display:inline-block;margin-top:8px;padding:6px 16px;background:rgba(201,164,74,.15);border:1px solid #c9a44a;border-radius:4px;color:#c9a44a;font-size:.95rem}
+.cliffhanger{text-align:center;padding:60px 20px;background:linear-gradient(180deg,rgba(10,10,10,1),rgba(26,18,8,.5),rgba(10,10,10,1))}
+.cliffhanger-text{font-size:1.3rem;color:#c9a44a;font-weight:bold;line-height:1.6;margin-bottom:20px}
+.cliffhanger-next{font-size:.9rem;color:#8a7a5a;letter-spacing:2px}
+.cliffhanger-next span{color:#c9a44a}
+.panel-lg img{min-height:70vh;object-fit:cover}
+.panel-md img{min-height:50vh;object-fit:cover}
+@media(min-width:768px){.panels{max-width:440px}}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><div class="loader-chip"></div><div class="loader-text">筹码就位...</div></div>
+<section class="title-section">
+<div class="title-badge">V5 · 虚拟朱江走进故事</div>
+<h1 class="title-main">赌神崛起·筹码人生</h1>
+<div class="title-sub">第一章</div>
+<div class="title-chapter">「牌桌之下」</div>
+<div class="title-divider"></div>
+<p class="title-intro">当AI创业者走上牌桌，概率不再是理论——每一手牌都是一次人心博弈。</p>
+<div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</section>
+<div class="panels" id="panels">
+
+<!-- ====== 场景1: 空办公室·落魄 ====== -->
+<div class="scene-break"><span class="label">空办公室 · 深夜</span></div>
+
+<div class="panel panel-lg">
+<img src="images/p01.jpg" loading="lazy" alt="空荡荡的办公室">
+<div class="panel-text">
+<p class="narr">办公室的灯几乎全灭了。只剩下我桌上那盏台灯，孤零零地亮着，像ICU里最后一台还在工作的仪器。</p>
+<p class="narr">三年前我在这里写下第一行代码，三年后这里只剩下我一个人和一封邮件。</p>
+</div>
+</div>
+
+<div class="panel panel-md">
+<img src="images/p02.jpg" loading="lazy" alt="投资终止通知">
+<div class="panel-text">
+<p class="narr">屏幕上的字很清楚。<em>「经董事会决议，即日起终止一切投资协议。」</em></p>
+<p class="narr">每一个字都认识，连在一起却像另一种语言。三年心血，一封邮件归零。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p03.jpg" loading="lazy" alt="苦笑">
+<div class="panel-text">
+<p class="narr">我往椅背一靠，手捂住了脸。不是想哭——是太累了。连续三天融资谈判全崩，团队核心被挖走四个，昨天投资人的电话还在说"我们非常看好你们"，今天就变成了这封邮件。</p>
+<p class="mono">三年心血，一封邮件归零。挺好的，至少省了个仪式感。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p04.jpg" loading="lazy" alt="至少咖啡机还是我的">
+<div class="panel-text">
+<p class="narr">低头看了眼手里的咖啡，居然还是热的。我忍不住笑了。</p>
+<p class="mono">至少咖啡机还是我的。这是我用私人钱买的，写在合同附件里——别问我为什么连咖啡机都要写进合同，搞AI的人就是这么严谨。</p>
+</div>
+</div>
+
+
+<!-- ====== 场景2: 茶馆偶遇老周 ====== -->
+<div class="scene-break"><span class="label">楼下茶馆 · 夜</span></div>
+
+<div class="panel panel-lg">
+<img src="images/p05.jpg" loading="lazy" alt="传统茶馆">
+<div class="panel-text">
+<p class="narr">不想回家。家里只有一只会看我脸色的猫。我拐进了楼下那家开了二十年的老茶馆——这种地方，不问你为什么来，也不问你为什么不走。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p06.jpg" loading="lazy" alt="茶馆对坐">
+<div class="panel-text">
+<p class="narr">刚坐下没两分钟，一个圆脸老头端着茶壶过来了。花白头发，笑眯眯的，穿着件褐色马褂，看起来像退休的语文老师。</p>
+<p class="dialogue"><span class="speaker">老周：</span>小朱啊，脸色比我的浓茶还苦。来，喝一杯，今天的是正山小种。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p07.jpg" loading="lazy" alt="老周亮牌">
+<div class="panel-text">
+<p class="narr">他不知道从哪变出一副扑克牌，笑得像个准备恶作剧的老顽童。</p>
+<p class="dialogue"><span class="speaker">老周：</span>来玩两把？</p>
+<p class="narr">我本想拒绝。我现在的心情大概只适合发呆和自我怀疑。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p08.jpg" loading="lazy" alt="概率">
+<div class="panel-text">
+<p class="narr">但老周接下来的一句话，精准地戳中了我的技术人本能。</p>
+<p class="dialogue"><span class="speaker">老周：</span>你们搞AI的，不就是在跟概率打交道吗？</p>
+<p class="narr">我看了他一眼。这个茶馆老板，说话的方式不太像卖茶的。</p>
+<p class="mono">有意思。</p>
+</div>
+</div>
+
+
+<!-- ====== 场景3: 地下牌局·入局 ====== -->
+<div class="scene-break"><span class="label">地下牌局 · 入局</span></div>
+
+<div class="panel panel-lg">
+<img src="images/p09.jpg" loading="lazy" alt="地下牌室">
+<div class="panel-text">
+<p class="narr">茶馆的后门连着一条窄巷子，巷子尽头是一扇不起眼的铁门。铁门后面，是一个完全不同的世界。</p>
+<p class="narr">五人桌，绿毡面，头顶一盏聚光灯把桌面照得像手术台。周围的黑暗把一切压缩到这张桌子上——在这里，整个宇宙只有五个人和一副牌。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p10.jpg" loading="lazy" alt="颤抖的手">
+<div class="panel-text">
+<p class="narr">我拿起牌的时候，手在抖。</p>
+<p class="narr">不是怕输钱——创业三年，什么钱没亏过？是那种久违的肾上腺素冲击。上一次这种感觉，还是产品第一次上线的那个凌晨。</p>
+</div>
+</div>
+
+<div class="panel panel-md">
+<img src="images/p11.jpg" loading="lazy" alt="五人牌桌">
+<div class="panel-text">
+<p class="narr">扫了一圈对手。一个穿皮衣戴金链的年轻人在疯狂弹筹码，一个沉默的中年女人盯着自己的牌一动不动，一个紧张兮兮的老头不停擦汗，还有一个留胡子的男人面无表情。</p>
+<p class="mono">五个人，五种性格。这不就是五组数据吗？</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p12.jpg" loading="lazy" alt="数据分析视角">
+<div class="panel-text">
+<p class="narr">我的大脑自动切换到了工作模式。每个人的下注频率、加注幅度、弃牌率——这些不就是用户行为数据吗？我以前用这套方法分析DAU，现在用来分析对手。</p>
+<p class="mono">把每个人当数据来分析。搞AI的人在牌桌上，就是降维打击。</p>
+</div>
+</div>
+
+
+<!-- ====== 场景4: DECISION-1 跟注 ====== -->
+<div class="scene-break"><span class="label">第一手牌</span></div>
+
+<div class="panel panel-md">
+<img src="images/p13.jpg" loading="lazy" alt="嚣张加注">
+<div class="panel-text">
+<p class="narr">金链哥率先发难。他把一摞筹码推到桌中央，力道大得筹码差点散架。</p>
+<p class="dialogue"><span class="speaker">金链哥：</span>加注！两万！</p>
+<p class="narr">其他三个人瞬间安静了。中年女人皱眉，老头直接弃牌，胡子男在思考。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p14.jpg" loading="lazy" alt="分析bluff">
+<div class="panel-text">
+<p class="narr">我盯着金链哥看了三秒。他的下注速度太快了——从拿到牌到加注不超过五秒。而且加注的时候身体前倾，像在示威。</p>
+<p class="mono">这个下注模式，我写爬虫的时候见过一模一样的pattern。真有实力的数据不会这么着急展示自己——越急着表现，越可能是空包弹。他在bluff。</p>
+</div>
+</div>
+
+<div class="decision">
+<div class="decision-label">DECISION · 1</div>
+<p class="decision-text">第一手牌，牌面中等。对手疯狂加注，直觉告诉我他在虚张声势。</p>
+<div class="decision-choice">跟注 — 相信直觉，验证假设</div>
+</div>
+
+<div class="panel">
+<img src="images/p15.jpg" loading="lazy" alt="跟注">
+<div class="panel-text">
+<p class="narr">我没有犹豫。筹码推出去的那一刻，手不抖了。</p>
+<p class="dialogue"><span class="speaker">我：</span>跟。</p>
+<p class="narr">一个字，但整张桌子的气氛变了。</p>
+</div>
+</div>
+
+<div class="panel panel-md">
+<img src="images/p16.jpg" loading="lazy" alt="揭牌赢了">
+<div class="panel-text">
+<p class="narr">翻牌。金链哥的脸从嚣张变成了空白——果然是bluff。我的牌不算大，但比他那堆垃圾强多了。</p>
+<p class="narr">筹码哗啦啦地推到了我面前，像是某种隐喻：<em>有时候赢不需要最好的牌，只需要看穿对手。</em></p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p17.jpg" loading="lazy" alt="金链哥震惊">
+<div class="panel-text">
+<p class="narr">金链哥嘴巴张了张，想说什么又咽回去了。他的筹码少了一大截。</p>
+<p class="narr">其他人看我的眼神变了——从"又一个送钱的"变成了"这人不简单"。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p18.jpg" loading="lazy" alt="概率不骗人">
+<div class="panel-text">
+<p class="mono">概率不会骗人。人会骗人，但他们骗人的方式本身就是数据。</p>
+<p class="narr">第一手牌，验证通过。这不是赌博——这是<em>另一种形式的编程</em>。</p>
+</div>
+</div>
+
+
+<!-- ====== 场景5: 连胜·数据分析打牌 ====== -->
+<div class="scene-break"><span class="label">连胜 · 数据碾压</span></div>
+
+<div class="panel panel-md">
+<img src="images/p19.jpg" loading="lazy" alt="筹码堆积">
+<div class="panel-text">
+<p class="narr">接下来的八手牌，我赢了六手。</p>
+<p class="narr">不是运气。每一次下注前，我都在心里跑一遍模型：这个人上一轮的行为模式是什么？他的筹码还够几轮激进操作？他现在的心理压力值是多少？</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p20.jpg" loading="lazy" alt="心理建模">
+<div class="panel-text">
+<p class="narr">中年女人的弃牌阈值是底池的30%——超过这个数她就放弃。胡子男是纯概率选手，只跟好牌。金链哥已经进入了tilt状态，情绪化下注越来越多。</p>
+<p class="mono">他们以为我在打牌。其实我在做用户画像。每个人都是一个预测模型，我只是在找他们的loss function。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p21.jpg" loading="lazy" alt="老周竖大拇指">
+<div class="panel-text">
+<p class="narr">角落里，老周端着茶杯看了整场。他脸上的笑容从和蔼变成了一种我看不太懂的表情——像是猎人看到猎物走进了圈套，又像是园丁看到种子发芽。</p>
+<p class="narr">他对我竖了竖大拇指。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p22.jpg" loading="lazy" alt="筹码特写">
+<div class="panel-text">
+<p class="narr">我面前的筹码已经垒成了小城堡。红色蓝色黑色金色，在灯光下闪着光泽。</p>
+<p class="narr">说实话，我已经不在乎这些筹码值多少钱了。那种感觉更像是——<em>我找到了一种新的语言，而我居然天生就会说。</em></p>
+</div>
+</div>
+
+<!-- ====== 场景6: 林少卿登场 ====== -->
+<div class="scene-break"><span class="label">不速之客</span></div>
+
+<div class="panel panel-lg">
+<img src="images/p23.jpg" loading="lazy" alt="门开了">
+<div class="panel-text">
+<p class="narr">门开了。</p>
+<p class="narr">不是推开的——是被人一脚踢开的。厚重的木门撞到墙上，走廊的灯光涌进来，像舞台突然打了一盏追光。</p>
+<p class="narr">所有人的头同时转过去。</p>
+</div>
+</div>
+
+
+<div class="panel panel-md">
+<img src="images/p24.jpg" loading="lazy" alt="林少卿登场">
+<div class="panel-text">
+<p class="narr">来人瘦高个儿，鹰钩鼻，大晚上戴着墨镜，油光锃亮的背头梳得一丝不苟。一身深灰色高定西装，领带夹上镶着颗小钻石——恨不得全世界都知道他很贵。</p>
+<p class="narr">两个壮汉跟在身后。这排场，不像来打牌的——像来收保护费的。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p25.jpg" loading="lazy" alt="嘲讽">
+<div class="panel-text">
+<p class="narr">他的目光隔着墨镜扫过全场，最后落在了我身上。停了两秒，嘴角挑起一个弧度。</p>
+<p class="dialogue"><span class="speaker">林少卿：</span>哟，这不是那个被我爸撤资的CEO吗？</p>
+<p class="narr">全桌安静。连金链哥弹筹码的手都停了。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p26.jpg" loading="lazy" alt="全桌安静">
+<div class="panel-text">
+<p class="narr">所以——背刺我的那个投资人，有个喜欢在地下牌局挥金如土的儿子。世界真小，小到连巧合都像是安排好的。</p>
+<p class="mono">投资人的儿子......有意思。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p27.jpg" loading="lazy" alt="眼神变化">
+<div class="panel-text">
+<p class="narr">我感觉自己的表情在两秒之内完成了三次切换：惊讶、辨认、然后——冷静。</p>
+<p class="narr">三年创业练出来的最有用的能力不是写代码，是<em>在任何场合控制自己的情绪</em>。</p>
+</div>
+</div>
+
+<div class="decision">
+<div class="decision-label">DECISION · 2</div>
+<p class="decision-text">他当众嘲讽我。桌上所有人都在看我怎么反应。</p>
+<div class="decision-choice">冷静回击 — 菩萨心肠，霹雳手段</div>
+</div>
+
+<div class="panel">
+<img src="images/p28.jpg" loading="lazy" alt="冷静回击">
+<div class="panel-text">
+<p class="narr">我站起来，把皱巴巴的卫衣拉链拉下——里面是一件黑色休闲西装。出门的时候随手套的，没想到现在派上了用场。</p>
+<p class="narr">我直视他墨镜里自己的倒影，声音不大不小：</p>
+<p class="dialogue"><span class="speaker">我：</span>你爸的钱我没见到多少，倒是见到你在这挥霍不少。</p>
+<p class="narr">老周在角落里差点呛到茶。小鱼——那个短发女生——嘴角微微上扬。</p>
+<p class="narr">林少卿的脸色变了。从嘲讽变成了铁青。</p>
+</div>
+</div>
+
+
+<!-- ====== 场景7: 对峙·底池翻10倍 ====== -->
+<div class="scene-break"><span class="label">对峙 · 底池翻十倍</span></div>
+
+<div class="panel panel-md">
+<img src="images/p29.jpg" loading="lazy" alt="林少卿拍桌">
+<div class="panel-text">
+<p class="narr">林少卿双手拍在桌面上，筹码跳了起来。那副"我很优雅"的伪装碎了一地。</p>
+<p class="dialogue"><span class="speaker">林少卿：</span>来一把大的！</p>
+<p class="narr">他的声音带着气——不是因为想赢，是因为刚才在所有人面前被怼了。这种人最危险的时候不是理性的时候，是被踩了尊严的时候。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p30.jpg" loading="lazy" alt="全桌紧张">
+<div class="panel-text">
+<p class="narr">底池翻了十倍。其他三个玩家直接退出——这已经不是他们玩得起的级别了。小鱼抱着胳膊退到一边，但没走，她的眼神说：<em>我要看这场好戏。</em></p>
+<p class="narr">牌桌上只剩两个人。我和他。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p31.jpg" loading="lazy" alt="筹码山">
+<div class="panel-text">
+<p class="narr">桌子中央的筹码堆成了一座小山。金色、黑色、红色，灯光下像一堆小型金属雕塑。</p>
+<p class="narr">这些筹码代表的数字，够我之前发半年工资了。但奇怪的是——我此刻完全不紧张。甚至有一种创业时debug到凌晨四点、终于找到那个bug的兴奋感。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p32.jpg" loading="lazy" alt="老周观战">
+<div class="panel-text">
+<p class="narr">老周还是那个姿势，端着茶，笑眯眯的。但如果你仔细看，他的眼睛里没有一点笑意——那是一种极度专注的观察。</p>
+<p class="mono">这个茶馆老板，到底是什么来头？</p>
+</div>
+</div>
+
+<!-- ====== 场景8: DECISION-3 全押 ====== -->
+<div class="scene-break"><span class="label">全押</span></div>
+
+<div class="panel">
+<img src="images/p33.jpg" loading="lazy" alt="偷看手牌">
+<div class="panel-text">
+<p class="narr">我低头看了眼自己的牌。不算顶级——同花，但不是坚果。换一般情况，这手牌打得稳健就行。</p>
+<p class="narr">但这不是一般情况。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p34.jpg" loading="lazy" alt="发现破绽">
+<div class="panel-text">
+<p class="narr">我的目光移到了林少卿的右手上——放在筹码旁边，手指在微微抖动。他自己可能都没注意到。</p>
+<p class="narr">他的名表很贵，但掩盖不了手部肌肉的紧张收缩。他在怕。</p>
+<p class="mono">他加注太快，在用钱压人，不是靠牌力。经典的"用资源碾压"策略——和他爸撤我资的逻辑一模一样。</p>
+</div>
+</div>
+
+
+<div class="panel">
+<img src="images/p35.jpg" loading="lazy" alt="语言攻势">
+<div class="panel-text">
+<p class="narr">我决定先不动筹码。先动嘴。</p>
+<p class="narr">我往后一靠，姿态刻意放松，带着一种随意到近乎欠揍的微笑：</p>
+<p class="dialogue"><span class="speaker">我：</span>你那副墨镜，是怕别人看到你的眼神吧？</p>
+<p class="narr">全场抽了一口冷气。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p36.jpg" loading="lazy" alt="林少卿动摇">
+<div class="panel-text">
+<p class="narr">林少卿的下颌肌肉绷紧了，墨镜挡住了眼睛，但挡不住太阳穴上沁出的一滴汗。</p>
+<p class="narr">面具裂了。</p>
+<p class="mono">对方的心理防线正在崩塌。这不是牌局——这是渗透测试，而我已经找到了漏洞。</p>
+</div>
+</div>
+
+<div class="decision">
+<div class="decision-label">DECISION · 3</div>
+<p class="decision-text">我的牌不是最强的，但对手的心理已经出现裂缝。用钱碾压他，还是稳扎稳打？</p>
+<div class="decision-choice">全押 — 心理战碾压，用黑客方式赢</div>
+</div>
+
+<div class="panel panel-lg">
+<img src="images/p37.jpg" loading="lazy" alt="全押">
+<div class="panel-text">
+<p class="narr">我双手推出所有筹码。一座小山从我这边滑向桌子中央，发出哗啦啦的声响——像极了服务器上线时硬盘阵列同时启动的声音。</p>
+<p class="dialogue"><span class="speaker">我：</span>全押。</p>
+<p class="narr">两个字。这辈子说过最贵的两个字。</p>
+<p class="narr">小鱼的手捂住了嘴。金链哥站了起来。老周的茶杯停在了嘴边。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p38.jpg" loading="lazy" alt="全场屏息">
+<div class="panel-text">
+<p class="narr">空气像是凝固了。头顶的灯发出轻微的电流声，成了这个房间里唯一的声音。</p>
+<p class="narr">所有人都在等林少卿的决定。而林少卿——</p>
+<p class="narr">他在等自己鼓起勇气。</p>
+</div>
+</div>
+
+
+<!-- ====== 场景9: 赢了 ====== -->
+<div class="scene-break"><span class="label">赢了</span></div>
+
+<div class="panel">
+<img src="images/p39.jpg" loading="lazy" alt="林少卿挣扎">
+<div class="panel-text">
+<p class="narr">林少卿把墨镜推到了额头上——第一次露出他的眼睛。那双眼睛里没有嚣张，只有恐惧。</p>
+<p class="narr">他看了看自己的牌，看了看我，又看了看桌上那座筹码山。他的手伸向筹码——又缩了回来。</p>
+<p class="narr">一秒。两秒。五秒。</p>
+</div>
+</div>
+
+<div class="panel panel-md">
+<img src="images/p40.jpg" loading="lazy" alt="弃牌">
+<div class="panel-text">
+<p class="narr">林少卿把牌扣在桌上，一把扫翻了面前的水杯。水杯飞出去，在半空中碎开，玻璃碴和水同时溅落。</p>
+<p class="dialogue"><span class="speaker">林少卿：</span>不玩了！</p>
+<p class="narr">他站起来，椅子向后摔倒。两个保镖立刻迎上来。他头也不回地往门口走，走到门口停了一秒，没有回头，但声音从牙缝里挤出来：</p>
+<p class="dialogue"><span class="speaker">林少卿：</span>你等着。</p>
+<p class="narr">门摔上了。震得墙上的灰簌簌往下掉。</p>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/p41.jpg" loading="lazy" alt="老周评价">
+<div class="panel-text">
+<p class="narr">寂静持续了大概三秒。然后老周从角落里慢悠悠地走过来，一手拍在我肩膀上。</p>
+<p class="dialogue"><span class="speaker">老周：</span>小朱，你不是在打牌，你是在写代码。</p>
+<p class="narr">我笑了。不是苦笑，是真的笑了——今天第一次。</p>
+<p class="narr">小鱼也凑过来，抱着胳膊上下打量我，像在评估一个值不值得投资的项目。</p>
+<p class="dialogue"><span class="speaker">小鱼：</span>你下次来吗？</p>
+<p class="dialogue"><span class="speaker">我：</span>看情况。</p>
+<p class="mono">其实心里已经在说：我还会来的。这张牌桌上有一种东西，是三年创业里我一直在找但没找到的——<em>纯粹的、不被资本绑架的博弈</em>。在这里，你的筹码不取决于你认识谁，只取决于你有多了解人。</p>
+</div>
+</div>
+
+
+<!-- ====== 场景10: 悬念结尾 ====== -->
+<div class="scene-break"><span class="label">夜路 · 悬念</span></div>
+
+<div class="panel panel-lg">
+<img src="images/p42.jpg" loading="lazy" alt="夜路">
+<div class="panel-text">
+<p class="narr">走出茶馆，夜风很凉。雨刚停，路面上积着薄薄一层水，霓虹灯的倒影在脚下碎成一片。</p>
+<p class="narr">我把手插在兜里走着，脑子里还在复盘每一手牌的决策树。今天赢了多少钱已经无所谓了，重要的是——<em>我发现了一种全新的看世界的方式</em>。</p>
+<p class="narr">创业的时候我以为世界是算法和数据，被背刺之后我以为世界是利益和背叛。但牌桌告诉我：世界是<em>概率、人心和勇气</em>的函数。</p>
+</div>
+</div>
+
+<div class="panel panel-md">
+<img src="images/p43.jpg" loading="lazy" alt="神秘短信">
+<div class="panel-text">
+<p class="narr">手机震了一下。</p>
+<p class="narr">来自一个没存过的号码。没有前戏，直奔主题：</p>
+<p class="dialogue" style="border-left-color:#d4442a"><span class="speaker">未知号码：</span>明天晚上，有一场更大的局。筹码不是钱——是你想要的一切。</p>
+<p class="narr">我盯着屏幕看了十秒。手指悬在"回复"按钮上方。</p>
+</div>
+</div>
+
+<div class="decision">
+<div class="decision-label">DECISION · 4</div>
+<p class="decision-text">一条来路不明的短信。可能是机会，也可能是陷阱。去，还是不去？</p>
+<div class="decision-choice">未完待续......</div>
+</div>
+
+<div class="cliffhanger">
+<p class="cliffhanger-text">明天晚上的牌桌上<br>赌的不是钱——是命运</p>
+<p class="cliffhanger-next"><span>第二章</span> ·「读心之战」· 即将到来</p>
+</div>
+
+</div><!-- end panels -->
+
+<script>
+window.addEventListener('load',function(){
+  setTimeout(function(){document.getElementById('loader').classList.add('done')},800);
+});
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:0.15});
+document.querySelectorAll('.panel').forEach(function(p){obs.observe(p)});
+</script>
+</body>
+</html>
