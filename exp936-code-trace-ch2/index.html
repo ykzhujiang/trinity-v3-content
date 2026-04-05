@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>代码回溯：我在2001年开了挂 — Ch2「比特战争」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#d4d8e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:20px;line-height:1.85;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0d1117 0%,#0a1628 40%,#0d2818 70%,#0d1117 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 40%,rgba(0,100,255,0.12) 0%,transparent 60%);animation:coverPulse 4s ease-in-out infinite}
+@keyframes coverPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+.cover h1{font-size:1.8em;background:linear-gradient(135deg,#00aaff,#33ccff,#0088dd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;z-index:1;text-align:center;padding:0 20px;font-weight:900}
+.cover .sub{font-size:0.9em;color:#e8b84a;margin-top:12px;z-index:1;letter-spacing:2px}
+.cover .chapter{font-size:0.8em;color:#5a7a8a;margin-top:24px;letter-spacing:6px;z-index:1}
+.cover .era{font-size:0.7em;color:#557788;margin-top:16px;z-index:1;text-align:center;padding:0 30px;line-height:1.6;max-width:380px;font-family:'Courier New',monospace}
+.content{max-width:420px;margin:0 auto;padding:0 8px 60px}
+.panel{margin:0 0 4px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease-out,transform 0.6s ease-out}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:4px;display:block}
+.panel .text{padding:12px 16px;font-size:18px;line-height:1.85}
+.narration{color:#b8c8d8;font-style:italic;border-left:3px solid #e8b84a;padding-left:14px;margin:8px 0}
+.dialogue{color:#e8e8f0;padding:6px 0}
+.dialogue .speaker{color:#00bbff;font-weight:bold;font-size:0.85em;margin-bottom:2px}
+.thought{color:#7eb8c8;font-style:italic;opacity:0.9}
+.sys-msg{background:rgba(0,150,255,0.05);border:1px solid rgba(0,150,255,0.2);border-radius:8px;padding:12px 16px;margin:8px 0;font-family:'Courier New',monospace;color:#00aaff;font-size:15px;line-height:1.7}
+.sys-msg .tag{color:#33ccff;font-weight:bold;font-size:14px}
+.sys-msg .snark{color:#5599bb;font-style:italic;margin-top:6px}
+.decision-box{background:linear-gradient(135deg,rgba(0,150,255,0.05),rgba(232,184,74,0.05));border:2px solid #e8b84a;border-radius:12px;padding:16px;margin:16px 0}
+.decision-box .dtitle{color:#e8b84a;font-weight:bold;font-size:17px;margin-bottom:10px}
+.decision-box .option{padding:8px 12px;margin:6px 0;border-radius:8px;font-size:16px;color:#a0b0c0}
+.decision-box .option.chosen{background:rgba(0,150,255,0.1);color:#33ccff;font-weight:bold;border-left:3px solid #00aaff}
+.decision-box .option.not-chosen{opacity:0.4;text-decoration:line-through}
+.decision-box .reason{margin-top:10px;padding:10px 12px;background:rgba(232,184,74,0.08);border-radius:8px;font-size:15px;color:#c8a850;line-height:1.6}
+.scene-break{text-align:center;padding:32px 0;color:#3a5a6a;font-size:14px;letter-spacing:8px}
+.scene-break::before,.scene-break::after{content:'\2014\2014';margin:0 8px}
+.act-header{text-align:center;padding:40px 0 20px;font-size:1.2em;color:#00aaff;letter-spacing:6px;font-family:'Courier New',monospace}
+.cliffhanger{text-align:center;padding:40px 20px;font-size:1.3em;color:#e8b84a;line-height:2}
+.tbc{text-align:center;padding:20px;color:#3a5a6a;font-size:0.9em;letter-spacing:6px}
+.scroll-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:#2a4a5a;font-size:14px;animation:bob 2s ease-in-out infinite;z-index:10;pointer-events:none}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+.level-up{background:linear-gradient(135deg,rgba(0,150,255,0.08),rgba(232,184,74,0.05));border:2px solid #00aaff;border-radius:12px;padding:16px;margin:12px 0;text-align:center}
+.level-up .lvl{color:#00aaff;font-size:1.3em;font-weight:bold;font-family:'Courier New',monospace}
+.level-up .desc{color:#7eb8c8;font-size:15px;margin-top:6px}
+.humor{color:#e8b84a;background:rgba(232,184,74,0.06);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:16px}
+.code-block{background:#0a0a0a;border:1px solid #1a2a3a;border-radius:8px;padding:12px;margin:8px 0;font-family:'Courier New',monospace;font-size:14px;color:#00aaff;line-height:1.6;overflow-x:auto}
+.warning-flow{color:#ff4444;text-shadow:0 0 8px rgba(255,50,50,0.3)}
+.data-flow{color:#00ccff;text-shadow:0 0 8px rgba(0,200,255,0.3)}
+.alert-box{background:rgba(255,50,50,0.08);border:1px solid rgba(255,50,50,0.3);border-radius:8px;padding:12px 16px;margin:8px 0;font-family:'Courier New',monospace;color:#ff6666;font-size:15px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+<h1>代码回溯：我在2001年开了挂</h1>
+<div class="sub">重生 × 黑客 × 大学创业 × 系统文</div>
+<div class="chapter">CHAPTER 2 — 比特战争</div>
+<div class="era">> TIME: 2001.09.28<br>> LOCATION: 上海交通大学<br>> SYSTEM: Hack.OS v2.0<br>> NEW ABILITY: 网络预言<br>> STATUS: THREAT DETECTED...</div>
+</div>
+
+<div class="scroll-hint">向下滑动 ↓</div>
+
+<div class="content">
+
+<!-- ACT 1: 觉醒 -->
+<div class="act-header">ACT 1 — 觉醒</div>
+
+<!-- Panel 01 -->
+<div class="panel" id="p01">
+<img src="images/p01.jpg" loading="lazy" alt="凌晨宿舍，朱江在黑暗中盯着空气中浮现的蓝色数据流">
+<div class="text">
+<div class="narration">宿舍·凌晨2:17</div>
+<p class="thought">大壮的鼾声像定时器一样精准——每隔八秒一次。我数了整整一百二十三次。</p>
+<p>窗外月光透过铁栏杆投下格子状的阴影。我坐在下铺边缘，深吸一口气，默念——</p>
+<p class="thought">Hack.OS，启动「网络预言」。</p>
+</div>
+</div>
+
+<!-- Panel 02 -->
+<div class="panel" id="p02">
+<img src="images/p02.jpg" loading="lazy" alt="半透明蓝色数据流线在宿舍空气中浮现，像发光的河流">
+<div class="text">
+<p>世界变了。</p>
+<p>空气中突然浮现出无数半透明的蓝色光线——像毛细血管一样细密，又像河流一样有方向。它们穿墙而过、穿过天花板、穿过大壮打鼾的身体。</p>
+<p>这就是校园网的数据流。每一条光线都是一个数据包的轨迹。而我——能看到它们未来三十秒的走向。</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 网络预言·已激活</div>
+<p>> 视野范围: 半径200米<br>> 预测窗口: 30秒<br>> 数据流可视化: 蓝色=正常 | 黄色=异常 | 红色=威胁</p>
+<div class="snark">比你上辈子用Wireshark抓包直观多了，对吧？</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 03 -->
+<div class="panel" id="p03">
+<img src="images/p03.jpg" loading="lazy" alt="蓝色数据流中突然出现一条刺眼的红色数据流，指向远处教学楼">
+<div class="text">
+<p>大部分数据流是宁静的蓝色——半夜还在下载的室友、BBS上的夜猫子水帖、几条QQ消息……</p>
+<p>然后我看到了那条红线。</p>
+<p class="warning-flow">粗壮的、脉动的、像一条愤怒的蟒蛇——从3号教学楼方向涌出，笔直刺向校外。</p>
+<p>它的流量是正常数据的二十倍。颜色不是黄色"异常"，而是刺眼的红色"威胁"。</p>
+<p class="thought">有人正在往校外大量传输数据。凌晨两点。从赵教授的实验楼。</p>
+</div>
+</div>
+
+<!-- Panel 04 -->
+<div class="panel" id="p04">
+<img src="images/p04.jpg" loading="lazy" alt="朱江面部特写，蓝色数据流映在瞳孔中，表情严肃">
+<div class="text">
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 威胁分析</div>
+<p>> 来源: 3号教学楼·网络安全实验室<br>> 目标: 境外IP 203.XXX.XXX.XX (新加坡跳板)<br>> 内容: 加密数据包·高度压缩<br>> 预测: 30秒后流量将增加300%——正在进行批量传输</p>
+<div class="snark">上次你只是看到了痕迹。这次——你正在看一场进行中的犯罪。</div>
+</div>
+<p class="thought">上周发现的数据窃取，不是一次性事件。它是一个持续运行的系统。</p>
+</div>
+</div>
+
+<!-- Panel 05 -->
+<div class="panel" id="p05">
+<img src="images/p05.jpg" loading="lazy" alt="朱江在黑暗宿舍中轻手轻脚穿上运动鞋，背景是大壮在上铺熟睡">
+<div class="text">
+<p>我站起来，尽量不发出声响地穿上运动鞋。</p>
+<div class="dialogue">
+<div class="speaker">大壮（梦呓）</div>
+<p>"嗯……红烧肉……再来一份……"</p>
+</div>
+<p class="humor">哪怕在梦里，大壮的世界也只有食堂。</p>
+<p>我拿起桌上的校园卡和一个U盘，轻轻拉开宿舍门。走廊的灯坏了一半，忽明忽暗。</p>
+<p class="thought">一个人去。不带大壮。这件事太危险了——他不是黑客，他是后勤保障。</p>
+</div>
+</div>
+
+<!-- Panel 06 -->
+<div class="panel" id="p06">
+<img src="images/p06.jpg" loading="lazy" alt="月光下的校园小路，朱江独自走向远处灯光微弱的教学楼，空气中蓝色数据流引导方向">
+<div class="text">
+<p>九月末的上海，凌晨的空气潮湿而闷热。校园里静得只剩蝉鸣和远处变电箱的嗡嗡声。</p>
+<p>我沿着数据流的方向走。那条红色的"蟒蛇"悬在半空中，穿过梧桐树的枝叶，笔直指向3号教学楼。</p>
+<p>楼里只有四楼有一间灯亮着。</p>
+<p class="thought">赵教授的网络安全实验室。</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 建议</div>
+<p>> 不要直接进入。先在外围观察。</p>
+<div class="snark">你确实是个白帽黑客——但你也只是个18岁的大一新生。对方可能不是。谨慎不等于胆小。</div>
+</div>
+</div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- ACT 2: 暗网追踪 -->
+<div class="act-header">ACT 2 — 暗网追踪</div>
+
+<!-- Panel 07 -->
+<div class="panel" id="p07">
+<img src="images/p07.jpg" loading="lazy" alt="3号教学楼侧面，朱江躲在树后观察四楼亮着的窗户">
+<div class="text">
+<div class="narration">3号教学楼·外围</div>
+<p>我没有冲进去。</p>
+<p>站在楼外的大梧桐树后面，我启动了「网络预言」的全视野模式。四楼实验室的内部数据流一览无余——</p>
+<p>红色数据流从一台特定的终端涌出。同时，旁边还有几条黄色的"异常"流——有人在同一时间访问校园教务系统的数据库。</p>
+<p class="thought">不只是窃取研究数据。他们还在偷学生个人信息。</p>
+</div>
+</div>
+
+<!-- Panel 08 -->
+<div class="panel" id="p08">
+<img src="images/p08.jpg" loading="lazy" alt="数据流视角特写：红色和黄色流交织在实验室内部，形成一张蛛网">
+<div class="text">
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 深度扫描</div>
+<p>> 终端识别: 实验室7号机<br>> 当前操作者: 远程控制（非本地操作）<br>> 控制源: 校内VPN → 宿舍区2号楼<br>> 程序: 自动化脚本·定时2:00启动·每天执行</p>
+<div class="snark">有人写了一个定时任务。每天凌晨两点自动窃取数据。很专业——也很大胆。源头在学生宿舍2号楼。</div>
+</div>
+<p class="thought">2号楼。那是大四学生和研究生的宿舍。</p>
+<p class="thought">陈锋——那个灰色卫衣男——住在2号楼。</p>
+</div>
+</div>
+
+<!-- Panel 09 -->
+<div class="panel" id="p09">
+<img src="images/p09.jpg" loading="lazy" alt="朱江蹲在教学楼入口旁，在黑暗中用网络预言追踪数据流向">
+<div class="text">
+<p>我绕到教学楼侧门——门锁已经被人撬过，用一截透明胶带贴住了锁舌。</p>
+<p class="thought">有人经常从这里进出。</p>
+<p>我没有进去。相反，我做了一个更聪明的事——</p>
+<p>利用「网络预言」，我追踪那条红色数据流的完整路径：实验室终端→校园网核心交换机→出口路由器→境外。</p>
+<p>在核心交换机那一层，我发现了一个精心隐藏的分流器——</p>
+<div class="alert-box">
+<p>> 检测到: 镜像端口 (SPAN)<br>> 功能: 复制所有通过核心交换机的数据<br>> 安装时间: 约2周前<br>> 影响范围: 全校所有网络流量</p>
+</div>
+<p class="thought">这不是简单的偷数据。有人在整个校园网上装了一面"镜子"。所有人的所有数据——邮件、聊天记录、作业、研究文件——都被复制了一份。</p>
+</div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel" id="p10">
+<img src="images/p10.jpg" loading="lazy" alt="网络预言视角：朱江看到数据流中苏雨晴的名字被反复查询，高亮红色">
+<div class="text">
+<p>然后我看到了一个让我血液凝固的细节。</p>
+<p>在被窃取的数据中，有一组查询频率极高的关键词——</p>
+<div class="code-block">> 高频查询目标:<br>> "苏雨晴" — 327次<br>> "入侵检测系统" — 289次<br>> "IDS原型" — 154次<br>> "赵明远" — 98次</div>
+<p class="thought">苏雨晴。被人盯上了。而且不是一般的关注——327次定向查询。</p>
+<p class="thought">有人在系统性地监控她。她的邮件、她的文件、她的聊天记录、她在实验室的每一步操作。</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 分析</div>
+<p>> 苏雨晴正在协助赵教授开发中国第一代入侵检测系统(IDS)。<br>> 这个项目如果成功，将威胁到所有依赖网络漏洞的灰色产业。<br>> 有人想在它成功之前——摧毁它。</p>
+<div class="snark">目标不是学生信息。学生信息只是幌子。真正的目标是赵教授的IDS项目。</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel" id="p11">
+<img src="images/p11.jpg" loading="lazy" alt="朱江紧握拳头，背靠教学楼墙壁，月光照在脸上，表情凝重">
+<div class="text">
+<div class="decision-box">
+<div class="dtitle">决策点 4 — 如何处理监控��现</div>
+<div class="option not-chosen">A. 现在就告诉苏雨晴 — 直觉正确但证据不足</div>
+<div class="option not-chosen">B. 先告诉赵教授 — 权威渠道但可能打草惊蛇</div>
+<div class="option chosen">C. 先收集完整证据链，再一起揭露 — 黑客方式</div>
+<div class="reason">我上辈子见过太多"好心办坏事"的案例。没有确凿证据就报警，只会让对方销毁痕迹。我需要完整的证据链——谁在操作、数据去了哪里、背后是谁。一击必中。</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel" id="p12">
+<img src="images/p12.jpg" loading="lazy" alt="朱江在黑暗的教学楼走廊中快速移动，空气中蓝色数据流照亮前方">
+<div class="text">
+<p>我决定冒一次险。</p>
+<p>侧门进入，沿着楼梯上到三楼——不是四楼。四楼有摄像头（虽然2001年的摄像头像素约等于马赛克）。三楼的网络配线间没有锁。</p>
+<p>推开配线间的门，里面堆满了灰尘和线缆。一台校园网的汇聚交换机在角落里嗡嗡运转，指示灯疯狂闪烁。</p>
+<p class="thought">不需要进实验室。我只需要接近核心交换机，就能抓取更多数据流的细节。</p>
+</div>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel" id="p13">
+<img src="images/p13.jpg" loading="lazy" alt="配线间内部，朱江面前是闪烁的交换机，他用网络预言看到数据流的完整拓扑">
+<div class="text">
+<p>距离核心交换机不到十米。「网络预言」的精度飙升。</p>
+<p>我看到了完整的拓扑——</p>
+<div class="code-block">> 数据窃取架构（完整）:<br>> Layer 1: 镜像端口（核心交换机）→ 全流量复制<br>> Layer 2: 隐蔽服务器（实验室7号机）→ 数据筛选+压缩<br>> Layer 3: VPN隧道（陈锋宿舍远程控制）→ 加密传输<br>> Layer 4: 境外跳板（新加坡→?）→ 最终去向不明<br>> <br>> ⚠️ 发现新节点:<br>> Layer 0: 物理层 — 有人在核心机房安装了硬件嗅探器</div>
+<p>硬件嗅探器。不是软件入侵——有人在物理层面动了手脚。这意味着此人有进出核心机房的权限。</p>
+<p class="thought">学生没有核心机房的钥匙。只有教职工或网络中心的工作人员才有。</p>
+<p class="thought">陈锋背后还有人。</p>
+</div>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel" id="p14">
+<img src="images/p14.jpg" loading="lazy" alt="朱江将U盘插入配线间的备用端口，快速保存截获的数据流日志">
+<div class="text">
+<p>我掏出U盘，插入配线间的一个备用端口。利用Hack.OS的辅助，我在两分钟内抓取了过去一周的数据流日志——加密的，但我能看到元数据。</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 数据采集完成</div>
+<p>> 已保存: 7天完整流量元数据<br>> 已标记: 23次异常传输记录<br>> 已记录: 控制源IP变化轨迹<br>> 证据完整度: 68% — 缺少操作者的直接关联证据</p>
+<div class="snark">68%。足够让你知道发生了什么，但不足以在法庭上站住脚。你需要——直接证据。看到人按下回车键的那种。</div>
+</div>
+<p>拔出U盘，原路返回。整个过程不到十五分钟。</p>
+<p>离开教学楼时，我回头看了一眼四楼——灯已经灭了。自动脚本执行完毕，一切回归平静。</p>
+<p class="thought">明天凌晨两点，它还会再次启动。我有二十四小时的准备时间。</p>
+</div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- ACT 3: 蜜罐风暴 -->
+<div class="act-header">ACT 3 — 蜜罐风暴</div>
+
+<!-- Panel 15 -->
+<div class="panel" id="p15">
+<img src="images/p15.jpg" loading="lazy" alt="次日白天，朱江在宿舍对大壮和李文博讲解计划，桌上画着网络拓扑图">
+<div class="text">
+<div class="narration">次日·宿舍405室·下午</div>
+<p>"我需要你们帮忙。"</p>
+<p>大壮停下了啃鸡腿的动作。眼镜（李文博）推了推他那副厚得能防弹的黑框眼镜。</p>
+<p>我在从食堂顺来的塑料托盘上画出了简化版的网络拓扑图——把凌晨的发现用他们能理解的语言讲了一遍。</p>
+<div class="dialogue">
+<div class="speaker">大壮</div>
+<p>"有人偷全校学生信息？这不是犯法吗？报警啊！"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我</div>
+<p>"2001年。中国还没有《网络安全法》。报警了警察也不知道怎么查。我们得自己收集证据。"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">眼镜（冷静地）</div>
+<p>"你想做什么？"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我</div>
+<p>"蜜罐。"</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel" id="p16">
+<img src="images/p16.jpg" loading="lazy" alt="黑色背景上的蜜罐系统示意图，绿色代码构成一个伪装的数据库">
+<div class="text">
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 术语解释</div>
+<p>> 蜜罐（Honeypot）:<br>> 一个伪装成高价值目标的陷阱系统。<br>> 看起来像真正的数据库，<br>> 实际上是一个精心设计的"捕鼠器"。<br>> 谁碰了它，就会暴露自己的真实身份。</p>
+<div class="snark">简单来说——你要用假的宝藏，钓出真的小偷。经典操作。我喜欢。</div>
+</div>
+<p>计划很简单：在实验室的网络中放一个假的"IDS核心代码库"。里面全是精心伪造的诱饵数据。对方一旦尝试窃取，我就能拿到他的真实IP、操作时间、甚至操作习惯。</p>
+<p class="thought">证据完整度从68%提升到100%。然后——一击必中。</p>
+</div>
+</div>
+
+<!-- Panel 17 -->
+<div class="panel" id="p17">
+<img src="images/p17.jpg" loading="lazy" alt="宿舍里三人分工，朱江写代码，眼镜优化算法，大壮在门口放风">
+<div class="text">
+<p>分工明确——</p>
+<p>我负责蜜罐核心：伪造一个看起来极其真实的"IDS源代码仓库"，里面混入追踪信标。</p>
+<p>眼镜负责追踪模块：一旦诱饵文件被打开，追踪信标会通过三层加密隧道回传操作者的硬件指纹。</p>
+<p>大壮的任务——</p>
+<div class="dialogue">
+<div class="speaker">大壮</div>
+<p>"我干什么？"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我</div>
+<p>"你负责最重要的事——今晚帮我们把蜜罐部署到实验室。你的借口是去取之前落在实验室的水杯。"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">大壮</div>
+<p>"可是我没有水杯落在实验室——"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我</div>
+<p>"现在有了。"我把一个写着"大壮的杯子请勿动"的塑料杯塞给他。</p>
+</div>
+<div class="humor">大壮看了看杯子上的字，又看了看我，表情复杂。</div>
+</div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel" id="p18">
+<img src="images/p18.jpg" loading="lazy" alt="夜晚，大壮在实验室里紧张地操作电脑，手上拿着U盘，满头大汗">
+<div class="text">
+<div class="narration">当晚·22:30·3号教学楼4楼实验室</div>
+<p>大壮进去了。我和眼镜在楼下的灌木丛里蹲着，通过对讲机（借的校广播站的）保持联系。</p>
+<div class="dialogue">
+<div class="speaker">大壮（对讲机·小声）</div>
+<p>"插上了……U盘在运行……这破电脑怎么这么慢啊！"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我</div>
+<p>"别慌，正常的。等绿灯亮了就拔出来。"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">大壮</div>
+<p>"绿灯亮了！我拔了——等等，我好像碰到了什么……屏幕弹出了一个窗口——"</p>
+</div>
+<p>我的心跳骤然加速。</p>
+<div class="dialogue">
+<div class="speaker">我</div>
+<p>"什么窗口？念给我听！"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">大壮</div>
+<p>"呃……'警告：未授权访问已被记录。您的MAC地址已被捕获。'——这啥意思？"</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel" id="p19">
+<img src="images/p19.jpg" loading="lazy" alt="朱江脸色剧变，网络预言中看到一道红色警报从实验室迅速蔓延">
+<div class="text">
+<p>我脸色剧变。</p>
+<p class="thought">对方在实验室里也设了蜜罐——反蜜罐！大壮触发了他的警报系统！</p>
+<div class="alert-box">
+<p>> [Hack.OS] 紧急警告<br>> 对方蜜罐已触发<br>> 大壮的MAC地址已被记录<br>> 预测: 15秒后对方将远程登入检查<br>> 25秒后对方可能发起反向追踪<br>> 建议: 立即撤离 + 清除痕迹</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我（对讲机）</div>
+<p>"大壮！现在立刻拔掉所有东西，离开实验室！从侧门走！跑！"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">大壮</div>
+<p>"啊？发生什——"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我</div>
+<p>"别问！跑！"</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel" id="p20">
+<img src="images/p20.jpg" loading="lazy" alt="数字空间视角：红蓝数据流激烈碰撞，朱江的追踪信标与对方的反追踪程序交锋">
+<div class="text">
+<p>但在大壮撤离的同时——我的蜜罐也已经部署成功了。</p>
+<p>两个蜜罐同时存在于同一个网络中。我的在钓他，他的蜜罐抓到了大壮。</p>
+<p>而此刻，在数据流的世界里，一场无声的战争正在爆发——</p>
+<p>我的追踪信标开始回传数据。对方的反追踪程序试图拦截。两股数据流在校园网的核心节点疯狂碰撞——蓝色和红色的光线缠绕、撕扯、吞噬……</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 实时战况</div>
+<p>> 我方信标: 已成功植入·正在回传<br>> 对方反追踪: 尝试定位信标源头<br>> 对抗强度: 高<br>> 预测: 18秒后对方将切断所有连接</p>
+<div class="snark">你有18秒。够不够看你的打字速度了。</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel" id="p21">
+<img src="images/p21.jpg" loading="lazy" alt="朱江在灌木丛中用笔记本电脑疯狂敲键盘，眼镜在旁边紧盯屏幕">
+<div class="text">
+<p>我掏出了那台借来的ThinkPad——2001年的二手货，键盘咔哒作响得像打字机。</p>
+<p>十八秒。我需要在对方切断连接之前，把追踪信标的回传数据全部下载。</p>
+<p>手指飞舞。25年的键盘肌肉记忆全开。</p>
+<div class="code-block">> 信标回传进度: 23%... 47%... 68%...<br>> 对方正在切断节点...<br>> 82%... 91%...<br>> 连接即将中断...<br>> 97%... 99%...<br>> ████████████ 100% — 下载完成</div>
+<div class="dialogue">
+<div class="speaker">眼镜（低声）</div>
+<p>"拿到了？"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我（长出一口气）</div>
+<p>"拿到了。"</p>
+</div>
+<p>然后——校园网断了。整个校园一瞬间回到了没有网络的状态。对方直接切断了核心交换机的连接。宁可断网，也不让我继续追踪。</p>
+<p class="humor">远处宿舍楼传来此起彼伏的怒吼："网断了！谁TM断的网！""我QQ聊天记录没了！"</p>
+</div>
+</div>
+
+<div class="scene-break">· · ·</div>
+
+<!-- ACT 4: 暗潮 -->
+<div class="act-header">ACT 4 — 暗潮</div>
+
+<div class="panel" id="p-cliff">
+<div class="text">
+<div class="narration">宿舍405室·凌晨3:45</div>
+<p>回到宿舍，三个人围在那台ThinkPad前面。大壮还在发抖。眼镜已经开始分析数据。</p>
+<p>我打开信标回传的文件——</p>
+<div class="code-block">> 操作者硬件指纹: MATCH<br>> MAC地址: 00:1A:2B:XX:XX:XX<br>> 设备注册人: ████ 锋<br>> 宿舍楼: 2号楼 4层 412室<br>> VPN连接历史: 每日2:00-4:00<br>> 累计传输: 2.3TB (30天)<br>> <br>> ⚠️ 新发现:<br>> 该设备同时连接了另一个内网节点——<br>> 节点位置: 行政楼·网络信息中心<br>> 节点权限等级: 管理员<br>> 节点注册人: ████ ████</div>
+<p>陈锋。果然是他。</p>
+<p>但最后两行信息让我的手指僵在键盘上。</p>
+<p class="thought">网络信息中心……管理员权限……</p>
+<p class="thought">陈锋一个大四学生，怎么可能有管理员权限？除非——</p>
+<div class="dialogue">
+<div class="speaker">眼镜（指着屏幕，声音发紧）</div>
+<p>"朱江。你看这个节点注册人。名字被加密了，但是……设备型号是IBM ThinkPad T23。全校只有行政人员才配这个型号。"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">我</div>
+<p>"你想说什么？"</p>
+</div>
+<div class="dialogue">
+<div class="speaker">眼镜（摘下眼镜擦了擦，又戴上）</div>
+<p>"我想说——陈锋可能只是前台。后面那个人……可能是学校内部的人。有行政权限的人。"</p>
+</div>
+<p>宿舍里沉默了整整十秒。</p>
+<div class="dialogue">
+<div class="speaker">大壮（小声）</div>
+<p>"那……那我们还查吗？"</p>
+</div>
+<p>我盯着屏幕上那个被加密的名字。</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 提示</div>
+<p>> 证据完整度已更新: 83%<br>> 剩余缺失: 幕后操作者身份<br>> 风险评估: 极高——对方可能有权限直接查到你们</p>
+<div class="snark">你刚刚捅了一个比你想象的大得多的马蜂窝。好消息是你拿到了证据。坏消息是——对方也拿到了大壮的MAC地址。你有大约12小时的时间差。建议好好利用。</div>
+</div>
+<p>我关上笔记本电脑的屏幕。窗外，天边已经泛起了鱼肚白。</p>
+<p class="thought">十二小时。</p>
+<p class="thought">在对方找到我们之前——我必须先找到他。</p>
+</div>
+</div>
+
+<div class="cliffhanger">
+比特战争，<br>才刚刚开始。<br><br>
+<span style="font-size:0.6em;color:#3a5a6a">— Ch3「暗流涌动」即将上线 —</span>
+</div>
+
+<div class="tbc">T O · B E · C O N T I N U E D</div>
+
+</div><!-- end .content -->
+
+<script>
+const panels = document.querySelectorAll('.panel');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+panels.forEach(p => observer.observe(p));
+let hintHidden = false;
+window.addEventListener('scroll', () => {
+  if (!hintHidden && window.scrollY > 100) {
+    const hint = document.querySelector('.scroll-hint');
+    if (hint) hint.style.opacity = '0';
+    hintHidden = true;
+  }
+});
+</script>
+</body>
+</html>
+
