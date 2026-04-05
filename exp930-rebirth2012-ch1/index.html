@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重生2012·移动风暴 — 第一章「回到梦开始的地方」</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1408;color:#e8dcc8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+font-size:1.125rem;line-height:1.8;overflow-x:hidden}
+
+.loading{position:fixed;inset:0;background:#1a1408;display:flex;align-items:center;justify-content:center;
+z-index:9999;transition:opacity .6s}
+.loading.hide{opacity:0;pointer-events:none}
+.loading .spinner{width:50px;height:50px;border:3px solid #3a2a10;border-top-color:#d4a84b;border-radius:50%;
+animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+padding:2rem 1rem;background:linear-gradient(180deg,#2a1f0a 0%,#1a1408 100%);text-align:center;position:relative;
+overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+background:radial-gradient(ellipse at 50% 30%,rgba(212,168,75,0.15),transparent 70%);pointer-events:none}
+.hero h1{font-size:2rem;color:#d4a84b;margin-bottom:.5rem;text-shadow:0 0 30px rgba(212,168,75,0.3);
+animation:fadeInDown 1s ease-out}
+.hero .subtitle{font-size:1.1rem;color:#b89a5a;margin-bottom:1rem;animation:fadeInDown 1.2s ease-out}
+.hero .chapter{font-size:1.5rem;color:#e8dcc8;animation:fadeInDown 1.4s ease-out}
+.hero .era{font-size:.95rem;color:#8a7a5a;margin-top:1.5rem;animation:fadeInUp 1.6s ease-out;
+letter-spacing:.1em}
+.hero .scroll-hint{position:absolute;bottom:2rem;color:#8a7a5a;font-size:.85rem;animation:bounce 2s infinite}
+
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+.panels{max-width:700px;margin:0 auto;padding:0 .5rem 4rem}
+
+.panel{margin-bottom:2rem;opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+
+.panel img{width:100%;border-radius:8px;display:block;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+
+.panel .text{padding:1rem .5rem;font-size:1.125rem;line-height:1.85}
+.panel .text .dialogue{color:#d4a84b;font-weight:600;margin:.5rem 0}
+.panel .text .inner{color:#9ab8d4;font-style:italic;margin:.5rem 0}
+.panel .text .system{color:#6abf6a;font-size:.95rem;margin:.5rem 0;padding:.5rem .8rem;
+background:rgba(106,191,106,0.08);border-left:3px solid #6abf6a;border-radius:0 6px 6px 0}
+.panel .text .narrate{color:#c8bca0;margin:.5rem 0}
+.panel .text .scene{color:#8a7a5a;font-size:.9rem;margin:.5rem 0}
+
+.decision-box{background:linear-gradient(135deg,rgba(40,60,100,0.15),rgba(20,30,50,0.25));
+border:1px solid rgba(100,160,220,0.25);border-radius:12px;padding:1rem;margin:1rem 0}
+.decision-box .title{color:#6aa0dc;font-weight:700;margin-bottom:.5rem;font-size:1rem}
+.decision-box .option{color:#9ab8d4;margin:.3rem 0;padding:.3rem .5rem}
+.decision-box .chosen{color:#d4a84b;font-weight:700;background:rgba(212,168,75,0.1);
+border-radius:6px;border-left:3px solid #d4a84b;padding:.3rem .5rem}
+
+.act-divider{text-align:center;padding:3rem 1rem;color:#8a7a5a;font-size:1.1rem;position:relative}
+.act-divider::before,.act-divider::after{content:'';position:absolute;top:50%;width:30%;height:1px;
+background:linear-gradient(90deg,transparent,#5a4a2a,transparent)}
+.act-divider::before{left:5%}
+.act-divider::after{right:5%}
+
+.cliffhanger{text-align:center;padding:3rem 1rem;background:linear-gradient(180deg,#1a1408,#0d0a04);
+border-top:1px solid rgba(212,168,75,0.2)}
+.cliffhanger .text{font-size:1.2rem;color:#d4a84b;line-height:2;font-weight:600}
+.cliffhanger .next{color:#8a7a5a;font-size:.9rem;margin-top:1.5rem}
+
+.footer{text-align:center;padding:2rem;color:#5a4a2a;font-size:.8rem}
+
+@media(max-width:400px){
+  .hero h1{font-size:1.6rem}
+  .hero .chapter{font-size:1.2rem}
+  .panel .text{font-size:1.05rem;padding:.8rem .4rem}
+}
+</style>
+</head>
+<body>
+
+<div class="loading" id="loader">
+<div class="spinner"></div>
+</div>
+
+<section class="hero">
+<h1>重生2012·移动风暴</h1>
+<div class="subtitle">V5 · 虚拟朱江走进故事世界</div>
+<div class="chapter">第一章「回到梦开始的地方」</div>
+<div class="era">2012年8月 · 上海张江高科技园区</div>
+<div class="scroll-hint">向下滑动开始阅读 ↓</div>
+</section>
+
+<div class="panels">
+<div class="panel">
+<img src="images/p01.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【2026年 · AI实验室 · 远景】</p><p class="narrate">屏幕上的参数还在跳动。我盯着神经网络的损失函数曲线，手指悬在回车键上方。</p><p class="inner">「再调一次学习率，这个模型就该收敛了……」</p></div>
+</div>
+<div class="panel">
+<img src="images/p02.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【意识断裂 · 时空通道】</p><p class="narrate">回车键按下的瞬间，世界碎了。不是屏幕碎了——是整个现实像像素一样四散崩解。</p><p class="inner">「等等……这不是bug，这是……什么？」</p></div>
+</div>
+<div class="panel">
+<img src="images/p03.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【2012年8月 · 上海张江高科技园区 · 小型办公室 · 中景】</p><p class="narrate">一束温暖的晨光打在我脸上，把我从混沌中拽出来。睁开眼，映入眼帘的不是实验室的4K显示器——而是一台……ThinkPad？</p><p class="inner">「这个键盘手感……T420？这玩意儿我2012年用过……」</p><p class="narrate">等等。2012年？</p></div>
+</div>
+<div class="panel">
+<img src="images/p04.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【ThinkPad屏幕特写】</p><p class="narrate">屏幕上是一个半成品App的代码。Java写的Android应用，包名还是我当年创业时用的那个。我的手不受控制地颤抖起来。</p><p class="inner">「这不可能……这段代码，我记得每一行。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p05.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【手腕特写 · 全息手环激活】</p><p class="narrate">手腕上突然一阵温热。一圈蓝色的半透明光环凭空浮现，缓缓旋转，然后展开成一个全息界面——</p><p class="system">「叮——创业系统v1.0已激活。宿主：朱江。时间锚点：2012年8月15日。」</p><p class="dialogue">"什么鬼？！"</p></div>
+</div>
+<div class="panel">
+<img src="images/p06.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【全息面板展示 · 能力值扫描】</p><p class="system">「宿主能力扫描完毕——<br>商业直觉: S<br>技术理解: A<br>社交能力: B<br>体力: C<br>综合评价：有脑子但跑不动。」</p><p class="narrate">我盯着这个悬浮在空气中的面板。如果这是梦，细节也太真实了。如果不是梦……</p></div>
+</div>
+<div class="panel">
+<img src="images/p07.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【中景 · 系统毒舌】</p><p class="system">「检测到宿主呆滞时间超过30秒。温馨提示：在2012年发呆不会提升估值。」</p><p class="dialogue">"……你能不能正常点？"</p><p class="system">「我很正常。不正常的是一个2026年的AI创业者，正坐在2012年的办公室里跟一个全息手环说话。」</p><p class="narrate">好吧，它说得有道理。</p></div>
+</div>
+<div class="panel">
+<img src="images/p08.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【全息决策面板 · 选择赛道】</p><div class="decision-box"><div class="title">主线任务·选择创业赛道</div><div class="option">A: 移动社交（微信已占先机，但还有垂直机会）</div><div class="option">B: 本地生活O2O（美团/大众点评刚起步）</div><div class="chosen">▶ C: 内容分发（今日头条还没出现）</div></div><p class="inner">「内容分发。这个赛道我太熟了——因为我知道它未来会改变整个信息生态。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p09.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【特写3/4侧面 · 自信微笑】</p><p class="system">「选了最难的赛道。果然，蠢是跨时空传播的。」</p><p class="narrate">我没理它。嘴角不自觉地上扬。</p><p class="inner">「2012年的内容分发市场……一片空白。而我，知道正确答案。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p10.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【远景 · 窗前 · 2012上海天际线 · 金色夕阳】</p><p class="narrate">我走到窗边。张江园区的天际线在金色的夕阳下铺展开来，到处是在建的工地和脚手架。2012年的中国，一切都在蓬勃生长。</p><p class="inner">「这一次，我不会只是旁观者。」</p><p class="narrate">手腕上的蓝光安静地闪烁着，像是在等我迈出第一步。</p></div>
+</div>
+<div class="act-divider">ACT 2 · 组队</div>
+<div class="panel">
+<img src="images/p11.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【办公室 · 暖金色午后光 · 中景】</p><p class="narrate">我翻出手机通讯录。2012年的联系人列表——没有微信，只有QQ和电话号码。找到那个名字的时候，手指停了一下。</p><p class="dialogue">"薇姐，我有个idea，你来不来？"</p></div>
+</div>
+<div class="panel">
+<img src="images/p12.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【大厂办公区 · 格子间 · 中景】</p><p class="narrate">电话那头沉默了三秒。我能想象林薇的表情——推了推黑框眼镜，MacBook搁在腿上，认真思考的样子。</p><p class="dialogue">"你上次创业亏了30万。"</p><p class="dialogue">"这次不一样。我看到了未来。"</p><p class="inner">「我是真的看到了。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p13.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【分屏对话 · 上下两人通话】</p><p class="narrate">电话打了整整四十分钟。我把产品构想讲了三遍，每一遍都更具体，更有说服力——因为我知道这条路走得通。</p><p class="dialogue">"行。但我有条件。"</p></div>
+</div>
+<div class="panel">
+<img src="images/p14.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【小办公室 · 二人谈判 · 双人中景】</p><p class="dialogue">"技术方向我说了算。"</p><p class="narrate">林薇说话从来不绕弯。她就是这样的人——清华计算机系出来的，代码比大多数人的PPT写得好。</p></div>
+</div>
+<div class="panel">
+<img src="images/p15.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【握手特写 · 系统提示】</p><div class="decision-box"><div class="title">决策点·合伙人分工</div><div class="option">A: 答应（保住合伙人，失去技术话语权）</div><div class="chosen">▶ B: 技术你定，产品我定（双核驱动）</div><div class="option">C: 强硬拒绝（CEO最终决策权在我）</div></div><p class="dialogue">"技术你说了算，产品我说了算。CEO只是个title，重要的是我们各自做好自己最擅长的事。"</p><p class="system">「合伙人信任值+15。注意：信任值低于30将触发'联合创始人出走'事件。建议宿主维护关系。不是因为关心你，只是系统日志会很难看。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p16.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【面馆 · 暖黄灯光 · 双人远景】</p><p class="narrate">晚上八点半，张江园区旁的小面馆。两碗牛肉拉面，一叠餐巾纸，和一个可能改变中国信息生态的产品方案。</p><p class="dialogue">"你这个推荐算法的思路……在哪看到的？2012年还没人这么做过吧？"</p><p class="dialogue">"灵感。纯灵感。"</p><p class="inner">「——说不出口啊。协同过滤+深度学习的推荐框架，那是2018年才成熟的技术路线。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p17.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【桌面特写 · 餐巾纸草图】</p><p class="narrate">餐巾纸上画满了线框图和流程图。林薇的字迹工整得像打印体，我的涂鸦只有我自己看得懂。但每一条线都指向同一个方向——一个用算法理解用户、用内容连接世界的产品。</p></div>
+</div>
+<div class="panel">
+<img src="images/p18.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【办公室门口 · 陈涛登场 · 中景】</p><p class="narrate">三天后。办公室门被敲响的时候，我正在调一个bug。</p><p class="narrate">门口站着一个微胖的中年人，Polo衫，金表，皮包，笑容和蔼得像个邻居大叔。但我知道——圈内人都知道——陈涛谈起数字的时候，比任何人都精明。</p><p class="dialogue">"小朱啊，听说你又折腾了？我过来看看。"</p></div>
+</div>
+<div class="panel">
+<img src="images/p19.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【会议桌 · 谈判双人对峙 · 中景】</p><p class="dialogue">"200万，51%。"</p><p class="narrate">陈涛说得云淡风轻，像是在菜市场讲价。200万换51%股权——2012年的天使投资标准做法。但这意味着，我从第一天就失去了公司的控制权。</p></div>
+</div>
+<div class="panel">
+<img src="images/p20.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【特写3/4侧面 · 朱江反击】</p><div class="decision-box"><div class="title">决策点·融资谈判</div><div class="option">A: 接受（有钱但失去控制权）</div><div class="option">B: 拒绝（保住控制权但没钱）</div><div class="chosen">▶ C: 200万换20%，外加一个董事会席位</div></div><p class="dialogue">"陈总，您投的不是项目。您投的是我这个人。我值这个价。"</p><p class="narrate">这句话，上辈子我说不出口。但现在——我知道自己值多少。</p></div>
+</div>
+<div class="panel">
+<img src="images/p21.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【特写 · 陈涛大笑】</p><p class="dialogue">"哈哈哈！小朱，你这口气……"</p><p class="narrate">他笑了好一会儿，笑到眼角都是褶子。然后伸出手——</p><p class="dialogue">"我喜欢。成交。"</p></div>
+</div>
+<div class="panel">
+<img src="images/p22.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【全息系统面板 · 技能解锁】</p><p class="system">「谈判术经验+200。当前等级提升！<br>解锁被动技能：创始人气场 Lv1<br>效果：谈判时对方好感度+10%」</p><p class="inner">「真的有经验值……这个系统到底是什么东西？」</p><p class="system">「建议宿主少问哲学问题，多问商业问题。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p23.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【三人举杯 · 暖色夕阳 · 远景】</p><p class="narrate">纸杯碰在一起的声音很轻。窗外的夕阳把三个人的影子拉得很长。</p><p class="narrate">2012年8月20日，三个人，一间办公室，200万启动资金，和一个来自未来的秘密。</p><p class="inner">「故事，从这里真正开始。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p24.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【蒙太奇 · 深夜办公室 · 双人工作】</p><p class="narrate">接下来的两周是一场冲刺。白天讨论产品方案，晚上写代码到凌晨。林薇的MacBook和我的ThinkPad并排放在桌上，屏幕的光映在空咖啡杯上。</p><p class="narrate">外卖盒堆了半个垃圾桶。白板上的架构图改了七版。</p></div>
+</div>
+<div class="panel">
+<img src="images/p25.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【笔记本屏幕 · 产品原型展示】</p><p class="narrate">第十五天。产品原型做出来了——一个智能内容推荐App。界面简洁到有点寒碜，但推荐算法是2026年水平的降维打击。</p><p class="dialogue">"上线吧。"</p><p class="inner">「该来的，总会来。」</p></div>
+</div>
+<div class="act-divider">ACT 3 · 危机</div>
+<div class="panel">
+<img src="images/p26.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【办公室 · 清晨 · 双人中景】</p><p class="narrate">上线第一天。</p><p class="narrate">我们盯着后台数据看了整整一上午。日活跃用户：3。其中2个是林薇的测试号。</p><p class="dialogue">"……所以真实用户只有1个？"</p><p class="dialogue">"可能还是我自己注册的那个。"</p></div>
+</div>
+<div class="panel">
+<img src="images/p27.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【全息分析面板 · 蓝色界面】</p><p class="system">「冷启动失败。用户增长率：0%。按当前速度，达到种子用户规模需要……正在计算……大约10000年。」</p><p class="dialogue">"你能不能说点有建设性的？"</p><p class="system">「建设性建议：换赛道。但宿主大概率不会听。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p28.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【决策面板 · 选择冷启动策略】</p><div class="decision-box"><div class="title">决策点·冷启动破局</div><div class="option">A: 砸钱推广（只剩180万，烧不起）</div><div class="option">B: 找微博大V合作推广（2012年还有红利）</div><div class="chosen">▶ C: 转型垂直领域——先做科技内容</div></div><p class="dialogue">"先做窄做深，再做宽做广。"</p><p class="inner">「这是2026年验证过的方法论。在2012年，没有人这么想过。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p29.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【系统概率上升 · 全息面板特写】</p><p class="system">「战略调整已记录。目标市场缩小80%。<br>计算中……<br>成功概率：反而上升了12%。<br>……这不科学。但数据不会骗人。」</p><p class="narrate">我盯着那个上升的百分比，第一次觉得这个毒舌系统还挺可爱的。</p></div>
+</div>
+<div class="panel">
+<img src="images/p30.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【深夜办公室 · 凌晨3点 · 暖色台灯】</p><p class="narrate">连续第七天加班到凌晨三点。桌上咖啡凉了又热、热了又凉，循环了不知道多少遍。</p><p class="narrate">林薇还在旁边写代码，键盘声像催眠曲。窗外张江园区一片漆黑——2012年的张江，晚上没什么人加班。</p><p class="inner">「我们可能是整条街上最后亮着灯的办公室。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p31.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【双人夜谈 · 林薇转头质疑】</p><p class="dialogue">"朱江。"</p><p class="narrate">林薇突然合上MacBook，转过来看着我。</p><p class="dialogue">"你怎么总像知道答案一样？"</p><p class="narrate">我的手指停在键盘上。她目光如炬——这就是清华CS的人，观察力强得可怕。</p></div>
+</div>
+<div class="panel">
+<img src="images/p32.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【特写侧面 · 内心挣扎】</p><p class="dialogue">"直觉。"</p><p class="narrate">我头也不回地说。</p><p class="inner">「我不能说我来自未来。不能说我知道今日头条会在2012年成立，2018年改名字节跳动，2025年成为世界前三的互联网公司。我什么都不能说。」</p><p class="narrate">台灯的光打在我脸上。有些秘密，注定要一个人扛。</p></div>
+</div>
+<div class="panel">
+<img src="images/p33.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【手机特写 · 可疑私信】</p><p class="narrate">又一个睡不着的深夜。手机震了一下——一条陌生人的私信。</p><p class="narrate">"朱总好，我是XX大厂的产品经理，很欣赏你们的产品，想聊聊。"</p><p class="inner">「这个说辞，和上辈子竞品来套方案时一模一样。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p34.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【中景仰拍 · 反情报战 · 技能解锁】</p><div class="decision-box"><div class="title">决策点·信息战</div><div class="option">A: 直接揭穿（"你是来抄我的吧？"）</div><div class="chosen">▶ B: 反向信息战——故意透露假方向</div><div class="option">C: 装傻充愣，套对方信息</div></div><p class="system">「新技能解锁：情报战 Lv1<br>效果：识别商业间谍概率+25%」</p><p class="narrate">我对着手机屏幕，慢慢打出一段精心设计的"坦诚回复"——每一个字都是诱饵。</p></div>
+</div>
+<div class="panel">
+<img src="images/p35.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【增长蒙太奇 · 数据飞升】</p><p class="narrate">垂直策略见效了。科技圈的种子用户开始自发传播——"你用过那个推荐引擎吗？推的东西比我自己找的还准。"</p><p class="narrate">后台数据曲线从平躺变成了陡坡。3→30→300→3000。</p></div>
+</div>
+<div class="panel">
+<img src="images/p36.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【庆祝 · DAU 3000 · 双人远景】</p><p class="dialogue">"三千！三千日活！"</p><p class="narrate">林薇难得露出了没带职业面具的笑容。我差点以为自己看错了。</p><p class="system">「恭喜宿主达成里程碑：日活3000。距离下一个里程碑（30000）还有很长的路。别飘。」</p><p class="dialogue">"你就不能让我高兴一分钟？"</p><p class="system">「59秒已过。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p37.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【全息面板 · 成长记录】</p><p class="system">「阶段性总结——<br>商业直觉: S → S+<br>谈判术: Lv1 → Lv2<br>情报战: Lv1<br>创始人气场: Lv1<br>团队信任值: 72/100<br>当前估值: 约1500万<br>评价：比预期好。别骄傲，更大的挑战还在后面。」</p><p class="inner">「更大的挑战……我知道它在说谁。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p38.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【办公室 · 接电话 · 中景】</p><p class="narrate">一个普通的下午。阳光很好，心情很好，数据很好。然后陈涛打来了电话。</p><p class="dialogue">"小朱，有个好消息和一个坏消息。好消息是有A轮投资人看上你们了。"</p><p class="dialogue">"坏消息呢？"</p></div>
+</div>
+<div class="act-divider">ACT 4 · 风暴前夜</div>
+<div class="panel">
+<img src="images/p39.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【极端特写 · 表情变化】</p><p class="dialogue">"坏消息是……投资人是张一鸣。他在做一个一模一样的东西。"</p><p class="narrate">我握着手机的手，微微用力了一点。</p><p class="inner">「来了。该来的终于来了。」</p><p class="inner">「今日头条——2012年8月创立，2018年日活超过2亿的超级产品。而它的创始人，是整个中国互联网最被低估的天才之一。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p40.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【全息面板 · S级红色警告】</p><p class="system">「⚠️ S级威胁检测<br>威胁来源：未来独角兽即将入场<br>威胁等级：S<br>生存概率：急剧下降中……<br>建议行动：——数据不足，无法计算——」</p><p class="narrate">系统面板变成了红色。这是我第一次看到它没有毒舌，没有吐槽——它真的算不出来。</p></div>
+</div>
+<div class="panel">
+<img src="images/p41.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【仰拍 · 自信笑容 · 英雄光】</p><p class="narrate">我把手机收进口袋，抬起头看着窗外的天空。</p><p class="narrate">嘴角慢慢翘了起来。</p><p class="dialogue">"有意思。"</p><p class="inner">「张一鸣。这一次，我不会输。因为我知道你的每一步棋——而你，对我一无所知。」</p></div>
+</div>
+<div class="panel">
+<img src="images/p42.jpg" alt="" loading="lazy" width="700" height="1244">
+<div class="text"><p class="scene">【远景 · 窗前剪影 · 2012上海黄昏 · 全章结束】</p><p class="narrate">夕阳把我的影子投在地板上，拉得很长、很长。窗外的张江园区华灯初上，每一盏灯背后都是一个创业者的野心和梦想。</p><p class="narrate">手腕上的全息手环安静地闪着蓝光。红色警告还在，但我不怕。</p><p class="narrate">我来自未来。我知道风暴要来。</p><p class="narrate">但这一次——</p><p class="dialogue" style="font-size:1.3rem;text-align:center;margin-top:1rem">"这一次，我就是风暴。"</p></div>
+</div>
+
+<div class="cliffhanger panel">
+<div class="text">
+未完待续<br><br>
+张一鸣入局，创业系统发出S级警告。<br>
+朱江如何在"已知的未来"中，<br>
+赢过一个天才？<br><br>
+下一章：「当算法遇上算法」
+</div>
+<div class="next">— 第二章 即将更新 —</div>
+</div>
+
+<div class="footer">
+重生2012·移动风暴 | V5 · 虚拟朱江走进故事世界 | Trinity v3
+</div>
+</div>
+
+<script>
+window.addEventListener("load",()=>{document.getElementById("loader").classList.add("hide")});
+const obs=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}})
+},{threshold:0.1,rootMargin:"0px 0px -50px 0px"});
+document.querySelectorAll(".panel").forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
