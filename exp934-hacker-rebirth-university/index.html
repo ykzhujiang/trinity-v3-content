@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>代码回溯：我在2001年开了挂 — Ch1</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#d4d8e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:20px;line-height:1.85;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0d1117 0%,#0a1628 40%,#0d2818 70%,#0d1117 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 40%,rgba(0,255,100,0.1) 0%,transparent 60%);animation:coverPulse 4s ease-in-out infinite}
+@keyframes coverPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+.cover h1{font-size:1.8em;background:linear-gradient(135deg,#00ff66,#33ff99,#00cc55);-webkit-background-clip:text;-webkit-text-fill-color:transparent;z-index:1;text-align:center;padding:0 20px;font-weight:900}
+.cover .sub{font-size:0.9em;color:#e8b84a;margin-top:12px;z-index:1;letter-spacing:2px}
+.cover .chapter{font-size:0.8em;color:#5a8a6a;margin-top:24px;letter-spacing:6px;z-index:1}
+.cover .era{font-size:0.7em;color:#557766;margin-top:16px;z-index:1;text-align:center;padding:0 30px;line-height:1.6;max-width:380px;font-family:'Courier New',monospace}
+.content{max-width:420px;margin:0 auto;padding:0 8px 60px}
+.panel{margin:0 0 4px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease-out,transform 0.6s ease-out}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:4px;display:block}
+.panel .text{padding:12px 16px;font-size:18px;line-height:1.85}
+.narration{color:#b8c8b8;font-style:italic;border-left:3px solid #e8b84a;padding-left:14px;margin:8px 0}
+.dialogue{color:#e8e8f0;padding:6px 0}
+.dialogue .speaker{color:#00dd66;font-weight:bold;font-size:0.85em;margin-bottom:2px}
+.thought{color:#7eb89a;font-style:italic;opacity:0.9}
+.sys-msg{background:rgba(0,255,100,0.05);border:1px solid rgba(0,255,100,0.2);border-radius:8px;padding:12px 16px;margin:8px 0;font-family:'Courier New',monospace;color:#00ff66;font-size:15px;line-height:1.7}
+.sys-msg .tag{color:#33ff99;font-weight:bold;font-size:14px}
+.sys-msg .snark{color:#55cc77;font-style:italic;margin-top:6px}
+.decision-box{background:linear-gradient(135deg,rgba(0,255,100,0.05),rgba(232,184,74,0.05));border:2px solid #e8b84a;border-radius:12px;padding:16px;margin:16px 0}
+.decision-box .dtitle{color:#e8b84a;font-weight:bold;font-size:17px;margin-bottom:10px}
+.decision-box .option{padding:8px 12px;margin:6px 0;border-radius:8px;font-size:16px;color:#a0b0a0}
+.decision-box .option.chosen{background:rgba(0,255,100,0.1);color:#33ff99;font-weight:bold;border-left:3px solid #00ff66}
+.decision-box .option.not-chosen{opacity:0.4;text-decoration:line-through}
+.decision-box .reason{margin-top:10px;padding:10px 12px;background:rgba(232,184,74,0.08);border-radius:8px;font-size:15px;color:#c8a850;line-height:1.6}
+.scene-break{text-align:center;padding:32px 0;color:#3a5a4a;font-size:14px;letter-spacing:8px}
+.scene-break::before,.scene-break::after{content:'\2014\2014';margin:0 8px}
+.act-header{text-align:center;padding:40px 0 20px;font-size:1.2em;color:#00ff66;letter-spacing:6px;font-family:'Courier New',monospace}
+.cliffhanger{text-align:center;padding:40px 20px;font-size:1.3em;color:#e8b84a;line-height:2}
+.tbc{text-align:center;padding:20px;color:#3a5a4a;font-size:0.9em;letter-spacing:6px}
+.scroll-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:#2a4a3a;font-size:14px;animation:bob 2s ease-in-out infinite;z-index:10;pointer-events:none}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+.level-up{background:linear-gradient(135deg,rgba(0,255,100,0.08),rgba(232,184,74,0.05));border:2px solid #00ff66;border-radius:12px;padding:16px;margin:12px 0;text-align:center}
+.level-up .lvl{color:#00ff66;font-size:1.3em;font-weight:bold;font-family:'Courier New',monospace}
+.level-up .desc{color:#7eb89a;font-size:15px;margin-top:6px}
+.humor{color:#e8b84a;background:rgba(232,184,74,0.06);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:16px}
+.code-block{background:#0a0a0a;border:1px solid #1a3a2a;border-radius:8px;padding:12px;margin:8px 0;font-family:'Courier New',monospace;font-size:14px;color:#00ff66;line-height:1.6;overflow-x:auto}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>代码回溯：我在2001年开了挂</h1>
+<div class="sub">重生 × 黑客 × 大学创业 × 系统文</div>
+<div class="chapter">CHAPTER 1 — 重启</div>
+<div class="era">> TIME: 2001.09.17<br>> LOCATION: 上海交通大学<br>> SYSTEM: Hack.OS v1.0<br>> STATUS: INITIALIZING...</div>
+</div>
+
+<div class="scroll-hint">向下滑动 ↓</div>
+
+<div class="content">
+
+<div class="act-header">ACT 1 — 重生</div>
+<div class="scene-break">上海交大·男生宿舍·凌晨</div>
+
+<div class="panel"><img src="images/p01.jpg" loading="lazy">
+<div class="text"><p class="narration">黑暗。无边的黑暗。然后——绿色的代码如瀑布般在虚空中倾泻而下，一行行，一列列，无尽地滚动……</p>
+<p class="narration">突然，一切戛然而止。一阵刺耳的闹钟声炸裂开来——</p></div></div>
+
+<div class="panel"><img src="images/p02.jpg" loading="lazy">
+<div class="text"><p class="narration">我猛然睁开眼。看到的是——发黄的天花板。上铺的床板。一台老旧的CRT显示器泛着微弱的蓝光。桌上散落着《C语言程序设计》、几张盗版光碟、一个红色塑料笔筒。</p>
+<p class="thought">这是……哪？</p></div></div>
+
+<div class="panel"><img src="images/p03.jpg" loading="lazy">
+<div class="text"><p class="narration">我缓缓坐起来，浑身僵硬得像在冰水里泡了一夜。环顾四周——木制双层床、铁皮柜子上贴着灌篮高手的海报、桌上的闹钟还在疯狂作响。</p>
+<p class="narration">我伸手按停了闹钟。日历翻到——</p>
+<p class="thought">2001年9月17日。</p>
+<p class="thought">我的手开始发抖。</p></div></div>
+
+<div class="panel"><img src="images/p04.jpg" loading="lazy">
+<div class="text"><p class="narration">我盯着墙上的日历看了整整三十秒。那些泛黄的数字清清楚楚：2001。九月。上海交通大学计算机系新生宿舍。</p>
+<p class="thought">我回来了。回到了那个梦开始的年代。</p>
+<p class="humor">对面床上，一个巨大的打鼾声如同拖拉机启动——"呼噜——嗤——呼噜——"</p>
+<p class="thought">……我重生后面对的第一个挑战，居然是大壮的鼾声。有些东西，25年都改变不了。</p></div></div>
+
+<div class="panel"><img src="images/p05.jpg" loading="lazy">
+<div class="text"><p class="narration">我走出宿舍楼，九月的上海晨光温柔。交大闵行校区的林荫大道上，自行车三三两两，路边停着几辆，有同学踩着人字拖去食堂。一切都鲜活得不真实。</p>
+<p class="thought">25年后的这些树会长成参天大树。而现在，它们和我一样年轻。</p></div></div>
+
+<div class="panel"><img src="images/p06.jpg" loading="lazy">
+<div class="text"><p class="narration">食堂。铝制餐盘，大锅里冒着腾腾热气。菜牌上歪歪斜斜地写着：红烧肉1.5元，青菜0.5元，米饭0.3元。</p>
+<p class="thought">一顿饭不到三块钱。25年后这个价格买不到一瓶矿泉水。</p>
+<p class="humor">我下意识地摸了摸口袋——找手机。</p>
+<p class="humor">没有手机。</p>
+<p class="humor">我愣了三秒。</p>
+<p class="thought">……对了。2001年。诺基亚3310还是奢侈品，我现在是个月生活费600块的穷学生。</p></div></div>
+
+<div class="scene-break">上海交大·机房</div>
+
+<div class="panel"><img src="images/p07.jpg" loading="lazy">
+<div class="text"><p class="narration">下午，我坐进了机房。一排排米白色的方正台式机，CRT显示器嗡嗡作响，Windows 98的蓝天白云桌面闪烁着。</p>
+<p class="narration">手指搭上键盘的那一刻，25年的肌肉记忆如同洪水决堤——</p></div></div>
+
+<div class="panel"><img src="images/p08.jpg" loading="lazy">
+<div class="text"><p class="narration">指尖飞舞。代码如流水般从我的手指尖涌出。C语言、汇编、网络协议——25年的编程经验灌注在18岁的大脑和手指上，速度快得连我自己都吓了一跳。</p>
+<p class="narration">我打开了一个当时很流行的加密聊天软件，开始逆向分析它的通信协议。不是为了获利，纯粹是——</p>
+<p class="thought">想看看自己现在到底能做到什么程度。</p></div></div>
+
+<div class="panel"><img src="images/p09.jpg" loading="lazy">
+<div class="text"><p class="narration">然后——屏幕突然黑了。</p>
+<p class="narration">没有蓝屏，没有报错，只有纯粹的黑。然后，一行绿色的字符从屏幕顶端开始滚落——</p>
+<div class="code-block">> HACK.OS v1.0 INSTALLING...<br>> SCANNING HOST... ANOMALY DETECTED<br>> TEMPORAL DISPLACEMENT CONFIRMED<br>> INITIALIZING INTERFACE FOR: ZHU_JIANG<br>> STATUS: LEVEL 1 — CODE VISION UNLOCKED<br>> WELCOME BACK.<br>> OR SHOULD I SAY... WELCOME FOR THE FIRST TIME.</div></div></div>
+
+<div class="panel"><img src="images/p10.jpg" loading="lazy">
+<div class="text"><p class="narration">绿色的光映在我的脸上。我盯着屏幕，瞳孔收缩。</p>
+<p class="thought">这不是病毒。不是恶作剧。它知道我的名字。它知道"时间位移"。它知道……我不属于这个时代。</p>
+<p class="narration">我下意识看了一眼旁边座位的同学——他的屏幕上还是正常的Windows桌面。只有我能看到这个界面。</p></div></div>
+
+<div class="act-header">ACT 2 — 黑客之眼</div>
+<div class="scene-break">代码透视·觉醒</div>
+
+<div class="panel"><img src="images/p11.jpg" loading="lazy">
+<div class="text"><p class="narration">Hack.OS激活后，世界变了。</p>
+<p class="narration">我打开校园BBS——饮水思源。表面是普通的论坛页面，但在我眼中，半透明的绿色浮层叠加在上面：数据库结构图、数据流向箭头、安全漏洞的红色标记……就像给代码世界装了一副X光眼镜。</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 扫描完成</div>
+饮水思源BBS：检测到12个安全漏洞，其中3个为Critical级别。建议：立即处理。<br>
+<div class="snark">……虽然以2001年的安全意识来看，这已经算是做得不错了。</div>
+</div></div></div>
+
+<div class="panel"><img src="images/p12.jpg" loading="lazy">
+<div class="text"><p class="narration">我又看了一眼QQ的客户端——</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 分析：腾讯QQ</div>
+架构设计……有些地方相当聪明，有些地方令人窒息。<br>它的创始团队在赌——赌中国互联网用户会指数增长。<br>目前来看，他们赌对了。<br>
+<div class="snark">当然，你已经知道答案了。但我不能让你用"未来信息"作弊。</div>
+</div>
+<p class="narration">我激动得差点在机房里跳起来。</p>
+<div class="dialogue"><span class="speaker">旁边同学</span>"你没事吧？"</div>
+<p class="humor">"没事没事，就是……发现了一个很有趣的bug。"</p>
+<div class="dialogue"><span class="speaker">旁边同学</span>"……你们CS的都这么激动吗？"</div></div></div>
+
+<div class="panel"><img src="images/p13.jpg" loading="lazy">
+<div class="text">
+<div class="decision-box">
+<div class="dtitle">决策点 1 — 校园BBS安全漏洞</div>
+<p style="font-size:15px;color:#889988;margin-bottom:10px">Hack.OS检测到饮水思源BBS存在一个严重的SQL注入漏洞，可获取所有用户的注册信息。我该怎么做？</p>
+<div class="option not-chosen">A. 利用漏洞获取数据，留作"人脉数据库" — 灰色地带，有用但有风险</div>
+<div class="option not-chosen">B. 什么都不做，专注自己的事 — 安全但冷漠</div>
+<div class="option chosen">C. 匿名通知管理员修复漏洞 — 白帽黑客路线</div>
+<div class="reason">我骨子里是白帽黑客。好奇心驱使我拆解一切系统，但我不会伤害无辜的人。发现问题就解决，不拖延。</div>
+</div></div></div>
+
+<div class="panel"><img src="images/p14.jpg" loading="lazy">
+<div class="text"><p class="narration">当晚。我坐在宿舍里，给BBS管理员发了一封匿名邮件——附上漏洞详情、复现步骤和修复方案。署名只写了三个字：</p>
+<p class="thought">"一个路过的人。"</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 决策记录</div>
+技术决策：正确。经验值 +30。<br>
+选择白帽路线。你的价值观很一致。<br>
+<div class="snark">这会让某些未来的门……开得更容易。</div>
+</div>
+<p class="narration">大壮从上铺探出头来："你在干啥？这么晚还噼里啪啦的。"</p>
+<p class="humor">"写作业。"</p>
+<div class="dialogue"><span class="speaker">大壮</span>"……开学才两周你就写作业写到半夜？你有病吧？"</div></div></div>
+
+<div class="panel"><img src="images/p15.jpg" loading="lazy">
+<div class="text"><p class="narration">第二天。BBS上出现了一个置顶帖：《感谢一位匿名同学发现并通报了系统安全漏洞》。帖子下面炸了锅——"谁啊这么牛？""大一新生不可能有这个水平""肯定是研究生甚至老师"。</p>
+<p class="narration">在帖子最底部，BBS版主"苏雨晴"回复道：</p>
+<div class="dialogue"><span class="speaker">苏雨晴（版主）</span>"请这位同学联系我，我们网络安全小组需要你这样的人才。"</div>
+<p class="thought">苏雨晴。计算机系大三，校园网安全小组组长。短发利落，技术圈小有名气。在我的记忆里，她后来成了国内第一批网络安全领域的女性专家。</p>
+<p class="thought">要不要联系她？</p></div></div>
+
+<div class="act-header">ACT 3 — 第一次选择</div>
+<div class="scene-break">图书馆·一周后</div>
+
+<div class="panel"><img src="images/p16.jpg" loading="lazy">
+<div class="text"><p class="narration">一周后。我坐在图书馆里，面前摊着《计算机网络》教材，但脑子里转的是更大的事。</p>
+<p class="thought">2001年。中国互联网站在巨大的分水岭上。纳斯达克泡沫刚破，无数.com公司倒闭。但真正的巨头——百度2000年刚成立，阿里巴巴在苦苦挣扎，腾讯的QQ还不知道怎么赚钱。</p>
+<p class="thought">而我，带着25年的记忆，坐在这里。</p></div></div>
+
+<div class="panel"><img src="images/p17.jpg" loading="lazy">
+<div class="text"><p class="narration">系统突然弹出了提示——</p>
+<div class="code-block">[SKILL TREE DETECTED]<br>> 核心技能: 逆向工程 (S级), 网络安全 (A级), 系统架构 (A级)<br>> 隐藏技能: 25年商业经验 (已封印 — 时间线保护)<br>> 提示: 你不能直接使用未来信息。<br>> 但你可以用你的"直觉"。<br>> 系统无法区分"直觉"和"记忆"。<br>> 这是一个有趣的漏洞。</div>
+<p class="thought">我愣了一下，然后笑了。系统在暗示——虽然不能直接说"买腾讯股票"，但可以通过"直觉"来引导决策。</p>
+<p class="thought">规则的边界。这正是黑客最擅长的领域。</p></div></div>
+
+<div class="panel"><img src="images/p18.jpg" loading="lazy">
+<div class="text"><p class="narration">回到宿舍。我从食堂顺了一个塑料托盘当白板，用记号笔画了三个方向——</p>
+<div class="decision-box">
+<div class="dtitle">决策点 2 — 第一个创业方向</div>
+<div class="option not-chosen">A. 校园BBS增值服务 — 低风险、快变现、天花板低<br><span style="font-size:13px;color:#557755">系统评估: 商业潜力 35/100。"你想做一辈子校园小生意吗？"</span></div>
+<div class="option chosen">B. 网络安全公司 — 技术匹配最高、稳定、但2001年市场不成熟<br><span style="font-size:13px;color:#557755">系统评估: 商业潜力 60/100。"方向正确，时机错误。这个市场需要等5年。"</span></div>
+<div class="option not-chosen">C. 即时通讯/社交工具 — 巨大市场、极高风险、需要大量资金<br><span style="font-size:13px;color:#557755">系统评估: 商业潜力 ???/100。"ERROR: 涉及时间线敏感信息，评估已被屏蔽。"</span></div>
+<div class="reason">不是选最大的赛道，而是选最确定的切入点。先用技术建立护城河，积累资源和经验，再撬动更大的市场。纯创业者选C，但黑客×创业者选"先扎根，再攻城"。</div>
+</div></div></div>
+
+<div class="panel"><img src="images/p19.jpg" loading="lazy">
+<div class="text"><p class="narration">我的方案：做一个"漏洞猎手"工具——帮企业扫描系统安全漏洞。免费基础版+付费深度报告。2001年没人在做这个。</p>
+<div class="dialogue"><span class="speaker">大壮</span>"这能赚钱吗？"</div>
+<p class="narration">他站在对面，双臂抱胸，表情写满了怀疑。</p>
+<div class="dialogue"><span class="speaker">我</span>"第一个月可能赚不到。但三个月内，我保证每人每月至少500块零花钱。"</div></div></div>
+
+<div class="panel"><img src="images/p20.jpg" loading="lazy">
+<div class="text">
+<div class="dialogue"><span class="speaker">大壮</span>"卧槽！食堂一个月才花300！"</div>
+<p class="narration">大壮的眼睛亮了。</p>
+<div class="dialogue"><span class="speaker">大壮</span>"我干了！"</div>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 团队扩展</div>
+新成员：大壮。角色：市场推广 + 后勤保障。<br>
+<div class="snark">……他管在食堂帮你打饭叫"后勤保障"。好吧。</div>
+</div></div></div>
+
+<div class="panel"><img src="images/p21.jpg" loading="lazy">
+<div class="text"><p class="narration">然后是眼镜——李文博。我给他看了一段代码，是我花一个通宵写的漏洞扫描引擎原型。</p>
+<p class="narration">李文博推了推那副厚得能防弹的黑框眼镜，沉默了十秒钟。然后说了他入学以来最长的一句话——</p>
+<div class="dialogue"><span class="speaker">李文博</span>"这个算法的时间复杂度可以从O(n²)优化到O(n log n)。我帮你改。"</div>
+<p class="thought">就这样。不问为什么，不问能赚多少，只关心代码能不能更优雅。</p>
+<p class="thought">典型的程序员。我喜欢。</p></div></div>
+
+<div class="panel"><img src="images/p22.jpg" loading="lazy">
+<div class="text"><p class="narration">三个人。一台CRT电脑。一个从食堂顺来的塑料托盘当白板。桌上堆着泡面盒和散落的盗版光碟。</p>
+<p class="narration">中国互联网历史上最不起眼的一支创业团队，在上海交大男生宿舍405室，正式成立了。</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 里程碑</div>
+团队建立完成。经验值 +100。<br>距离Level 2还差220点。<br>
+<div class="snark">按你们目前的速度，大约需要一个学期。除非发生什么意外。</div>
+</div></div></div>
+
+<div class="act-header">ACT 4 — 第一战</div>
+<div class="scene-break">三周后·校园网安全测试</div>
+
+<div class="panel"><img src="images/p23.jpg" loading="lazy">
+<div class="text"><p class="narration">三周后。"漏洞猎手"beta版完成。眼镜优化了核心算法，大壮负责在BBS上推广（以及每天从食堂带三份饭回宿舍——他管这叫"后勤保障"）。</p>
+<p class="narration">第一个客户来了——学姐苏雨晴。她代表学校网络中心，想用我们的工具扫描校园网。</p>
+<div class="dialogue"><span class="speaker">苏雨晴</span>"免费的吧？"</div>
+<div class="dialogue"><span class="speaker">我</span>"对你免费。但我要两样东西——校园网的测试权限，和一封推荐信。"</div>
+<p class="narration">她挑了挑眉，酒窝若隐若现。</p>
+<div class="dialogue"><span class="speaker">苏雨晴</span>"你倒是会做生意。大一新生？胆子不小。"</div></div></div>
+
+<div class="panel"><img src="images/p24.jpg" loading="lazy">
+<div class="text"><p class="narration">扫描结果出来了。</p>
+<p style="text-align:center;font-size:2em;color:#ff4444;font-weight:bold;padding:10px 0">47</p>
+<p style="text-align:center;color:#ff6666;font-size:16px">高危漏洞</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 扫描报告</div>
+校园网安全评估完成。<br>
+高危漏洞：47个 | 中危漏洞：128个 | 低危漏洞：312个<br>
+风险等级：极高<br>
+<div class="snark">坦白说，这个结果并不意外。2001年中国大部分机构的网络安全约等于"把门关上就行了"。</div>
+</div></div></div>
+
+<div class="panel"><img src="images/p25.jpg" loading="lazy">
+<div class="text"><p class="narration">苏雨晴看到报告的时候脸色大变。</p>
+<div class="dialogue"><span class="speaker">苏雨晴</span>"这么多？！"</div>
+<div class="dialogue"><span class="speaker">我</span>"别担心，修复方案我也写好了。"</div>
+<p class="narration">我递过去一份详细的修复文档——47个漏洞，每个都有原因分析和修复步骤。苏雨晴翻了几页，抬头看我的眼神变了。</p>
+<div class="dialogue"><span class="speaker">苏雨晴</span>"你……真的是大一新生？"</div>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 商业决策评估</div>
+策略：免费获客 + 积累案例 + 获得权威背书。<br>经验值 +100。距离Level 2还差120点。<br>
+<div class="snark">聪明。不过你这种"免费帮忙但索要推荐信"的操作，在商业上有个名字——叫"loss leader strategy"。你确定你是18岁？</div>
+</div></div></div>
+
+<div class="scene-break">深夜·机房·意外发现</div>
+
+<div class="panel"><img src="images/p26.jpg" loading="lazy">
+<div class="text"><p class="narration">扫描校园网的过程中，我发现了一个不该出现的东西。</p>
+<p class="narration">某台服务器上有大量加密流量——不是正常的学术数据，而是指向校外一个商业网站的自动化数据请求。有人在用学校的服务器……做违法的事。</p>
+<p class="thought">盗取用户数据。</p></div></div>
+
+<div class="panel"><img src="images/p27.jpg" loading="lazy">
+<div class="text">
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 异常流量分析完成</div>
+来源：计算机系实验室 服务器#7<br>
+目标：某电商网站用户数据库<br>
+行为：自动化数据窃取（爬虫 + SQL注入）<br>
+操作者：[数据不足，无法确定]<br>
+风险评估：如果被发现，整个计算机系都会受到牵连<br>
+</div>
+
+<div class="decision-box">
+<div class="dtitle">决策点 3 — 校园网数据窃取事件</div>
+<div class="option not-chosen">A. 直接向赵教授报告 — 正规渠道，但可能打草惊蛇</div>
+<div class="option chosen">B. 先自己追查，掌握确凿证据再行动 — 黑客方式</div>
+<div class="option not-chosen">C. 匿名切断连接，保护校园网但不追究 — 最小干预</div>
+<div class="reason">我需要知道完整的真相才会行动。"先拆开看结构"是我的本能——掌握证据后再出手，一击必中。</div>
+</div></div></div>
+
+<div class="panel"><img src="images/p28.jpg" loading="lazy">
+<div class="text"><p class="narration">我决定追查。指尖在键盘上飞舞，系统辅助下，我顺着加密流量的痕迹往上追溯……一层一层剥开伪装……VPN跳板、加密隧道、伪造的IP地址——</p>
+<p class="narration">最终，真实的源头IP地址浮出水面。</p>
+<p class="narration">指向——赵教授实验室的VPN。</p>
+<p class="thought">不是赵教授本人。教授不会做这种事。但他实验室里的某个研究生……</p>
+
+<div class="level-up">
+<div class="lvl">LEVEL UP → LEVEL 2</div>
+<div class="desc">新能力解锁：商业洞察<br>对任何互联网产品/公司，可查看"未来潜力指数"</div>
+</div>
+<div class="sys-msg">
+<div class="tag">[Hack.OS] 升级提示</div>
+恭喜，你触发了隐藏事件。经验值 +120。<br>
+Level 2 解锁。商业洞察能力已激活。<br>
+<div class="snark">另外……关于你刚才发现的东西。我建议你看一眼窗外。</div>
+</div></div></div>
+
+<div class="panel"><img src="images/p29.jpg" loading="lazy">
+<div class="text"><p class="narration">我转头看向机房的窗户。</p>
+<p class="narration">走廊上，一个穿灰色卫衣的高个子男生正匆匆走过——朝着服务器机房的方向。他的兜帽罩住了大半张脸，步伐很快，不想被人注意到。</p>
+<p class="narration">但我捕捉到了一个细节——</p></div></div>
+
+<div class="panel"><img src="images/p30.jpg" loading="lazy">
+<div class="text"><p class="narration">他手里拿着一个U盘。黑色的。很小。</p>
+<p class="thought">和校园网里那个加密密钥的生成器……完全同款。</p>
+<p class="narration">我的手悬在键盘上方，绿色的系统界面在屏幕上静静闪烁。</p>
+<div class="sys-msg">
+<div class="tag">[Hack.OS]</div>
+检测到潜在威胁接近物理服务器。<br>
+建议行动：[CLASSIFIED — 需要你自己判断]<br>
+<div class="snark">你有大约十五分钟的决策时间。用好它。</div>
+</div></div></div>
+
+<div class="cliffhanger">
+灰色卫衣男是谁？<br>
+赵教授的实验室里藏着什么秘密？<br>
+Level 2的"商业洞察"会揭示什么？<br>
+而学姐苏雨晴……她到底知不知情？<br><br>
+<span style="color:#00ff66;font-family:'Courier New',monospace;font-size:0.8em">> CHAPTER 2: LOADING...</span>
+</div>
+
+<div class="tbc">—— 未完待续 ——</div>
+</div>
+
+<script>
+const ps=document.querySelectorAll('.panel');
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:0.1});
+ps.forEach(p=>io.observe(p));
+const hint=document.querySelector('.scroll-hint');
+if(hint){window.addEventListener('scroll',()=>{if(window.scrollY>200)hint.style.opacity='0'},{ once:true })}
+</script>
+</body>
+</html>
