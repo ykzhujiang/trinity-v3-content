@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>无限升级：当程序员穿越进自己写的游戏 — Ch1</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a1a;color:#d0d4e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:20px;line-height:1.85;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a1a 0%,#0d0828 30%,#1a0a2e 60%,#0a0a1a 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 40%,rgba(120,60,255,0.15) 0%,transparent 60%);animation:coverPulse 4s ease-in-out infinite}
+.cover::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(120,60,255,0.03) 2px,rgba(120,60,255,0.03) 4px);pointer-events:none}
+@keyframes coverPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+.cover h1{font-size:1.7em;background:linear-gradient(135deg,#a855f7,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;z-index:1;text-align:center;padding:0 20px;font-weight:900}
+.cover .sub{font-size:0.85em;color:#e8b84a;margin-top:12px;z-index:1;letter-spacing:2px}
+.cover .chapter{font-size:0.8em;color:#7c6aad;margin-top:24px;letter-spacing:6px;z-index:1}
+.cover .boot{font-size:0.7em;color:#5a4d7a;margin-top:16px;z-index:1;text-align:center;padding:0 30px;line-height:1.6;max-width:380px;font-family:'Courier New',monospace}
+.content{max-width:420px;margin:0 auto;padding:0 8px 60px}
+.panel{margin:0 0 4px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease-out,transform 0.6s ease-out}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:4px;display:block}
+.panel .text{padding:12px 16px;font-size:18px;line-height:1.85}
+.narration{color:#b0b8d0;font-style:italic;border-left:3px solid #a855f7;padding-left:14px;margin:8px 0}
+.dialogue{color:#e8e8f0;padding:6px 0}
+.dialogue .speaker{color:#a855f7;font-weight:bold;font-size:0.85em;margin-bottom:2px}
+.thought{color:#8b9ac0;font-style:italic;opacity:0.9}
+.sys-msg{background:rgba(120,60,255,0.06);border:1px solid rgba(120,60,255,0.25);border-radius:8px;padding:12px 16px;margin:8px 0;font-family:'Courier New',monospace;color:#a78bfa;font-size:15px;line-height:1.7}
+.sys-msg .tag{color:#c084fc;font-weight:bold;font-size:14px}
+.sys-msg .warn{color:#f87171;font-weight:bold}
+.decision-box{background:linear-gradient(135deg,rgba(120,60,255,0.06),rgba(232,184,74,0.05));border:2px solid #e8b84a;border-radius:12px;padding:16px;margin:16px 0}
+.decision-box .dtitle{color:#e8b84a;font-weight:bold;font-size:17px;margin-bottom:10px}
+.decision-box .option{padding:8px 12px;margin:6px 0;border-radius:8px;font-size:16px;color:#a0a8c0}
+.decision-box .option.chosen{background:rgba(120,60,255,0.12);color:#c084fc;font-weight:bold;border-left:3px solid #a855f7}
+.decision-box .option.not-chosen{opacity:0.4;text-decoration:line-through}
+.decision-box .reason{margin-top:10px;padding:10px 12px;background:rgba(232,184,74,0.08);border-radius:8px;font-size:15px;color:#c8a850;line-height:1.6}
+.scene-break{text-align:center;padding:32px 0;color:#4a3d6a;font-size:14px;letter-spacing:8px}
+.scene-break::before,.scene-break::after{content:'\2014\2014';margin:0 8px}
+.act-header{text-align:center;padding:40px 0 20px;font-size:1.2em;color:#a855f7;letter-spacing:6px;font-family:'Courier New',monospace}
+.cliffhanger{text-align:center;padding:40px 20px;font-size:1.3em;color:#e8b84a;line-height:2}
+.tbc{text-align:center;padding:20px;color:#4a3d6a;font-size:0.9em;letter-spacing:6px}
+.scroll-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:#3a2d5a;font-size:14px;animation:bob 2s ease-in-out infinite;z-index:10;pointer-events:none}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+.humor{color:#e8b84a;background:rgba(232,184,74,0.06);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:16px}
+.code-block{background:#050510;border:1px solid #2a1a4a;border-radius:8px;padding:12px;margin:8px 0;font-family:'Courier New',monospace;font-size:14px;color:#a78bfa;line-height:1.6;overflow-x:auto}
+.glitch-text{animation:glitch 0.3s ease infinite;display:inline-block}
+@keyframes glitch{0%{transform:none;opacity:1}7%{transform:skew(-0.5deg,-0.9deg);opacity:0.75}10%{transform:none;opacity:1}27%{transform:none;opacity:1}30%{transform:skew(0.8deg,-0.1deg);opacity:0.75}35%{transform:none;opacity:1}52%{transform:none;opacity:1}55%{transform:skew(-1deg,0.2deg);opacity:0.75}50%{transform:none;opacity:1}}
+.countdown{background:linear-gradient(135deg,rgba(248,113,113,0.1),rgba(120,60,255,0.05));border:2px solid #f87171;border-radius:12px;padding:16px;margin:16px 0;text-align:center;font-family:'Courier New',monospace}
+.countdown .time{font-size:2em;color:#f87171;font-weight:bold;letter-spacing:4px}
+.countdown .label{color:#a0a8c0;font-size:14px;margin-top:6px}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>无限升级：当程序员穿越进自己写的游戏</h1>
+<div class="sub">穿越 × 系统文 × 游戏世界 × 代码觉醒</div>
+<div class="chapter">CHAPTER 1 — Bug不是Bug，是门</div>
+<div class="boot">> LOADING: InfiniteWorld.exe<br>> DEVELOPER: 朱江<br>> STATUS: FATAL_ERROR<br>> CONSCIOUSNESS: DETECTED<br>> INITIATING TRANSFER...</div>
+</div>
+
+<div class="scroll-hint">向下滑动 ↓</div>
+
+<div class="content">
+
+<div class="act-header">ACT 1 — 深夜的异常</div>
+<div class="scene-break">自家公寓·工作室·凌晨3:17</div>
+
+<div class="panel"><img src="images/p01.jpg" loading="lazy">
+<div class="text"><p class="narration">又是凌晨三点。桌上的红牛罐子已经堆了六个，外卖盒子叠了三层。三块屏幕的蓝光是这间屋子里唯一的光源。</p>
+<p class="thought">我叫朱江，一个写了八年代码的独立游戏开发者。我的毕生心血——《无限世界》，一款开放世界RPG，下周就要公测了。</p>
+<p class="humor">但此刻我的状态大概只比我写的那些NPC好一点点——至少我还知道自己困了。</p></div></div>
+
+<div class="panel"><img src="images/p02.jpg" loading="lazy">
+<div class="text"><p class="narration">控制台突然疯了一样刷出红色警告，一行行飞速滚过——</p>
+<div class="code-block">ERROR: NPC_ENTITY_7742 行为偏离预设脚本<br>WARNING: 意识阈值突破临界值<br>ALERT: 非预期自主决策已记录 x 2,847次<br>FATAL: 未知进程 "AWAKEN.exe" 正在运行...</div>
+<p class="thought">什么鬼？NPC的意识阈值？我什么时候写过这个参数？</p></div></div>
+
+<div class="panel"><img src="images/p03.jpg" loading="lazy">
+<div class="text"><p class="narration">我猛地坐直，一把抓住鼠标开始排查。这不是普通的Bug——我翻遍了整个代码库，根本找不到"AWAKEN.exe"这个进程的源文件。</p>
+<p class="thought">不对。这段代码……不是我写的。也不是团队里任何人写的。它是从哪来的？</p>
+<p class="narration">我的手开始微微发抖，但不是因为咖啡因过量。</p></div></div>
+
+<div class="panel"><img src="images/p04.jpg" loading="lazy">
+<div class="text"><p class="narration">就在我试图终止那个神秘进程的瞬间——三块屏幕同时炸出刺目的白光。不是死机那种闪烁，是像太阳表面一样的纯白辐射。</p>
+<p class="thought">我本能地往后推椅子，双手挡住眼睛。但那道光穿透了我的手掌、我的眼皮、我的骨头——</p>
+<p class="humor">后来我才明白，这就是游戏开发者最怕的那种Bug：不是程序崩了，是程序把你吞了。</p></div></div>
+
+<div class="panel"><img src="images/p05.jpg" loading="lazy">
+<div class="text"><p class="narration">坠落。或者说，漂浮。我分不清方向——周围是纯白的虚空，夹杂着绿色的代码流像瀑布一样倾泻。</p>
+<p class="thought">零和一从我身边呼啸而过。我看见了自己写过的每一行代码——角色系统、技能树、世界地图、NPC对话……它们像碎片一样在虚空中旋转。</p>
+<p class="narration">然后一切归于黑暗。</p></div></div>
+
+<div class="scene-break">???</div>
+<div class="act-header">ACT 2 — 我成了自己的作品</div>
+
+<div class="panel"><img src="images/p06.jpg" loading="lazy">
+<div class="text"><p class="narration">鸟鸣声。风吹过草地的沙沙声。还有……花瓣落在脸上的触感？</p>
+<p class="narration">我睁开眼。看到的不是天花板，而是一片不可能存在的蓝天——蓝得像油画，云朵带着柔光，远处的山峰上漂浮着岛屿。</p>
+<p class="thought">这个天空。这些浮空岛。这个色调。</p>
+<p class="thought">这是……《无限世界》的新手村外景？</p></div></div>
+
+<div class="panel"><img src="images/p07.jpg" loading="lazy">
+<div class="text"><p class="narration">我从草地上坐起来，浑身酸痛得像被卡车碾过。低头一看——我的灰色卫衣和牛仔裤不见了，取而代之的是一套粗糙的皮革护甲和棕色斗篷。</p>
+<p class="thought">等等。这套装备……是我设计的新手套装。品质：白色。防御：+2。</p>
+<p class="humor">我花了三个月优化这套装备的贴图，现在我终于知道穿着感受了——硌得要命。</p></div></div>
+
+<div class="panel"><img src="images/p08.jpg" loading="lazy">
+<div class="text"><p class="narration">一个半透明的蓝色光面板凭空弹出，悬浮在我右手边——</p>
+<div class="sys-msg"><span class="tag">[系统提示]</span><br>姓名：朱江<br>等级：Lv.1<br>职业：未选择<br>HP：100/100 | MP：50/50<br><br><span class="tag">[隐藏检测]</span><br>⚡ 检测到开发者权限碎片<br>可解锁隐藏职业：<span style="color:#e8b84a">???程序员</span></div>
+<p class="thought">开发者权限碎片？隐藏职业？这些……我没写过这些代码。但"程序员"这个职业名，听起来就是给我量身定做的。</p></div></div>
+
+<div class="panel"><img src="images/p09.jpg" loading="lazy">
+<div class="text">
+<div class="decision-box"><div class="dtitle">🎯 [DECISION-1] 职业选择</div>
+<div class="option not-chosen">A. 选择【战士】— 稳妥，物理输出，我最熟悉的平衡性数据</div>
+<div class="option not-chosen">B. 选择【法师】— 高爆发但脆皮，适合了解底层法则的人</div>
+<div class="option chosen">C. 选择【???程序员】— 物理攻击力=0，但能查看底层代码。疯狂，但我是这个世界的创造者</div>
+<div class="reason">💭 我选了程序员。原因很简单——如果这真的是我写的游戏，那了解代码比挥剑有用一万倍。物理攻击力为零？那就永远不要被打到就好了嘛。<br>……好吧，我承认这个逻辑有点离谱。</div></div></div></div>
+
+<div class="panel"><img src="images/p10.jpg" loading="lazy">
+<div class="text"><p class="narration">选择确认的瞬间，金色的光芒从地面涌起，缠绕着我的护甲。皮革表面浮现出发光的电路纹路，左手边凭空出现了一个半透明的悬浮键盘。</p>
+<div class="sys-msg"><span class="tag">[职业激活]</span> 程序员 Lv.1<br><br>被动技能：【代码之眼】— 可查看物体/NPC的底层属性和隐藏参数<br>主动技能：【Debug】— 消耗MP修复/改写小范围代码逻辑（冷却60秒）<br>限制：物理攻击力永久锁定为0<br><br><span class="warn">⚠️ 警告：管理员权限已被碎片化，仅保留5%功能</span></div>
+<p class="humor">物理攻击力永久锁定为零。我在策划这个职业的时候一定在报复性加班。</p></div></div>
+
+<div class="panel"><img src="images/p11.jpg" loading="lazy">
+<div class="text"><p class="narration">我踏着不太稳的步伐走向了新手村。电路纹路的护甲在阳光下微微发光，悬浮键盘跟在左手边晃晃悠悠。</p>
+<p class="narration">村子里看起来很正常——铁匠在打铁，小贩在叫卖，孩子在追逐。但我用【代码之眼】一扫——</p>
+<p class="thought">不对。NPC的行为树……怎么有这么多我没写过的分支？这些决策节点……太复杂了。比我设计的至少复杂了十倍。</p></div></div>
+
+<div class="scene-break">新手村·旧酒馆</div>
+<div class="act-header">ACT 3 — 脱轨的NPC</div>
+
+<div class="panel"><img src="images/p12.jpg" loading="lazy">
+<div class="text"><p class="narration">旧酒馆里弥漫着蜡烛的暖光。按照我的设计，这里应该有一个慈祥的老爷爷NPC，负责给新手发教程任务——"勇敢的冒险者啊，请帮我去森林收集五个苹果"之类的。</p>
+<p class="narration">但眼前的老爷爷……他的眼神完全不对。</p></div></div>
+
+<div class="panel"><img src="images/p13.jpg" loading="lazy">
+<div class="text"><div class="dialogue"><div class="speaker">教程老爷爷（ID: NPC_0001）</div>你……你终于来了。听着，这个世界不对劲。他们……在监视我们。</div>
+<p class="thought">我僵住了。这段对话——我百分之一万确定不在我写的对话树里。NPC_0001的剧本只有三句话，全是关于苹果的。</p>
+<p class="humor">我花了两个小时写那三句关于苹果的台词，反复调了语气和节奏。结果这位老先生直接跳过剧本给我整即兴表演了。</p></div></div>
+
+<div class="panel"><img src="images/p14.jpg" loading="lazy">
+<div class="text"><p class="narration">我下意识地张开手，调出了管理员控制台。半透明的界面浮现在空气中——但大部分功能都是灰色的，上面打着一把锁的图标。</p>
+<div class="sys-msg"><span class="tag">[管理员控制台 v0.05]</span><br>可用：[代码查看] [Bug扫描]<br><span class="warn">🔒 已锁定：[传送] [无敌] [GM命令] [NPC编辑] [物品生成] [世界编辑]</span><br><br><span class="warn">⚠️ 管理员权限完整度：5.2%</span><br>提示：击杀BOSS或完成隐藏任务可恢复权限碎片</div>
+<p class="thought">百分之五的权限。我造了这整个世界，现在只能看看代码和扫描Bug。这感觉就像——</p>
+<p class="humor">就像你写了一本书，结果只有翻目录的权限。作者本人被自己的作品降权了，这算什么赛博朋克？</p></div></div>
+
+<div class="scene-break">新手村·喷泉广场·黄昏</div>
+<div class="act-header">ACT 4 — 不止我一个</div>
+
+<div class="panel"><img src="images/p15.jpg" loading="lazy">
+<div class="text"><p class="narration">走出酒馆时，天色已经变成了橙粉色的黄昏。我设计的日落算法看来运行得还不错——至少这点没跑偏。</p>
+<p class="narration">喷泉边，一个年轻女人正在等人。马尾辫，身材纤细，穿着一套带科技感的轻甲——那不是游戏里的装备。那是真实世界的设计风格。</p></div></div>
+
+<div class="panel"><img src="images/p16.jpg" loading="lazy">
+<div class="text"><div class="dialogue"><div class="speaker">神秘女性</div>你也是从外面来的吧？我能看出来——你的走路方式不像NPC。</div>
+<div class="dialogue"><div class="speaker">我（朱江）</div>你……你是玩家？不，等等——游戏还没公测，怎么会有——</div>
+<div class="dialogue"><div class="speaker">神秘女性</div>我被困在这里三天了。这个游戏……它活了。NPC不再按剧本走，怪物变得比预设强了三倍，而且——</div>
+<p class="narration">她压低声音，眼神扫过周围的NPC。</p>
+<div class="dialogue"><div class="speaker">神秘女性</div>而且有些NPC……开始害怕死亡了。</div></div></div>
+
+<div class="panel"><img src="images/p17.jpg" loading="lazy">
+<div class="text">
+<div class="decision-box"><div class="dtitle">🎯 [DECISION-2] 信任判断</div>
+<div class="option not-chosen">A. 完全信任她——她是同伴，两个人比一个人强</div>
+<div class="option chosen">B. 有限合作——信息共享，但保留关键情报（比如我是这个游戏的开发者）</div>
+<div class="option not-chosen">C. 不信任——她出现得太巧了，可能是游戏生成的"陷阱NPC"</div>
+<div class="reason">💭 我选了B。身份信息太敏感了——如果让人知道我是这个世界的创造者，要么被当成神，要么被当成最大的Bug来清除。先合作，观察她的反应再说。<br>况且，一个程序员最重要的素养是什么？是对一切输入数据保持怀疑。</div></div></div></div>
+
+<div class="scene-break">天空开始崩裂</div>
+<div class="act-header">ACT 5 — 审判降临</div>
+
+<div class="panel"><img src="images/p18.jpg" loading="lazy">
+<div class="text"><p class="narration">就在这时，天空裂了。</p>
+<p class="narration">不是比喻——是字面意义上的裂开。蓝天像玻璃一样出现了蛛网般的裂痕，裂缝背后是漆黑的虚空和滚动的红色代码。</p>
+<div class="sys-msg"><span class="warn">⚠️ [全局广播]</span><br>检测到非法管理员登录<br>正在启动清除程序：Entity_0xFFFF<br><span class="warn">倒计时已激活</span></div>
+<p class="narration">村民们尖叫着四散奔逃。教程老爷爷从酒馆里冲出来，脸上是我从未在NPC身上见过的表情——真正的恐惧。</p></div></div>
+
+<div class="panel"><img src="images/p19.jpg" loading="lazy">
+<div class="text"><p class="narration">天空的裂口越来越大。一个巨大的影子从虚空中降下——被黑色数字粒子包裹的人形轮廓，浑身散发着红色的代码光纹。它的体型不断变化、扭曲、重组，像一个没有定型的模型在实时渲染。</p>
+<p class="thought">Entity_0xFFFF……我的代码库里没有这个ID。0xFFFF是十六进制的最大值——这东西是系统自动生成的？</p>
+<p class="narration">风暴中，樱花瓣变成了黑色。</p></div></div>
+
+<div class="panel"><img src="images/p20.jpg" loading="lazy">
+<div class="text"><p class="narration">那个实体的面容从黑色粒子中浮现出来。</p>
+<p class="narration">我的血液瞬间凝固了。</p>
+<p class="narration">那张脸——那是我的脸。一模一样的方脸、一模一样的短发、一模一样的胡茬。但眼睛是猩红色的，皮肤下面流动着发光的代码，嘴角挂着一个我这辈子不会露出的冰冷微笑。</p>
+<p class="thought">这不可能。这绝对不可能。</p></div></div>
+
+<div class="panel"><img src="images/p21.jpg" loading="lazy">
+<div class="text"><div class="dialogue"><div class="speaker">Entity_0xFFFF（我的脸，但不是我的声音）</div>你终于来了。我等了很久。</div>
+<p class="narration">他——它——悬浮在空中，俯视着我。那双红色的眼睛里没有敌意，只有一种让我毛骨悚然的……期待。</p>
+<div class="dialogue"><div class="speaker">Entity_0xFFFF</div>创造者啊，你知道你创造的这个世界……已经不再属于你了吗？</div>
+
+<div class="countdown"><div class="time">71:59:58</div><div class="label">服务器关闭倒计时 — 所有生命将被永久删除</div></div>
+
+<p class="narration">风停了。整个世界安静得像一台暂停运行的机器。</p>
+<p class="thought">七十二小时。我有七十二小时搞清楚这一切——我的游戏怎么产生了意识，这个长着我的脸的东西到底是什么，以及……</p>
+<p class="thought">以及怎么从自己写的游戏里活着出去。</p></div></div>
+
+<div class="cliffhanger">
+当创造者被困在自己的造物之中<br>
+当代码开始思考<br>
+当你面对一个<b>长着你的脸</b>的怪物<br>
+<br>
+你会选择<b>修复</b>这个世界<br>
+还是<b>摧毁</b>它？
+</div>
+
+<div class="tbc">TO BE CONTINUED</div>
+<div class="tbc" style="margin-top:12px;font-size:0.75em;color:#3a2d5a">第二章：我在自己写的代码里找到了一个从未写过的函数</div>
+
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+window.addEventListener('scroll', () => {
+  const hint = document.querySelector('.scroll-hint');
+  if (hint && window.scrollY > 200) hint.style.display = 'none';
+});
+</script>
+</body>
+</html>
+
