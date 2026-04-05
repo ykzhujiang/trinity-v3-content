@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>重生2014·代码改命 — 第一章「回到梦开始的地方」</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a0a;
+  color: #e8e8e8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Title */
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,255,100,0.03) 2px,
+    rgba(0,255,100,0.03) 4px
+  );
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+}
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100px); }
+}
+.title-main {
+  font-size: 36px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00ff88, #00aaff, #ff6600);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  letter-spacing: 4px;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+.title-sub {
+  font-size: 20px;
+  color: #888;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+.title-chapter {
+  font-size: 24px;
+  color: #00ff88;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  font-size: 14px;
+  color: #555;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Panels */
+.panel-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 0 60px;
+}
+.panel {
+  margin: 0 0 2px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 16px 20px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #ccc;
+}
+.panel-text .narration {
+  color: #888;
+  font-style: italic;
+  font-size: 16px;
+}
+.panel-text .dialogue {
+  color: #fff;
+  font-weight: 600;
+}
+.panel-text .inner {
+  color: #00dd77;
+  font-style: italic;
+}
+.panel-text .humor {
+  color: #ffaa00;
+}
+
+/* Decision points */
+.decision-panel {
+  background: linear-gradient(180deg, rgba(0,255,136,0.05), rgba(0,0,0,0));
+  border-left: 3px solid #00ff88;
+  margin: 20px 0;
+  padding: 20px;
+}
+.decision-label {
+  font-size: 12px;
+  color: #00ff88;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.decision-text {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #e0e0e0;
+}
+
+/* Section dividers */
+.section-divider {
+  text-align: center;
+  padding: 40px 20px;
+  color: #444;
+  font-size: 14px;
+  letter-spacing: 6px;
+}
+.section-divider .line {
+  width: 60px;
+  height: 1px;
+  background: #333;
+  margin: 12px auto;
+}
+
+/* Ending */
+.ending {
+  text-align: center;
+  padding: 60px 20px 100px;
+}
+.ending .next-hint {
+  color: #666;
+  font-size: 16px;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="title-screen">
+  <div class="title-main">重生2014·代码改命</div>
+  <div class="title-sub">V5 · 朱江走进故事世界</div>
+  <div class="title-chapter">第一章「回到梦开始的地方」</div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读 ↓</div>
+</div>
+
+<div class="panel-container">
+
+  <!-- ===== 2026: 猝死边缘 ===== -->
+  <div class="section-divider"><div class="line"></div>2026年 · 深夜 03:47<div class="line"></div></div>
+
+  <div class="panel">
+    <img src="panel01.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">2026年，某互联网公司。凌晨三点四十七分。</span><br>
+      <span class="inner">第四杯咖啡了...这段代码怎么也跑不通......</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel02.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">屏幕上的代码开始模糊。系统时钟冷冰冰地显示着 03:47。</span><br>
+      <span class="inner">眼前一黑...不对...心脏...</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel03.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="inner">心脏好像被人攥住了......不是吧，我才三十出头......</span><br>
+      <span class="narration">胸口剧痛，冷汗瞬间浸透了后背。手指已经无法控制。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel04.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">意识像潮水一样退去。最后看到的，是屏幕上跳动的光标。</span>
+    </div>
+  </div>
+
+  <!-- ===== 重生：2014 ===== -->
+  <div class="section-divider"><div class="line"></div>· · ·<div class="line"></div></div>
+
+  <div class="panel">
+    <img src="panel05.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">叮叮叮叮——</span><br>
+      <span class="inner">......什么声音？闹钟？</span><br>
+      <span class="narration">一个廉价的手机铃声把我从黑暗中拽了出来。屏幕上赫然写着：<strong>2014年7月15日</strong>。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel06.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="inner">我...还活着？！</span><br>
+      <span class="narration">猛地坐起来。窄小的单人床，廉价的木质家具，对面床上还有人在呼呼大睡——</span><br>
+      <span class="inner">等等...这不是我2014年住的合租屋吗？？</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel07.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="inner">小米3？？这手机是...2014年的旗舰机？</span><br>
+      <span class="humor">1GB内存就敢叫旗舰......我真的回来了。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel08.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">我跌跌撞撞走进洗手间，看着镜子里的自己——</span><br>
+      <span class="inner">年轻了...至少十岁。但这络腮胡还是一样浓密。</span><br>
+      <span class="narration">镜中的脸，确实是年轻时的自己。皮肤更紧致，眼神更清亮。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel09.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">颤抖着打开新闻。每一条都在确认一个疯狂的事实——</span><br>
+      <span class="inner">阿里巴巴计划赴美上市...世界杯巴西vs德国...小米发布小米4...</span><br>
+      <span class="inner">全是2014年的新闻...这不可能......这不可能。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel10.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">站在合租屋的窗前，望着2014年的深圳南山区——楼还没那么多，到处都是工地和塔吊。</span><br>
+      <span class="inner">如果这是真的...我知道未来12年会发生的每一件事。每一个风口。每一次巨变。AI、短视频、直播、新能源、大模型......全在我脑子里。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel11.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="dialogue">"大早上的你发什么呆？赶紧起来上班！"</span><br>
+      <span class="narration">对面床上的老赵打着哈欠坐了起来。瘦高个，黑框眼镜，头发乱成鸡窝。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel12.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="inner">老赵...他还这么年轻...2026年他都秃了一半了......</span><br>
+      <span class="dialogue">"老赵...你还这么年轻......"</span><br>
+      <span class="dialogue">"？？？你没睡醒吧？走了走了，迟到扣钱的。"</span>
+    </div>
+  </div>
+
+  <!-- ===== DECISION 1 ===== -->
+  <div class="section-divider"><div class="line"></div>公司 · 早上<div class="line"></div></div>
+
+  <div class="panel">
+    <img src="panel13.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">坐在公司工位上，打开我2014年写的项目代码——</span><br>
+      <span class="humor">这写的什么垃圾......等等，这是我自己写的？？前世的我这代码水平也太拉了......</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel14.webp" loading="lazy" alt="">
+  </div>
+
+  <div class="decision-panel">
+    <div class="decision-label">◆ 决策点 1</div>
+    <div class="decision-text">
+      继续按部就班上班？还是立刻辞职去做自己的项目？<br><br>
+      <span class="inner">不急。先用两周确认"重生"是真实的，同时暗中准备。冲动是小孩才干的事。菩萨心肠，霹雳手段——先看清局面，再一击必杀。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel15.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="inner">表面上，我还是那个普通的后端程序员。但从这一刻起，每一行代码、每一个决定，都将完全不同。</span>
+    </div>
+  </div>
+
+  <!-- ===== 暗中准备 ===== -->
+  <div class="section-divider"><div class="line"></div>白天上班，深夜磨剑<div class="line"></div></div>
+
+  <div class="panel">
+    <img src="panel16.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">白天正常上班，晚上回到合租屋就变了一个人。</span><br>
+      <span class="inner">用2026年的架构思维写2014年的项目...这叫什么？降维打击。</span><br>
+      <span class="narration">手指在键盘上飞舞。微服务、容器化、事件驱动......这些2014年还没流行的概念，被我一行行刻进代码里。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel17.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="dialogue">"你最近吃了什么药？这代码风格完全变了！"</span><br>
+      <span class="narration">老赵看着我提交的代码，眼镜差点掉下来。</span><br>
+      <span class="dialogue">"可能...最近看了几本好书吧。"</span><br>
+      <span class="humor">（好书？是未来12年的行业经验谢谢。）</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel18.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">每天深夜，在备忘录里默默记录未来12年的关键节点——</span><br>
+      <span class="inner">快手爆发、阿里上市、短视频风口、头条崛起、比特币暴涨、新冠疫情、ChatGPT横空出世......这些，全在我脑子里。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel19.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">躲在厕所隔间里，用5000块积蓄买入了一只我知道即将暴涨的股票。</span><br>
+      <span class="inner">先小额试水...验证记忆是不是真的。如果这只股票涨了，一切就确认了。</span>
+    </div>
+  </div>
+
+  <!-- ===== 搞笑：同事讨论 ===== -->
+  <div class="panel">
+    <img src="panel20.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="dialogue">"iPhone 6会不会大卖？听说屏幕变大了！"</span><br>
+      <span class="dialogue">"苹果肯定完了，三星太强了！"</span><br>
+      <span class="humor">我嘴角微微上扬，差点没绷住。你们根本不知道接下来会发生什么...</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel21.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="dialogue">"你听说微信支付了吗？以后可能不用带钱包了！"</span><br>
+      <span class="narration">老赵午饭时兴奋地给我安利。我差点把面条喷出来。</span><br>
+      <span class="humor">哈哈哈哈...兄弟你不知道，以后你连现金都找不到地方花。连路边烤红薯的大妈都用二维码收款......</span>
+    </div>
+  </div>
+
+  <!-- ===== DECISION 2 ===== -->
+  <div class="section-divider"><div class="line"></div>会议室 · 一个不起眼的需求<div class="line"></div></div>
+
+  <div class="panel">
+    <img src="panel22.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">林姐把我们叫进会议室。白板上写着：「客户需求：智能聊天机器人」。</span><br>
+      <span class="narration">2014年，这只是一个不起眼的小需求。但我的心跳突然加速——</span><br>
+      <span class="inner">聊天机器人...2014年...这就是AI的起点。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel23.webp" loading="lazy" alt="">
+  </div>
+
+  <div class="decision-panel">
+    <div class="decision-label">◆ 决策点 2</div>
+    <div class="decision-text">
+      按客户要求做个简单chatbot交差？还是偷偷在底层架构中埋下深度学习的种子？<br><br>
+      <span class="inner">埋种子。天然好奇系统怎么运作——这是骨子里的黑客基因。在不影响交付的前提下，底层用上未来的架构设计。</span><br>
+      <span class="inner">表面波澜不惊，底下暗流涌动。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel24.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">深夜。所有人都睡了。我一个人对着笔记本电脑，把2026年的AI架构思想，一点一点揉进2014年的chatbot项目里。</span><br>
+      <span class="inner">林姐看到的是一个普通的聊天机器人。但底层的数据管道、模型接口、特征工程框架......这些种子，会在未来长成参天大树。</span>
+    </div>
+  </div>
+
+  <!-- ===== 验证成功 ===== -->
+  <div class="section-divider"><div class="line"></div>记忆验证 · 命运确认<div class="line"></div></div>
+
+  <div class="panel">
+    <img src="panel25.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">一周后。厕所隔间。颤抖着打开股票App——</span><br>
+      <span class="inner">5000变23000......记忆是真的。一切都是真的。</span><br>
+      <span class="narration">手机差点掉进马桶里。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel26.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">下班后，我一个人坐在空旷的办公室里，仰头望着天花板。</span><br>
+      <span class="inner">不是要赚快钱。区区两万三算什么？我要的，是在AI时代到来之前，建好自己的城堡。一个别人连想象都想象不到的城堡。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel27.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">辞职信写好了，存在邮箱草稿里。</span><br>
+      <span class="inner">时机未到。再等等。但这封信——一定会发出去的。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel28.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">站在深圳的夜色里，望着南山区还没那么多高楼的天际线。2014年的风，吹过还没被玻璃幕墙挡住的脸。</span><br>
+      <span class="inner">这一次，我不会再错过任何一个风口。</span>
+    </div>
+  </div>
+
+  <!-- ===== DECISION 3 ===== -->
+  <div class="section-divider"><div class="line"></div>兄弟 vs 命运<div class="line"></div></div>
+
+  <div class="panel">
+    <img src="panel29.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="dialogue">"周末去网吧开黑！CF还是LOL？"</span><br>
+      <span class="narration">老赵兴冲冲地拽住我的胳膊。而我的手机里，刚收到一个行业聚会的邀请——</span><br>
+      <span class="inner">那个聚会上，有几个我知道未来会成为独角兽创始人的人......</span>
+    </div>
+  </div>
+
+  <div class="decision-panel">
+    <div class="decision-label">◆ 决策点 3</div>
+    <div class="decision-text">
+      陪兄弟去网吧？还是去行业聚会提前结识未来大佬？<br><br>
+      <span class="inner">两全其美。先请老赵吃顿好的——菩萨心肠，不能为了利益冷落兄弟。但聚会也绝不能错过——霹雳手段，关键机会一个都不放过。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel30.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="dialogue">"老赵，今天我请你吃顿好的。周末有个事儿我得去办。"</span><br>
+      <span class="dialogue">"卧槽这么多菜？你发财了？"</span><br>
+      <span class="humor">（23000块的底气。谢谢未来记忆。）</span><br>
+      <span class="inner">兄弟，以后我飞黄腾达了，绝不会忘了你。</span>
+    </div>
+  </div>
+
+  <!-- ===== 命运的相遇 ===== -->
+  <div class="section-divider"><div class="line"></div>行业聚会 · 命运的交叉点<div class="line"></div></div>
+
+  <div class="panel">
+    <img src="panel31.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">2014年7月，深圳某创业咖啡馆。「互联网创业交流会」的横幅挂在门口。</span><br>
+      <span class="inner">这些人里面，有几个未来的独角兽创始人...此刻他们都还是nobody。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel32.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">我看到了一个人——</span><br>
+      <span class="narration">他正在被一群人嘲笑。说他"做短视频平台"的想法是异想天开。</span><br>
+      <span class="dialogue">"做短视频平台？谁会看？"</span><br>
+      <span class="dialogue">"有优酷和土豆了还做什么？"</span><br>
+      <span class="dialogue">"别做梦了兄弟！"</span><br>
+      <span class="narration">他看起来很沮丧，但眼神里有一种执拗。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel33.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">但我认出了他。</span><br>
+      <span class="inner">我认出了他。在2026年，他是某个估值千亿的短视频帝国的联合创始人。此刻，他还只是一个被所有人嘲笑的普通产品经理。</span><br>
+      <span class="narration">我拿起两瓶啤酒，走了过去。</span><br>
+      <span class="dialogue">"你的想法很有意思，能聊聊吗？"</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel34.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">两瓶啤酒碰在一起，清脆的声响像是命运齿轮转动的声音。</span><br>
+      <span class="inner">这次相遇，将改变一切。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel35.webp" loading="lazy" alt="">
+    <div class="panel-text">
+      <span class="narration">2014年7月，深圳。一个重生的程序员和一个被嘲笑的产品经理坐在咖啡馆角落，聊了整整一夜。</span><br>
+      <span class="narration">没有人知道，这个夜晚将催生一个改变中国互联网格局的帝国。</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <img src="panel36.webp" loading="lazy" alt="">
+  </div>
+
+  <div class="ending">
+    <div class="next-hint">下一章：「风口之上」—— 即将更新</div>
+  </div>
+
+</div>
+
+<script>
+// Intersection Observer for scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel, .decision-panel, .section-divider').forEach(el => {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
