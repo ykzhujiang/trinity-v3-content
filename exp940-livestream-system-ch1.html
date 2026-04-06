@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>带货之神·系统上线 — 第一章</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0a0c14;
+  color: #e0e0e0;
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  overflow-x: hidden;
+}
+
+/* 系统UI风格 */
+:root {
+  --sys-blue: #00d4ff;
+  --sys-green: #00ff88;
+  --sys-gold: #ffd700;
+  --sys-warn: #ff6b35;
+  --panel-bg: rgba(0, 20, 40, 0.85);
+  --glow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+/* 标题 */
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #0a0c14 0%, #0d1a2d 50%, #0a0c14 100%);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%,-50%) scale(1.3); opacity: 1; }
+}
+.title-main {
+  font-size: 2.2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--sys-blue), var(--sys-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0.5rem;
+}
+.title-sub {
+  font-size: 1.1rem;
+  color: var(--sys-blue);
+  opacity: 0.8;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+}
+.sys-init {
+  background: var(--panel-bg);
+  border: 1px solid rgba(0,212,255,0.3);
+  border-radius: 12px;
+  padding: 1.2rem;
+  width: 90%;
+  max-width: 360px;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--sys-green);
+  font-family: 'Courier New', monospace;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--glow);
+  animation: fadeIn 1s ease;
+}
+.sys-init .line { margin: 0.3rem 0; opacity: 0; animation: typeLine 0.5s forwards; }
+.sys-init .line:nth-child(1) { animation-delay: 0.5s; }
+.sys-init .line:nth-child(2) { animation-delay: 1s; }
+.sys-init .line:nth-child(3) { animation-delay: 1.5s; }
+.sys-init .line:nth-child(4) { animation-delay: 2s; color: var(--sys-gold); }
+@keyframes typeLine { to { opacity: 1; } }
+@keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  color: var(--sys-blue);
+  opacity: 0.6;
+  font-size: 0.9rem;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* 漫画面板 */
+.panel {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  border-radius: 4px;
+  display: block;
+}
+.panel-text {
+  padding: 1rem 0.8rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #d0d0d0;
+}
+.panel-text .dialogue {
+  color: #fff;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+.panel-text .inner {
+  color: #88bbdd;
+  font-style: italic;
+  margin: 0.3rem 0;
+}
+.panel-text .narration {
+  color: #999;
+  font-size: 0.95rem;
+}
+
+/* 系统面板样式 */
+.sys-panel {
+  background: var(--panel-bg);
+  border: 1px solid rgba(0,212,255,0.4);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0.8rem 0.5rem;
+  box-shadow: var(--glow);
+  font-size: 0.95rem;
+}
+.sys-panel .sys-header {
+  color: var(--sys-blue);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+.sys-panel .sys-stat { color: var(--sys-green); margin: 0.2rem 0; }
+.sys-panel .sys-warn { color: var(--sys-warn); margin: 0.3rem 0; font-style: italic; }
+.sys-panel .sys-gold { color: var(--sys-gold); font-weight: 700; }
+.sys-panel .sys-quest {
+  border-left: 3px solid var(--sys-gold);
+  padding-left: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+/* 决策框 */
+.decision-box {
+  background: rgba(255,215,0,0.08);
+  border: 2px solid var(--sys-gold);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0.5rem;
+}
+.decision-box h3 {
+  color: var(--sys-gold);
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+}
+.choice {
+  padding: 0.6rem 0.8rem;
+  margin: 0.4rem 0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.choice.not-chosen {
+  background: rgba(255,255,255,0.05);
+  color: #666;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.choice.chosen {
+  background: rgba(0,255,136,0.1);
+  color: var(--sys-green);
+  border: 1px solid var(--sys-green);
+}
+.choice .tag {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 0.3rem;
+}
+.choice.chosen .tag { background: rgba(0,255,136,0.2); color: var(--sys-green); }
+.choice.not-chosen .tag { background: rgba(255,255,255,0.05); color: #555; }
+.choice-reason {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(0,212,255,0.05);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #88bbdd;
+}
+
+/* 弹幕效果 */
+.danmaku-container {
+  background: rgba(0,0,0,0.6);
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin: 0.5rem;
+  overflow: hidden;
+}
+.danmaku {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin: 3px;
+  animation: danmakuSlide 3s ease-out;
+}
+@keyframes danmakuSlide { from { transform: translateX(100%); opacity:0; } to { transform: translateX(0); opacity:1; } }
+
+/* 成就弹窗 */
+.achievement {
+  background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05));
+  border: 2px solid var(--sys-gold);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin: 1rem 0.5rem;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255,215,0,0.2);
+}
+.achievement h3 { color: var(--sys-gold); font-size: 1.2rem; }
+.achievement p { color: #ccc; margin: 0.3rem 0; }
+
+/* 分割线 */
+.act-divider {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--sys-blue);
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+.act-divider::before, .act-divider::after {
+  content: '—— ';
+}
+
+/* 尾部 */
+.end-card {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(180deg, #0a0c14, #0d1a2d);
+}
+.end-card h2 { color: var(--sys-blue); font-size: 1.5rem; margin-bottom: 1rem; }
+.end-card p { color: #888; font-size: 0.95rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- 标题屏 -->
+<div class="title-screen">
+  <div class="title-main">带货之神</div>
+  <div class="title-sub">系统上线 · 第一章</div>
+  <div class="sys-init">
+    <div class="line">▶ 系统初始化中...</div>
+    <div class="line">▶ 扫描宿主数据... 朱江，32岁</div>
+    <div class="line">▶ 评估结果：人生低谷指数 MAX</div>
+    <div class="line">▶ 绑定完成。带货之神系统已上线。</div>
+  </div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- ACT 1: 至暗时刻 -->
+<div class="act-divider">第一幕 · 至暗时刻</div>
+
+<!-- Panel 1 -->
+<div class="panel" data-panel="1">
+  <img src="images/exp-940/p01.jpg" loading="lazy" alt="走出公司">
+  <div class="panel-text">
+    <p class="narration">中景·侧后方跟拍 | 公司大楼外·雨天</p>
+    <p class="inner">三年。说走就走。AI替代了做AI的人，这算不算黑色幽默？</p>
+    <p class="narration">我攥着那张薄薄的离职证明走出智创科技的大门。雨水顺着脸颊往下淌，分不清是雨还是什么别的。</p>
+  </div>
+</div>
+
+<!-- Panel 2 -->
+<div class="panel" data-panel="2">
+  <img src="images/exp-940/p02.jpg" loading="lazy" alt="雨中苦笑">
+  <div class="panel-text">
+    <p class="narration">特写·侧脸 | 雨中街头</p>
+    <p class="inner">三十二岁，简历上最亮眼的一行——"被自己写的AI取代"。</p>
+    <p class="narration">嘴角扯了一下，不知道算不算笑。</p>
+  </div>
+</div>
+
+<!-- Panel 3 -->
+<div class="panel" data-panel="3">
+  <img src="images/exp-940/p03.jpg" loading="lazy" alt="出租屋">
+  <div class="panel-text">
+    <p class="narration">中景 | 出租屋·夜</p>
+    <p class="narration">回到十五平米的出租屋。桌上是昨天的泡面碗，冰箱里还剩两罐啤酒。</p>
+    <p class="inner">打开电脑，不是为了找工作。只是习惯了——程序员的条件反射。</p>
+  </div>
+</div>
+
+<!-- Panel 4 -->
+<div class="panel" data-panel="4">
+  <img src="images/exp-940/p04.jpg" loading="lazy" alt="余额">
+  <div class="panel-text">
+    <p class="narration">特写 | 笔记本屏幕</p>
+    <p class="dialogue">余额：2847.33元</p>
+    <p class="inner">够付这个月房租吗？不够。够吃两周泡面吗？勉强。够重新开始吗？</p>
+    <p class="inner">……不敢想。</p>
+  </div>
+</div>
+
+<!-- Panel 5 -->
+<div class="panel" data-panel="5">
+  <img src="images/exp-940/p05.jpg" loading="lazy" alt="刷手机">
+  <div class="panel-text">
+    <p class="narration">中景 | 沙发上</p>
+    <p class="narration">瘫在沙发上刷手机，手指无意识地滑动。一条推送跳了出来——</p>
+    <p class="dialogue">"素人直播月入百万的秘密"</p>
+    <p class="inner">呵，又是这种收割焦虑的标题党。不过……月入百万啊。我连月入两千八都快保不住了。</p>
+  </div>
+</div>
+
+<!-- Panel 6 -->
+<div class="panel" data-panel="6">
+  <img src="images/exp-940/p06.jpg" loading="lazy" alt="屏幕闪烁">
+  <div class="panel-text">
+    <p class="narration">特写·正面偏侧 | 手机蓝光打脸</p>
+    <p class="narration">手机屏幕突然剧烈闪烁。蓝色数字流像瀑布一样从屏幕上倾泻而下——不，是从屏幕里涌出来。</p>
+    <p class="inner">什么……？！</p>
+  </div>
+</div>
+
+<!-- Panel 7 -->
+<div class="panel" data-panel="7">
+  <img src="images/exp-940/p07.jpg" loading="lazy" alt="系统激活">
+  <div class="panel-text">
+    <p class="narration">全景 | 出租屋内·系统全息界面</p>
+    <p class="narration">我猛地从沙发上弹起来。一块半透明的蓝色面板凭空出现在眼前，悬浮在空气中，上面的文字一行一行地跳出——</p>
+  </div>
+</div>
+
+<div class="sys-panel">
+  <div class="sys-header">🔔 系统通知</div>
+  <p class="sys-gold">【带货之神系统】已绑定宿主：朱江</p>
+  <p class="sys-stat">身份确认：前程序员 / 现无业游民</p>
+  <p class="sys-warn">"检测到宿主处于人生低谷状态……恭喜，你被选中了。不是因为你优秀，是因为你够惨。"</p>
+</div>
+
+<!-- Panel 8 -->
+<div class="panel" data-panel="8">
+  <img src="images/exp-940/p08.jpg" loading="lazy" alt="属性面板">
+  <div class="panel-text">
+    <p class="narration">特写 | 系统属性面板</p>
+    <p class="inner">我使劲揉了揉眼睛。面板还在。</p>
+  </div>
+</div>
+
+<div class="sys-panel">
+  <div class="sys-header">📊 宿主属性</div>
+  <p class="sys-stat">口才：LV1 ████░░░░░░</p>
+  <p class="sys-stat">观察力：LV2 ████████░░</p>
+  <p class="sys-stat">应变力：LV1 ████░░░░░░</p>
+  <p class="sys-stat">商业直觉：LV3 ████████████░░</p>
+  <p class="sys-warn">"口才LV1……宿主，系统见过的最低初始值。恭喜创造记录。"</p>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box">
+  <h3>⚡ 决策点 · 抉择一</h3>
+  <p style="color:#aaa;font-size:0.9rem;margin-bottom:0.8rem;">系统发布第一个任务：立刻开启一场直播。</p>
+  <div class="choice not-chosen">
+    A) "我一个程序员，直播带什么货？拒绝。" <span class="tag">未选择</span>
+  </div>
+  <div class="choice chosen">
+    B) "反正已经这样了，试试又不会更惨。" <span class="tag">✓ 我的选择</span>
+  </div>
+  <div class="choice-reason">
+    💭 都已经跌到谷底了，还能往哪儿跌？赌一把呗。再说，这个系统看起来……不太像是在开玩笑。
+  </div>
+</div>
+
+<!-- ACT 2: 灾难首播 -->
+<div class="act-divider">第二幕 · 灾难首播</div>
+
+<!-- Panel 9 -->
+<div class="panel" data-panel="9">
+  <img src="images/exp-940/p09.jpg" loading="lazy" alt="搭建直播间">
+  <div class="panel-text">
+    <p class="narration">中景 | 出租屋·临时直播间</p>
+    <p class="narration">手机架在外卖筷子和书堆成的"三脚架"上。台灯当补光灯。桌上摆着从楼下超市老板那儿借来的六袋零食。</p>
+    <p class="inner">这大概是全国最寒酸的直播间了。</p>
+  </div>
+</div>
+
+<div class="sys-panel">
+  <div class="sys-header">🎯 主线任务</div>
+  <div class="sys-quest">
+    <p class="sys-gold">完成第一场直播（≥30分钟）</p>
+    <p class="sys-stat">奖励：口才+1，解锁【观众情绪面板】</p>
+    <p class="sys-warn">失败惩罚：商业直觉-1</p>
+  </div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel" data-panel="10">
+  <img src="images/exp-940/p10.jpg" loading="lazy" alt="0观众">
+  <div class="panel-text">
+    <p class="narration">特写 | 手机直播画面</p>
+    <p class="dialogue">观看人数：0</p>
+    <p class="inner">对着手机自说自话的感觉，比面试还尴尬一百倍。</p>
+  </div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel" data-panel="11">
+  <img src="images/exp-940/p11.jpg" loading="lazy" alt="尬聊">
+  <div class="panel-text">
+    <p class="narration">中景 | 直播中</p>
+    <p class="dialogue">"大家好……呃……我是朱江，今天给大家带来一些……零食……这个，这个很好吃的……"</p>
+    <p class="inner">完了，我在说什么？连我自己都想退出直播间。</p>
+  </div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel" data-panel="12">
+  <img src="images/exp-940/p12.jpg" loading="lazy" alt="系统吐槽">
+  <div class="panel-text">
+    <p class="narration">分屏构图 | 上：手忙脚乱 / 下：系统面板</p>
+  </div>
+</div>
+
+<div class="sys-panel">
+  <p class="sys-warn">⚠️ "宿主，你的开场白让系统检测到了14处语法错误和100%的无聊指数。"</p>
+  <p class="sys-warn">"建议：说人话。"</p>
+  <p class="sys-stat" style="font-size:0.8rem;">（系统友好度：-50）</p>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel" data-panel="13">
+  <img src="images/exp-940/p13.jpg" loading="lazy" alt="翻车">
+  <div class="panel-text">
+    <p class="narration">动态镜头 | 零食翻车现场</p>
+    <p class="narration">我一紧张，手一抖——</p>
+    <p class="narration">整袋薯片从桌上滑下去，碎片炸了一地。直播间终于来了3个观众，就看到了这一幕。</p>
+  </div>
+</div>
+
+<div class="danmaku-container">
+  <span class="danmaku">哈哈哈哈这哥们太真实了</span>
+  <span class="danmaku">笑死 是第一次直播吧？</span>
+  <span class="danmaku">加油！</span>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel" data-panel="14">
+  <img src="images/exp-940/p14.jpg" loading="lazy" alt="弹幕">
+  <div class="panel-text">
+    <p class="narration">特写 | 手机屏幕弹幕</p>
+    <p class="inner">虽然只有3个人，但他们居然在笑……不是嘲笑，是那种"这哥们好真实"的笑。</p>
+    <p class="inner">好吧，我承认，我自己也笑了。</p>
+  </div>
+</div>
+
+<!-- Panel 15 -->
+<div class="panel" data-panel="15">
+  <img src="images/exp-940/p15.jpg" loading="lazy" alt="技能激活">
+  <div class="panel-text">
+    <p class="narration">特写·仰视 | 技能激活画面</p>
+    <p class="narration">突然——眼前又弹出一块面板，这次是金色的。</p>
+  </div>
+</div>
+
+<div class="sys-panel" style="border-color: rgba(255,215,0,0.5); box-shadow: 0 0 20px rgba(255,215,0,0.2);">
+  <div class="sys-header" style="color: var(--sys-gold);">⚡ 新手技能解锁</div>
+  <p class="sys-gold">【微表情捕捉 LV1】已临时激活</p>
+  <p class="sys-stat">限时10分钟</p>
+  <p class="sys-stat">效果：可感知观众文字背后的真实情绪</p>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel" data-panel="16">
+  <img src="images/exp-940/p16.jpg" loading="lazy" alt="情绪分析">
+  <div class="panel-text">
+    <p class="narration">第一人称视角 | 弹幕情绪分析</p>
+    <p class="narration">再看弹幕，每条文字后面多出了彩色的标签——</p>
+    <p class="dialogue">"这零食看起来一般" → <span style="color:var(--sys-blue)">[好奇 70%]</span> <span style="color:var(--sys-gold)">[犹豫 20%]</span> <span style="color:var(--sys-green)">[想买 10%]</span></p>
+    <p class="inner">等等……他嘴上说"一般"，心里其实好奇得很？这……这跟debug日志一个道理啊！表面报错，实际问题在别处！</p>
+  </div>
+</div>
+
+<!-- Panel 17 -->
+<div class="panel" data-panel="17">
+  <img src="images/exp-940/p17.jpg" loading="lazy" alt="程序员带货">
+  <div class="panel-text">
+    <p class="narration">中景 | 自信讲解状态</p>
+    <p class="narration">我不背话术了。直接拆配料表——</p>
+    <p class="dialogue">"你看这个配料表第三行，山梨酸钾，听着吓人对吧？其实就是防腐剂，国标允许的，安全。但是！你看旁边这个——"</p>
+    <p class="narration">用debug的思维拆解零食。三个观众变成了四十七个。</p>
+  </div>
+</div>
+
+<div class="danmaku-container">
+  <span class="danmaku">专业！这分析有点东西</span>
+  <span class="danmaku">哈哈哈程序员带货</span>
+  <span class="danmaku">这角度清奇 喜欢</span>
+  <span class="danmaku">想看他分析更多！</span>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel" data-panel="18">
+  <img src="images/exp-940/p18.jpg" loading="lazy" alt="系统重新评估">
+  <div class="panel-text">
+    <p class="narration">侧面中景 | 系统面板更新</p>
+  </div>
+</div>
+
+<div class="sys-panel" style="border-color: rgba(0,255,136,0.4);">
+  <p class="sys-stat">📈 "意外……宿主的nerd属性居然有正向转化率。"</p>
+  <p class="sys-stat">"系统重新评估中…… ████████████ 78%"</p>
+  <p class="sys-warn">"嗯……也许你不是完全没救。也许。"</p>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box">
+  <h3>⚡ 决策点 · 抉择二</h3>
+  <p style="color:#aaa;font-size:0.9rem;margin-bottom:0.8rem;">直播快结束时，一个观众突然问："你是不是被裁员了才来直播的？"</p>
+  <div class="choice not-chosen">
+    A) "不是，我是自媒体创业者。" <span class="tag">未选择</span>
+  </div>
+  <div class="choice chosen">
+    B) "对，上周刚被裁，账户还剩不到三千块。" <span class="tag">✓ 我的选择</span>
+  </div>
+  <div class="choice-reason">
+    💭 都已经在直播间把薯片撒了一地了，还装什么？真诚一点吧。反正再丢人也不会比现在更丢人了。
+  </div>
+</div>
+
+<!-- ACT 3: 意外转折 -->
+<div class="act-divider">第三幕 · 意外转折</div>
+
+<!-- Panel 19 -->
+<div class="panel" data-panel="19">
+  <img src="images/exp-940/p19.jpg" loading="lazy" alt="坦白">
+  <div class="panel-text">
+    <p class="narration">特写·侧脸 | 坦白的瞬间</p>
+    <p class="dialogue">"对。上周五被裁的。在那家公司干了三年，写了两万多行代码。最后被自己参与训练的AI模型替代了。"</p>
+    <p class="dialogue">"账户余额两千八百多。够吃两周泡面。直播……是我想到的唯一出路。"</p>
+    <p class="inner">说出口的那一刻，心里反而轻了。</p>
+  </div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel" data-panel="20">
+  <img src="images/exp-940/p20.jpg" loading="lazy" alt="弹幕爆炸">
+  <div class="panel-text">
+    <p class="narration">特写 | 手机屏幕·弹幕爆炸</p>
+    <p class="narration">弹幕瞬间炸了——</p>
+  </div>
+</div>
+
+<div class="danmaku-container">
+  <span class="danmaku" style="font-size:1rem;font-weight:bold">卧槽真实！！</span>
+  <span class="danmaku">加油兄弟 裁员同路人报到</span>
+  <span class="danmaku">关注了 你一定行的</span>
+  <span class="danmaku">比那些装逼主播强一万倍</span>
+  <span class="danmaku">真诚！冲冲冲！</span>
+  <span class="danmaku">哥 你直播时间固定吗</span>
+  <span class="danmaku">我也是程序员 被裁了 共勉</span>
+</div>
+
+<div class="panel-text" style="max-width:600px;margin:0 auto;">
+  <p class="narration">观众从47瞬间涨到312。</p>
+  <p class="inner">原来这个世界上，有这么多和我一样的人。</p>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel" data-panel="21">
+  <img src="images/exp-940/p21.jpg" loading="lazy" alt="隐藏成就">
+  <div class="panel-text">
+    <p class="narration">全景 | 金色成就弹窗</p>
+  </div>
+</div>
+
+<div class="achievement">
+  <h3>🏆 隐藏成就解锁</h3>
+  <p style="color:var(--sys-gold);font-size:1.1rem;font-weight:700;">【真诚的力量】</p>
+  <p>触发条件：在直播中展示真实的自己</p>
+  <p style="color:var(--sys-green);">奖励：声望+50 | 解锁被动技能【信任光环】</p>
+</div>
+
+<div class="sys-panel">
+  <p class="sys-warn">"系统建议记住这一刻。"</p>
+  <p class="sys-warn">"在未来的很多岔路口，你都会面临'真诚'还是'套路'的选择。"</p>
+  <p class="sys-stat">"今天，你选了真诚。系统……记录在案。"</p>
+</div>
+
+<!-- Panel 22 -->
+<div class="panel" data-panel="22">
+  <img src="images/exp-940/p22.jpg" loading="lazy" alt="首播战报">
+  <div class="panel-text">
+    <p class="narration">特写 | 直播结算面板</p>
+  </div>
+</div>
+
+<div class="sys-panel" style="border-color: rgba(0,212,255,0.5);">
+  <div class="sys-header">📊 首播战报</div>
+  <p class="sys-stat">观看人数：312</p>
+  <p class="sys-stat">最高同时在线：89</p>
+  <p class="sys-stat">成交额：<span style="color:var(--sys-gold);font-weight:700;">￥247.50</span>（卖出23包零食）</p>
+  <p class="sys-stat">——————</p>
+  <p class="sys-stat">口才：LV1 → <span style="color:var(--sys-green);">LV2 ↑</span></p>
+  <p class="sys-stat">新技能解锁：<span style="color:var(--sys-gold);">【信任光环】</span></p>
+  <p class="sys-stat">——————</p>
+  <p class="sys-warn">"勉强及格。但你让系统看到了……一点点可能性。"</p>
+  <p class="sys-warn">"只有一点点。别得意。"</p>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel" data-panel="23">
+  <img src="images/exp-940/p23.jpg" loading="lazy" alt="安静的胜利">
+  <div class="panel-text">
+    <p class="narration">中景 | 直播结束后</p>
+    <p class="narration">关掉直播，我瘫在椅子里。</p>
+    <p class="narration">盯着手机上多出的247块5毛。不多。但这是我"重启人生"后赚到的第一笔钱。</p>
+    <p class="inner">两百四十七块五毛。够吃一周外卖了。</p>
+    <p class="inner">嘴角不自觉地翘了起来。</p>
+  </div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel" data-panel="24">
+  <img src="images/exp-940/p24.jpg" loading="lazy" alt="私信">
+  <div class="panel-text">
+    <p class="narration">特写 | 手机私信通知</p>
+    <p class="narration">手机震动。一条私信——</p>
+    <p class="dialogue">"哥，你下次播什么时候？我还来。😊"</p>
+    <p class="inner">有人在等我。</p>
+    <p class="inner">这种感觉，比247块钱还值钱。</p>
+  </div>
+</div>
+
+<!-- Panel 25 -->
+<div class="panel" data-panel="25">
+  <img src="images/exp-940/p25.jpg" loading="lazy" alt="窗前远眺">
+  <div class="panel-text">
+    <p class="narration">全景·背影 | 窗前·城市夜景</p>
+    <p class="narration">走到窗前，城市的灯火在眼前铺展开来。</p>
+    <p class="narration">身后，系统面板安静地亮着——</p>
+  </div>
+</div>
+
+<div class="sys-panel" style="border-color: rgba(0,212,255,0.3);">
+  <div class="sys-header">🔔 明日任务预告</div>
+  <div class="sys-quest">
+    <p class="sys-gold">主线：完成第二场直播（目标观众≥500人）</p>
+    <p class="sys-stat">支线：找到一件"有故事的商品"进行带货</p>
+    <p class="sys-warn">⚠️ 警告：检测到同区域3名S级主播将在同时段开播</p>
+    <p class="sys-stat">竞争压力：★★★☆☆</p>
+  </div>
+  <p class="sys-warn" style="margin-top:0.8rem;">"隐藏线索：你楼下新搬来的邻居……系统建议你打个招呼。"</p>
+</div>
+
+<div class="panel-text" style="max-width:600px;margin:0 auto;padding:1.5rem 0.8rem;">
+  <p class="inner" style="font-size:1.15rem;">窗外的城市还在运转。几千万人各自为生活奔忙。</p>
+  <p class="inner" style="font-size:1.15rem;">而我——一个刚被裁员、账户余额不到三千块的前程序员——手里多了一个来路不明的系统，和247块5毛钱的"战绩"。</p>
+  <p class="inner" style="font-size:1.15rem;color:var(--sys-gold);">旅程已经开始。</p>
+</div>
+
+<div class="sys-panel" style="text-align:center;border-color:rgba(0,212,255,0.2);">
+  <p class="sys-warn">"宿主，距离【带货之神】称号还差……很远很远。"</p>
+  <p class="sys-stat">"但旅程已经开始。"</p>
+</div>
+
+<!-- 结尾卡 -->
+<div class="end-card">
+  <h2 style="color:var(--sys-gold);">第一章 · 完</h2>
+  <p>系统已激活。首播已完成。</p>
+  <p>明天，500人的目标、S级主播的竞争、楼下神秘的新邻居……</p>
+  <p style="color:var(--sys-blue);font-weight:600;margin-top:1rem;">故事才刚刚开始。</p>
+  <p style="margin-top:2rem;color:#555;font-size:0.8rem;">带货之神·系统上线 | EXP-940 | Trinity V3</p>
+</div>
+
+<script>
+// 滚动渐入动画
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
