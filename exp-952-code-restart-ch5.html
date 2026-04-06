@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码重启 · 第五章：故人之局</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #1a1510;
+  color: #e8dcc8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.title-card {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #2a1f14 0%, #1a1510 50%, #0d0a07 100%);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.title-card::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(218,165,90,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.title-card h1 {
+  font-size: 36px;
+  color: #daa55a;
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 20px rgba(218,165,90,0.3);
+  position: relative;
+}
+.title-card .subtitle {
+  font-size: 18px;
+  color: #a89070;
+  letter-spacing: 3px;
+  margin-bottom: 32px;
+}
+.title-card .chapter { font-size: 14px; color: #6b5840; letter-spacing: 2px; }
+.title-card .scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  color: #6b5840;
+  font-size: 14px;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
+}
+.panel {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible { opacity: 1; transform: translateY(0); }
+.panel-image { width: 100%; display: block; }
+.panel-text {
+  padding: 20px 24px 40px;
+  background: linear-gradient(180deg, rgba(26,21,16,0.95) 0%, #1a1510 100%);
+}
+.panel-text p {
+  font-size: 19px;
+  line-height: 1.9;
+  color: #d4c4a8;
+  text-align: justify;
+}
+.decision {
+  margin: 24px 0;
+  padding: 20px;
+  background: rgba(218,165,90,0.08);
+  border-left: 3px solid #daa55a;
+  border-radius: 0 8px 8px 0;
+}
+.decision .label { font-size: 14px; color: #daa55a; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px; }
+.decision .choice { color: #c4a878; font-size: 17px; line-height: 1.7; margin-top: 8px; }
+.decision .chosen { color: #daa55a; font-weight: bold; }
+.decision .reason { margin-top: 12px; font-size: 16px; color: #a89070; font-style: italic; line-height: 1.7; }
+.act-divider {
+  text-align: center;
+  padding: 60px 24px;
+  position: relative;
+}
+.act-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #6b5840, transparent);
+}
+.act-divider span {
+  position: relative;
+  background: #1a1510;
+  padding: 0 20px;
+  color: #daa55a;
+  font-size: 16px;
+  letter-spacing: 4px;
+}
+.comedy {
+  background: rgba(218,165,90,0.04);
+  border-radius: 8px;
+  margin: 8px 0;
+  padding: 16px 20px;
+}
+.flashback .panel-text {
+  background: linear-gradient(180deg, rgba(20,18,15,0.95) 0%, #14120f 100%);
+}
+.flashback .panel-text p { color: #b8a888; }
+.cliffhanger {
+  padding: 40px 24px 80px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #1a1510 0%, #0d0a07 100%);
+}
+.cliffhanger p { font-size: 20px; color: #daa55a; line-height: 2; margin-bottom: 16px; font-weight: bold; }
+.cliffhanger .preview { margin-top: 40px; padding-top: 24px; border-top: 1px solid #3a2f20; }
+.cliffhanger .preview p { font-size: 16px; color: #8a7860; font-weight: normal; }
+@media (max-width: 375px) {
+  .panel-text { padding: 16px 20px 32px; }
+  .panel-text p { font-size: 18px; }
+  .title-card h1 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+
+<div class="title-card">
+  <div class="chapter">代码重启 · CODE RESTART</div>
+  <h1>故人之局</h1>
+  <div class="subtitle">第五章</div>
+  <div class="scroll-hint">向下滑动</div>
+</div>
+
+<div class="act-divider"><span>幕一：重逢</span></div>
+
+<div class="panel" data-panel="1">
+  <img class="panel-image" src="images/exp-952/p01.webp" alt="第1帧" loading="eager">
+  <div class="panel-text">
+    <p>深夜的五道口办公室。"盾甲"上线前三天，整个团队都在通宵改bug。陈磊趴在键盘上睡着了，嘴角挂着口水。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="2">
+  <img class="panel-image" src="images/exp-952/p02.webp" alt="第2帧" loading="eager">
+  <div class="panel-text">
+    <p>我轻轻把外套披在陈磊身上。这家伙连续熬了三个通宵，比我还拼。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="3">
+  <img class="panel-image" src="images/exp-952/p03.webp" alt="第3帧" loading="eager">
+  <div class="panel-text">
+    <p>手机突然震了。一个陌生号码，短信只有一行字："学三食堂，周六中午。——你猜我是谁？"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="4">
+  <img class="panel-image" src="images/exp-952/p04.webp" alt="第4帧" loading="lazy">
+  <div class="panel-text">
+    <p>我愣住了。"学三食堂"——上海交大第三食堂。我和张维大学四年吃了上千顿饭的地方。但我现在在北京，而张维……大四突然退学后，就像人间蒸发了。</p>
+    <div class="decision">
+      <div class="label">DECISION-9：是否赴约见张维？</div>
+      <div class="choice">A：独自赴约——室友情分在，先了解情况</div>
+      <div class="choice">B：带林晓蝶一起——三方见面效率最高</div>
+      <div class="choice" class="chosen">C：赴约，但事先跟林晓蝶通气，让她在暗处观察</div>
+      <div class="choice chosen">我选C。</div>
+      <div class="reason">"拆开看结构"——不是简单地去见面，而是把这次见面设计成一次情报收集行动。对张维保留室友的亲切，但对第三穿越者的威胁保持警觉。"上辈子我在投资人面前笑着喝咖啡，心里算着他们的底线。这次也一样。"</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="5">
+  <img class="panel-image" src="images/exp-952/p05.webp" alt="第5帧" loading="lazy">
+  <div class="panel-text">
+    <p>陈磊醒了，迷迷糊糊问："谁发的？"我随口说："一个老同学。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="6">
+  <img class="panel-image" src="images/exp-952/p06.webp" alt="第6帧" loading="lazy">
+  <div class="panel-text">
+    <div class="comedy"><p>陈磊打了个哈欠："大半夜找你的老同学，不是借钱就是传销。"我苦笑："……某种意义上，你说得还挺对。"</p></div>
+  </div>
+</div>
+
+<div class="panel" data-panel="7">
+  <img class="panel-image" src="images/exp-952/p07.webp" alt="第7帧" loading="lazy">
+  <div class="panel-text">
+    <p>海淀区一家小面馆。不是上海交大，但张维故意选了个一样草根的地方。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="8">
+  <img class="panel-image" src="images/exp-952/p08.webp" alt="第8帧" loading="lazy">
+  <div class="panel-text">
+    <p>我推开门。温暖的灯光和面汤的香气扑面而来。角落里坐着一个人——</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="9">
+  <img class="panel-image" src="images/exp-952/p09.webp" alt="第9帧" loading="lazy">
+  <div class="panel-text">
+    <p>张维。八年没见，但我一眼就认出来了。比大学时瘦了，眼窝深了，下巴蓄了短胡茬。穿一件洗得发白的格子衬衫，袖子卷到小臂。他抬头看到我，笑了。那种带着点痞气的、"我又搞了个大事"的笑。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="10">
+  <img class="panel-image" src="images/exp-952/p10.webp" alt="第10帧" loading="lazy">
+  <div class="panel-text">
+    <div class="comedy"><p>"哥们儿，好久不见。"他给我也点了一碗炸酱面。"你怎么知道我要吃面？""你大学四年在学三食堂只点两样东西——炸酱面和红烧牛肉面。今天这家没牛肉面。""……你的数据收集能力上辈子就这样。"张维差点呛面。</p></div>
+  </div>
+</div>
+
+<div class="act-divider"><span>幕二：底牌</span></div>
+
+<div class="panel flashback" data-panel="11">
+  <img class="panel-image" src="images/exp-952/p11.webp" alt="第11帧" loading="lazy">
+  <div class="panel-text">
+    <p>【回忆】张维讲述他的三个月——"2010年2月，我醒来时躺在上海的出租屋里，手里是一部诺基亚6300。第一个月，我以为自己疯了。"</p>
+  </div>
+</div>
+
+<div class="panel flashback" data-panel="12">
+  <img class="panel-image" src="images/exp-952/p12.webp" alt="第12帧" loading="lazy">
+  <div class="panel-text">
+    <p>"第二个月我冷静下来了。我是金融+CS双学位，上辈子在华尔街做量化交易。用未来的信息做投资，是最高效的变现方式。"</p>
+  </div>
+</div>
+
+<div class="panel flashback" data-panel="13">
+  <img class="panel-image" src="images/exp-952/p13.webp" alt="第13帧" loading="lazy">
+  <div class="panel-text">
+    <p>"第三个月，启明星基金成立了。第一笔钱是炒短线赚的，然后投了12个项目。都是未来十年的独角兽赛道。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="14">
+  <img class="panel-image" src="images/exp-952/p14.webp" alt="第14帧" loading="lazy">
+  <div class="panel-text">
+    <p>"我知道你想问什么——我为什么没找你。因为我不确定你也回来了。直到上个月，我看到一个叫'朱江'的人在移动安全领域做出了一个不应该2010年存在的东西。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="15">
+  <img class="panel-image" src="images/exp-952/p15.webp" alt="第15帧" loading="lazy">
+  <div class="panel-text">
+    <p>张维提出合作：把启明星基金的资源和我的技术能力结合，联手打造"穿越者联盟"。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="16">
+  <img class="panel-image" src="images/exp-952/p16.webp" alt="第16帧" loading="lazy">
+  <div class="panel-text">
+    <p>上辈子做投资教会我一件事：越好的offer越要冷静。信任是奢侈品，在穿越者之间更是。我没有接受，也没有拒绝。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="17">
+  <img class="panel-image" src="images/exp-952/p17.webp" alt="第17帧" loading="lazy">
+  <div class="panel-text">
+    <p>"我提一个交换条件。你公开启明星的完整投资清单，我告诉你一个你不知道的事。"张维眼睛亮了："什么事？""除了我们两个，还有第三个穿越者。"</p>
+    <div class="decision">
+      <div class="label">DECISION-10：张维提出合作——把启明星基金的资源和我的技术能力结合。</div>
+      <div class="choice">A：接受合作——联手效率最大化</div>
+      <div class="choice">B：拒绝合作——动机不可信</div>
+      <div class="choice" class="chosen">C：不接受也不拒绝——提出"先做一件事证明互信"的交换条件</div>
+      <div class="choice chosen">我选C。</div>
+      <div class="reason">信任但验证。创业者不会因为私交就all-in一个合作，但也不会把门完全关上。"信任是奢侈品，在穿越者之间更是。"</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="18">
+  <img class="panel-image" src="images/exp-952/p18.webp" alt="第18帧" loading="lazy">
+  <div class="panel-text">
+    <p>张维同意了。他掏出一张手写的清单——故意不用电子设备。穿越者都明白，2010年的网络对黑客来说不设防。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="19">
+  <img class="panel-image" src="images/exp-952/p19.webp" alt="第19帧" loading="lazy">
+  <div class="panel-text">
+    <p>12个项目。每一个我都认得——移动支付、外卖平台、共享出行、短视频……全是未来十年的巨头赛道。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="20">
+  <img class="panel-image" src="images/exp-952/p20.webp" alt="第20帧" loading="lazy">
+  <div class="panel-text">
+    <p>"你选得挺准。""你也知道这些？""知道。但我选了一条更难的路——自己做产品。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="21">
+  <img class="panel-image" src="images/exp-952/p21.webp" alt="第21帧" loading="lazy">
+  <div class="panel-text">
+    <p>张维看着我，表情变了。"朱江，我佩服你。真的。我只敢投资，你敢创业。但是……有些赛道里，我已经投了竞争对手。如果你做大了，我们有些利益会冲突。我提前告诉你，这是我的诚意。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="22">
+  <img class="panel-image" src="images/exp-952/p22.webp" alt="第22帧" loading="lazy">
+  <div class="panel-text">
+    <div class="comedy"><p>五秒沉默。我指着他碗里的面："你面坨了。"张维低头看了一眼："……比你的长远战略好消化。"两个穿越者在面馆里笑出了声。有些东西，不管隔了多少年，不管经历了什么，都没变。</p></div>
+  </div>
+</div>
+
+<div class="act-divider"><span>幕三：暗流</span></div>
+
+<div class="panel" data-panel="23">
+  <img class="panel-image" src="images/exp-952/p23.webp" alt="第23帧" loading="lazy">
+  <div class="panel-text">
+    <p>面馆外。2010年的海淀——到处是卖电脑配件的小店和学校围墙外的烤串摊。两个从未来回来的人，走在这条十六年前的街上。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="24">
+  <img class="panel-image" src="images/exp-952/p24.webp" alt="第24帧" loading="lazy">
+  <div class="panel-text">
+    <p>我给林晓蝶发了预设的短信暗号。不管张维说了什么，我需要第二个信息源来交叉验证。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="25">
+  <img class="panel-image" src="images/exp-952/p25.webp" alt="第25帧" loading="lazy">
+  <div class="panel-text">
+    <p>张维随口说了一句："对了，你的'盾甲'下周上线吧？我看到了内测版的数据包。做得不错。"我心跳加速。我没有公开内测数据包。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="26">
+  <img class="panel-image" src="images/exp-952/p26.webp" alt="第26帧" loading="lazy">
+  <div class="panel-text">
+    <p>我保持微笑。上辈子做安全时的标准操作——发现老鼠进了仓库，最蠢的做法是把灯打开。你应该在奶酪里放追踪器。</p>
+    <div class="decision">
+      <div class="label">DECISION-11：发现张维可能已经渗透自己的系统。</div>
+      <div class="choice">A：当面质问——你怎么拿到我的数据包的？</div>
+      <div class="choice" class="chosen">B：不动声色，回去后全面审计系统</div>
+      <div class="choice" class="chosen">C：释放假信息——放"蜜罐"反向追踪</div>
+      <div class="choice chosen">我选B + C。</div>
+      <div class="reason">黑客基因的终极体现——面对疑似入侵，不是喊打喊杀，而是"让他以为我不知道，然后反向追踪"。"发现老鼠进了仓库，最蠢的做法是把灯打开——你应该在奶酪里放追踪器。"</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="27">
+  <img class="panel-image" src="images/exp-952/p27.webp" alt="第27帧" loading="lazy">
+  <div class="panel-text">
+    <p>夜里。我回到办公室，没有告诉陈磊张维的事。打开系统日志，开始审计。我需要知道张维是怎么拿到内测数据包的。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="28">
+  <img class="panel-image" src="images/exp-952/p28.webp" alt="第28帧" loading="lazy">
+  <div class="panel-text">
+    <p>两小时后。一个伪装成CDN节点的异常数据出口。时间戳显示，过去两周内有人持续在镜像"盾甲"的核心代码。手法很专业，绝不是业余人士。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="29">
+  <img class="panel-image" src="images/exp-952/p29.webp" alt="第29帧" loading="lazy">
+  <div class="panel-text">
+    <p>镜像的目标IP指向一家叫"天明科技"的公司。工商登记股东栏里——不是张维。是林晓蝶。"她也在看我的代码？"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="30">
+  <img class="panel-image" src="images/exp-952/p30.webp" alt="第30帧" loading="lazy">
+  <div class="panel-text">
+    <p>张维说她在做"危险的事"。林晓蝶说张维在做"危险的事"。他们互相指控对方——而两个人都在暗中监视我。这不是两个穿越者之间的博弈。这是一个三角棋局。而我，现在是三个人里信息最少的那个。</p>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <p>张维说她在做"危险的事"。</p>
+  <p>林晓蝶说张维在做"危险的事"。</p>
+  <p>他们互相指控对方——</p>
+  <p>而两个人都在暗中监视我。</p>
+  <p style="margin-top: 24px; font-size: 22px;">这不是两个穿越者之间的博弈。<br>这是一个三角棋局。<br>而我，现在是三个人里信息最少的那个。</p>
+  <div class="preview">
+    <p>下章预告：三方猜忌升级。"盾甲"上线和穿越者博弈之间，我必须找到平衡。而启明星基金投资的某个项目——正是"盾甲"最大的竞争对手。</p>
+    <p style="margin-top: 16px;">室友之间的友情，还剩下多少是真的？</p>
+  </div>
+</div>
+
+<script>
+// Scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(panel => observer.observe(panel));
+</script>
+
+</body>
+</html>
