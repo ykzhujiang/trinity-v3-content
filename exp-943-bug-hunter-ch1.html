@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bug猎人 · 第一章：觉醒</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0e17;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a1628 0%,#0d2818 50%,#0a1628 100%);padding:20px;text-align:center;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,100,0.03) 2px,rgba(0,255,100,0.03) 4px);pointer-events:none;animation:scanline 8s linear infinite}
+@keyframes scanline{0%{transform:translateY(0)}100%{transform:translateY(20px)}}
+.cover h1{font-size:2.4em;color:#00ff88;text-shadow:0 0 30px rgba(0,255,136,0.5);margin-bottom:12px;letter-spacing:4px}
+.cover .subtitle{font-size:1.1em;color:#88ccaa;margin-bottom:30px;opacity:0.8}
+.cover .chapter{font-size:1.5em;color:#ff4444;text-shadow:0 0 20px rgba(255,68,68,0.5);letter-spacing:6px}
+.code-rain{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.15;pointer-events:none;font-family:monospace;font-size:12px;color:#00ff88;line-height:1.2;overflow:hidden;white-space:pre}
+
+.panel-section{max-width:450px;margin:0 auto;padding:0 8px}
+.panel{margin-bottom:6px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;position:relative}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.panel-text{padding:10px 14px;font-size:18px;line-height:1.7;background:rgba(10,14,23,0.95);border-left:3px solid #00ff88;margin:4px 0 16px 0;border-radius:0 4px 4px 0}
+.panel-text.decision{border-left-color:#ffaa00;background:rgba(30,25,10,0.95)}
+.panel-text.system{border-left-color:#4488ff;background:rgba(10,15,30,0.95);font-family:monospace}
+.panel-text.inner{border-left-color:#aa44ff;background:rgba(20,10,30,0.95);font-style:italic}
+.panel-text.dramatic{border-left-color:#ff4444;background:rgba(30,10,10,0.95)}
+
+.dialogue{color:#f0f0f0}
+.speaker{color:#00ff88;font-weight:bold;margin-right:6px}
+.speaker.enemy{color:#ff4444}
+.speaker.ally{color:#4488ff}
+.thought{color:#cc99ff;font-style:italic}
+.sys-msg{color:#4488ff;font-family:monospace}
+.highlight{color:#ffaa00;font-weight:bold}
+.code-text{color:#00ff88;font-family:monospace;font-size:0.9em}
+
+.decision-box{background:linear-gradient(135deg,rgba(255,170,0,0.15),rgba(255,68,68,0.1));border:1px solid rgba(255,170,0,0.4);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+.decision-box h3{color:#ffaa00;font-size:1.1em;margin-bottom:10px}
+.decision-opt{display:block;padding:10px;margin:6px 0;background:rgba(0,0,0,0.3);border:1px solid rgba(255,170,0,0.3);border-radius:6px;color:#e0e0e0;font-size:16px}
+.decision-opt.chosen{border-color:#00ff88;background:rgba(0,255,136,0.1)}
+.decision-opt.chosen::after{content:' ✓ 朱江的选择';color:#00ff88;font-size:0.85em}
+
+.act-divider{text-align:center;padding:30px 10px;color:#00ff88;font-size:0.9em;letter-spacing:4px;opacity:0.6}
+.act-divider::before,.act-divider::after{content:'';display:inline-block;width:40px;height:1px;background:#00ff88;vertical-align:middle;margin:0 12px}
+
+.chapter-end{text-align:center;padding:60px 20px;background:linear-gradient(180deg,transparent,rgba(255,68,68,0.1));position:relative}
+.chapter-end h2{color:#ff4444;font-size:1.8em;text-shadow:0 0 30px rgba(255,68,68,0.4);margin-bottom:10px;letter-spacing:4px}
+.chapter-end p{color:#888;font-size:1em;letter-spacing:2px}
+.chapter-end .next{color:#ffaa00;font-size:1.2em;margin-top:20px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.6}50%{opacity:1}}
+
+footer{text-align:center;padding:30px;color:#444;font-size:12px}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<div class="code-rain" id="codeRain"></div>
+<h1>Bug猎人</h1>
+<div class="subtitle">当程序员穿越进自己写的游戏</div>
+<div class="chapter">第一章 · 觉醒</div>
+</div>
+
+<div class="panel-section">
+
+<!-- Beat 1: 意识坠入 -->
+<div class="act-divider">▌ 意识坠入 ▌</div>
+
+<div class="panel">
+<img src="images/exp-943/p01.jpg" loading="lazy" alt="凌晨三点的办公室">
+<div class="panel-text inner">
+<span class="thought">凌晨三点，第47次调试。能量饮料喝了六罐，代码在眼前游泳。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p02.jpg" loading="lazy" alt="屏幕溢出">
+<div class="panel-text dramatic">
+<span class="dialogue">屏幕突然亮得刺眼——金色的代码像瀑布一样从显示器里<span class="highlight">涌出来</span>。</span><br>
+<span class="sys-msg">「系统异常：意识同步中……」</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p03.jpg" loading="lazy" alt="醒来在草原">
+<div class="panel-text">
+<span class="thought">意识恢复的第一个感觉——草。脸贴着草。湿润的、带着露水味道的草。</span><br>
+<span class="dialogue">我猛地坐起来，眼前是一片一望无际的草原。远处有浮空岛。天空中飘着……十六进制代码碎片？</span>
+</div>
+</div>
+
+<!-- Beat 2: 发现异常 -->
+<div class="act-divider">▌ 发现异常 ▌</div>
+
+<div class="panel">
+<img src="images/exp-943/p04.jpg" loading="lazy" alt="系统弹窗">
+<div class="panel-text system">
+<span class="sys-msg">「欢迎来到《新大陆》」</span><br>
+<span class="sys-msg">「职业分配完成：<span class="highlight">Bug猎人</span>」</span><br>
+<span class="thought">战士、法师、猎人、刺客……就我是Bug猎人？这什么鬼职业？</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p05.jpg" loading="lazy" alt="碰撞检测">
+<div class="panel-text inner">
+<span class="thought">低头一看——脚下的草地上，隐隐浮现着绿色的半透明网格线。碰撞检测的边界？</span><br>
+<span class="thought">只有我能看到这些。这就是所谓的"Bug猎人"视角？</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p06.jpg" loading="lazy" alt="打不过史莱姆">
+<div class="panel-text">
+<span class="dialogue">一只绿色史莱姆蹦蹦跳跳地挡在路上。我抄起一根树枝——</span><br>
+<span class="sys-msg">「造成伤害：1」</span><br>
+<span class="thought">攻击力……零？！这破木棍只能挠痒痒？史莱姆看起来还挺开心的样子，弹了弹身子，好像在说"再来啊"。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p07.jpg" loading="lazy" alt="决策时刻">
+<div class="panel-text decision">
+<div class="decision-box">
+<h3>⚡ 抉择时刻</h3>
+<div class="decision-opt">A. 先跑为敬——打不过就跑，合理！</div>
+<div class="decision-opt chosen">B. 用代码视觉找Bug——十年黑客经验不是白练的</div>
+</div>
+</div>
+</div>
+
+<!-- Beat 3: 第一次Exploit -->
+<div class="act-divider">▌ 第一次 Exploit ▌</div>
+
+<div class="panel">
+<img src="images/exp-943/p08.jpg" loading="lazy" alt="代码视觉激活">
+<div class="panel-text inner">
+<span class="thought">眼睛一热，视野变了。世界的表面之下，浮现出一层半透明的代码——就像X光透视，只不过看到的是程序。</span><br>
+<span class="thought">十年前我就是干这个的……找漏洞，搞exploit。那时候的战场是服务器，现在换成了一个活的世界。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p09.jpg" loading="lazy" alt="发现漏洞">
+<div class="panel-text system">
+<span class="dialogue">我盯着史莱姆——它的代码层里有一行红色的警告：<span class="code-text">伤害判定溢出漏洞</span>。</span><br>
+<span class="thought">经典的整数溢出。伤害计算没做上限检查。只要在正确的位置施加正确的力——</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p10.jpg" loading="lazy" alt="999999伤害">
+<div class="panel-text dramatic">
+<span class="dialogue">我用树枝精准地戳中了那个bug点——</span><br>
+<span class="highlight" style="font-size:1.4em;display:block;text-align:center;margin:8px 0">999999！</span>
+<span class="dialogue">史莱姆在一阵金光中炸成了碎片。漫天飞舞的绿色液滴，在阳光下还挺好看的。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p11.jpg" loading="lazy" alt="漏洞碎片">
+<div class="panel-text">
+<span class="sys-msg">「利用Bug击杀怪物 · 获得：漏洞碎片 ×3」</span><br>
+<span class="thought">有意思……不给经验值，给漏洞碎片。这个世界的规则，对Bug猎人另有一套。</span><br>
+<span class="thought">说白了——这不就是我以前在电脑上干的事吗？只是以前对着黑屏白字，现在对着蓝天白云。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p12.jpg" loading="lazy" alt="分析数据">
+<div class="panel-text inner">
+<span class="thought">我盘腿坐在石头上，调出代码视觉，翻看刚才收集的数据。一只蝴蝶落在我头上，我都懒得赶。</span><br>
+<span class="thought">这个世界的底层代码……结构很眼熟。等等，这不就是我们公司那个引擎的架构吗？</span>
+</div>
+</div>
+
+<!-- Beat 4: 遇到其他玩家 -->
+<div class="act-divider">▌ 编译器 ▌</div>
+
+<div class="panel">
+<img src="images/exp-943/p13.jpg" loading="lazy" alt="小队出现">
+<div class="panel-text">
+<span class="dialogue">远处传来脚步声。五个人，装备精良，走路带阵型——老手。</span><br>
+<span class="dialogue">领头的是个短发女生，穿着科技感十足的轻甲，手里拿着个类似平板的东西。眼神很锐利。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p14.jpg" loading="lazy" alt="编译器自我介绍">
+<div class="panel-text">
+<span class="speaker ally">编译器：</span><span class="dialogue">"我叫编译器，前游戏策划师。你是新来的？"</span><br>
+<span class="speaker">朱江：</span><span class="dialogue">"朱江。AI创业公司CEO……前CEO。我怎么会在这里？"</span><br>
+<span class="thought">她伸出手，我犹豫了一下，握了上去。手是温的。这个世界的触感真实得让人不安。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p15.jpg" loading="lazy" alt="三千人被困">
+<div class="panel-text dramatic">
+<span class="speaker ally">编译器：</span><span class="dialogue">"已经有<span class="highlight">三千多人</span>被困在这里了。最早的……两年了。"</span><br>
+<span class="dialogue">她竖起三根手指，身后远处是一座玩家建造的城镇，灯火通明。</span><br>
+<span class="thought">两年？三千人？这根本不是bug，这是一场灾难。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p16.jpg" loading="lazy" alt="发现编译器身上的代码">
+<div class="panel-text inner">
+<span class="thought">习惯性地开了代码视觉——然后我愣住了。</span><br>
+<span class="thought">编译器身上，有一串<span class="highlight">异常代码</span>。不是普通的角色属性代码，是某种……嵌入式的隐藏标记。</span><br>
+<span class="thought">她自己完全不知道。而其他队员身上没有。</span><br>
+<span class="thought">这意味着什么？</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p17.jpg" loading="lazy" alt="营地全景">
+<div class="panel-text">
+<span class="speaker ally">编译器：</span><span class="dialogue">"回去的方法？没人找到过。大部分人已经放弃了，在这里建立了新生活。"</span><br>
+<span class="dialogue">营地里篝火噼啪作响，有人磨刀，有人包扎伤口。天边泛着淡淡的代码极光。</span><br>
+<span class="thought">放弃？我朱江的字典里没这两个字。</span>
+</div>
+</div>
+
+<!-- Beat 5: 第一个抉择 -->
+<div class="act-divider">▌ 王座 ▌</div>
+
+<div class="panel">
+<img src="images/exp-943/p18.jpg" loading="lazy" alt="王座副会长登场">
+<div class="panel-text dramatic">
+<span class="dialogue">营地另一边突然喧哗起来。一个穿着黑色重甲的壮汉大步走来，身后跟着两个持刀护卫。下巴上一道刀疤，眼神傲慢。</span><br>
+<span class="dialogue">他胸甲上的标志：一个王冠。<span class="highlight">王座公会 · 副会长</span>。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p19.jpg" loading="lazy" alt="嘲讽">
+<div class="panel-text">
+<span class="speaker enemy">王座副会长：</span><span class="dialogue">"Bug猎人？哈！最没用的职业。攻击力为零，等级为零，你连一只<span class="highlight">鸡</span>都打不过。"</span><br>
+<span class="dialogue">他的手下哄笑起来。编译器皱了皱眉，但没说话。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p20.jpg" loading="lazy" alt="朱江的微笑">
+<div class="panel-text inner">
+<span class="thought">我没生气。</span><br>
+<span class="thought">准确地说——我笑了。</span><br>
+<span class="thought">攻击力为零？那是因为你们不知道什么叫<span class="highlight">exploit</span>。</span><br>
+<span class="thought">这种眼神我太熟悉了。十年前，也有人嘲笑我写的代码"太野路子"。后来那些人都在给我的公司投简历。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p21.jpg" loading="lazy" alt="决策时刻2">
+<div class="panel-text decision">
+<div class="decision-box">
+<h3>⚡ 抉择时刻</h3>
+<div class="decision-opt">A. 加入Debug小队——低调收集信息，稳扎稳打</div>
+<div class="decision-opt chosen">B. 当场Exploit秀一手——让王座闭嘴，霸气立威</div>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p22.jpg" loading="lazy" alt="Exploit秀操作">
+<div class="panel-text dramatic">
+<span class="speaker">朱江：</span><span class="dialogue">"让我给你演示一下……什么叫<span class="highlight">Bug猎人</span>。"</span><br>
+<span class="dialogue">我轻轻打了个响指。代码碎片在周围凭空浮现，像绿色的萤火虫。旁边一块巨石突然开始闪烁——在实体和线框之间来回切换。</span><br>
+<span class="dialogue">所有人都愣住了。王座副会长脸上的笑容凝固了。</span>
+</div>
+</div>
+
+<!-- Beat 6: 悬念收尾 -->
+<div class="act-divider">▌ FATAL ERROR ▌</div>
+
+<div class="panel">
+<img src="images/exp-943/p23.jpg" loading="lazy" alt="天空裂开">
+<div class="panel-text dramatic">
+<span class="dialogue">就在这时——天空<span class="highlight">裂了</span>。</span><br>
+<span class="dialogue">一道巨大的红色裂缝撕开天穹，像是有人用刀划破了世界的幕布。裂缝后面，是密密麻麻的、疯狂滚动的源代码。</span><br>
+<span class="dialogue">所有人都抬头看着，恐惧写在每个人脸上。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p24.jpg" loading="lazy" alt="致命错误">
+<div class="panel-text system">
+<span class="code-text" style="display:block;text-align:center;font-size:1.2em;color:#ff4444;margin:8px 0">FATAL ERROR: Player_0 意识线程泄漏</span>
+<span class="speaker ally">编译器：</span><span class="dialogue">"这种天空裂缝……上一次出现，是两年前。就是第一批人被困住的那天。"</span><br>
+<span class="dialogue">她的声音在发抖。</span>
+</div>
+</div>
+
+<div class="panel">
+<img src="images/exp-943/p25.jpg" loading="lazy" alt="意识泄漏">
+<div class="panel-text dramatic">
+<span class="thought">Player_0——那是我的玩家ID。</span><br>
+<span class="thought">我的意识不是被"拉入"游戏的。</span><br>
+<span class="thought">是从现实世界<span class="highlight">泄漏</span>出来的。</span><br>
+<span class="thought" style="display:block;margin-top:12px;font-size:1.1em">那现实中的我……还在吗？</span>
+</div>
+</div>
+
+</div><!-- panel-section -->
+
+<div class="chapter-end">
+<h2>第一章 · 完</h2>
+<p>▸ 未完待续</p>
+<div class="next">下一章：代码视觉的真正力量</div>
+</div>
+
+<footer>
+Bug猎人 — Trinity V3 · EXP-943<br>
+© 2026 朱江的内容世界
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+
+// Code rain effect on cover
+const rain = document.getElementById('codeRain');
+if (rain) {
+  const chars = '0123456789ABCDEF朱江代码漏洞系统异常内存溢出线程泄漏意识';
+  let text = '';
+  for (let i = 0; i < 2000; i++) {
+    text += chars[Math.floor(Math.random() * chars.length)];
+    if (Math.random() < 0.05) text += '\n';
+  }
+  rain.textContent = text;
+}
+</script>
+
+</body>
+</html>
