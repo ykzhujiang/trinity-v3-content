@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>《代码重启》第二章：安全蓝海</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0f 0%,#0d1a0d 50%,#0a0a0f 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,65,0.03) 2px,rgba(0,255,65,0.03) 4px);animation:scanline 8s linear infinite;pointer-events:none}
+@keyframes scanline{0%{transform:translateY(0)}100%{transform:translateY(100px)}}
+.cover h1{font-size:2.2rem;color:#00ff41;text-shadow:0 0 20px rgba(0,255,65,0.5);letter-spacing:0.15em;z-index:1}
+.cover h2{font-size:1.1rem;color:#4a9;margin-top:12px;z-index:1;letter-spacing:0.3em}
+.cover .chapter{font-size:0.9rem;color:#666;margin-top:20px;z-index:1}
+.cover .nav-link{margin-top:30px;z-index:1}
+.cover .nav-link a{color:#00ff41;text-decoration:none;font-size:0.85rem;border:1px solid #00ff41;padding:6px 16px;border-radius:4px;transition:all 0.3s}
+.cover .nav-link a:hover{background:#00ff41;color:#0a0a0f}
+.panel-container{max-width:600px;margin:0 auto;padding:0 0 60px}
+.panel{margin:0 auto 2px;opacity:0;transform:translateY(30px);transition:all 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.panel-text{padding:16px 20px;font-size:1.1rem;line-height:1.85;color:#ccc}
+.panel-text.narration{color:#8acea0;font-style:italic;border-left:3px solid #00ff41;padding-left:16px;margin:0 16px;font-size:1rem}
+.panel-text.dialogue{color:#fff;font-size:1.15rem}
+.panel-text .speaker{color:#00ff41;font-weight:bold;margin-right:6px}
+.panel-text.inner{color:#7ab;font-style:italic;font-size:1rem;opacity:0.9}
+.decision-box{margin:20px 16px;border:2px solid #f0a030;border-radius:12px;padding:20px;background:rgba(240,160,48,0.08)}
+.decision-box h3{color:#f0a030;font-size:1.1rem;margin-bottom:12px;text-align:center}
+.choice{padding:10px 14px;margin:8px 0;border-radius:8px;font-size:1rem;line-height:1.6}
+.choice-a{background:rgba(100,100,100,0.2);border:1px solid #555;color:#999}
+.choice-b{background:rgba(0,255,65,0.1);border:1px solid #00ff41;color:#00ff41}
+.choice-b::before{content:'✦ ';color:#f0a030}
+.choice .label{font-weight:bold;display:block;margin-bottom:4px}
+.reason{margin:12px 16px 0;padding:12px 14px;background:rgba(0,255,65,0.05);border-radius:8px;font-size:0.9rem;color:#8acea0;line-height:1.7}
+.reason::before{content:'💭 '}
+.tech-terminal{margin:10px 16px;background:#0c0c0c;border:1px solid #1a3a1a;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:0.85rem;color:#00ff41;line-height:1.6;overflow-x:auto}
+.cliffhanger{margin:30px 16px;padding:24px;background:linear-gradient(135deg,rgba(100,0,150,0.15),rgba(0,0,50,0.3));border:1px solid #639;border-radius:12px;text-align:center}
+.cliffhanger p{color:#c9a0dc;font-size:1.05rem;line-height:1.8}
+.cliffhanger .next{color:#f0a030;font-size:1.15rem;margin-top:16px;font-weight:bold}
+.bottom-nav{text-align:center;padding:30px 16px 60px}
+.bottom-nav a{color:#00ff41;text-decoration:none;font-size:0.9rem;border:1px solid #00ff41;padding:8px 20px;border-radius:6px;margin:0 8px}
+.sep{text-align:center;padding:16px 0;color:#333;font-size:1.5rem;letter-spacing:1em}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>代码重启</h1>
+  <h2>第二章 · 安全蓝海</h2>
+  <div class="chapter">朱江 × 重生2010</div>
+  <div class="nav-link"><a href="../exp941-rebirth-hacker-ch1/index.html">← 第一章回顾</a></div>
+</div>
+
+<div class="panel-container">
+
+<!-- p01: 清晨出租屋 -->
+<div class="panel"><img src="../images/exp-944/p01.jpg" loading="lazy" alt="清晨出租屋"></div>
+<div class="panel panel-text narration">清晨的阳光从没有窗帘的窗户直射进来，打在我脸上。我从地板上的床垫翻身坐起，揉了揉酸痛的后背。</div>
+
+<!-- p02: 窗前眺望 -->
+<div class="panel"><img src="../images/exp-944/p02.jpg" loading="lazy" alt="窗前街景"></div>
+<div class="panel panel-text inner">窗外是2010年的中国——满街的山寨手机广告、闪烁的网吧霓虹灯。这个时代，所有人的手机都像没上锁的保险箱。</div>
+
+<!-- p03: 2010街景 -->
+<div class="panel"><img src="../images/exp-944/p03.jpg" loading="lazy" alt="2010街景"></div>
+<div class="panel panel-text narration">街上的人们低头摆弄着诺基亚和山寨机，完全不知道自己的每一条短信、每一个密码都在空气中裸奔。而我，从2026年回来的人，清清楚楚地知道这片蓝海有多大。</div>
+
+<!-- p04: 陈磊醒来 -->
+<div class="panel"><img src="../images/exp-944/p04.jpg" loading="lazy" alt="陈磊醒来"></div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>（脸上带着键盘印痕）……几点了？</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>七点半。先吃泡面，今天有重要的事。</div>
+
+<!-- p05: 咖啡厅黑客 -->
+<div class="panel"><img src="../images/exp-944/p05.jpg" loading="lazy" alt="咖啡厅扫描"></div>
+<div class="panel panel-text narration">我带陈磊去了大学旁边的咖啡厅。不是为了喝咖啡——这里的公共Wi-Fi，就是我最好的教材。</div>
+
+<!-- p06: 屏幕截获数据 -->
+<div class="panel"><img src="../images/exp-944/p06.jpg" loading="lazy" alt="截获数据"></div>
+<div class="tech-terminal">
+$ scan_wifi --interface wlan0 --mode monitor<br>
+[扫描中...] 已发现 14 台活跃设备<br>
+[截获] 设备07: 银行卡尾号 **** 3721 交易记录<br>
+[截获] 设备11: 邮箱密码明文传输 p@ssw0rd<br>
+[截获] 设备03: 短信内容——"宝贝我想你了……"
+</div>
+
+<!-- p07: 陈磊脸红 -->
+<div class="panel"><img src="../images/exp-944/p07.jpg" loading="lazy" alt="陈磊脸红"></div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>（满脸通红）这……这短信也太肉麻了吧！</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>（面不改色）专注看漏洞，不要看内容。</div>
+
+<!-- p08: 黑客气场 -->
+<div class="panel"><img src="../images/exp-944/p08.jpg" loading="lazy" alt="黑客技术展示"></div>
+<div class="panel panel-text inner">五分钟。只用了五分钟，我就截获了整个咖啡厅所有人的通信数据。2010年的网络安全，约等于没有安全。</div>
+
+<!-- p09: 数据流可视化 -->
+<div class="panel"><img src="../images/exp-944/p09.jpg" loading="lazy" alt="数据流"></div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>这还只是Wi-Fi层面。App层面的漏洞更恐怖。三年后，智能手机会有十亿部，每一部都是裸奔的。</div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>（声音发抖）十……十亿部？</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>（微笑）而我们，要成为给这十亿部手机上锁的人。</div>
+
+<div class="sep">· · ·</div>
+
+<!-- p10: 接到电话 -->
+<div class="panel"><img src="../images/exp-944/p10.jpg" loading="lazy" alt="机会来了"></div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>（挂断电话，眼睛发亮）有个手游公司被破解了支付接口，每天损失几千块！我前同事问我们能不能修！</div>
+
+<!-- p11: 朱江思考 -->
+<div class="panel"><img src="../images/exp-944/p11.jpg" loading="lazy" alt="朱江决断"></div>
+<div class="panel panel-text inner">第一个客户。上辈子我见过太多创业者犯的错——免费帮忙换口碑。听起来很美，但免费等于不被尊重。</div>
+
+<!-- DECISION-3 -->
+<div class="decision-box">
+  <h3>🎯 抉择时刻</h3>
+  <div class="choice choice-a"><span class="label">选择A：免费帮忙修，换口碑</span>长期主义，但现金流为零，对方也不会珍惜。</div>
+  <div class="choice choice-b"><span class="label">选择B：报价五万，专业服务专业收费</span>菩萨心肠，霹雳手段。第一单就要建立专业形象。</div>
+</div>
+
+<!-- p12: 抉择 -->
+<div class="panel"><img src="../images/exp-944/p12.jpg" loading="lazy" alt="抉择"></div>
+<div class="reason">重生者不会犯新手的错。我上辈子见过太多"先免费后收费"的公司，没有一个活下来的。第一单的定价，就是你在这个行业的身价。</div>
+
+<div class="sep">· · ·</div>
+
+<!-- p13: 去见客户 -->
+<div class="panel"><img src="../images/exp-944/p13.jpg" loading="lazy" alt="天翔互娱"></div>
+<div class="panel panel-text narration">天翔互娱，一个二十人的小手游公司。办公室在写字楼六层，空调嗡嗡响，墙上贴着游戏海报。</div>
+
+<!-- p14: 见老板 -->
+<div class="panel"><img src="../images/exp-944/p14.jpg" loading="lazy" alt="手游老板"></div>
+<div class="panel panel-text narration">老板姓王，秃顶精瘦，POLO衫的领子竖着，像个暴躁的地中海海盗。</div>
+
+<!-- p15: 老板嘲讽 -->
+<div class="panel"><img src="../images/exp-944/p15.jpg" loading="lazy" alt="老板质疑"></div>
+<div class="panel panel-text dialogue"><span class="speaker">王总：</span>两个毛头小子，开口五万块？你们是来搞笑的吧？</div>
+
+<!-- p16: 朱江出手 -->
+<div class="panel"><img src="../images/exp-944/p16.jpg" loading="lazy" alt="朱江开始操作"></div>
+<div class="panel panel-text narration">我没有解释，直接打开笔记本。三分钟，只需要三分钟。</div>
+
+<!-- p17: 逆向过程 -->
+<div class="panel"><img src="../images/exp-944/p17.jpg" loading="lazy" alt="逆向工程"></div>
+<div class="tech-terminal">
+$ reverse_apk --target tianxiang_game.apk<br>
+[反编译中...] 100%<br>
+[漏洞1] 支付接口未加密 → 竞品直接截获交易密钥<br>
+[漏洞2] 用户密钥硬编码在客户端 → 任何人可提取<br>
+[漏洞3] 第三方SDK存在后门 → 影响上百个应用<br>
+<span style="color:#f44">⚠ 严重程度：极高 — 建议立即修复</span>
+</div>
+
+<!-- p18: 老板震惊 -->
+<div class="panel"><img src="../images/exp-944/p18.jpg" loading="lazy" alt="老板震惊"></div>
+<div class="panel panel-text dialogue"><span class="speaker">王总：</span>（嘴巴合不拢）这……你三分钟就……</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>而且我还顺便发现了两个更严重的漏洞。您的竞品只利用了最简单的那一个。</div>
+
+<!-- p19: 倒茶搞笑 -->
+<div class="panel"><img src="../images/exp-944/p19.jpg" loading="lazy" alt="老板疯狂倒茶"></div>
+<div class="panel panel-text dialogue"><span class="speaker">王总：</span>（满脸堆笑）朱总请坐请坐！来来来喝茶！</div>
+<div class="panel panel-text narration">王总翻遍了办公室所有的杯子给我倒茶。杯子不够用，最后掏出了自己泡枸杞的保温杯。</div>
+
+<!-- p20: 枸杞水搞笑 -->
+<div class="panel"><img src="../images/exp-944/p20.jpg" loading="lazy" alt="枸杞水名场面"></div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>（凑近我耳边，小声）那是他的枸杞水……</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>（面不改色喝了一口）嗯，养生。</div>
+
+<div class="sep">· · ·</div>
+
+<!-- DECISION-4 -->
+<!-- p21: 第二个抉择 -->
+<div class="panel"><img src="../images/exp-944/p21.jpg" loading="lazy" alt="第二个抉择"></div>
+<div class="panel panel-text narration">修复很顺利，三天搞定。但真正让我兴奋的不是这五万块——而是我在逆向过程中发现的那个第三方SDK。</div>
+<div class="panel panel-text inner">这个SDK被上百个App共用。它的漏洞，是系统级的。修一个App只是治标，找到SDK开发商才是治本。</div>
+
+<div class="decision-box">
+  <h3>🎯 抉择时刻</h3>
+  <div class="choice choice-a"><span class="label">选择A：签年度顾问合同，每月两万稳定现金流</span>安全牌，小池塘里当条大鱼。</div>
+  <div class="choice choice-b"><span class="label">选择B：拒绝小合同，拿SDK漏洞去找开发商谈大单</span>降维打击。小池塘养不出大鱼。</div>
+</div>
+<div class="reason">上辈子的我，曾经在"稳定"和"格局"之间选了无数次稳定，最后发现——稳定是最大的风险。这一次，我要选那条更难的路。</div>
+
+<!-- p22: 连夜写白皮书 -->
+<div class="panel"><img src="../images/exp-944/p22.jpg" loading="lazy" alt="连夜写白皮书"></div>
+<div class="panel panel-text narration">回到出租屋，我和陈磊开始了四十八小时的冲刺。用2026年的安全分析框架，解剖2010年的漏洞——就像拿着手术刀切豆腐。</div>
+
+<!-- p23: 白皮书封面 -->
+<div class="panel"><img src="../images/exp-944/p23.jpg" loading="lazy" alt="白皮书"></div>
+<div class="tech-terminal">
+═══════════════════════════════════<br>
+　　　移动SDK安全白皮书<br>
+　　影响387个应用的系统级漏洞分析<br>
+═══════════════════════════════════<br>
+<br>
+作者：朱江 / 陈磊<br>
+日期：2010年7月<br>
+<br>
+摘要：本报告详细分析了某主流移动SDK<br>
+中存在的3个系统级安全漏洞，涉及<br>
+387个已上线应用，潜在影响用户超过<br>
+2000万，经济损失预估超过1.2亿元……
+</div>
+
+<!-- p24: 发送邮件 -->
+<div class="panel"><img src="../images/exp-944/p24.jpg" loading="lazy" alt="发送邮件"></div>
+<div class="panel panel-text inner">深夜两点。白皮书最后一个标点符号校对完毕。我深吸一口气，把它发到了SDK公司CTO的私人邮箱。</div>
+<div class="panel panel-text narration">回车键按下去的那一刻，我知道——这封邮件会改变一切。</div>
+
+<!-- p25: 接到电话 -->
+<div class="panel"><img src="../images/exp-944/p25.jpg" loading="lazy" alt="接到电话"></div>
+<div class="panel panel-text narration">第二天一早，电话就来了。号码是北京的。</div>
+<div class="panel panel-text inner">比我预想的还快。看来这份白皮书的杀伤力，连我都低估了。</div>
+
+<!-- p26: 北京！ -->
+<div class="panel"><img src="../images/exp-944/p26.jpg" loading="lazy" alt="北京之约"></div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>（挂断电话，转向陈磊）他们要见我们。后天，北京。</div>
+
+<!-- p27: 陈磊蹦起来 -->
+<div class="panel"><img src="../images/exp-944/p27.jpg" loading="lazy" alt="陈磊激动"></div>
+<div class="panel panel-text narration">陈磊激动得原地蹦了起来，馒头和咸菜震飞了一桌子。</div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>北京！！我们要去北京了！！</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>（笑着拍他肩膀）先把馒头捡起来，别浪费。</div>
+
+<div class="sep">· · ·</div>
+
+<!-- p28: 神秘人 -->
+<div class="panel"><img src="../images/exp-944/p28.jpg" loading="lazy" alt="神秘人"></div>
+
+<div class="cliffhanger">
+  <p>楼下阴暗的巷子里，那个身影又出现了。</p>
+  <p>他手中的手机屏幕微微发光——</p>
+  <p>那是一部不属于2010年的手机。</p>
+  <p class="next">▸ 下章预告：北京之行，我发现SDK公司背后站着一个……上辈子的"老朋友"。</p>
+</div>
+
+<div class="bottom-nav">
+  <a href="../exp941-rebirth-hacker-ch1/index.html">← 第一章</a>
+  <a href="#" style="opacity:0.4;pointer-events:none">第三章 →</a>
+</div>
+
+</div>
+
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
