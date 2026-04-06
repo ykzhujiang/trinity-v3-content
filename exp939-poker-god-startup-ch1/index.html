@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>赌神系统：我在融资牌桌上开了透视挂 · 第一章</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0d0a;
+  color: #e8e8e8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.story-container {
+  max-width: 430px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+/* Title */
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at center, #1a3a2a 0%, #0a0d0a 70%);
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(218,165,32,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.5; } 50% { transform: translate(-50%,-50%) scale(1.3); opacity: 1; } }
+.title-chip {
+  font-size: 14px;
+  color: #daa520;
+  border: 1px solid #daa520;
+  border-radius: 20px;
+  padding: 4px 16px;
+  margin-bottom: 24px;
+  position: relative;
+  letter-spacing: 2px;
+}
+.title-main {
+  font-size: 28px;
+  font-weight: 900;
+  color: #daa520;
+  text-shadow: 0 0 20px rgba(218,165,32,0.5);
+  margin-bottom: 12px;
+  position: relative;
+}
+.title-sub {
+  font-size: 16px;
+  color: #8fbc8f;
+  position: relative;
+  margin-bottom: 32px;
+}
+.title-chapter {
+  font-size: 20px;
+  color: #fff;
+  position: relative;
+  opacity: 0.8;
+}
+/* Panel */
+.panel {
+  margin-bottom: 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel img {
+  width: 100%;
+  display: block;
+}
+.panel-text {
+  padding: 20px 20px 28px;
+  font-size: 18px;
+  line-height: 1.85;
+  color: #ddd;
+}
+.panel-text .narrator {
+  color: #b0b0b0;
+  font-style: italic;
+}
+.panel-text .inner {
+  color: #8fbc8f;
+  font-style: italic;
+}
+.panel-text .humor {
+  color: #daa520;
+}
+/* PokerOS System Panel */
+.poker-os {
+  margin: 0 16px 0;
+  background: linear-gradient(135deg, rgba(20,60,40,0.95), rgba(10,30,20,0.98));
+  border: 1px solid #daa520;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 14px;
+  color: #daa520;
+  box-shadow: 0 0 20px rgba(218,165,32,0.2), inset 0 0 30px rgba(0,0,0,0.5);
+  position: relative;
+}
+.poker-os::before {
+  content: '♠ PokerOS';
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: #143c28;
+  padding: 0 8px;
+  font-size: 12px;
+  color: #daa520;
+  border: 1px solid #daa520;
+  border-radius: 4px;
+}
+.poker-os .chip { color: #ffd700; }
+.poker-os .warn { color: #ff6b6b; }
+.poker-os .info { color: #8fbc8f; }
+.poker-os .dealer {
+  color: #b8860b;
+  font-style: italic;
+  border-top: 1px solid rgba(218,165,32,0.3);
+  margin-top: 8px;
+  padding-top: 8px;
+}
+/* Decision Box */
+.decision-box {
+  margin: 0 16px 0;
+  background: linear-gradient(135deg, rgba(40,20,10,0.95), rgba(20,10,5,0.98));
+  border: 2px solid #daa520;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 0 30px rgba(218,165,32,0.3);
+}
+.decision-title {
+  color: #daa520;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.decision-option {
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 15px;
+}
+.decision-option.chosen {
+  background: rgba(218,165,32,0.2);
+  border: 1px solid #daa520;
+  color: #ffd700;
+}
+.decision-option.chosen::before { content: '✅ '; }
+.decision-option.not-chosen {
+  background: rgba(100,100,100,0.1);
+  border: 1px solid rgba(100,100,100,0.3);
+  color: #888;
+}
+.decision-reason {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(143,188,143,0.1);
+  border-left: 3px solid #8fbc8f;
+  font-size: 14px;
+  color: #8fbc8f;
+  font-style: italic;
+}
+/* Act divider */
+.act-divider {
+  text-align: center;
+  padding: 40px 20px;
+  color: #daa520;
+  font-size: 14px;
+  letter-spacing: 4px;
+  opacity: 0.6;
+}
+.act-divider span {
+  display: inline-block;
+  border-top: 1px solid #daa520;
+  border-bottom: 1px solid #daa520;
+  padding: 8px 20px;
+}
+/* Chapter end */
+.chapter-end {
+  text-align: center;
+  padding: 60px 20px;
+  position: relative;
+}
+.chapter-end .suspense {
+  color: #ff4444;
+  font-size: 16px;
+  animation: flicker 2s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+@keyframes flicker { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.chapter-end .tbc {
+  color: #daa520;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* Score bar */
+.stats-bar {
+  margin: 0 16px;
+  background: rgba(20,60,40,0.8);
+  border: 1px solid rgba(218,165,32,0.4);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Menlo', monospace;
+  font-size: 13px;
+  color: #8fbc8f;
+  display: flex;
+  justify-content: space-around;
+}
+</style>
+</head>
+<body>
+<div class="story-container">
+
+<!-- TITLE -->
+<div class="title-screen">
+  <div class="title-chip">♠ ♥ ♣ ♦</div>
+  <div class="title-main">赌神系统</div>
+  <div class="title-sub">我在融资牌桌上开了透视挂</div>
+  <div class="title-chapter">第一章 · 底牌</div>
+</div>
+
+<div class="act-divider"><span>ACT 1 · 融资路演惨败</span></div>
+
+<!-- P01 -->
+<div class="panel">
+<img src="images/p01.jpg" loading="lazy" alt="路演会议室">
+<div class="panel-text">
+<span class="narrator">融资路演的第47分钟。我讲完了最后一页PPT，会议室里安静得能听见中央空调嗡嗡响。</span>
+</div>
+</div>
+
+<!-- P02 -->
+<div class="panel">
+<img src="images/p02.jpg" loading="lazy" alt="投资人合笔记本">
+<div class="panel-text">
+对面的人一个个合上了笔记本。这是拒绝的通用肢体语言——我已经见过127次了。
+</div>
+</div>
+
+<!-- P03 -->
+<div class="panel">
+<img src="images/p03.jpg" loading="lazy" alt="走廊背影">
+<div class="panel-text">
+第128次被拒绝。不是不习惯了，是习惯了之后那种麻木，比第一次被拒还难受。<br><br>
+<span class="inner">不过至少这次没人说"你的项目很有意思但不是我们现阶段关注的方向"……算了，有三个人说了。</span>
+</div>
+</div>
+
+<!-- P04 -->
+<div class="panel">
+<img src="images/p04.jpg" loading="lazy" alt="电梯里看手机">
+<div class="panel-text">
+电梯里翻了一眼手机，账上的钱还能撑45天。<br><br>
+45天。连一个投资人的决策周期都不够。
+</div>
+</div>
+
+<!-- P05: System Activation -->
+<div class="panel">
+<img src="images/p05.jpg" loading="lazy" alt="PokerOS激活">
+<div class="panel-text">
+手机屏幕突然黑了一秒，然后变成了一片墨绿色。<br>像赌场牌桌的那种绿。
+</div>
+<div class="poker-os">
+<div class="chip">♠ PokerOS v1.0 — 开局</div><br>
+<span class="info">检测到宿主处于高压博弈场景……</span><br>
+<span class="info">初始化中……</span><br>
+<span class="chip">█████████████████ 100%</span>
+</div>
+</div>
+
+<!-- P06 -->
+<div class="panel">
+<img src="images/p06.jpg" loading="lazy" alt="电梯门开">
+<div class="panel-text">
+屏幕上弹出一行字。语气像个赌场老炮儿在跟新手说话。<br><br>
+我下意识往外走了一步——然后低头看了眼那行字，忍不住嘴角抽了一下。什么鬼。
+</div>
+<div class="poker-os">
+<div class="dealer">老板，别发愣了，电梯门开了。——你的荷官PokerOS</div>
+</div>
+</div>
+
+<!-- P07 -->
+<div class="panel">
+<img src="images/p07.jpg" loading="lazy" alt="大厅咖啡角">
+<div class="panel-text">
+我坐下来仔细看了看这个"PokerOS"。它说自己是"商业博弈辅助系统"，能让我在谈判中"看到对手的底牌"。
+</div>
+<div class="poker-os">
+<span class="chip">初始筹码: 1000</span> | <span class="info">等级: 菜鸟</span><br>
+<span class="info">今日可用读牌次数: 3</span><br>
+<span class="info">每次读牌消耗: 100-300筹码</span><br>
+<span class="info">筹码恢复方式: 赢得真实商业博弈</span><br>
+<div class="dealer">听起来像个手游内购骗局？老板，你伤了系统的心。</div>
+</div>
+</div>
+
+<!-- P08 -->
+<div class="panel">
+<img src="images/p08.jpg" loading="lazy" alt="通知弹出">
+<div class="panel-text">
+通知弹出来的时候，PokerOS的弹幕也跟着出来了。这效率倒是快。<br><br>
+陈薇……是刚才坐在角落里唯一没合笔记本的那个人。
+</div>
+<div class="poker-os">
+<span class="info">📩 陈薇（鼎新资本）:</span><br>
+"朱总，刚才没来得及聊。方便明天上午coffee chat吗？"<br><br>
+<div class="dealer">检测到潜在牌局。难度评估：★★☆☆☆。建议接受。——你的荷官</div>
+</div>
+</div>
+
+<!-- P09 -->
+<div class="panel">
+<img src="images/p09.jpg" loading="lazy" alt="回复消息">
+<div class="panel-text">
+我回了三个字：<strong>"好，约。"</strong><br><br>
+管它是什么系统，明天先试试。反正最坏的结果也不过是第129次被拒——<span class="humor">那又怎样。</span>
+</div>
+</div>
+
+<div class="act-divider"><span>ACT 2 · 第一次读牌</span></div>
+
+<!-- P10 -->
+<div class="panel">
+<img src="images/p10.jpg" loading="lazy" alt="咖啡馆等待">
+<div class="panel-text">
+第二天上午十点，阳光很好。我提前到了十五分钟。这是我从第一次融资就养成的习惯——提前到，观察环境，让自己进入状态。<br><br>
+<span class="inner">PokerOS在口袋里安静着，像一张没翻开的底牌。</span>
+</div>
+</div>
+
+<!-- P11 -->
+<div class="panel">
+<img src="images/p11.jpg" loading="lazy" alt="陈薇进场">
+<div class="panel-text">
+陈薇准时到。短发，黑色套装，红色耳钉——<span class="humor">像一颗精确的子弹。</span><br><br>
+我之前见过上百个投资人，能在路演结束后主动约聊的，不到5%。
+</div>
+</div>
+
+<!-- P12 -->
+<div class="panel">
+<img src="images/p12.jpg" loading="lazy" alt="面对面">
+<div class="panel-text">
+前三分钟是标准寒暄。天气、咖啡、附近新开的餐厅。<br>我知道她在观察我，我也在观察她。
+</div>
+<div class="poker-os">
+<div class="dealer">客套阶段，无有效信息。筹码别浪费。——你的荷官</div>
+</div>
+</div>
+
+<!-- P13 -->
+<div class="panel">
+<img src="images/p13.jpg" loading="lazy" alt="笔记本特写">
+<div class="panel-text">
+她突然切入正题："你们的DAU增长曲线，昨天路演里没展开讲。我想看细节。"<br><br>
+笔记本上写满了笔记——她在昨天路演时真的在认真听。
+</div>
+</div>
+
+<!-- P14 -->
+<div class="panel">
+<img src="images/p14.jpg" loading="lazy" alt="展示数据">
+<div class="panel-text">
+我展示了后台数据。用户增长不算炸裂，但留存率很漂亮——7日留存42%，30日留存28%。<br><br>
+在AI短剧赛道，这个数字相当于在跟投资人说<span class="humor">"我的内容有毒，看了就戒不掉"</span>。
+</div>
+</div>
+
+<!-- P15: Key Moment -->
+<div class="panel">
+<img src="images/p15.jpg" loading="lazy" alt="陈薇表情变化">
+<div class="panel-text">
+她的表情变了。只有一瞬间，嘴角抿了一下。<br><br>
+在投资人的poker face训练里，这算是巨大的破绽了。<br>口袋里的手机震了一下。
+</div>
+<div class="poker-os">
+<span class="warn">⚡ 检测到对手情绪波动</span><br>
+<span class="info">是否读牌？</span><br>
+<span class="chip">消耗筹码: 200</span><br><br>
+<span class="chip">[🃏 读牌]</span> &nbsp;&nbsp; <span class="info">[放弃]</span>
+</div>
+</div>
+
+<!-- DECISION-1 -->
+<div class="decision-box">
+  <div class="decision-title">⚡ DECISION-1 ⚡</div>
+  <div class="decision-option not-chosen">B) 不读，靠自己判断继续聊</div>
+  <div class="decision-option not-chosen">C) 假装不经意问一句试探性问题</div>
+  <div class="decision-option chosen">A) 读牌——消耗200筹码，看陈薇的真实想法</div>
+  <div class="decision-reason">
+    第一次用，先试试水深。200筹码换一次情报，如果这系统是真的，值了。——黑客遇到新系统的第一反应永远是：先跑一遍看看输出。
+  </div>
+</div>
+
+<!-- P16: Read Result -->
+<div class="panel">
+<img src="images/p16.jpg" loading="lazy" alt="读牌结果">
+<div class="panel-text">
+系统"翻牌"了。卡牌翻转的动画意外地酷——像赌场荷官甩牌的慢动作。<br>然后信息出来了。
+</div>
+<div class="poker-os">
+<span class="chip">🃏 陈薇的底牌:</span><br><br>
+<span class="info">她自己非常想投你，但合伙人马总不同意。</span><br>
+<span class="info">她来见你是自己的决定，不是基金的决定。</span><br>
+<span class="warn">她需要你给她一个"无法拒绝的理由"去说服马总。</span><br><br>
+<span class="chip">关键词: 技术壁垒</span><br>
+<div class="dealer">牌面清晰，老板。该你出牌了。</div>
+</div>
+</div>
+
+<!-- P17 -->
+<div class="panel">
+<img src="images/p17.jpg" loading="lazy" alt="恍然大悟">
+<div class="panel-text">
+原来如此。<br><br>
+她不是来评估我的——她是来<strong>"收集弹药"</strong>的。她需要我给她武器，让她回去说服马总。<br><br>
+<span class="inner">这完全改变了我的策略。不用让她相信我好，而是让她能让马总相信我好。</span>
+</div>
+</div>
+
+<div class="stats-bar">
+  <span>筹码: 800/1000</span>
+  <span>牌局: 进行中</span>
+  <span>优势: ★★★☆</span>
+</div>
+
+<!-- P18 -->
+<div class="panel">
+<img src="images/p18.jpg" loading="lazy" alt="攻势">
+<div class="panel-text">
+我调整了策略。不再泛泛介绍，直奔陈薇需要的"弹药"——技术壁垒。<br><br>
+"我们的核心模型用了一种非公开的注意力机制改进，留存率高不是因为内容好，是因为模型能预测用户在第几秒会划走，然后在那一秒制造反转。这个能力，目前赛道里没有第二家能做到。"
+</div>
+</div>
+
+<!-- P19 -->
+<div class="panel">
+<img src="images/p19.jpg" loading="lazy" alt="陈薇快速记笔记">
+<div class="panel-text">
+她的笔速变了。之前是偶尔记一笔，现在是刷刷刷地写。
+</div>
+<div class="poker-os">
+<span class="chip">✅ 命中。对手防御值下降。</span><br>
+<span class="chip">筹码+50（博弈奖励）</span><br>
+<div class="dealer">做得不错，老板。继续保持。</div>
+</div>
+</div>
+
+<!-- P20 -->
+<div class="panel">
+<img src="images/p20.jpg" loading="lazy" alt="并肩看数据">
+<div class="panel-text">
+聊了四十分钟，氛围完全变了。<br><br>
+她不再是审核我的投资人，我也不再是被审的创业者。我们变成了同一个牌桌上的同一边——<span class="humor">想赢的人，都在想怎么让马总掏钱。</span>
+</div>
+</div>
+
+<div class="act-divider"><span>ACT 3 · 系统的Bug</span></div>
+
+<!-- P21 -->
+<div class="panel">
+<img src="images/p21.jpg" loading="lazy" alt="走出咖啡馆">
+<div class="panel-text">
+出了咖啡馆，阳光打在脸上暖洋洋的。<br><br>
+陈薇说"我这周跟马总汇报，下周给你消息"。语气不像客套，更像是同盟军约好了下次作战时间。
+</div>
+<div class="poker-os">
+<span class="chip">🏆 牌局结算: 小胜一局</span><br>
+<span class="chip">筹码余额: 850</span><br>
+<div class="dealer">请注意，真正的大牌局还没开始。——你的荷官</div>
+</div>
+</div>
+
+<!-- P22 -->
+<div class="panel">
+<img src="images/p22.jpg" loading="lazy" alt="街上走路">
+<div class="panel-text">
+回去的路上我翻了翻PokerOS的"教程"。上面写着：<br><br>
+<span class="inner">"读牌能力仅在博弈场景中激活。非博弈场景使用可能产生未知结果。"</span><br><br>
+未知结果？什么意思？
+</div>
+</div>
+
+<!-- P23 -->
+<div class="panel">
+<img src="images/p23.jpg" loading="lazy" alt="地铁里">
+<div class="panel-text">
+在地铁上，我对着对面一个戴耳机的小哥按了一下"读牌"。<br><br>
+<span class="humor">就是好奇。</span>
+</div>
+<div class="poker-os">
+<span class="warn">⚠️ 非博弈场景。读牌结果可能不稳定。</span><br>
+<span class="chip">消耗筹码: 50</span>
+</div>
+</div>
+
+<!-- P24: BUG -->
+<div class="panel">
+<img src="images/p24.jpg" loading="lazy" alt="读到自己内心">
+<div class="panel-text">
+……读到的是我自己的内心独白。<br><br>
+<strong>我人傻了。</strong>
+</div>
+<div class="poker-os">
+<span class="chip">🃏 读牌结果:</span><br><br>
+<span class="info">"今天那个陈薇其实挺好看的，笑起来有酒窝……</span><br>
+<span class="warn">等等，我在想什么？专注，朱江，专注！</span><br>
+<span class="info">你是来融资的不是来相亲的！"</span>
+</div>
+</div>
+
+<!-- P25 -->
+<div class="panel">
+<img src="images/p25.jpg" loading="lazy" alt="疯狂关闭">
+<div class="panel-text">
+系统开始疯狂输出我的内心独白。全是些不能让任何人看到的废话。我疯狂按关闭，它不停。
+</div>
+<div class="poker-os">
+<span class="info">"早餐那个包子是不是馊了"</span><br>
+<span class="info">"马总会不会是光头"</span><br>
+<span class="info">"如果融不到钱就回去卖手抓饼，手抓饼利润率其实挺高的……"</span><br>
+<span class="info">"陈薇的红色耳钉到底是什么牌子"</span><br>
+<span class="info">"我刚才是不是有口臭"</span><br><br>
+<div class="dealer">老板，你的内心活动比你的BP还丰富。——你的荷官</div>
+</div>
+</div>
+
+<!-- P26: Cliffhanger -->
+<div class="panel">
+<img src="images/p26.jpg" loading="lazy" alt="红色警告">
+<div class="panel-text">
+总算安静了。我靠在座位上喘气。<br><br>
+然后——在屏幕变黑的最后一帧，有一行红色小字一闪而过。<br>
+快到我不确定自己是不是看花了眼。
+</div>
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end">
+  <div class="suspense">⚠️ 系统检测到异常：另一位PokerOS用户已接入您的牌局。</div>
+  <div style="color: #666; font-size: 14px; margin-bottom: 24px;">
+    是陈薇？是马总？还是……别人？
+  </div>
+  <div class="tbc">—— 第一章 · 完 ——</div>
+  <div style="color: #daa520; font-size: 14px; margin-top: 16px; opacity: 0.6;">
+    第二章 · 当系统开始读我自己的底牌
+  </div>
+</div>
+
+<div class="stats-bar" style="margin-bottom: 40px;">
+  <span>筹码: 800</span>
+  <span>等级: 菜鸟</span>
+  <span>牌局胜率: 1/1</span>
+</div>
+
+</div><!-- story-container -->
+
+<script>
+// Intersection Observer for scroll animations
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.panel').forEach(p => obs.observe(p));
+</script>
+</body>
+</html>
