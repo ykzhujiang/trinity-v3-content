@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>死循环：我的创业D-Day被系统卡在了单曲循环 — Ch1</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1520;color:#e0dcd5;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:20px;line-height:1.85;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#1a1520 0%,#0d1a2e 50%,#1a1520 100%);position:relative;overflow:hidden}
+.cover::before{content:'⏰';position:absolute;font-size:180px;color:rgba(70,160,255,0.06);top:8%;left:50%;transform:translateX(-50%);animation:clockPulse 2s ease-in-out infinite}
+@keyframes clockPulse{0%,100%{transform:translateX(-50%) scale(1);opacity:0.06}50%{transform:translateX(-50%) scale(1.15);opacity:0.12}}
+.cover h1{font-size:1.5em;background:linear-gradient(135deg,#4db8ff,#ff6b6b,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;z-index:1;text-align:center;padding:0 20px;font-weight:900;line-height:1.4}
+.cover .sub{font-size:0.8em;color:#6a8ab0;margin-top:12px;z-index:1;letter-spacing:3px}
+.cover .chapter{font-size:0.7em;color:#4a6a8a;margin-top:24px;letter-spacing:8px;z-index:1}
+.cover .stats{font-size:0.6em;color:#4db8ff;margin-top:16px;z-index:1;text-align:left;padding:16px 24px;max-width:360px;font-family:'Courier New',monospace;background:rgba(13,26,46,0.8);border-radius:12px;border:1px solid rgba(70,160,255,0.3);line-height:2}
+.content{max-width:420px;margin:0 auto;padding:0 8px 60px}
+.panel{margin:0 0 4px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease-out,transform 0.6s ease-out}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:6px;display:block}
+.panel .text{padding:12px 16px;font-size:18px;line-height:1.85}
+.narration{color:#7a9ab8;font-style:italic;border-left:3px solid #4db8ff;padding-left:14px;margin:8px 0}
+.dialogue{color:#e0dcd5;padding:6px 0}
+.dialogue .speaker{font-weight:bold;font-size:0.85em;margin-bottom:2px}
+.speaker-zj{color:#4db8ff}
+.speaker-wz{color:#e8b84a}
+.speaker-zl{color:#66cc99}
+.speaker-sys{color:#ff6b9d}
+.thought{color:#8a9aaa;font-style:italic;opacity:0.9}
+.sys-panel{background:rgba(13,26,46,0.9);border:1px solid rgba(70,160,255,0.4);border-radius:12px;padding:14px 16px;margin:10px 0;font-family:'Courier New',monospace;color:#4db8ff;font-size:14px;line-height:1.8}
+.sys-panel .header{color:#ff6b9d;font-weight:bold;text-align:center;font-size:15px;margin-bottom:8px;letter-spacing:2px}
+.sys-panel .divider{color:#2a4a6a;text-align:center;margin:4px 0}
+.sys-panel .warn{color:#ffaa33}
+.sys-panel .fail{color:#ff6b6b}
+.sys-panel .ok{color:#66cc99}
+.sys-panel .info{color:#8ab8e8}
+.sys-comment{color:#6a8ab0;font-style:italic;margin-top:6px;font-size:13px}
+.crisis-bar{background:rgba(30,15,20,0.9);border:1px solid rgba(255,80,80,0.4);border-radius:12px;padding:14px 16px;margin:10px 0;font-family:'Courier New',monospace;font-size:14px;line-height:1.9}
+.crisis-bar .title{color:#ff6b6b;font-weight:bold;text-align:center;margin-bottom:6px}
+.crisis-bar .red{color:#ff6b6b}
+.crisis-bar .yellow{color:#ffaa33}
+.crisis-bar .green{color:#66cc99}
+.decision-box{background:linear-gradient(135deg,rgba(70,160,255,0.06),rgba(255,107,107,0.06));border:2px solid #4db8ff;border-radius:16px;padding:18px;margin:20px 0;box-shadow:0 4px 20px rgba(70,160,255,0.15)}
+.decision-box .dtitle{color:#4db8ff;font-weight:bold;font-size:17px;margin-bottom:12px;text-align:center;letter-spacing:3px}
+.decision-box .option{padding:10px 14px;margin:8px 0;border-radius:10px;font-size:15px;color:#8a9aaa;background:rgba(13,26,46,0.5);border:1px solid rgba(70,160,255,0.2)}
+.decision-box .option.chosen{background:rgba(70,160,255,0.1);color:#4db8ff;font-weight:bold;border:2px solid #4db8ff;box-shadow:0 2px 12px rgba(70,160,255,0.2)}
+.decision-box .option.not-chosen{opacity:0.3;text-decoration:line-through}
+.decision-box .reason{margin-top:12px;padding:12px 14px;background:rgba(70,160,255,0.05);border-radius:10px;font-size:15px;color:#7a9ab8;line-height:1.7}
+.scene-break{text-align:center;padding:32px 0;color:#3a5a7a;font-size:14px;letter-spacing:8px}
+.scene-break::before,.scene-break::after{content:'⏰';margin:0 12px;color:rgba(70,160,255,0.3)}
+.act-header{text-align:center;padding:40px 0 20px;font-size:1.1em;color:#4db8ff;letter-spacing:6px}
+.loop-header{text-align:center;padding:30px 0 15px;font-size:0.95em;color:#ff6b9d;letter-spacing:4px;border-top:1px solid rgba(255,107,157,0.2);margin-top:20px}
+.cliffhanger{padding:40px 20px;font-size:1.15em;color:#b0c8e0;line-height:2.2;text-align:center;background:linear-gradient(180deg,transparent,rgba(13,26,46,0.5))}
+.cliffhanger em{color:#ff6b9d;font-style:normal;font-weight:bold}
+.tbc{text-align:center;padding:24px;color:#3a5a7a;font-size:0.85em;letter-spacing:8px;border-top:1px solid rgba(70,160,255,0.2);margin-top:20px}
+.scroll-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:#3a5a7a;font-size:14px;animation:bob 2s ease-in-out infinite;z-index:10;pointer-events:none}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+.glitch{animation:glitch 0.3s ease-in-out;display:inline-block}
+@keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(2px,-1px)}60%{transform:translate(-1px,1px)}80%{transform:translate(1px,-2px)}100%{transform:translate(0)}}
+.montage{background:linear-gradient(180deg,rgba(30,15,20,0.3),rgba(13,26,46,0.3));border-radius:12px;padding:4px;margin:8px 0}
+.humor{color:#ffb347;background:rgba(255,180,100,0.08);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:16px}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>死循环<br>我的创业D-Day<br>被系统卡在了单曲循环</h1>
+<div class="sub">时间循环 × 系统文 × AI创业 × 搞笑</div>
+<div class="chapter">CHAPTER 1「第一次死亡：07:00-23:59」</div>
+<div class="stats">
+⏰ 循环次数：1/???<br>
+💰 资金链剩余：24h<br>
+👥 团队完整度：40%<br>
+🖥️ 产品可用性：DEGRADED<br>
+⚠️ 生存概率：计算中……
+</div>
+</div>
+
+<div class="scroll-hint">向下滑动 ↓</div>
+
+<div class="content">
+
+<!-- ACT 1 -->
+<div class="act-header">ACT 1 — 最糟糕的一天</div>
+
+<!-- Panel 01 -->
+<div class="panel" id="p01">
+<img src="images/p01.jpg" loading="lazy" alt="闹钟7:00，朱江从行军床上醒来">
+<div class="text">
+<div class="narration">星辰智能办公室 · 07:00</div>
+<p>闹钟响了。</p>
+<p>我从行军床上坐起来——又在公司过夜了。桌上是昨晚没吃完的外卖，手机屏幕亮着：28条未读消息。</p>
+<p class="thought">创业第三年，我已经分不清哪天是工作日哪天是休息日了。</p>
+<p>翻了翻手机。产品DAU——嗯，正常。今天应该是平静的一天。</p>
+</div>
+</div>
+
+<!-- Panel 02 -->
+<div class="panel" id="p02">
+<img src="images/p02.jpg" loading="lazy" alt="朱江接到投资人王总的电话">
+<div class="text">
+<div class="narration">09:00 — 第一颗炸弹</div>
+<div class="dialogue"><div class="speaker speaker-wz">王总（电话）</div>"小朱啊，有个事情跟你说。我这边LP……资金需要调整，投在你们的那笔……可能要收回来。"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"王总，这……能给多少时间？"</div>
+<div class="dialogue"><div class="speaker speaker-wz">王总</div><em>沉默三秒。</em> "尽快吧。"</div>
+<p class="thought">3000万。我们账上只够发两个月工资。如果这笔钱收回去……</p>
+</div>
+</div>
+
+<!-- Panel 03 -->
+<div class="panel" id="p03">
+<img src="images/p03.jpg" loading="lazy" alt="张磊拿着辞职信走进办公室">
+<div class="text">
+<div class="narration">10:30 — 第二颗炸弹</div>
+<div class="dialogue"><div class="speaker speaker-zl">张磊</div>"江哥，我决定了。我和老陈、小刘、阿伟，我们四个一起走。"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"坐下说。"</div>
+<div class="dialogue"><div class="speaker speaker-zl">张磊</div>"没什么好说的。上周的技术方案你否了，但你错了——我用业余时间验证过了，性能提升37%。你不是不懂技术，你是不信任我。"</div>
+<p class="thought">他说得对。上周那个方案我确实没认真看就否了——因为当时在焦头烂额处理融资的事。</p>
+</div>
+</div>
+
+<!-- Panel 04 -->
+<div class="panel" id="p04">
+<img src="images/p04.jpg" loading="lazy" alt="产品总监冲进来报告DDoS攻击">
+<div class="text">
+<div class="narration">11:00 — 第三颗炸弹</div>
+<div class="dialogue"><div class="speaker">产品总监（慌张）</div>"老板！服务器被攻击了！DDoS！大客户数据库有泄露风险！"</div>
+<p>我站了起来。张磊也站了起来——但他犹豫了一秒，转身走向门口。</p>
+<div class="dialogue"><div class="speaker speaker-zl">张磊（头也不回）</div>"这不是我的事了。"</div>
+<p class="thought">三件事。同一天。投资撤了，团队散了，产品崩了。<br>这不是巧合——</p>
+</div>
+</div>
+
+<!-- Panel 05-06: Montage -->
+<div class="montage">
+<div class="panel" id="p05">
+<img src="images/p05.jpg" loading="lazy" alt="朱江独自在机房抢修">
+<div class="text">
+<p>剩下的一天，我一个人在机房对着终端敲命令。我不是专业运维——操作笨拙，汗水滴在键盘上。手机不停地响——大客户在打电话质问。</p>
+<p>屏幕上的红色错误码像墓碑一样不断刷新。</p>
+</div>
+</div>
+
+<div class="panel" id="p06">
+<img src="images/p06.jpg" loading="lazy" alt="23:50空荡办公室，朱江一人">
+<div class="text">
+<div class="narration">23:50</div>
+<p>空荡荡的办公室。灯关了大半，只有我工位的屏幕还亮着。</p>
+<p>屏幕上：银行账户余额——负数。大客户合同终止邮件。张磊的朋友圈——"新的开始"，配图是竞对公司的logo。</p>
+<p class="thought">今天早上7点的时候，我还以为这只是普通的一天。<br>十七个小时后，我的公司死了。</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 07: ChronoOS Activation -->
+<div class="panel" id="p07">
+<img src="images/p07.jpg" loading="lazy" alt="现实出现数字化裂纹，ChronoOS激活">
+<div class="text">
+<div class="narration">23:59</div>
+<p>我趴在办公桌上。意识模糊。</p>
+<p>然后——整个世界开始碎裂。像屏幕坏了一样，现实出现了数字化的裂纹。一个蓝色全息面板凭空出现。</p>
+<div class="sys-panel">
+<div class="header">══ ChronoOS v1.0 — 初始化中 ══</div>
+<div class="divider">──────────────────</div>
+<p class="info">检测到：创业者生命体征……</p>
+<p class="fail">判定：公司死亡 = 创业者死亡</p>
+<div class="divider">──────────────────</div>
+<p>启动协议：<strong>时间循环</strong></p>
+<p>目标：在24小时内同时解决以下三项致命威胁——</p>
+<p class="fail">① 💰 资金链断裂（撤资）</p>
+<p class="fail">② 👥 核心团队流失（CTO离职）</p>
+<p class="fail">③ 🖥️ 产品安全事故（DDoS攻击）</p>
+<div class="divider">──────────────────</div>
+<p>循环次数：1/???</p>
+<p>解锁能力：加载中……</p>
+<div class="divider">──────────────────</div>
+<p class="warn">⚠️ 注意：三个危机存在隐藏关联</p>
+<p class="warn">⚠️ 发现关联 = 发现解法</p>
+</div>
+<p class="thought">我在做梦？</p>
+</div>
+</div>
+
+<!-- Panel 08: Loop 2 Begins -->
+<div class="panel" id="p08">
+<img src="images/p08.jpg" loading="lazy" alt="同一个行军床，7:00，Loop 2开始">
+<div class="text">
+<p>闹钟响了。7:00。</p>
+<p>同一个行军床。同一个外卖盒。手机：28条未读。</p>
+<p>一切一模一样——除了右眼角余光里，有一个淡蓝色的全息面板悬浮在空气中。</p>
+<div class="sys-panel">
+<div class="header">⏰ LOOP 2 — 07:00</div>
+<div class="divider">──────────────────</div>
+<p>今日三大待办：</p>
+<p class="fail">① 💰 09:00 王总来电（-24h）</p>
+<p class="fail">② 👥 10:30 张磊辞职（-4人）</p>
+<p class="fail">③ 🖥️ 11:00 DDoS攻击（-客户）</p>
+<div class="divider">──────────────────</div>
+<p>本轮解锁能力：</p>
+<p style="color:#ff6b9d;font-size:16px">🧠「读心术」</p>
+<p class="info">可听到10米内任何人的真实想法</p>
+<p class="info">（持续至23:59）</p>
+<div class="divider">──────────────────</div>
+<p class="warn">⚠️ 上一轮生存时间：16h59m</p>
+<p class="warn">⚠️ 本轮目标：活过23:59</p>
+</div>
+<p class="thought">……这不是梦。我确实回到了今天早上。</p>
+<p class="thought">读心术？如果我能听到王总的真实想法……</p>
+</div>
+</div>
+
+<!-- ACT 2 -->
+<div class="loop-header">LOOP 2 — 读心术之灾</div>
+
+<!-- Panel 09 -->
+<div class="panel" id="p09">
+<img src="images/p09.jpg" loading="lazy" alt="朱江在会议室等王总视频通话">
+<div class="text">
+<div class="narration">09:00 · Loop 2</div>
+<p>这次我提前到了会议室。面对大屏幕，等待视频接通。</p>
+<p>我有读心术。这一局，我准备好了。</p>
+<p>王总的脸出现在屏幕上。</p>
+<div class="dialogue"><div class="speaker speaker-wz">王总</div>"小朱啊，有个资金调整的事……"</div>
+<div class="humor">🧠 王总心声：<em>"其实我不想撤啊……这小子明明做得不错。但LP老陈那个混蛋逼我……要是小朱能给我一个LP没法反驳的理由就好了……"</em></div>
+<p>我的眼睛亮了。</p>
+</div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel" id="p10">
+<img src="images/p10.jpg" loading="lazy" alt="分屏：王总心声+朱江实时调整话术">
+<div class="text">
+<p>我根据心声实时调整话术。效果——一开始很好。</p>
+<div class="dialogue"><div class="speaker speaker-wz">王总</div>"市场环境不太好……"</div>
+<div class="humor">🧠 王总心声：<em>"其实市场环境关我什么事，是LP老陈在套现……"</em></div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"王总，我理解LP方面的压力。我这边有一个数据——上周企业客户续约率达到93%——"</div>
+<div class="humor">🧠 王总心声：<em>"嗯？93%？这数据不错啊！如果我拿这个数据去怼老陈……"</em></div>
+<div class="dialogue"><div class="speaker speaker-wz">王总</div>"哦？93%？这个……倒是不错。"</div>
+</div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel" id="p11">
+<img src="images/p11.jpg" loading="lazy" alt="朱江表情从得意变僵硬">
+<div class="text">
+<p>但我太贪心了。</p>
+<p>读心术听到了不该听的——</p>
+<div class="humor" style="background:rgba(255,80,80,0.08);color:#ff6b6b">🧠 王总心声（变色）：<em>"不过这小朱今天回答得也太精准了……好像知道我在想什么一样……不会是提前找人打听了我LP的事吧？这种人……能信任吗？"</em></div>
+<p>我嘴角僵住了。</p>
+<div class="sys-panel">
+<p class="warn">⚠️ 信任度正在下降</p>
+<p class="sys-comment">建议：停止过度精准回应。人类对"被完全理解"的反应是恐惧而非感激。</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel" id="p12">
+<img src="images/p12.jpg" loading="lazy" alt="王总越来越怀疑，朱江满头大汗">
+<div class="text">
+<p>我越想挽回越糟糕。因为读心术让我听到了信任度下降的<strong>实时反馈</strong>。</p>
+<div class="humor" style="background:rgba(255,80,80,0.08);color:#ff6b6b">🧠 王总心声：<em>"这个年轻人怎么回事？我每个顾虑他都提前化解了？要么他安了窃听器，要么他在操控我。不行，这种创始人太可怕了——LP说得对，撤！"</em></div>
+<div class="dialogue"><div class="speaker speaker-wz">王总</div>"小朱，我考虑了一下……还是按原计划收回吧。尽快。"</div>
+<div class="sys-panel">
+<p class="fail">💰 危机①：解决失败</p>
+<p class="sys-comment">原因：读心术使用过度，触发"恐怖谷效应"</p>
+</div>
+<p class="thought">知道对方在想什么……并不意味着能解决问题。该死。</p>
+</div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box">
+<div class="dtitle">⚡ 决策点 #1 ⚡</div>
+<p style="color:#8a9aaa;font-size:15px;margin-bottom:12px;text-align:center">读心术仍在生效。10:30张磊会来辞职。<br>你要怎么用读心术？</p>
+<div class="option not-chosen">A）全程开启读心术 → 听到张磊每一个想法，但王总的教训刚刚发生过</div>
+<div class="option chosen">B）只在关键时刻开启 → 听到核心诉求后关闭，用自己的判断力沟通 ✓</div>
+<div class="option not-chosen">C）完全关闭读心术 → 用第一次循环的记忆作为信息优势</div>
+<div class="reason">
+<strong>我的选择：B</strong><br>
+王总那里我学到了——被完全理解是一种恐惧。但完全放弃工具也不是我的风格。<br>
+关键节点获取信息，然后用自己的判断做决定。创业者的风险评估本能：不赌，但也不浪费资源。
+</div>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel" id="p13">
+<img src="images/p13.jpg" loading="lazy" alt="张磊递辞职信，朱江平静接过">
+<div class="text">
+<div class="narration">10:30 · Loop 2</div>
+<p>张磊进来。我只在他说出辞职理由时短暂开启了读心术。</p>
+<div class="dialogue"><div class="speaker speaker-zl">张磊</div>"我和老陈他们决定了。新公司开更高——"</div>
+<p style="color:#4db8ff;font-size:15px">🧠 <em>读心术开启：2秒</em></p>
+<div class="humor">🧠 张磊心声：<em>"钱不是重点……上周那个方案我准备了两个月。他看都不看就否了。他根本不信任我的技术判断……"</em></div>
+<p style="color:#4db8ff;font-size:15px">🧠 <em>读心术关闭</em></p>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"上周的方案，性能提升37%，对吧？"</div>
+<div class="dialogue"><div class="speaker speaker-zl">张磊（震惊）</div>"你……你看了？"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"没有。那天没看。是我的错。"</div>
+</div>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel" id="p14">
+<img src="images/p14.jpg" loading="lazy" alt="张磊看手机上的offer，表情复杂">
+<div class="text">
+<p>但这次循环的张磊已经签了竞对offer。道歉来得太晚了。</p>
+<div class="dialogue"><div class="speaker speaker-zl">张磊</div>"江哥……offer已经签了。违约金20万，我赔不起。"</div>
+<p class="thought">该死。第一次循环里我什么都不知道。第二次循环里我知道了——但知道和改变之间有多远？<br><br>20万违约金。物理锁链。</p>
+<div class="sys-panel">
+<p class="fail">👥 危机②：解决失败</p>
+<p class="sys-comment">原因：信息获取时机正确，但干预时间窗口已关闭。<br>建议：下次循环提前至08:30干预。</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 15-16: Investigation -->
+<div class="panel" id="p15">
+<img src="images/p15.jpg" loading="lazy" alt="朱江在技术团队中走过，读到心声">
+<div class="text">
+<p>DDoS攻击来了。这次我用读心术"审问"了IT团队——从他们的心声中找到了一条线索。</p>
+<div class="humor">🧠 运维小哥心声：<em>"攻击流量特征好像见过……上次在那个公司实习的时候见过一样的……"</em></div>
+<p>我抓住了这条线索。</p>
+</div>
+</div>
+
+<div class="panel" id="p16">
+<img src="images/p16.jpg" loading="lazy" alt="朱江查到攻击源IP指向竞对">
+<div class="text">
+<p>攻击源IP——确认来自竞对公司。</p>
+<p>但服务器已经撑不住了。没有运维能力修复——张磊和技术团队已经离开。</p>
+<p>23:59，循环重置。</p>
+<div class="sys-panel">
+<div class="header">⏰ LOOP 2 — 结束</div>
+<div class="divider">──────────────────</div>
+<p class="info">生存时间：16h59m（+0m）</p>
+<div class="divider">──────────────────</div>
+<p>本轮收获：</p>
+<p class="ok">✅ 发现：王总不想撤资（LP施压）</p>
+<p class="ok">✅ 发现：张磊核心诉求是尊重</p>
+<p class="ok">✅ 发现：DDoS来自竞对公司</p>
+<p class="ok">✅ 发现：三个危机关联到同一源头</p>
+<div class="divider">──────────────────</div>
+<p class="fail">❌ 读心术评估：工具有效但使用方式错误</p>
+<p class="sys-comment">过度使用引发信任危机（王总）<br>使用正确但时间窗口已过（张磊）</p>
+<div class="divider">──────────────────</div>
+<p class="warn">结论：你已经掌握了所有信息</p>
+<p class="warn">但信息 ≠ 解法</p>
+<p class="info">进入 LOOP 3……新能力加载中……</p>
+</div>
+</div>
+</div>
+
+<!-- ACT 3 -->
+<div class="loop-header">LOOP 3 — 主动出击</div>
+
+<!-- Panel 17 -->
+<div class="panel" id="p17">
+<img src="images/p17.jpg" loading="lazy" alt="Loop 3开始，朱江带着目标感醒来">
+<div class="text">
+<p>闹钟。7:00。行军床。28条未读。</p>
+<div class="sys-panel">
+<div class="header">⏰ LOOP 3 — 07:00</div>
+<div class="divider">──────────────────</div>
+<p>本轮解锁能力：</p>
+<p style="color:#ff6b9d;font-size:16px">⏸️「时间暂停」</p>
+<p class="info">可暂停周围时间5分钟（仅限使用一次）</p>
+<div class="divider">──────────────────</div>
+<p>累计信息库：</p>
+<p class="ok">✅ 王总真实意图（想帮但需理由）</p>
+<p class="ok">✅ 张磊核心诉求（尊重+方案）</p>
+<p class="ok">✅ DDoS源头（竞对公司）</p>
+<p class="ok">✅ 三危机关联性（同一源头）</p>
+<div class="divider">──────────────────</div>
+<p class="warn">⚠️ Loop 2教训：信息不是解法。时机才是。</p>
+</div>
+<p class="thought">时间暂停……只有一次。5分钟。我必须用在最关键的时刻。<br><br>而且这次我要在08:30之前截住张磊——在他签offer之前。</p>
+</div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel" id="p18">
+<img src="images/p18.jpg" loading="lazy" alt="07:15朱江快步走向张磊工位">
+<div class="text">
+<div class="narration">07:15 · 主动出击</div>
+<p>我没有等9:00的电话。</p>
+<p>我主动出击了。</p>
+<p class="thought">Loop 1我被动挨打。Loop 2我有了信息但没有行动力。<br><br>这次——我有信息、有时机、还有一张王牌。5分钟时间暂停。<br><br>但首先，我需要承认自己的错误。不用超能力，用真诚。</p>
+</div>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel" id="p19">
+<img src="images/p19.jpg" loading="lazy" alt="特写：朱江留的手写纸条和架构图">
+<div class="text">
+<p>我在张磊的工位留了一张纸条——上面是他那个被我否决的技术方案核心架构图。我凭记忆画的。</p>
+<p>字很丑，但画得很认真。架构图潦草但结构清晰——说明我真的理解了。</p>
+<p>纸条最后一行：</p>
+<p style="color:#ffb347;font-size:17px;text-align:center;padding:12px;border:1px dashed #ffb347;border-radius:8px;margin:8px 0">"性能提升37%。我验证过了。<br>——你的方案是对的。对不起。<br>在你签任何东西之前，给我20分钟。"</p>
+<p class="thought">如果读心术教会了我什么，是真话的力量不在于精准，在于真诚。</p>
+</div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel" id="p20">
+<img src="images/p20.jpg" loading="lazy" alt="张磊看到纸条，站在工位前">
+<div class="text">
+<div class="narration">08:15</div>
+<p>张磊到了。看到了纸条。</p>
+<p>他站在工位前，盯着那张纸看了很久。手指触碰着架构图上的线条。</p>
+<div class="sys-panel">
+<p class="sys-comment">张磊停留时间已超过3分钟。<br>分析：情感波动中。决策窗口正在打开。</p>
+</div>
+</div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box">
+<div class="dtitle">⚡ 决策点 #2 ⚡</div>
+<p style="color:#8a9aaa;font-size:15px;margin-bottom:12px;text-align:center">张磊看了纸条但没有来找你。<br>他08:45要和竞对签正式合同。距离签约还有30分钟。<br>时间暂停（5分钟）还没用。</p>
+<div class="option chosen">A）现在就过去谈 → 趁张磊还在犹豫，不用时间暂停 ✓</div>
+<div class="option not-chosen">B）等他来找你 → 赌纸条够真诚，但08:45之前不来就来不及了</div>
+<div class="option not-chosen">C）用时间暂停 → 重新规划整个上午，但王牌只有一次</div>
+<div class="reason">
+<strong>我的选择：A</strong><br>
+看到他在犹豫就应该主动靠近——菩萨心肠。不等、不赌、不浪费资源——创业者的执行力。<br>
+Loop 2的教训是"信息要在正确的时机使用"，现在就是正确的时机。时间暂停留给更关键的节点。
+</div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel" id="p21">
+<img src="images/p21.jpg" loading="lazy" alt="朱江和张磊并肩看着架构图">
+<div class="text">
+<p>我走过去。没有套路。</p>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"你的方案比我想的好得多。37%不是上限——如果加上你说的那个边缘缓存策略，我估计能到50%。"</div>
+<div class="dialogue"><div class="speaker speaker-zl">张磊（不看我）</div>"你昨晚都不看，今天突然看懂了？"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"……我没法解释。但你的方案确实是对的。我上周否决你是因为我自己焦头烂额没认真看——这是我的问题，不是你的方案有问题。"</div>
+</div>
+</div>
+
+<!-- Panel 22 -->
+<div class="panel" id="p22">
+<img src="images/p22.jpg" loading="lazy" alt="特写张磊的手，手机和纸条之间犹豫">
+<div class="text">
+<div class="dialogue"><div class="speaker speaker-zl">张磊</div>"江哥……offer我都签了。违约金20万，我赔不起。"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"20万我出。从我个人账户。"</div>
+<p>张磊震惊地转头看我。</p>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"你值这个价。你的方案也值。"</div>
+<div class="sys-panel">
+<p class="sys-comment">信任度……正在恢复。</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel" id="p23">
+<img src="images/p23.jpg" loading="lazy" alt="张磊把手机扣在桌上">
+<div class="text">
+<div class="narration">08:40</div>
+<p>张磊没有点"确认"。</p>
+<p>他关掉了手机。扣在桌上。屏幕朝下。</p>
+<p>我轻轻拍了拍他的肩。没有更多言语。</p>
+<div class="sys-panel">
+<div class="header">👥 危机②状态：扭转中</div>
+<div class="divider">──────────────────</div>
+<p class="ok">张磊：留下（暂定）</p>
+<p class="warn">老陈、小刘、阿伟：待定</p>
+<p class="sys-comment">⚠️ 张磊留下 ≠ 团队完全稳定<br>但核心节点已锁定</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel" id="p24">
+<img src="images/p24.jpg" loading="lazy" alt="朱江看着三条倒计时线">
+<div class="text">
+<div class="narration">08:55</div>
+<p>距离王总来电还有5分钟。</p>
+<p>我现在有了新武器——张磊和他的技术方案。</p>
+<div class="crisis-bar">
+<div class="title">三大危机倒计时</div>
+<p class="red">💰 资金链断裂 ████████░░ 紧急</p>
+<p class="yellow">👥 团队流失 █████░░░░░ 可控</p>
+<p class="red">🖥️ DDoS攻击 ████████░░ 紧急</p>
+</div>
+<p class="thought">王总需要一个LP无法反驳的理由。93%续约率不够——那是过去的数据。他需要的是<strong>未来的数据</strong>。<br><br>张磊的技术方案如果做成demo——那就是产品的未来。但demo需要时间……而时间暂停还没用。</p>
+<div class="sys-panel">
+<p class="warn">⚠️ 提醒：时间暂停（5分钟）仍然可用。</p>
+</div>
+<p class="thought">不。还不是用的时候。真正的关键节点还没有到。<br><br>三个危机有同一个源头——竞对公司。我还没有触及到根源。</p>
+</div>
+</div>
+
+<!-- Panel 25: Cliffhanger -->
+<div class="panel" id="p25">
+<img src="images/p25.jpg" loading="lazy" alt="朱江盯着公司架构图上圈出的名字">
+<div class="text">
+<div class="narration">09:00</div>
+<p>手机响了。王总来电。</p>
+<p>但这一次，<strong>我没有接。</strong></p>
+<p>张磊困惑地看着我。ChronoOS在眼前闪烁警告——"未接来电将加速资金危机倒计时"。</p>
+<p>但我的眼神不在手机上。不在ChronoOS上。</p>
+<p>我盯着办公室墙上的公司架构图——上面有一个名字被我用记号笔圈了出来。</p>
+</div>
+</div>
+
+<!-- Cliffhanger Monologue -->
+<div class="cliffhanger">
+<p>两次循环，我都在灭火。</p>
+<p>王总来电——救火。张磊辞职——救火。DDoS——救火。</p>
+<p>但火是谁放的？</p>
+<br>
+<p>LP施压。CTO被挖。服务器被攻击。</p>
+<p>三条线指向同一个方向——竞对公司。</p>
+<br>
+<p>不。<em>不只是竞对公司。</em></p>
+<br>
+<p>竞对怎么知道张磊的方案被否决？</p>
+<p>竞对怎么知道王总的LP在动摇？</p>
+<p>竞对怎么精确地在今天发动DDoS？</p>
+<br>
+<p>因为<em>有内鬼</em>。</p>
+<p>而我刚刚在公司架构图上，圈出了那个名字。</p>
+</div>
+
+<div class="sys-panel" style="margin:20px 0">
+<div class="header">⚡ 隐藏线索已解锁 ⚡</div>
+<div class="divider">──────────────────</div>
+<p>三条危机 → 一个源头</p>
+<p>源头不在公司外部</p>
+<p>源头在——</p>
+<p class="fail">[权限不足：需要Lv4]</p>
+<p class="fail">[当前：Lv2]</p>
+<p class="warn">[提升方式：完成Loop 3]</p>
+</div>
+
+<div class="cliffhanger" style="font-size:1em;padding:30px 20px">
+<p>第一次循环，我什么都没做对。</p>
+<p>第二次循环，我知道了所有人的想法，但更无力了。</p>
+<p>第三次循环，我放弃了读心术，用了一张纸条和一句道歉。</p>
+<br>
+<p>这反而有用。</p>
+<br>
+<p>但真正的敌人不在对面公司的大楼里。</p>
+<p><em>在我自己的办公室里。</em></p>
+</div>
+
+<div class="tbc">
+<p style="color:#ff6b9d;font-size:1.1em;letter-spacing:4px;margin-bottom:12px">第二章：我在时间暂停里看到了内鬼的真面目</p>
+<p>—— TO BE CONTINUED ——</p>
+</div>
+
+</div>
+
+<script>
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.panel').forEach(p=>obs.observe(p));
+window.addEventListener('scroll',()=>{const h=document.querySelector('.scroll-hint');if(h&&window.scrollY>100)h.style.opacity='0'});
+</script>
+</body>
+</html>
