@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>厨神系统 · 第一章</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e8e0d0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#1a0800 0%,#2d1400 40%,#0a0a0a 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,140,0,0.15),transparent 70%);top:20%;left:50%;transform:translateX(-50%);animation:glow 4s ease-in-out infinite alternate}
+@keyframes glow{0%{opacity:0.3;transform:translateX(-50%) scale(0.8)}100%{opacity:0.8;transform:translateX(-50%) scale(1.2)}}
+.cover h1{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#ff8c00,#ff4500,#ff6347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.15em;z-index:1;text-shadow:0 0 40px rgba(255,100,0,0.3)}
+.cover .sub{font-size:1.1rem;color:#a08060;margin-top:12px;z-index:1;letter-spacing:0.3em}
+.cover .ch{font-size:0.9rem;color:#665040;margin-top:24px;z-index:1}
+.cover .scroll-hint{position:absolute;bottom:40px;font-size:0.8rem;color:#554030;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+.panel{max-width:420px;margin:0 auto;padding:16px 12px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:12px;display:block;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.panel .text{font-size:1.05rem;line-height:1.85;color:#d4c8b0;margin-top:14px;padding:0 4px}
+.panel .text em{color:#ff8c00;font-style:normal;font-weight:600}
+
+.scene-divider{text-align:center;padding:40px 0 20px;max-width:420px;margin:0 auto}
+.scene-divider span{display:inline-block;font-size:0.85rem;color:#ff8c00;letter-spacing:0.4em;border-top:1px solid #332200;border-bottom:1px solid #332200;padding:8px 20px}
+
+.decision-box{max-width:400px;margin:20px auto 30px;background:linear-gradient(135deg,rgba(255,140,0,0.08),rgba(255,69,0,0.05));border:1px solid rgba(255,140,0,0.25);border-radius:14px;padding:20px 16px;position:relative;overflow:hidden}
+.decision-box::before{content:'⚡ 决策点';position:absolute;top:0;left:0;background:linear-gradient(90deg,#ff8c00,#ff4500);color:#fff;font-size:0.7rem;padding:3px 12px;border-radius:0 0 10px 0;font-weight:700;letter-spacing:0.1em}
+.decision-box .q{font-size:0.95rem;color:#e8c880;margin-top:16px;margin-bottom:12px;font-weight:600}
+.decision-box .opt{font-size:0.85rem;color:#998060;padding:6px 0;line-height:1.6}
+.decision-box .opt.chosen{color:#ff8c00;font-weight:600;border-left:3px solid #ff8c00;padding-left:10px;background:rgba(255,140,0,0.06);border-radius:0 6px 6px 0}
+.decision-box .reason{font-size:0.8rem;color:#886840;margin-top:10px;font-style:italic}
+
+.system-popup{max-width:380px;margin:10px auto 20px;background:rgba(0,40,60,0.4);border:1px solid rgba(0,200,255,0.2);border-radius:10px;padding:14px 16px;font-size:0.85rem;color:#00d4ff;font-family:'Courier New',monospace;text-shadow:0 0 8px rgba(0,200,255,0.3)}
+.system-popup .label{font-size:0.7rem;color:#006080;margin-bottom:6px;letter-spacing:0.2em}
+
+.finale{text-align:center;padding:60px 20px;max-width:420px;margin:0 auto}
+.finale .next{font-size:1rem;color:#ff8c00;margin-top:20px;letter-spacing:0.15em;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.6}50%{opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>厨神系统</h1>
+<div class="sub">美食×系统文×创业</div>
+<div class="ch">第一章 · 一碗面的代价</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<div class="scene-divider"><span>场景一 · 至暗时刻</span></div>
+
+<div class="panel">
+<img src="p01.webp" loading="lazy" alt="深夜写字楼外">
+<div class="text">我盯着手机屏幕，雨水模糊了那行字——<em>"经研究决定，终止对贵司的A轮投资"</em>。三年，1825天，就这么一条消息，连个电话都不打。</div>
+</div>
+
+<div class="panel">
+<img src="p02.webp" loading="lazy" alt="手机屏幕特写">
+<div class="text">群里炸了锅。合伙人发了三个问号，技术总监说<em>"江哥我房贷还没还完"</em>。我把手机翻过去扣在手心，雨水顺着指缝往下淌。</div>
+</div>
+
+<div class="panel">
+<img src="p03.webp" loading="lazy" alt="雨中走进小巷">
+<div class="text">第一次创业失败的时候我哭了三天。第二次，哭了三小时。这次？我只想找个地方吃碗面。<em>人到中年的崩溃就是这么朴素。</em></div>
+</div>
+
+<div class="panel">
+<img src="p04.webp" loading="lazy" alt="巷尾面摊">
+<div class="text">巷子尽头有一家连招牌都没有的面摊，就一口锅、一盏灯、一个白胡子老头。但那碗面冒出来的香气——<em>我发誓，这辈子没闻过这么好闻的味道。</em></div>
+</div>
+
+<div class="panel">
+<img src="p05.webp" loading="lazy" alt="老陈端面">
+<div class="text">"小伙子，淋成这样，来碗面暖暖。"老头没问我要钱，就端了一碗过来。我也没客气，端起来就喝了一口汤——</div>
+</div>
+
+<div class="decision-box">
+<div class="q">第一口面的反应</div>
+<div class="opt chosen">A: 理性分析——"这汤……用了什么？我尝出了至少七种食材的层次"（黑客思维，拆解结构）</div>
+<div class="opt">B: 纯感性——感动哭了，觉得这是人间最后的温暖</div>
+<div class="opt">C: 商业嗅觉——"这碗面能卖88一碗，老板你知不知道你坐在金矿上"</div>
+<div class="reason">→ 朱江基因：拆解系统、好奇"怎么做到的"</div>
+</div>
+
+<div class="scene-divider"><span>场景二 · 系统激活</span></div>
+
+<div class="panel">
+<img src="p06.webp" loading="lazy" alt="震惊表情">
+<div class="text">这汤不对劲。不是"好喝"那么简单——我的舌头像被打开了什么开关。牛骨、香茅、八角、花椒、一种我叫不出名字的东西……<em>每一种味道都像代码一样清晰地排列在我脑子里。</em></div>
+</div>
+
+<div class="panel">
+<img src="p07.webp" loading="lazy" alt="系统激活">
+<div class="text">然后我眼前就炸开了一个界面。一个像游戏HUD一样的东西悬浮在我面前。我下意识回头看老陈——他还在那儿笑眯眯地擦碗，好像什么都没发生。</div>
+</div>
+
+<div class="system-popup">
+<div class="label">【厨神系统】</div>
+欢迎，新任宿主。您已激活厨神系统V2.0。<br>当前等级：Lv.1 泡面选手。
+</div>
+
+<div class="panel">
+<img src="p08.webp" loading="lazy" alt="系统界面">
+<div class="text"><em>……泡面选手？</em>我朱江堂堂一个写过十万行代码的人，在这个系统里是"泡面选手"？！</div>
+</div>
+
+<div class="panel">
+<img src="p09.webp" loading="lazy" alt="老陈对视">
+<div class="text">"你看到了？"老陈的声音突然变了，不再是慈祥老头，像是一个退休的将军在审视新兵。<em>"四十年了，终于又有人能激活它。"</em></div>
+</div>
+
+<div class="panel">
+<img src="p10.webp" loading="lazy" alt="伤疤">
+<div class="text">"这系统是福也是祸。它能让你成为这世上最好的厨师——但<em>连续三天不做菜，你的味觉就会全部消失。永远。</em>"他指了指自己的嘴，"我就是前车之鉴。二十年了，吃什么都像嚼蜡。"</div>
+</div>
+
+<div class="decision-box">
+<div class="q">接受系统？</div>
+<div class="opt chosen">A: "有意思。三天一做菜的deadline？我创业时天天通宵，这算什么。"（挑战型，不怕约束）</div>
+<div class="opt">B: "等等，你说清楚，这东西有没有副作用说明书？"（谨慎型）</div>
+<div class="opt">C: "我不要。我是做AI的，不是做饭的。"（拒绝）</div>
+<div class="reason">→ 朱江面对新系统的态度：先接再说，干就完了</div>
+</div>
+
+<div class="scene-divider"><span>场景三 · 路边摊保卫战</span></div>
+
+<div class="panel">
+<img src="p11.webp" loading="lazy" alt="面摊前发懵">
+<div class="text">老头跑了。留了面摊、一口锅、和一张纸条：<em>"明天开始，自己干。跑不掉的。"</em></div>
+</div>
+
+<div class="system-popup">
+<div class="label">【新手任务】</div>
+在今日午餐前卖出30碗面。<br>奖励：解锁技能"刀工Lv.2"<br>失败惩罚：味觉屏蔽24小时
+</div>
+
+<div class="panel">
+<img src="p12.webp" loading="lazy" alt="和面翻车">
+<div class="text">系统倒是贴心，在我眼前投射了一个AR教程。"取面粉500克，加水230毫升，揉至表面光滑。"听起来简单？我揉了二十分钟，那坨面像一个拒绝合作的创业伙伴——<em>怎么揉都不光滑。</em></div>
+</div>
+
+<div class="panel">
+<img src="p13.webp" loading="lazy" alt="林小鱼出场">
+<div class="text">"新来的？"隔壁摊位的女孩靠过来，嘴角带着那种<em>"看新人出丑"</em>的微笑。"你那个面和得像水泥。""……你觉得还有救吗？""看你态度。"</div>
+</div>
+
+<div class="panel">
+<img src="p14.webp" loading="lazy" alt="指点面团">
+<div class="text">她叫林小鱼，在这条巷子卖了三年馄饨。她用三十秒诊断了我的问题："水多了，面粉少了，而且你揉的方向不对。"<em>我一个写了十年代码的人，在和面这件事上输给了一个卖馄饨的。</em>人生的bug就是这么出其不意。</div>
+</div>
+
+<div class="system-popup">
+<div class="label">【隐藏技能触发】</div>
+味觉透视（初级）已解锁<br>可品尝任何食物并解析完整配方<br>冷却时间：30分钟/次
+</div>
+
+<div class="panel">
+<img src="p15.webp" loading="lazy" alt="味觉透视">
+<div class="text">就在我快要放弃的时候，系统又弹了一个窗口。味觉透视？我看了看林小鱼的馄饨——如果我能解析她的汤底配方，是不是就能快速学会调汤？</div>
+</div>
+
+<div class="decision-box">
+<div class="q">用味觉透视偷学林小鱼的配方？</div>
+<div class="opt chosen">A: 不偷学。"我可以光明正大地请教。靠偷来的东西赢不了。"（正直）</div>
+<div class="opt">B: 偷学，但之后告诉她。"先学到再说，不会亏待她。"</div>
+<div class="opt">C: 偷学且不说。"商场如战场，信息就是武器。"</div>
+<div class="reason">→ 菩萨心肠。朱江不会走捷径伤害帮过他的人</div>
+</div>
+
+<div class="panel">
+<img src="p16.webp" loading="lazy" alt="请教">
+<div class="text">"小鱼姐，能教我调汤吗？我可以帮你干活抵学费。"她愣了一下，然后笑了：<em>"还挺实在。行，先帮我剁三斤猪肉馅，手剁，不许用机器。"</em></div>
+</div>
+
+<div class="panel">
+<img src="p17.webp" loading="lazy" alt="训练蒙太奇">
+<div class="text">三个小时。我剁了三斤肉，吊了一锅汤，和了六次面——前五次全废了。第六次，面团终于光滑了。系统叮了一声：<em>技能升级</em>。那一刻的成就感，不亚于我写出第一个能跑的程序。</div>
+</div>
+
+<div class="panel">
+<img src="p18.webp" loading="lazy" alt="午餐高峰空摊">
+<div class="text">午饭时间到了。人群像数据洪流一样涌进巷子——但全部流向了其他摊位。没有一个人在我面前停下来。</div>
+</div>
+
+<div class="system-popup">
+<div class="label">【任务进度】</div>
+已售出：0/30 | 剩余时间：2小时13分
+</div>
+
+<div class="panel">
+<img src="p19.webp" loading="lazy" alt="赵总到场">
+<div class="text">巷口停了一辆车，下来一个秃头胖子。他走到林小鱼摊前，拍了一张纸：<em>"拆迁通知。这条巷子下个月要改商业广场。你们这些摊贩，识趣的赶紧走。"</em>林小鱼的脸一下子白了。</div>
+</div>
+
+<div class="panel">
+<img src="p20.webp" loading="lazy" alt="拍文件">
+<div class="text">我看到林小鱼的手在抖。周围的摊贩都低下了头，没人敢吭声。赵总身后的两个保镖像两堵墙，堵在巷口。</div>
+</div>
+
+<div class="decision-box">
+<div class="q">面对赵总的威胁</div>
+<div class="opt chosen">A: 站出来挡在林小鱼前面。"这位老板，有话好说。先坐下吃碗面？"（以柔克刚，拉到自己主场）</div>
+<div class="opt">B: 先不出头，暗中拍下拆迁通知研究法律漏洞（理性应对）</div>
+<div class="opt">C: 直接怼回去："凭什么赶人？你有合法手续吗？"</div>
+<div class="reason">→ 朱江的方式：不硬碰硬，用自己的能力化解。创业者的谈判本能</div>
+</div>
+
+<div class="panel">
+<img src="p21.webp" loading="lazy" alt="端面给赵总">
+<div class="text">我端了一碗面过去。赵总的保镖下意识挡了一下，被他抬手拦住了——他看着面碗里金黄清澈的汤，居然坐了下来。<em>美食的力量在于，它能让最傲慢的人也愿意先停三秒。</em></div>
+</div>
+
+<div class="panel">
+<img src="p22.webp" loading="lazy" alt="赵总吃面表情变化">
+<div class="text">他吃了三口之后，沉默了。保镖凑过来想说什么，他摆摆手。<em>"……这面谁做的？""我。刚学的。"</em>他看了我一眼，那种看人的目光我太熟悉了——投资人看项目的眼神。</div>
+</div>
+
+<div class="panel">
+<img src="p23.webp" loading="lazy" alt="赵总离开">
+<div class="text">"有意思。"赵总把拆迁通知折起来塞回口袋，"今天的事先放一放。不过——<em>下次你的面得更好吃。</em>"他走了。林小鱼看着我，嘴巴张了好几次："你……你怎么做到的？"</div>
+</div>
+
+<div class="system-popup">
+<div class="label">【任务更新】</div>
+已售出：1/30 — 一碗面换来一次缓刑。
+</div>
+
+<div class="scene-divider"><span>场景四 · 冲刺与奖励</span></div>
+
+<div class="panel">
+<img src="p24.webp" loading="lazy" alt="卖面冲刺">
+<div class="text">接下来两小时是我人生中最累也最爽的两小时。林小鱼帮我在巷口吆喝，第一个吃到面的大哥直接发了条朋友圈：<em>"巷子里发现一家神级面摊"</em>。然后——人就来了。一碗接一碗，我感觉回到了创业通宵赶代码的日子。手在抖，但停不下来。</div>
+</div>
+
+<div class="system-popup">
+<div class="label">【✅ 新手任务完成】</div>
+已售出：30/30<br>奖励：刀工Lv.2 已解锁<br>额外奖励：食谱「黄金蛋炒饭」已解锁
+</div>
+
+<div class="panel">
+<img src="p25.webp" loading="lazy" alt="收摊夜景">
+<div class="text">收摊的时候已经晚上九点。"你之前是做什么的？"林小鱼一边叠桌子一边问。"AI。做人工智能的。""哦，就是那种会聊天的机器人？""差不多。不过那个项目黄了。""然后就来卖面了？"<em>"……人生就是这么魔幻。"</em></div>
+</div>
+
+<div class="panel">
+<img src="p26.webp" loading="lazy" alt="手上烫伤">
+<div class="text">我看着手上的烫伤。做AI的时候伤的是脑子，做面伤的是手。但说实话——今天比我过去三年做AI任何一天都充实。也许是因为，终于有人吃完以后会当着你的面说"好吃"。<em>做AI的时候，用户的好评藏在后台数据里，冷冰冰的。一碗面端过去，那个人的笑容是真的。</em></div>
+</div>
+
+<div class="decision-box">
+<div class="q">任务完成后的下一步</div>
+<div class="opt chosen">A: "明天继续。路边摊只是起点，我要开店。"（远大目标，创业者格局）</div>
+<div class="opt">B: "先把面做到极致再说，不急着扩张。"（匠人思维）</div>
+<div class="opt">C: "先想办法解决赵总的拆迁问题。"（务实防御）</div>
+<div class="reason">→ 朱江是创业者不是匠人。他的本能是做大、做平台、做生态</div>
+</div>
+
+<div class="panel">
+<img src="p27.webp" loading="lazy" alt="夜空系统">
+<div class="text">就在我准备回家的时候，系统弹了一个新任务。30天，从Lv.1升到Lv.10。而且Lv.10的试炼对手是这个城市最强的厨师。<em>我想了想赵总今天的眼神——如果他的餐厅有一个顶级厨师……那我的对手，大概率就是赵总的人。</em>这盘棋，比我想的要大。</div>
+</div>
+
+<div class="system-popup">
+<div class="label">【主线任务解锁】</div>
+30天内达到Lv.10（当前Lv.1）<br>开启「真正的厨师之路」<br>提示：Lv.10试炼对手——本市最强厨师
+</div>
+
+<div class="panel">
+<img src="p28.webp" loading="lazy" alt="决心">
+<div class="text">我朱江，上半辈子搞AI，搞砸了。下半辈子——<em>我要用一碗面翻盘。</em>系统？关卡？对手？都来吧。我最擅长的，就是在别人觉得不可能的地方，硬生生趟出一条路来。明天的新任务是"黄金蛋炒饭"——听着简单。<em>但我有种预感，简单的东西，往往最难。</em></div>
+</div>
+
+<div class="finale">
+<div style="font-size:0.8rem;color:#665040;letter-spacing:0.3em">第一章 · 完</div>
+<div class="next">第二章 · 黄金蛋炒饭的秘密 → 即将更新</div>
+</div>
+
+<script>
+const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.15});
+document.querySelectorAll('.panel').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
