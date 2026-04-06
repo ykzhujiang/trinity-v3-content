@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>超频觉醒 Ch2 — 数据猎手</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #121018;
+  color: #e0e0e0;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(180deg, #121018 0%, #1e1428 30%, #2a1a20 70%, #121018 100%);
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(226,165,0,0.2) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #e2a500;
+  text-shadow: 0 0 30px rgba(226,165,0,0.5);
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header .subtitle {
+  font-size: 1.1rem;
+  color: #00d4ff;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  position: relative;
+  z-index: 1;
+}
+
+.header .series {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header .prev-link {
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header .prev-link a {
+  color: #888;
+  text-decoration: none;
+  font-size: 0.85rem;
+  border: 1px solid #444;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.header .prev-link a:hover {
+  color: #e2a500;
+  border-color: #e2a500;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  animation: bounce 2s ease-in-out infinite;
+  color: #555;
+  font-size: 0.8rem;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Acts */
+.act {
+  background: var(--act-bg);
+  padding: 1rem 0;
+  transition: background 0.5s ease;
+}
+
+.act-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--act-accent);
+  padding: 2rem 1rem;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 20px var(--act-accent);
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Panels */
+.panel {
+  margin: 0 auto 1.5rem;
+  max-width: 420px;
+  padding: 0 0.8rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel-image {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.panel-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.panel-text {
+  padding: 0.8rem 1rem;
+  font-size: 1.1rem;
+  color: var(--act-text, #e0e0e0);
+  border-left: 3px solid var(--act-accent, #e2a500);
+  margin-top: 0.6rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 0 6px 6px 0;
+}
+
+.panel-large .panel-image {
+  box-shadow: 0 6px 30px rgba(0,0,0,0.7);
+}
+
+.panel-large .panel-text {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* Decision panels */
+.decision-panel {
+  position: relative;
+}
+
+.decision-panel::before {
+  content: '决策点';
+  position: absolute;
+  top: -0.5rem;
+  right: 1.5rem;
+  background: linear-gradient(135deg, #e2a500, #ff6600);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.8rem;
+  border-radius: 12px;
+  z-index: 2;
+  box-shadow: 0 2px 10px rgba(226,165,0,0.4);
+}
+
+.decision-panel .panel-image {
+  border: 2px solid rgba(226,165,0,0.4);
+}
+
+/* Comedy panels */
+.comedy-panel .panel-text {
+  border-left-color: #44dd88 !important;
+  background: rgba(68,221,136,0.05);
+}
+
+.comedy-panel .panel-text::before {
+  content: '笑';
+  display: inline-block;
+  background: #44dd88;
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 8px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Lv2 awakening */
+.lv2-panel .panel-image {
+  border: 2px solid rgba(0,212,255,0.6);
+  box-shadow: 0 0 30px rgba(0,212,255,0.3), 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.lv2-panel .panel-text::before {
+  content: 'Lv.2';
+  display: inline-block;
+  background: linear-gradient(135deg, #00d4ff, #0088ff);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.5rem;
+  border-radius: 8px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(180deg, #1a1020 0%, #121018 100%);
+}
+
+.footer .next-chapter {
+  font-size: 1.3rem;
+  color: #ff3344;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(255,51,68,0.5);
+}
+
+.footer .teaser {
+  font-size: 0.95rem;
+  color: #aaa;
+  max-width: 340px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.footer .series-info {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: #555;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>超频觉醒</h1>
+  <div class="subtitle">第二章 — 数据猎手</div>
+  <div class="series">OVERCLOCK PERCEPTION / 都市异能 x AI创业</div>
+  <div class="prev-link"><a href="exp-953-overclock-ch1.html">回顾第一章：0.03秒的世界</a></div>
+  <div class="scroll-hint">向下滑动开始阅读</div>
+</div>
+
+<!-- ACT 1: 审讯 — warm amber morning -->
+<div class="act" id="act-1" style="--act-bg: linear-gradient(180deg, #1e1810 0%, #2a1e14 50%, #1e1810 100%); --act-accent: #e2a500; --act-text: #f0e6d3">
+  <div class="act-title">第一幕：审讯</div>
+
+  <div class="panel panel-normal" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p01.webp" alt="Panel 1" loading="eager" /></div>
+    <div class="panel-text"><p>一夜没睡。git blame的结果烙在视网膜上——陆薇的账号，142处后门代码提交。时间分布在过去三个月，每次都是凌晨两到四点。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p02.webp" alt="Panel 2" loading="eager" /></div>
+    <div class="panel-text"><p>屏幕上的名字像烙铁一样灼眼。142行核心后门代码，每一行都指向同一个人。我的联合创始人。我最信任的技术搭档。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p03.webp" alt="Panel 3" loading="eager" /></div>
+    <div class="panel-text"><p>但我不能直接质问她。如果她真的是内鬼，打草惊蛇等于输。如果她不是——冤枉联合创始人，团队就完了。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p04.webp" alt="Panel 4" loading="lazy" /></div>
+    <div class="panel-text"><p>早上九点，陆薇准时走进办公室。白衬衫，深蓝铅笔裙，银框眼镜。和每一天一样。她经过我工位时说了句："昨晚的训练跑完了，loss降到0.3以下。"语气平淡，像在说天气。</p></div>
+  </div>
+
+  <div class="panel panel-large" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p05.webp" alt="Panel 5" loading="lazy" /></div>
+    <div class="panel-text"><p>我的超频感知不自觉地触发了。时间慢了下来。<br>她的瞳孔没有扩大——没有紧张的生理信号。呼吸频率正常，每分钟约14次。手指没有微颤。<br>唯一异常：她的银框眼镜比平时推得更高。一个微小的、只有在她高度专注时才有的动作。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p06.webp" alt="Panel 6" loading="lazy" /></div>
+    <div class="panel-text"><p>她在专注什么？</p></div>
+  </div>
+
+  <div class="panel panel-normal comedy-panel" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p07.webp" alt="Panel 7" loading="lazy" /></div>
+    <div class="panel-text"><p>我盯着陆薇看了太久。老周端着泡面经过，低声说："朱总，你这眼神……HR会找你谈话的。"<br>我回过神来。"我在看她的……眼镜。"<br>老周撇嘴："谁信啊。"</p></div>
+  </div>
+
+  <div class="panel panel-large decision-panel" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p08.webp" alt="Panel 8" loading="lazy" /></div>
+    <div class="panel-text"><p><strong>[决策-15]</strong> 如何调查陆薇？直接对质，还是暗中取证？<br><br>我选了B+C——调取她的全部操作日志，同时设一个蜜罐陷阱。<br><br>投资人教会我一件事：<em>信任是结论，不是前提。你先拿到数据，数据会告诉你谁值得信任。</em></p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p09.webp" alt="Panel 9" loading="lazy" /></div>
+    <div class="panel-text"><p>发现一：142处后门提交的时间戳，全部在凌晨2:00-4:00。但陆薇的门禁记录显示，这三个月她最晚离开办公室的时间是23:30。<br><br><strong>她的账号在提交代码，但她不在办公室。</strong></p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="1">
+    <div class="panel-image"><img src="images/exp-956/p10.webp" alt="Panel 10" loading="lazy" /></div>
+    <div class="panel-text"><p>发现二：后门代码的注释风格和陆薇不同。陆薇写注释用<code>//</code>开头加一个空格，后门代码用<code>//</code>开头无空格。<br>程序员的编码习惯就像笔迹，很难完美模仿。<br><br>我的结论开始转向：<strong>有人盗用了陆薇的账号。</strong></p></div>
+  </div>
+</div>
+
+<!-- ACT 2: 猎手 — cyan data + warm accents -->
+<div class="act" id="act-2" style="--act-bg: linear-gradient(180deg, #0f1620 0%, #121a28 50%, #0f1620 100%); --act-accent: #00d4ff; --act-text: #e0f0ff">
+  <div class="act-title">第二幕：猎手</div>
+
+  <div class="panel panel-normal" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p11.webp" alt="Panel 11" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>下午。我释放了"陷阱信息"——告诉陆薇一个假消息：明天有一家大客户要来参观服务器机房。<br>如果这个信息泄露给竞对耀星科技，说明陆薇的通信渠道有问题。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p12.webp" alt="Panel 12" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>然后我做了另一件事：用超频感知分析公司内网的所有SSH登录记录。<br>Lv.1的感知范围不够——数据量太大，光流开始模糊。太阳穴发胀。</p></div>
+  </div>
+
+  <div class="panel panel-large" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p13.webp" alt="Panel 13" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>闭上眼睛。放开限制。<br><br>我需要推进到更深层次。</p></div>
+  </div>
+
+  <div class="panel panel-large lv2-panel" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p14.webp" alt="Panel 14" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>时间彻底静止了。<br>所有数据流不再是模糊的光线，而是变成了清晰的三维拓扑图。每一个登录节点、每一次数据传输、每一个异常跳转——全部可视化、可交互、可追溯。<br><br><strong>Lv.2: 深度分析 — 解锁。</strong></p></div>
+  </div>
+
+  <div class="panel panel-large lv2-panel" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p15.webp" alt="Panel 15" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>在这个0.03秒的世界里，我看到了——<br>一条隐藏的SSH隧道。从公司外部一个IP，通过三层跳板，连入陆薇的开发机。<br>三层跳板的中间节点——<strong>是耀星科技的CDN服务器。</strong></p></div>
+  </div>
+
+  <div class="panel panel-large" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p16.webp" alt="Panel 16" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p><strong>方总的人在用陆薇的账号写后门代码。</strong><br><br>不是陆薇背叛了我。是方总在暗中渗透我的公司，并且栽赃给我的联合创始人。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p17.webp" alt="Panel 17" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>但超频Lv.2的代价立刻降临——比Lv.1猛烈十倍。<br>剧烈的偏头痛。视线模糊。右耳开始听到高频蜂鸣声。短期记忆出现碎片化——某些细节正在从脑海中像沙子一样漏掉。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p18.webp" alt="Panel 18" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>我摇摇晃晃地走到洗手间，把冷水拍在脸上。镜子里的自己脸色苍白，鼻血又来了。<br><br>但我拼命抓住了关键信息：<strong>耀星科技 → SSH隧道 → 陆薇账号 → 后门代码 → 栽赃。</strong>这条链刻在脑子里。其他细节——正在模糊。</p></div>
+  </div>
+
+  <div class="panel panel-normal comedy-panel" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p19.webp" alt="Panel 19" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #44dd88"><p>从洗手间出来，撞见陈磊。他看着我苍白的脸和鼻血说："朱总，你不会是……怀孕了吧？"<br>我："……你大学生物学怎么过的？"<br>他耸肩："男人也不是不可能嘛，在AI时代。"</p></div>
+  </div>
+
+  <div class="panel panel-large decision-panel" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p20.webp" alt="Panel 20" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p><strong>[决策-16]</strong> 发现方总在渗透公司并栽赃陆薇。接下来怎么做？<br><br>我选了C——告诉陆薇我发现了渗透，但不提她被栽赃。让她配合加固系统。<br><br><em>告诉她被栽赃，她的第一反应会是愤怒——愤怒的人容易犯错。等我准备好反击方案，再告诉她真相。那时候她的愤怒可以变成精准的力量。</em></p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p21.webp" alt="Panel 21" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>我拼命在记忆消散前锁住关键链条。五个节点，用逻辑的锁链串在一起。其他的细节——三层跳板的具体IP、时间戳的精确分布——正在模糊。<br>超频的代价：你看得越深，遗忘得越多。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="2">
+    <div class="panel-image"><img src="images/exp-956/p22.webp" alt="Panel 22" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #00d4ff"><p>傍晚。同事们陆续离开。我穿过空荡荡的走廊，夕阳从落地窗照进来，把一切染成琥珀色。<br>该去找陆薇了。</p></div>
+  </div>
+</div>
+
+<!-- ACT 3: 暗流 — warm neon dusk -->
+<div class="act" id="act-3" style="--act-bg: linear-gradient(180deg, #1a1018 0%, #221420 50%, #1a1018 100%); --act-accent: #ff6644; --act-text: #ffe4d4">
+  <div class="act-title">第三幕：暗流</div>
+
+  <div class="panel panel-normal" data-act="3">
+    <div class="panel-image"><img src="images/exp-956/p23.webp" alt="Panel 23" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #ff6644"><p>"薇姐，我发现公司内网有异常SSH连接。疑似有外部渗透。需要你帮我加固系统安全。"<br><br>陆薇推了推眼镜。"什么级别的渗透？"<br>"至少三层跳板。目标是核心代码库。"<br>她沉默了三秒。然后："我今晚加班。给我权限，我来查。"</p></div>
+  </div>
+
+  <div class="panel panel-large" data-act="3">
+    <div class="panel-image"><img src="images/exp-956/p24.webp" alt="Panel 24" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #ff6644"><p>我看着她的眼睛。超频感知最后闪烁了一下——她的瞳孔微微扩大了。<br><br>不是恐惧。是猎手看到猎物时的兴奋。<br><br><strong>陆薇不是内鬼。她是猎手。她和我一样。</strong></p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="3">
+    <div class="panel-image"><img src="images/exp-956/p25.webp" alt="Panel 25" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #ff6644"><p>那双丹凤眼在银框眼镜后面闪烁着光——不是被猎者的慌张，是猎手的锐利。<br>我放心了。也警觉了。我的合伙人，比我想象的要可怕得多。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="3">
+    <div class="panel-image"><img src="images/exp-956/p26.webp" alt="Panel 26" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #ff6644"><p>就在我转身离开的时候，手机震动了。一条加密短信——<br><br><strong>发送者：方总。</strong><br><br>"朱总，明天下午有空吗？我想聊聊合作的事。一个对你和深源都有好处的提案。"</p></div>
+  </div>
+
+  <div class="panel panel-large" data-act="3">
+    <div class="panel-image"><img src="images/exp-956/p27.webp" alt="Panel 27" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #ff6644"><p>他的时机太巧了。我刚发现他的渗透，他就发来合作邀请。<br><br>除非——<strong>他知道我发现了。</strong><br><br>如果是这样，他的"合作邀请"就不是橄榄枝——是摊牌。</p></div>
+  </div>
+
+  <div class="panel panel-normal" data-act="3">
+    <div class="panel-image"><img src="images/exp-956/p28.webp" alt="Panel 28" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #ff6644"><p>手机又震了。陆薇的消息：<br><br>"朱总，我刚初步扫了一下内网日志。有件事你需要知道——被渗透的不只是我的账号。<strong>老周的账号也有异常。而且老周的异常比我的早两个月。</strong>"</p></div>
+  </div>
+
+  <div class="panel panel-large" data-act="3">
+    <div class="panel-image"><img src="images/exp-956/p29.webp" alt="Panel 29" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #ff6644"><p>两个月。老周的异常比陆薇的早两个月。<br>如果渗透是方总从三个月前开始的，那他最先入侵的不是CTO的账号——是首席架构师的。<br><br>而首席架构师有什么？<strong>完整的系统架构图。</strong><br><br>方总不是在偷代码。他是在复制整个深源科技的技术底层。<br>有了架构图，代码可以重写。他不需要偷你的代码——<strong>他需要偷你的设计。</strong></p></div>
+  </div>
+
+  <div class="panel panel-large" data-act="3">
+    <div class="panel-image"><img src="images/exp-956/p30.webp" alt="Panel 30" loading="lazy" /></div>
+    <div class="panel-text" style="border-left-color: #ff6644"><p>窗外的霓虹灯倒映在玻璃上。我看着自己的倒影——苍白、疲惫，但眼神是亮的。<br><br>明天，我要带着超频感知赴方总之约。一场商业谈判，即将变成两个CEO之间的心理博弈。<br><br>而方总的反应速度……快得不像正常人。<br><br><em>不会只有我一个人获得了超频觉醒吧？</em></p></div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="next-chapter">未完待续</div>
+  <div class="teaser">Ch3: 超频对决 — 方总的合作提案，暗藏致命陷阱。<br>两个CEO，两种超频，一场没有硝烟的战争。</div>
+  <div class="series-info">超频觉醒 | 深源科技 x 朱江 | Trinity V3</div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(panel => {
+  observer.observe(panel);
+});
+
+let scrollHintHidden = false;
+window.addEventListener('scroll', () => {
+  if (!scrollHintHidden) {
+    const hint = document.querySelector('.scroll-hint');
+    if (hint) hint.style.opacity = '0';
+    scrollHintHidden = true;
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>
