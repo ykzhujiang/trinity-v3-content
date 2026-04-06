@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码重启 · 第八章：暗网追踪</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #1a1520;
+  color: #e0d8e8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.title-card {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #1e1828 0%, #1a1520 50%, #120e18 100%);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.title-card::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(74,222,128,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.title-card::after {
+  content: '';
+  position: absolute;
+  top: 60%;
+  left: 30%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.title-card h1 {
+  font-size: 36px;
+  color: #4ade80;
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 20px rgba(74,222,128,0.4);
+  position: relative;
+}
+.title-card .subtitle { font-size: 18px; color: #94a3b8; letter-spacing: 3px; margin-bottom: 32px; }
+.title-card .chapter { font-size: 14px; color: #64748b; letter-spacing: 2px; }
+.title-card .scroll-hint {
+  position: absolute; bottom: 40px; color: #64748b; font-size: 14px;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
+}
+.panel {
+  width: 100%; max-width: 800px; margin: 0 auto;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible { opacity: 1; transform: translateY(0); }
+.panel-image { width: 100%; display: block; }
+.panel-text {
+  padding: 20px 24px 40px;
+  background: linear-gradient(180deg, rgba(26,21,32,0.95) 0%, #1a1520 100%);
+}
+.panel-text p { font-size: 19px; line-height: 1.9; color: #c8c0d4; text-align: justify; }
+.decision {
+  margin: 24px 0; padding: 20px;
+  background: rgba(74,222,128,0.06);
+  border-left: 3px solid #4ade80;
+  border-radius: 0 8px 8px 0;
+}
+.decision .label { font-size: 14px; color: #4ade80; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px; }
+.decision .choice { color: #a0d8b0; font-size: 17px; line-height: 1.7; margin-top: 8px; }
+.decision .chosen { color: #4ade80; font-weight: bold; }
+.decision .reason { margin-top: 12px; font-size: 16px; color: #7a8a80; font-style: italic; line-height: 1.7; }
+.act-divider {
+  text-align: center; padding: 60px 24px; position: relative;
+}
+.act-divider::before {
+  content: ''; position: absolute; top: 50%; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, #4a3f58, transparent);
+}
+.act-divider span {
+  position: relative; background: #1a1520; padding: 0 20px;
+  color: #4ade80; font-size: 16px; letter-spacing: 4px;
+}
+.comedy {
+  background: rgba(59,130,246,0.06); border-radius: 8px;
+  margin: 8px 0; padding: 16px 20px;
+}
+.inner-voice {
+  color: #94a3b8; font-style: italic;
+}
+.cliffhanger {
+  padding: 40px 24px 80px; text-align: center;
+  max-width: 800px; margin: 0 auto;
+  background: linear-gradient(180deg, #1a1520 0%, #0e0a14 100%);
+}
+.cliffhanger p { font-size: 20px; color: #4ade80; line-height: 2; margin-bottom: 16px; font-weight: bold; }
+.cliffhanger .preview { margin-top: 40px; padding-top: 24px; border-top: 1px solid #3a3548; }
+.cliffhanger .preview p { font-size: 16px; color: #8a80a0; font-weight: normal; }
+.alert-text { color: #f87171; font-weight: bold; }
+.neon-green { color: #4ade80; text-shadow: 0 0 10px rgba(74,222,128,0.3); }
+.neon-blue { color: #60a5fa; text-shadow: 0 0 10px rgba(96,165,250,0.3); }
+.system-msg {
+  font-family: 'Courier New', monospace;
+  color: #4ade80;
+  text-shadow: 0 0 15px rgba(74,222,128,0.5);
+  font-size: 22px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 8px;
+  margin: 16px 0;
+}
+.nav-link {
+  display: inline-block; margin-top: 32px; padding: 12px 28px;
+  border: 1px solid #4a3f58; border-radius: 6px;
+  color: #94a3b8; text-decoration: none; font-size: 15px;
+  transition: all 0.3s ease;
+}
+.nav-link:hover { border-color: #4ade80; color: #4ade80; }
+@media (max-width: 375px) {
+  .panel-text { padding: 16px 20px 32px; }
+  .panel-text p { font-size: 18px; }
+  .title-card h1 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+
+<div class="title-card">
+  <div class="chapter">代码重启</div>
+  <h1>暗网追踪</h1>
+  <div class="subtitle">第八章</div>
+  <div class="scroll-hint">向下滑动</div>
+</div>
+
+<div class="act-divider"><span>第一幕 · 暗网入口</span></div>
+
+<div class="panel" data-panel="1">
+  <img class="panel-image" src="images/exp-960/p01.webp" alt="第1帧" loading="eager">
+  <div class="panel-text">
+    <p>2010年9月，北京。盾甲科技办公室。</p>
+    <p>凌晨一点。整栋楼只有我这一间还亮着灯。台灯的暖黄光和屏幕的冷蓝光交织在一起，把我的影子劈成了两半。</p>
+    <p>周明远给我的那个暗网地址，我已经盯了三天。今晚，我决定进去。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="2">
+  <img class="panel-image" src="images/exp-960/p02.webp" alt="第2帧" loading="eager">
+  <div class="panel-text">
+    <p>Tor浏览器在2010年的网络上慢得令人发指。进度条一格一格地爬，像蜗牛在结冰的坡道上攀岩。</p>
+    <p class="inner-voice">2027年我用量子加密通道秒开任何.onion页面，现在连一个论坛首页都要等三分钟。</p>
+    <p>但周明远给我这个地址时那个眼神……他不是在开玩笑。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="3">
+  <img class="panel-image" src="images/exp-960/p03.webp" alt="第3帧" loading="eager">
+  <div class="panel-text">
+    <p>页面终于加载完毕。</p>
+    <p>是一个匿名论坛，看起来像2010年所有论坛一样粗糙。但我用黑客的直觉嗅到了不对劲——论坛的加密层级远超这个年代的技术水平。</p>
+    <p>用了二十分钟，我找到了隐藏频道的入口。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="4">
+  <img class="panel-image" src="images/exp-960/p04.webp" alt="第4帧" loading="eager">
+  <div class="panel-text">
+    <p>频道里置顶着一份清单。</p>
+    <p><strong>《2010科技事件预测清单》</strong></p>
+    <p>我的手从键盘上抬了起来。不是因为紧张——是因为清单上的每一条预测，我都知道是真的。因为我亲眼见过它们在未来发生。</p>
+    <p>但这份清单<strong>不是我写的</strong>。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="5">
+  <img class="panel-image" src="images/exp-960/p05.webp" alt="第5帧" loading="eager">
+  <div class="panel-text">
+    <div class="comedy">
+      <p>我下意识地去点击"发帖人资料"——弹出一个需要加载的页面。</p>
+      <p>进度条：3%……5%……5%……5%……</p>
+      <p class="inner-voice">我在2027年能用脑机接口直接搜索全网数据库，现在被一个五十六千字节的个人资料页卡住了。</p>
+      <p>我看了一眼右下角的网速：每秒二十二千字节。</p>
+      <p>深呼吸。冷静。这就是2010年。你选择回来的。</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="6">
+  <img class="panel-image" src="images/exp-960/p06.webp" alt="第6帧" loading="lazy">
+  <div class="panel-text">
+    <p>清单的第十七条让我停止了呼吸。</p>
+    <p><strong>"第三季度，将有一家安全公司获得意外融资，创始人具有超前的技术视野。"</strong></p>
+    <p>说的就是盾甲。说的就是我。</p>
+    <p>有人在观察我。不，不只是观察——有人在<strong>记录</strong>我的一切，并且把我的动向也列进了预测。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="7">
+  <img class="panel-image" src="images/exp-960/p07.webp" alt="第7帧" loading="lazy">
+  <div class="panel-text">
+    <p>手机在桌上震了一下。又是匿名号码。</p>
+    <p>我犹豫了两秒，点开了。</p>
+    <p><strong>"你在论坛停留太久了。建议你清除痕迹，关掉页面。——友善提醒"</strong></p>
+    <p>有人在实时监控这个论坛。而且知道我进来了。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="8">
+  <img class="panel-image" src="images/exp-960/p08.webp" alt="第8帧" loading="lazy">
+  <div class="panel-text">
+    <p>我关掉Tor，站起来走到窗前。</p>
+    <p>北京凌晨的天际线灰蒙蒙的，几盏不知道属于谁的灯还亮着。我的倒影浮在玻璃上，像另一个时间线的自己在看着我。</p>
+    <p class="inner-voice">穿越者不止我和周明远。至少还有一个人，比我更早就在这里。而且他知道我的存在。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="9">
+  <img class="panel-image" src="images/exp-960/p09.webp" alt="第9帧" loading="lazy">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="label">决策点 D-18</div>
+      <p>暗网论坛中有人在实时监控你。继续深入追查，还是退出保全？</p>
+      <div class="choice"><span class="chosen">→ 继续。但不是蛮干——我先截取了论坛的完整数据包，然后用我自己写的痕迹清除工具抹掉了访问记录。我没有关页面。我只是把自己变成了一个"不存在的观察者"。</span></div>
+      <div class="reason">"你给我发匿名提醒说明你不想伤害我。但你不想让我看到什么？越是被警告离开的地方，越是有答案。"</div>
+    </div>
+  </div>
+</div>
+
+<div class="act-divider"><span>第二幕 · 数据陷阱</span></div>
+
+<div class="panel" data-panel="10">
+  <img class="panel-image" src="images/exp-960/p10.webp" alt="第10帧" loading="lazy">
+  <div class="panel-text">
+    <p>清晨六点。我站在五道口一家二十四小时咖啡馆门口，刚给陈磊打完电话。</p>
+    <p>"现在？哥，现在是早上六点。"</p>
+    <p>"我知道。带上你的笔记本。十分钟。"</p>
+    <p>"……我连裤子都没穿。"</p>
+    <p>"穿上裤子。九分钟。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="11">
+  <img class="panel-image" src="images/exp-960/p11.webp" alt="第11帧" loading="lazy">
+  <div class="panel-text">
+    <div class="comedy">
+      <p>陈磊出现的时候，卫衣反穿，头发像鸟窝，眼镜歪在鼻梁上。</p>
+      <p>咖啡店的服务员看了他一眼，又看了一眼，然后默默把菜单递给了我。</p>
+      <p>我："他是我的技术合伙人。"</p>
+      <p>服务员礼貌地微笑："……您公司还招人吗？"</p>
+      <p>陈磊："你在嘲笑我。"</p>
+      <p>我："我在陈述事实。两杯美式，谢谢。"</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="12">
+  <img class="panel-image" src="images/exp-960/p12.webp" alt="第12帧" loading="lazy">
+  <div class="panel-text">
+    <p>陈磊喝了一口咖啡之后，整个人清醒了三分。我打开笔记本电脑，把上回发现的那段2027年加密代码调了出来。</p>
+    <p>"你上次说解开了外层加密。里面还有什么？"</p>
+    <p>陈磊推了推眼镜，开始敲键盘。他的手指在键盘上飞舞的样子，跟在公司写代码时一模一样——只是多了黑眼圈和反穿的卫衣。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="13">
+  <img class="panel-image" src="images/exp-960/p13.webp" alt="第13帧" loading="lazy">
+  <div class="panel-text">
+    <p>"哥，你看这个。"陈磊的声音突然变了。</p>
+    <p>屏幕上，他解开了加密代码的第二层。里面藏着一段元数据——一个<strong>时间戳签名</strong>。</p>
+    <p>签名日期：<span class="alert-text">2026年12月</span>。</p>
+    <p>我的穿越时间是2027年3月。这段代码，是在我穿越之前三个月写的。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="14">
+  <img class="panel-image" src="images/exp-960/p14.webp" alt="第14帧" loading="lazy">
+  <div class="panel-text">
+    <p>陈磊摘下眼镜擦了擦，又戴上。这是他极度困惑时的习惯动作。</p>
+    <p>"这不可能。这段代码的编译器版本是2025年才发布的。2010年不可能有人写出这种代码。"</p>
+    <p>他看着我。我看着屏幕。</p>
+    <p class="inner-voice">他说得对。但他不知道的是——2026年12月，距离我穿越还有三个月，我根本不记得自己写过这段代码。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="15">
+  <img class="panel-image" src="images/exp-960/p15.webp" alt="第15帧" loading="lazy">
+  <div class="panel-text">
+    <p>"陈磊，"我斟酌着措辞，"如果我告诉你，这段代码可能来自未来——"</p>
+    <p>他停下了敲击键盘的手指。</p>
+    <p>"你是说……时间旅行？"他的语气像在确认我是不是还清醒。</p>
+    <p>"我是说，有人用某种方式把2026年的代码放进了我们的系统。你只需要知道这个。至于'怎么做到的'——那部分你暂时不需要知道。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="16">
+  <img class="panel-image" src="images/exp-960/p16.webp" alt="第16帧" loading="lazy">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="label">决策点 D-19</div>
+      <p>陈磊发现了关键证据。你选择告诉他多少真相？</p>
+      <div class="choice"><span class="chosen">→ 告诉他代码来自未来，但不透露穿越者的存在和我自己的身份。给他足够的信息来帮忙分析，但不够的信息来理解全貌。保护他——知道太多只会让他成为目标。</span></div>
+      <div class="reason">"信任分两种：信任一个人的能力，和信任一个人能承受真相。陈磊的能力我从不怀疑。但这个真相——它会改变一个人看世界的方式。我不能替他做这个选择。"</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="17">
+  <img class="panel-image" src="images/exp-960/p17.webp" alt="第17帧" loading="lazy">
+  <div class="panel-text">
+    <p>我合上笔记本电脑，把最后一口咖啡喝完。</p>
+    <p>"把这段代码的所有分析结果加密存档。不要上传到任何服务器，不要告诉任何人。包括张维。"</p>
+    <p>陈磊看了我两秒，点了点头。他知道什么时候不该问问题。</p>
+    <p>这就是为什么他是我最信任的搭档。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="18">
+  <img class="panel-image" src="images/exp-960/p18.webp" alt="第18帧" loading="lazy">
+  <div class="panel-text">
+    <p>离开咖啡馆的时候，北京的天已经从金色变成了灰白色。</p>
+    <p>我独自走在五道口的街上，脑子里翻来覆去地想着三件事：</p>
+    <p>暗网上有人系统性地记录穿越者的活动。</p>
+    <p>2026年12月的代码在我穿越之前就已存在。</p>
+    <p>而张维——上一章周明远说的话一直在我耳边回响——"他不只是在做投资。"</p>
+    <p>今晚，我要亲自去看看张维在干什么。</p>
+  </div>
+</div>
+
+<div class="act-divider"><span>第三幕 · 猎人与猎物</span></div>
+
+<div class="panel" data-panel="19">
+  <img class="panel-image" src="images/exp-960/p19.webp" alt="第19帧" loading="lazy">
+  <div class="panel-text">
+    <p>晚上十一点。我把车停在张维公寓楼对面的街边。</p>
+    <p>引擎关了，车灯关了。挡风玻璃上凝结了一层薄雾，把对面的霓虹灯招牌化成了一团团红绿相间的光晕。</p>
+    <p>三楼那扇窗还亮着。张维在家。</p>
+    <p class="inner-voice">我在2027年做过无数次渗透测试和安全审计。但蹲人——这是第一次。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="20">
+  <img class="panel-image" src="images/exp-960/p20.webp" alt="第20帧" loading="lazy">
+  <div class="panel-text">
+    <p>十一点四十分。张维的灯灭了。</p>
+    <p>五分钟后，他出现在楼下大门口。商务衬衫换成了深色夹克，脚步比白天快了一倍。他左右看了看——那种"确认没被跟踪"的看法，我太熟悉了。</p>
+    <p>他开始往东走，穿过了两条小巷。</p>
+    <p>我等他走出五十米，下了车。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="21">
+  <img class="panel-image" src="images/exp-960/p21.webp" alt="第21帧" loading="lazy">
+  <div class="panel-text">
+    <p>张维的目的地让我意外——中关村科技园区B栋。</p>
+    <p>这栋楼三个月前就空了，官方说法是"装修改造"。但此刻，一楼深处隐约透出一丝蓝色的光。</p>
+    <p>张维用一张门禁卡刷开了侧门。门没有完全关上。</p>
+    <p>我数了三十秒，跟了上去。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="22">
+  <img class="panel-image" src="images/exp-960/p22.webp" alt="第22帧" loading="lazy">
+  <div class="panel-text">
+    <p>走廊尽头，一扇防火门半掩着。</p>
+    <p>我推开门的瞬间，愣住了。</p>
+    <p>一间完整的服务器机房。不是2010年水平的——一排排漆黑的服务器机柜整齐排列，蓝色和绿色的指示灯在黑暗中闪烁，像某种深海生物的发光器官。墙上挂着多块显示屏，数据流在上面无声地滚动。</p>
+    <p>这些设备，2010年不应该存在。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="23">
+  <img class="panel-image" src="images/exp-960/p23.webp" alt="第23帧" loading="lazy">
+  <div class="panel-text">
+    <p>我掏出手机，开始拍照。</p>
+    <p>服务器型号、显示屏上的数据接口、机柜的散热系统。每一张照片都是证据。这些设备的制造工艺，我在2027年见过——但2010年，这些东西连概念都还没有。</p>
+    <p>张维不知道去了哪里。机房里只有我和这些不属于这个时代的机器。</p>
+    <p>以及它们低沉的嗡鸣声。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="24">
+  <img class="panel-image" src="images/exp-960/p24.webp" alt="第24帧" loading="lazy">
+  <div class="panel-text">
+    <p>手机震动。</p>
+    <p>又是匿名号码。第三条了。</p>
+    <p class="system-msg">"你来了。我等你很久了。"</p>
+    <p>我的手指在屏幕上停顿了一秒。</p>
+    <p>发这条短信的人不是在论坛上给我发"友善提醒"的那个——语气完全不同。这个人在<strong>邀请</strong>我。</p>
+    <p>这是一个陷阱。一个精心设计的、让我一步一步走进来的陷阱。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="25">
+  <img class="panel-image" src="images/exp-960/p25.webp" alt="第25帧" loading="lazy">
+  <div class="panel-text">
+    <p>机房的灯突然亮了。</p>
+    <p>不是全亮——是从远端开始，一排一排地亮过来，白色荧光灯管在天花板上依次闪烁。像有人在用开关一个个地点亮它们。</p>
+    <p>或者像是某个系统在<strong>启动</strong>。</p>
+    <p>我下意识地退了半步。手机握得更紧了。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="26">
+  <img class="panel-image" src="images/exp-960/p26.webp" alt="第26帧" loading="lazy">
+  <div class="panel-text">
+    <p>机房最深处的那块大屏幕亮了。</p>
+    <p>黑色背景上，绿色的字符缓缓浮现，一个字一个字地跳出来：</p>
+    <p class="system-msg">欢迎回来，朱江。<br>循环 #∞</p>
+    <p>"回来"？我什么时候<strong>来过</strong>？</p>
+    <p>"循环"？什么循环？</p>
+    <p>那个无穷符号在屏幕上跳动着，比其他字符亮了整整一倍。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="27">
+  <img class="panel-image" src="images/exp-960/p27.webp" alt="第27帧" loading="lazy">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="label">决策点 D-20</div>
+      <p>面前是一个明显的陷阱——一个似乎了解你一切的系统。你怎么做？</p>
+      <div class="choice"><span class="chosen">→ 进入。但在走向屏幕之前，我做了三件事：打开手机的自动录像，设定了一封延时三小时发送的邮件给陈磊（附带机房GPS坐标和所有照片），然后给周明远发了一条短信——六个字："科技园区B栋。"</span></div>
+      <div class="reason">"好奇心会杀死猫。但猫有九条命——而我给自己准备了三条后路。如果我今晚出不去，三小时后陈磊会收到一切。如果周明远是盟友，他会来。如果他不来——那也是一种答案。"</div>
+    </div>
+    <p style="margin-top: 24px;">我深吸一口气，向那块发着绿光的屏幕走去。</p>
+    <p>屏幕上的光照亮了我的脸。</p>
+    <p>然后，屏幕上又跳出了一行字：</p>
+    <p class="system-msg" style="font-size: 24px;">准备好了吗？<br>这一次，试着记住。</p>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <p>第八章 · 完</p>
+  <div class="preview">
+    <p>下章预告——</p>
+    <p>"循环 #∞"——朱江可能已经穿越过无数次，每次记忆都被清除？</p>
+    <p>那块屏幕背后是谁？张维？一个更强大的穿越者？还是朱江自己？</p>
+    <p>"试着记住"——如果这不是第一次穿越，那前几次的朱江做了什么？失败了什么？</p>
+    <p>而那个写出2026年12月代码的人——会不会是<strong>另一个循环</strong>里的朱江自己？</p>
+  </div>
+  <a class="nav-link" href="exp-958-code-restart-ch7.html">← 第七章：合伙人</a>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
