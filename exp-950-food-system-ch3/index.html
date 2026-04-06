@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>厨神系统 · 第三章 — 72小时生死时速</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: linear-gradient(180deg, #FFF8F0 0%, #FFF3E0 50%, #FFF8F0 100%);
+  color: #2D1B0E;
+  font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.chapter-header {
+  text-align: center;
+  padding: 60px 20px 30px;
+  background: linear-gradient(135deg, #FF8A00 0%, #FFB347 50%, #FF6B35 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.chapter-header::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+  animation: headerGlow 4s ease-in-out infinite;
+}
+@keyframes headerGlow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(5%, 5%); }
+}
+.chapter-header h1 { font-size: 28px; font-weight: 800; text-shadow: 0 2px 8px rgba(0,0,0,0.2); position: relative; z-index: 1; }
+.chapter-header .subtitle { font-size: 16px; opacity: 0.9; margin-top: 8px; position: relative; z-index: 1; }
+.chapter-header .countdown-badge {
+  display: inline-block; background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 20px; padding: 6px 18px; font-size: 14px; margin-top: 12px; position: relative; z-index: 1;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+.scene-title {
+  text-align: center; padding: 30px 20px 15px; font-size: 22px; font-weight: 700; color: #D84315; position: relative;
+}
+.scene-title::after {
+  content: ''; display: block; width: 60px; height: 3px;
+  background: linear-gradient(90deg, #FF8A00, #FFB347); margin: 10px auto 0; border-radius: 2px;
+}
+.panel {
+  max-width: 420px; margin: 20px auto; padding: 0 16px;
+  opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.panel.visible { opacity: 1; transform: translateY(0); }
+.panel img { width: 100%; border-radius: 12px; display: block; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.panel .text { padding: 16px 4px; font-size: 18px; line-height: 1.85; color: #3E2723; }
+.decision-box {
+  max-width: 420px; margin: 25px auto; padding: 0 16px;
+  opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.decision-box.visible { opacity: 1; transform: translateY(0); }
+.decision-box .inner {
+  background: linear-gradient(135deg, #FFF3E0, #FFE0B2); border: 2px solid #FF8A00;
+  border-radius: 16px; padding: 20px; position: relative; overflow: hidden;
+}
+.decision-box .inner::before {
+  content: '决策点'; position: absolute; top: 0; right: 0; background: #FF8A00; color: white;
+  font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 0 14px 0 12px;
+}
+.decision-box h3 { font-size: 17px; color: #E65100; margin-bottom: 12px; padding-right: 60px; }
+.option { padding: 8px 12px; margin: 6px 0; border-radius: 8px; font-size: 15px; line-height: 1.6; color: #5D4037; background: rgba(255,255,255,0.6); }
+.option.chosen { background: linear-gradient(135deg, #FF8A00, #FFB347); color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(255,138,0,0.3); }
+.reasoning { margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; font-size: 14px; color: #795548; font-style: italic; }
+.sys { max-width: 380px; margin: 15px auto; padding: 12px 16px; background: linear-gradient(135deg, #FFF8E1, #FFECB3); border-left: 4px solid #FFB300; border-radius: 0 10px 10px 0; font-size: 14px; color: #F57F17; font-family: 'Courier New', monospace; }
+.threat {
+  max-width: 400px; margin: 20px auto; padding: 20px; background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+  border: 2px solid #EF5350; border-radius: 12px; font-size: 18px; color: #C62828; font-weight: 600; line-height: 1.8;
+  animation: threatPulse 3s ease-in-out infinite;
+}
+@keyframes threatPulse { 0%, 100% { box-shadow: 0 0 10px rgba(239,83,80,0.2); } 50% { box-shadow: 0 0 25px rgba(239,83,80,0.4); } }
+.ch-footer { text-align: center; padding: 40px 20px; color: #8D6E63; font-size: 14px; }
+.next-ch { display: inline-block; background: linear-gradient(135deg, #FF8A00, #FF6B35); color: white; padding: 12px 28px; border-radius: 25px; font-size: 16px; font-weight: 600; margin-top: 12px; box-shadow: 0 4px 15px rgba(255,138,0,0.3); }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <h1>厨神系统 · 第三章</h1>
+  <div class="subtitle">72小时生死时速</div>
+  <div class="countdown-badge">71:42:18 — Death March 开始</div>
+</div>
+
+<!-- Scene 1: 倒计时开始 -->
+<div class="scene-title">倒计时开始</div>
+
+<div class="panel">
+  <img src="images/p01.webp" loading="lazy" alt="倒计时">
+  <div class="text">凌晨四点。不是闹钟叫醒我的，是系统——它在我梦里放了一个倒计时投影。我睁开眼，天花板上赫然浮着红色数字：<strong>71:42:18</strong>。做AI的时候，产品上线前72小时叫"death march"。没想到做厨子也有death march。区别是：那时候熬夜写代码，现在熬夜切菜。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p02.webp" loading="lazy" alt="厨房备战">
+  <div class="text">六道菜。系统列出了从Lv.3到Lv.5的最短路径——每升一级需要完成3个挑战，但有2个可以合并。最终：6道菜，每道一次过。失败任何一道，时间就不够了。<br><br>小鲜飘过来："你知道正常人从Lv.3到Lv.5要多久吗？"<br>"多久？"<br>"半年。"<br>"我有72小时。"<br>"所以我说你运气好——不是触发我运气好，是你<strong>脸皮够厚</strong>才叫运气好。"</div>
+</div>
+
+<div class="panel">
+  <img src="images/p03.webp" loading="lazy" alt="菜市场">
+  <div class="text">五点半，菜市场。我开着味觉透视逛菜市场的感觉，就像开了外挂打游戏——每样食材上都浮着属性面板。这条鱼：鲜度94%，最佳烹饪方式清蒸。那块豆腐：含水量偏高，适合做汤不适合煎。<br><br>卖菜的大叔看我推着小车狂装，问："开饭店的？"<br>"不，赶作业的。"</div>
+</div>
+
+<div class="panel">
+  <img src="images/p04.webp" loading="lazy" alt="任务列表">
+  <div class="sys">【系统任务】Lv.3→Lv.5 最短路径<br>① 鱼香肉丝(B级) ✅<br>② 清蒸鲈鱼(B+级)<br>③ 宫保鸡丁(A级)<br>④ 糖醋里脊(A级)<br>⑤ 佛跳墙简化版(A+级)<br>⑥ 自由创作菜(S级·考核专用)</div>
+  <div class="text">六道菜的难度曲线，像创业融资的轮次——B轮还能靠产品，到A轮就要拼综合实力了。最后那道"自由创作"是S级，意味着不是照食谱做，而是要<strong>自己发明一道菜</strong>。从执行者到创造者。和写代码一模一样——Copy代码谁都会，写出原创架构才是真功夫。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p05.webp" loading="lazy" alt="打电话">
+  <div class="text">我给林小鱼打了个电话。<br><br>"小鱼，我需要72小时闭关。摊子你能帮我看着吗？"<br>"你闭关做什么？"<br>"升级。考许可证。"<br>"你才做了三天饭——"<br>"两天半。"<br>"两天半就去考许可证？你当这是考驾照啊？"<br>"驾照我也是突击三天考的。"<br>"……你当时挂了几次？"<br>"这不重要。重要的是最后一次过了。"</div>
+</div>
+
+<!-- Scene 2: 极限升级 -->
+<div class="scene-title">极限升级</div>
+
+<div class="panel">
+  <img src="images/p06.webp" loading="lazy" alt="鱼香肉丝">
+  <div class="text">第一道：鱼香肉丝。关键技术点——肉丝必须粗细一致，误差不超过1mm。我的手在发抖。第一刀歪了。第二刀还是歪了。第三十刀——手突然稳了。</div>
+  <div class="sys">【刀工技能升级！精确度+40%】<br>评分：88分 ✅ 通过 | 用时47分钟 | 剩余70h15m</div>
+</div>
+
+<div class="panel">
+  <img src="images/p07.webp" loading="lazy" alt="清蒸鲈鱼">
+  <div class="text">第二道：清蒸鲈鱼。这道菜的难点不在调味——在于"什么都不加"。清蒸是减法，把鱼本身的鲜味释放到极致。味觉透视告诉我：这条鱼的最佳蒸制时间是<strong>7分42秒</strong>，误差不超过10秒。多一秒老，少一秒生。<br><br>我盯着计时器，像盯着服务器的响应时间。7分42秒。掀盖。鱼肉雪白如玉，筷子一夹就散。</div>
+  <div class="sys">【91分！】小鲜难得夸了一句："还行。"<br>从它嘴里听到"还行"，等于别人说"太棒了"。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p08.webp" loading="lazy" alt="嗅觉暴增">
+  <div class="text">第三道做到一半，系统突然弹窗：<strong>【味觉透视升级中……嗅觉灵敏度+300%】</strong><br><br>我还没反应过来，一股味道直冲天灵盖——隔壁老张在炸臭豆腐。正常情况下，那个味道就是"有点臭"。嗅觉提升300%之后——<strong>那是生化武器。</strong><br><br>我趴在窗台上干呕了三十秒，小鲜在旁边笑得厨师帽都歪了："这就是成长的代价！"<br><br>我觉得这是系统在整我。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p09.webp" loading="lazy" alt="深夜苦练">
+  <div class="text">凌晨两点。邻居敲墙了。糖醋里脊的挂糊环节让我卡了四个小时——糊太厚口感面，太薄挂不住。我已经失败了六次。地上的失败品堆成小山。<br><br>小鲜叹气："你做AI的时候也这么轴吗？"<br>"不，做AI的时候比这轴。"<br>"难怪你创业三年才倒闭。"<br>"没倒闭，是战略性撤退。"<br>"哦，换个说法就不是失败了？"<br>"对，就像这不是烧糊了，是'<strong>焦化实验</strong>'。"</div>
+</div>
+
+<div class="panel">
+  <img src="images/p10.webp" loading="lazy" alt="闭眼突破">
+  <div class="text">第七次。我关掉了系统界面。不看数据了。做AI的时候我学到一件事——<strong>当你被数据绑架，就失去了直觉。</strong>数据是工具，不是主人。<br><br>我闭上眼，凭手感翻锅。油温、挂糊的厚度、翻转的角度——全靠身体记忆。我听到糊裂开的声音，闻到醋和糖焦化的香气。睁眼。</div>
+  <div class="sys">【90分！】有时候，放下执念反而突破了。创业也是，做菜也是。</div>
+</div>
+
+<!-- Decision 1 -->
+<div class="decision-box">
+  <div class="inner">
+    <h3>还剩36小时，进度落后</h3>
+    <div class="option">B. 跳过佛跳墙，直接冲自由创作——赌一把大的</div>
+    <div class="option">C. 找王厨求助速成指导</div>
+    <div class="option chosen">A. 按顺序——基础不牢地动山摇。压缩时间但不跳过环节。</div>
+    <div class="reasoning">我做AI时就说过"捷径通向的都是悬崖"。可以优化时间分配，但不能跳过任何一步。创业者的纪律性。</div>
+  </div>
+</div>
+
+<!-- Lin Xiaoyu 独立行动线 -->
+<div class="scene-title">另一个战场</div>
+
+<div class="panel">
+  <img src="images/p11.webp" loading="lazy" alt="林小鱼找记者">
+  <div class="text">我不知道的是，小鱼没有只帮我看摊。她拿着美食街二十年的经营记录、摊贩们的故事、还有赵总名下公司的工商信息，找到了本地报社。<br><br>她说她在网上查了一整夜。<br>"姐，你一个卖馄饨的，怎么会查工商信息？"<br>"我卖馄饨，不代表我只会卖馄饨。"<br><br>后来我才知道——这个女孩高中学历，但自学了法律援助的基本流程。她一直在用自己的方式保护这条街。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p12.webp" loading="lazy" alt="咖啡馆见记者">
+  <div class="text">记者叫小周，刚入行两年，专跑民生线。小鱼把材料铺开："赵总的'赵氏餐饮'去年有三起食品安全投诉，都被压下去了。他要拆美食街建连锁美食城，但规划许可还没批——他是先举报、先赶人，造成既定事实。"<br><br>小周翻着材料，眼睛越来越亮。这就是新闻。<br><br>而小鱼用她的方式，在另一个战场开了一枪。</div>
+</div>
+
+<!-- Scene 3: 佛跳墙之战 -->
+<div class="scene-title">佛跳墙之战</div>
+
+<div class="panel">
+  <img src="images/p13.webp" loading="lazy" alt="食材铺满">
+  <div class="text">佛跳墙。十二种食材，十二种火候，十二种时间线——同时管理。这不是做菜，这是<strong>项目管理</strong>。<br><br>我在AI公司管过十二个人的团队，没有一个人让我这么头疼过。因为人可以沟通，食材不会跟你说"我快焦了"。<br><br>小鲜飘在旁边，难得严肃："这道菜，我建议你认真对待。"<br>"我哪道菜不认真？"<br>"之前那些是考试，这道是面试。过不了这关，后面的自由创作你<strong>连锅都不配摸</strong>。"</div>
+</div>
+
+<div class="panel">
+  <img src="images/p14.webp" loading="lazy" alt="控制面板">
+  <div class="text">我深呼一口气，同时启动味觉透视和系统辅助。视野里瞬间变成了NASA控制室——十二个食材状态面板同时在线，温度、含水量、蛋白质变性程度……实时更新。<br><br>信息量巨大。但这不就是我最擅长的事吗？同时处理多条数据流，在噪声中找到信号。我是程序员出身。<strong>多线程并发？这是我的主场。</strong></div>
+</div>
+
+<div class="panel">
+  <img src="images/p15.webp" loading="lazy" alt="三灶台奔跑">
+  <div class="text">三个灶台同时开火。我像陀螺一样在它们之间转——左手翻鲍鱼，右手搅花胶，脚还得踢一下炖排骨的砂锅底座防止溢出。<br><br>小鲜变成了我的项目经理，在旁边喊倒计时："排骨三分钟！鲍鱼一分半！花胶该关火了！"<br><br>就像当年我的CTO在上线前喊："前端ready了吗？后端呢？数据库migration跑完没？"一模一样的混乱。一模一样的刺激。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p16.webp" loading="lazy" alt="鸡汤入坛">
+  <div class="text">最后一步：所有食材按顺序入坛，倒入鸡汤，密封。系统评分随着每种食材入坛跳动：78…80…82…84…85…86……每跳一下我的心跳一下。<br><br>最后一勺鸡汤倒进去。密封。等待。</div>
+  <div class="sys">【最终融合中……预计等待：45分钟。期间不可开盖。】<br>四十五分钟。我做过最长的等待是等服务器部署——那次等了一小时，结果502。希望这次不是502。</div>
+</div>
+
+<!-- Decision 2 -->
+<div class="decision-box">
+  <div class="inner">
+    <h3>等待佛跳墙的45分钟里，做什么？</h3>
+    <div class="option">B. 休息——72小时几乎没睡，需要恢复体力</div>
+    <div class="option">C. 打电话问林小鱼摊位情况</div>
+    <div class="option chosen">A. 构思自由创作菜——利用等待时间思考，不浪费一分钟。</div>
+    <div class="reasoning">我是极致的时间利用者。创业者不会让任何空隙浪费。"等部署的时候写文档"是我的习惯。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/p17.webp" loading="lazy" alt="坐地上思考">
+  <div class="text">我靠着墙坐下来。腿已经站了快二十个小时，膝盖在抗议。但脑子停不下来——最后的自由创作，S级，要发明一道菜。系统没有给食谱，因为这道菜还不存在。<br><br>我翻遍了已解锁的食谱，找规律。鱼香肉丝的核心是"鱼香"——没有鱼的鱼味。清蒸鲈鱼的核心是"减法"。糖醋里脊是"反差"——酸甜交织。黄金蛋炒饭是"简单的极致"。<br><br>那，有没有一道菜，能同时包含所有这些原则？</div>
+</div>
+
+<div class="panel">
+  <img src="images/p18.webp" loading="lazy" alt="佛跳墙出锅">
+  <div class="text">四十五分钟。掀盖。蒸汽带着十二种食材融合后的香气直冲屋顶——我的嗅觉灵敏度还开着，差点又被自己的菜熏晕。但这次是好的熏——鲍鱼的鲜、排骨的醇、花胶的滑……所有味道织在一起，像一首交响乐。</div>
+  <div class="sys">【92分！恭喜，Lv.4→Lv.5达成！】<br>我差点哭了。不是因为感动——是因为太累了，而且终于不用再做第六道以外的菜了。</div>
+</div>
+
+<!-- Scene 4: 区级考核 -->
+<div class="scene-title">区级考核</div>
+
+<div class="panel">
+  <img src="images/p19.webp" loading="lazy" alt="考核现场">
+  <div class="text">考核日。距离deadline还剩8小时。区行政中心的多功能厅，十个灶台一字排开。其他考生看起来都很正常——精神饱满，准备充分。只有我顶着两个黑眼圈，穿着一件借来的、大了一号的厨师服，像一个误入厨艺界的程序员。<br><br>因为我就是。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p20.webp" loading="lazy" alt="周师傅">
+  <div class="text">主考官姓周，退休国宴厨师。六十五岁，白发梳得一丝不苟，穿灰色中山装。他不穿厨师服——因为他的级别已经不需要用服装证明身份了。<br><br>他扫了一眼全场，目光在我身上停了半秒多——大概是因为我的黑眼圈太像熊猫了。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p21.webp" loading="lazy" alt="刀工测试">
+  <div class="text">第一轮：基本功。切丝、切片、切丁，限时五分钟。系统的刀工加成让我的手稳得像机器——每一刀的误差不超过0.5mm。<br><br>周师傅走过来，低头看我的刀工，没说话。旁边的陈姐在拉面，那动作——十五年的功力，柔韧自如。她看了我一眼：<br>"小伙子，你这刀工是跟谁学的？"<br>"自学。"<br>"多久了？"<br>"三天。"<br><br>她的面差点飞出去。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p22.webp" loading="lazy" alt="陈姐震惊">
+  <div class="text">"三天？"陈姐的声音大得整个考场都听到了。"三天学刀工学成这样？你是天才还是骗子？"<br><br>"介于两者之间。"<br>"你之前干什么的？"<br>"做AI的。"<br>"做……爱？"<br>"AI！人工智能！"<br>"哦，那更不正常了。写代码的手怎么可能切菜切这么好？"<br>"也许因为我debug的时候经常砍键盘。"<br><br>周师傅在后面轻轻咳了一声。不知道是在提醒我们安静，还是在忍笑。</div>
+</div>
+
+<!-- Decision 3 -->
+<div class="decision-box">
+  <div class="inner">
+    <h3>第二轮现场拿手菜，朱江选什么？</h3>
+    <div class="option">B. 佛跳墙——用最难的菜展示最高水平</div>
+    <div class="option">C. 自由创作——提前亮出S级实力</div>
+    <div class="option chosen">A. 黄金蛋炒饭——从Lv.1陪我到现在的"起点菜"。把最简单的做到最好。</div>
+    <div class="reasoning">不炫技。用最简单的菜打最硬的仗。好产品不需要花里胡哨，把核心做到极致。蛋炒饭是我的MVP。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/p23.webp" loading="lazy" alt="蛋炒饭">
+  <div class="text">所有人都在做硬菜。红烧肉、水煮鱼、糖醋排骨——恨不得把十八般武艺全亮出来。只有我起了个锅，打了三个蛋，下了一碗冷饭。<br><br>整个考场的目光都飘过来了。我听到有人小声说："这哥们是来搞笑的吧？"<br><br>不，我是来赢的。用一碗蛋炒饭赢。这道菜，从Lv.1到Lv.5陪了我72小时。它不是最难的菜，但它是我的起点。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p24.webp" loading="lazy" alt="周师傅品尝">
+  <div class="text">周师傅没说话。他用勺子舀了一口，放进嘴里。嚼了两下——停了。和王厨一样的反应：吞了。他放下勺子，看着我。<br><br>"三天？"<br>"三天。"<br>"你之前真的没碰过锅？"<br>"我烧过开水算吗？"<br><br>他没笑。"你这碗蛋炒饭，技术上有几个瑕疵。但有一样东西是技术给不了的。"<br>"什么？"<br>"<strong>诚意。</strong>米是好米，蛋是好蛋，火候是真心伺候过的火候。这碗饭没有一样是凑合的。"</div>
+</div>
+
+<div class="panel">
+  <img src="images/p25.webp" loading="lazy" alt="闭眼构思">
+  <div class="text">最后一轮：自由创作。发明一道菜。其他考生动作很快，看得出是准备了很久的得意之作。我站在灶台前闭着眼。<br><br>小鲜在旁边急了："你在干嘛？！时间在走！"<br>"我在想。"<br>"想什么？！"<br>"一道把所有我学到的东西融在一起的菜。"<br><br>鱼香的'借味'、清蒸的'减法'、糖醋的'反差'、蛋炒饭的'简单极致'、佛跳墙的'融合'——如果有一道菜能同时实现这五个原则……</div>
+</div>
+
+<div class="panel">
+  <img src="images/p26.webp" loading="lazy" alt="五味归一汤">
+  <div class="text">"<strong>五味归一汤</strong>"——我给它起了这个名字。五种最普通的食材，每种只用一点，但每一种都按它最合适的方式处理。<br><br>鸡蛋打散成蛋花——"简单极致"。豆腐切薄片——"减法"。菌菇借虾仁的鲜——"借味"。酸笋提味——"反差"。最后一勺高汤融合所有味道——"融合"。<br><br>五道菜的哲学，一碗汤里全说完了。做AI的时候，最好的产品不是功能最多的，是把核心体验做到极致的。这碗汤，就是我的MVP。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p27.webp" loading="lazy" alt="周师傅喝第二口">
+  <div class="text">周师傅端起碗。喝了一口。放下。沉默。<br><br>我以为完了——沉默通常不是好兆头。但他又端起碗，喝了第二口。考核规则里，主考官只需尝一口就够了。喝第二口，意味着他不是在评分——<strong>是在享受。</strong><br><br>"这道菜叫什么？"<br>"五味归一汤。"<br>"谁教你的？"<br>"没人教。我自己想的。"<br>"你做了三天菜，自创了一道汤，还起了个哲学味道的名字。"他摘下老花镜擦了擦。<br><br>"<strong>通过了。</strong>"</div>
+</div>
+<!-- Scene 5: 悬念结尾 -->
+<div class="scene-title">许可证到手</div>
+
+<div class="panel">
+  <img src="images/p28.webp" loading="lazy" alt="走出行政中心">
+  <div class="text">走出行政中心的时候，阳光刺得我眯了眼。手里是热乎的——区级食品经营许可证。72小时。从Lv.3到Lv.5。从不会做菜到通过国宴厨师的考核。<br><br>我觉得这比拿到融资还爽。因为融资是别人认可你的PPT，而这个证——是我用双手做出来的。<br><br>小鱼在门外等我。她手里拿着一份当天的报纸。</div>
+</div>
+
+<!-- Decision 4 -->
+<div class="decision-box">
+  <div class="inner">
+    <h3>小鱼的报纸登了赵总的负面新闻</h3>
+    <div class="option">B. "太冒险了，万一赵总报复你怎么办"</div>
+    <div class="option">C. "有了这个新闻，也许不用参加大赛了"</div>
+    <div class="option chosen">A. "干得漂亮，但这只是拖延。真正让他放弃的方式，还是在大赛上赢。"</div>
+    <div class="reasoning">我认可队友的行动但不依赖外力。骨子里相信"只有产品力是真护城河"。新闻是辅助手段，大赛才是正面战场。</div>
+  </div>
+</div>
+
+<div class="panel">
+  <img src="images/p29.webp" loading="lazy" alt="看报纸">
+  <div class="text">报纸头条：赵氏餐饮被曝三起食品安全投诉和违规举报。小鱼干的。<br><br>"你什么时候变成调查记者了？"<br>"卖馄饨的时候什么人都能碰到，包括记者。"<br>"你比我想的厉害多了。"<br>"那当然。你以为保护这条街只有你一个人在做？"<br><br>我笑了。创业最难的不是一个人打仗——是发现身边的人其实一直在并肩战斗，只是你没注意到。</div>
+</div>
+
+<div class="panel">
+  <img src="images/p30.webp" loading="lazy" alt="威胁短信">
+  <div class="text">手机震了。一条陌生号码发来的短信：</div>
+  <div class="threat">"朱先生，许可证只是入场券。厨艺大赛的评委名单我已经打过招呼了。——赵。"</div>
+  <div class="sys" style="border-left-color: #EF5350; color: #C62828; background: linear-gradient(135deg, #FFEBEE, #FFCDD2);">【S级威胁！厨艺大赛评委阵容异常——3名评委与赵氏餐饮存在商业关联。建议：14天内将技能提升至Lv.8以上，以绝对实力碾压所有暗箱操作。Lv.8解锁条件：完成"食材共鸣"觉醒。】</div>
+  <div class="text"><strong>绝对实力碾压暗箱操作。</strong><br><br>这句话——就是我做AI时学到的最重要的一课。当市场不公平的时候，唯一的办法就是强到让不公平变得无所谓。<br><br>14天。从Lv.5到Lv.8。又一个不可能的deadline。<br><br>但我刚从上一个不可能里活过来。</div>
+</div>
+
+<div class="ch-footer">
+  <p>第三章 · 完</p>
+  <div class="next-ch">第四章：食材共鸣 · 即将更新</div>
+  <p style="margin-top:20px; font-size:12px; color:#BCAAA4;">EXP-950 | 厨神系统 Ch3 | Trinity V3</p>
+</div>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.panel, .decision-box').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
