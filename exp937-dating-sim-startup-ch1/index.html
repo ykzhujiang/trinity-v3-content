@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>恋爱系统bug：我在约会游戏里搞出了独角兽 — Ch1</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#fef9f0;color:#3a2e28;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:20px;line-height:1.85;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#fff5e6 0%,#ffe0d0 40%,#ffd4b8 70%,#fef9f0 100%);position:relative;overflow:hidden}
+.cover::before{content:'♡';position:absolute;font-size:200px;color:rgba(255,150,150,0.08);top:10%;left:50%;transform:translateX(-50%);animation:heartFloat 3s ease-in-out infinite}
+@keyframes heartFloat{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.1)}}
+.cover h1{font-size:1.6em;background:linear-gradient(135deg,#ff6b9d,#e8844a,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;z-index:1;text-align:center;padding:0 20px;font-weight:900;line-height:1.4}
+.cover .sub{font-size:0.85em;color:#c06040;margin-top:12px;z-index:1;letter-spacing:2px}
+.cover .chapter{font-size:0.75em;color:#a08070;margin-top:24px;letter-spacing:6px;z-index:1}
+.cover .stats{font-size:0.65em;color:#b09080;margin-top:16px;z-index:1;text-align:center;padding:0 30px;line-height:1.8;max-width:360px;font-family:'Courier New',monospace;background:rgba(255,255,255,0.5);border-radius:12px;padding:16px 24px;border:1px solid rgba(255,150,150,0.3)}
+.content{max-width:420px;margin:0 auto;padding:0 8px 60px}
+.panel{margin:0 0 4px;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease-out,transform 0.6s ease-out}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;border-radius:6px;display:block}
+.panel .text{padding:12px 16px;font-size:18px;line-height:1.85}
+.narration{color:#8a6a5a;font-style:italic;border-left:3px solid #ffb347;padding-left:14px;margin:8px 0}
+.dialogue{color:#3a2e28;padding:6px 0}
+.dialogue .speaker{font-weight:bold;font-size:0.85em;margin-bottom:2px}
+.speaker-zj{color:#2a6cb0}
+.speaker-lxx{color:#d06080}
+.speaker-sym{color:#6a8a50}
+.thought{color:#9a7a6a;font-style:italic;opacity:0.9}
+.sys-msg{background:linear-gradient(135deg,rgba(255,150,200,0.08),rgba(255,200,150,0.08));border:1px solid rgba(255,150,150,0.3);border-radius:12px;padding:14px 16px;margin:10px 0;font-family:'Courier New',monospace;color:#d06080;font-size:15px;line-height:1.7}
+.sys-msg .tag{color:#ff6b9d;font-weight:bold;font-size:14px}
+.sys-msg .snark{color:#c08060;font-style:italic;margin-top:6px}
+.sys-alert{background:rgba(255,50,50,0.06);border:1px solid rgba(255,80,80,0.3);border-radius:12px;padding:14px 16px;margin:10px 0;font-family:'Courier New',monospace;color:#cc4444;font-size:15px;line-height:1.7}
+.sys-gold{background:linear-gradient(135deg,rgba(232,184,74,0.1),rgba(255,200,100,0.08));border:2px solid #e8b84a;border-radius:12px;padding:14px 16px;margin:10px 0;font-family:'Courier New',monospace;color:#b08830;font-size:15px;line-height:1.7}
+.attr-panel{background:#1a1a2e;border:2px solid #ff6b9d;border-radius:12px;padding:16px;margin:12px 0;font-family:'Courier New',monospace;font-size:14px;line-height:1.8;color:#e0d0d0}
+.attr-panel .title{text-align:center;color:#ff6b9d;font-size:16px;font-weight:bold;margin-bottom:8px}
+.attr-panel .low{color:#ff6b6b}
+.attr-panel .high{color:#4db8ff}
+.attr-panel .warn{color:#ffaa33}
+.attr-panel .divider{color:#555;text-align:center;margin:4px 0}
+.decision-box{background:linear-gradient(135deg,rgba(255,150,100,0.06),rgba(100,180,255,0.06));border:2px solid #ffb347;border-radius:16px;padding:18px;margin:20px 0;box-shadow:0 4px 20px rgba(255,180,100,0.15)}
+.decision-box .dtitle{color:#e8844a;font-weight:bold;font-size:17px;margin-bottom:12px;text-align:center}
+.decision-box .option{padding:10px 14px;margin:8px 0;border-radius:10px;font-size:15px;color:#6a5a50;background:rgba(255,255,255,0.5);border:1px solid rgba(200,180,160,0.3)}
+.decision-box .option.chosen{background:linear-gradient(135deg,rgba(70,160,255,0.1),rgba(255,180,100,0.1));color:#2a6cb0;font-weight:bold;border:2px solid #4db8ff;box-shadow:0 2px 12px rgba(70,160,255,0.15)}
+.decision-box .option.not-chosen{opacity:0.35;text-decoration:line-through}
+.decision-box .reason{margin-top:12px;padding:12px 14px;background:rgba(255,180,100,0.08);border-radius:10px;font-size:15px;color:#a07040;line-height:1.7}
+.quest-panel{background:#0d1a2e;border:2px solid #4db8ff;border-radius:12px;padding:16px;margin:12px 0;font-family:'Courier New',monospace;font-size:14px;line-height:1.8;color:#90c8e8}
+.quest-panel .qtitle{color:#ffb347;font-weight:bold;font-size:15px;text-align:center;margin-bottom:8px}
+.quest-panel .highlight{color:#4db8ff}
+.quest-panel .gold{color:#e8b84a}
+.scene-break{text-align:center;padding:32px 0;color:#c0a090;font-size:14px;letter-spacing:8px}
+.scene-break::before,.scene-break::after{content:'♡';margin:0 12px;color:#ffb0b0}
+.act-header{text-align:center;padding:40px 0 20px;font-size:1.1em;color:#e8844a;letter-spacing:6px}
+.montage{background:linear-gradient(180deg,rgba(255,240,220,0.5),rgba(255,220,200,0.3));border-radius:12px;padding:4px;margin:8px 0}
+.cliffhanger{padding:40px 20px;font-size:1.2em;color:#6a4a3a;line-height:2.2;text-align:center;background:linear-gradient(180deg,transparent,rgba(255,200,150,0.15))}
+.cliffhanger em{color:#d06080;font-style:normal;font-weight:bold}
+.tbc{text-align:center;padding:24px;color:#c0a090;font-size:0.85em;letter-spacing:8px;border-top:1px solid rgba(200,180,160,0.3);margin-top:20px}
+.scroll-hint{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:#c0a090;font-size:14px;animation:bob 2s ease-in-out infinite;z-index:10;pointer-events:none}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+.level-up{background:linear-gradient(135deg,rgba(70,160,255,0.08),rgba(255,180,100,0.08));border:2px solid #4db8ff;border-radius:12px;padding:16px;margin:12px 0;text-align:center}
+.level-up .lvl{color:#4db8ff;font-size:1.3em;font-weight:bold;font-family:'Courier New',monospace}
+.level-up .desc{color:#8a7a6a;font-size:15px;margin-top:6px}
+.humor{color:#e8844a;background:rgba(255,180,100,0.1);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:16px}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+<h1>恋爱系统bug：<br>我在约会游戏里<br>搞出了独角兽</h1>
+<div class="sub">系统文 × 恋爱 × 创业 × 搞笑</div>
+<div class="chapter">CHAPTER 1</div>
+<div class="stats">
+♡ 玩家：朱江<br>
+♡ 魅力值：3/100<br>
+♡ 商业洞察：99/100<br>
+♡ 恋爱等级：F-（历史最低）<br>
+♡ 系统建议：建议退出游戏
+</div>
+</div>
+
+<div class="scroll-hint">向下滑动 ↓</div>
+
+<div class="content">
+
+<!-- ACT 1 -->
+<div class="act-header">ACT 1 — 系统初始化</div>
+
+<!-- Panel 01 -->
+<div class="panel" id="p01">
+<img src="images/p01.jpg" loading="lazy" alt="凌晨3点办公室，朱江盯着三屏工位">
+<div class="text">
+<div class="narration">公司办公室 · 凌晨3:15</div>
+<p>屏幕上的数据像心电图一样往下跳——DAU日活线、留存率曲线、付费转化漏斗，每一条都在以肉眼可见的速度走向死亡。</p>
+<p class="thought">这已经是我盯着这些数字的第七个小时了。</p>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"DAU又掉了3%……这破游戏，连我自己都不想玩。"</div>
+<p>《心动指数》——我们团队做了八个月的AI恋爱模拟器。画面精美，剧情丰富，唯一的问题是：没人玩。</p>
+<p class="thought">这游戏需要真人体验测试，谁愿意——</p>
+<p>话还没在脑子里成型，面前三块屏幕同时闪出白光。</p>
+</div>
+</div>
+
+<!-- Panel 02 -->
+<div class="panel" id="p02">
+<img src="images/p02.jpg" loading="lazy" alt="白光吞噬，身体像素化分解">
+<div class="text">
+<p>我感觉自己在坠落。</p>
+<p>不是做梦那种失重感——是整个人被拆成数据包、压缩、传输的那种坠落。皮肤变成像素，骨骼变成代码，意识变成信号。</p>
+<div class="sys-msg">
+<div class="tag">♡ HeartOS v0.1 启动中 ♡</div>
+<p>欢迎来到《心动指数》~<br>正在为您生成初始属性~<br>请稍候，幸福马上来临哦~ ♡</p>
+</div>
+<p class="thought">等等——这不是VR测试界面！我的身体怎么——</p>
+</div>
+</div>
+
+<!-- Panel 03 -->
+<div class="panel" id="p03">
+<img src="images/p03.jpg" loading="lazy" alt="属性面板浮现，朱江表情不可置信">
+<div class="text">
+<p>粉色的全息界面在眼前展开，心形图标在角落里蹦蹦跳跳。然后——属性面板弹了出来。</p>
+<div class="attr-panel">
+<div class="title">═══ ♡ 玩家档案：朱江 ♡ ═══</div>
+<span class="low">魅力值：   3/100  ■□□□□□□□□□</span><br>
+<span class="low">情　商：   7/100  ■□□□□□□□□□</span><br>
+<span class="low">撩　力：   0/100  □□□□□□□□□□</span><br>
+<span class="low">浪漫感知： 2/100  □□□□□□□□□□</span><br>
+<div class="divider">─── ⚠️ 异常属性检测 ⚠️ ───</div>
+<span class="high">商业洞察：99/100  ■■■■■■■■■■</span><br>
+<span class="high">谈判力：  95/100  ■■■■■■■■■■</span><br>
+<span class="high">风险评估：92/100  ■■■■■■■■■□</span><br>
+<span class="high">融资技巧：88/100  ■■■■■■■■■□</span><br>
+<div class="divider">───────────────────</div>
+<span class="warn">综合恋爱等级：F-（历史最低）</span><br>
+<span class="warn">系统建议：建议退出游戏</span>
+</div>
+<p class="thought">撩力为零……这个属性居然能为零？</p>
+<div class="sys-msg">
+<div class="tag">♡ 温馨提示 ♡</div>
+<p>您的恋爱属性为本服历史最低~<br>系统已自动为您开启「简单模式」~<br>加油哦~ ♡</p>
+<div class="snark">（这种属性是怎么活到三十多岁的啊喂）</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 04 -->
+<div class="panel" id="p04">
+<img src="images/p04.jpg" loading="lazy" alt="阳光明媚的商业步行街">
+<div class="text">
+<div class="narration">游戏世界 · 阳光商业步行街</div>
+<p>环境加载完毕。</p>
+<p>我站在一条阳光灿烂的步行街上，暖金色的阳光撒在鹅卵石路面上。两边是精致的小店——花坊、甜品屋、书店、咖啡馆。空气里飘着咖啡香和面包的甜味。</p>
+<p>路上的NPC都在成双成对地散步，手挽手，你看看我、我看看你，甜得发腻。</p>
+<p>我低头看了看自己——蓝白格子衬衫，卡其裤。比办公室那件起了球的卫衣体面多了。</p>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"……这做得挺像样的。日活300的游戏竟然有这种场景精度？"</div>
+<p class="thought">职业病犯了。先评估一下这个世界的商业生态……</p>
+</div>
+</div>
+
+<!-- Panel 05 -->
+<div class="panel" id="p05">
+<img src="images/p05.jpg" loading="lazy" alt="推开咖啡店门，林小夏在吧台后微笑">
+<div class="text">
+<p>我推开了第一家店的门——「小夏の咖啡」。门铃叮咚响了一声。</p>
+<p>一个齐肩短发的姑娘从吧台后面抬起头。围裙上沾着一点咖啡渍，但笑容很干净。</p>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"欢迎光临~今天有新到的埃塞俄比亚水洗豆，要试试吗？"</div>
+<div class="sys-msg">
+<div class="tag">♡ 触发事件：邂逅咖啡店女主！♡</div>
+<p>好感度 +10（初始奖励）<br>当前好感度：10/100</p>
+</div>
+<p class="thought">这家店面积大概40平，租金估计……等等，我在想什么？</p>
+</div>
+</div>
+
+<!-- Panel 06 -->
+<div class="panel" id="p06">
+<img src="images/p06.jpg" loading="lazy" alt="朱江视角扫描咖啡店经营数据">
+<div class="text">
+<p>我没有看菜单。</p>
+<p>我看的是她的经营模式。</p>
+<p>墙上的价目表——心形边框，可爱但定价偏高。<br>角落的库存架——咖啡豆只剩三袋。<br>门口的客流计数器——今日来客：7人。</p>
+<p class="thought">日均客流7人，客单价大约28元，月营收不到6000……这个位置的租金起码8000。她在亏钱。</p>
+<div class="sys-msg">
+<div class="tag">⚠️ 提示 ⚠️</div>
+<p>女主角正在等你回应哦~<br>当前沉默时间已超过15秒~<br>建议说点什么浪漫的话？♡</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 07 -->
+<div class="panel" id="p07">
+<img src="images/p07.jpg" loading="lazy" alt="朱江指着价目表，林小夏微笑凝固">
+<div class="text">
+<p>我开口了。但说的不是她期待的话。</p>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"你的水洗豆定价偏高了3块，考虑到这个地段的消费水平。另外你的库存周转率有问题——后面只剩三袋豆子，但你菜单有12种单品，意味着至少40%的SKU是虚设。你需要做品类瘦身。"</div>
+<p>她的微笑慢慢凝固了。</p>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"……你是来喝咖啡的？还是来做尽调的？"</div>
+<div class="sys-msg">
+<div class="tag">⛔ 好感度 -30 ⛔</div>
+<p>原因：在初次邂逅中使用了「SKU」和「品类瘦身」等术语<br>当前好感度：-20/100</p>
+<div class="snark">系统恳请您：能不能像个正常人一样说话？</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 08 -->
+<div class="panel" id="p08">
+<img src="images/p08.jpg" loading="lazy" alt="分屏：林小夏困惑，隐藏任务面板浮现">
+<div class="text">
+<p>好感度在暴跌。但我注意到了另一件事——我的「商业洞察」属性在疯狂闪烁。</p>
+<p>系统检测到了一个隐藏任务。</p>
+<div class="quest-panel">
+<div class="qtitle">⚡ 隐藏任务触发 ⚡</div>
+<span class="gold">「小夏の咖啡」濒临破产</span><br>
+<span style="color:#ff6b6b">（剩余运营资金：17天）</span><br>
+<br>
+任务目标：拯救咖啡店<br>
+奖励：<span class="highlight">经验值×500</span> + <span class="gold">???</span><br>
+<br>
+<span class="highlight">商业洞察提示：</span><br>
+> 这个位置虽然租金高<br>
+> 但距离大学城步行仅5分钟<br>
+> 学生市场完全未开发<br>
+> 如果改造成"自习+咖啡"模式……
+</div>
+<p class="thought">有意思。这个游戏的底层经济模型比我想象的复杂。如果能救活这家店……经验值×500，够升两级了。</p>
+<p class="thought">谁说升级一定要靠谈恋爱？</p>
+<div class="sys-msg">
+<div class="tag">⚠️ 系统困惑中 ⚠️</div>
+<p>检测到玩家意图偏离主线……<br>正在尝试纠正……<br>纠正失败 ⚠️</p>
+<div class="snark">（我是恋爱系统啊喂！不是创业孵化器！）</div>
+</div>
+</div>
+</div>
+
+<div class="scene-break">转场</div>
+
+<!-- ACT 2 -->
+<div class="act-header">ACT 2 — 咖啡店改造计划</div>
+
+<!-- Panel 09 -->
+<div class="panel" id="p09">
+<img src="images/p09.jpg" loading="lazy" alt="俯拍：餐巾纸上的商业模型">
+<div class="text">
+<p>我坐下来，点了一杯最便宜的美式——12块。</p>
+<p>然后开始在餐巾纸上画商业模型。</p>
+<p class="thought">大学城5分钟步行圈，周边3000名学生。期末考试季马上到。如果把这里改成"自习咖啡馆"——固定座位月卡制+平价续杯，翻台率能提高400%。</p>
+<div class="sys-msg">
+<div class="tag">♡ 约会小贴士 ♡</div>
+<p>女主角正在偷偷观察你哦~<br>这是增加好感度的好机会~<br>试试夸她的咖啡？♡</p>
+</div>
+<p class="humor">我确实抬头了。但不是要夸咖啡。</p>
+</div>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel" id="p10">
+<img src="images/p10.jpg" loading="lazy" alt="朱江和林小夏认真对话">
+<div class="text">
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"你的店还能撑多久？"</div>
+<p>她的笑容消失了。</p>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"……你怎么知道？"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"库存只剩三袋豆子，但你没有补货。冰箱里的牛奶日期偏近。门口计数器今天才7个人。这些加在一起——大概还有两周？"</div>
+<p>她沉默了几秒。擦桌子的手停了下来。</p>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"十七天。你是第一个看出来的人。"</div>
+<div class="sys-msg">
+<div class="tag">♡ 好感度 +5 ♡</div>
+<p>原因：展现了细致的观察力<br>（虽然方向不太对……）</p>
+</div>
+</div>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel" id="p11">
+<img src="images/p11.jpg" loading="lazy" alt="餐巾纸上的完整商业方案特写">
+<div class="text">
+<p>我把餐巾纸推给她。上面画着完整的商业改造方案——虽然画在餐巾纸上，但定价模型、引流渠道、翻台率计算，一样不少。</p>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"自习咖啡馆。月卡99元无限续杯，固定座位有插座有WiFi。期末季学生抢都来不及。"</div>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"你认真的？我们才认识十分钟。"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"商业机会不等人。而且——"</div>
+<p>我瞄了一眼系统面板上的经验值。</p>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"——我需要经验值。"</div>
+</div>
+</div>
+
+<!-- DECISION-1 -->
+<div class="panel" id="d1">
+<div class="decision-box">
+<div class="dtitle">⚡ 决策点 #1 ⚡</div>
+<p style="text-align:center;color:#8a7a6a;font-size:15px;margin-bottom:12px">林小夏问："你想要什么回报？"</p>
+<div class="option not-chosen">A) "股权。改造成功后我要30%。"<br><small>→ 好感度-10，信任度+30</small></div>
+<div class="option not-chosen">B) "先不谈回报。帮你是因为……这家店的拿铁确实不错。"<br><small>→ 好感度+20，信任度+15</small></div>
+<div class="option chosen">C) "免费。但你要当我的第一个商业案例，让我用数据追踪所有经营指标。"<br><small>→ 好感度-5，信任度+20，解锁隐藏属性「数据收集」</small></div>
+<div class="reason">💡 我选了C。免费帮忙——因为帮人不需要理由。但要数据——因为数据比钱值钱。这是我的本能。</div>
+</div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel" id="p12">
+<img src="images/p12.jpg" loading="lazy" alt="林小夏忍不住真心笑了">
+<div class="text">
+<p>她听完之后，第一次真正笑了。</p>
+<p>不是刚才那种营业式的礼貌微笑——是觉得这个人太奇怪了，忍不住笑出来的那种。</p>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"你是我见过最奇怪的客人。来喝咖啡的，结果要改造我的店，还不要钱，只要……数据？"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"数据比钱值钱。"</div>
+<div class="sys-msg">
+<div class="tag">♡ 系统播报 ♡</div>
+<p>好感度 -5（她觉得你怪）<br>信任度 +20（她觉得你真诚）<br>🎉 解锁隐藏属性「数据收集 Lv1」！</p>
+<div class="snark">这是什么奇怪的攻略路线啊……</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 13-15: Montage -->
+<div class="montage">
+<div class="panel" id="p13">
+<img src="images/p13.jpg" loading="lazy" alt="朱江在黑板上写自习套餐定价">
+<div class="text">
+<div class="narration">改造 · 第一天</div>
+<p>我在黑板上写下：「自习套餐：月卡99/学期卡249」。林小夏站在旁边看，从怀疑到认真——她开始计算这些数字意味着什么。</p>
+</div>
+</div>
+
+<div class="panel" id="p14">
+<img src="images/p14.jpg" loading="lazy" alt="蹲在地上装USB插座">
+<div class="text">
+<div class="narration">改造 · 第二天</div>
+<p>我蹲在地上给每个座位加装USB插座。林小夏递扳手的时候手指碰到了我的——</p>
+<div class="sys-msg"><div class="tag">♡ 好感度 +3 ♡</div><p>原因：肢体接触（虽然是递扳手）</p></div>
+<p class="thought">我当时在想的是：这个插座的功率够不够带动笔记本。</p>
+</div>
+</div>
+
+<div class="panel" id="p15">
+<img src="images/p15.jpg" loading="lazy" alt="开业日学生排长队">
+<div class="text">
+<div class="narration">开业 · 第三天</div>
+<p>门口排队的学生绕了半条街。</p>
+<p>林小夏在忙碌中回头看我——我在角落用平板记录数据。嘴角不自觉地弯了一下。</p>
+<div class="level-up">
+<div class="lvl">⚡ LEVEL UP! Lv1 → Lv3 ⚡</div>
+<div class="desc">「小夏の咖啡」日营收：¥196 → ¥2,340 (+1094%)<br>经验值 +500 | 新能力解锁中……</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel" id="p16">
+<img src="images/p16.jpg" loading="lazy" alt="步行街数据叠加层">
+<div class="text">
+<div class="narration">Lv3 新能力：「市场预判」</div>
+<p>世界变了。</p>
+<p>整条步行街在我眼中叠加了一层数据——每家店铺头顶浮现半透明的趋势曲线。有的在上升，有的在急跌。隔壁面包店还能撑三个月，对面书店已经在回暖。</p>
+<p class="thought">如果我能在趋势拐点之前介入——</p>
+<div class="sys-msg">
+<div class="tag">⚠️ 友情提醒 ⚠️</div>
+<p>您已经完全忽略了主线恋爱任务<br>当前好感度进度：5/100<br>其他玩家平均进度：63/100<br>您确定不谈恋爱吗？</p>
+</div>
+<p class="humor">谁说这不是在"谈恋爱"？我在和这个世界的经济系统谈恋爱。</p>
+</div>
+</div>
+
+<!-- Panel 17 -->
+<div class="panel" id="p17">
+<img src="images/p17.jpg" loading="lazy" alt="红色警告映在脸上">
+<div class="text">
+<p>突然——一个警告弹出。不是粉色的恋爱提示。是红色的。</p>
+<div class="sys-alert">
+<strong>⛔ 系统异常检测 ⛔</strong><br><br>
+「月光花坊」经营数据异常<br>
+营收曲线呈非自然增长模式<br>
+疑似外部资金注入<br>
+──────────────<br>
+关联人物：苏一鸣<br>
+身份：表层 = 花店老板/约会达人<br>
+深层 = ？？？（权限不足）
+</div>
+<p class="thought">有人在这个游戏里做假账？在一个恋爱游戏里？</p>
+</div>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel" id="p18">
+<img src="images/p18.jpg" loading="lazy" alt="苏一鸣在花坊门口递花">
+<div class="text">
+<p>我的视线穿过步行街——</p>
+<p>街对面，「月光花坊」门口。一个白衬衫的男人正在微笑着给一个女性NPC递花。姿态完美，笑容温暖，像从言情小说里走出来的角色。</p>
+<p>但我的「市场预判」能力让我看到了他背后的东西——一串不正常的红色资金流向线，从花坊延伸向……游戏世界的边界之外。</p>
+<p class="thought">一个约会游戏里的NPC……在做跨世界的资金转移？</p>
+</div>
+</div>
+
+<div class="scene-break">夜幕</div>
+
+<!-- ACT 3 -->
+<div class="act-header">ACT 3 — 对峙</div>
+
+<!-- Panel 19 -->
+<div class="panel" id="p19">
+<img src="images/p19.jpg" loading="lazy" alt="夜晚咖啡店打烊后的温暖灯光">
+<div class="text">
+<div class="narration">咖啡店 · 打烊后</div>
+<p>晚上。咖啡店只剩吧台一盏暖灯。</p>
+<p>我对着平板分析今天的经营数据。林小夏在背后擦桌子，偶尔偷看我一眼。</p>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"你真的不是来玩游戏的吧？正常玩家这会儿都在约会。"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"约会的ROI太低了。你算算——花两小时好感度+20，还不如帮一家店做改造经验值+500。"</div>
+<p>她停下了擦桌子的手。</p>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"你把所有事情都换算成数字吗？"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"……大部分。"</div>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div><small>（小声）</small>"那你怎么换算'帮一个快破产的人'？"</div>
+<div class="sys-msg">
+<div class="tag">♡ 好感度 +15 ♡</div>
+<p>原因：……未知</p>
+<div class="snark">（连系统都分析不出来为什么）</div>
+</div>
+</div>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel" id="p20">
+<img src="images/p20.jpg" loading="lazy" alt="苏一鸣推门进入咖啡店">
+<div class="text">
+<p>安静的氛围被打破了。</p>
+<p>门铃响。苏一鸣推门走进来，手里拿着一束洋桔梗。逆光中他的轮廓像杂志封面。</p>
+<div class="dialogue"><div class="speaker speaker-sym">苏一鸣</div>"小夏，这是今天花坊新到的洋桔梗，想到你就送过来了。"</div>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div>"谢谢，但我不太需要……"</div>
+<p>他的目光扫过来，落在我身上。</p>
+<div class="dialogue"><div class="speaker speaker-sym">苏一鸣</div>"这位是？"</div>
+<p class="thought">我看着他背后隐约浮现的红色数据流线。在这个温暖的咖啡店灯光下，那些异常数据像血管一样跳动。</p>
+</div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel" id="p21">
+<img src="images/p21.jpg" loading="lazy" alt="三人构图：朱江和苏一鸣对坐">
+<div class="text">
+<p>他坐下来，优雅地点了一杯拿铁。</p>
+<p>但他看我的眼神——不像在看一个情敌。更像在评估一个变量。</p>
+<div class="dialogue"><div class="speaker speaker-sym">苏一鸣</div>"听说你帮小夏改造了咖啡店？商业才能不错。在这个游戏里做生意的人不多。"</div>
+<div class="dialogue"><div class="speaker speaker-zj">我</div>"在这个游戏里做跨世界资金转移的人也不多。"</div>
+<p>空气凝固了三秒。</p>
+<div class="dialogue"><div class="speaker speaker-sym">苏一鸣</div><small>（微笑不变）</small>"……你的商业洞察属性很高啊。"</div>
+<div class="dialogue"><div class="speaker speaker-lxx">林小夏</div><small>（困惑地看两人）</small>"你们在说什么？"</div>
+</div>
+</div>
+
+<!-- Panel 22 -->
+<div class="panel" id="p22">
+<img src="images/p22.jpg" loading="lazy" alt="苏一鸣在门口回头">
+<div class="text">
+<p>他站起来，放下咖啡钱。走到门口时回头说了一句——</p>
+<div class="dialogue"><div class="speaker speaker-sym">苏一鸣</div>"这个游戏的规则比你想象的复杂。好感度只是表层数据。真正的游戏……在经济系统的底层。"</div>
+<p>然后他压低声音，只有我听得到：</p>
+<div class="dialogue"><div class="speaker speaker-sym">苏一鸣</div>"你改造咖啡店的那套——很像现实世界的某个人。朱……什么来着？"</div>
+<p class="thought">他知道我是谁。他知道这是游戏。</p>
+<p class="thought">他……也是穿越者？</p>
+</div>
+</div>
+
+<!-- DECISION-2 -->
+<div class="panel" id="d2">
+<div class="decision-box">
+<div class="dtitle">⚡ 决策点 #2 ⚡</div>
+<p style="text-align:center;color:#8a7a6a;font-size:15px;margin-bottom:12px">苏一鸣似乎知道你的真实身份。下一步？</p>
+<div class="option not-chosen">A) 追出去直接质问<br><small>→ 正面冲突，暴露自己底牌</small></div>
+<div class="option chosen">B) 表面不动声色，暗中用「市场预判」追踪他的资金流向<br><small>→ 需要时间但更安全</small></div>
+<div class="option not-chosen">C) 找林小夏了解苏一鸣的背景<br><small>→ 好感度+10，但可能暴露怀疑</small></div>
+<div class="reason">💡 我选了B。信息不对称的时候不做决策——这是做了十年创业学到的第一条规则。先搞清楚他是谁，再决定怎么打。</div>
+</div>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel" id="p23">
+<img src="images/p23.jpg" loading="lazy" alt="朱江走出咖啡店，激活市场预判">
+<div class="text">
+<p>我假装平静地喝完咖啡，和林小夏道别。</p>
+<p>走出店门的那一刻——「市场预判」激活。</p>
+<p>整条步行街在夜色中亮了起来。大部分商铺的数据流是安静的蓝绿色。但苏一鸣的花坊方向——一条粗大的红色数据流，穿过建筑物，向远处延伸。</p>
+<p class="thought">好感度只是表层数据……经济系统的底层……这个游戏有两套系统？</p>
+</div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel" id="p24">
+<img src="images/p24.jpg" loading="lazy" alt="游戏世界边界，像素在解体">
+<div class="text">
+<p>我沿着红色数据流追踪。它穿过商业区，穿过住宅区，一直延伸到——</p>
+<p>地图的边缘。一堵看不见的墙。</p>
+<p>眼前是一片虚无。像素在解体和重组，像宇宙的边界在呼吸。红色数据流穿过这堵墙，消失在"外面"。</p>
+<p class="thought">这些数据……在流向游戏外部。有人在用这个恋爱游戏的经济系统……从现实世界洗钱？</p>
+<div class="quest-panel">
+<div class="qtitle">⚠️ 系统提示 ⚠️</div>
+<span style="color:#ff6b6b">你正在接近系统边界</span><br>
+当前权限等级不足<br>
+建议返回主线任务区域<br>
+……<br>
+……但如果你非要看的话<br>
+<span class="highlight">Lv5 解锁「边界穿透」能力</span><br>
+当前：Lv3<br>
+距离Lv5还需：<span class="gold">经验值 3,200</span>
+</div>
+</div>
+</div>
+
+<!-- Panel 25 -->
+<div class="panel" id="p25">
+<img src="images/p25.jpg" loading="lazy" alt="金色系统消息面板">
+<div class="text">
+<p>HeartOS突然弹出一个不寻常的消息。不是粉色的。是金色的。</p>
+<div class="sys-gold">
+<strong>⚡ HeartOS 管理员消息 ⚡</strong><br>
+<small>（非自动生成）</small><br>
+──────────────<br><br>
+玩家「朱江」：<br><br>
+你发现了不该发现的东西。<br>
+苏一鸣不是唯一的。<br><br>
+这个游戏的真正目的<br>
+<strong>从来就不是恋爱。</strong><br><br>
+如果你想知道真相——<br>
+先活过第一个月。<br><br>
+—— 404
+</div>
+<p class="thought">404……那个系统管理员AI？它在帮我？还是在警告我？</p>
+</div>
+</div>
+
+<!-- Panel 26 (Final) -->
+<div class="panel" id="p26">
+<img src="images/p26.jpg" loading="lazy" alt="夜色中远望咖啡店温暖灯光">
+<div class="text">
+<p>我转身走回商业街。</p>
+<p>远处，咖啡店的灯还亮着。林小夏在窗户后面的剪影正在整理花束——苏一鸣送的那束。</p>
+<p>而我的「市场预判」在她身上看到了一条之前没注意到的数据线——</p>
+<p>不是红色，不是蓝色。</p>
+<p>是<em style="color:#e8b84a;font-weight:bold">金色</em>的。和404发消息的颜色一样。</p>
+</div>
+</div>
+
+<!-- Cliffhanger -->
+<div class="cliffhanger">
+<p>我以为我穿越进了一个恋爱游戏。</p>
+<p>我以为最大的挑战是撩力为零。</p>
+<p>我以为苏一鸣只是一个花心NPC。</p>
+<p><br></p>
+<p>我全都猜错了。</p>
+<p><br></p>
+<p>这个游戏里，最危险的人不是他。</p>
+<p>是那个笑起来眼睛弯弯的<em>咖啡店老板</em>。</p>
+</div>
+
+<div class="tbc">
+第二章预告<br>
+<strong style="color:#e8844a">她的咖啡里有一个我写过的算法</strong>
+</div>
+
+</div><!-- /content -->
+
+<script>
+// Scroll reveal
+const panels=document.querySelectorAll('.panel');
+const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:0.15});
+panels.forEach(p=>io.observe(p));
+// Hide scroll hint after first scroll
+let hintEl=document.querySelector('.scroll-hint');
+window.addEventListener('scroll',()=>{if(window.scrollY>100&&hintEl){hintEl.style.opacity='0';setTimeout(()=>hintEl.remove(),500)}},{once:true});
+</script>
+</body>
+</html>
