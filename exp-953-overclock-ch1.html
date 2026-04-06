@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>超频觉醒 Ch1 — 0.03秒的世界</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #0a0a14;
+  color: #e0e0e0;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(180deg, #0a0a14 0%, #1a1a2e 50%, #0a0a14 100%);
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #00d4ff;
+  text-shadow: 0 0 30px rgba(0,212,255,0.5);
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.header .subtitle {
+  font-size: 1.1rem;
+  color: #e2a500;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  position: relative;
+  z-index: 1;
+}
+
+.header .series {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  animation: bounce 2s ease-in-out infinite;
+  color: #555;
+  font-size: 0.8rem;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Acts */
+.act {
+  background: var(--act-bg);
+  padding: 1rem 0;
+  transition: background 0.5s ease;
+}
+
+.act-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--act-accent);
+  padding: 2rem 1rem;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 20px var(--act-accent);
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Panels */
+.panel {
+  margin: 0 auto 1.5rem;
+  max-width: 420px;
+  padding: 0 0.8rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel-image {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.panel-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.panel-text {
+  padding: 0.8rem 1rem;
+  font-size: 1.05rem;
+  color: var(--act-text, #e0e0e0);
+  border-left: 3px solid var(--act-accent, #00d4ff);
+  margin-top: 0.6rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 0 6px 6px 0;
+}
+
+/* Panel sizes */
+.panel-large .panel-image {
+  box-shadow: 0 6px 30px rgba(0,0,0,0.7);
+}
+
+.panel-large .panel-text {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* Decision panels */
+.decision-panel {
+  position: relative;
+}
+
+.decision-panel::before {
+  content: '决策点';
+  position: absolute;
+  top: -0.5rem;
+  right: 1.5rem;
+  background: linear-gradient(135deg, #e2a500, #ff6600);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.8rem;
+  border-radius: 12px;
+  z-index: 2;
+  box-shadow: 0 2px 10px rgba(226,165,0,0.4);
+}
+
+.decision-panel .panel-image {
+  border: 2px solid rgba(226,165,0,0.4);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: linear-gradient(180deg, #1a0a0a 0%, #0a0a14 100%);
+}
+
+.footer .next-chapter {
+  font-size: 1.3rem;
+  color: #ff3344;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(255,51,68,0.5);
+}
+
+.footer .teaser {
+  font-size: 0.95rem;
+  color: #888;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.footer .series-info {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: #555;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>超频觉醒</h1>
+  <div class="subtitle">第一章 — 0.03秒的世界</div>
+  <div class="series">OVERCLOCK PERCEPTION / 都市异能 x AI创业</div>
+  <div class="scroll-hint">向下滑动开始阅读</div>
+</div>
+
+    <div class="act" id="act-1" style="--act-bg: #1a1a2e; --act-accent: #e2a500; --act-text: #f0e6d3">
+      <div class="act-title">第一幕：电弧</div>
+    <div class="panel panel-normal " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p01.webp" alt="Panel 1" loading="eager" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>凌晨两点半。深源科技的机房里只有我一个人，72小时不间断的训练终于看到曙光——loss曲线开始收敛了。</p>
+      </div>
+    </div>
+    <div class="panel panel-medium " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p02.webp" alt="Panel 2" loading="eager" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>我给自己倒了今晚的第四杯美式。杯子上印着'CEO = Chief Everything Officer'——这是陆薇去年生日送我的。说实话，这个头衔越来越名副其实了。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p03.webp" alt="Panel 3" loading="eager" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>GPU集群温度告警已经弹了三次了。我看了一眼监控面板——核心温度89度，还在安全范围内。再撑一会儿就好。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p04.webp" alt="Panel 4" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>突然，所有屏幕同时闪了一下。不对——不是屏幕，是灯。整个机房的灯都在闪烁。服务器的风扇声从嗡嗡变成了尖啸。</p>
+      </div>
+    </div>
+    <div class="panel panel-large " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p05.webp" alt="Panel 5" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>然后我看到了那道光。从三号机柜的配电模块里，一道蓝白色的电弧像闪电一样劈了出来——直奔我站着的方向。</p>
+      </div>
+    </div>
+    <div class="panel panel-large " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p06.webp" alt="Panel 6" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>0.03秒。电流穿过我整个身体的时间，只有0.03秒。但在那一瞬间，我好像看到了什么——所有服务器里的数据，像萤火虫一样在空气中飘浮。</p>
+      </div>
+    </div>
+    <div class="panel panel-large " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p07.webp" alt="Panel 7" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>然后，一片黑暗。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p08.webp" alt="Panel 8" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>再睁开眼，是刺眼的白色。消毒水的味道。手背上扎着针。我在医院。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p09.webp" alt="Panel 9" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>你昏迷了三天。陆薇坐在床边，银框眼镜后面的眼睛带着明显的黑眼圈。电弧击穿了三号机柜的配电模块，你站得太近了。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="1">
+      <div class="panel-image">
+        <img src="images/exp-953/p10.webp" alt="Panel 10" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #e2a500">
+        <p>训练跑完了吗？我问的第一句话。陆薇的表情从担忧瞬间切换成想打人。你差点死了，问的第一句是loss收敛了没有？我笑了笑：那就是跑完了。</p>
+      </div>
+    </div>
+    </div>
+    <div class="act" id="act-2" style="--act-bg: #0f1923; --act-accent: #00d4ff; --act-text: #e0f0ff">
+      <div class="act-title">第二幕：觉醒</div>
+    <div class="panel panel-normal " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p11.webp" alt="Panel 11" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>第二天，医生说各项指标正常，可以出院了。我扶着墙走在走廊里，腿还有点发软。路过护士站的时候——</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p12.webp" alt="Panel 12" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>我无意间瞟了一眼护士站的电脑屏幕。然后，世界停了。<br>屏幕上的Excel表格——我不是在"看"它，我是在"读"它。0.03秒内，我知道了：这是本季度的耗材采购表，总金额¥847,329，其中第17行有一笔异常——同型号注射器单价比市场均价高出43%。</p>
+      </div>
+    </div>
+    <div class="panel panel-medium " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p13.webp" alt="Panel 13" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>我猛地停住脚步。刚才……我怎么可能一眼就看出来？那个表格起码有两百行，我甚至没有认真看！</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p14.webp" alt="Panel 14" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>坐上出租车回公司。窗外的北京三环堵成停车场。我试着看了一眼前方——交通流量数据像全息投影一样浮现在我眼前。每辆车的速度、加速度、变道概率……</p>
+      </div>
+    </div>
+    <div class="panel panel-normal decision-panel" data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p15.webp" alt="Panel 15" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>[DECISION-D1] 出租车司机突然问："小伙子，走四环快还是走辅路快？"<br>我本能地说了句让自己都吃惊的话："走辅路，在下个路口右转，第三条巷子穿过去，能省12分钟。"<br>司机看了我一眼："你是开滴滴的吧？"</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p16.webp" alt="Panel 16" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>到了。深源科技，中关村软件园二期。四层小楼，玻璃幕墙上贴着我们的logo——一个蓝色的深渊漩涡图案。<br>三天没来，公司还在。这就够了。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p17.webp" alt="Panel 17" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>推开门，老周第一个冲过来。"老板你活了！"他手里端着泡面——在整个深源科技，只有他敢在机房旁边吃泡面。<br>"我一直都活着。"我拍了拍他的肩膀，"三号机柜修好了？"</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p18.webp" alt="Panel 18" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>我坐回自己的工位。打开笔记本，登录内部系统。一切看起来都正常——训练确实跑完了，模型效果还不错。<br>然后，超频感知又发动了。这次是主动的。</p>
+      </div>
+    </div>
+    <div class="panel panel-large " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p19.webp" alt="Panel 19" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>代码在我眼前展开成立体的数据流。我不需要逐行读——每个函数、每个API调用、每条数据流向，全部同时涌进大脑。<br>就像……就像我变成了大模型本身。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="2">
+      <div class="panel-image">
+        <img src="images/exp-953/p20.webp" alt="Panel 20" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #00d4ff">
+        <p>等等。在训练框架的底层模块里……有一段不属于我们团队的代码。<br>它不是bug。它是一个精心伪装的后门。而这个后门——正在把我们的模型权重，一点一点地往外传。</p>
+      </div>
+    </div>
+    </div>
+    <div class="act" id="act-3" style="--act-bg: #1a0a0a; --act-accent: #ff3344; --act-text: #ffd4d4">
+      <div class="act-title">第三幕：暗流</div>
+    <div class="panel panel-normal decision-panel" data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p21.webp" alt="Panel 21" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>[DECISION-D2] 后门代码。有人在偷我们的模型。我的手悬在键盘上——是直接告诉陆薇和老周，还是先自己查清楚？<br>我选择了后者。因为超频感知告诉我……这段代码的提交方式太干净了。内部人的手笔。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p22.webp" alt="Panel 22" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>等同事们都走了以后，我开始深挖。超频感知开到最大——代码历史在我眼前快进播放，几千次commit像电影一样闪过。</p>
+      </div>
+    </div>
+    <div class="panel panel-medium " data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p23.webp" alt="Panel 23" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>头痛来了。像有人在太阳穴两侧拧螺丝。超频感知的代价——用得越深，脑子越痛。<br>但我不能停。我已经摸到了那个后门的提交链。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p24.webp" alt="Panel 24" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>后门被五层混淆代码包裹。第一层：变量名伪装成日志模块。第二层：调用链藏在异常处理里。第三层……第四层……<br>我一层一层剥开它，像拆一颗精密的定时炸弹。</p>
+      </div>
+    </div>
+    <div class="panel panel-medium " data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p25.webp" alt="Panel 25" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>第五层剥开。后门的核心暴露了——它不只是偷数据。它在我们的模型里植入了一个隐藏的对齐偏差。训练出来的模型……会系统性地偏向某个特定方向。<br>这不是简单的商业间谍。这是在操纵AI。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal decision-panel" data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p26.webp" alt="Panel 26" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>[DECISION-D3] 我需要知道是谁干的。手指在键盘上敲出了命令：<br>git blame --follow -w framework/core/alignment_hook.py</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p27.webp" alt="Panel 27" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>结果出来了。一行一行的提交记录在屏幕上滚动。大部分是老周和几个后端同事的名字。<br>然后——在第47行到第189行，那段后门的核心代码区间——</p>
+      </div>
+    </div>
+    <div class="panel panel-large " data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p28.webp" alt="Panel 28" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>一个名字。反复出现。从47行到189行，142行核心后门代码，全部是同一个人提交的：<br>陆薇。</p>
+      </div>
+    </div>
+    <div class="panel panel-normal " data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p29.webp" alt="Panel 29" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>我盯着屏幕，感觉血液都冷了。<br>陆薇。我的联合��始人。我最信任的技术搭档。从车库创业第一天就在一起的人。<br>她在偷我们的模型？她在操纵我们的AI？</p>
+      </div>
+    </div>
+    <div class="panel panel-large " data-act="3">
+      <div class="panel-image">
+        <img src="images/exp-953/p30.webp" alt="Panel 30" loading="lazy" />
+      </div>
+      <div class="panel-text" style="border-left-color: #ff3344">
+        <p>凌晨四点。深源科技的办公室只剩我一个人，和屏幕上那个灼眼的名字。<br>超频感知的偏头痛已经消退了。但另一种痛，才刚刚开始。<br><br>陆薇……你到底在替谁做事？<br><br>（未完待续 → Ch2: 数据猎手）</p>
+      </div>
+    </div>
+    </div>
+
+<div class="footer">
+  <div class="next-chapter">未完待续</div>
+  <div class="teaser">Ch2: 数据猎手 — 追查内鬼，超频对决，能力代价显现……</div>
+  <div class="series-info">超频觉醒 | 深源科技 x 朱江 | Trinity V3</div>
+</div>
+
+<script>
+// Scroll-triggered fade-in for panels
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.panel').forEach(panel => {
+  observer.observe(panel);
+});
+
+// Hide scroll hint on first scroll
+let scrollHintHidden = false;
+window.addEventListener('scroll', () => {
+  if (!scrollHintHidden) {
+    const hint = document.querySelector('.scroll-hint');
+    if (hint) hint.style.opacity = '0';
+    scrollHintHidden = true;
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>
