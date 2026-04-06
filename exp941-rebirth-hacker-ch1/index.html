@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码重启 — 第一章：回到起点</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #0d0f1a;
+  color: #e8e8e8;
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+:root {
+  --neon-green: #00ff88;
+  --neon-blue: #00b4ff;
+  --neon-purple: #a855f7;
+  --neon-orange: #ff8c00;
+  --neon-red: #ff4444;
+  --panel-bg: rgba(13,15,26,0.95);
+  --code-green: #4ade80;
+}
+
+/* Title Screen */
+.title-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #1a1040 0%, #0d0f1a 70%);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.title-screen::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,180,255,0.03) 2px,
+    rgba(0,180,255,0.03) 4px
+  );
+  animation: scanlines 8s linear infinite;
+}
+@keyframes scanlines { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+
+.title-main {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 1;
+  text-shadow: none;
+  margin-bottom: 0.5rem;
+}
+.title-sub {
+  font-size: 1.1rem;
+  color: var(--neon-blue);
+  opacity: 0.8;
+  z-index: 1;
+  position: relative;
+  margin-bottom: 2rem;
+}
+.terminal-init {
+  background: rgba(0,0,0,0.8);
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  padding: 1.2rem;
+  width: 90%;
+  max-width: 360px;
+  text-align: left;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--code-green);
+  z-index: 1;
+  position: relative;
+}
+.terminal-init .line { opacity: 0; animation: typeLine 0.3s forwards; margin: 0.25rem 0; }
+.terminal-init .line:nth-child(1) { animation-delay: 0.5s; }
+.terminal-init .line:nth-child(2) { animation-delay: 1s; }
+.terminal-init .line:nth-child(3) { animation-delay: 1.5s; }
+.terminal-init .line:nth-child(4) { animation-delay: 2s; color: var(--neon-orange); }
+.terminal-init .line:nth-child(5) { animation-delay: 2.5s; color: var(--neon-green); font-weight: bold; }
+@keyframes typeLine { to { opacity: 1; } }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  color: var(--neon-blue);
+  opacity: 0.6;
+  font-size: 0.9rem;
+  z-index: 1;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* Panels */
+.panel {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+.panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.panel-text {
+  padding: 1rem 1.2rem;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  background: var(--panel-bg);
+}
+.panel-text .dialogue {
+  color: #fff;
+  font-weight: 600;
+  margin: 0.3rem 0;
+}
+.panel-text .inner-voice {
+  color: var(--neon-blue);
+  font-style: italic;
+  margin: 0.3rem 0;
+  opacity: 0.9;
+}
+.panel-text .narration {
+  color: #aaa;
+  font-size: 0.95rem;
+  margin: 0.3rem 0;
+}
+.panel-text .action {
+  color: var(--neon-orange);
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+}
+
+/* Decision Box */
+.decision-box {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.2rem;
+  background: rgba(168,85,247,0.1);
+  border: 2px solid var(--neon-purple);
+  border-radius: 12px;
+}
+.decision-box h3 {
+  color: var(--neon-purple);
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+.decision-option {
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.3);
+  font-size: 0.95rem;
+}
+.decision-option.chosen {
+  border-color: var(--neon-green);
+  background: rgba(0,255,136,0.1);
+}
+.decision-option.not-chosen {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+.decision-option .label { font-weight: bold; margin-right: 0.5rem; }
+.decision-reason {
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  background: rgba(0,180,255,0.08);
+  border-left: 3px solid var(--neon-blue);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
+  color: var(--neon-blue);
+}
+
+/* Hacker Effect Panel */
+.hacker-panel {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #000;
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--code-green);
+  overflow: hidden;
+}
+.hacker-panel .hack-line {
+  opacity: 0;
+  animation: hackType 0.2s forwards;
+  margin: 0.2rem 0;
+}
+.hacker-panel .hack-line:nth-child(1) { animation-delay: 0.3s; }
+.hacker-panel .hack-line:nth-child(2) { animation-delay: 0.6s; }
+.hacker-panel .hack-line:nth-child(3) { animation-delay: 0.9s; }
+.hacker-panel .hack-line:nth-child(4) { animation-delay: 1.2s; color: var(--neon-orange); }
+.hacker-panel .hack-line:nth-child(5) { animation-delay: 1.5s; color: #fff; font-weight: bold; }
+@keyframes hackType { to { opacity: 1; } }
+
+/* Chapter End */
+.chapter-end {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem 1.2rem;
+  text-align: center;
+  background: linear-gradient(180deg, transparent, rgba(168,85,247,0.1), transparent);
+}
+.chapter-end .next-hint {
+  color: var(--neon-purple);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  animation: pulse2 2s infinite;
+}
+@keyframes pulse2 { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+/* Separator */
+.sep {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+  margin: 0.5rem auto;
+}
+
+/* Fade in on scroll */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- Title -->
+<div class="title-screen">
+  <div class="title-main">代码重启</div>
+  <div class="title-sub">第一章：回到起点</div>
+  <div class="terminal-init">
+    <div class="line">$ timeline --reboot --target 2010</div>
+    <div class="line">[系统] 正在加载记忆碎片...</div>
+    <div class="line">[系统] 检测到16年未来数据</div>
+    <div class="line">[警告] 时间线已重置</div>
+    <div class="line">[就绪] 重生协议启动 ✓</div>
+  </div>
+  <div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- P01: 2026空办公室 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p01.jpg" loading="eager" alt="空荡荡的办公室">
+  <div class="panel-text">
+    <div class="narration">【远景·2026年某科技公司·夜】</div>
+    <div class="inner-voice">十六年。从一个什么都不懂的毛头小子，到坐在这张办公桌前。</div>
+    <div class="inner-voice">十六年，就换来面前这份收购协议。</div>
+  </div>
+</div>
+
+<!-- P02: 手握笔特写 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p02.jpg" loading="eager" alt="手握笔">
+  <div class="panel-text">
+    <div class="narration">【特写·收购协议】</div>
+    <div class="inner-voice">核心团队被挖空，产品被复制，投资人翻脸...签了这份协议，一切就结束了。</div>
+    <div class="action">手在发抖。笔尖悬在签名栏上方。</div>
+  </div>
+</div>
+
+<!-- P03: 画面撕裂 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p03.jpg" loading="eager" alt="画面撕裂">
+  <div class="panel-text">
+    <div class="action">笔尖触纸的瞬间——</div>
+    <div class="dialogue" style="font-size:1.3rem; color:var(--neon-blue);">咔嚓——！！</div>
+    <div class="inner-voice">世界像碎了的屏幕，裂缝里涌出刺眼的白光。</div>
+  </div>
+</div>
+
+<!-- P04: 穿越白光 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p04.jpg" loading="lazy" alt="穿越白光">
+  <div class="panel-text">
+    <div class="inner-voice">我感觉自己在坠落。不，是在被什么力量拽着往回拉——</div>
+    <div class="inner-voice">像代码回滚。像版本还原。像...重启。</div>
+  </div>
+</div>
+
+<!-- P05: 宿舍醒来 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p05.jpg" loading="lazy" alt="宿舍醒来">
+  <div class="panel-text">
+    <div class="narration">【中景·某大学宿舍·2010年6月30日·早晨】</div>
+    <div class="dialogue">"嗯——？！"</div>
+    <div class="action">猛地坐起来。窄窄的上铺木板床，嘎吱响了一声。</div>
+    <div class="inner-voice">这个天花板...这个味道...方便面、脚臭和廉价洗衣液混合的味道——</div>
+    <div class="dialogue" style="color:var(--neon-green);">"这是...宿舍？！"</div>
+  </div>
+</div>
+
+<!-- P06: Nokia手机 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p06.jpg" loading="lazy" alt="Nokia手机">
+  <div class="panel-text">
+    <div class="narration">【特写·Nokia手机屏幕】</div>
+    <div class="action">颤抖着拿起床头的手机。Nokia，银灰色，实体按键。</div>
+    <div class="inner-voice">屏幕上的日期：2010年6月30日。</div>
+    <div class="inner-voice" style="color:var(--neon-green); font-size:1.15rem;">我...回来了？？</div>
+  </div>
+</div>
+
+<!-- P07: 面试通知 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p07.jpg" loading="lazy" alt="面试通知">
+  <div class="panel-text">
+    <div class="narration">【中景·宿舍桌上】</div>
+    <div class="action">目光扫过杂乱的书桌，一张纸赫然醒目——面试通知。某互联网大厂，初试通过。</div>
+    <div class="inner-voice">上辈子，我就是去了这家公司。三年螺丝钉，三年浪费。</div>
+    <div class="inner-voice">我用三年时间学会了一件事：<span style="color:var(--neon-orange);">给别人打工永远到不了我想去的地方。</span></div>
+  </div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision-box fade-in">
+  <h3>⚡ 决策点 #1</h3>
+  <div class="decision-option not-chosen">
+    <span class="label">A</span>去面试，拿这个时代的梦幻offer，安稳高薪
+  </div>
+  <div class="decision-option chosen">
+    <span class="label">B</span>撕掉通知，直接找陈磊聊创业
+  </div>
+  <div class="decision-reason">
+    💡 我是个创业者。骨子里的。上辈子花了三年才想明白的事，这辈子不需要再走弯路。时间是最宝贵的资源——一秒都不能浪费在确定性的错误上。
+  </div>
+</div>
+
+<!-- P08: 撕通知 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p08.jpg" loading="lazy" alt="撕掉通知">
+  <div class="panel-text">
+    <div class="narration">【中近景·宿舍】</div>
+    <div class="action">双手撕开面试通知。纸片在晨光里纷飞。</div>
+    <div class="dialogue" style="color:var(--neon-green); font-size:1.1rem;">"这辈子，我不走老路。"</div>
+    <div class="inner-voice">嘴角忍不住上扬。不是愤怒，是解放。</div>
+  </div>
+</div>
+
+<!-- P09: 走出宿舍 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p09.jpg" loading="lazy" alt="走出宿舍">
+  <div class="panel-text">
+    <div class="narration">【全景·大学宿舍楼前·夏日早晨】</div>
+    <div class="action">换上polo衫和牛仔裤，大步走出宿舍楼。阳光刺眼，蝉鸣震耳。</div>
+    <div class="inner-voice">2010年的校园。自行车、老式教学楼、操场上打篮球的人。一切都那么...年轻。</div>
+    <div class="inner-voice">先找到陈磊。</div>
+  </div>
+</div>
+
+<!-- P10: 找到陈磊 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p10.jpg" loading="lazy" alt="找到陈磊">
+  <div class="panel-text">
+    <div class="narration">【中景·校园小路】</div>
+    <div class="action">在图书馆门口截住了他——圆脸、微胖、黑框眼镜，抱着个笔记本包，一看就是码农胚子。</div>
+    <div class="dialogue">"陈磊！"</div>
+    <div class="dialogue">"啊？朱江？你咋了，一大早的——"</div>
+    <div class="dialogue" style="color:var(--neon-green);">"今晚有空吗？请你吃麻辣烫！"</div>
+  </div>
+</div>
+
+<!-- P11: 麻辣烫摊位 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p11.jpg" loading="lazy" alt="麻辣烫摊位">
+  <div class="panel-text">
+    <div class="narration">【远景·校门口麻辣烫摊·夜晚】</div>
+    <div class="inner-voice">学校门口的老王麻辣烫。十块钱吃到撑。我上辈子在这吃了四年。</div>
+    <div class="action">红白条纹遮阳棚，塑料桌椅，热气蒸腾。2010年最真实的味道。</div>
+  </div>
+</div>
+
+<!-- P12: 朱江描述未来 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p12.jpg" loading="lazy" alt="描述未来">
+  <div class="panel-text">
+    <div class="narration">【中景·麻辣烫摊】</div>
+    <div class="dialogue">"听我说——2011年，智能手机会爆发！2012年，移动支付起飞！2013年——"</div>
+    <div class="action">我越说越兴奋，筷子在桌上比比划划，像指挥家在指挥一场看不见的交响乐。</div>
+    <div class="action">对面陈磊的筷子停在了半空。嘴微微张开。</div>
+  </div>
+</div>
+
+<!-- P13: 陈磊表情变化 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p13.jpg" loading="lazy" alt="陈磊表情">
+  <div class="panel-text">
+    <div class="narration">【特写·陈磊面部表情变化】</div>
+    <div class="inner-voice">他的表情从"你是不是发烧了"→"等等你说的好像有点道理"→"卧槽这也太具体了"。</div>
+    <div class="action">眼镜后面的眼睛越睁越大。</div>
+  </div>
+</div>
+
+<!-- P14: 朱江认真 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p14.jpg" loading="lazy" alt="朱江认真说">
+  <div class="panel-text">
+    <div class="narration">【中近景·朱江面部】</div>
+    <div class="action">我收起了兴奋的表情，认真地看着他的眼睛。</div>
+    <div class="dialogue" style="color:#fff; font-size:1.05rem;">"我不能告诉你我怎么知道的。但我向你保证——跟我干，三年内，我们能做出一家改变行业的公司。"</div>
+    <div class="inner-voice">这句话，上辈子我从来没敢说出口。</div>
+  </div>
+</div>
+
+<!-- P15: 陈磊搞笑答应 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p15.jpg" loading="lazy" alt="陈磊答应">
+  <div class="panel-text">
+    <div class="narration">【中景·陈磊·喜剧】</div>
+    <div class="action">陈磊嘴里塞得跟仓鼠一样，眼泪哗哗地流——辣的。</div>
+    <div class="dialogue" style="color:var(--neon-orange);">"我...呼呼...跟你干！！辣死了...！！"</div>
+    <div class="inner-voice">我差点笑喷。这家伙，十六年后还是这个德性——嘴上说跟你干，手上忙着塞吃的。</div>
+  </div>
+</div>
+
+<!-- P16: 握手 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p16.jpg" loading="lazy" alt="握手">
+  <div class="panel-text">
+    <div class="narration">【特写·握手】</div>
+    <div class="action">两双手紧紧握在一起。一只干净有力，一只沾着辣椒油。</div>
+    <div class="narration" style="color:var(--neon-green); text-align:center; font-weight:600; margin-top:0.5rem;">2010年7月1日。团队成立。成员：二人。</div>
+  </div>
+</div>
+
+<div class="sep fade-in"></div>
+
+<!-- P17: 讨论方向 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p17.jpg" loading="lazy" alt="讨论方向">
+  <div class="panel-text">
+    <div class="narration">【俯拍·桌面】</div>
+    <div class="action">纸巾上画满了架构图。箭头、方框、关键词。两双手在图上指指点点。</div>
+    <div class="inner-voice">社交App谁都能做，市场已经要红海了。但移动安全...这才是我的主场。</div>
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision-box fade-in">
+  <h3>⚡ 决策点 #2</h3>
+  <div class="decision-option not-chosen">
+    <span class="label">A</span>做社交App——稳妥，市场验证过
+  </div>
+  <div class="decision-option chosen">
+    <span class="label">B</span>做移动安全——黑客的直觉，安全市场是蓝海
+  </div>
+  <div class="decision-reason">
+    💡 我骨子里是个黑客。天生喜欢拆开系统看结构。社交App是别人的战场，移动安全才是我的主场。别人看到的是手机，我看到的是漏洞。
+  </div>
+</div>
+
+<!-- P18: 黑客基因 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p18.jpg" loading="lazy" alt="黑客基因">
+  <div class="panel-text">
+    <div class="narration">【分屏·现实+黑客视界】</div>
+    <div class="dialogue">"你知道现在最火的那个App吗？它的通信协议...全是漏洞。"</div>
+    <div class="inner-voice">说这话的时候，我感觉脑子里有什么东西被激活了。代码在眼前流淌，协议结构一层层剥开——</div>
+    <div class="inner-voice" style="color:var(--neon-green);">黑客的直觉。十六年的经验。都回来了。</div>
+  </div>
+</div>
+
+<!-- P19: 陈磊紧张 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p19.jpg" loading="lazy" alt="陈磊紧张">
+  <div class="panel-text">
+    <div class="narration">【中景·喜剧】</div>
+    <div class="action">陈磊突然紧张兮兮地左右张望，一把捂住我的嘴。</div>
+    <div class="dialogue" style="color:var(--neon-orange);">"嘘嘘嘘！你小声点！别在大马路上说黑服务器的事！"</div>
+    <div class="inner-voice">后面炒菜的老板头都没抬。</div>
+  </div>
+</div>
+
+<!-- P20: 拿出笔记本 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p20.jpg" loading="lazy" alt="拿出笔记本">
+  <div class="panel-text">
+    <div class="narration">【中近景·朱江】</div>
+    <div class="action">我笑着拿过他的ThinkPad，掰了掰手指关节。</div>
+    <div class="dialogue" style="color:var(--neon-green);">"不用服务器。你的破笔记本就够了。给我十分钟。"</div>
+  </div>
+</div>
+
+<!-- P21: 飞速打字 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p21.jpg" loading="lazy" alt="飞速打字">
+  <div class="panel-text">
+    <div class="narration">【特写·键盘+屏幕】</div>
+    <div class="action">十指翻飞。2026年的技术，在2010年的键盘上敲出来。</div>
+    <div class="inner-voice">Wireshark抓包、协议解析、数据解密...这些在2026年的安全圈是基本操作，但在2010年——这是降维打击。</div>
+  </div>
+</div>
+
+<!-- Hacker Terminal -->
+<div class="hacker-panel fade-in">
+  <div class="hack-line">$ 数据包捕获中... 127个数据包</div>
+  <div class="hack-line">$ 通信协议解析... AES-128-CBC（弱密钥）</div>
+  <div class="hack-line">$ 密钥碰撞攻击... 成功</div>
+  <div class="hack-line">[!] 发现漏洞：47个（严重12个）</div>
+  <div class="hack-line">✓ 通信协议完全破解。用时：8分37秒。</div>
+</div>
+
+<!-- P22: 屏幕结果 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p22.jpg" loading="lazy" alt="破解结果">
+  <div class="panel-text">
+    <div class="narration">【主观视角·笔记本屏幕】</div>
+    <div class="inner-voice">八分三十七秒。比我预计的还快。</div>
+    <div class="inner-voice">屏幕上列着47个漏洞，12个严重级别。这些漏洞，在原来的时间线上，半年后才被安全研究员公开。</div>
+    <div class="inner-voice" style="color:var(--neon-green);">但现在，只有我知道。</div>
+  </div>
+</div>
+
+<!-- P23: 陈磊震惊 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p23.jpg" loading="lazy" alt="陈磊震惊">
+  <div class="panel-text">
+    <div class="narration">【特写·陈磊】</div>
+    <div class="action">陈磊的眼镜滑到了鼻尖。嘴里还叼着一根没吃完的串。手抖了。</div>
+    <div class="inner-voice">他的表情，像是看见了外星人。</div>
+    <div class="dialogue" style="color:var(--neon-orange);">"十...十分钟？？朱江你他妈到底是什么人？？"</div>
+  </div>
+</div>
+
+<!-- P24: 淡定关电脑 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p24.jpg" loading="lazy" alt="淡定关电脑">
+  <div class="panel-text">
+    <div class="narration">【中景·朱江】</div>
+    <div class="action">我一只手合上笔记本，另一只手拿起筷子，夹了一块豆腐。很淡定。</div>
+    <div class="dialogue">"这个漏洞，半年后会被人发现。但我们现在就能做防护方案。"</div>
+    <div class="dialogue" style="color:var(--neon-green);">"先把麻辣烫吃完。我请客。"</div>
+  </div>
+</div>
+
+<!-- P25: 抢电脑搞笑 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p25.jpg" loading="lazy" alt="抢电脑">
+  <div class="panel-text">
+    <div class="narration">【全景·喜剧】</div>
+    <div class="action">陈磊抱着笔记本就要跑——"不行！我现在就要写代码！！"</div>
+    <div class="action">我一把拽住他T恤后领——"坐下！先把麻辣烫吃完再说！"</div>
+    <div class="inner-voice">老王麻辣烫的老板终于抬头看了一眼，又低头继续炒了。见怪不怪。</div>
+  </div>
+</div>
+
+<!-- P26: 夜路结尾 -->
+<div class="panel fade-in">
+  <img src="../images/exp-941/p26.jpg" loading="lazy" alt="夜路">
+  <div class="panel-text">
+    <div class="narration">【远景·校园夜路·路灯】</div>
+    <div class="action">吃完。两个人肩并肩走在校园的路灯下。影子被拉得很长很长。</div>
+    <div class="inner-voice">2010年。一切才刚开始。</div>
+    <div class="inner-voice">上辈子走了十六年才站到山顶。</div>
+    <div class="inner-voice" style="color:var(--neon-green); font-size:1.15rem; font-weight:600;">这辈子...我要三年。</div>
+  </div>
+</div>
+
+<!-- Mysterious shadow hint -->
+<div class="panel fade-in" style="padding: 0.5rem 1.2rem; max-width:500px; margin:0 auto;">
+  <div class="panel-text" style="background:rgba(255,0,0,0.05); border-left:3px solid var(--neon-red);">
+    <div class="action" style="color:var(--neon-red);">树影后面，有个人影在看着他们。</div>
+    <div class="inner-voice">但此刻的我，还没有意识到——</div>
+    <div class="inner-voice" style="color:var(--neon-red);">重生者，不止我一个。</div>
+  </div>
+</div>
+
+<!-- Chapter End -->
+<div class="chapter-end fade-in">
+  <div class="sep"></div>
+  <p style="color:#888; margin:1rem 0;">— 第一章 完 —</p>
+  <div class="next-hint">下章预告：谁在监视重生者？</div>
+  <p style="color:#555; font-size:0.8rem; margin-top:2rem;">代码重启 | V5原创长篇 | EXP-941</p>
+</div>
+
+<script>
+// Fade in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
