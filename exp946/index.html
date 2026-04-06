@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>《代码重启》第三章：北京局</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;overflow-x:hidden}
+.cover{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#0a0a0f 0%,#1a0d0d 50%,#0a0a0f 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,65,0.03) 2px,rgba(0,255,65,0.03) 4px);animation:scanline 8s linear infinite;pointer-events:none}
+@keyframes scanline{0%{transform:translateY(0)}100%{transform:translateY(100px)}}
+.cover h1{font-size:2.2rem;color:#00ff41;text-shadow:0 0 20px rgba(0,255,65,0.5);letter-spacing:0.15em;z-index:1}
+.cover h2{font-size:1.1rem;color:#c9a;margin-top:12px;z-index:1;letter-spacing:0.3em}
+.cover .chapter{font-size:0.9rem;color:#666;margin-top:20px;z-index:1}
+.cover .nav-link{margin-top:30px;z-index:1;display:flex;gap:12px}
+.cover .nav-link a{color:#00ff41;text-decoration:none;font-size:0.85rem;border:1px solid #00ff41;padding:6px 16px;border-radius:4px;transition:all 0.3s}
+.cover .nav-link a:hover{background:#00ff41;color:#0a0a0f}
+.panel-container{max-width:600px;margin:0 auto;padding:0 0 60px}
+.panel{margin:0 auto 2px;opacity:0;transform:translateY(30px);transition:all 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.panel picture{display:block;width:100%}
+.panel-text{padding:16px 20px;font-size:1.1rem;line-height:1.85;color:#ccc}
+.panel-text.narration{color:#8acea0;font-style:italic;border-left:3px solid #00ff41;padding-left:16px;margin:0 16px;font-size:1rem}
+.panel-text.dialogue{color:#fff;font-size:1.15rem}
+.panel-text .speaker{color:#00ff41;font-weight:bold;margin-right:6px}
+.panel-text.inner{color:#7ab;font-style:italic;font-size:1rem;opacity:0.9}
+.panel-text.inner::before{content:'💭 '}
+.decision-box{margin:20px 16px;border:2px solid #f0a030;border-radius:12px;padding:20px;background:rgba(240,160,48,0.08)}
+.decision-box h3{color:#f0a030;font-size:1.1rem;margin-bottom:12px;text-align:center}
+.choice{padding:10px 14px;margin:8px 0;border-radius:8px;font-size:1rem;line-height:1.6}
+.choice-a{background:rgba(100,100,100,0.2);border:1px solid #555;color:#999}
+.choice-b{background:rgba(0,255,65,0.1);border:1px solid #00ff41;color:#00ff41}
+.choice-b::before{content:'✦ '}
+.choice .label{font-weight:bold;display:block;margin-bottom:4px}
+.reason{margin:12px 16px 0;padding:12px 14px;background:rgba(0,255,65,0.05);border-radius:8px;font-size:0.9rem;color:#8acea0;line-height:1.7}
+.reason::before{content:'💭 '}
+.cliffhanger{margin:30px 16px;padding:24px;background:linear-gradient(135deg,rgba(150,0,0,0.2),rgba(50,0,80,0.3));border:1px solid #933;border-radius:12px;text-align:center}
+.cliffhanger p{color:#e0a0a0;font-size:1.05rem;line-height:1.8}
+.cliffhanger .next{color:#f0a030;font-size:1.15rem;margin-top:16px;font-weight:bold}
+.bottom-nav{text-align:center;padding:30px 16px 60px}
+.bottom-nav a{color:#00ff41;text-decoration:none;font-size:0.9rem;border:1px solid #00ff41;padding:8px 20px;border-radius:6px;margin:0 8px}
+.sep{text-align:center;padding:16px 0;color:#333;font-size:1.5rem;letter-spacing:1em}
+.scene-title{text-align:center;padding:20px 16px 10px;color:#f0a030;font-size:1rem;letter-spacing:0.2em;font-weight:bold}
+/* Bright daytime scenes */
+.day-scene{background:linear-gradient(180deg,rgba(40,50,60,0.3) 0%,transparent 100%);padding-top:4px}
+/* Night scenes */
+.night-scene{background:linear-gradient(180deg,rgba(80,20,10,0.2) 0%,transparent 100%);padding-top:4px}
+/* Suspense scenes */
+.suspense-scene{background:linear-gradient(180deg,rgba(60,0,80,0.2) 0%,transparent 100%);padding-top:4px}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>代码重启</h1>
+  <h2>第三章 · 北京局</h2>
+  <div class="chapter">朱江 × 重生2010</div>
+  <div class="nav-link">
+    <a href="../exp941-rebirth-hacker-ch1/index.html">← 第一章</a>
+    <a href="../exp944/index.html">← 第二章</a>
+  </div>
+</div>
+
+<div class="panel-container">
+
+<!-- ===== 绿皮火车 ===== -->
+<div class="scene-title">▎绿皮火车 · 北上</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p01.webp" type="image/webp"><img src="../images/exp-946/p01.jpg" loading="lazy" alt="绿皮火车"></picture></div>
+<div class="panel panel-text narration">十六个小时的绿皮火车。窗外是飞驰的华北平原，一望无际的玉米地在夕阳下被染成金色。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p02.webp" type="image/webp"><img src="../images/exp-946/p02.jpg" loading="lazy" alt="硬卧下铺"></picture></div>
+<div class="panel panel-text inner">2010年的高铁还没修到我们那，只能坐硬卧。上辈子坐了太多商务舱，差点忘了创业最初是什么滋味。泡面、啤酒、陌生人的呼噜声——这才是真实的。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p03.webp" type="image/webp"><img src="../images/exp-946/p03.jpg" loading="lazy" alt="陈磊抱着电脑睡着"></picture></div>
+<div class="panel panel-text narration">陈磊早就睡了，怀里抱着那台老ThinkPad，像护着亲儿子一样。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p04.webp" type="image/webp"><img src="../images/exp-946/p04.jpg" loading="lazy" alt="陈磊说梦话"></picture></div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>（梦话）这个bug不是我写的……不是我……</div>
+<div class="panel panel-text narration">对面大爷刚端起泡面，被这声梦话吓得手一抖，汤汁洒了一裤子。他瞪了过来，那眼神能杀人。</div>
+<div class="panel panel-text inner">我忍住笑，假装看窗外。兄弟，你这辈子说的最多的话，可能就是这句了。</div>
+
+<!-- ===== 到达北京 ===== -->
+<div class="sep">· · ·</div>
+<div class="scene-title day-scene">▎北京站 · 2010年8月</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p05.webp" type="image/webp"><img src="../images/exp-946/p05.jpg" loading="lazy" alt="北京站"></picture></div>
+<div class="panel panel-text narration">北京站。钟楼依旧，但周围已经不是我记忆中的样子了——到处是奥运后的新建筑和还没拆完的旧胡同，工地塔吊像竹笋一样冒出来。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p06.webp" type="image/webp"><img src="../images/exp-946/p06.jpg" loading="lazy" alt="地铁安检"></picture></div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>等等……坐个地铁还要过安检？！他们是不是怀疑我电脑里有炸弹？</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>2010年刚开始的，习惯就好。走吧。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p07.webp" type="image/webp"><img src="../images/exp-946/p07.jpg" loading="lazy" alt="观察手机"></picture></div>
+<div class="panel panel-text inner">地铁里挤满了人。我扫了一圈——诺基亚、摩托罗拉、山寨翻盖机，偶尔一部iPhone 3GS。再过两年，这条车厢里每个人手里都会是智能手机。而他们所有的数据，全是裸奔的。</div>
+
+<!-- ===== SDK公司 ===== -->
+<div class="sep">· · ·</div>
+<div class="scene-title day-scene">▎中关村 · SDK科技</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p08.webp" type="image/webp"><img src="../images/exp-946/p08.jpg" loading="lazy" alt="中关村写字楼"></picture></div>
+<div class="panel panel-text narration">中关村，一栋灰扑扑的老写字楼。楼下全是卖电脑配件的小店，招牌密得快要叠在一起。电梯只到七楼，八楼要爬楼梯。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p09.webp" type="image/webp"><img src="../images/exp-946/p09.jpg" loading="lazy" alt="格子间"></picture></div>
+<div class="panel panel-text narration">推开门，满眼都是格子间。CRT显示器和早期液晶屏混在一起，桌上堆着红牛罐和泡面碗。空气里弥漫着程序员独有的气息——咖啡、键盘和焦虑。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p10.webp" type="image/webp"><img src="../images/exp-946/p10.jpg" loading="lazy" alt="周峰出场"></picture></div>
+<div class="panel panel-text narration">CTO周峰亲自来接的我们。三十五岁，高瘦，黑色T恤，说话像机关枪——快、准、带技术味。</div>
+<div class="panel panel-text dialogue"><span class="speaker">周峰：</span>你就是写那份白皮书的人？跟我来，先聊聊技术。</div>
+
+<!-- ===== 技术对线 ===== -->
+<div class="panel"><picture><source srcset="../images/exp-946/p11.webp" type="image/webp"><img src="../images/exp-946/p11.jpg" loading="lazy" alt="技术对线"></picture></div>
+<div class="panel panel-text narration">会议室。周峰拉了张椅子反过来骑着坐，直接开始技术对线。</div>
+<div class="panel panel-text dialogue"><span class="speaker">周峰：</span>SSL握手阶段，你报告里提到的中间人攻击向量，具体是哪一步注入的？</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p12.webp" type="image/webp"><img src="../images/exp-946/p12.jpg" loading="lazy" alt="朱江降维打击"></picture></div>
+<div class="panel panel-text narration">三个底层协议问题，连珠炮一样。他在试探我的深度。</div>
+<div class="panel panel-text inner">可我带着2026年的安全分析框架回来的。这些问题对我来说，就像让大学生做小学数学。</div>
+<div class="panel panel-text narration">我不仅回答了他的问题，还顺手指出了两个他自己都不知道的隐藏漏洞——一个在证书链验证的缓存逻辑里，另一个藏在他们SDK的心跳包协议中。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p13.webp" type="image/webp"><img src="../images/exp-946/p13.jpg" loading="lazy" alt="周峰沉默"></picture></div>
+<div class="panel panel-text narration">周峰沉默了整整十秒。我数的。</div>
+<div class="panel panel-text dialogue"><span class="speaker">周峰：</span>……你们的报价是多少？</div>
+
+<!-- ===== DECISION-5 ===== -->
+<div class="sep">· · ·</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p14.webp" type="image/webp"><img src="../images/exp-946/p14.jpg" loading="lazy" alt="谈判桌"></picture></div>
+<div class="panel panel-text narration">谈判桌上，周峰提了两个方案。</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点 5</h3>
+  <div class="choice choice-a"><span class="label">选择A：一次性买断</span>白皮书中所有漏洞的修复方案，50万。2010年的50万，够在二线城市买套房。</div>
+  <div class="choice choice-b"><span class="label">选择B：战略合作</span>不卖方案，改为长期合作——我的安全团队成为SDK的独家安全供应商，按年收费+股权期权。</div>
+</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p15.webp" type="image/webp"><img src="../images/exp-946/p15.jpg" loading="lazy" alt="两条路"></picture></div>
+<div class="panel panel-text inner">50万很诱人。但我知道一件周峰不知道的事——这家公司两年后会被某巨头收购，期权会十倍增值。我不要一次性的钱，我要的是绑定在增长飞轮上的位置。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p16.webp" type="image/webp"><img src="../images/exp-946/p16.jpg" loading="lazy" alt="朱江拍板"></picture></div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>周总，50万很有诚意。但我选B。</div>
+<div class="panel panel-text dialogue"><span class="speaker">周峰：</span>（挑眉）你确定？50万现金，不香吗？</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>不香。因为我对你们公司的未来有信心。</div>
+<div class="reason">我不是在赌。我是在用未来的记忆做投资——但这话不能说。</div>
+
+<!-- ===== 簋街 ===== -->
+<div class="sep">· · ·</div>
+<div class="scene-title night-scene">▎簋街 · 小龙虾</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p17.webp" type="image/webp"><img src="../images/exp-946/p17.jpg" loading="lazy" alt="簋街夜景"></picture></div>
+<div class="panel panel-text narration">晚上，周峰带我们去了簋街。2010年的簋街，霓虹灯招牌比现在更密更乱，红光绿光晃得人睁不开眼。空气里全是花椒和辣椒的味道，烟火气浓得快要凝固。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p18.webp" type="image/webp"><img src="../images/exp-946/p18.jpg" loading="lazy" alt="吃小龙虾"></picture></div>
+<div class="panel panel-text narration">几瓶啤酒下肚，周峰终于卸下了CTO的冷脸。</div>
+<div class="panel panel-text dialogue"><span class="speaker">周峰：</span>（叹气）我们CTO是最不值钱的。老板只看DAU，投资人只看增长曲线。代码写得再好，不如运营多拉一个用户。</div>
+<div class="panel panel-text inner">我差点笑出来。三年后，这个在簋街吐苦水的技术宅，会成为中国最年轻的上市公司CTO之一。人生啊，真的不到最后一刻不知道结局。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p19.webp" type="image/webp"><img src="../images/exp-946/p19.jpg" loading="lazy" alt="陈磊小龙虾名场面"></picture></div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>（满脸辣椒油，认真脸）周哥你听我说，TCP三次握手的效率问题其实可以这样优化——</div>
+<div class="panel panel-text dialogue"><span class="speaker">周峰：</span>（盯着他脸上的辣椒油）……你是认真的吗？</div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>当然认真！你看，第一次握手相当于这只虾头——</div>
+<div class="panel panel-text narration">他拿起一只小龙虾，开始比划。周峰的表情从困惑变成了憋笑。我端着啤酒杯，觉得这是我两辈子里最快乐的一顿饭。</div>
+
+<!-- ===== 神秘人 ===== -->
+<div class="sep">· · ·</div>
+<div class="scene-title suspense-scene">▎第二天清晨 · 中关村便利店</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p20.webp" type="image/webp"><img src="../images/exp-946/p20.jpg" loading="lazy" alt="便利店外"></picture></div>
+<div class="panel panel-text narration">第二天一早，我独自出来买早餐。酒店旁边有家便利店，门口摆了几把长椅。一个人坐在那里看报纸。</div>
+<div class="panel panel-text inner">起初我没在意。直到我注意到——报纸拿反了。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p21.webp" type="image/webp"><img src="../images/exp-946/p21.jpg" loading="lazy" alt="Apple Watch特写"></picture></div>
+<div class="panel panel-text narration">然后我看到了他的手表。</div>
+<div class="panel panel-text inner">那是一块Apple Watch。方形表盘，数字表冠，屏幕上有中文界面。2010年，苹果连iPhone 4都还没发布。这块表，要到2015年才会面世。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p22.webp" type="image/webp"><img src="../images/exp-946/p22.jpg" loading="lazy" alt="朱江震惊"></picture></div>
+<div class="panel panel-text narration">我瞬间全身汗毛竖起。脚步停了半拍，又强装自然地继续走。余光疯狂捕捉细节——</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p23.webp" type="image/webp"><img src="../images/exp-946/p23.jpg" loading="lazy" alt="未来物品细节"></picture></div>
+<div class="panel panel-text inner">无线耳机。不是2010年的蓝牙耳机，是那种没有线的入耳式——AirPods。口袋里露出的手机边角，三颗摄像头的排列方式……这个人浑身上下，没有一样东西属于2010年。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p24.webp" type="image/webp"><img src="../images/exp-946/p24.jpg" loading="lazy" alt="神秘人微笑"></picture></div>
+<div class="panel panel-text narration">两人对视了一秒。他放下报纸，微微一笑——那种笑，不是陌生人之间的客套，是"我知道你知道"的笑。</div>
+<div class="panel panel-text narration">然后他站起来，头也不回地走了。</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p25.webp" type="image/webp"><img src="../images/exp-946/p25.jpg" loading="lazy" alt="神秘人离去"></picture></div>
+<div class="panel panel-text inner">不是只有我一个人回来了。</div>
+<div class="panel panel-text narration">我攥紧拳头，指甲掐进掌心。早餐不买了。</div>
+
+<!-- ===== DECISION-6 ===== -->
+<div class="sep">· · ·</div>
+
+<div class="decision-box">
+  <h3>⚡ 决策点 6</h3>
+  <div class="choice choice-a"><span class="label">选择A：追踪神秘人</span>他是谁？从哪年回来的？是敌是友？为什么也出现在2010年？</div>
+  <div class="choice choice-a"><span class="label">选择C：告诉陈磊实情</span>"有个人和我一样，从未来回来了。"全盘托出，信任搭档。</div>
+  <div class="choice choice-b"><span class="label">选择B+C：签合同为先，同时坦白</span>事业第一，不被未知打断节奏。但不对搭档隐瞒关键信息。</div>
+</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p26.webp" type="image/webp"><img src="../images/exp-946/p26.jpg" loading="lazy" alt="酒店房间谈话"></picture></div>
+<div class="panel panel-text narration">回到酒店，我坐在床边，对陈磊说——</div>
+<div class="panel panel-text dialogue"><span class="speaker">我：</span>先把合同签了。但陈磊，有件事我得跟你说。</div>
+<div class="reason">事业第一，不能被恐惧打乱节奏。但真诚是我最大的武器——陈磊是我这辈子选的搭档，我不会对他隐瞒任何事。</div>
+
+<!-- ===== 悬念结尾 ===== -->
+<div class="sep">· · ·</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p27.webp" type="image/webp"><img src="../images/exp-946/p27.jpg" loading="lazy" alt="陈磊手机照片"></picture></div>
+<div class="panel panel-text narration">陈磊听完，脸色从红润变成苍白。他一句话没说，缓缓掏出手机，打开昨晚在簋街拍的一张照片。</div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>（声音发颤）我昨晚拍的时候没注意……但你看照片背景——</div>
+
+<div class="panel"><picture><source srcset="../images/exp-946/p28.webp" type="image/webp"><img src="../images/exp-946/p28.jpg" loading="lazy" alt="iPhone 15 Pro"></picture></div>
+<div class="panel panel-text narration">照片的背景里，那个神秘人清清楚楚地站在那里——手里举着一部手机，正对着我的方向。</div>
+<div class="panel panel-text narration">三颗摄像头。钛合金边框。那个独特的凸起模组。</div>
+<div class="panel panel-text dialogue"><span class="speaker">陈磊：</span>那是iPhone 15 Pro。2023年的手机。他……他在拍你。</div>
+
+<div class="cliffhanger">
+  <p>另一个穿越者。</p>
+  <p>他比我知道得更多，还是更少？</p>
+  <p>他在追踪我——目的是什么？</p>
+  <p>而SDK合同签约当天，一个意想不到的人出现了……</p>
+  <div class="next">▸ 第四章 · 即将更新</div>
+</div>
+
+</div>
+
+<div class="bottom-nav">
+  <a href="../exp941-rebirth-hacker-ch1/index.html">← 第一章</a>
+  <a href="../exp944/index.html">← 第二章</a>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px 100px 0px' });
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
