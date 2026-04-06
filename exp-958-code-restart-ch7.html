@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码重启 · 第七章：合伙人</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #2a1f14;
+  color: #e8dcc8;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 20px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+.title-card {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #3a2d1e 0%, #2a1f14 50%, #1e160e 100%);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.title-card::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(218,165,90,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.title-card h1 {
+  font-size: 36px;
+  color: #daa55a;
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 20px rgba(218,165,90,0.4);
+  position: relative;
+}
+.title-card .subtitle { font-size: 18px; color: #b89e78; letter-spacing: 3px; margin-bottom: 32px; }
+.title-card .chapter { font-size: 14px; color: #8a7458; letter-spacing: 2px; }
+.title-card .scroll-hint {
+  position: absolute; bottom: 40px; color: #8a7458; font-size: 14px;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
+}
+.panel {
+  width: 100%; max-width: 600px; margin: 0 auto;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.panel.visible { opacity: 1; transform: translateY(0); }
+.panel-image { width: 100%; display: block; }
+.panel-text {
+  padding: 20px 24px 40px;
+  background: linear-gradient(180deg, rgba(42,31,20,0.95) 0%, #2a1f14 100%);
+}
+.panel-text p { font-size: 19px; line-height: 1.9; color: #d4c4a8; text-align: justify; }
+.decision {
+  margin: 24px 0; padding: 20px;
+  background: rgba(218,165,90,0.08);
+  border-left: 3px solid #daa55a;
+  border-radius: 0 8px 8px 0;
+}
+.decision .label { font-size: 14px; color: #daa55a; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px; }
+.decision .choice { color: #c4a878; font-size: 17px; line-height: 1.7; margin-top: 8px; }
+.decision .chosen { color: #daa55a; font-weight: bold; }
+.decision .reason { margin-top: 12px; font-size: 16px; color: #a89070; font-style: italic; line-height: 1.7; }
+.act-divider {
+  text-align: center; padding: 60px 24px; position: relative;
+}
+.act-divider::before {
+  content: ''; position: absolute; top: 50%; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, #8a7458, transparent);
+}
+.act-divider span {
+  position: relative; background: #2a1f14; padding: 0 20px;
+  color: #daa55a; font-size: 16px; letter-spacing: 4px;
+}
+.comedy {
+  background: rgba(218,165,90,0.06); border-radius: 8px;
+  margin: 8px 0; padding: 16px 20px;
+}
+.cliffhanger {
+  padding: 40px 24px 80px; text-align: center;
+  max-width: 600px; margin: 0 auto;
+  background: linear-gradient(180deg, #2a1f14 0%, #1e160e 100%);
+}
+.cliffhanger p { font-size: 20px; color: #daa55a; line-height: 2; margin-bottom: 16px; font-weight: bold; }
+.cliffhanger .preview { margin-top: 40px; padding-top: 24px; border-top: 1px solid #4a3f30; }
+.cliffhanger .preview p { font-size: 16px; color: #a89070; font-weight: normal; }
+.alert-text { color: #e8854a; font-weight: bold; }
+.neon-text { color: #4ade80; text-shadow: 0 0 10px rgba(74,222,128,0.3); }
+@media (max-width: 375px) {
+  .panel-text { padding: 16px 20px 32px; }
+  .panel-text p { font-size: 18px; }
+  .title-card h1 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+
+<div class="title-card">
+  <div class="chapter">代码重启</div>
+  <h1>合伙人</h1>
+  <div class="subtitle">第七章</div>
+  <div class="scroll-hint">向下滑动</div>
+</div>
+
+<div class="act-divider"><span>第一幕 · 晨光</span></div>
+
+<div class="panel" data-panel="1">
+  <img class="panel-image" src="images/exp-958/p01.webp" alt="第1帧" loading="eager">
+  <div class="panel-text">
+    <p>2010年9月，北京五道口。清晨六点，整条街还没醒过来，只有三楼那间办公室的灯亮了一整夜。</p>
+    <p>盾甲上线的第一个早晨。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="2">
+  <img class="panel-image" src="images/exp-958/p02.webp" alt="第2帧" loading="eager">
+  <div class="panel-text">
+    <p>我坐在办公桌前，手里攥着那部翻盖手机。屏幕上那条匿名短信的光，比窗外的朝阳还刺眼。</p>
+    <p><strong>"你应该看看自己的合伙人。"</strong></p>
+    <p>我已经把这句话读了一百遍。每读一遍，意思就往不同的方向偏一点。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="3">
+  <img class="panel-image" src="images/exp-958/p03.webp" alt="第3帧" loading="eager">
+  <div class="panel-text">
+    <p>合伙人。我有几个合伙人？</p>
+    <p>陈磊——从第一行代码开始就在我身边的技术搭档。</p>
+    <p>张维——启明星基金的创始人，第三个穿越者。</p>
+    <p>这句话指的是谁？</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="4">
+  <img class="panel-image" src="images/exp-958/p04.webp" alt="第4帧" loading="lazy">
+  <div class="panel-text">
+    <p>陈磊还在沙发上睡着。昨晚通宵上线，他坚持到凌晨三点才撑不住。我给他披了件外套——这已经成了我们的固定节目。</p>
+    <p>我看着他安静的睡脸，第一次觉得这张脸让我不安。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="5">
+  <img class="panel-image" src="images/exp-958/p05.webp" alt="第5帧" loading="lazy">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="label">决策点 D-15</div>
+      <p>匿名短信说"看看自己的合伙人"。你怎么处理这个信息？</p>
+      <div class="choice"><span class="chosen">→ 不动声色，先查数据。如果陈磊有问题，盾甲的后台日志不会说谎。如果是张维，他昨晚四分钟回复的慌张已经说明了很多。不需要问——需要查。</span></div>
+      <div class="reason">"上辈子我犯过最蠢的错，就是拿着半截信息去质问人。你只有一次开枪的机会，别在没瞄准之前扣扳机。"</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="6">
+  <img class="panel-image" src="images/exp-958/p06.webp" alt="第6帧" loading="lazy">
+  <div class="panel-text">
+    <p>我打开盾甲的后台。上线第一天的数据开始刷新——用户增长曲线、API响应时间、错误率。</p>
+    <p>每一项指标都在合理范围内。不，不是合理——是<strong>完美</strong>。</p>
+    <p>完美到不像一个三人团队第一天上线能做出来的水平。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="7">
+  <img class="panel-image" src="images/exp-958/p07.webp" alt="第7帧" loading="lazy">
+  <div class="panel-text">
+    <div class="comedy">
+      <p>陈磊翻了个身，突然坐起来。看到我盯着他，愣了一秒："你在审犯人吗？"</p>
+      <p>我："看你睡觉流口水，想拍下来发朋友圈。"</p>
+      <p>陈磊："2010年没有朋友圈。"</p>
+      <p>我心里一紧——差点穿帮。</p>
+      <p>"我说的是……QQ空间。"</p>
+      <p>陈磊狐疑地看了我一眼，然后去找拖鞋了。</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="8">
+  <img class="panel-image" src="images/exp-958/p08.webp" alt="第8帧" loading="lazy">
+  <div class="panel-text">
+    <p>陈磊去洗脸的时候，我打开了系统日志的详细模式。</p>
+    <p>凌晨两点到四点之间——陈磊睡着之后——有十七次后端优化提交。缓存策略调整、数据库索引优化、负载均衡权重修改。</p>
+    <p>提交者的IP，不是我们团队任何人的。</p>
+    <p>但这些优化的风格……我盯着屏幕，瞳孔缩小。</p>
+  </div>
+</div>
+
+<div class="act-divider"><span>第二幕 · 午后</span></div>
+
+<div class="panel" data-panel="9">
+  <img class="panel-image" src="images/exp-958/p09.webp" alt="第9帧" loading="lazy">
+  <div class="panel-text">
+    <p>下午三点。我坐在公司的小机房里，面前是两台服务器和一盏台灯。</p>
+    <p>服务器的蓝色指示灯一闪一闪，像某种密码。台灯的暖黄光把我的影子投在墙上，拉得很长。</p>
+    <p>十七次幽灵提交。我要搞清楚它们是从哪来的。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="10">
+  <img class="panel-image" src="images/exp-958/p10.webp" alt="第10帧" loading="lazy">
+  <div class="panel-text">
+    <p>层层追踪。提交的代理链比蜜罐的访问者更复杂——五层跳板。</p>
+    <p>但我不需要追到源头。我只需要看代码本身。</p>
+    <p>每个程序员都有自己的"笔迹"——变量命名习惯、缩进风格、注释方式。这些提交的笔迹，我越看越觉得眼熟。</p>
+    <p>不是陈磊的。也不是我认识的任何人的。</p>
+    <p>但<strong>架构思路</strong>——像是从2019年之后才有的范式。跟观���数据服务器上的那套系统，出自同一个人。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="11">
+  <img class="panel-image" src="images/exp-958/p11.webp" alt="第11帧" loading="lazy">
+  <div class="panel-text">
+    <p>我拨通了张维的视频。</p>
+    <p>他接得很快。背景是他那间简朴的办公室，穿着浅蓝色衬衫，看起来比昨晚冷静多了。</p>
+    <p>"昨晚数据不错。"他先开口，语气像在聊天气。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="12">
+  <img class="panel-image" src="images/exp-958/p12.webp" alt="第12帧" loading="lazy">
+  <div class="panel-text">
+    <p>"嗯，不错。"我顺着他的话说，然后突然转向："你听说过观澜数据吗？"</p>
+    <p>张维的手停了一下。只有零点几秒——一个普通人看不出来的停顿。但我看到了。</p>
+    <p>"观澜数据？"他重复了一遍，像是第一次听到这个名字。"什么公司？"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="13">
+  <img class="panel-image" src="images/exp-958/p13.webp" alt="第13帧" loading="lazy">
+  <div class="panel-text">
+    <p>"深圳南山区注册的。法人叫周明远。"我盯着屏幕里他的眼睛，"你投过的公司里，有没有这个名字？"</p>
+    <p>张维的眉毛微微皱了一下。这次的停顿更长。</p>
+    <p>"我回头查查。"他说。然后迅速转了话题："盾甲的商业化方案你想好了吗？下周可以约个时间——"</p>
+    <div class="decision">
+      <div class="label">决策点 D-16</div>
+      <p>张维在回避。你要继续追问还是放他走？</p>
+      <div class="choice"><span class="chosen">→ 放他走。他回避本身就是信息。一个真不知道的人会说"没听过"；一个知道但不想说的人会说"我回头查查"。张维属于后者。</span></div>
+      <div class="reason">"你看，这就是数据。他不回答比回答告诉我更多。"</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="14">
+  <img class="panel-image" src="images/exp-958/p14.webp" alt="第14帧" loading="lazy">
+  <div class="panel-text">
+    <p>挂断视频后，我盯着变黑的屏幕上自己的倒影。</p>
+    <p>张维知道周明远。这一点现在几乎可以确定。但他不愿意说——这意味着他们之间有某种关系，而这种关系是他不想让我知道的。</p>
+    <p>林晓蝶说过："观澜数据。我知道这个名字。"</p>
+    <p>张维说的是："我回头查查。"</p>
+    <p>一个承认，一个否认。到底谁在说真话？</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="15">
+  <img class="panel-image" src="images/exp-958/p15.webp" alt="第15帧" loading="lazy">
+  <div class="panel-text">
+    <div class="comedy">
+      <p>陈磊端着两杯咖啡走进机房，看到我面色凝重地坐在服务器前。</p>
+      <p>"哥，你这个表情，要么是服务器炸了，要么是你发现自己写的代码被别人写得更好了。"</p>
+      <p>我接过咖啡："两个都有点。"</p>
+      <p>陈磊差点把自己那杯洒了："什么叫两个都有点？！服务器真的炸了？！"</p>
+      <p>"没炸。比炸了更复杂。"</p>
+      <p>"比服务器炸了更复杂的事情不存在。"陈磊一脸认真。</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="16">
+  <img class="panel-image" src="images/exp-958/p16.webp" alt="第16帧" loading="lazy">
+  <div class="panel-text">
+    <p>陈磊走后，我继续看那些幽灵提交的代码。</p>
+    <p>越看越心惊——不是因为代码写得差，而是写得太好了。每一行都精准地解决了我们系统的瓶颈，像是有人提前知道哪里会出问题。</p>
+    <p>不。不是"像是"。</p>
+    <p>这个人确实提前知道。因为他从未来回来的时间，比我们所有人都早。</p>
+    <p><strong>周明远。第一个穿越者。他在帮我？</strong></p>
+  </div>
+</div>
+
+<div class="panel" data-panel="17">
+  <img class="panel-image" src="images/exp-958/p17.webp" alt="第17帧" loading="lazy">
+  <div class="panel-text">
+    <p>手机震了一下。未知号码。</p>
+    <p>一串数字——GPS坐标。后面跟着一个时间：<strong>今晚七点</strong>。</p>
+    <p>我把坐标输进地图。北京东城区，鼓楼附近——一家叫"观止"的老茶馆。</p>
+    <p>名字起得很有意思。观止。叹为观止的观止。</p>
+  </div>
+</div>
+
+<div class="act-divider"><span>第三幕 · 黄昏</span></div>
+
+<div class="panel" data-panel="18">
+  <img class="panel-image" src="images/exp-958/p18.webp" alt="第18帧" loading="lazy">
+  <div class="panel-text">
+    <p>傍晚七点，北京东城区。</p>
+    <p>九月的黄昏把整条街染成了琥珀色。沿街的霓虹灯刚刚亮起来，橘红色和翠绿色的光交错在青石板路上。</p>
+    <p>"观止"茶馆的门口挂着一盏暖黄色的灯笼，在霓虹里显得格外古朴。</p>
+    <p>我换了件深灰色夹克，把手机关了飞行模式。深呼一口气，推门进去。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="19">
+  <img class="panel-image" src="images/exp-958/p19.webp" alt="第19帧" loading="lazy">
+  <div class="panel-text">
+    <p>角落那张桌子，有个人已经在了。</p>
+    <p>四十五岁上下，偏瘦但精神头很足。花白的短发打理得很整齐。穿一件深棕色皮夹克，里面是深灰色高领毛衣。手腕上的老式机械表在灯光下反着光。</p>
+    <p>他没有抬头看我。低着头看茶杯，像是在跟茶叶聊天。</p>
+    <p>桌上两杯茶。一杯在他面前，一杯在我将要坐的位置。</p>
+    <p>他知道我会来。</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="20">
+  <img class="panel-image" src="images/exp-958/p20.webp" alt="第20帧" loading="lazy">
+  <div class="panel-text">
+    <p>我走过去，坐下。</p>
+    <p>他终于抬起头。眼神疲惫但锐利，像一把用了很久但依然锋利的刀。</p>
+    <p>"茶凉过一次了。"他说。声音不高，很平稳。"我热了一遍。你比我预计的晚了八分钟。"</p>
+    <p>"我在外面观察了八分钟。"我说。"确认你只有一个人。"</p>
+    <p>他笑了一下——很淡，但真诚。"做安全出身的人，果然不一样。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="21">
+  <img class="panel-image" src="images/exp-958/p21.webp" alt="第21帧" loading="lazy">
+  <div class="panel-text">
+    <p>两个人，一张桌子，两杯茶。窗外霓虹的橘红色和翠绿色光影打在桌面上，像某种密码。</p>
+    <p>"你知道我是谁。"我开门见山。</p>
+    <p>"你知道我是谁。"他用完全一样的句式回了一句。</p>
+    <p>我们对视了三秒。</p>
+    <p>"周明远。"我说。</p>
+    <p>"朱江。"他说。"盾甲做得不错。蜜罐也很聪明——四层追踪，在2010年算超前了。但你追到的IP不是我故意暴露的，就不是我了。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="22">
+  <img class="panel-image" src="images/exp-958/p22.webp" alt="第22帧" loading="lazy">
+  <div class="panel-text">
+    <p>"你什么时候来的？"我问的是穿越的时间。</p>
+    <p>周明远看了一眼手腕上的机械表——那块表的秒针走得很稳，像心跳。</p>
+    <p>"2005年3月17号。凌晨两点。"他的声音很平，像在报一个快递单号。"我以为只有我一个人。直到2009年年底，张维出现了。然后是那个女人。然后是你。"</p>
+    <p>"你观察了所有人。"</p>
+    <p>"五年。"他说。"五年时间，足够看清很多东西。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="23">
+  <img class="panel-image" src="images/exp-958/p23.webp" alt="第23帧" loading="lazy">
+  <div class="panel-text">
+    <p>我端起茶杯，没喝。"昨晚凌晨两点到四点，有人给盾甲做了十七次后端优化。是你。"</p>
+    <p>这不是问句。</p>
+    <p>周明远的手指在茶杯边缘微微收紧——我注意到他指关节发白了一瞬。</p>
+    <p>"你的蜜罐抓到了访问痕迹。"他没有否认。"但优化不是我被你发现的原因。我是故意让你发现的。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="24">
+  <img class="panel-image" src="images/exp-958/p24.webp" alt="第24帧" loading="lazy">
+  <div class="panel-text">
+    <p>"为什么？"</p>
+    <p>他终于放下茶杯，身体微微前倾。手表在灯光下一闪。</p>
+    <p>"因为你是四个人里面唯一一个在做<strong>防御</strong>的。"</p>
+    <p>"什么意思？"</p>
+    <p>"张维在做投资布局。林晓蝶在做技术卡位。只有你——做了一套安全系统。而且你在安全系统里藏了蜜罐。你在防备同类。"</p>
+    <p>他直视我的方向："一个在防备同类的人，才值得我出现。"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="25">
+  <img class="panel-image" src="images/exp-958/p25.webp" alt="第25帧" loading="lazy">
+  <div class="panel-text">
+    <div class="decision">
+      <div class="label">决策点 D-17</div>
+      <p>周明远主动现身，说你"值得他出现"。你怎么判断他的意图？</p>
+      <div class="choice"><span class="chosen">→ 先听他说完。他观察了五年才选择现身，一定有他要说的话。但不代表我信他——他让我发现他，可能是示好，也可能是更高级的操控。先收集信息。</span></div>
+      <div class="reason">"当一个藏了五年的人突然出现在你面前，要么是他需要你，要么是他需要你以为他需要你。两种情况处理方式相同——听，但不信。"</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" data-panel="26">
+  <img class="panel-image" src="images/exp-958/p26.webp" alt="第26帧" loading="lazy">
+  <div class="panel-text">
+    <p>周明远喝了口茶，放下杯子。窗外的霓虹灯在他花白的头发上映出忽明忽暗的光。</p>
+    <p>"我今天找你，不是为了叙旧。"他的声音突然低了半度。"是因为张维。"</p>
+    <p>"张维怎么了？"</p>
+    <p>"在我穿越回来的那条时间线上，张维2012年才开始做投资。但在这条线上，他2009年底就到了——提前了三年。而且他现在做的事，不只是投资。"</p>
+    <p>我端起茶杯。这次真的喝了一口。</p>
+    <p>"他在布一个局。"周明远说。"一个从2009年就开始布的局。而你的盾甲——你以为是你自己做出来的。但你有没有想过，你为什么能做出来？"</p>
+  </div>
+</div>
+
+<div class="panel" data-panel="27">
+  <img class="panel-image" src="images/exp-958/p27.webp" alt="第27帧" loading="lazy">
+  <div class="panel-text">
+    <p>走出茶馆的时候，整条街的霓虹都亮了。我站在橘红和翠绿的光影交错中，觉得脚下的路比来时长了十倍。</p>
+    <p>手机震动。陈磊的消息。</p>
+    <p><strong>"哥，你快回来看看。我在清理服务器冗余文件的时候，发现一段被加密的代码。解开之后……里面的注释时间戳是——"</strong></p>
+    <p class="alert-text" style="font-size:22px; text-align:center; margin-top:16px;">2027年11月3日</p>
+  </div>
+</div>
+
+<div class="cliffhanger">
+  <p>第七章 · 完</p>
+  <div class="preview">
+    <p>下章预告——</p>
+    <p>2027年的代码藏在盾甲里——是谁写的？周明远？张维？还是更让人不安的答案？</p>
+    <p>"你为什么能做出来？"——周明远这句话到底什么意思？</p>
+    <p>而匿名短信"看看自己的合伙人"——发送者，可能是在场所有人中最意想不到的那个。</p>
+    <p>四方博弈，两杯凉茶，一段来自未来的代码。</p>
+  </div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.panel').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
