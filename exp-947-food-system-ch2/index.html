@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>厨神系统 · 第二章 — 黄金蛋炒饭</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1208;color:#f0e6d2;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:20px;line-height:1.8;overflow-x:hidden}
+.panel{width:100%;max-width:480px;margin:0 auto;padding:0}
+.panel img{width:100%;display:block;border-radius:0}
+.text-block{padding:16px 20px;background:linear-gradient(180deg,rgba(26,18,8,0.95),rgba(26,18,8,0.98));position:relative}
+.text-block p{margin-bottom:12px;text-shadow:0 1px 3px rgba(0,0,0,0.5)}
+.text-block p:last-child{margin-bottom:0}
+.narrator{color:#f0e6d2;font-size:19px;line-height:1.85}
+.dialogue{color:#ffd700;font-size:20px;font-weight:600;padding-left:8px;border-left:3px solid #ffd700}
+.system-msg{color:#00e5ff;font-size:17px;font-family:'Courier New',monospace;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);border-radius:8px;padding:12px 16px;margin:8px 0}
+.inner-voice{color:#ffab40;font-style:italic;font-size:19px}
+.scene-title{text-align:center;padding:32px 20px 16px;font-size:15px;letter-spacing:4px;color:#8d7b6a;text-transform:uppercase}
+.decision-box{background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,171,64,0.1));border:2px solid rgba(255,215,0,0.3);border-radius:12px;margin:16px 20px;padding:20px}
+.decision-box h3{color:#ffd700;font-size:18px;margin-bottom:12px}
+.decision-option{padding:10px 14px;margin:6px 0;border-radius:8px;font-size:17px;color:#ccc}
+.decision-option.chosen{background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.4);color:#ffd700;font-weight:600}
+.decision-reason{color:#ffab40;font-size:16px;padding:10px 14px;margin-top:8px;font-style:italic;border-top:1px solid rgba(255,171,64,0.2)}
+.chapter-header{text-align:center;padding:40px 20px 20px;background:linear-gradient(180deg,#2d1f0e,#1a1208)}
+.chapter-header h1{font-size:28px;color:#ffd700;text-shadow:0 2px 8px rgba(255,215,0,0.3);margin-bottom:8px}
+.chapter-header .subtitle{font-size:16px;color:#8d7b6a;letter-spacing:2px}
+.chapter-footer{text-align:center;padding:40px 20px 60px;background:linear-gradient(180deg,#1a1208,#0d0804)}
+.chapter-footer .next-hint{color:#ffd700;font-size:20px;font-weight:600;animation:pulse 2s infinite}
+.chapter-footer .teaser{color:#8d7b6a;font-size:16px;margin-top:12px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.divider{height:2px;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.3),transparent);margin:4px 0}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="subtitle">厨 神 系 统</div>
+  <h1>第二章 · 黄金蛋炒饭</h1>
+  <div class="subtitle" style="margin-top:8px;font-size:14px;color:#666">味觉透视觉醒 × 美食街争夺战</div>
+</div>
+
+<div class="scene-title">场景一 · 味觉透视觉醒</div>
+
+<!-- Panel 1 -->
+<div class="panel"><img src="p01.webp" loading="lazy" alt="清晨巷子"></div>
+<div class="text-block">
+  <p class="inner-voice">第二天，我五点就到了。不是勤快——是系统在四点半就开始在我脑子里放倒计时提示音。比创业时投资人催demo还准时。</p>
+</div>
+
+<!-- Panel 2 -->
+<div class="panel"><img src="p02.webp" loading="lazy" alt="系统界面"></div>
+<div class="text-block">
+  <div class="system-msg">【每日任务：完成"黄金蛋炒饭"。要求：让至少1名食客评价"完美"。提示：此食谱需要Lv.2刀工+味觉透视辅助】</div>
+  <p class="inner-voice">黄金蛋炒饭。听着像大排档标配——但系统把它标记成了B级食谱。我昨天做的面才D级。B级意味着什么？意味着普通人可能练三年才能做好，而系统给我一天。果然跟创业一样，永远是不可能的deadline。</p>
+</div>
+
+<!-- Panel 3 -->
+<div class="panel"><img src="p03.webp" loading="lazy" alt="菜市场"></div>
+<div class="text-block">
+  <p class="inner-voice">味觉透视的进阶——"食材共鸣"还没解锁，但味觉透视本身升级了。我闭着眼摸了一颗鸡蛋，脑子里立刻出现了这颗蛋的全息信息：散养土鸡蛋，产出48小时内，蛋黄饱满度92%。</p>
+  <p class="narrator">隔壁摊位的大姐看我摸鸡蛋闭眼的样子，默默往后退了一步。</p>
+</div>
+
+<!-- Panel 4 -->
+<div class="panel"><img src="p04.webp" loading="lazy" alt="大姐反应"></div>
+<div class="text-block">
+  <p class="dialogue">"老板你是在……算命？"</p>
+  <p class="dialogue" style="color:#f0e6d2">"我在挑蛋。"</p>
+  <p class="dialogue">"挑蛋闭什么眼？"</p>
+  <p class="dialogue" style="color:#f0e6d2">"……用心感受。"</p>
+  <p class="dialogue">"哦。"</p>
+  <p class="inner-voice">她那个"哦"拖了三秒，充满了"这年头什么人都有"的味道。</p>
+</div>
+
+<!-- Panel 5 -->
+<div class="panel"><img src="p05.webp" loading="lazy" alt="买食材回来"></div>
+<div class="text-block">
+  <div class="system-msg">【味觉透视可用。冷却中：还剩18分钟】</div>
+  <p class="inner-voice">食材到位。系统给的食谱配料表像一份精确到克的化学方程式——米饭含水量12%、鸡蛋3颗、葱花切至2mm厚度、锅温控制在230℃±5℃。这不是做饭，这是做实验。作为一个前程序员，我表示：终于有我擅长的环节了。</p>
+</div>
+
+<!-- Panel 6 -->
+<div class="panel"><img src="p06.webp" loading="lazy" alt="蒙太奇练习"></div>
+<div class="text-block">
+  <p class="inner-voice">四次。前三次分别创造了"最黑蛋炒饭"、"最粘蛋炒饭"和"最凑合蛋炒饭"。</p>
+  <p class="narrator">第四次，当我把温度精确控制在系统要求的230℃，用1.2秒的间隔翻炒——米饭表面出现了一层金色的焦壳。</p>
+  <div class="system-msg">【口感78/100。进步中。】</div>
+  <p class="inner-voice">我做AI的时候从没这么在意一个数字。</p>
+</div>
+
+<!-- Panel 7 -->
+<div class="panel"><img src="p07.webp" loading="lazy" alt="林小鱼偷尝"></div>
+<div class="text-block">
+  <p class="dialogue">"让我尝尝。"</p>
+  <p class="narrator">林小鱼没等我同意就夹了一口。嚼了三秒，她停下来了。</p>
+  <p class="dialogue">"你昨天还不会和面，今天炒出这种饭？"</p>
+  <p class="dialogue" style="color:#f0e6d2">"天赋吧。"</p>
+  <p class="dialogue">"……你信吗？"</p>
+  <p class="dialogue" style="color:#f0e6d2">"不信。但我也解释不了。"</p>
+</div>
+
+<!-- Decision 1 -->
+<div class="decision-box">
+  <h3>🎯 决策点一：林小鱼追问你的秘密，怎么回应？</h3>
+  <div class="decision-option chosen">✅ A: 半开玩笑转移话题："我上辈子可能是御膳房的。"</div>
+  <div class="decision-option">B: 坦白告诉她系统的事</div>
+  <div class="decision-option">C: 严肃地说"你别问了"</div>
+  <div class="decision-reason">→ 朱江的社交本能：幽默化解，不伤人也不暴露底牌。创业者都知道什么时候该透露什么信息。</div>
+</div>
+
+<div class="divider"></div>
+<div class="scene-title">场景二 · 赵总的阳谋</div>
+
+<!-- Panel 8 -->
+<div class="panel"><img src="p08.webp" loading="lazy" alt="中午对峙"></div>
+<div class="text-block">
+  <p class="narrator">中午了，昨天那碗面的朋友圈效应开始发酵——我摊前排了十多个人。</p>
+  <p class="inner-voice">正得意呢，巷口突然冒出一个崭新的摊位。白帐篷、LED灯、"王氏私房菜"——这装备一看就不是来摆摊的，是来打仗的。</p>
+</div>
+
+<!-- Panel 9 -->
+<div class="panel"><img src="p09.webp" loading="lazy" alt="王厨出场"></div>
+<div class="text-block">
+  <p class="inner-voice">出来一个穿白色厨师服的高个子，帽子戴得比他人还高。他站在帐篷前环视了一圈巷子里的小摊贩，那眼神像是米其林三星在审视路边摊——技术上没错，但让人很不舒服。</p>
+</div>
+
+<!-- Panel 10 -->
+<div class="panel"><img src="p10.webp" loading="lazy" alt="免费试吃"></div>
+<div class="text-block">
+  <p class="dialogue" style="color:#fff">"免费试吃！正宗粤式叉烧、秘制牛腩、蟹黄包——全部免费！"</p>
+  <p class="narrator">他手下的助手把一盘盘精致得像艺术品的菜端出来。排在我这儿的队伍，肉眼可见地少了三分之一。</p>
+  <p class="inner-voice">这招我太熟了——创业圈叫"烧钱获客"，餐饮圈叫"免费试吃"。赵总的钱在替他打仗。</p>
+</div>
+
+<!-- Panel 11 -->
+<div class="panel"><img src="p11.webp" loading="lazy" alt="朱江冷静分析"></div>
+<div class="text-block">
+  <div class="system-msg">【检测到竞争对手。建议：激活味觉透视分析对手菜品】</div>
+  <p class="inner-voice">慌吗？说实话，不慌。创业三年，我被抄袭过、被砸价过、被投资人在路演现场当众否定过。一个摆摊的来抢客？这叫什么？这叫"市场竞争来了，说明你做对了"。</p>
+</div>
+
+<!-- Decision 2 -->
+<div class="decision-box">
+  <h3>🎯 决策点二：怎么应对王厨的免费试吃？</h3>
+  <div class="decision-option chosen">✅ A: 不打价格战。用味觉透视分析他的菜找弱点，然后用炒饭正面硬刚——产品力碾压。</div>
+  <div class="decision-option">B: 也搞免费试吃——先把人抢回来再说</div>
+  <div class="decision-option">C: 不理他，做好自己的</div>
+  <div class="decision-reason">→ 朱江不打价格战，创业时就不打——"烧钱的不可持续，产品力才是护城河"。加上黑客思维：先分析对手系统。</div>
+</div>
+
+<!-- Panel 12 -->
+<div class="panel"><img src="p12.webp" loading="lazy" alt="味觉透视分析"></div>
+<div class="text-block">
+  <p class="narrator">我走过去拿了一块叉烧。王厨挑了挑眉，显然觉得我是来投降的。</p>
+  <p class="inner-voice">我把叉烧放进嘴里——味觉透视启动。三秒后，系统给出了完整分析：蜜汁叉烧，用的是进口叉烧酱，味道的确不错。但——色素超标12%，味精用了正常量的1.8倍。</p>
+  <p class="inner-voice">换句话说：好吃，但不健康。就像某些创业公司，数据好看，但全是刷出来的。</p>
+</div>
+
+<!-- Panel 13 -->
+<div class="panel"><img src="p13.webp" loading="lazy" alt="暗号"></div>
+<div class="text-block">
+  <p class="narrator">我走回来对小鱼说了一个字：</p>
+  <p class="dialogue" style="color:#f0e6d2">"虚。"</p>
+  <p class="narrator">她秒懂。在这条巷子混了三年，她比我更清楚——花架子不长久。</p>
+  <p class="inner-voice">但眼下的问题是：我得在今天证明这一点。而我手里的武器，只有一份还没做到80分的黄金蛋炒饭。</p>
+</div>
+
+<!-- Panel 14 -->
+<div class="panel"><img src="p14.webp" loading="lazy" alt="握紧锅铲"></div>
+<div class="text-block">
+  <div class="system-msg">【味觉透视冷却完毕。黄金蛋炒饭食谱已优化：基于对手风味谱分析，建议调整盐量-15%、增加葱油+20%、米饭含水量降至10%。预计口感可达85/100】</div>
+  <p class="inner-voice">系统根据刚才对王厨菜品的分析，自动调整了我的蛋炒饭配方——降盐、加葱油、米饭更干。这是AI做的事啊：根据竞品数据优化自己的产品。我笑了。从AI到炒饭，底层逻辑居然是通的。</p>
+</div>
+
+<div class="divider"></div>
+<div class="scene-title">场景三 · 对决——黄金蛋炒饭 vs 王氏私房菜</div>
+
+<!-- Panel 15 -->
+<div class="panel"><img src="p15.webp" loading="lazy" alt="开始炒饭"></div>
+<div class="text-block">
+  <p class="inner-voice">我点火。这次不再是练习——猛火、宽油、蛋液下锅的那一刻嗤的一声，整条巷子都闻到了。</p>
+  <p class="narrator">锅温232℃，翻炒间隔1.1秒。系统在我视野里实时显示每一个参数。</p>
+  <p class="inner-voice">这不是做饭，这是一场精确到毫秒的战斗。</p>
+</div>
+
+<!-- Panel 16 -->
+<div class="panel"><img src="p16.webp" loading="lazy" alt="炒饭特写"></div>
+<div class="text-block">
+  <p class="inner-voice">蛋炒饭的灵魂不是蛋也不是饭，是"金"。每一粒米都要裹上一层薄薄的蛋衣，在高温下形成0.2毫米的焦壳。这个焦壳——就是"黄金"。</p>
+  <div class="system-msg">口感评分实时跳动：82…84…86…</div>
+</div>
+
+<!-- Panel 17 -->
+<div class="panel"><img src="p17.webp" loading="lazy" alt="装盘"></div>
+<div class="text-block">
+  <p class="narrator">装盘。白瓷碗倒扣，金色的炒饭像一座小山丘。撒上葱花，旁边放一碗清汤。</p>
+  <p class="inner-voice">这是林小鱼教我的——"卖面不只是卖面，是卖那一眼的感觉。"做AI的时候，产品经理管这叫"用户体验的最后一公里"。在这里叫"仪式感"。</p>
+</div>
+
+<!-- Panel 18 -->
+<div class="panel"><img src="p18.webp" loading="lazy" alt="战局逆转"></div>
+<div class="text-block">
+  <p class="narrator">战局在逆转。王厨的免费试吃正在失效——人吃完免费的就走了，因为正餐卖38一份，巷子里的人不会花这个钱。</p>
+  <p class="inner-voice">而我这碗蛋炒饭，15块，香味飘了半条街。免费的打不过好吃的。我做AI时就学到了这一课：免费增长有天花板，产品力增长没有。</p>
+</div>
+
+<!-- Panel 19 -->
+<div class="panel"><img src="p19.webp" loading="lazy" alt="王厨走来"></div>
+<div class="text-block">
+  <p class="narrator">王厨走过来了。他摘下厨师帽——第一次看到他摘帽子。短寸很精神。他看着我锅里的炒饭，沉默了五秒。</p>
+  <p class="inner-voice">做过厨师的人，看一眼就知道水平。</p>
+</div>
+
+<!-- Panel 20 -->
+<div class="panel"><img src="p20.webp" loading="lazy" alt="王厨尝饭"></div>
+<div class="text-block">
+  <p class="narrator">他没说话，拿了一勺就吃。嚼了三下。我看到他的喉结动了一下——吞了。</p>
+  <p class="inner-voice">厨师圈有个不成文的规矩：如果只是礼貌地尝，会嚼两下然后放下。吞下去的意思是——好吃到身体做出了本能反应。</p>
+</div>
+
+<!-- Decision 3 -->
+<div class="decision-box">
+  <h3>🎯 决策点三：王厨说"你的火候还差一点"，怎么回应？</h3>
+  <div class="decision-option chosen">✅ A: 微笑："那请王厨指教。好的建议我照单全收。"</div>
+  <div class="decision-option">B: "差哪一点？我自己会找到的。"</div>
+  <div class="decision-option">C: "差不差，食客说了算。"</div>
+  <div class="decision-reason">→ 菩萨心肠——即使对手也值得尊重。创业者思维：从所有人身上学东西，包括竞争对手。</div>
+</div>
+
+<!-- Panel 21 -->
+<div class="panel"><img src="p21.webp" loading="lazy" alt="意外互动"></div>
+<div class="text-block">
+  <p class="narrator">王厨愣了。他大概准备好了十种我回怼的场景，就是没准备好我认真请教。</p>
+  <p class="dialogue" style="color:#fff">"收尾三秒，降温到200。焦壳要定型，不是烤糊。"</p>
+  <p class="inner-voice">——免费的技术指导。这一条建议，可能值十次失败。</p>
+</div>
+
+<!-- Panel 22 -->
+<div class="panel"><img src="p22.webp" loading="lazy" alt="实践"></div>
+<div class="text-block">
+  <p class="narrator">我立刻又起了一锅。这次在最后三秒压低火力——</p>
+  <div class="system-msg">系统评分跳动：86…88…91！</div>
+  <p class="narrator">林小鱼的嘴张成了O型。王厨的表情更有意思——他像是在看一个天赋异禀但没经过训练的毛坯，既欣赏又不爽。</p>
+</div>
+
+<!-- Panel 23 -->
+<div class="panel"><img src="p23.webp" loading="lazy" alt="完美评价"></div>
+<div class="text-block">
+  <p class="narrator">第一个吃到91分蛋炒饭的是一个穿格子衫的大叔。他吃完最后一口，闭上眼睛。我屏住呼吸。他睁开眼：</p>
+  <p class="dialogue" style="color:#fff;font-size:24px">"完美。"</p>
+  <div class="system-msg">叮——【每日任务完成！获得评价"完美"×1。奖励：食谱"鱼香肉丝（改良版）"解锁，经验值+200，当前等级Lv.2→Lv.3！】</div>
+</div>
+
+<!-- Panel 24 -->
+<div class="panel"><img src="p24.webp" loading="lazy" alt="王厨离开"></div>
+<div class="text-block">
+  <p class="narrator">王厨转身走了。走了两步他回头说了一句：</p>
+  <p class="dialogue" style="color:#fff">"下个月有个厨艺大赛。你来。"</p>
+  <p class="inner-voice">这不是邀请——是宣战。我看到赵总的黑色奔驰停在巷口，车窗摇下来一条缝。赵总在看着这一切。他的眼神让我想起投资人看竞品的表情——如果不能收编，就准备干掉。</p>
+</div>
+
+<div class="divider"></div>
+<div class="scene-title">场景四 · 守护美食街</div>
+
+<!-- Panel 25 -->
+<div class="panel"><img src="p25.webp" loading="lazy" alt="摊贩围过来"></div>
+<div class="text-block">
+  <p class="narrator">收摊后，隔壁的摊贩都围过来了。卖烧饼的老张、豆腐脑大姐、还有巷口修鞋的李叔——他不卖吃的但每天在这儿看了十年。</p>
+  <p class="dialogue">"小朱，赵总的人今天来了，你知道意味着什么吧？"</p>
+  <p class="dialogue" style="color:#f0e6d2">"知道。他想拆这条巷子。"</p>
+  <p class="dialogue">"不只是拆。他要把我们都赶走，然后建他的连锁美食城。"</p>
+</div>
+
+<!-- Decision 4 -->
+<div class="decision-box">
+  <h3>🎯 决策点四：面对美食街可能被拆的危机</h3>
+  <div class="decision-option chosen">✅ A: "那就让他来。等我在厨艺大赛上赢了他的人，他就知道这条街的价值了。"</div>
+  <div class="decision-option">B: "我们联合起来，搞签名、上媒体、找政府"</div>
+  <div class="decision-option">C: "先做好自己的生意，让这条街自然出名"</div>
+  <div class="decision-reason">→ 朱江是进攻型创业者。遇到威胁不防守——反而冲进对手地盘赢一局。"最好的防守是进攻。"</div>
+</div>
+
+<!-- Panel 26 -->
+<div class="panel"><img src="p26.webp" loading="lazy" alt="馄饨夜话"></div>
+<div class="text-block">
+  <p class="narrator">人散了之后，林小鱼给我下了碗馄饨。</p>
+  <p class="dialogue">"你不怕吗？"</p>
+  <p class="dialogue" style="color:#f0e6d2">"怕什么？"</p>
+  <p class="dialogue">"赵总。他上次赶走了两条街的摊贩。"</p>
+  <p class="dialogue" style="color:#f0e6d2">"那两条街的摊贩里没有我。"</p>
+  <p class="narrator">她白了我一眼。</p>
+  <p class="dialogue" style="color:#f0e6d2">"但我学了三年怎么赢。"</p>
+</div>
+
+<!-- Panel 27 -->
+<div class="panel"><img src="p27.webp" loading="lazy" alt="技能树"></div>
+<div class="text-block">
+  <p class="inner-voice">我打开系统看了看技能树。Lv.3，刚走了一小步。从Lv.3到Lv.10，中间是一片灰色的未知。但我也看到了一个亮着金光的节点——</p>
+  <div class="system-msg">Lv.5特殊技能：食材共鸣——"触摸食材即可感知其最佳烹饪方式。"</div>
+  <p class="inner-voice">这个技能一旦解锁，我就不再只是"会做几道菜"，而是"能创造菜"。从Copy到Create——和做AI一模一样的进化路径。</p>
+</div>
+
+<!-- Panel 28 -->
+<div class="panel"><img src="p28.webp" loading="lazy" alt="手上的伤"></div>
+<div class="text-block">
+  <p class="narrator">我看着手上的伤痕。昨天的烫伤还没好，今天又添了一道切葱时的刀伤。做AI的手现在变成了做菜的手。</p>
+  <p class="inner-voice">我点开手机上厨艺大赛的报名页面——"全市餐饮从业者均可参加。初赛时间：14天后。"14天。从Lv.3到至少Lv.7——这是参赛的最低技术要求。系统算了一下：每天需要完成2.5个烹饪挑战，零失败。</p>
+</div>
+
+<!-- Decision 5 -->
+<div class="decision-box">
+  <h3>🎯 决策点五：报名参赛的动机</h3>
+  <div class="decision-option chosen">✅ A: "赢了大赛，美食街就有了保护伞。而且——我想证明路边摊也能赢米其林。"</div>
+  <div class="decision-option">B: "赢了大赛，系统应该会有大额经验值奖励"</div>
+  <div class="decision-option">C: "赵总的厨师都参赛，我得去侦察实力"</div>
+  <div class="decision-reason">→ 朱江的核心驱动力从来不是单一的。利他+利己+证明不可能=他最纯粹的动力来源。"路边摊赢米其林"和"小公司赢大厂"是同一个故事。</div>
+</div>
+
+<!-- Panel 29 -->
+<div class="panel"><img src="p29.webp" loading="lazy" alt="巷口站立"></div>
+<div class="text-block">
+  <p class="inner-voice">我点了报名。14天后，战场就不再是这条巷子了——而是全市最大的烹饪擂台。</p>
+  <p class="inner-voice">赵总，你的地盘。但规则是一样的——谁做的菜好吃，谁赢。我在AI行业输给了资本，但在厨房里，只有锅和火不会看你账上有多少钱。</p>
+</div>
+
+<!-- Panel 30 -->
+<div class="panel"><img src="p30.webp" loading="lazy" alt="系统警告"></div>
+<div class="text-block">
+  <div class="system-msg" style="border-color:rgba(255,60,60,0.5);background:rgba(255,60,60,0.08);color:#ff4444">【⚠ 紧急任务触发！"美食街保卫战·序章"——赵总已向城管递交美食街违规经营举报信。预计3天内执法。请在72小时内获得"区级食品经营许可证"。获取方式：通过区级烹饪技能考核（Lv.5要求）。】</div>
+  <p class="inner-voice">赵总没打算等14天——他直接举报了整条美食街。</p>
+  <p class="narrator" style="color:#ff6b6b;font-weight:600">72小时，要么我考到食品经营许可证，要么这条街就被封了。</p>
+  <p class="inner-voice">14天的备战计划，变成了72小时的生死时速。而考许可证需要Lv.5——我现在才Lv.3。</p>
+  <p class="inner-voice">这不就是我最熟悉的剧本吗？永远不够的时间，永远卡着deadline的考验。不同的是，这次我输了，不只是我的摊没了——整条街的人都要流落街头。</p>
+  <p class="narrator" style="color:#ffd700;font-size:22px;font-weight:700;text-align:center;margin-top:16px">明天，我得在一天之内升两级。</p>
+</div>
+
+<div class="chapter-footer">
+  <div class="next-hint">第三章 · 72小时生死时速 → 即将更新</div>
+  <div class="teaser">从Lv.3到Lv.5，一天两级，零失败。比创业融资还刺激。</div>
+</div>
+
+</body>
+</html>
