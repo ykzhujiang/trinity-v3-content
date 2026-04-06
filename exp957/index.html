@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>心跳系统 · 第一章 系统觉醒</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:#1a1510;color:#e8dcc8;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;line-height:1.8;overflow-x:hidden}
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem 1.5rem;background:linear-gradient(180deg,#0a0d18 0%,#1a1510 100%);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 30%,rgba(59,130,246,0.15) 0%,transparent 60%);pointer-events:none}
+.cover h1{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#60a5fa,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5rem;opacity:0;animation:fadeUp 1s 0.3s forwards}
+.cover .subtitle{font-size:1.3rem;color:#f59e0b;opacity:0;animation:fadeUp 1s 0.6s forwards}
+.cover .tagline{font-size:1rem;color:rgba(232,220,200,0.6);margin-top:1rem;opacity:0;animation:fadeUp 1s 0.9s forwards}
+.cover .scroll-hint{position:absolute;bottom:2rem;font-size:0.85rem;color:rgba(232,220,200,0.4);animation:pulse 2s infinite}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:0.8}}
+.act-divider{padding:3rem 1.5rem;text-align:center;background:linear-gradient(180deg,rgba(26,21,16,0) 0%,rgba(59,130,246,0.08) 50%,rgba(26,21,16,0) 100%)}
+.act-divider h2{font-size:1.5rem;color:#60a5fa;font-weight:700;letter-spacing:0.15em;text-transform:uppercase}
+.act-divider .act-desc{font-size:0.95rem;color:rgba(232,220,200,0.5);margin-top:0.5rem}
+.panel{padding:0 0 1.5rem 0;opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.panel.visible{opacity:1;transform:translateY(0)}
+.panel img{width:100%;display:block;border-radius:0}
+.panel .text-block{padding:1rem 1.5rem;font-size:1.15rem;line-height:1.9}
+.panel .narrator{color:rgba(232,220,200,0.85);font-style:italic;margin-bottom:0.8rem}
+.panel .dialogue{margin-bottom:0.8rem;padding-left:1rem;border-left:3px solid #f59e0b}
+.panel .dialogue .speaker{color:#f59e0b;font-weight:700;font-size:0.9rem;margin-bottom:0.2rem}
+.panel .dialogue .line{color:#e8dcc8}
+.panel .system-panel{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:8px;padding:0.8rem 1rem;margin:0.8rem 0;font-family:'Courier New',monospace;font-size:0.95rem;color:#60a5fa;position:relative;overflow:hidden}
+.panel .system-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#60a5fa,transparent);animation:scanline 3s infinite}
+@keyframes scanline{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.panel .system-panel .warn{color:#f59e0b}
+.panel .system-panel .error{color:#ef4444}
+.panel .data-readout{background:rgba(59,130,246,0.05);border-left:3px solid #60a5fa;padding:0.6rem 1rem;margin:0.6rem 0;font-size:0.95rem;color:#93c5fd}
+.panel .inner-thought{color:rgba(245,158,11,0.85);font-style:italic;margin-bottom:0.8rem;padding-left:0.8rem;border-left:2px solid rgba(245,158,11,0.3)}
+.decision-box{margin:1.5rem 1.5rem;padding:1.2rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:10px}
+.decision-box h3{color:#f59e0b;font-size:1.1rem;margin-bottom:0.8rem}
+.decision-box .option{padding:0.4rem 0;color:rgba(232,220,200,0.6);font-size:0.95rem}
+.decision-box .chosen{color:#f59e0b;font-weight:700}
+.decision-box .reason{margin-top:0.6rem;font-size:0.9rem;color:rgba(232,220,200,0.5);font-style:italic}
+.chapter-end{padding:4rem 1.5rem;text-align:center;background:linear-gradient(180deg,#1a1510,#0a0d18)}
+.chapter-end .hook{font-size:1.3rem;color:#f59e0b;font-weight:700;margin-bottom:1rem;opacity:0;animation:fadeUp 1s 0.3s forwards}
+.chapter-end .next{font-size:1rem;color:rgba(232,220,200,0.5);opacity:0;animation:fadeUp 1s 0.8s forwards}
+@media(max-width:480px){.panel .text-block{padding:0.8rem 1.2rem;font-size:1.15rem}.cover h1{font-size:1.8rem}}
+</style>
+</head>
+<body>
+<!-- COVER -->
+<div class="cover">
+<h1>心跳系统</h1>
+<div class="subtitle">第一章 · 系统觉醒</div>
+<div class="tagline">2026年上海 · 当AI读懂了所有人的心<br>唯独读不懂她</div>
+<div class="scroll-hint">↓ 向下滑动开始阅读</div>
+</div>
+
+<!-- ACT 1 -->
+<div class="act-divider">
+<h2>ACT 1</h2>
+<div class="act-desc">崩溃边缘</div>
+</div>
+
+<!-- P01 -->
+<div class="panel" data-panel="1">
+<img src="img/p01.webp" loading="lazy" alt="废墟办公室">
+<div class="text-block">
+<div class="narrator">第47次融资路演，第47次失败。"脉冲科技"的银行账户还剩11万3千块。够发一个月工资。</div>
+<div class="inner-thought">我无意识地敲了一下回车键，屏幕弹出编译错误。跟我的人生一样——语法没问题，就是跑不通。</div>
+</div>
+</div>
+
+<!-- P02 -->
+<div class="panel" data-panel="2">
+<img src="img/p02.webp" loading="lazy" alt="老马的忠诚">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">老马</div><div class="line">「江哥，咖啡。我刚把情感识别模块的准确率从78%推到了83%。」</div></div>
+<div class="narrator">老马从不问"公司还行吗"。他只汇报进展。这是他的忠诚方式——假装一切正常，然后默默把活干到最好。</div>
+<div class="inner-thought">我接过咖啡，注意到他的格子衫扣子扣错了一颗。这个人啊。</div>
+</div>
+</div>
+
+<!-- P03 -->
+<div class="panel" data-panel="3">
+<img src="img/p03.webp" loading="lazy" alt="晕倒">
+<div class="text-block">
+<div class="narrator">第三天没怎么睡了。我站起来想去洗把脸——然后世界翻了个个儿。</div>
+<div class="dialogue"><div class="speaker">老马（声音变形）</div><div class="line">「江哥？！江哥你怎么了——」</div></div>
+<div class="inner-thought">最后一个清晰画面，是咖啡杯翻倒，棕色液体在白色键盘上蔓延。</div>
+</div>
+</div>
+
+<!-- P04 -->
+<div class="panel" data-panel="4">
+<img src="img/p04.webp" loading="lazy" alt="黑暗中的光">
+<div class="text-block">
+<div class="narrator">在黑暗里，我听到了一个声音。不是老马的。更像是……代码编译完成的提示音。</div>
+<div class="system-panel">
+[叮——] 情感计算核心加载完成<br>
+宿主生物信号接入中……接入成功<br>
+<span class="warn">心跳系统 v0.1 启动</span>
+</div>
+</div>
+</div>
+<!-- P05 -->
+<div class="panel" data-panel="5">
+<img src="img/p05.webp" loading="lazy" alt="觉醒：第一次看见">
+<div class="text-block">
+<div class="narrator">我睁开眼，看到了不该看到的东西。</div>
+<div class="data-readout">目标：马志远<br>情绪：担忧(87%)<br>诚意指数：96<br>好感度：91<br>隐藏意图：🔒(需升级)</div>
+<div class="inner-thought">……什么鬼？</div>
+</div>
+</div>
+
+<!-- DECISION-1 -->
+<div class="decision-box">
+<h3>[ 决策点 1 ] 第一反应</h3>
+<div class="option">A) 以为自己疯了，去医院检查 → 理性选择</div>
+<div class="option">B) 立刻测试系统功能，当成新工具 → 黑客精神</div>
+<div class="option">C) 吓得大叫把老马吵醒 → 搞笑选择</div>
+<div class="option chosen">→ 选B。遇到新系统第一反应是拆开看结构——这是黑客的本能。</div>
+</div>
+
+<!-- P06 -->
+<div class="panel" data-panel="6">
+<img src="img/p06.webp" loading="lazy" alt="测试系统">
+<div class="text-block">
+<div class="narrator">黑客的本能——遇到新系统，先看自己的数据。</div>
+<div class="system-panel">
+目标：朱江（宿主）<br>
+情绪：震惊(42%) + 好奇(38%) + 兴奋(20%)<br>
+诚意指数：对自己不适用<br>
+好感度：自恋指数72<br>
+隐藏意图：想知道这玩意儿怎么卸载
+</div>
+<div class="inner-thought">……自恋指数72？隐藏意图"想卸载"？这系统是不是有点太诚实了。</div>
+</div>
+</div>
+
+<!-- P07 -->
+<div class="panel" data-panel="7">
+<img src="img/p07.webp" loading="lazy" alt="老马醒了">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">老马</div><div class="line">「江哥你醒了？你昨晚直接倒下去了，吓死我了。我叫了120但你心跳血压都正常，就没送你去——」</div></div>
+<div class="narrator">我看着老马头顶浮动的面板。诚意指数96。这个人，是真的担心我。</div>
+<div class="inner-thought">好感度91。我欠这个格子衫男人太多了。</div>
+</div>
+</div>
+
+<!-- P08 -->
+<div class="panel" data-panel="8">
+<img src="img/p08.webp" loading="lazy" alt="最后的机会">
+<div class="text-block">
+<div class="system-panel">
+[短信] 朱总，新世纪创投刘总愿意见您最后一次。今天下午2点，外滩18号三楼。另有两位投资人同场。——秘书小周
+</div>
+<div class="narrator">最后一次机会。11万3千块的命。</div>
+<div class="inner-thought">但这一次，我有了一点不一样的东西。</div>
+<div class="system-panel">
+<span class="warn">检测到宿主肾上腺素上升。建议：深呼吸。或者直接去赢。</span>
+</div>
+</div>
+</div>
+<!-- ACT 2 -->
+<div class="act-divider">
+<h2>ACT 2</h2>
+<div class="act-desc">融资会议 · 用系统看穿谎言</div>
+</div>
+
+<!-- P09 -->
+<div class="panel" data-panel="9">
+<img src="img/p09.webp" loading="lazy" alt="战前准备">
+<div class="text-block">
+<div class="narrator">外滩18号。上海最贵的写字楼之一。我上次来这里，是三年前脉冲科技A轮的时候。那时候意气风发。</div>
+<div class="inner-thought">现在我兜里的公司账户只有11万。西装是三年前那套，还合身——因为创业以来一直没时间吃饭。好吧，也可能是越来越胖了，只是西装质量好。</div>
+<div class="system-panel">
+宿主外表评分：7.2/10<br>
+<span class="warn">建议：把那缕翘起来的头发按下去。</span>
+</div>
+<div class="inner-thought">……这系统真的很多嘴。</div>
+</div>
+</div>
+
+<!-- P10 -->
+<div class="panel" data-panel="10">
+<img src="img/p10.webp" loading="lazy" alt="进入会议室">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">刘总</div><div class="line">「朱总请坐！好久不见。气色不错嘛！」</div></div>
+<div class="data-readout">刘建国 / 情绪：无聊(65%) + 敷衍(30%)<br>诚意指数：23<br>好感度：35<br>隐藏意图：🔒</div>
+<div class="inner-thought">诚意指数23。他说"气色不错"的时候，真实想法大概是"这人看着快撑不下去了"。</div>
+</div>
+</div>
+
+<!-- P11 -->
+<div class="panel" data-panel="11">
+<img src="img/p11.webp" loading="lazy" alt="三个说谎者">
+<div class="text-block">
+<div class="data-readout">
+刘建国 / 诚意指数：23 /「这项目有意思」<br>
+陈志平 / 诚意指数：11 /「我们基金很看好情感计算」<br>
+王美琳 / 诚意指数：37 /「市场空间确实很大」
+</div>
+<div class="narrator">三个人里最诚实的那个，诚意也只有37。我过去47次融资失败，大概每一次都是在跟这样的诚意指数交谈。</div>
+<div class="inner-thought">区别是——过去我不知道。</div>
+</div>
+</div>
+
+<!-- DECISION-2 -->
+<div class="decision-box">
+<h3>[ 决策点 2 ] 面对谎言</h3>
+<div class="option">A) 当面揭穿他们的敷衍 → 霹雳手段</div>
+<div class="option">B) 顺着他们演下去，寻找突破口 → 战术选择</div>
+<div class="option">C) 心灰意冷，准备放弃 → 投降选择</div>
+<div class="option chosen">→ 选B（表面）+ A（内心）。菩萨心肠但有策略。</div>
+</div>
+<!-- P12 -->
+<div class="panel" data-panel="12">
+<img src="img/p12.webp" loading="lazy" alt="朱江的反击">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">我</div><div class="line">「三位，我今天不讲PPT了。」</div></div>
+<div class="narrator">三人微微吃惊。</div>
+<div class="dialogue"><div class="speaker">我</div><div class="line">「我讲一个真实的事情。上个月，我们的情感AI在一次盲测中，准确率达到了83%——读人的情绪，比大多数心理咨询师都准。但这不是重点。」</div></div>
+<div class="inner-thought">我盯着刘总的面板。诚意指数从23……慢慢升到了29。好，有反应。</div>
+<div class="dialogue"><div class="speaker">我</div><div class="line">「重点是，我发现了一件事——人在说谎的时候，面部微表情的组合模式，和说真话时的差异率是94.7%。」</div></div>
+<div class="inner-thought">刘总的诚意指数掉回了18。他紧张了。</div>
+</div>
+</div>
+
+<!-- P13 -->
+<div class="panel" data-panel="13">
+<img src="img/p13.webp" loading="lazy" alt="氛围逆转">
+<div class="text-block">
+<div class="narrator">有意思。当我说出"94.7%"这个数字的时候——</div>
+<div class="data-readout">
+刘建国 / 情绪：紧张(71%) / 诚意指数：18→41 / 目标开始认真评估威胁<br>
+陈志平 / 情绪：警觉(82%) / 诚意指数：11→35<br>
+王美琳 / 情绪：兴趣(66%) / 诚意指数：37→52
+</div>
+<div class="inner-thought">人在感到威胁的时候，反而会变得诚实。因为他们需要认真对待你了。</div>
+</div>
+</div>
+
+<!-- P14 -->
+<div class="panel" data-panel="14">
+<img src="img/p14.webp" loading="lazy" alt="胶着">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">陈总</div><div class="line">「朱总，你这个准确率……在什么数据集上测的？样本量多少？」</div></div>
+<div class="inner-thought">陈总的诚意指数到了35。从"敷衍来坐坐"变成了"让我认真看看"。但35离投资还差得远。</div>
+<div class="dialogue"><div class="speaker">我</div><div class="line">「3万样本，跨文化验证，中英日三语。论文在投AAAI。」</div></div>
+<div class="system-panel"><span class="warn">检测到宿主说谎倾向。论文实际还在写。</span></div>
+<div class="inner-thought">……好吧，论文确实还没写完。但数据是真的。系统你闭嘴。</div>
+</div>
+</div>
+
+<!-- P15 -->
+<div class="panel" data-panel="15">
+<img src="img/p15.webp" loading="lazy" alt="峰回路转">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">秘书</div><div class="line">「刘总，深渊资本的苏总到了。」</div></div>
+<div class="dialogue"><div class="speaker">刘总</div><div class="line">「哦！苏总，快请。」</div></div>
+<div class="narrator">一个女人走进来。168cm，齐耳短发，纯黑极简西装加白衬衫，眼神锐利。全场微愣——没人预期第四个人。</div>
+<div class="inner-thought">我下意识看向她头顶——</div>
+</div>
+</div>
+<!-- P16 -->
+<div class="panel" data-panel="16">
+<img src="img/p16.webp" loading="lazy" alt="全部问号">
+<div class="text-block">
+<div class="system-panel">
+目标：苏晚<br>
+情绪：<span class="error">？？？</span><br>
+诚意指数：<span class="error">？？？</span><br>
+好感度：<span class="error">？？？</span><br>
+隐藏意图：<span class="error">？？？</span><br>
+<span class="error">⚠️ 警告：数据读取失败。原因未知。</span>
+</div>
+<div class="inner-thought">……什么？</div>
+<div class="narrator">从今天早上到现在，我看了老马、保安、外卖小哥、地铁上的陌生人、三个投资人——每个人都有数据。</div>
+<div class="narrator">但她——全部是问号。</div>
+<div class="inner-thought">我的系统第一次失灵了。偏偏是在一个我最需要读懂的人面前。</div>
+</div>
+</div>
+
+<!-- P17 -->
+<div class="panel" data-panel="17">
+<img src="img/p17.webp" loading="lazy" alt="苏晚的问题">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">苏晚</div><div class="line">「朱总，我看过你们的技术文档。83%的情绪识别准确率，在行业里是天花板了。」</div></div>
+<div class="dialogue"><div class="speaker">苏晚</div><div class="line">「但我想问一个你可能没想过的问题——你的AI能识别情绪，但它能识别<b>"不想被识别"</b>的情绪吗？」</div></div>
+<div class="inner-thought">我愣了三秒。不是因为问题难，而是因为——她这个问题，精确地击中了我心跳系统的bug。</div>
+<div class="inner-thought">她怎么知道的？</div>
+<div class="system-panel">
+<span class="warn">⚠️ 目标持续无法读取。建议：保持警惕。或者……保持好奇。</span>
+</div>
+</div>
+</div>
+
+<!-- P18 -->
+<div class="panel" data-panel="18">
+<img src="img/p18.webp" loading="lazy" alt="其他人退场">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">刘总</div><div class="line">「朱总，我们回去研究研究，保持联系！」</div></div>
+<div class="data-readout">刘建国 / 诚意指数：12 /「保持联系」= 再也不见</div>
+<div class="narrator">我已经不在意他了。因为我现在全部注意力都在那个读不出数据的女人身上。</div>
+<div class="dialogue"><div class="speaker">苏晚（没起身）</div><div class="line">「朱总，你有时间吗？我想单独聊聊。」</div></div>
+<div class="inner-thought">她的手指轻轻敲桌面——一下、两下、三下，节奏精确。</div>
+</div>
+</div>
+<!-- P19 -->
+<div class="panel" data-panel="19">
+<img src="img/p19.webp" loading="lazy" alt="单独对话">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">苏晚</div><div class="line">「深渊资本对情感计算赛道有战略布局。我们不做财务投资。」</div></div>
+<div class="dialogue"><div class="speaker">我</div><div class="line">「那你们做什么？」</div></div>
+<div class="dialogue"><div class="speaker">苏晚</div><div class="line">「我们找……特殊的人。你的技术很好，但让我更感兴趣的，不是你的AI。」</div></div>
+<div class="dialogue"><div class="speaker">我</div><div class="line">「那是什么？」</div></div>
+<div class="dialogue"><div class="speaker">苏晚（停顿两秒）</div><div class="line">「是你这个人。」</div></div>
+<div class="system-panel">
+<span class="error">⚠️ 读取失败 ×47次</span><br>
+建议放弃自动分析，改用传统方式——直觉。
+</div>
+<div class="inner-thought">传统方式？就是说，像一个普通人一样，猜？</div>
+<div class="inner-thought">我已经很久没用过直觉了。</div>
+</div>
+</div>
+
+<!-- DECISION-3 -->
+<div class="decision-box">
+<h3>[ 决策点 3 ] 面对苏晚的提议</h3>
+<div class="option">A) 直接问她"深渊资本"的真实背景 → 直球</div>
+<div class="option">B) 先假装不感兴趣，试探她的底线 → 商业博弈</div>
+<div class="option">C) 跟着直觉走，答应进一步接触 → 冒险</div>
+<div class="option chosen">→ 选C。菩萨心肠加黑客好奇心——我无法抗拒"无法解读"的谜题。</div>
+</div>
+
+<!-- ACT 3 -->
+<div class="act-divider">
+<h2>ACT 3</h2>
+<div class="act-desc">悬念 · 读不懂的人</div>
+</div>
+
+<!-- P20 -->
+<div class="panel" data-panel="20">
+<img src="img/p20.webp" loading="lazy" alt="苏晚的条件">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">苏晚</div><div class="line">「这是我们的初步意向书。不需要你现在签。看完后，三天内给我答复。」</div></div>
+<div class="dialogue"><div class="speaker">苏晚</div><div class="line">「条件很简单——我们投2000万，占15%。但有一个附加条款。」</div></div>
+<div class="dialogue"><div class="speaker">我</div><div class="line">「什么条款？」</div></div>
+<div class="dialogue"><div class="speaker">苏晚</div><div class="line">「在投资期内，我需要深度参与你们的核心研发。不是监督——是参与。」</div></div>
+<div class="narrator">投资人要参与核心研发？这不正常。任何一个创业者都会警觉。</div>
+<div class="inner-thought">但我的系统读不出她的意图。我只能靠一样东西——她眼睛里的光。那种光，我在自己创业第一天的眼睛里见过。</div>
+</div>
+</div>
+<!-- P21 -->
+<div class="panel" data-panel="21">
+<img src="img/p21.webp" loading="lazy" alt="走出大楼">
+<div class="text-block">
+<div class="narrator">走出外滩18号的时候，上海的夜风很凉。</div>
+<div class="narrator">我用心跳系统扫了路上的每个人——跑步的大爷（情绪：愉悦85%），遛狗的情侣（好感度：双向78），卖烤红薯的大叔（隐藏意图：想早点收摊）。</div>
+<div class="narrator">每个人都是打开的书。唯独她，苏晚，是一扇上了锁的门。</div>
+<div class="inner-thought">我讨厌上锁的门。但我更讨厌自己想去开锁的冲动。</div>
+</div>
+</div>
+
+<!-- P22 -->
+<div class="panel" data-panel="22">
+<img src="img/p22.webp" loading="lazy" alt="老马的电话">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">老马（电话里）</div><div class="line">「江哥！情感模块出了个奇怪的bug——今天下午突然有一段异常数据涌入我们的服务器。来源不明。像是……有人在逆向工程我们的算法。」</div></div>
+<div class="system-panel">
+<span class="error">⚠️ 检测到外部访问。核心模块被扫描。</span><br>
+来源IP……已被深度伪装，无法追踪。
+</div>
+<div class="narrator">有人在扫描我们的技术。在苏晚出现的同一天。</div>
+<div class="inner-thought">巧合？</div>
+<div class="system-panel">
+<span class="warn">宿主心跳加速至92bpm。建议：这不是巧合。</span>
+</div>
+<div class="inner-thought">这一次，我同意系统的建议。</div>
+</div>
+</div>
+
+<!-- P23 -->
+<div class="panel" data-panel="23">
+<img src="img/p23.webp" loading="lazy" alt="回到办公室">
+<div class="text-block">
+<div class="dialogue"><div class="speaker">老马</div><div class="line">「你看这个——有人用极其精细的方法在模拟我们的情感识别算法。不是抄，是在……测试边界。像在找弱点。」</div></div>
+<div class="narrator">我盯着屏幕上的数据流。然后我想起了苏晚的问题——</div>
+<div class="narrator"><b>"你的AI能识别不想被识别的情绪吗？"</b></div>
+<div class="inner-thought">她不是在问一个学术问题。她是在告诉我——她知道我们的弱点。</div>
+<div class="system-panel">
+检测到宿主肾上腺素+多巴胺同时飙升<br>
+情绪模式：恐惧(30%) + 兴奋(40%) + 好奇(30%)<br>
+<span class="warn">这是一个危险的组合，但宿主历史记录显示——你最喜欢这种感觉。</span>
+</div>
+<div class="inner-thought">系统说得对。我是一个被上锁的门吸引的人。而现在，锁里面可能藏着一只老虎。</div>
+<div class="narrator" style="font-size:1.3rem;color:#f59e0b;text-align:center;margin-top:1.5rem;font-weight:700">我更想开锁了。</div>
+</div>
+</div>
+
+<!-- CHAPTER END -->
+<div class="chapter-end">
+<div class="hook">第一章 · 完</div>
+<div class="next">心跳系统 v0.1 已激活<br>但真正的谜题才刚刚开始……<br><br>第二章 · 数据约会 · 即将上线</div>
+</div>
+
+<!-- SCROLL ANIMATION -->
+<script>
+const panels=document.querySelectorAll('.panel');
+const obs=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:0.15,rootMargin:'0px 0px -50px 0px'});
+panels.forEach(p=>obs.observe(p));
+</script>
+</body>
+</html>
