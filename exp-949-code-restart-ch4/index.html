@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>代码重启 · 第四章 · 暗影之棋</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:'PingFang SC','Microsoft YaHei',sans-serif;line-height:1.8;overflow-x:hidden}
+.chapter-header{position:relative;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(180deg,#0a0a1a 0%,#1a1a2e 50%,#0a0a1a 100%)}
+.chapter-header h1{font-size:2.2rem;color:#f0c040;text-shadow:0 0 30px rgba(240,192,64,0.5);margin-bottom:0.5rem;animation:fadeInUp 1s ease}
+.chapter-header .subtitle{font-size:1.1rem;color:#8888aa;animation:fadeInUp 1.2s ease}
+.chapter-header .ch-num{font-size:0.9rem;color:#666;margin-bottom:1rem;animation:fadeInUp 0.8s ease}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.panel{width:100%;max-width:600px;margin:0 auto;position:relative}
+.panel img{width:100%;display:block;border-radius:4px}
+.narration{max-width:600px;margin:0 auto;padding:1rem 1.2rem;font-size:1.1rem;color:#ccc;line-height:2}
+.narration.inner-voice{color:#f0c040;font-style:italic;border-left:3px solid #f0c040;padding-left:1rem;margin:0.5rem auto;max-width:580px}
+.narration.dialogue{color:#fff;font-size:1.15rem}
+.narration .speaker{color:#80c0ff;font-weight:bold;margin-right:0.3rem}
+.narration .speaker.lxd{color:#c080ff}
+.narration .speaker.cl{color:#80ff80}
+.narration .speaker.zf{color:#ff8080}
+.narration .speaker.lmh{color:#ffaa60}
+.scene-title{max-width:600px;margin:2rem auto 1rem;padding:0.8rem 1.2rem;font-size:1.3rem;color:#f0c040;border-bottom:1px solid #333;text-transform:uppercase;letter-spacing:2px}
+.decision-box{max-width:580px;margin:1.5rem auto;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);border:1px solid #f0c040;border-radius:12px;padding:1.2rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 10px rgba(240,192,64,0.2)}50%{box-shadow:0 0 20px rgba(240,192,64,0.4)}}
+.decision-box h3{color:#f0c040;font-size:1.1rem;margin-bottom:0.8rem}
+.decision-box .option{padding:0.5rem 0;color:#aaa;font-size:1rem}
+.decision-box .option.chosen{color:#f0c040;font-weight:bold}
+.decision-box .reason{margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid #333;color:#c080ff;font-size:0.95rem;font-style:italic}
+.cliffhanger{max-width:600px;margin:2rem auto;padding:1.5rem;text-align:center;background:linear-gradient(180deg,transparent,rgba(240,192,64,0.1),transparent);font-size:1.2rem;color:#f0c040;line-height:2}
+.preview{max-width:580px;margin:1rem auto 3rem;padding:1rem;background:#111;border-radius:8px;border:1px solid #333;color:#888;font-size:0.95rem;line-height:1.8}
+.preview h4{color:#f0c040;margin-bottom:0.5rem}
+.comedy{background:rgba(255,200,0,0.05);border-radius:8px;padding:0.8rem 1rem;margin:0.5rem auto;max-width:580px;border-left:3px solid #ffa500}
+.comedy::before{content:'😂 '}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.spacer{height:2rem}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="ch-num">《代码重启》系列</div>
+  <h1>第四章 · 暗影之棋</h1>
+  <div class="subtitle">穿越者的棋局，从今天正式开始</div>
+</div>
+
+<!-- 签约日 -->
+<div class="scene-title fade-in">🌅 签约日清晨 · 2010年8月底 · 北京</div>
+
+<div class="panel fade-in"><img src="images/p01.webp" alt="朱江整理衬衫" loading="lazy"></div>
+<div class="narration inner-voice fade-in">创业十五年，签过无数合同。但每次签字的时候手还是会抖一下。不是紧张，是兴奋——就像小时候拆新买的游戏卡带。</div>
+
+<div class="panel fade-in"><img src="images/p02.webp" alt="陈磊看手机" loading="lazy"></div>
+<div class="narration fade-in">陈磊坐在床边，手机反复翻看那张照片——照片里那块不属于这个时代的手表。他一夜没睡好，眼圈发黑。</div>
+
+<div class="panel fade-in"><img src="images/p03.webp" alt="搞笑对话" loading="lazy"></div>
+<div class="comedy fade-in"><span class="speaker">我：</span>"今天签约别带笔记本了。你上次带着笔记本吃火锅，键盘缝里还有底料味。"<br><span class="speaker cl">陈磊：</span>"那是麻酱，不一样。"</div>
+
+<div class="spacer"></div>
+
+<!-- 签约变局 -->
+<div class="scene-title fade-in">🏢 签约变局</div>
+
+<div class="panel fade-in"><img src="images/p04.webp" alt="走向办公楼" loading="lazy"></div>
+<div class="narration fade-in">阳光很好。我和陈磊走进那栋写字楼的时候，心情是轻松的。合同条款都确认过了，今天就是走个流程。</div>
+
+<div class="panel fade-in"><img src="images/p05.webp" alt="会议室全景" loading="lazy"></div>
+<div class="narration fade-in">会议室里，周峰和法务总监已经坐好了。刘明辉——这位秃顶双下巴的互联网大佬正笑呵呵地倒茶。但我注意到多了一个人。</div>
+
+<div class="panel fade-in"><img src="images/p06.webp" alt="林晓蝶特写" loading="lazy"></div>
+<div class="narration dialogue fade-in"><span class="speaker lmh">刘明辉：</span>"这位是我们新请的战略顾问，林晓蝶。"</div>
+<div class="narration inner-voice fade-in">三十出头，短发齐耳，灰色西装，坐在角落安静地记笔记。像一把没出鞘的刀。</div>
+
+<div class="panel fade-in"><img src="images/p07.webp" alt="合同在桌上" loading="lazy"></div>
+<div class="narration fade-in">合同摆上桌。我拿起笔，准备签——</div>
+
+<div class="panel fade-in"><img src="images/p08.webp" alt="林晓蝶开口" loading="lazy"></div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"刘总，我建议暂缓。"</div>
+<div class="narration fade-in">全场安静。我的笔悬在半空。</div>
+
+<div class="panel fade-in"><img src="images/p09.webp" alt="林晓蝶展示报告" loading="lazy"></div>
+<div class="narration fade-in">她展示了一份报告——精准指出我白皮书中描述的三个漏洞，论证这些漏洞在未来两年内不会被大规模利用，安全投入的回报率不够高。</div>
+
+<div class="panel fade-in"><img src="images/p10.webp" alt="朱江冷汗" loading="lazy"></div>
+<div class="narration inner-voice fade-in">我瞬间冷汗。她的分析框架......这不是2010年的方法。这是2024年国家标准化安全框架2.0的逻辑。一个2010年的"战略顾问"，不应该会用这种方法。</div>
+
+<!-- 对视 -->
+<div class="scene-title fade-in">⚡ 未来人识别未来人</div>
+
+<div class="panel fade-in"><img src="images/p11.webp" alt="眼神交锋" loading="lazy"></div>
+<div class="narration fade-in">我盯着她。她也在看我。两个人都在演戏——一个装作普通创业者，一个装作普通顾问。</div>
+<div class="narration inner-voice fade-in">但两个人的眼神里都有同一种东西：未来人识别未来人的本能。她就是跟踪我的那个人。现在她直接坐到了我对面的谈判桌上。</div>
+
+<div class="panel fade-in"><img src="images/p12.webp" alt="陈磊和周峰争论" loading="lazy"></div>
+<div class="comedy fade-in">我心跳加速的时候，陈磊完全没注意到气氛变化，正在跟周峰激烈讨论一个编译器版本号的问题。<br><span class="speaker cl">陈磊：</span>"你是认真的？用那个版本？"<br><span class="speaker zf">周峰：</span>"永远是。"<br>两个技术宅完全活在自己的世界里。</div>
+
+<!-- 技术博弈 -->
+<div class="scene-title fade-in">🧠 技术博弈 · 白板反击</div>
+
+<div class="panel fade-in"><img src="images/p13.webp" alt="朱江在白板前" loading="lazy"></div>
+<div class="narration fade-in">我不能让合同黄了。我站起来，走到白板前。</div>
+<div class="narration inner-voice fade-in">她用了未来的框架却以为没人看得出来。那我就用同一个框架，反推出她刻意隐藏的变量。</div>
+
+<div class="panel fade-in"><img src="images/p14.webp" alt="白板时间线" loading="lazy"></div>
+<div class="narration dialogue fade-in"><span class="speaker">我：</span>"林女士的分析很专业，但漏了一个因素。"</div>
+<div class="narration fade-in">我在白板上画出时间线，精确预测了2012年将发生的三起大规模数据泄露事件。上辈子我处理过其中两起。每一个细节都刻在脑子里。</div>
+
+<div class="panel fade-in"><img src="images/p15.webp" alt="全场震惊" loading="lazy"></div>
+<div class="narration fade-in">会议室鸦雀无声。刘明辉看看林晓蝶，又看看我，表情像是在看两个神仙打架。</div>
+
+<div class="panel fade-in"><img src="images/p16.webp" alt="林晓蝶真实表情" loading="lazy"></div>
+<div class="narration fade-in">林晓蝶的笔停了。她第一次露出真实表情——不是惊讶，是欣赏。</div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"朱先生，你的前瞻性......令人印象深刻。"</div>
+<div class="narration inner-voice fade-in">这句话有两层意思。表面是夸我的商业洞察。实际上——她在说：我知道你是谁了。</div>
+
+<div class="panel fade-in"><img src="images/p17.webp" alt="签约握手" loading="lazy"></div>
+<div class="narration fade-in">合同签了。刘明辉被我的预测说服了。握手的时候他的手心有汗，但笑容是真的。</div>
+
+<!-- 决策点7 -->
+<div class="panel fade-in"><img src="images/p18.webp" alt="走廊拦截" loading="lazy"></div>
+<div class="narration fade-in">签约结束后的走廊。林晓蝶追上来，在我身后轻声开口——</div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"我们需要谈谈。今晚，后海。"</div>
+
+<div class="decision-box fade-in">
+  <h3>🎯 决策点 7：是否赴约？</h3>
+  <div class="option">A. 赴约——她可能是盟友，穿越者之间应该交换信息</div>
+  <div class="option">B. 拒绝——跟踪自己的穿越者主动约见，可能是陷阱</div>
+  <div class="option chosen">✅ C. 赴约，但提前做好万全准备——让陈磊在附近待命</div>
+  <div class="reason">"菩萨心肠霹雳手段"——不回避冲突，但做好防御。信息差就是竞争优势，必须搞清楚对方知道什么。</div>
+</div>
+
+<!-- 后海对话 -->
+<div class="scene-title fade-in">🌃 后海 · 夜谈</div>
+
+<div class="panel fade-in"><img src="images/p19.webp" alt="决策内心" loading="lazy"></div>
+<div class="narration inner-voice fade-in">我给陈磊打了电话，让他到后海附近的咖啡馆等着。如果我二十分钟没发消息，就报警。陈磊紧张得差点把手机掉进马桶。</div>
+
+<div class="panel fade-in"><img src="images/p20.webp" alt="后海夜景" loading="lazy"></div>
+<div class="narration fade-in">2010年的后海。酒吧街的霓虹灯还没那么商业化，湖边有弹吉他的流浪歌手。柳树倒映在水面上，和远处的灯光混在一起。</div>
+
+<div class="panel fade-in"><img src="images/p21.webp" alt="湖边对坐" loading="lazy"></div>
+<div class="narration fade-in">我们坐在湖边长椅上。中间隔了半米——两个穿越者的安全距离。</div>
+
+<div class="panel fade-in"><img src="images/p22.webp" alt="林晓蝶坦白" loading="lazy"></div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"你是哪一年回来的？"</div>
+<div class="narration fade-in">我没答。</div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"行，那我先说——我来自2027年。你呢，2025？还是2026？"</div>
+<div class="narration dialogue fade-in"><span class="speaker">我：</span>"为什么跟踪我？"</div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"因为我需要确认你是不是真正的穿越者，还是某种......巧合。现在我确认了。"</div>
+
+<div class="panel fade-in"><img src="images/p23.webp" alt="朱江震惊" loading="lazy"></div>
+<div class="narration fade-in">她转头看着湖面，声音变低了。</div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"朱江，你有没有想过一个问题——如果不止我们两个人回来了呢？"</div>
+<div class="narration inner-voice fade-in">我的血液仿佛被冻住了。</div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"我已经找到了第三个人的痕迹。他比我们都早到三个月。而且他在做一件很危险的事——"</div>
+
+<div class="panel fade-in"><img src="images/p24.webp" alt="电话打断" loading="lazy"></div>
+<div class="narration fade-in">她的话没说完。手机响了——一部伪装成诺基亚外壳的手机，但我知道里面是现代的芯片。</div>
+<div class="narration fade-in">她看了一眼来电，脸色瞬间变了。</div>
+
+<div class="panel fade-in"><img src="images/p25.webp" alt="林晓蝶离去" loading="lazy"></div>
+<div class="narration dialogue fade-in"><span class="speaker lxd">林晓蝶：</span>"他发现我们在一起了。朱江，你最好小心。"</div>
+<div class="narration fade-in">她站起来就走，消失在后海的人群里。快得像一只受惊的猫。</div>
+
+<!-- 决策点8 -->
+<div class="decision-box fade-in">
+  <h3>🎯 决策点 8：如何应对第三个穿越者？</h3>
+  <div class="option">A. 主动出击——用黑客技能追踪第三穿越者的数字痕迹</div>
+  <div class="option">B. 稳住节奏——产品上线优先，被动防御</div>
+  <div class="option chosen">✅ A+B 并行——白天做创业，晚上做追踪</div>
+  <div class="reason">我不是等待型的人。"拆开看结构"是本能。两条线并行，这才是我的节奏。</div>
+</div>
+
+<!-- 深夜追踪 -->
+<div class="scene-title fade-in">🖥️ 深夜 · 数字狩猎</div>
+
+<div class="panel fade-in"><img src="images/p26.webp" alt="深夜coding" loading="lazy"></div>
+<div class="narration fade-in">凌晨两点。陈磊已经睡了，打呼声规律得像服务器的风扇转速。我打开笔记本电脑，开始用2010年的互联网基础设施做我最擅长的事——信息挖掘。</div>
+<div class="narration inner-voice fade-in">第三个穿越者，早到三个月，在做"危险的事"。2010年5月。三个月前发生了什么？</div>
+
+<div class="panel fade-in"><img src="images/p27.webp" alt="启明星基金" loading="lazy"></div>
+<div class="narration fade-in">两小时后，线索浮出水面。</div>
+<div class="narration inner-voice fade-in">一个名为"启明星"的天使基金，2010年5月突然注册。三个月内投了12个项目——每一个，都是未来五年的独角兽赛道。移动支付、短视频、共享经济......精准得令人发指。</div>
+<div class="narration inner-voice fade-in">"这个人......在用未来的信息做投资。"</div>
+
+<div class="panel fade-in"><img src="images/p28.webp" alt="发现签名" loading="lazy"></div>
+<div class="narration fade-in">启明星的注册信息被层层壳公司掩盖，但我用社工手法找到了一个疏漏——基金法务文件上的一个签名笔迹。</div>
+<div class="narration fade-in">我放大了那个签名。</div>
+<div class="narration fade-in">电脑屏幕的蓝光映在我脸上。手指停在触控板上，一动不动。</div>
+
+<div class="panel fade-in"><img src="images/p29.webp" alt="大学回忆" loading="lazy"></div>
+<div class="narration inner-voice fade-in">这个笔迹......我认识。大学四年，我看了无数遍这个人的字——实验报告上、课堂笔记上、毕业留言册上。</div>
+
+<div class="panel fade-in"><img src="images/p30.webp" alt="最终震撼" loading="lazy"></div>
+<div class="narration inner-voice fade-in" style="font-size:1.3rem;color:#ff4444">张维——大四那年突然退学、消失的室友。原来不是消失了。</div>
+<div class="narration inner-voice fade-in" style="font-size:1.4rem;color:#f0c040;text-align:center">而是比我更早回来了。</div>
+
+<div class="spacer"></div>
+
+<div class="cliffhanger fade-in">
+  三个穿越者。一个可能的盟友。一个曾经的室友。<br>
+  棋局从今天开始。<br>
+  而我，还不知道自己是棋手，还是棋子。
+</div>
+
+<div class="preview fade-in">
+  <h4>📖 下章预告</h4>
+  张维——曾经的室友，现在的对手？他用未来信息构建的投资帝国"启明星"，目的仅仅是赚钱，还是有更大的图谋？而我的产品即将上线，第一个真正的对手不是巨头——是一个比我更了解未来的人。
+</div>
+
+<script>
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
