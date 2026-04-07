@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ep01</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --card-bg: #161b22;
+  --card-border: #30363d;
+  --text: #e6edf3;
+  --text-secondary: #8b949e;
+  --accent: #58a6ff;
+  --dialogue-bg: rgba(88,166,255,0.08);
+  --dialogue-color: #79c0ff;
+  --part-num-color: #f0883e;
+  --camera-bg: rgba(139,148,158,0.08);
+  --header-gradient: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 16px;
+}
+/* Header */
+.page-header {
+  background: var(--header-gradient);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, #58a6ff, #bc8cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.meta-tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 99px;
+  background: rgba(88,166,255,0.1);
+  color: var(--accent);
+  border: 1px solid rgba(88,166,255,0.2);
+}
+/* Collapsible sections */
+details {
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: var(--card-bg);
+}
+details summary {
+  padding: 14px 16px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  user-select: none;
+}
+details summary:hover { color: var(--text); }
+details[open] summary { border-bottom: 1px solid var(--card-border); }
+.section-body {
+  padding: 12px 16px;
+}
+/* Character items */
+.char-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  font-size: 14px;
+}
+.char-item:last-child { border-bottom: none; }
+.char-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.char-desc {
+  display: block;
+  margin-top: 4px;
+  margin-left: 16px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+/* Scene items */
+.scene-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  font-size: 14px;
+}
+.scene-item:last-child { border-bottom: none; }
+.scene-desc {
+  display: block;
+  margin-top: 4px;
+  margin-left: 4px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+/* Segment card */
+.segment-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.segment-card:hover {
+  border-color: rgba(88,166,255,0.4);
+}
+.segment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px 8px;
+}
+.segment-num {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.segment-dur {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: rgba(240,136,62,0.12);
+  color: var(--part-num-color);
+}
+.segment-meta {
+  padding: 0 16px 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+/* Physical state inside segment */
+.segment-card .physical-state {
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  background: rgba(139,148,158,0.03);
+}
+.segment-card .physical-state summary {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.ps-item {
+  padding: 4px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+/* Parts */
+.parts-container {
+  padding: 10px 16px 6px;
+}
+.part-line {
+  padding: 8px 0;
+  font-size: 15px;
+  line-height: 1.8;
+  border-bottom: 1px solid rgba(48,54,61,0.3);
+}
+.part-line:last-child { border-bottom: none; }
+.part-num {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--part-num-color);
+  background: rgba(240,136,62,0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.char-tag {
+  font-weight: 600;
+}
+.dialogue {
+  color: var(--dialogue-color);
+  background: var(--dialogue-bg);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-style: italic;
+}
+/* Camera */
+.camera-line {
+  padding: 8px 16px 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--camera-bg);
+  border-top: 1px solid var(--card-border);
+}
+/* Stats */
+.stats-bar {
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+.stats-bar span {
+  margin: 0 8px;
+}
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .container { padding: 10px; }
+  .page-header { padding: 18px 14px; }
+  .page-header h1 { font-size: 19px; }
+  .part-line { font-size: 14px; }
+  .segment-header { padding: 10px 12px 6px; }
+  .parts-container { padding: 8px 12px 4px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="page-header">
+  <h1>ep01</h1>
+  <div class="meta-tags">
+    <span class="meta-tag">🎬 realistic</span>
+    <span class="meta-tag">🌍 中国·当代·上海风格现代都市·隐秘修仙经济叠加</span>
+    <span class="meta-tag">🎨 cinematic noir, dark moody lighting, hig...</span>
+    <span class="meta-tag">📊 5 segments</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <span>👤 4 角色</span>
+  <span>🏞️ 2 场景</span>
+  <span>🎬 5 分镜</span>
+</div>
+
+<details>
+  <summary>👤 角色设定 (4)</summary>
+  <div class="section-body"><div class="char-item"><span class="char-dot" style="background:#e74c3c"></span><strong>[林启]</strong><span class="char-desc">30岁男性，身高175cm偏瘦体型，白皙皮肤带黑眼圈，瓜子脸，眼神锐利，戴黑色方框眼镜，一头凌乱的黑色短碎发，穿着红黑格子衬衫和做旧牛仔裤，极具程序员气质。</span></div>
+<div class="char-item"><span class="char-dot" style="background:#3498db"></span><strong>[赵执事]</strong><span class="char-desc">40岁男性，身高180cm壮硕体型，古铜色皮肤，方脸浓眉，眼神如鹰般锐利，向后梳的黑色大背头，穿着深蓝色高定西装，左胸佩戴发蓝色微光的灵脉管理局徽章。</span></div>
+<div class="char-item"><span class="char-dot" style="background:#2ecc71"></span><strong>[苏助理]</strong><span class="char-desc">26岁女性，身高168cm纤细体型，白皙皮肤，圆脸大眼，黑色齐肩短发，穿着纯白色修身职业套装，戴银色耳钉，手持一块散发全息蓝光的透明平板电脑。</span></div>
+<div class="char-item"><span class="char-dot" style="background:#f39c12"></span><strong>[神秘人]</strong><span class="char-desc">50岁男性，身高185cm高大体型，苍白皮肤，长脸高鼻梁，眼角带有细纹，黑白相间的后背头，穿着奢华的黑色真皮风衣，右手大拇指戴着银色扳指。</span></div>
+</div>
+</details>
+
+<details>
+  <summary>🏞️ 场景描述 (2)</summary>
+  <div class="section-body"><div class="scene-item"><strong>[审讯室-夜]</strong><span class="scene-desc">融合现代科技与修仙元素的审讯室。四周是冷灰色混凝土墙壁，中间是一张银色金属桌，空气中漂浮着蓝绿色的灵气数据流。头顶是强烈的暖橙色聚光灯，整体呈现高对比度的明暗光影氛围。</span></div>
+<div class="scene-item"><strong>[全景天台-夜]</strong><span class="scene-desc">豪华摩天大楼的露天天台。背景是霓虹闪烁的现代上海夜景，高楼大厦间缠绕着发光的蓝色灵脉光带。空气湿润，蓝绿色霓虹光与温暖的城市灯火交织，充满电影级的神秘质感。</span></div>
+</div>
+</details>
+
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 1</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [审讯室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵执事]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，坐在金属椅上，双手被发光手铐锁在桌面，视线看向右侧。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵执事]</span>**: 画面右侧，坐在椅子上，双手交叉抱胸，视线看向左侧。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#3498db">[赵执事]</span>身体前倾，冷笑盯着左侧的<span class="char-tag" style="color:#e74c3c">[林启]</span>。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#3498db">[赵执事]</span>说：<span class="dialogue">“倒卖筑基丹扰乱市场，可知罪？”</span></div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[林启]</span>用右手推黑框眼镜，冷静注视右侧。</div>
+<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[林启]</span>说：<span class="dialogue">“那叫下沉市场裂变，你们的灵气太稀薄！”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视，固定机位，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 2</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [审讯室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#2ecc71">[苏助理]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，[Maintains state] 坐在椅上，视线紧盯桌面。</div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[苏助理]</span>**: 画面右侧，站立姿态，右手拿着发光平板，视线看向桌面。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#2ecc71">[苏助理]</span>上前，将发光丹药重重放在金属桌面上。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[林启]</span>死死盯着丹药，镜片闪过金色数据流。</div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[林启]</span>说：<span class="dialogue">“成本不到一灵石，九块九包邮绝对垄断！”</span></div>
+<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#2ecc71">[苏助理]</span>双眼睁大，右手死死攥住发光的平板。</div>
+
+  </div>
+  <div class="camera-line">🎥 近景，微俯拍，固定机位，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 3</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [审讯室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵执事]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，身体猛然站起，双手撑在桌面，视线俯视右侧。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵执事]</span>**: 画面右侧，身体后仰靠在椅背上，右手抬起，视线看向左侧。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span>金色数据流从<span class="char-tag" style="color:#e74c3c">[林启]</span>体内爆出，环绕他疯狂旋转。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[林启]</span>说：<span class="dialogue">“宗门是企业，渡劫是IPO，我教你做独角兽！”</span></div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#3498db">[赵执事]</span>惊恐靠向椅背，右手指着数据剧烈颤抖。</div>
+<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#3498db">[赵执事]</span>说：<span class="dialogue">“这是能操控灵脉经济的…商道灵根？！”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 全景，平视，缓慢推镜头，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 4</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [审讯室-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[林启]</span>, <span class="char-tag" style="color:#3498db">[赵执事]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[林启]</span>**: 画面左侧，[Maintains state] 站立撑桌，视线看向右侧。</div><div class="ps-item">**<span class="char-tag" style="color:#3498db">[赵执事]</span>**: 画面右侧，猛然站立，双手按在金属桌面上，视线看向左侧。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#3498db">[赵执事]</span>猛地站起，双手拍在桌面上急切看左侧。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#3498db">[赵执事]</span>说：<span class="dialogue">“管理局缺人才！有兴趣开宗门创业吗？”</span></div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[林启]</span>嘴角微微上扬，露出极其自信的标志性冷笑。</div>
+<div class="part-line"><span class="part-num">P4</span><span class="char-tag" style="color:#e74c3c">[林启]</span>说：<span class="dialogue">“要我当CEO可以，我要绝对控股和期权。”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 中景，过肩拍，固定机位，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 5</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [全景天台-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#f39c12">[神秘人]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#f39c12">[神秘人]</span>**: 画面中央偏右，背对城市夜景站立，左手抬起在胸前，视线起初看手，后转向左侧。</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#f39c12">[神秘人]</span>站在护栏前，左手把玩散发蓝光的极品丹药。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#f39c12">[神秘人]</span>说：<span class="dialogue">“通知合伙人，商道灵根出现，启动并购。”</span></div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#f39c12">[神秘人]</span>缓缓转头看向左侧，脸颊浮现出阴冷的笑容。</div>
+
+  </div>
+  <div class="camera-line">🎥 特写，仰拍，环绕运镜，正常速度</div>
+</div>
+
+
+</div>
+
+<script>
+// Auto-open first segment's physical state on load (optional interactivity)
+document.addEventListener('DOMContentLoaded', function() {
+  // Smooth scroll spy - highlight current segment
+  const cards = document.querySelectorAll('.segment-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.borderColor = 'rgba(88,166,255,0.5)';
+      } else {
+        e.target.style.borderColor = '';
+      }
+    });
+  }, { threshold: 0.3 });
+  cards.forEach(c => observer.observe(c));
+});
+</script>
+</body>
+</html>
