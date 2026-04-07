@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>storyboard</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --card-bg: #161b22;
+  --card-border: #30363d;
+  --text: #e6edf3;
+  --text-secondary: #8b949e;
+  --accent: #58a6ff;
+  --dialogue-bg: rgba(88,166,255,0.08);
+  --dialogue-color: #79c0ff;
+  --part-num-color: #f0883e;
+  --camera-bg: rgba(139,148,158,0.08);
+  --header-gradient: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 16px;
+}
+/* Header */
+.page-header {
+  background: var(--header-gradient);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, #58a6ff, #bc8cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.meta-tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 99px;
+  background: rgba(88,166,255,0.1);
+  color: var(--accent);
+  border: 1px solid rgba(88,166,255,0.2);
+}
+/* Collapsible sections */
+details {
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: var(--card-bg);
+}
+details summary {
+  padding: 14px 16px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  user-select: none;
+}
+details summary:hover { color: var(--text); }
+details[open] summary { border-bottom: 1px solid var(--card-border); }
+.section-body {
+  padding: 12px 16px;
+}
+/* Character items */
+.char-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  font-size: 14px;
+}
+.char-item:last-child { border-bottom: none; }
+.char-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.char-desc {
+  display: block;
+  margin-top: 4px;
+  margin-left: 16px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+/* Scene items */
+.scene-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  font-size: 14px;
+}
+.scene-item:last-child { border-bottom: none; }
+.scene-desc {
+  display: block;
+  margin-top: 4px;
+  margin-left: 4px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+/* Segment card */
+.segment-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.segment-card:hover {
+  border-color: rgba(88,166,255,0.4);
+}
+.segment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px 8px;
+}
+.segment-num {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.segment-dur {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: rgba(240,136,62,0.12);
+  color: var(--part-num-color);
+}
+.segment-meta {
+  padding: 0 16px 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+/* Physical state inside segment */
+.segment-card .physical-state {
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  background: rgba(139,148,158,0.03);
+}
+.segment-card .physical-state summary {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.ps-item {
+  padding: 4px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+/* Parts */
+.parts-container {
+  padding: 10px 16px 6px;
+}
+.part-line {
+  padding: 8px 0;
+  font-size: 15px;
+  line-height: 1.8;
+  border-bottom: 1px solid rgba(48,54,61,0.3);
+}
+.part-line:last-child { border-bottom: none; }
+.part-num {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--part-num-color);
+  background: rgba(240,136,62,0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.char-tag {
+  font-weight: 600;
+}
+.dialogue {
+  color: var(--dialogue-color);
+  background: var(--dialogue-bg);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-style: italic;
+}
+/* Camera */
+.camera-line {
+  padding: 8px 16px 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--camera-bg);
+  border-top: 1px solid var(--card-border);
+}
+/* Stats */
+.stats-bar {
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+.stats-bar span {
+  margin: 0 8px;
+}
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .container { padding: 10px; }
+  .page-header { padding: 18px 14px; }
+  .page-header h1 { font-size: 19px; }
+  .part-line { font-size: 14px; }
+  .segment-header { padding: 10px 12px 6px; }
+  .parts-container { padding: 8px 12px 4px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="page-header">
+  <h1>storyboard</h1>
+  <div class="meta-tags">
+    <span class="meta-tag">🎬 realistic</span>
+    <span class="meta-tag">🌍 中国·当代·都市·医院</span>
+    <span class="meta-tag">🎨 cinematic noir, dark moody lighting, hig...</span>
+    <span class="meta-tag">📊 10 segments</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <span>👤 5 角色</span>
+  <span>🏞️ 6 场景</span>
+  <span>🎬 10 分镜</span>
+</div>
+
+<details>
+  <summary>👤 角色设定 (5)</summary>
+  <div class="section-body"><div class="char-item"><span class="char-dot" style="background:#e74c3c"></span><strong>[陈默]</strong><span class="char-desc">28岁男性，身高181cm瘦削体型，白皙皮肤，瓜子脸细长眼，戴细黑框眼镜，黑色短碎发，穿皱巴巴的白大褂内搭灰T恤</span></div>
+<div class="char-item"><span class="char-dot" style="background:#3498db"></span><strong>[林婉清]</strong><span class="char-desc">27岁女性，身高168cm匀称体型，白皙皮肤，瓜子脸大眼睛冷峻表情，黑色长发扎高马尾，穿剪裁得体的白大褂内搭黑衬衫</span></div>
+<div class="char-item"><span class="char-dot" style="background:#2ecc71"></span><strong>[王德明]</strong><span class="char-desc">45岁男性，身高170cm微胖体型，偏黄皮肤，圆脸小眼睛戴金丝边眼镜，秃顶地中海发型，穿高档白大褂内搭蓝条纹衬衫</span></div>
+<div class="char-item"><span class="char-dot" style="background:#f39c12"></span><strong>[老张]</strong><span class="char-desc">60岁女性，身高160cm微胖体型，偏黄皮肤，方脸眼角有皱纹表情慈祥，花白短卷发，穿粉色护士长制服</span></div>
+<div class="char-item"><span class="char-dot" style="background:#9b59b6"></span><strong>[刘大爷]</strong><span class="char-desc">70岁男性，身高175cm干瘪瘦削体型，暗沉枯黄皮肤，长脸双颊凹陷紧闭双眼，稀疏灰白头发，穿病号服戴着透明氧气面罩</span></div>
+</div>
+</details>
+
+<details>
+  <summary>🏞️ 场景描述 (6)</summary>
+  <div class="section-body"><div class="scene-item"><strong>[急诊大厅-日]</strong><span class="scene-desc">拥挤宽敞的医院大厅，冷白色白炽灯光照亮蓝色导诊台，墙面上挂着发光的红色十字标识，整体光线充足气氛焦灼紧张</span></div>
+<div class="scene-item"><strong>[医院外台阶-夜]</strong><span class="scene-desc">昏暗黄色路灯照在湿漉漉的水泥台阶上，坑洼地面积着水洼反射光芒，背景是急诊科亮着红色霓虹灯字的招牌</span></div>
+<div class="scene-item"><strong>[急诊护士站-夜]</strong><span class="scene-desc">环形木质工作台，几台电脑屏幕散发着幽幽蓝光，头顶白光灯略显昏暗，台面上凌乱地堆放着蓝皮病历本与笔筒</span></div>
+<div class="scene-item"><strong>[重症监护室-日]</strong><span class="scene-desc">洁白无菌的封闭环境，强烈的冷白顶灯，床边摆满复杂的生命体征监测仪闪烁着红绿光点，背景有不锈钢输液架</span></div>
+<div class="scene-item"><strong>[走廊-日]</strong><span class="scene-desc">医院内深邃宽阔的长廊，两侧是紧闭的病房木门，天花板上一排排白炽灯带来苍白压抑的色调，地面是反光的白色瓷砖</span></div>
+<div class="scene-item"><strong>[医院天台-夜]</strong><span class="scene-desc">空旷开阔的水泥平台，无主光源，仅靠边缘栏杆外远处的城市霓虹灯投下斑驳光影，地面横亘着几根粗大的金属排气管道</span></div>
+</div>
+</details>
+
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 1</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [急诊大厅-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#2ecc71">[王德明]</span>, <span class="char-tag" style="color:#e74c3c">[陈默]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[王德明]</span>**: 画面左侧，站立，右手食指指着前方，面向<span class="char-tag" style="color:#e74c3c">[陈默]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面右侧，站立，双手自然垂下，低头看向地面</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#2ecc71">[王德明]</span>右手食指狠狠戳向陈默肩膀，嘴角肌肉愤怒地抽动。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[王德明]</span>大声吼道：<span class="dialogue">“你去社区卫生所都嫌多余！再惹事就滚蛋！”</span></div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>紧咬下唇，双拳在身体两侧死死握紧，依然低着头不吭声。</div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 2</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [医院外台阶-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陈默]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面中央，站立，双手抱住头部，面向台阶下方</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>双腿突然发软，身体失去平衡直挺挺向后方重重倒去。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>后脑勺猛烈砸在坚硬的水泥台阶边缘，身体瞬间瘫软。</div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>紧闭双眼躺在水洼中，一丝鲜血从后脑勺快速蔓延开来。</div>
+
+  </div>
+  <div class="camera-line">🎥 全景转中景，俯视角度，推镜头，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 3</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [医院外台阶-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陈默]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面中央，坐在水洼中，双手举在脸前，面向自己的双手</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>猛地睁开双眼，震惊地盯着自己的右手，瞳孔急剧放大。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>视线穿透皮肤，清晰看到手部散发白光的细长骨骼骨节。</div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>大口喘气说：<span class="dialogue">“我去这是我骨头？怎么这么细该补钙了。”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 4</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [急诊护士站-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陈默]</span>, <span class="char-tag" style="color:#f39c12">[老张]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面左侧，站立，右手捂着后脑勺，面向<span class="char-tag" style="color:#f39c12">[老张]</span></div><div class="ps-item">**<span class="char-tag" style="color:#f39c12">[老张]</span>**: 画面右侧，站在工作台后，双手整理病历，面向电脑屏幕</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>的内心独白，低声说：<span class="dialogue">“老张这团红光，是早期动脉瘤？”</span></div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#f39c12">[老张]</span>猛然转头瞪着陈默，双手把病历本重重拍在桌面上。</div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#f39c12">[老张]</span>焦急地说：<span class="dialogue">“发什么呆啊！重症室的刘大爷快不行了！”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 5</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [重症监护室-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陈默]</span>, <span class="char-tag" style="color:#9b59b6">[刘大爷]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面左侧，站立，双手撑在病床边缘，低头面向<span class="char-tag" style="color:#9b59b6">[刘大爷]</span>腹部</div><div class="ps-item">**<span class="char-tag" style="color:#9b59b6">[刘大爷]</span>**: 画面右侧，平躺在病床上，双手平放身体两侧，面向天花板</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>双眼微眯，目光死死锁定在刘大爷高高隆起的腹部位置。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>视线穿透肚皮，看到一团细长条状阴影在器官间快速蠕动。</div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>的内心独白，低声说：<span class="dialogue">“这根本不是肿瘤，是罕见寄生虫！”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 特写，俯视角度，缓慢推镜头，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 6</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [走廊-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陈默]</span>, <span class="char-tag" style="color:#2ecc71">[王德明]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面左侧，站立，双手张开拦在前方，面向<span class="char-tag" style="color:#2ecc71">[王德明]</span></div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[王德明]</span>**: 画面右侧，站立，左手插裤兜右手推眼镜，面向<span class="char-tag" style="color:#e74c3c">[陈默]</span></div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>双手拦路语气急促地说：<span class="dialogue">“主任，刘大爷绝对是寄生虫！”</span></div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[王德明]</span>轻蔑地翻了个白眼，嘴角勾起一抹极度傲慢的冷笑。</div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#2ecc71">[王德明]</span>嘲讽地说：<span class="dialogue">“住院医看片子比主任准？滚回去写病历！”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 中近景，平视角度，过肩镜头，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 7</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [急诊护士站-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陈默]</span>, <span class="char-tag" style="color:#f39c12">[老张]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面左侧，站立，双手合十做出拜托姿势，面向<span class="char-tag" style="color:#f39c12">[老张]</span></div><div class="ps-item">**<span class="char-tag" style="color:#f39c12">[老张]</span>**: 画面右侧，站立，左手拿着一管血液样本，面向<span class="char-tag" style="color:#e74c3c">[陈默]</span></div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>压低声音说：<span class="dialogue">“张姐，求你悄悄给大爷化验个寄生虫抗体。”</span></div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#f39c12">[老张]</span>眉头紧锁，叹了口气把血液样本迅速塞进口袋里隐藏。</div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#f39c12">[老张]</span>无奈地说：<span class="dialogue">“主任查出来我得跟着你倒霉，下不为例啊！”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，固定机位，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 8</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [走廊-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#f39c12">[老张]</span>, <span class="char-tag" style="color:#2ecc71">[王德明]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#f39c12">[老张]</span>**: 画面左侧，站立，右手高举着一张化验单，面向<span class="char-tag" style="color:#2ecc71">[王德明]</span></div><div class="ps-item">**<span class="char-tag" style="color:#2ecc71">[王德明]</span>**: 画面右侧，站立，双手颤抖着拿着化验单，低头面向纸张</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#f39c12">[老张]</span>兴奋地大喊：<span class="dialogue">“王主任！真的是罕见寄生虫！全院震动了！”</span></div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#2ecc71">[王德明]</span>双眼死死盯着纸张，额头冒出冷汗，右侧脸颊肌肉狂抽。</div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#2ecc71">[王德明]</span>强装镇定地咽了一口唾沫，半张着嘴却说不出一句话。</div>
+
+  </div>
+  <div class="camera-line">🎥 中近景，平视角度，固定机位，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 9</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [走廊-日] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#3498db">[林婉清]</span>, <span class="char-tag" style="color:#e74c3c">[陈默]</span>, <span class="char-tag" style="color:#f39c12">[老张]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#3498db">[林婉清]</span>**: 画面左侧，站立，双手抱胸，面向<span class="char-tag" style="color:#e74c3c">[陈默]</span></div><div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面中央，站立，右手摸着后脑勺，面向<span class="char-tag" style="color:#3498db">[林婉清]</span></div><div class="ps-item">**<span class="char-tag" style="color:#f39c12">[老张]</span>**: 画面右侧，站立，双手叉腰，面向<span class="char-tag" style="color:#e74c3c">[陈默]</span></div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#3498db">[林婉清]</span>上下打量着他，眼神中充满惊讶说：<span class="dialogue">“你怎么发现的？”</span></div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>憨厚地笑了笑说：<span class="dialogue">“可能是我运气好，瞎猫碰上死耗子。”</span></div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#f39c12">[老张]</span>笑骂道：<span class="dialogue">“你这运气要是能传染，我明天就去买彩票！”</span></div>
+
+  </div>
+  <div class="camera-line">🎥 中景，平视角度，微摇镜头，正常速度</div>
+</div>
+
+<div class="segment-card">
+  <div class="segment-header">
+    <span class="segment-num">Segment 10</span>
+    <span class="segment-dur">≤15s</span>
+  </div>
+  <div class="segment-meta">📍 [医院天台-夜] &nbsp;|&nbsp; 👥 <span class="char-tag" style="color:#e74c3c">[陈默]</span></div>
+  <details class="physical-state">
+<summary>📐 Physical State</summary>
+<div class="ps-item">**<span class="char-tag" style="color:#e74c3c">[陈默]</span>**: 画面中央，站立，右手举着手机贴在耳边，面向右侧夜空</div>
+</details>
+  <div class="parts-container">
+    <div class="part-line"><span class="part-num">P1</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>举着手机静静听着，原本温和的眼神瞬间变得如鹰般锐利。</div>
+<div class="part-line"><span class="part-num">P2</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>对着手机冷冷反问：<span class="dialogue">“继承医圣之力？长生会找我谈谈？”</span></div>
+<div class="part-line"><span class="part-num">P3</span><span class="char-tag" style="color:#e74c3c">[陈默]</span>挂断电话嘴角上扬，握着手机的右手指再次闪过白光。</div>
+
+  </div>
+  <div class="camera-line">🎥 近景，微仰角度，缓慢推镜头，正常速度</div>
+</div>
+
+
+</div>
+
+<script>
+// Auto-open first segment's physical state on load (optional interactivity)
+document.addEventListener('DOMContentLoaded', function() {
+  // Smooth scroll spy - highlight current segment
+  const cards = document.querySelectorAll('.segment-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.borderColor = 'rgba(88,166,255,0.5)';
+      } else {
+        e.target.style.borderColor = '';
+      }
+    });
+  }, { threshold: 0.3 });
+  cards.forEach(c => observer.observe(c));
+});
+</script>
+</body>
+</html>
